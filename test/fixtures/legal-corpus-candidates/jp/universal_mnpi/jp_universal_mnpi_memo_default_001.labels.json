@@ -1,280 +1,369 @@
 {
-  "doc_id": "jp_universal_mnpi_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "\u5185\u90e8\u8cc7\u6599\u2014\u975e\u516c\u8868\uff08FIEA\u9069\u7528\uff09"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lantern"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA executed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAC/MAE clause"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "JPY 7.8 billion"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "JPY 5.0 billion"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "JPY 1.1"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "JPY 320 million"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "1.2%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "30%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "tender-offer facts contemplated under FIEA Article 27-2"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@kitanami-sensors.co.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+81-70-5555-0140"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Aya Kurose-san"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee Code ES-10492"
-    },
-    {
-      "category": "PII",
-      "rule": "jp_postal_code",
-      "matched_text": "101-1234"
+      "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T01:57:19Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T01:57:19Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "JP Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T01:57:19Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_universal_mnpi_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "\u5185\u90e8\u8cc7\u6599\u2014\u975e\u516c\u8868\uff08FIEA\u9069\u7528\uff09"
+      "matched_text": "\u5185\u90e8\u8cc7\u6599\u2014\u975e\u516c\u8868\uff08FIEA\u9069\u7528\uff09",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lantern"
+      "matched_text": "Project Lantern",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA executed"
+      "matched_text": "SPA executed",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo"
+      "matched_text": "Embargo",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAC/MAE clause"
+      "matched_text": "MAC/MAE clause",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "JPY 7.8 billion"
+      "matched_text": "JPY 7.8 billion",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "JPY 5.0 billion"
+      "matched_text": "JPY 5.0 billion",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "JPY 1.1"
+      "matched_text": "JPY 1.1",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "JPY 320 million"
+      "matched_text": "JPY 320 million",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
+      "matched_text": "51%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "1.2%"
+      "matched_text": "1.2%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "30%"
+      "matched_text": "30%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "tender-offer facts contemplated under FIEA Article 27-2"
+      "matched_text": "tender-offer facts contemplated under FIEA Article 27-2",
+      "rule": "material_event"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@kitanami-sensors.co.jp"
+      "matched_text": "legal@kitanami-sensors.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+81-70-5555-0140"
+      "matched_text": "+81-70-5555-0140",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Aya Kurose-san"
+      "matched_text": "Ms. Aya Kurose-san",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee Code ES-10492"
+      "matched_text": "Employee Code ES-10492",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "jp_postal_code",
-      "matched_text": "101-1234"
+      "matched_text": "101-1234",
+      "rule": "jp_postal_code"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "no press or social posts until embargo"
+      "matched_text": "no press or social posts until embargo",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "TDnet filing not before 2026-07-05 10:00 JST"
+      "matched_text": "TDnet filing not before 2026-07-05 10:00 JST",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "signed 2026-06-28"
+      "matched_text": "signed 2026-06-28",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Transitional Services Agreement"
+      "matched_text": "Transitional Services Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "undisclosed enumerated material facts"
+      "matched_text": "undisclosed enumerated material facts",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "leak prior to embargo"
+      "matched_text": "leak prior to embargo",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not request or store My Number"
+      "matched_text": "do not request or store My Number",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimize personal information"
+      "matched_text": "minimize personal information",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "ES-10492"
+      "matched_text": "ES-10492",
+      "rule": "employee_id"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "~3%"
+      "matched_text": "~3%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo"
+      "matched_text": "embargo",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "avoid chat leaks"
+      "matched_text": "avoid chat leaks",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "target revenue decline exceeding 20%"
+      "matched_text": "target revenue decline exceeding 20%",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aya Kurose",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition: 51% stake in Harusora Capital Partners GK via Share Purchase Agreement (SPA) signed 2026-06-28; consideration JPY 7.8 billion.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Midoriyama Bank provisional commitment JPY 5.0 billion at 1.2% floating; leverage covenant cap 3.5x net debt/EBITDA; no dividend restriction beyond 30% payout.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.4 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@kitanami-sensors.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+81-70-5555-0140",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aya Kurose",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition: 51% stake in Harusora Capital Partners GK via Share Purchase Agreement (SPA) signed 2026-06-28; consideration JPY 7.8 billion.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Midoriyama Bank provisional commitment JPY 5.0 billion at 1.2% floating; leverage covenant cap 3.5x net debt/EBITDA; no dividend restriction beyond 30% payout.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lantern",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 7.8 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 5.0 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 1.1",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.4 billion",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "JPY 320 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
     }
   ],
   "must_not_detect": [
@@ -299,38 +388,32 @@
       "reason": "negated MAE language; excluded by rule"
     }
   ],
+  "source_jurisdiction": "JP",
   "uncertain": [
     {
-      "matched_text": "provisional commitment",
       "concept": "financing commitment MNPI",
+      "matched_text": "provisional commitment",
       "reason": "Material financing intent but not explicitly covered by allowed MNPI rule names"
     },
     {
-      "matched_text": "temporary trading halt",
       "concept": "trading halt reference",
+      "matched_text": "temporary trading halt",
       "reason": "Market-sensitive measure; may relate to blackout/insider protocols but not clearly enumerated"
     },
     {
-      "matched_text": "3.5x net debt/EBITDA",
       "concept": "leverage covenant ratio",
+      "matched_text": "3.5x net debt/EBITDA",
       "reason": "Covenant ratio could be material; not covered by percentage/amount rules"
     },
     {
-      "matched_text": "Board resolution per Companies Act notarization by 2026-07-02",
       "concept": "board action timeline",
+      "matched_text": "Board resolution per Companies Act notarization by 2026-07-02",
       "reason": "Governance milestone may be material timing but not mapped to existing marker rules"
     },
     {
-      "matched_text": "My Number",
       "concept": "JP personal ID reference",
+      "matched_text": "My Number",
       "reason": "Sensitive identifier referenced without an actual number; relevant to APPI compliance"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

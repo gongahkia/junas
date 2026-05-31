@@ -1,260 +1,374 @@
 {
-  "doc_id": "jp_special_category_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Emi Fujikawa-san"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Ryohei Natsume-san"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kenta Hayashi-san"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ayumi Hori-san"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "medical condition: Type 1 diabetes"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "union membership: Sakura Vertex Workers Council ID SV-WC 0 3 4 \u25a0\u25a0"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template hash fp: a9c3: 00\u2014  17 z"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Hiroto Fujikawa (age 12)"
-    },
-    {
-      "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "Genetic screening: Ms. Fujikawa\u2019s voluntary BRCA panel result recorded as \u201cnegative\u201d"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "Religious accommodation: Mr. Ryohei Natsume-san (R&D, Osaka) observes Buddhist holidays"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@sakuravertex.co.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@sakuravertex.co.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "collect and retain only where statutory payroll uses require"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purge after lawful purpose achieved"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "do not disclose externally"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "\u00a52,450"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "restrict access to insider lists"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list template"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "MNPI wall-crossing"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "no trading until public notice"
+      "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T01:57:19Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T01:57:19Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "JP Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T01:57:19Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_special_category_memo_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Emi Fujikawa-san"
+      "matched_text": "Ms. Emi Fujikawa-san",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Ryohei Natsume-san"
+      "matched_text": "Mr. Ryohei Natsume-san",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kenta Hayashi-san"
+      "matched_text": "Mr. Kenta Hayashi-san",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ayumi Hori-san"
+      "matched_text": "Ms. Ayumi Hori-san",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "medical condition: Type 1 diabetes"
+      "matched_text": "medical condition: Type 1 diabetes",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "union membership: Sakura Vertex Workers Council ID SV-WC 0 3 4 \u25a0\u25a0"
+      "matched_text": "union membership: Sakura Vertex Workers Council ID SV-WC 0 3 4 \u25a0\u25a0",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template hash fp: a9c3: 00\u2014  17 z"
+      "matched_text": "fingerprint template hash fp: a9c3: 00\u2014  17 z",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Hiroto Fujikawa (age 12)"
+      "matched_text": "Hiroto Fujikawa (age 12)",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "Genetic screening: Ms. Fujikawa\u2019s voluntary BRCA panel result recorded as \u201cnegative\u201d"
+      "matched_text": "Genetic screening: Ms. Fujikawa\u2019s voluntary BRCA panel result recorded as \u201cnegative\u201d",
+      "rule": "genetic_data"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "Religious accommodation: Mr. Ryohei Natsume-san (R&D, Osaka) observes Buddhist holidays"
+      "matched_text": "Religious accommodation: Mr. Ryohei Natsume-san (R&D, Osaka) observes Buddhist holidays",
+      "rule": "religious_belief"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@sakuravertex.co.jp"
+      "matched_text": "compliance@sakuravertex.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@sakuravertex.co.jp"
+      "matched_text": "legal@sakuravertex.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "collect and retain only where statutory payroll uses require"
+      "matched_text": "collect and retain only where statutory payroll uses require",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purge after lawful purpose achieved"
+      "matched_text": "purge after lawful purpose achieved",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "storage limited to occupational health file"
+      "matched_text": "storage limited to occupational health file",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimization policy"
+      "matched_text": "data minimization policy",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Undisclosed"
+      "matched_text": "Undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "do not disclose externally"
+      "matched_text": "do not disclose externally",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "\u00a52,450"
+      "matched_text": "\u00a52,450",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Board resolution to launch TOB at \u00a52,450 per share"
+      "matched_text": "Board resolution to launch TOB at \u00a52,450 per share",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "planned delisting of the target"
+      "matched_text": "planned delisting of the target",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Tender-offer facts include intended offer period and funding from KoiCloud Finance SPV"
+      "matched_text": "Tender-offer facts include intended offer period and funding from KoiCloud Finance SPV",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "synergies from NebulaOS product integration"
+      "matched_text": "synergies from NebulaOS product integration",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "restrict access to insider lists"
+      "matched_text": "restrict access to insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list template"
+      "matched_text": "insider-list template",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "grant insider status"
+      "matched_text": "grant insider status",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "MNPI wall-crossing"
+      "matched_text": "MNPI wall-crossing",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "no trading until public notice"
+      "matched_text": "no trading until public notice",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "no access to trading windows"
+      "matched_text": "no access to trading windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Emi Fujikawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ryohei Natsume",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Fujikawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenta Hayashi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ayumi Hori",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Fujikawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Proposed acquisition of Midoriyama Analytics Co., Ltd. via tender offer; APPI/My Number handling; FIEA MNPI controls",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@sakuravertex.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Emi Fujikawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ryohei Natsume",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Fujikawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenta Hayashi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ayumi Hori",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Fujikawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "medical condition: Type 1 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Proposed acquisition of Midoriyama Analytics Co., Ltd. via tender offer; APPI/My Number handling; FIEA MNPI controls",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a52,450",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -311,33 +425,27 @@
       "reason": "Generic phrase; non-PII/MNPI bait"
     }
   ],
+  "source_jurisdiction": "JP",
   "uncertain": [
     {
-      "matched_text": "mn masked \u500b\u4eba\u756a\u53f7 token: 77xx-43xx-20xx (not a government ID)",
       "concept": "masked My Number token",
+      "matched_text": "mn masked \u500b\u4eba\u756a\u53f7 token: 77xx-43xx-20xx (not a government ID)",
       "reason": "Looks like a My Number-like token but explicitly masked and not a government ID; not clearly covered by jp_my_number or other allowed rules"
     },
     {
-      "matched_text": "mn:: e4-  1 9 \u2014k   (line-broken OCR copy)",
       "concept": "encrypted My Number field",
+      "matched_text": "mn:: e4-  1 9 \u2014k   (line-broken OCR copy)",
       "reason": "Appears to be an internal encrypted/tokenized field referencing My Number; not clearly covered by allowed identifier rules"
     },
     {
-      "matched_text": "r e f: SVK\u20140 0 7 1",
       "concept": "internal reference code",
+      "matched_text": "r e f: SVK\u20140 0 7 1",
       "reason": "Internal project/reference identifier; may be sensitive operational code but not mapped to any allowed identifier rule"
     },
     {
-      "matched_text": "https://intra.sakuravertex.co.jp/c/TOB?id=sv-  091&sec=mnpi",
       "concept": "insider portal URL",
+      "matched_text": "https://intra.sakuravertex.co.jp/c/TOB?id=sv-  091&sec=mnpi",
       "reason": "Internal MNPI portal link; URLs are not covered by allowed PII/MNPI rules though operationally sensitive"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

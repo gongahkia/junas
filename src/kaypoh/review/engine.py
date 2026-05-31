@@ -1218,7 +1218,7 @@ _FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
     r"compliance\s+desk|deal\s+desk|contact\s+compliance|route\s+enquiries|"
     r"queries\s+(?:to|contact)|via\s+docroom|"
     r"generic\s+help\s*desk|public(?:-facing)?\s+help\s*desk|public\s+helpdesk|"
-    r"public\s+helpline|general\s+(?:queries|enquiries)|not\s+personal\s+data|"
+    r"public\s+helplines?|general\s+(?:queries|enquiries)|not\s+personal\s+data|"
     r"not\s+linked\s+to\s+an?\s+identifiable\s+individual"
     r")\b",
     re.IGNORECASE,
@@ -1226,7 +1226,7 @@ _FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
 _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"compliance\s+desk|deal\s+desk|"
-    r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helpline|"
+    r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helplines?|"
     r"public\s+hotline|public\s+line|"
     r"hr\s+help\s*desk|general\s+line|"
     r"hotline\s+investor|nomor\s+publik|bukan\s+nomor\s+pribadi|"
@@ -1416,6 +1416,7 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         r"nothing\s+herein\s+constitutes[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"nothing\s+herein\s+constitutes\s+or\s+admits[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"not\s+intended\s+to\s+trigger[^\n.;]{0,80}(?:mac|mae)|"
+        r"material\s+adverse\s+change[^\n.;]{0,80}not\s+triggered|"
         r"không\s+phải\s+là[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"tidak[^\n.;]{0,80}material\s+adverse\s+change|"
         r"bukan\s+mac|not\s+a\s+mac"
@@ -1433,6 +1434,8 @@ def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> boo
         r"tidak\s+ada\s+mnpi|no\s+material\s+non[- ]public\s+information\s+remains|"
         r"not[^\n.;]{0,80}\bmnpi|mnpi\s+controls|none\s+are\s+included\s+herein|"
         r"no\s+non[- ]public\s+analyst\s+notes[^\n.;]{0,80}(?:attached|included)|"
+        r"no\s+undisclosed\s+material\s+facts\s+remain|"
+        r"references?\s+to\s+[\"“]?undisclosed[\"”]?[^\n.;]{0,80}definitional\s+only|"
         r"do\s+not\s+summari[sz]e\s+non[- ]public\s+consultations|"
         r"does\s+not\s+rely\s+on\s+non[- ]public\s+data|"
         r"avoid[^\n.;]{0,80}\bundisclosed\s+assumptions|"
@@ -1521,7 +1524,8 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
         r"training\s+materials?\s+only|policy\s+training\s+examples?|"
         r"training\s+(?:weeks|decks|drills)|tabletop\s+drills|"
         r"educational\s+and\s+not\s+transaction[- ]related|"
-        r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only"
+        r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only|"
+        r"educational\s+note[^\n.;]{0,120}purely\s+instructional"
         r")\b",
         context,
         re.IGNORECASE,

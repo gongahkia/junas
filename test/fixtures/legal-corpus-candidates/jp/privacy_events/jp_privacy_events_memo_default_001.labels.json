@@ -1,145 +1,230 @@
 {
-  "doc_id": "jp_privacy_events_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@seikyo-holdings.co.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Rika Suda"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kenji Aoba"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Miki Tamura"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimum necessary copy"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "identifiers were minimised"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout per Policy FI-3"
+      "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T01:57:19Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T01:57:19Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "JP Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'dsar' text='DSAR:'",
+    "drop must_detect: invalid rule 'retention' text='Retention:'",
+    "drop ideal_must_detect: invalid rule 'dsar' text='DSAR:'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Retention:'",
+    "drop ideal_must_detect: invalid rule 'dsar' text='data subject access request'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='Erasure:'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='erased'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='purged'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Retention Schedule RS-7'",
+    "drop ideal_must_detect: invalid rule 'retention' text='retention adjustments'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T01:57:19Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_privacy_events_memo_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@seikyo-holdings.co.jp"
+      "matched_text": "privacy@seikyo-holdings.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Rika Suda"
+      "matched_text": "Ms. Rika Suda",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kenji Aoba"
+      "matched_text": "Mr. Kenji Aoba",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Miki Tamura"
+      "matched_text": "Ms. Miki Tamura",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer"
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimum necessary copy"
+      "matched_text": "minimum necessary copy",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "identifiers were minimised"
+      "matched_text": "identifiers were minimised",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "jp_my_number",
-      "matched_text": "My Number"
+      "matched_text": "My Number",
+      "rule": "jp_my_number"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no retention for unnecessary identifiers"
+      "matched_text": "no retention for unnecessary identifiers",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew marketing-email consent"
+      "matched_text": "withdrew marketing-email consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Data-Export Approval Form DE-14"
+      "matched_text": "Data-Export Approval Form DE-14",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfer relies on contractual clauses consistent with APPI"
+      "matched_text": "cross-border transfer relies on contractual clauses consistent with APPI",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "will not be disseminated externally"
+      "matched_text": "will not be disseminated externally",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "tender offer analysis"
+      "matched_text": "tender offer analysis",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout per Policy FI-3"
+      "matched_text": "blackout per Policy FI-3",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout observance"
+      "matched_text": "blackout observance",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data subject access request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board of Directors; From: Ms. Rika Suda, General Counsel; Date: 31 May 2026; Subject: APPI/My Number compliance, FIEA MNPI controls, and Hanabi Systems KK acquisition.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: The proposed acquisition of Hanabi Systems KK (private issuer) and concurrent employee share plan onboarding implicate APPI and FIEA workflows.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data subject access request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rika Suda",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenji Aoba",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Miki Tamura",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "To: Board of Directors; From: Ms. Rika Suda, General Counsel; Date: 31 May 2026; Subject: APPI/My Number compliance, FIEA MNPI controls, and Hanabi Systems KK acquisition.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: The proposed acquisition of Hanabi Systems KK (private issuer) and concurrent employee share plan onboarding implicate APPI and FIEA workflows.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Undisclosed",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_not_detect": [
@@ -176,59 +261,42 @@
       "reason": "Corporate entity name, not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "JP",
   "uncertain": [
     {
-      "matched_text": "Data-Export Approval Form DE-14",
       "concept": "data-export approval documentation",
+      "matched_text": "Data-Export Approval Form DE-14",
       "reason": "Cross-border governance artifact; relevant to transfer compliance but not a canonical marker string"
     },
     {
-      "matched_text": "Secure Archive Job SA-19",
       "concept": "erasure job reference",
+      "matched_text": "Secure Archive Job SA-19",
       "reason": "Indicates completed purge control; relevant to erasure but phrased as job identifier"
     },
     {
-      "matched_text": "Retention Schedule RS-7",
       "concept": "retention schedule reference",
+      "matched_text": "Retention Schedule RS-7",
       "reason": "Specifies retention policy but not a simple marker keyword"
     },
     {
-      "matched_text": "Nihon Pacific Exchange (NPX) listing agent",
       "concept": "listing communications routing",
+      "matched_text": "Nihon Pacific Exchange (NPX) listing agent",
       "reason": "May indicate controlled disclosure/IR handling; not directly mapped to a specific MNPI rule"
     },
     {
-      "matched_text": "omitted My Number fields",
       "concept": "data minimisation by omission",
+      "matched_text": "omitted My Number fields",
       "reason": "Signals minimisation control without using standard minimise/necessary phrasing"
     },
     {
-      "matched_text": "no My Number was exported",
       "concept": "negated cross-border PII export",
+      "matched_text": "no My Number was exported",
       "reason": "Material to transfer compliance but framed as a negation of export"
     },
     {
-      "matched_text": "is not a DSAR intake",
       "concept": "DSAR intake gating",
+      "matched_text": "is not a DSAR intake",
       "reason": "Clarifies non-DSAR channel; relevant to DSAR handling but negative wording"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: invalid rule 'dsar' text='DSAR:'",
-    "drop must_detect: invalid rule 'retention' text='Retention:'",
-    "drop ideal_must_detect: invalid rule 'dsar' text='DSAR:'",
-    "drop ideal_must_detect: invalid rule 'retention' text='Retention:'",
-    "drop ideal_must_detect: invalid rule 'dsar' text='data subject access request'",
-    "drop ideal_must_detect: invalid rule 'erasure' text='Erasure:'",
-    "drop ideal_must_detect: invalid rule 'erasure' text='erased'",
-    "drop ideal_must_detect: invalid rule 'erasure' text='purged'",
-    "drop ideal_must_detect: invalid rule 'retention' text='Retention Schedule RS-7'",
-    "drop ideal_must_detect: invalid rule 'retention' text='retention adjustments'"
-  ],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

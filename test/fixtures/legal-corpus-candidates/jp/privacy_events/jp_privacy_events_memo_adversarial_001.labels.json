@@ -1,180 +1,264 @@
 {
-  "doc_id": "jp_privacy_events_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "tender-offer"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer event"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kayo Mitsuru"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Ren Ito"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation applied"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "tender@hinode-exchange.example"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Seiji Okamoto"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation markers"
+      "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T01:57:19Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T01:57:19Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "JP Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T01:57:19Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_privacy_events_memo_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "tender-offer"
+      "matched_text": "tender-offer",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer event"
+      "matched_text": "Cross-border transfer event",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kayo Mitsuru"
+      "matched_text": "Ms. Kayo Mitsuru",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Ren Ito"
+      "matched_text": "Mr. Ren Ito",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation applied"
+      "matched_text": "minimisation applied",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "tender@hinode-exchange.example"
+      "matched_text": "tender@hinode-exchange.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Seiji Okamoto"
+      "matched_text": "Mr. Seiji Okamoto",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation markers"
+      "matched_text": "minimisation markers",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "jp_my_number",
-      "matched_text": "\u500b\u4eba\u756a\u53f7"
+      "matched_text": "\u500b\u4eba\u756a\u53f7",
+      "rule": "jp_my_number"
     },
     {
       "category": "PII",
-      "rule": "jp_my_number",
-      "matched_text": "My Number"
+      "matched_text": "My Number",
+      "rule": "jp_my_number"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider registry"
+      "matched_text": "insider registry",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Restricted \u2014 Board circulation only"
+      "matched_text": "Restricted \u2014 Board circulation only",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not circulate MNPI outside the insider ring"
+      "matched_text": "do not circulate MNPI outside the insider ring",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Kokoro Systems GmbH (EU)"
+      "matched_text": "Kokoro Systems GmbH (EU)",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border payroll processing"
+      "matched_text": "cross-border payroll processing",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimal collection"
+      "matched_text": "minimal collection",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "tender-offer facts"
+      "matched_text": "tender-offer facts",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "distribution is restricted"
+      "matched_text": "distribution is restricted",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "sealed email lists"
+      "matched_text": "sealed email lists",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2 3 - 0 9 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Proposed tender-offer to acquire Hoshi Electronics Co., Ltd.; enumerated material facts under FIEA remain non-public and controlled via insider list.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfer event: Data Export Approval H X - 2 3 - 0 9 1 authorises HR metadata to Kokoro Systems GmbH (EU) under DPA Schedule 3 with Sakura Capital Market Authority (SCMA) guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "tender@hinode-exchange.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2 3 - 0 9 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Kayo Mitsuru",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ren Ito",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Seiji Okamoto",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Proposed tender-offer to acquire Hoshi Electronics Co., Ltd.; enumerated material facts under FIEA remain non-public and controlled via insider list.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cross-border transfer event: Data Export Approval H X - 2 3 - 0 9 1 authorises HR metadata to Kokoro Systems GmbH (EU) under DPA Schedule 3 with Sakura Capital Market Authority (SCMA) guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -199,58 +283,52 @@
       "reason": "Policy-only statement; not a live consent event."
     }
   ],
+  "source_jurisdiction": "JP",
   "uncertain": [
     {
-      "matched_text": "retention configured at 7 years for payroll records",
       "concept": "retention marker",
+      "matched_text": "retention configured at 7 years for payroll records",
       "reason": "Retention period is legally relevant but not covered by an allowed rule token."
     },
     {
-      "matched_text": "DSAR and erasure",
       "concept": "DSAR/erasure marker",
+      "matched_text": "DSAR and erasure",
       "reason": "DSAR/erasure events are relevant privacy events but not included in allowed rules list."
     },
     {
-      "matched_text": "redundant access logs were erased",
       "concept": "erasure marker",
+      "matched_text": "redundant access logs were erased",
       "reason": "Erasure is a privacy event not explicitly in allowed rules."
     },
     {
-      "matched_text": "trading chat transcripts 18 months",
       "concept": "retention period",
+      "matched_text": "trading chat transcripts 18 months",
       "reason": "Retention timing is relevant but not an allowed rule."
     },
     {
-      "matched_text": "archives auto-purged quarterly \u2014 already implemented",
       "concept": "retention/auto-deletion marker",
+      "matched_text": "archives auto-purged quarterly \u2014 already implemented",
       "reason": "Auto-deletion schedule is relevant but not covered by allowed rules."
     },
     {
-      "matched_text": "compliance@aob a - r o b o t i c s . example",
       "concept": "email address (obfuscated)",
+      "matched_text": "compliance@aob a - r o b o t i c s . example",
       "reason": "Likely an email address but spacing breaks strict detection; still PII-relevant."
     },
     {
-      "matched_text": "audit hash id: h b 3 - r 0 - 9 q - 1 1 \u2014 logged",
       "concept": "internal technical identifier",
+      "matched_text": "audit hash id: h b 3 - r 0 - 9 q - 1 1 \u2014 logged",
       "reason": "Internal IDs/hashes can be sensitive but not in allowed PII list."
     },
     {
-      "matched_text": "Data Export Approval H X - 2 3 - 0 9 1",
       "concept": "internal approval ID",
+      "matched_text": "Data Export Approval H X - 2 3 - 0 9 1",
       "reason": "Transaction/reference IDs may be sensitive but not in allowed rules."
     },
     {
-      "matched_text": "https://exports.hinode.exchange/aoba?doc=TOB- 1 2 7 c &route=eu-bridge",
       "concept": "URL containing potential MNPI route",
+      "matched_text": "https://exports.hinode.exchange/aoba?doc=TOB- 1 2 7 c &route=eu-bridge",
       "reason": "Links can indicate sensitive workflows but URLs are not in allowed rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

@@ -1,160 +1,262 @@
 {
-  "doc_id": "jp_direct_identifiers_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@nmi-kk.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@nmi-kk.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "090-2187-4442"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "03-6721-4450"
-    },
-    {
-      "category": "PII",
-      "rule": "jp_postal_code",
-      "matched_text": "\u3012160-0022"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ayumi Kato"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kenji Sakamoto"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "T12345678"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "4587631"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "\u00a51,240 per share"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "notes": "Reconciled JP Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public helpline bait, definitional undisclosed references, negated MAC wording, educational insider-list prose, and JP local identifier coverage; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-jp-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T01:57:19Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved JP Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T01:57:19Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "JP Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_warnings": [
+    "drop must_detect: text not verbatim rule='jp_corporate_number' text='4269 8145 7023 9'",
+    "drop ideal_must_detect: text not verbatim rule='jp_corporate_number' text='4269 8145 7023 9'"
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T01:57:19Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
+    "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_direct_identifiers_memo_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@nmi-kk.jp"
+      "matched_text": "compliance@nmi-kk.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@nmi-kk.jp"
+      "matched_text": "ir@nmi-kk.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "090-2187-4442"
+      "matched_text": "090-2187-4442",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "03-6721-4450"
+      "matched_text": "03-6721-4450",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "jp_postal_code",
-      "matched_text": "\u3012160-0022"
+      "matched_text": "\u3012160-0022",
+      "rule": "jp_postal_code"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ayumi Kato"
+      "matched_text": "Ms. Ayumi Kato",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kenji Sakamoto"
+      "matched_text": "Mr. Kenji Sakamoto",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "T12345678"
+      "matched_text": "T12345678",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "4587631"
+      "matched_text": "4587631",
+      "rule": "bank_account"
     },
     {
       "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "\u00a51,240 per share"
+      "matched_text": "\u00a51,240 per share",
+      "rule": "contract_unit_price"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "k a t o . a y u m i @ n m i - k k . j p"
+      "matched_text": "k a t o . a y u m i @ n m i - k k . j p",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ayumi%40nmi-kk.jp"
+      "matched_text": "ayumi%40nmi-kk.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "acct-0045-2218893"
+      "matched_text": "acct-0045-2218893",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not store her My Number in the deal room"
+      "matched_text": "do not store her My Number in the deal room",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not circulate enumerated facts or tender-offer facts until official disclosure is posted"
+      "matched_text": "do not circulate enumerated facts or tender-offer facts until official disclosure is posted",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed acquisition of Hikari Robotics KK via tender offer"
+      "matched_text": "proposed acquisition of Hikari Robotics KK via tender offer",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "payroll-related personal data must be ring-fenced"
+      "matched_text": "payroll-related personal data must be ring-fenced",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MITSJP22",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0045-2218893",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "160-0022",
+      "rule": "jp_postal_code"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal & Compliance Memo \u2014 North Maple Instruments Kabushiki Kaisha (NMI-KK), JP jurisdiction; 2026-05-31; subject: board review of proposed acquisition of Hikari Robotics KK via tender offer.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a51,240",
+      "rule": "financial_amount"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "090-2187-4442",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03-6721-4450",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "T12345678",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MITSJP22",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0045-2218893",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "160-0022",
+      "rule": "jp_postal_code"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ayumi Kato",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenji Sakamoto",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Legal & Compliance Memo \u2014 North Maple Instruments Kabushiki Kaisha (NMI-KK), JP jurisdiction; 2026-05-31; subject: board review of proposed acquisition of Hikari Robotics KK via tender offer.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a51,240",
+      "rule": "financial_amount"
     }
   ],
   "must_not_detect": [
@@ -183,41 +285,32 @@
       "reason": "negated MAC reference; instruction excludes labeling negated MAC"
     }
   ],
+  "source_jurisdiction": "JP",
   "uncertain": [
     {
-      "matched_text": "MITSJP22",
       "concept": "SWIFT/BIC",
+      "matched_text": "MITSJP22",
       "reason": "Bank identifier is legally relevant but not explicitly covered by allowed rules; may be treated as financial routing identifier."
     },
     {
-      "matched_text": "KCR-58-77-102",
       "concept": "company registry number",
+      "matched_text": "KCR-58-77-102",
       "reason": "JP company registry identifier is relevant but not in allowed rule list; unclear mapping to jp_corporate_number."
     },
     {
-      "matched_text": "\u6771\u4eac\u90fd\u6e2f\u533a\u5357\u9752\u5c712-8-9 \u30b9\u30ab\u30a4\u685c\u30cf\u30a4\u30c4305",
       "concept": "postal_address (JP)",
+      "matched_text": "\u6771\u4eac\u90fd\u6e2f\u533a\u5357\u9752\u5c712-8-9 \u30b9\u30ab\u30a4\u685c\u30cf\u30a4\u30c4305",
       "reason": "Full JP street address is PII, but only jp_postal_code is an allowed rule; lacks explicit address rule."
     },
     {
-      "matched_text": "\u6771\u4eac\u90fd\u65b0\u5bbf\u533a\u65b0\u5bbf3-14-5 \u5317\u6953\u30d3\u30eb7F",
       "concept": "postal_address (JP)",
+      "matched_text": "\u6771\u4eac\u90fd\u65b0\u5bbf\u533a\u65b0\u5bbf3-14-5 \u5317\u6953\u30d3\u30eb7F",
       "reason": "Registered office street address is PII, but no explicit JP address rule beyond postal code."
     },
     {
-      "matched_text": "http://intranet.nmi-kk.jp/settle?k=acct-0045-2218893&uid=ayumi%40nmi-kk.jp",
       "concept": "internal_session_id / URL-embedded identifiers",
+      "matched_text": "http://intranet.nmi-kk.jp/settle?k=acct-0045-2218893&uid=ayumi%40nmi-kk.jp",
       "reason": "URL may contain internal references and encoded email; coverage for URLs and session IDs is not clearly specified."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: text not verbatim rule='jp_corporate_number' text='4269 8145 7023 9'",
-    "drop ideal_must_detect: text not verbatim rule='jp_corporate_number' text='4269 8145 7023 9'"
-  ],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

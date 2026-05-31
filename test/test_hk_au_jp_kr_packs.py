@@ -110,6 +110,30 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
         )
         self.assertNotIn("nonpublic_marker", self._rules(text, "HK"))
 
+    def test_jp_public_helplines_do_not_fire_as_phone_numbers(self):
+        text = (
+            "Public helplines for general guidance: FSA Inquiry 03-0000-0000; "
+            "TSE Listing Support 0570-000-000."
+        )
+        self.assertNotIn("phone_number", self._rules(text, "JP"))
+
+    def test_jp_negated_material_and_definitional_nonpublic_do_not_fire(self):
+        text = (
+            "The draft SPA's material adverse change clause is not triggered. "
+            "No undisclosed material facts remain; references to undisclosed in the policy annex "
+            "are definitional only."
+        )
+        rules = self._rules(text, "JP")
+        self.assertNotIn("material_adverse_change", rules)
+        self.assertNotIn("nonpublic_marker", rules)
+
+    def test_jp_educational_insider_lists_do_not_fire(self):
+        text = (
+            "Educational note: the monthly webinar on cyber hygiene, insider lists, and climate "
+            "reporting is purely instructional and uses generic case studies."
+        )
+        self.assertNotIn("insider_list_marker", self._rules(text, "JP"))
+
 
 class HkAuJpKrRationaleTests(unittest.TestCase):
     def test_pii_rationales_cite_local_statutes(self):
