@@ -3,13 +3,300 @@
   "document_type": "memo",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kareem Al\u2011Nafi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hana Al\u2011Rasheed"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "k.alnafi@sirajlogistics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@merajcap.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "123 4 890"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011DIFC\u2011R1M\u201100Z9\u2011314"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type 1 diabetes (health)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "needing insulin storage"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "enrolled voiceprint and iris template (biometric)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Ismaili Muslim (religion)"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "bisexual (sexual orientation)"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "Genetic screening record on file for insurance: code GX\u2011R/QN7 \u2018negative\u2019"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor dependent Yusuf Al\u2011Nafi (14)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "(14)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "strictly non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non\u2011public issuer matter"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not announced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "this remains inside"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kareem Al\u2011Nafi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hana Al\u2011Rasheed"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "k.alnafi@sirajlogistics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@merajcap.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "123 4 890"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011DIFC\u2011R1M\u201100Z9\u2011314"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type 1 diabetes (health)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "needing insulin storage"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "enrolled voiceprint and iris template (biometric)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Ismaili Muslim (religion)"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "bisexual (sexual orientation)"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "Genetic screening record on file for insurance: code GX\u2011R/QN7 \u2018negative\u2019"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor dependent Yusuf Al\u2011Nafi (14)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "(14)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "strictly non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non\u2011public issuer matter"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not announced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "this remains inside"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Mr. Kareem\u2019s Emi r a tes I D (obfus.): 78A4\u201119O\u2011XX\u2011123 4567\u2011O"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "eid=78A4\u201119O\u2011XX\u2011123%204567\u2011O"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "declared family origin Bani Rimal of Al Qamar Oasis"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "bank a/c numbers withheld"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Market\u2011soundings log notes outreach to five ECM accounts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "wall\u2011cross list updated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Siraj Logistics PJSC intends to file ADX admission on 18\u201109, with a concurrent ADGM\u2011booked convertible sukuk; FSRA briefings scheduled"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Role noun/descriptor, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Desert Falcons FC",
+      "reason": "Sports team (non-PII bait)"
+    },
+    {
+      "matched_text": "Oasis Harmony 2026",
+      "reason": "Policy/product name, not personal data"
+    },
+    {
+      "matched_text": "genetic algorithms",
+      "reason": "Technical term; not genetic personal data"
+    },
+    {
+      "matched_text": "biometric locks",
+      "reason": "Operational control; not a personal biometric identifier"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated context; rule excludes 'no MAC' statements"
+    },
+    {
+      "matched_text": "FalconDrive Pro",
+      "reason": "Product/service name (non-PII)"
+    },
+    {
+      "matched_text": "CFO\u2011designate",
+      "reason": "Job title/role descriptor, not a named person"
+    },
+    {
+      "matched_text": "Rimal Gate Walk\u2014Suite C\u201117, DIFC District",
+      "reason": "Address-like text not covered by allowed AE address rules"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "no union affiliations",
+      "concept": "trade_union_membership",
+      "reason": "Special-category status stated as none; legally about the individual but negated"
+    },
+    {
+      "matched_text": "political party membership not collected per policy",
+      "concept": "political_opinion",
+      "reason": "Policy/negated reference rather than a specific individual's political data"
+    },
+    {
+      "matched_text": "(restricted)",
+      "concept": "embargo_marker",
+      "reason": "Indicates restricted distribution but not one of the enumerated embargo terms"
+    },
+    {
+      "matched_text": "prayer\u2011room access requested",
+      "concept": "religious_belief (inference)",
+      "reason": "Implies religion-based accommodation without explicitly stating belief"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
