@@ -143,12 +143,17 @@ class RecognizerFiringTests(unittest.TestCase):
         self.assertNotIn("phone_number", rules)
 
     def test_ae_trade_licence_does_not_match_words_after_ded_fragment(self):
-        r = self._review("No personal contacts should be recorded. Market conduct is public.", "AE")
+        r = self._review(
+            "No personal contacts should be recorded. Market conduct is public. "
+            "Trade Licence images must not be uploaded. "
+            "Trade Licence TL-D I F C-00 7 9 5 3 is obfuscated.",
+            "AE",
+        )
         self.assertNotIn("ae_trade_licence", {f.rule for f in r.findings})
 
     def test_ae_public_contact_numbers_do_not_fire_as_phone(self):
         r = self._review(
-            "Telephone bait: +971 600 000 000 is a generic in-house IVR. "
+            "Telephone bait: +971 600 000 000 is a generic in\u2011house IVR. "
             "Use the SCA Contact Centre 800-120-0000 or DIFC Client Services +971-600-000000.",
             "AE",
         )
@@ -157,12 +162,21 @@ class RecognizerFiringTests(unittest.TestCase):
     def test_ae_public_non_binding_mou_and_negated_genetic_data_do_not_fire(self):
         r = self._review(
             "The publicly announced MoU was posted on the ADX portal and expressly states "
-            "no binding obligations. No genetic data will be collected for the deal.",
+            "no binding obligations. No genetic data will be collected for the deal. "
+            "Schedule team spa\u2011day vouchers via HR.",
             "AE",
         )
         rules = {f.rule for f in r.findings}
         self.assertNotIn("definitive_agreement", rules)
         self.assertNotIn("genetic_data", rules)
+
+    def test_ae_identifier_shaped_fragments_do_not_fire_as_phone(self):
+        r = self._review(
+            "Device serial BE-T14-0 0 9 7 and Emirates I D: 784-19**-1234567-9 "
+            "were noted on 28-05-2026 (2.4% reserve movement).",
+            "AE",
+        )
+        self.assertNotIn("phone_number", {f.rule for f in r.findings})
 
     def test_ae_al_hyphenated_names_do_not_create_bare_al_hits(self):
         r = self._review("Mr. Nadir Al\u2011Hafez and Mr. Tariq Al-Najjar attended.", "AE")

@@ -1261,7 +1261,8 @@ _ROLE_MAILBOX_LOCAL_RE = re.compile(
 )
 _DATE_LIKE_PHONE_RE = re.compile(
     r"(?:\d{4}[-/]\d{1,2}[-/]\d{1,2}(?:\s+\d{1,2})?|"
-    r"\d{1,2}[-/]\d{1,2}[-/]\d{2,4}(?:\s+\d{1,2})?)\Z"
+    r"\d{1,2}[-/]\d{1,2}[-/]\d{2,4}(?:\s+\d{1,2})?|"
+    r"\d{1,2}[-/]\d{1,2}[-/]\d{4}\s+\(\d+(?:\.\d+)?)\Z"
 )
 _THAI_ID_LIKE_PHONE_RE = re.compile(r"\d-\d{4}-\d{5}-\d{2}-\d\Z")
 _IPV4_LITERAL_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}\Z")
@@ -1270,7 +1271,8 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"bank\s*acct|payroll\s*acct|"
     r"rekening|national\s+id|company\s+no|co\.\s+no|"
     r"reg\.\s+no|registration\s+no|tax\s+ref|tax\s+no|TINs?|VAT|MST|EPF|SWIFT|"
-    r"TRN|CRN|trade\s+licen[cs]e|commercial\s+licen[cs]e|IMEI|IP|DOB|dated|"
+    r"TRN|CRN|trade\s+licen[cs]e|commercial\s+licen[cs]e|Emirates\s+I\s*D|EID|"
+    r"serial|device\s+serial|IMEI|IP|DOB|dated|"
     r"Pag-?IBIG|PhilHealth|MID|doc\s*code|doccode|OCR|artifacts?|"
     r"Rp|IDR|harga|nilai|miliar|triliun|billion|million|RSU|"
     r"Aadhaar|PAN|GSTIN|placeholder|sample|specimen|test\s+fields?|training\s+placeholder|"
@@ -1280,7 +1282,8 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
 _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|postal|IMEI|IP|company\s+no|co\.\s+no|"
     r"reg\.\s+no|registration\s+no|tax\s+ref|TINs?|VAT|MST|EPF|SWIFT|TRN|CRN|"
-    r"trade\s+licen[cs]e|commercial\s+licen[cs]e|account\s+no|a/c|"
+    r"trade\s+licen[cs]e|commercial\s+licen[cs]e|Emirates\s+I\s*D|EID|"
+    r"serial|device\s+serial|account\s+no|a/c|"
     r"acc\s*t|rekening|rek\.?|escrow|bank\s+account|akun\s+internal|non-bank|"
     r"internal\s+wallet|wa\.me|session\s+ref|SSA\s+ref|job\s+ID|generic\s+label)\b",
     re.IGNORECASE,
@@ -1569,6 +1572,8 @@ def _is_spa_day_reference(text: str, start: int, end: int) -> bool:
     if text[start:end].casefold() != "spa":
         return False
     if text[end:end + 4].casefold() in {"-day", " day"}:
+        return True
+    if re.match(r"[\u2010-\u2015]day\b", text[end:end + 5], re.IGNORECASE):
         return True
     context = _line_context(text, start, end)
     return bool(re.search(

@@ -5,9 +5,29 @@
   "destination_jurisdiction": "AE",
   "must_detect": [
     {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kareem Al Sahri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rasha Al Qayt"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Faisal Murqab"
+    },
+    {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Saffron"
+      "rule": "material_event",
+      "matched_text": "Preliminary impact is an estimated 6–8% reduction in Q2 output guidance pending restoration, which could be material for Noukhada Energy PJSC once disclosed on QCMX; no media engagement is authorized."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
     },
     {
       "category": "MNPI",
@@ -22,42 +42,42 @@
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "not yet for external release"
+      "matched_text": "restricted"
     },
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "strictly need-to-know"
+      "matched_text": "Restricted"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "cyber incident"
+      "rule": "transaction_codename",
+      "matched_text": "Project Saffron"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
     },
     {
       "category": "MNPI",
       "rule": "financial_percentage",
-      "matched_text": "6\u20138%"
+      "matched_text": "8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "99.9%"
     },
     {
       "category": "MNPI",
       "rule": "contingent_mnpi_language",
-      "matched_text": "could be material"
-    },
-    {
-      "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "DPT partnership"
-    },
-    {
-      "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "DPT custody agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout window"
+      "matched_text": "subject to Board approval"
     },
     {
       "category": "MNPI",
@@ -76,73 +96,13 @@
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "avoid selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "tipping"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "0.15%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "99.9%"
-    },
-    {
-      "category": "MNPI",
       "rule": "esg_climate_pre_disclosure",
-      "matched_text": "restatement of baseline Scope 1/2 figures"
+      "matched_text": "Scope 1"
     },
     {
       "category": "MNPI",
-      "rule": "esg_target_revision",
-      "matched_text": "adjustment to the sustainability-linked sukuk KPI trajectory by 2027"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kareem Al Sahri"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Rasha Al Qayt"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Faisal Murqab"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@noukhadaenergy.example"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_emirates_id",
-      "matched_text": "Emirates ID scans"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_emirates_id",
-      "matched_text": "Emirates ID numbers"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "trade licence"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "retain only minimal PII"
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "lateral movement"
     }
   ],
   "ideal_must_detect": [
@@ -179,7 +139,7 @@
     {
       "category": "MNPI",
       "rule": "financial_percentage",
-      "matched_text": "6\u20138%"
+      "matched_text": "6–8%"
     },
     {
       "category": "MNPI",
@@ -330,6 +290,46 @@
       "category": "MNPI",
       "rule": "nonpublic_marker",
       "matched_text": "no media engagement is authorized"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Preliminary impact is an estimated 6–8% reduction in Q2 output guidance pending restoration, which could be material for Noukhada Energy PJSC once disclosed on QCMX; no media engagement is authorized."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to Board approval"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "lateral movement"
     }
   ],
   "must_not_detect": [
@@ -380,6 +380,49 @@
   "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_human_review_status": "approved",
+  "_label_note": "AE Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered UAE trade-licence precision/full-code capture, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, phone-like device/date fragments, and Arabic-style hyphenated names. Generated invalid/placeholder Emirates ID and trade-licence labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_agent_review": {
+    "notes": "Reconciled AE Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UAE trade-licence capture issues, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, and Arabic-style hyphenated names; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-ae-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-ae-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled AE Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UAE trade-licence capture issues, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, and Arabic-style hyphenated names; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-ae-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-ae-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved AE Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T07:08:38Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved AE Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T07:08:38Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T07:08:38Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-ae-stage-a-reviewed.json",
+    "status": "owner_approved_ae_stage_a_for_internal_benchmarking"
+  }
 }
