@@ -214,6 +214,21 @@ def main() -> int:
                 checks.append(f"LLM adjudicator configured: {settings.llm.provider}")
         else:
             checks.append("LLM adjudicator disabled")
+        llm_helpers = getattr(settings, "llm_helpers", None)
+        enabled_helpers = []
+        if bool(getattr(llm_helpers, "defined_terms_enabled", False)):
+            enabled_helpers.append("defined_terms")
+        if bool(getattr(llm_helpers, "coverage_audit_enabled", False)):
+            enabled_helpers.append("coverage_audit")
+        if enabled_helpers:
+            if settings.llm.enabled and settings.llm.provider != "none":
+                checks.append("LLM helpers configured: " + ", ".join(enabled_helpers))
+            else:
+                warnings.append(
+                    "LLM helpers enabled but llm.enabled=false: " + ", ".join(enabled_helpers)
+                )
+        else:
+            checks.append("LLM helpers disabled")
 
     print("=== Kaypoh Preflight ===")
     config_path = settings.config_path if settings is not None else (

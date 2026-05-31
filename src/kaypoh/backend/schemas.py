@@ -1150,6 +1150,14 @@ class HealthResponse(BaseModel):
     regression_loaded: bool = Field(False, description="Deprecated compatibility field; legacy layer archived.")
     public_evidence_loaded: bool = Field(False, description="Whether the public evidence retriever is loaded.")
     llm_adjudicator_loaded: bool = Field(False, description="Whether the LLM adjudicator is loaded.")
+    llm_defined_term_extractor_loaded: bool = Field(
+        False,
+        description="Whether the audit-grade LLM defined-term extractor is loaded.",
+    )
+    llm_coverage_auditor_loaded: bool = Field(
+        False,
+        description="Whether the audit-grade LLM inverse coverage auditor is loaded.",
+    )
 
 
 class ReadyResponse(BaseModel):

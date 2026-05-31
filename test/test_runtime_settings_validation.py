@@ -65,6 +65,41 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
 
         self.assertEqual(settings.pipeline.layers, ("llm_adjudicator",))
 
+    def test_llm_helper_layers_are_valid_and_enable_matching_helpers(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = ["llm_defined_term_extractor", "llm_coverage_auditor"]
+            """
+        )
+
+        settings = runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertEqual(
+            settings.pipeline.layers,
+            ("llm_defined_term_extractor", "llm_coverage_auditor"),
+        )
+        self.assertTrue(settings.llm_helpers.defined_terms_enabled)
+        self.assertTrue(settings.llm_helpers.coverage_audit_enabled)
+
+    def test_llm_helper_config_keys_can_enable_individual_helpers(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = []
+
+            [llm_helpers]
+            defined_terms_enabled = true
+            coverage_audit_enabled = false
+            """
+        )
+
+        settings = runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertTrue(settings.llm_helpers.enabled)
+        self.assertTrue(settings.llm_helpers.defined_terms_enabled)
+        self.assertFalse(settings.llm_helpers.coverage_audit_enabled)
+
     def test_remote_llm_defaults_to_structured_tokens_when_mode_unset(self):
         config_path = self._write_config(
             """

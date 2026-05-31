@@ -1160,6 +1160,15 @@ class ReviewLayerError(RuntimeError):
         self.layer = layer
 
 
+def _drain_privacy_ledger_events(component: Any | None) -> list[dict[str, Any]]:
+    if component is None or not hasattr(component, "pop_privacy_ledger_events"):
+        return []
+    events = component.pop_privacy_ledger_events()
+    if not isinstance(events, list):
+        raise ReviewLayerError("privacy_ledger", "component returned non-list privacy ledger events")
+    return [dict(event) for event in events if isinstance(event, dict)]
+
+
 def _risk_from_score(score: float) -> Classification:
     if score >= 70.0:
         return Classification.HIGH_RISK
@@ -3904,6 +3913,7 @@ class PreSendReviewEngine:
                 f"review_profile must be one of {sorted(VALID_REVIEW_PROFILES)}; got {review_profile!r}"
             )
         packs = resolve_rule_packs(source_jurisdiction, destination_jurisdiction)
+        privacy_ledger: list[dict[str, Any]] = []
         defined_terms = extract_defined_terms(text)
         # audit_grade-only LLM pre-pass over the preamble to catch defined terms the regex
         # misses. cached by document hash; raw doc body is not sent (the helper sees only
@@ -3917,7 +3927,9 @@ class PreSendReviewEngine:
                     extractor=self.llm_defined_term_extractor,
                     fail_closed=True,
                 )
+                privacy_ledger.extend(_drain_privacy_ledger_events(self.llm_defined_term_extractor))
             except Exception as exc:
+                _drain_privacy_ledger_events(self.llm_defined_term_extractor)
                 raise ReviewLayerError("llm_defined_terms", f"LLM defined-term extraction failed: {exc}") from exc
         # cross-doc defined-term inheritance: merge prior session-scoped terms into the current
         # document's set, then persist the current document's terms back to the session store so
@@ -4016,7 +4028,7 @@ class PreSendReviewEngine:
         # MNPI findings that already self-cited via _INDOC_URL_RE keep their public_source_matched
         # state (per-finding evidence beats document-aggregate retrieval evidence).
         _apply_retrieval_verification(findings, public_evidence)
-        privacy_ledger = list((public_evidence or {}).get("privacy_ledger", []))
+        privacy_ledger.extend(list((public_evidence or {}).get("privacy_ledger", [])))
         llm_adjudication = self._maybe_llm_adjudication(
             text=text,
             overall_risk=overall_risk,
@@ -4067,7 +4079,9 @@ class PreSendReviewEngine:
                         fail_closed=True,
                     )
                 )
+                privacy_ledger.extend(_drain_privacy_ledger_events(self.llm_coverage_auditor))
             except Exception as exc:
+                _drain_privacy_ledger_events(self.llm_coverage_auditor)
                 raise ReviewLayerError("llm_coverage_audit", f"LLM coverage audit failed: {exc}") from exc
         try:
             suggestions = self._suggestions(findings, include_suggestions, tenant_id=tenant_id)

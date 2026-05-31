@@ -2,7 +2,7 @@
 
 You are an independent coding agent picking up work on Kaypoh. **Read this file first**, then the architecture document it points at, before touching any code. Do not skim. Every section below is load-bearing.
 
-Date this onboarding was written: **2026-05-26**.
+Date this onboarding was last revised: **2026-06-01**.
 
 ---
 
@@ -22,14 +22,16 @@ Older `ARCHITECTURE_*.txt` docs are historical only. Runtime flow now lives in `
 
 ---
 
-## 3. The state of the codebase as of 2026-05-28
+## 3. The state of the codebase as of 2026-06-01
 
 **Current state after the 2026-05-26 pivot cleanup:**
 
 - Legacy 9-layer classifier (`src/kaypoh/workflow/layer1_lexicon` through `layer6_regression` + `layer5_mosaic`) **deleted from the repo**. `/classify` is now a thin wrapper over `engine.review()` returning a flat findings shape. See item 63.
 - 13 new expansion items (54-68) covering: LLM symmetric findings, matter-scoped inheritance, latency SLO, reviewer identity binding, local-daemon ACL, subject-erasure (PDPA s16 / GDPR Art 17 / etc.), per-tenant citations, container coverage, image scanning (Tesseract / OpenAI Vision / Google / AWS / Azure), fail-closed everywhere, additive signals (classifier + similarity + transparent aggregator). Subject erasure (item 59), reviewer identity binding (item 57), latency SLO (item 56), and the runtime fail-closed audit (item 65) shipped on 2026-05-28.
+- Item 37 shipped on 2026-06-01: audit-grade LLM defined-term extraction and inverse coverage audit are now named runtime components with config keys, readiness/diagnostics visibility, and privacy-ledger events.
 - 13 more items (69–86) derived from first-principles statutory analysis of every in-scope jurisdiction. Items 78, 80, 84, 90, and 91 are implemented; procurement-substrate items 87–89 remain open.
 - Items 90 and 91 are implemented: HK/AU/JP/KR packs + seed fixtures are in place, and the default/adversarial recall locks were refreshed after the autolabel sweep. Items 78 and 80 shipped 2026-05-28 with new default/adversarial corpus fixtures and refreshed recall locks.
+- Candidate Stage A is complete for all 17 in-scope jurisdiction packs under `test/fixtures/legal-corpus-candidates/` as of 2026-06-01. The reviewed global candidate report `/tmp/kaypoh-candidates-after-eu-reviewed.json` covered 357 docs / 4,295 strict labels at strict recall 1.0 and strict precision 1.0 with zero misses, zero unexpected findings, and zero must-not violations. These reviewed candidates are approved for internal/project benchmarking only; they are not procurement-grade legal review and have not been promoted into locked recall baselines.
 - Runtime setup is UV-first. Use `uv run ...` with the project lock; do not revive `requirements.txt` workflows.
 - Docker support exists for the deterministic API server via `Dockerfile` and `docker-compose.yml`.
 
@@ -88,7 +90,7 @@ These are project-wide invariants. Every PR is measured against them.
 
 Pick the next highest-leverage open item by ICP impact:
 
-- **Item 37** (production-wire LLM helper layers) — makes audit-grade defined-term extraction and inverse coverage audit visible, configurable, and diagnosable.
+- **Item 40 Stage B corpus expansion** — now that every in-scope jurisdiction has reviewed Stage A candidates, run Stage B for the highest-value jurisdictions before making broader coverage claims.
 - **Item 82** (HK "not generally known" public-evidence semantics) — closes a jurisdiction-specific MNPI defensibility gap.
 - **Items 87 / 89** (defensibility report + evidence pack export) — turns the statute coverage work into procurement-facing artefacts.
 - **Item 33 remainder** (EU member-state IDs + broader cookie/ad-ID/device serials + semantic DOB/age) — DOB/adult-age, IP/MAC/IMEI, US ITIN/DLN mini-slice shipped 2026-05-28.
@@ -106,6 +108,7 @@ Always check the architecture doc for the latest user prioritisation before pick
 - **Modify `recall.lock.json` without `--reason`.** Item 16 requires attribution.
 - **Add new top-level deps to `kaypoh-local` extras.** Item 26 contract is enforced by `test/test_local_sku_runtime.py`. Heavy deps go in `[server]` / `[ocr]` / `[ml]` extras.
 - **Skip the spot-check on auto-labeled fixtures** before promoting them to a recall baseline. See item 91 caveat.
+- **Describe reviewed candidate labels as procurement-grade legal review.** Project-owner/Codex approval is enough for internal benchmarking only.
 - **Mix maintenance refactors (M1–M6) into feature PRs.** Schedule them separately per the doc.
 - **Add unsolicited markdown docs.** CLAUDE.md rule. Architecture additions go *in* `ARCHITECTURE-PIVOT-24-MAY.md`, not in new files.
 - **Confuse build-time and runtime LLM use.** Build-time = synthetic data only, unrestricted. Runtime = privacy-gated, tenant opt-in, ledger-logged.
@@ -151,7 +154,7 @@ If the user asks you to commit, follow the CLAUDE.md commit rules: heredoc messa
 
 **Proceed without asking when:**
 
-- The task is in items 90 / 91 / 57 / 59 / 60 (explicit ASAP per doc).
+- The task is in items 40 / 57 / 59 / 60 and acceptance criteria are clear in the architecture doc.
 - A planned item has clear acceptance criteria in the architecture doc.
 - A pre-existing test was failing before you started — leave it alone.
 - A fixture / lock / detector follows the established pattern.
@@ -165,4 +168,4 @@ If the user asks you to commit, follow the CLAUDE.md commit rules: heredoc messa
 
 ---
 
-Welcome to Kaypoh. Read the two architecture docs. Then work on item 91, then item 90, then check back with the user.
+Welcome to Kaypoh. Read the onboarding and architecture docs. Stage A candidate coverage is complete; next work should be chosen from item 40 Stage B expansion, item 82, items 87/89, item 33 remainder, or M3 depending on user priority.

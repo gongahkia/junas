@@ -18,7 +18,14 @@ PROJECT_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config.toml"
 DEFAULT_PIPELINE_LAYERS: tuple[str, ...] = ()
 DEFAULT_OPTIONAL_LAYERS: tuple[str, ...] = ()
-VALID_LAYERS = frozenset(("public_evidence", "llm_adjudicator"))
+VALID_LAYERS = frozenset(
+    (
+        "public_evidence",
+        "llm_adjudicator",
+        "llm_defined_term_extractor",
+        "llm_coverage_auditor",
+    )
+)
 EXTERNAL_QUERY_POLICIES = frozenset({"sanitized_only", "derived_hashes_only", "disabled"})
 IMAGE_SCAN_PROVIDERS = frozenset(
     {"none", "tesseract", "openai_vision", "google_vision", "aws_rekognition", "azure_vision"}
@@ -77,6 +84,13 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
             "allow_remote_raw_text",
             "tenant_opt_in_openai",
             "llm_input_mode",
+        }
+    ),
+    "llm_helpers": frozenset(
+        {
+            "enabled",
+            "defined_terms_enabled",
+            "coverage_audit_enabled",
         }
     ),
     "image_scan": frozenset(
@@ -227,6 +241,13 @@ class LLMSettings:
 
 
 @dataclass(frozen=True)
+class LLMHelperSettings:
+    enabled: bool
+    defined_terms_enabled: bool
+    coverage_audit_enabled: bool
+
+
+@dataclass(frozen=True)
 class ImageScanSettings:
     provider: str
     timeout_seconds: float
@@ -292,6 +313,7 @@ class RuntimeSettings:
     tenancy: TenancySettings
     public_evidence: PublicEvidenceSettings
     llm: LLMSettings
+    llm_helpers: LLMHelperSettings
     image_scan: ImageScanSettings
     privacy: PrivacySettings
     response_cache: ResponseCacheSettings
@@ -1081,6 +1103,47 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             "(deployer-level gate) AND llm.tenant_opt_in_openai=true (tenant-level gate)"
         )
 
+    llm_helpers_enabled = _parse_bool(
+        _resolve_raw_value(
+            raw_config,
+            cli_overrides,
+            section="llm_helpers",
+            key="enabled",
+            env_vars=("KAYPOH_LLM_HELPERS_ENABLED",),
+            default=False,
+        ),
+        label="llm_helpers.enabled",
+    )
+    llm_defined_terms_layered = "llm_defined_term_extractor" in pipeline_layers
+    llm_coverage_audit_layered = "llm_coverage_auditor" in pipeline_layers
+    llm_defined_terms_enabled = _parse_bool(
+        _resolve_raw_value(
+            raw_config,
+            cli_overrides,
+            section="llm_helpers",
+            key="defined_terms_enabled",
+            env_vars=("KAYPOH_LLM_DEFINED_TERMS_ENABLED",),
+            default=llm_helpers_enabled or llm_defined_terms_layered,
+        ),
+        label="llm_helpers.defined_terms_enabled",
+    )
+    llm_coverage_audit_enabled = _parse_bool(
+        _resolve_raw_value(
+            raw_config,
+            cli_overrides,
+            section="llm_helpers",
+            key="coverage_audit_enabled",
+            env_vars=("KAYPOH_LLM_COVERAGE_AUDIT_ENABLED",),
+            default=llm_helpers_enabled or llm_coverage_audit_layered,
+        ),
+        label="llm_helpers.coverage_audit_enabled",
+    )
+    llm_helpers = LLMHelperSettings(
+        enabled=llm_helpers_enabled or llm_defined_terms_enabled or llm_coverage_audit_enabled,
+        defined_terms_enabled=llm_defined_terms_enabled,
+        coverage_audit_enabled=llm_coverage_audit_enabled,
+    )
+
     image_scan_provider = (
         _parse_str(
             _resolve_raw_value(
@@ -1505,6 +1568,7 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         tenancy=tenancy,
         public_evidence=public_evidence,
         llm=llm,
+        llm_helpers=llm_helpers,
         image_scan=image_scan,
         privacy=privacy,
         response_cache=response_cache,

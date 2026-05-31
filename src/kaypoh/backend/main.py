@@ -435,13 +435,20 @@ def build_ready_snapshot() -> dict[str, Any]:
     if image_status is not None and image_status.configured and image_status.healthy is False:
         image_scan_ready = False
         reasons.append(f"image_scan unavailable: {image_status.detail}")
+    helper_ready = True
+    dependency_status = get_dependency_status()
+    for helper_name in ("llm_defined_term_extractor", "llm_coverage_auditor"):
+        status = dependency_status.get(helper_name)
+        if status is not None and status.configured and status.healthy is False:
+            helper_ready = False
+            reasons.append(f"{helper_name} unavailable: {status.detail}")
 
     return {
         "pipeline": pipeline,
         "required_layers": required_layers,
         "warming_layers": warming_layers,
         "missing_layers": missing_layers,
-        "ready": len(missing_layers) == 0 and len(warming_layers) == 0 and image_scan_ready,
+        "ready": len(missing_layers) == 0 and len(warming_layers) == 0 and image_scan_ready and helper_ready,
         "reasons": reasons,
     }
 
@@ -482,6 +489,56 @@ def get_dependency_status() -> dict[str, DependencyStatus]:
             healthy=None,
             detail="LLM adjudication is disabled",
         )
+    for helper_name, enabled in (
+        ("llm_defined_term_extractor", settings.llm_helpers.defined_terms_enabled),
+        ("llm_coverage_auditor", settings.llm_helpers.coverage_audit_enabled),
+    ):
+        helper = models.get(helper_name)
+        if helper is not None and hasattr(helper, "health"):
+            health = helper.health()
+            statuses[helper_name] = DependencyStatus(
+                status=str(health.get("status", "unknown")),
+                configured=enabled or bool(health.get("configured", enabled)),
+                healthy=health.get("healthy"),
+                detail=str(health.get("detail", "")),
+            )
+        elif enabled:
+            try:
+                from kaypoh.workflow.layer8_llm_adjudicator.helpers import (
+                    build_llm_coverage_auditor,
+                    build_llm_defined_term_extractor,
+                )
+
+                helper = (
+                    build_llm_defined_term_extractor(settings.llm)
+                    if helper_name == "llm_defined_term_extractor"
+                    else build_llm_coverage_auditor(settings.llm)
+                )
+                health = helper.health()
+                statuses[helper_name] = DependencyStatus(
+                    status=str(health.get("status", "unknown")),
+                    configured=True,
+                    healthy=health.get("healthy"),
+                    detail=(
+                        "requires llm.enabled=true"
+                        if not settings.llm.enabled
+                        else str(health.get("detail", ""))
+                    ),
+                )
+            except Exception as exc:
+                statuses[helper_name] = DependencyStatus(
+                    status="down",
+                    configured=True,
+                    healthy=False,
+                    detail=f"LLM helper status check failed: {exc}",
+                )
+        else:
+            statuses[helper_name] = DependencyStatus(
+                status="disabled",
+                configured=False,
+                healthy=None,
+                detail=f"{helper_name} is disabled",
+            )
     image_scan_status = health_check_image_scan(settings.image_scan)
     statuses["image_scan"] = DependencyStatus(
         status=str(image_scan_status["status"]),
@@ -969,9 +1026,17 @@ def _build_review_engine() -> PreSendReviewEngine:
     # surfaced as a layer model so tests / deployments can swap implementations without
     # touching the engine. when unwired, engine falls through to the deterministic regex.
     llm_defined_term_extractor = get_layer_model("llm_defined_term_extractor")
+    if llm_defined_term_extractor is None and settings.llm_helpers.defined_terms_enabled:
+        from kaypoh.workflow.layer8_llm_adjudicator.helpers import build_llm_defined_term_extractor
+
+        llm_defined_term_extractor = build_llm_defined_term_extractor(settings.llm)
     # audit_grade-only inverse-audit helper. output is journaled as coverage_warning events.
     # advisory only — engine never acts on these.
     llm_coverage_auditor = get_layer_model("llm_coverage_auditor")
+    if llm_coverage_auditor is None and settings.llm_helpers.coverage_audit_enabled:
+        from kaypoh.workflow.layer8_llm_adjudicator.helpers import build_llm_coverage_auditor
+
+        llm_coverage_auditor = build_llm_coverage_auditor(settings.llm)
 
     return PreSendReviewEngine(
         public_evidence_retriever=public_evidence,
@@ -1597,6 +1662,14 @@ async def lifespan(app: FastAPI):
             elif layer == "llm_adjudicator":
                 llm_mod = importlib.import_module("kaypoh.workflow.layer8_llm_adjudicator.inference")
                 _state["models"]["llm_adjudicator"] = llm_mod.LocalLLMAdjudicator.load()
+            elif layer == "llm_defined_term_extractor":
+                helpers_mod = importlib.import_module("kaypoh.workflow.layer8_llm_adjudicator.helpers")
+                _state["models"]["llm_defined_term_extractor"] = (
+                    helpers_mod.build_llm_defined_term_extractor(settings.llm)
+                )
+            elif layer == "llm_coverage_auditor":
+                helpers_mod = importlib.import_module("kaypoh.workflow.layer8_llm_adjudicator.helpers")
+                _state["models"]["llm_coverage_auditor"] = helpers_mod.build_llm_coverage_auditor(settings.llm)
             else:
                 raise ValueError(f"unknown pipeline layer: {layer}")
 
@@ -1827,6 +1900,8 @@ async def health():
         regression_loaded=False,
         public_evidence_loaded="public_evidence" in models,
         llm_adjudicator_loaded="llm_adjudicator" in models,
+        llm_defined_term_extractor_loaded="llm_defined_term_extractor" in models,
+        llm_coverage_auditor_loaded="llm_coverage_auditor" in models,
     )
 
 

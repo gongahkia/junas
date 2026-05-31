@@ -10,7 +10,7 @@ uv run python -m spacy download en_core_web_sm
 uv run python scripts/preflight.py --strict
 ```
 
-The default runtime is deterministic-only. `PIPELINE_LAYERS` should normally be empty. Optional server layers are `public_evidence` and `llm_adjudicator`.
+The default runtime is deterministic-only. `PIPELINE_LAYERS` should normally be empty. Optional server layers are `public_evidence`, `llm_adjudicator`, `llm_defined_term_extractor`, and `llm_coverage_auditor`.
 
 ## Launch
 
@@ -75,6 +75,18 @@ KAYPOH_LLM_INPUT_MODE=structured_tokens \
 PIPELINE_LAYERS=llm_adjudicator \
 uv run uvicorn backend.main:app --host 0.0.0.0 --port 8000
 ```
+
+Audit-grade helper layers are separate opt-ins. They are never called by `review_profile=strict`.
+
+```sh
+KAYPOH_LLM_ENABLED=1 \
+KAYPOH_LLM_DEFINED_TERMS_ENABLED=1 \
+KAYPOH_LLM_COVERAGE_AUDIT_ENABLED=1 \
+PIPELINE_LAYERS=llm_defined_term_extractor,llm_coverage_auditor \
+uv run uvicorn backend.main:app --host 0.0.0.0 --port 8000
+```
+
+`llm_defined_term_extractor` sends only the capped document preamble. If the LLM endpoint is remote, it requires `KAYPOH_LLM_ALLOW_REMOTE_BASE_URL=1` and `KAYPOH_LLM_ALLOW_REMOTE_RAW_TEXT=1`. `llm_coverage_auditor` sends only a structured finding summary plus the document hash.
 
 ## Verification
 

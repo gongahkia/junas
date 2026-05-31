@@ -45,7 +45,7 @@ docker compose up --build
 curl http://localhost:8000/ready
 ```
 
-The compose service defaults to deterministic-only. Set `KAYPOH_PUBLIC_EVIDENCE_ENABLED=1` plus a provider key, or `KAYPOH_LLM_ENABLED=1` plus the explicit LLM opt-in gates, only for tenant-approved server deployments.
+The compose service defaults to deterministic-only. Set `KAYPOH_PUBLIC_EVIDENCE_ENABLED=1` plus a provider key, or `KAYPOH_LLM_ENABLED=1` plus the explicit LLM opt-in gates, only for tenant-approved server deployments. Audit-grade LLM helpers are separate opt-ins via `KAYPOH_LLM_DEFINED_TERMS_ENABLED=1` and `KAYPOH_LLM_COVERAGE_AUDIT_ENABLED=1`; `strict` never invokes them.
 Compose reads `.env` for variable substitution but passes only Kaypoh runtime/provider variables into the container.
 
 For an accuracy-first managed deployment where Kaypoh provides the LLM key for an opted-in tenant:
