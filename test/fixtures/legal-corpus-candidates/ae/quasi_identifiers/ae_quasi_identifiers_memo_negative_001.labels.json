@@ -3,13 +3,178 @@
   "document_type": "memo",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1979-11"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-0000-1234567-1"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "AE00 0000 0000 0000 4321"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpl.office@marjahcapital.example"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "000-0000-0000000-0"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-ADGM-000000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Do not collect raw Emirates ID scans unless required by law; if captured, store only last two digits and expiry month with role-based access"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "logs purged after 90 days"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retained only in hashed form"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1979-11"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-0000-1234567-1"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "AE00 0000 0000 0000 4321"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpl.office@marjahcapital.example"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "000-0000-0000000-0"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-ADGM-000000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Do not collect raw Emirates ID scans unless required by law; if captured, store only last two digits and expiry month with role-based access"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "logs purged after 90 days"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retained only in hashed form"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Intentional positive cluster \u2014 for one contractor screening: DOB 1979-11, residence area Al Zahiyah (Abu Dhabi), employer Al\u2011Muzn Analytics FZE, role network engineer, company laptop serial S-TEST-0042, masked Emirates ID 784-0000-1234567-1 (placeholder), ADGM client ref CF-ADGM-00991, payroll IBAN AE00 0000 0000 0000 4321 (invalid)"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "company laptop serial S-TEST-0042"
+    },
+    {
+      "category": "PII",
+      "rule": "imei",
+      "matched_text": "Device IMEI 99000-TEST-12345"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "ADGM client ref CF-ADGM-00991"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "market-sounding or wall-crossing"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "deal codename",
+      "reason": "Not matching Project <CapitalizedName> pattern and explicitly negated."
+    },
+    {
+      "matched_text": "Arabic speaker",
+      "reason": "Generic demographic; not uniquely identifying on its own."
+    },
+    {
+      "matched_text": "UAE resident",
+      "reason": "Generic demographic; not uniquely identifying on its own."
+    },
+    {
+      "matched_text": "degree field",
+      "reason": "Generic demographic/education detail; not uniquely identifying on its own."
+    },
+    {
+      "matched_text": "vendor",
+      "reason": "Generic role noun; not a named person."
+    },
+    {
+      "matched_text": "trade licence",
+      "reason": "Generic reference to a document type without an identifier."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "cross-border transfers disabled by default",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Privacy-transfer setting is relevant but in negated form; guidelines exclude negated controls from strict detection."
+    },
+    {
+      "matched_text": "DFM/ADX disclosure windows",
+      "concept": "blackout_period_reference",
+      "reason": "Relates to disclosure/blackout timing but does not use the canonical 'blackout period' phrasing."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
