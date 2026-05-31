@@ -243,6 +243,32 @@ class RecognizerFiringTests(unittest.TestCase):
         )
         self.assertNotIn("material_adverse_change", {f.rule for f in r.findings})
 
+    def test_us_reg_fd_shorthand_and_placeholder_accounts_do_not_fire_as_amounts(self):
+        r = self._review(
+            "Rule 10b-5 and Phase 2b are legal/trial shorthands. "
+            "Ticket HV-9b and sess:c2-7b are internal IDs. "
+            "ACCT-0000-TEST is test-only and not real data.",
+            "US",
+        )
+        rules = {f.rule for f in r.findings}
+        self.assertNotIn("financial_amount", rules)
+        self.assertNotIn("customer_account_number", rules)
+
+    def test_us_company_registry_number_does_not_fire_as_large_number(self):
+        r = self._review(
+            "Delaware Division of Corporations File No. 6587421 is an entity identifier.",
+            "US",
+        )
+        self.assertNotIn("large_number", {f.rule for f in r.findings})
+
+    def test_us_public_guidance_bait_does_not_fire_as_material_event(self):
+        r = self._review(
+            "External references allowed: metrics derived solely from public data are OK to cite. "
+            "If asked about FY guidance beyond public materials, decline and refer to the website.",
+            "US",
+        )
+        self.assertNotIn("material_event", {f.rule for f in r.findings})
+
     def test_uk_public_assistance_line_and_genetic_metaphor_do_not_fire(self):
         r = self._review(
             "Do not treat the public HR assistance line 0300 111 0000 as employee PII. "
@@ -252,6 +278,27 @@ class RecognizerFiringTests(unittest.TestCase):
         rules = {f.rule for f in r.findings}
         self.assertNotIn("phone_number", rules)
         self.assertNotIn("genetic_data", rules)
+
+    def test_uk_company_registry_and_obfuscated_ids_do_not_fire_as_numbers(self):
+        r = self._review(
+            "Companies House No. 08345627 and FRN 842912 are entity references. "
+            "Employee nos. E-1 2 9 7 4 through E-1 3 0 0 5, vpn ref v p n - 9 1 2 0 6, "
+            "and access token e t r - 5 5 - 0 8 - 3 are internal identifiers. "
+            "The alert's account 42-00000 is a system bucket.",
+            "UK",
+        )
+        rules = {f.rule for f in r.findings}
+        self.assertNotIn("large_number", rules)
+        self.assertNotIn("phone_number", rules)
+        self.assertNotIn("bank_account", rules)
+
+    def test_uk_public_manual_and_employment_matter_do_not_fire_as_material_event(self):
+        r = self._review(
+            "Albion issuers' manual timing guidance is public and may be referenced. "
+            "Employment matter: temporary suspension of a trader pending investigation.",
+            "UK",
+        )
+        self.assertNotIn("material_event", {f.rule for f in r.findings})
 
 
 class RationaleTests(unittest.TestCase):

@@ -232,6 +232,11 @@ _MATERIAL_EVENT_NEGATED_CONTEXT_RE = re.compile(
     r"does\s+not\s+(?:itself\s+)?(?:contain|constitute)\s+(?:mnpi|"
     r"(?:a\s+)?mac|earnings\s+guidance|(?:a\s+)?profit\s+forecast)|"
     r"does\s+not\s+make\s+the\s+content\s+price\s+sensitive|"
+    r"reg\s+fd\s*/\s*hipaa\s*/\s*glba\s+guidance|"
+    r"policy\s+guidance|"
+    r"external\s+references\s+allowed|ok\s+to\s+cite|"
+    r"decline\s+and\s+refer[^\n.;]{0,80}(?:public|website|filed)|"
+    r"employment\s+matter[^\n.;]{0,80}temporary\s+suspension|"
     r"no\s+material\s+adverse\s+change|"
     r"no\s+(?:live\s+)?(?:incident|breach|breach\s+specifics|forecast\s+downgrades)|"
     r"public\s+(?:cybersecurity\s+)?training\s+materials|"
@@ -250,6 +255,9 @@ _MATERIAL_EVENT_PUBLIC_CONTEXT_RE = re.compile(
     r"public(?:ly)?\s+available|"
     r"public\s+(?:announcement|disclosures?|information|reference|source|filings?|notice)|"
     r"public\s+(?:release|transaction\s+status)|"
+    r"(?:is|are)\s+public|"
+    r"ok\s+to\s+cite|external\s+references\s+allowed|"
+    r"decline\s+and\s+refer[^\n.;]{0,80}(?:public|website|filed)|"
     r"materials?\s+are\s+public|public\s+form\s+17-c|"
     r"announced\s+on|e[- ]disclosure|"
     r"public\s+and\s+stale|"
@@ -1305,7 +1313,8 @@ _URL_PARAM_IDENTIFIER_CONTEXT_RE = re.compile(
 _PLACEHOLDER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"\b(?:invalid\s+placeholder|placeholder\s+with\s+an\s+invalid\s+checksum|"
     r"template\s+field|test\s+fields?|generic\s+placeholder|training\s+placeholder|"
-    r"placeholder|specimen\s+values?|screenshots?\s+only|"
+    r"placeholder|test[- ]only|system\s+bucket|not\s+real\s+data|"
+    r"specimen\s+values?|screenshots?\s+only|"
     r"sample\s+(?:PAN|GSTIN|Aadhaar|NRIC|identifier|values?)|"
     r"invalid(?:/dummy)?|for\s+illustration|illustrative)\b",
     re.IGNORECASE,
@@ -1535,7 +1544,21 @@ def _is_identifier_like_large_number_context(text: str, start: int, end: int) ->
 
 def _is_identifier_like_financial_amount(text: str, start: int, end: int) -> bool:
     matched = text[start:end].strip()
-    return bool(re.fullmatch(r"\d{6,}\s*[KMBT]", matched, re.IGNORECASE))
+    if re.fullmatch(r"\d{6,}\s*[KMBT]", matched, re.IGNORECASE):
+        return True
+    if re.fullmatch(r"\d{1,3}[KMBT]", matched, re.IGNORECASE):
+        context = _line_context(text, start, end)
+        after = text[end:end + 1]
+        return bool(
+            after in "-\u2010\u2011\u2012\u2013\u2014\u2015"
+            or re.search(
+                r"\b(?:Rule\s+10b|10b[-\u2010-\u2015]?5|Phase\s+\d+[a-z]|Trial|"
+                r"ticket|sess(?:ion)?|internal\s+payroll|payroll\s+code)\b",
+                context,
+                re.IGNORECASE,
+            )
+        )
+    return False
 
 
 def _is_placeholder_identifier_context(text: str, start: int, end: int) -> bool:
@@ -3167,6 +3190,8 @@ class PreSendReviewEngine:
                         continue
                     if "X" in text[start:end].upper() and _is_placeholder_identifier_context(text, start, end):
                         continue
+                if rule == "customer_account_number" and _is_placeholder_identifier_context(text, start, end):
+                    continue
                 if rule == "employee_id":
                     digits = _digits_only(text[start:end])
                     if digits and set(digits) == {"0"}:
