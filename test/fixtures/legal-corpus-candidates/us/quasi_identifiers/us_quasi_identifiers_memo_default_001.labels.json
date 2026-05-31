@@ -3,13 +3,282 @@
   "document_type": "memo",
   "source_jurisdiction": "US",
   "destination_jurisdiction": "US",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@heliotropecare.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "r.calder@heliotropecare.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Reina Calder"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Owen Karr"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "HC-LT-7729"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "S-44F6C-91"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "03/15/1987"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 39"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "D-CA-0113"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@heliotropecare.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "555-014-2205"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure concerns"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "~3%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "9\u201311%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@heliotropecare.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "r.calder@heliotropecare.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Reina Calder"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Owen Karr"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "HC-LT-7729"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "S-44F6C-91"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "03/15/1987"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 39"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "D-CA-0113"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@heliotropecare.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "555-014-2205"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "****8842"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "pt_portal_18301"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Ms. Reina Calder (Senior Revenue Cycle Analyst, Denvale, CO office), age 39, corp email r.calder@heliotropecare.example"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "birthday 03/15/1987, internal extension 4427, Denvale badge ID D-CA-0113, and prior device sync at 21:02"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "\u201cAurelia, CO,\u201d household size \u201c3,\u201d masked account \u201c****8842,\u201d and a patient portal reference \u201cpt_portal_18301\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "scrub shared files for linkable IDs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure concerns"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unfiled"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "~3%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "9\u201311%"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u201cages 30\u201339 constitute 41% nationwide\u201d",
+      "reason": "Aggregate demographic statistic not identifying a person"
+    },
+    {
+      "matched_text": "ZIP 606xx",
+      "reason": "Truncated aggregate ZIP code, not linkable to an individual"
+    },
+    {
+      "matched_text": "DOB 11/1992",
+      "reason": "Partial birth date without linkage; weak identifier not PII alone"
+    },
+    {
+      "matched_text": "account suffix 3021",
+      "reason": "Partial account info without linkage; weak identifier not PII alone"
+    },
+    {
+      "matched_text": "Quanta M9",
+      "reason": "Generic device model; weak identifier not PII alone"
+    },
+    {
+      "matched_text": "Westford, IL",
+      "reason": "City/state alone; weak identifier not PII alone"
+    },
+    {
+      "matched_text": "Device SN QP-2287Z",
+      "reason": "Device serial without linkage to a person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "internal extension 4427",
+      "concept": "phone_extension",
+      "reason": "Internal phone extension can be linkable but is not covered by enumerated PII rules"
+    },
+    {
+      "matched_text": "Denvale, CO office",
+      "concept": "location_quasi_identifier",
+      "reason": "Work location can contribute to identifiability when combined but not explicitly covered alone"
+    },
+    {
+      "matched_text": "8:43 p.m. local",
+      "concept": "badge_swipe_time",
+      "reason": "Granular timestamp can aid linkage but not directly covered by allowed PII rules"
+    },
+    {
+      "matched_text": "21:02",
+      "concept": "device_sync_time",
+      "reason": "Login/sync time can aid linkage but lacks a specific rule"
+    },
+    {
+      "matched_text": "Aurelia, CO",
+      "concept": "household_location",
+      "reason": "City/state for a household is quasi-identifying but not covered as a standalone rule"
+    },
+    {
+      "matched_text": "Grantham Street Research",
+      "concept": "covered_market_actor",
+      "reason": "Identifies a sell-side analyst firm relevant to Reg FD context but not mapped to a current MNPI rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
