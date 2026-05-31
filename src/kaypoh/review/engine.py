@@ -1270,7 +1270,7 @@ _DATE_LIKE_PHONE_RE = re.compile(
 _THAI_ID_LIKE_PHONE_RE = re.compile(r"\d-\d{4}-\d{5}-\d{2}-\d\Z")
 _IPV4_LITERAL_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}\Z")
 _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
-    r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|a/c|acc\s*t|account|"
+    r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|UKPA|EIN|a/c|acc\s*t|account|"
     r"bank\s*acct|payroll\s*acct|"
     r"rekening|national\s+id|company\s+no|co\.\s+no|"
     r"reg\.\s+no|registration\s+no|\bCR\b|CRN|commercial\s+registration|"
@@ -1281,13 +1281,17 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"Pag-?IBIG|PhilHealth|MID|doc\s*code|doccode|OCR|artifacts?|"
     r"Rp|IDR|harga|nilai|miliar|triliun|billion|million|RSU|"
     r"Aadhaar|PAN|GSTIN|placeholder|sample|specimen|test\s+fields?|training\s+placeholder|"
-    r"session\s+ref|SSA\s+ref|job\s+ID|asset\s+tag|badge)\b",
+    r"session\s+ref|vpn\s+ref|access\s+token|internal\s+user\s+id|"
+    r"employee\s+nos?\.?|employee\s+id|payroll\s+ref|SSA\s+ref|job\s+ID|"
+    r"asset\s+tag|badge)\b",
     re.IGNORECASE,
 )
 _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|postal|IMEI|IP|company\s+no|co\.\s+no|"
+    r"Companies\s+House|Delaware\s+Div(?:ision)?\.?\s+of\s+Corporations|File\s+No\.?|"
+    r"FRN|firm\s+reference|HMRC\s+UTR|payroll\s+ref|"
     r"reg\.\s+no|registration\s+no|\bCR\b|CRN|commercial\s+registration|"
-    r"tax\s+ref|TINs?|VAT|ZATCA|GAZT|MST|EPF|SWIFT|TRN|CRN|"
+    r"tax\s+ref|TINs?|VAT|ZATCA|GAZT|MST|EPF|SWIFT|TRN|CRN|UTR|"
     r"trade\s+licen[cs]e|commercial\s+licen[cs]e|Emirates\s+I\s*D|EID|"
     r"serial|device\s+serial|account\s+no|a/c|"
     r"acc\s*t|rekening|rek\.?|escrow|bank\s+account|akun\s+internal|non-bank|"
