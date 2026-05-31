@@ -3,13 +3,306 @@
   "document_type": "memo",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Inside Information under UK MAR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 15 July 2026 at 08:00 BST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Foxglove"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Transitional Services Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintained"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for external use"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a378.5m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a39.2m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "245p"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "83%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "17%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "17.4%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_discount_rate",
+      "matched_text": "5.8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "40,000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "eliza.morven@larkhavencapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@larkhavencapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms Eliza Morven"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr Alastair Penbury"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms Ada Penbury"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Inside Information under UK MAR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 15 July 2026 at 08:00 BST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Foxglove"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Transitional Services Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintained"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for external use"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a378.5m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a39.2m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "245p"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "83%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "17%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "17.4%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_discount_rate",
+      "matched_text": "5.8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "40,000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "eliza.morven@larkhavencapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@larkhavencapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms Eliza Morven"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr Alastair Penbury"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms Ada Penbury"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Northbridge Analytics Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "concurrent \u00a378.5m placing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo lift"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "executed 30 June 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "effective 12 May 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "mutual NDA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "17% earn-out"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not discuss externally"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "PDMR dealing prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "use the codename only in correspondence"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "Leak protocol"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day",
+      "reason": "Leisure reference; not a Share Purchase Agreement or MNPI."
+    },
+    {
+      "matched_text": "public-source reference",
+      "reason": "Explicitly indicates public information; not MNPI."
+    }
+  ],
   "uncertain": [],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
