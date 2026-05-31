@@ -3,13 +3,262 @@
   "document_type": "memo",
   "source_jurisdiction": "AU",
   "destination_jurisdiction": "AU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@rivertonenergy.au.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@rivertonenergy.au.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 0 0000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hal Cooper"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Elara Ng"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Petra Malloy"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "Client No.: AU\u2011CL\u2011xx19"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information\u2011barrier protocol"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@rivertonenergy.au.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@rivertonenergy.au.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 0 0000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hal Cooper"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Elara Ng"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Petra Malloy"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "Client No.: AU\u2011CL\u2011xx19"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "hosted in the Singapore region"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent for direct marketing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove date\u2011of\u2011birth capture for contractors (month/year only)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "disable unneeded health fields outside pre\u2011employment checks"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "constrain free\u2011text notes to 256 chars"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E M P  I D: 7Q2\u20119 4 4"
+    },
+    {
+      "category": "PII",
+      "rule": "au_postal_address",
+      "matched_text": "Level 9, 88 Fable St, Southbank, VIC 3X3X"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information\u2011barrier protocol"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "could be material"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "has not been distributed to staff outside Finance and Legal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC reference; do not label as material_adverse_change"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC wording; not a material_adverse_change event"
+    },
+    {
+      "matched_text": "we are not in a trading blackout for ordinary employees",
+      "reason": "Negated blackout reference; not a live blackout period"
+    },
+    {
+      "matched_text": "this is a completed control and does not indicate any live incident",
+      "reason": "Completed-control language; not a live incident"
+    },
+    {
+      "matched_text": "we have not transferred any identifiable health information offshore in Q2",
+      "reason": "Negated cross-border health transfer; not a live transfer event"
+    },
+    {
+      "matched_text": "QDC\u20112026Q2 is CLOSED",
+      "reason": "Closed control; not an active deletion event"
+    },
+    {
+      "matched_text": "we did not delete tax or audit records",
+      "reason": "Lawful retention negation; not an erasure failure"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Access request (DSAR)",
+      "concept": "dsar_marker",
+      "reason": "DSAR/APP 12 access request marker is relevant but not an allowed rule label"
+    },
+    {
+      "matched_text": "APP 12 access request",
+      "concept": "dsar_marker",
+      "reason": "Access request under APP 12 is a DSAR concept not explicitly in allowed rules"
+    },
+    {
+      "matched_text": "Erasure/de\u2011identification",
+      "concept": "erasure_marker",
+      "reason": "Erasure/de-identification event marker not enumerated in allowed rules"
+    },
+    {
+      "matched_text": "requested account deletion",
+      "concept": "erasure_marker",
+      "reason": "Erasure request phrasing; relevant privacy event but no explicit rule provided"
+    },
+    {
+      "matched_text": "operational logs were destroyed",
+      "concept": "erasure_marker",
+      "reason": "Destruction indicates erasure action; not mapped to allowed rule"
+    },
+    {
+      "matched_text": "personnel files were de\u2011identified per APP 11.2",
+      "concept": "erasure_marker",
+      "reason": "De-identification action relevant to erasure but not covered by allowed rules"
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "retention_marker",
+      "reason": "Retention policy marker is in scope conceptually but not in allowed rules list"
+    },
+    {
+      "matched_text": "are retained for 7 years",
+      "concept": "retention_marker",
+      "reason": "Retention duration is relevant but there is no explicit allowed retention rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

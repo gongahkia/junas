@@ -3,13 +3,148 @@
   "document_type": "memo",
   "source_jurisdiction": "AU",
   "destination_jurisdiction": "AU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@quaralynx.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@quaralynx.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@quaralynx.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@quaralynx.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawals are actioned via"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opt-out"
+    },
+    {
+      "category": "PII",
+      "rule": "au_abn",
+      "matched_text": "000 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-000/00000000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no information herein constitutes MNPI",
+      "reason": "Explicit negation that content is MNPI"
+    },
+    {
+      "matched_text": "no undisclosed financial forecasts",
+      "reason": "Negated MNPI element; not a live nonpublic item"
+    },
+    {
+      "matched_text": "ASX Listing Rule 3.1 triggers",
+      "reason": "Mentioned only in a negated context; not actually triggered"
+    },
+    {
+      "matched_text": "No other cross-border disclosures are active",
+      "reason": "Negated; indicates absence of active transfers"
+    },
+    {
+      "matched_text": "placeholders only",
+      "reason": "Indicates example values, not real PII"
+    },
+    {
+      "matched_text": "do not request individual TFNs",
+      "reason": "States absence of TFNs; no identifiers present"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "DSAR event referenced but DSAR is not an allowed rule token; also described as completed"
+    },
+    {
+      "matched_text": "erasure request",
+      "concept": "erasure marker",
+      "reason": "Erasure event referenced but no explicit allowed erasure rule; also completed"
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "retention marker",
+      "reason": "Indicates retention-controls section; retention marker not in allowed rule list"
+    },
+    {
+      "matched_text": "Retention Schedule",
+      "concept": "retention marker",
+      "reason": "Specifies a retention schedule; retention marker not in allowed rules"
+    },
+    {
+      "matched_text": "retention caps",
+      "concept": "retention marker",
+      "reason": "Specifies retention limits; retention marker not in allowed rules"
+    },
+    {
+      "matched_text": "erasure jobs",
+      "concept": "erasure marker",
+      "reason": "Ongoing erasure process mentioned; erasure marker not in allowed rules"
+    },
+    {
+      "matched_text": "Health: pre-employment health declarations",
+      "concept": "health data handling",
+      "reason": "References handling of sensitive health data but not tied to identifiable individuals or an allowed special-category anchor"
+    },
+    {
+      "matched_text": "HR records 7 years post-employment",
+      "concept": "retention period",
+      "reason": "Retention timeframe relevant to privacy but no allowed retention rule token"
+    },
+    {
+      "matched_text": "withdrawal requests",
+      "concept": "consent withdrawal marker",
+      "reason": "Negated reference to consent withdrawals; conceptually relevant but not a clear allowed marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

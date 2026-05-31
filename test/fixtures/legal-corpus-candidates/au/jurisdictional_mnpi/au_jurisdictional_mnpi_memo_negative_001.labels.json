@@ -3,13 +3,178 @@
   "document_type": "memo",
   "source_jurisdiction": "AU",
   "destination_jurisdiction": "AU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "au_abn",
+      "matched_text": "ABN 00 000 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "au_tfn",
+      "matched_text": "TFN: 000 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "governance@wattlebay.example"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account 00000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "LR 3.1A confidentiality"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout closed on 30 April"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "au_abn",
+      "matched_text": "ABN 00 000 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "au_tfn",
+      "matched_text": "TFN: 000 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "governance@wattlebay.example"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account 00000000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "BSB 000\u2011000"
+    },
+    {
+      "category": "PII",
+      "rule": "insurance_member_id",
+      "matched_text": "Medicare: 0000 00000 0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "LR 3.1A confidentiality"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "subject to LR 3.1A confidentiality"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout closed on 30 April"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure occurred"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no briefings will go beyond public content"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "If confirmed by the monthly reconciliation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "materially below"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "no material information is currently withheld"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "WBE",
+      "reason": "ASX ticker code; not an allowed identifier rule and public by nature"
+    },
+    {
+      "matched_text": "ASX code: WBE",
+      "reason": "Public exchange code, not PII/MNPI per allowed rules"
+    },
+    {
+      "matched_text": "Appendix 4D",
+      "reason": "Public ASX filing type reference, not MNPI/PII"
+    },
+    {
+      "matched_text": "Appendix 3Y",
+      "reason": "Public ASX filing type reference, not MNPI/PII"
+    },
+    {
+      "matched_text": "Emergency Contact",
+      "reason": "Template label without any individual data"
+    },
+    {
+      "matched_text": "Compliance mailbox",
+      "reason": "Generic label, not an email address or PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DL\u2011XXX000",
+      "concept": "driver_licence_number_au",
+      "reason": "Placeholder for AU driver licence format; no explicit AU driver-licence rule provided"
+    },
+    {
+      "matched_text": "ABC\u2011000\u2011000",
+      "concept": "credit_bureau_file_id",
+      "reason": "Credit file identifier could be PII but not covered by allowed rules"
+    },
+    {
+      "matched_text": "card suffix 0000",
+      "concept": "payment_card_identifier",
+      "reason": "Partial card info may be sensitive; no explicit payment-card rule and ambiguous to map to bank_account"
+    },
+    {
+      "matched_text": "s1043A",
+      "concept": "insider_trading_statute_reference",
+      "reason": "Indicates MNPI classification basis but not tied to a specific allowed detection rule"
+    },
+    {
+      "matched_text": "issuer\u2011relative basis",
+      "concept": "issuer_relative_materiality",
+      "reason": "Jurisdiction-specific MNPI concept relevant to ASX LR 3.1A assessment without a direct rule mapping"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

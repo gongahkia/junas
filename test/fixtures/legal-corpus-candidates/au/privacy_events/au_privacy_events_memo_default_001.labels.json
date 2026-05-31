@@ -3,13 +3,165 @@
   "document_type": "memo",
   "source_jurisdiction": "AU",
   "destination_jurisdiction": "AU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Eliza Hart"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@auroraforge.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 2 3456 7890"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Theo Quain"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Sahana Rook"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information walls"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Eliza Hart"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@auroraforge.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 2 3456 7890"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "fields exported limited to"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Theo Quain"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opted out"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Sahana Rook"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information walls"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Board Risk Committee",
+      "reason": "Organisational committee title; not an individual or PII."
+    },
+    {
+      "matched_text": "General Counsel",
+      "reason": "Job title/role only, not PII."
+    },
+    {
+      "matched_text": "HR Service Desk",
+      "reason": "Department/service name, not PII."
+    },
+    {
+      "matched_text": "Safety Committee",
+      "reason": "Committee name, not PII."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "APP 12 access request (DSAR)",
+      "concept": "DSAR marker",
+      "reason": "Data subject access request event is legally relevant but there is no explicit DSAR rule in the allowed list."
+    },
+    {
+      "matched_text": "sought access and correction",
+      "concept": "Access/correction request",
+      "reason": "Indicates DSAR rights exercise; not clearly covered by an allowed rule."
+    },
+    {
+      "matched_text": "erased on 12 May",
+      "concept": "Erasure/deletion",
+      "reason": "Erasure event is relevant but no explicit erasure marker rule is provided."
+    },
+    {
+      "matched_text": "deletion certificate archived",
+      "concept": "Erasure confirmation",
+      "reason": "Evidence of deletion is a privacy event but lacks an allowed rule."
+    },
+    {
+      "matched_text": "Recruitment data retention reduced from 24 to 12 months",
+      "concept": "Retention policy change",
+      "reason": "Retention marker is relevant but not represented in the allowed rules."
+    },
+    {
+      "matched_text": "legal hold AF-LH-22-09 was lifted",
+      "concept": "Legal hold/retention event",
+      "reason": "Legal hold lift affects retention; no explicit rule in the allowed set."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
