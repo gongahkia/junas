@@ -3,13 +3,309 @@
   "document_type": "memo",
   "source_jurisdiction": "AU",
   "destination_jurisdiction": "AU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rowan Keating"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rowan.keating@eucalyptusforge.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 7 3550 8123"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hayden Zhou"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Lila Serrano"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Menon"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@eucalyptusforge.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Keating"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Ms. Serrano\u2019s approved medical leave dates (5\u201316 June)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retain only for hiring assessment and delete within 90 days per APP 11"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "$40m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "$25m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "~8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure risk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout runs from 1 July until FY results (Appendix 4E/Annual Report) are lodged"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "an ad hoc blackout applies now for all Designated Persons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "do not disclose non-public financials without confirming confidentiality"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rowan Keating"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rowan.keating@eucalyptusforge.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 7 3550 8123"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hayden Zhou"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Lila Serrano"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Menon"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@eucalyptusforge.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Keating"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Ms. Serrano\u2019s approved medical leave dates (5\u201316 June)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retain only for hiring assessment and delete within 90 days per APP 11"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "$40m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "$25m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "~8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure risk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout runs from 1 July until FY results (Appendix 4E/Annual Report) are lodged"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "an ad hoc blackout applies now for all Designated Persons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "do not disclose non-public financials without confirming confidentiality"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Draft term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "institutional placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "pre-open trading halt"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "cash runway < 9 months"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no staff trading until release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing protocols"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Designated Persons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "if executed it cures current liquidity risk and is likely price-sensitive\u2014MNPI until ASX announcement or cleansing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "trading halt"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "will miss June shipments"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no dealing by Designated Persons until the Appendix 4C is released and the ad hoc blackout is lifted"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Board Risk Committee",
+      "reason": "Role/committee name, not PII"
+    },
+    {
+      "matched_text": "General Counsel",
+      "reason": "Job title/role noun, not PII"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Job title/role noun, not PII"
+    },
+    {
+      "matched_text": "Clinical Lead",
+      "reason": "Job title/role noun, not PII"
+    },
+    {
+      "matched_text": "Finance Analyst candidate",
+      "reason": "Job title/role noun, not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "BBSY+325 bps",
+      "concept": "interest_margin_rate",
+      "reason": "Non-public facility pricing detail is market-sensitive but not clearly covered by a specific allowed MNPI rate rule"
+    },
+    {
+      "matched_text": "s1043A",
+      "concept": "insider_trading_statute",
+      "reason": "Statutory reference relevant to insider trading compliance but not mapped to an allowed MNPI rule"
+    },
+    {
+      "matched_text": "s708A",
+      "concept": "disclosure_exemption_reference",
+      "reason": "Legal disclosure/cleansing mechanism is MNPI-adjacent but not in the allowed rule set"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

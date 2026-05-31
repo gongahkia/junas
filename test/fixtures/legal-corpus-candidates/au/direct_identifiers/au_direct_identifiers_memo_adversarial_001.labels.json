@@ -3,13 +3,243 @@
   "document_type": "memo",
   "source_jurisdiction": "AU",
   "destination_jurisdiction": "AU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "au_abn",
+      "matched_text": "ABN 12 345 678 901"
+    },
+    {
+      "category": "PII",
+      "rule": "au_acn",
+      "matched_text": "A.C.N 631000901"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Eliza Tran"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "eliza.tran@screnewables.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 2 8000 1234"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Damon K. Wiri"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cfo@screnewables.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 4 7000 7788"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account 000123456"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "+24%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "$48m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "au_abn",
+      "matched_text": "ABN 12 345 678 901"
+    },
+    {
+      "category": "PII",
+      "rule": "au_acn",
+      "matched_text": "A.C.N 631000901"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Eliza Tran"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "eliza.tran@screnewables.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 2 8000 1234"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Damon K. Wiri"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cfo@screnewables.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 4 7000 7788"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account 000123456"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "+24%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "$48m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "au_acn",
+      "matched_text": "A C N: 6 1 3  0 0 0  9 0 1"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tran"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "AU passport no. N 1 2 3 4 5 6 7"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "BSB 000-000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "SCREN-03777"
+    },
+    {
+      "category": "PII",
+      "rule": "insurance_member_id",
+      "matched_text": "Medicare number 1234 56789-1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "acquire Warkinya BioThermals Ltd"
+    },
+    {
+      "category": "PII",
+      "rule": "au_abn",
+      "matched_text": "12345678901"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not circulate beyond Legal"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "TFN: ______",
+      "reason": "Generic form field placeholder, not an actual identifier"
+    },
+    {
+      "matched_text": "Name of employee",
+      "reason": "Generic form label, not an identifier in isolation"
+    },
+    {
+      "matched_text": "1800 000 000",
+      "reason": "Public helpline number, not personal PII"
+    },
+    {
+      "matched_text": "info@screnewables.au",
+      "reason": "Public enquiries email, not personal PII"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role-only term, not an individual"
+    },
+    {
+      "matched_text": "HR",
+      "reason": "Role-only term, not an individual"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "project \"koala-green\"",
+      "concept": "transaction codename-like",
+      "reason": "Appears to be an internal codename but does not match the 'Project <CapitalizedName>' pattern required by the rule"
+    },
+    {
+      "matched_text": "legal%40screnewables.au",
+      "concept": "percent-encoded email address",
+      "reason": "Represents an email in URL-encoded form; lacks '@' so may not be caught by standard email detectors"
+    },
+    {
+      "matched_text": "card suffix \u2022\u2022\u2022\u2022 8821",
+      "concept": "partial payment card number",
+      "reason": "Truncated PAN; not a full card number and may fall outside current detection rules"
+    },
+    {
+      "matched_text": "6 3 l 0 0 0 9 O l",
+      "concept": "au_acn OCR corruption",
+      "reason": "Intended ACN appears OCR-smudged with letter substitutions; legally the corporate number but not machine-recognisable"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

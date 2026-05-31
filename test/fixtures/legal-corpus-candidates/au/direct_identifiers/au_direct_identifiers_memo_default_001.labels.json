@@ -3,13 +3,302 @@
   "document_type": "memo",
   "source_jurisdiction": "AU",
   "destination_jurisdiction": "AU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "au_acn",
+      "matched_text": "ACN 111 222 333"
+    },
+    {
+      "category": "PII",
+      "rule": "au_abn",
+      "matched_text": "ABN 91 000 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "XA1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EK-00412"
+    },
+    {
+      "category": "PII",
+      "rule": "au_tfn",
+      "matched_text": "TFN 123 456 782"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "mira.ellison@karrinbiosys.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 427 880 394"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "BSB 123-789"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account 12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tahlia Voss"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Mira Ellison"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Arjun Kade"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lila Prenn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-clearance window remains closed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "au_acn",
+      "matched_text": "ACN 111 222 333"
+    },
+    {
+      "category": "PII",
+      "rule": "au_abn",
+      "matched_text": "ABN 91 000 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "XA1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EK-00412"
+    },
+    {
+      "category": "PII",
+      "rule": "au_tfn",
+      "matched_text": "TFN 123 456 782"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "mira.ellison@karrinbiosys.com.au"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+61 427 880 394"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "BSB 123-789"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account 12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tahlia Voss"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Mira Ellison"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Arjun Kade"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lila Prenn"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "store masked TFN in HRIS"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "purge raw scans within 7 days"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "is on paid personal leave following a minor outpatient procedure"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "internal payment ref TXN-KB-009877"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "NKC-SUP-31107"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "00987654"
+    },
+    {
+      "category": "PII",
+      "rule": "au_postal_address",
+      "matched_text": "Suite 12, Level 8, 75 Quayner St, Warrin Downs VIC 3299"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-clearance window remains closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Do not circulate the draft investor deck showing ASX: KBX EBITDA guidance outside the cleansed list until pre-open announcement lodgement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "is expected to be price sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "pre-open announcement lodgement"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "TFN: 000 000 000",
+      "reason": "Placeholder/example ID not a live identifier"
+    },
+    {
+      "matched_text": "ABN 12 345 678 901",
+      "reason": "Placeholder/example ID not a live identifier"
+    },
+    {
+      "matched_text": "1300 555 555",
+      "reason": "Public helpline number (not personal PII)"
+    },
+    {
+      "matched_text": "media@karrinbiosys.com.au",
+      "reason": "Role/group mailbox (not about an identifiable individual)"
+    },
+    {
+      "matched_text": "listings@asx.example.au",
+      "reason": "Role/group mailbox (not about an identifiable individual)"
+    },
+    {
+      "matched_text": "compliance@karrinbiosys.com.au",
+      "reason": "Role/group mailbox (not about an identifiable individual)"
+    },
+    {
+      "matched_text": "+61 2 8123 4400",
+      "reason": "Company reception line (not personal PII)"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "retain for seven years under records policy",
+      "concept": "retention_marker",
+      "reason": "Records retention is a privacy control but there is no explicit retention rule in the allowed list"
+    },
+    {
+      "matched_text": "restrict medical note access to HR only",
+      "concept": "access_control_marker",
+      "reason": "Access-control/need-to-know limitation is privacy-relevant but not clearly covered by an allowed rule"
+    },
+    {
+      "matched_text": "trading halt request",
+      "concept": "market_intervention_event",
+      "reason": "May signal MNPI/market-sensitive event but not mapped to a specific allowed MNPI rule"
+    },
+    {
+      "matched_text": "cleansing notice",
+      "concept": "regulatory_cleansing_reference",
+      "reason": "Regulatory document related to disclosure; potentially MNPI context but no explicit rule"
+    },
+    {
+      "matched_text": "pre-open announcement lodgement",
+      "concept": "embargo_timing_reference",
+      "reason": "Timing/embargo-style instruction relevant to MNPI controls but not one of the enumerated embargo markers"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
