@@ -3,13 +3,140 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "000000-0000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "closing date"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "000000-0000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "closing date"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "internal embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "2026-10-15 09:00 KST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "distribution limited to role mailboxes"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@mohae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@mohae"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "face scans"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "bank account details"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "hr files must not store resident-number"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not collect family info, bank account details, or face scans"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no personal data is collected"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day raffle",
+      "reason": "false-positive bait; not a Share Purchase Agreement"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "negated MAC language per rule; do not label"
+    },
+    {
+      "matched_text": "Z9-9999999",
+      "reason": "test ID example; not a recognized PII format in allowed rules"
+    },
+    {
+      "matched_text": "T-0000",
+      "reason": "ticket number example; not in allowed PII rules"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ir@mohae",
+      "concept": "email address without TLD",
+      "reason": "may not match strict email regex; internal role mailbox"
+    },
+    {
+      "matched_text": "legal@mohae",
+      "concept": "email address without TLD",
+      "reason": "may not match strict email regex; internal role mailbox"
+    },
+    {
+      "matched_text": "resident-number",
+      "concept": "KR RRN category mention",
+      "reason": "policy reference to resident registration number without an actual identifier value"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

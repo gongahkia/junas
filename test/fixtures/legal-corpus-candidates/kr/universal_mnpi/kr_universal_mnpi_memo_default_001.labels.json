@@ -3,13 +3,238 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 2026-07-12 08:30 KST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Ginkgo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19.4%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "remain under embargo until 2026-07-12 08:30 KST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7.2%"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "900311-1023418"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Park Hye-jin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Choi Seung-yeon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Han Dae-joon"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@hanuirobotics.example.kr"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 2026-07-12 08:30 KST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Ginkgo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19.4%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "remain under embargo until 2026-07-12 08:30 KST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7.2%"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "900311-1023418"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Park Hye-jin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Choi Seung-yeon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Han Dae-joon"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@hanuirobotics.example.kr"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "fair disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not forward"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "distribution limited to Board and counsel"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean room protocols"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be discussed with sell-side until embargo lifts"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redaction required before any exchange communication"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "must not be filed or posted prior to embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "strategic investment"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day perk",
+      "reason": "Leisure benefit; not a definitive agreement or MNPI."
+    },
+    {
+      "matched_text": "11%",
+      "reason": "Explicitly identified as public and stale; not MNPI."
+    },
+    {
+      "matched_text": "no MAC or MAE",
+      "reason": "Negated MAC/MAE; excluded by rule."
+    },
+    {
+      "matched_text": "no definitive agreement signed yet",
+      "reason": "Negation; indicates absence of a signed definitive agreement."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "standstill and non-solicit",
+      "concept": "standstill/non-solicit control",
+      "reason": "Legally sensitive covenant planning but not an explicit allowed marker."
+    },
+    {
+      "matched_text": "Korea Financial Oversight Agency (KFOA)",
+      "concept": "regulator reference",
+      "reason": "Compliance-relevant authority mention but not an allowed rule category."
+    },
+    {
+      "matched_text": "resident-number (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638)",
+      "concept": "PII category reference",
+      "reason": "Indicates collection of sensitive national ID fields without showing the ID values."
+    },
+    {
+      "matched_text": "Seoul Securities Board equivalent",
+      "concept": "listing venue reference",
+      "reason": "Pre-listing venue/process reference may be market-sensitive but not covered by allowed markers."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='\u20a9128,000,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='\u20a9128,000,000,000'"
+  ],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

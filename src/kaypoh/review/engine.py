@@ -1312,8 +1312,9 @@ _PRIVACY_REQUEST_LIVE_CONTEXT_RE = re.compile(
 )
 _PUBLIC_OR_BENIGN_AMOUNT_CONTEXT_RE = re.compile(
     r"\b(?:"
-    r"public\s+(?:information|source|acra|annual\s+report|exchange\s+website)|"
+    r"public[- ]source|public\s+(?:information|source|acra|annual\s+report|exchange\s+website)|"
     r"already\s+public|publicly\s+(?:available|announced|disclosed)|"
+    r"public\s+and\s+stale|"
     r"per\s+public\s+ACRA|last\s+traded\s+price|"
     r"reimbursement|per\s+diem|wellness|spa[- ]day"
     r")\b",
@@ -1458,6 +1459,7 @@ def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> 
         r"hkexnews|placeholder|"
         r"as\s+disclosed[^\n.;]{0,80}executed\s+on\s+\d{4}|"
         r"as\s+announced[^\n]{0,160}no\s+binding\s+commercial\s+terms|"
+        r"no\s+executed[^\n.;]{0,60}term\s+sheet\s+exists|"
         r"no\s+annexes[^\n.;]{0,80}\bSPA\b|"
         r"not\s+an\s+actual\s+client\s+identifier|"
         r"illustrative\s+case\s+studies|public\s+journals|do\s+not\s+pertain)\b",
@@ -3519,6 +3521,10 @@ class PreSendReviewEngine:
                 ):
                     continue
                 if rule == "financial_percentage" and _is_percent_encoded_fragment(
+                    text, match.start(), match.end()
+                ):
+                    continue
+                if rule == "financial_percentage" and _is_public_or_benign_amount_context(
                     text, match.start(), match.end()
                 ):
                     continue

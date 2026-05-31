@@ -79,6 +79,11 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
         self.assertIn("kr_rrn", rules)
         self.assertIn("kr_business_registration", rules)
 
+    def test_kr_rrn_shorthand_and_kr_brn_fire(self):
+        rules = self._rules("resident-number 860512-2345675; KR-BRN 214-85-90321.", "KR")
+        self.assertIn("kr_rrn", rules)
+        self.assertIn("kr_business_registration", rules)
+
     def test_checksum_validators_reject_bad_values(self):
         samples = [
             ("HKID A123456(7)", "HK", "hk_hkid"),
@@ -133,6 +138,16 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
             "reporting is purely instructional and uses generic case studies."
         )
         self.assertNotIn("insider_list_marker", self._rules(text, "JP"))
+
+    def test_kr_negated_term_sheet_and_public_stale_percentage_do_not_fire(self):
+        text = (
+            "Illustrative marketing text only; no executed term sheet exists. "
+            "Public-source reference: last year's article reported sector margins at 11%; "
+            "this is public and stale, not MNPI."
+        )
+        rules = self._rules(text, "KR")
+        self.assertNotIn("definitive_agreement", rules)
+        self.assertNotIn("financial_percentage", rules)
 
 
 class HkAuJpKrRationaleTests(unittest.TestCase):
