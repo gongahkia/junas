@@ -3,13 +3,123 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@hanultech.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hanultech.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "000000-0000000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PIPA-compliant minimisation is applied"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@hanultech.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hanultech.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "000000-0000000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PIPA-compliant minimisation is applied"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border data-export approval"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal for applicant APP-58X0 was processed on 2026-03-01"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No.: AX00-000-000"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "Investor-ID: IR-TEST-001"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "APP-58X0"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal links"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border queues show no pending transfers"
+    }
+  ],
   "must_not_detect": [],
-  "uncertain": [],
+  "uncertain": [
+    {
+      "matched_text": "retention capped at 24 months",
+      "concept": "retention_limit",
+      "reason": "Indicates a retention duration control, but there is no explicit allowed retention rule name."
+    },
+    {
+      "matched_text": "associated onboarding files were erased",
+      "concept": "erasure_event",
+      "reason": "Erasure is a privacy event but there is no explicit erasure rule in the allowed list."
+    },
+    {
+      "matched_text": "No unresolved DSARs are pending",
+      "concept": "dsar_marker",
+      "reason": "DSAR handling is legally relevant, but there is no DSAR rule in the allowed list and the statement is negated."
+    },
+    {
+      "matched_text": "do not represent a current retention-expiry event",
+      "concept": "retention_event_negated",
+      "reason": "References retention-expiry timing but indicates no live event; retention is not an allowed rule name."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

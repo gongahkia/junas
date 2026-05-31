@@ -3,13 +3,225 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@gnmco.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "data@gnmco.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@gnmco.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@gnmco.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lee Ho-jun"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Choi Min-ae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kang Yun-seok"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Park Su-yeon"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Retention and minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "restricted list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosures"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@gnmco.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "data@gnmco.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@gnmco.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@gnmco.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lee Ho-jun"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Choi Min-ae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kang Yun-seok"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Park Su-yeon"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Retention and minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "resident-number"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "RRN: ******-*******"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "legal-name, role, and masked resident-number"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "non-binding term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "restricted list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosures"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Draft Q3 revenue guidance"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Cross-border transfer",
+      "reason": "Negated/completed control; memo states no live cross-border transfer."
+    },
+    {
+      "matched_text": "no live cross-border transfer",
+      "reason": "Explicit negation; not an active cross-border transfer event."
+    },
+    {
+      "matched_text": "rescinded and closed",
+      "reason": "Indicates a completed/terminated export approval, not an active transfer."
+    },
+    {
+      "matched_text": "no selective IR meeting will occur",
+      "reason": "Negated selective-disclosure scenario; not an active MNPI risk."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Erasure",
+      "concept": "erasure_marker",
+      "reason": "Erasure event is legally relevant but there is no explicit erasure marker rule in the allowed list."
+    },
+    {
+      "matched_text": "DSAR",
+      "concept": "dsar_marker",
+      "reason": "Data subject access request is relevant but not explicitly listed in allowed rules."
+    },
+    {
+      "matched_text": "retention Schedule 3 (3 years post-termination)",
+      "concept": "retention_marker",
+      "reason": "Retention reference is relevant to privacy handling but there is no explicit retention marker rule in the allowed list."
+    },
+    {
+      "matched_text": "Pre-clearance sought on selective disclosures",
+      "concept": "regulatory_preclearance_marker",
+      "reason": "Regulatory pre-clearance indicates MNPI handling controls but is not a distinct allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

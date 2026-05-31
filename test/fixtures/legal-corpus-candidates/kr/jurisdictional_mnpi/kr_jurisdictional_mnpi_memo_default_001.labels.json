@@ -3,13 +3,270 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "900101-1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jun-Ho Lee"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Seung-Min Cho"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. So-Yeon Park"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Hana Kim"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "soyeon.park@haedongbio.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82-2-4910-2234"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\ubbf8\uacf5\uac1c \uc911\uc694\uc815\ubcf4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "A trading blackout is in effect for all insiders from 2026-06-01 until the KIND posting (and through the close of the first trading day following disclosure)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Greencurrent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure caution"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid contravention of selective disclosure practices"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be selectively disclosed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "900101-1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jun-Ho Lee"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Seung-Min Cho"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. So-Yeon Park"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Hana Kim"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "soyeon.park@haedongbio.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82-2-4910-2234"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\ubbf8\uacf5\uac1c \uc911\uc694\uc815\ubcf4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "A trading blackout is in effect for all insiders from 2026-06-01 until the KIND posting (and through the close of the first trading day following disclosure)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Greencurrent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure caution"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid contravention of selective disclosure practices"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be selectively disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "pending transaction"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "to acquire Ganam Microgrid Co"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "within one business day of signing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "do not provide updates until after public release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "keep distribution limited to the board and counsel"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not upload to external vendor portals"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "change permissions to internal-only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "visible to external consultants"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "hold until after KIND posting"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove immediately"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "segregate under HR-only access"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid any onward transfer to advisors"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "The Board",
+      "reason": "Role noun; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "IR-Legal",
+      "reason": "Internal role label; not PII/MNPI"
+    },
+    {
+      "matched_text": "the board",
+      "reason": "Generic role noun; not PII/MNPI"
+    },
+    {
+      "matched_text": "Compliance Officer",
+      "reason": "Job title only; not PII on its own"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "personal address",
+      "concept": "postal address PII mention",
+      "reason": "PII category implicated but no actual address value provided"
+    },
+    {
+      "matched_text": "onward transfer to advisors",
+      "concept": "cross-border transfer implications",
+      "reason": "May imply external/cross-border sharing but jurisdiction or destination not specified"
+    },
+    {
+      "matched_text": "specific Q3 revenue guidance",
+      "concept": "financial guidance MNPI",
+      "reason": "Forward-looking issuer guidance likely MNPI, but not a defined rule tag beyond selective disclosure risk"
+    },
+    {
+      "matched_text": "cornerstone investors",
+      "concept": "selective disclosure audience",
+      "reason": "Selective audience for nonpublic info is sensitive, but phrase itself is not a direct rule trigger"
+    },
+    {
+      "matched_text": "audit trail of access to draft disclosure files",
+      "concept": "insider list/recordkeeping",
+      "reason": "Relates to insider/MNPI controls, but not clearly covered by an allowed rule category"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
