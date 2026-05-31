@@ -13,6 +13,12 @@
       "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
       "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
       "status": "strict_tier_cleaned_owner_approved"
+    },
+    {
+      "status": "strict_tier_public_helpline_realign",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "source_report": "/tmp/kaypoh-candidates-after-jp-kr-reviewed-2.json",
+      "notes": "Post-JP/KR global gate realignment: public/generic helpline phone spans are not strict PII findings under the current deterministic engine; moved stale strict labels out of must_detect and into must_not_detect as public helpline bait."
     }
   ],
   "_human_review": {
@@ -37,7 +43,7 @@
   ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
-  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose.",
+  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose. Post-JP/KR global gate realignment removed public/generic helpline phone spans from strict must_detect.",
   "_label_source": "azure:gpt-5-2-auto",
   "_label_warnings": [],
   "_owner_acceptance": {
@@ -95,26 +101,16 @@
     },
     {
       "category": "PII",
-      "matched_text": "3900-0000",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
       "matched_text": "XX-2048",
       "rule": "employee_id"
     },
     {
       "category": "MNPI",
-      "matched_text": "The board noted that the Harbour Securities Authority\u2019s guidance on \u201cspecific information\u201d is adopted by analogy; however, none of the information below would reasonably be price-sensitive.",
+      "matched_text": "The board noted that the Harbour Securities Authority’s guidance on “specific information” is adopted by analogy; however, none of the information below would reasonably be price-sensitive.",
       "rule": "material_event"
     }
   ],
   "must_detect": [
-    {
-      "category": "PII",
-      "matched_text": "3900-0000",
-      "rule": "phone_number"
-    },
     {
       "category": "PII",
       "matched_text": "XX-2048",
@@ -127,7 +123,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "The board noted that the Harbour Securities Authority\u2019s guidance on \u201cspecific information\u201d is adopted by analogy; however, none of the information below would reasonably be price-sensitive.",
+      "matched_text": "The board noted that the Harbour Securities Authority’s guidance on “specific information” is adopted by analogy; however, none of the information below would reasonably be price-sensitive.",
       "rule": "material_event"
     },
     {
@@ -176,6 +172,10 @@
     {
       "matched_text": "Exchange desk 2800-XX00",
       "reason": "Public helpline example with obfuscated digits; not a person's phone"
+    },
+    {
+      "matched_text": "3900-0000",
+      "reason": "Public/generic helpline or regulator information line; not personal contact data for strict PII benchmarking."
     }
   ],
   "source_jurisdiction": "HK",
@@ -200,5 +200,12 @@
       "matched_text": "any special-category fields will be collected only with explicit consent",
       "reason": "Consent capture is relevant, but only withdrawal is enumerated in allowed markers."
     }
-  ]
+  ],
+  "_last_strict_realign": {
+    "status": "strict_tier_public_helpline_realign",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-candidates-after-jp-kr-reviewed-2.json",
+    "notes": "Post-JP/KR global gate realignment: public/generic helpline phone spans are not strict PII findings under the current deterministic engine; moved stale strict labels out of must_detect and into must_not_detect as public helpline bait.",
+    "reviewed_at_utc": "2026-05-31T02:44:00Z"
+  }
 }

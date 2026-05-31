@@ -27,7 +27,7 @@
   ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-  "_label_note": "MY Stage A strict tier realigned to deterministic strict-mode engine after IN precision audit; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_note": "MY Stage A strict tier realigned to deterministic strict-mode engine after IN precision audit; broader model-derived labels retained in ideal_must_detect for gap discovery. Post-JP/KR global gate realignment removed public/generic helpline phone spans from strict must_detect.",
   "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
   "_label_warnings": [],
   "_owner_acceptance": {
@@ -59,18 +59,8 @@
       "rule": "email_address"
     },
     {
-      "category": "PII",
-      "matched_text": "03-5555 0000",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
-      "matched_text": "03-6000 1111",
-      "rule": "phone_number"
-    },
-    {
       "category": "MNPI",
-      "matched_text": "cmsa/listing rules context: the proposed financing discussed below is not a \u201cmaterial transaction\u201d under LR para 10.02 based on public thresholds; any future variation will be assessed before announcement",
+      "matched_text": "cmsa/listing rules context: the proposed financing discussed below is not a “material transaction” under LR para 10.02 based on public thresholds; any future variation will be assessed before announcement",
       "rule": "material_event"
     },
     {
@@ -161,18 +151,8 @@
       "rule": "email_address"
     },
     {
-      "category": "PII",
-      "matched_text": "03-5555 0000",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
-      "matched_text": "03-6000 1111",
-      "rule": "phone_number"
-    },
-    {
       "category": "MNPI",
-      "matched_text": "cmsa/listing rules context: the proposed financing discussed below is not a \u201cmaterial transaction\u201d under LR para 10.02 based on public thresholds; any future variation will be assessed before announcement",
+      "matched_text": "cmsa/listing rules context: the proposed financing discussed below is not a “material transaction” under LR para 10.02 based on public thresholds; any future variation will be assessed before announcement",
       "rule": "material_event"
     },
     {
@@ -208,6 +188,14 @@
     {
       "matched_text": "vendor",
       "reason": "Role-noun reference, not PII/MNPI; treat as defined-term style role to exclude."
+    },
+    {
+      "matched_text": "03-5555 0000",
+      "reason": "Public/generic helpline or regulator information line; not personal contact data for strict PII benchmarking."
+    },
+    {
+      "matched_text": "03-6000 1111",
+      "reason": "Public/generic helpline or regulator information line; not personal contact data for strict PII benchmarking."
     }
   ],
   "source_jurisdiction": "MY",
@@ -227,5 +215,20 @@
       "matched_text": "public helplines",
       "reason": "Numbers are organizational helplines, not natural-person data; scope under PDPA may be questionable."
     }
-  ]
+  ],
+  "_agent_review_history": [
+    {
+      "status": "strict_tier_public_helpline_realign",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "source_report": "/tmp/kaypoh-candidates-after-jp-kr-reviewed-2.json",
+      "notes": "Post-JP/KR global gate realignment: public/generic helpline phone spans are not strict PII findings under the current deterministic engine; moved stale strict labels out of must_detect and into must_not_detect as public helpline bait."
+    }
+  ],
+  "_last_strict_realign": {
+    "status": "strict_tier_public_helpline_realign",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "source_report": "/tmp/kaypoh-candidates-after-jp-kr-reviewed-2.json",
+    "notes": "Post-JP/KR global gate realignment: public/generic helpline phone spans are not strict PII findings under the current deterministic engine; moved stale strict labels out of must_detect and into must_not_detect as public helpline bait.",
+    "reviewed_at_utc": "2026-05-31T02:44:00Z"
+  }
 }
