@@ -3,13 +3,118 @@
   "document_type": "memo",
   "source_jurisdiction": "US",
   "destination_jurisdiction": "US",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border data-export approval"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacyoffice@pmhealthbank.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor-relations@pmhealthbank.example"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border data-export approval"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacyoffice@pmhealthbank.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor-relations@pmhealthbank.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimization and Purpose Limitation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No"
+    },
+    {
+      "category": "PII",
+      "rule": "us_ssn",
+      "matched_text": "SSN"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider list",
+      "reason": "Generic training example; explicitly stated not active."
+    },
+    {
+      "matched_text": "blackout",
+      "reason": "Generic training example; explicitly stated not active."
+    },
+    {
+      "matched_text": "restricted list",
+      "reason": "Generic training example; explicitly stated not active."
+    },
+    {
+      "matched_text": "XXX-XX-0000",
+      "reason": "Placeholder/test-only format; not a real SSN."
+    },
+    {
+      "matched_text": "ACCT-000-TEST",
+      "reason": "Placeholder/test-only format; not a real account number."
+    },
+    {
+      "matched_text": "No consent withdrawals were received this period",
+      "reason": "Negated event; no live consent withdrawal to flag."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "One DSAR seeking access and erasure was fulfilled in full",
+      "concept": "DSAR/erasure event",
+      "reason": "DSAR and erasure are privacy handling events but not enumerated as valid marker rules and described as completed."
+    },
+    {
+      "matched_text": "erasure certificates",
+      "concept": "erasure evidence",
+      "reason": "Indicates fulfillment of erasure; taxonomy lacks an explicit erasure marker rule."
+    },
+    {
+      "matched_text": "Retention housekeeping is complete for Q2",
+      "concept": "retention control",
+      "reason": "Retention activity noted as completed; no explicit retention marker rule available."
+    },
+    {
+      "matched_text": "statutory retention",
+      "concept": "retention basis",
+      "reason": "Refers to legal retention requirements; not covered by a specific valid rule."
+    },
+    {
+      "matched_text": "SCC-aligned addendum",
+      "concept": "cross-border transfer mechanism",
+      "reason": "Indicates SCC as transfer mechanism; taxonomy has transfer marker but not mechanism-specific rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
