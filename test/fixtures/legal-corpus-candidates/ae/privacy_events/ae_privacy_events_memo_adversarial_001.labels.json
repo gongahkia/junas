@@ -3,13 +3,291 @@
   "document_type": "memo",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rania Al\u2011Qasri"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rania.alqasri@marhabaridge.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@marhabaridge.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@marhabaridge.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pmo@marhabaridge.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Faris N"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Al\u2011Qasri"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011DIFC\u201100987F"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric templates"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric verification"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Manara"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "info barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rania Al\u2011Qasri"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rania.alqasri@marhabaridge.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@marhabaridge.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@marhabaridge.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pmo@marhabaridge.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Faris N"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Al\u2011Qasri"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011DIFC\u201100987F"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric templates"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric verification"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Manara"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "info barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "EID ****\u2011****\u2011****\u20116 7"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "phone collection is disabled by default"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redacted Trade Licence TL\u2011DIFC\u201100987F copies"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "onboarding forms no longer request full Emir ates ID"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "exporting limited KYC fields to Raqeem Analytics Ltd (Port Zaafir, MU)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list closed and archived on 29\u201105\u20112026"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "00:00:00:00:00:00",
+      "reason": "Placeholder example; collection explicitly negated."
+    },
+    {
+      "matched_text": "no active payroll cross\u2011border transfer exists",
+      "reason": "Negated event; not a live cross\u2011border transfer."
+    },
+    {
+      "matched_text": "no live wall\u2011crossings",
+      "reason": "Negated MNPI event; not an active wall\u2011crossing."
+    },
+    {
+      "matched_text": "deal team",
+      "reason": "Role noun; not a named person."
+    },
+    {
+      "matched_text": "PMO",
+      "reason": "Role acronym; not a natural person."
+    },
+    {
+      "matched_text": "vendors",
+      "reason": "Generic role noun; not a natural person."
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Governance body reference; not a named person."
+    },
+    {
+      "matched_text": "General Counsel",
+      "reason": "Job title; not a named person."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "Privacy event marker is relevant but DSAR is not an explicit allowed rule name."
+    },
+    {
+      "matched_text": "Erasure",
+      "concept": "erasure marker",
+      "reason": "Privacy erasure event is relevant but no explicit allowed rule name for erasure marker."
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "retention marker",
+      "reason": "Privacy retention event is relevant but no explicit allowed rule name for retention marker."
+    },
+    {
+      "matched_text": "family book ref F\u2011B\u20112 1 1",
+      "concept": "family-origin identifier",
+      "reason": "Sensitive family-origin reference under PDPL but not covered by allowed rules."
+    },
+    {
+      "matched_text": "7X4\u201119X7\u201112X4X67\u2011X",
+      "concept": "internal identifier in URL",
+      "reason": "Appears as an 'eid' query param; could be an internal/session/export ID but not clearly covered by an allowed rule."
+    },
+    {
+      "matched_text": "R1\u20112 9 9 1",
+      "concept": "internal ticket ID",
+      "reason": "DSAR ticket reference; internal identifier not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "0x3f\u2011c2",
+      "concept": "hash identifier",
+      "reason": "Looks like a truncated hash; not clearly a crypto wallet address or other allowed identifier."
+    },
+    {
+      "matched_text": "MRCP\u201142",
+      "concept": "internal project/ticket code",
+      "reason": "Internal Jira reference; not mapped to an allowed PII rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
