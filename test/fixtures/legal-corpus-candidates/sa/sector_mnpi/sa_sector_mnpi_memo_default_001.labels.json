@@ -3,13 +3,379 @@
   "document_type": "memo",
   "source_jurisdiction": "SA",
   "destination_jurisdiction": "SA",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet disclosed on Saudi Exchange (Tadawul)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "reported a cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no public notice has been made"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure/tipping"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR 2043321990"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR 1017782209"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Yasser Al-Hadidi"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "Iqama 2087319456"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Al-Hadidi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Reem Al-Qadi"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "Iqama (2087319456)"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+966-55-019-4472"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "y.alhadidi@falajpower.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border processing"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "exported to non-KSA cloud regions"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimization"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retain only last 4 digits of Iqama"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact contact numbers from PDFs"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Laila Al-Shammari"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hanifacapital.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+966-11-801-4400"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet disclosed on Saudi Exchange (Tadawul)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "reported a cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no public notice has been made"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure/tipping"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR 2043321990"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR 1017782209"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Yasser Al-Hadidi"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "Iqama 2087319456"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Al-Hadidi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Reem Al-Qadi"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "Iqama (2087319456)"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+966-55-019-4472"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "y.alhadidi@falajpower.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border processing"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "exported to non-KSA cloud regions"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "SDAIA-approved transfer mechanism"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "SDAIA transfer assessment"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "SDAIA model contractual clauses"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimization"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retain only last 4 digits of Iqama"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact contact numbers from PDFs"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Laila Al-Shammari"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hanifacapital.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+966-11-801-4400"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 1\u20133 emissions baselines"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "verifier comments"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "treated as MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "evaluating a private PPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "climate-linked sukuk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "tokenized REC/crypto custody pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no outreach to counterparties or media"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "must stay within the Clean Energy desk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "emissions re-baselining"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "Selective disclosure/tipping"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun/job title, not PII"
+    },
+    {
+      "matched_text": "Investor Relations",
+      "reason": "Function/role, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Governing body role, not PII"
+    },
+    {
+      "matched_text": "Legal",
+      "reason": "Department name, not PII"
+    },
+    {
+      "matched_text": "Clean Energy desk",
+      "reason": "Team name, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Renewables Origination",
+      "reason": "Team name, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Hanifa Trading",
+      "reason": "Team name, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Introduction to Crypto Custody Controls",
+      "reason": "Educational/training reference explicitly stated as non-MNPI"
+    },
+    {
+      "matched_text": "market-leading ESG performance",
+      "reason": "Marketing phrase, not MNPI"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Job title only, not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "retention of 3 years",
+      "concept": "retention policy",
+      "reason": "Retention is a PDPL-relevant control but there is no explicit allowed rule name for retention markers"
+    },
+    {
+      "matched_text": "135 bps",
+      "concept": "financial percentage expressed in basis points",
+      "reason": "Rate is financially sensitive but not in % or per cent form as per allowed rule"
+    },
+    {
+      "matched_text": "remains non-public operational risk information",
+      "concept": "nonpublic_marker",
+      "reason": "Clear non-publicity statement; included elsewhere but borderline substring without standard cue words may be missed by strict detectors"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

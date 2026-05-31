@@ -3,13 +3,214 @@
   "document_type": "memo",
   "source_jurisdiction": "SA",
   "destination_jurisdiction": "SA",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR 700-XXX-4455"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR: 7XX-00-12X45"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpl@madarcloud.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "insiderlist@madarcloud.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@madarcloud.sa"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider\u2011list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber\u2011incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR 700-XXX-4455"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR: 7XX-00-12X45"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpl@madarcloud.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "insiderlist@madarcloud.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@madarcloud.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "Iqama: XXXX-XXXX-XXXXXX-X"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_national_id",
+      "matched_text": "National ID"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must not request full National ID/Iqama\u2014use masked fields"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "No-Personals"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border data"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer to non-KSA processors"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer register entry"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Clean Team Charter v2.1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider\u2011list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber\u2011incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "disclosure sequencing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "remain confined to Legal"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider list",
+      "reason": "Explicitly a training roster reference; not related to trading status (non-MNPI)."
+    },
+    {
+      "matched_text": "RimalPay Token Pilot",
+      "reason": "Educational sandbox example; no live trading/custody/listing implied."
+    },
+    {
+      "matched_text": "WAL-XX-0000",
+      "reason": "Synthetic wallet example; not a real crypto wallet address."
+    },
+    {
+      "matched_text": "Net\u2011Zero Playbook",
+      "reason": "Mock brochure and already-announced content; no target updates proposed."
+    },
+    {
+      "matched_text": "simulated DDoS",
+      "reason": "Training-only tabletop scenario; not an operational cyber incident."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "28 Sha\u2019ban 1447H",
+      "concept": "nonpublic event date",
+      "reason": "Date of a non-public Board briefing may be market sensitive but not covered by specific allowed rules (not a defined embargo marker)."
+    },
+    {
+      "matched_text": "SDAIA assessment",
+      "concept": "cross-border assessment",
+      "reason": "Indicates regulatory gating for cross-border transfers but is a policy reference, not a live transfer marker per rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

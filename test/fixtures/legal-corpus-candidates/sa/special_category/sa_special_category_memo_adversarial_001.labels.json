@@ -3,13 +3,293 @@
   "document_type": "memo",
   "source_jurisdiction": "SA",
   "destination_jurisdiction": "SA",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project TALAH"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR: 10 1\u20110 8 8 x x\u201155"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "none of which is public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "17,500,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "22\u201324%"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Lina Al\u2011Saif"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "Iqama No. 1 0 0 7\u2011xx3 4 5 9"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "medical leave records for insulin therapy"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "stores an iris\u2011scan template"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "declared religion as Catholic"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "l.al\u2011saif@najd-renewables.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer to EU\u2011based backup"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider\u2011list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "SX\u2011INS\u2011 0 0  9 4"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Khalid bin Nahar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Lina"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Sara Al\u2011Yami"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "s.al\u2011yami@najd-renewables.example.sa"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project TALAH"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_commercial_registration",
+      "matched_text": "CR: 10 1\u20110 8 8 x x\u201155"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "none of which is public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "a secondary offering of 17,500,000 shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "17,500,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "22\u201324%"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Lina Al\u2011Saif"
+    },
+    {
+      "category": "PII",
+      "rule": "sa_iqama",
+      "matched_text": "Iqama No. 1 0 0 7\u2011xx3 4 5 9"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "medical leave records for insulin therapy"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "stores an iris\u2011scan template"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "declared religion as Catholic"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "l.al\u2011saif@najd-renewables.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "3 2::ff:09"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer to EU\u2011based backup"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider\u2011list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "SCMA insider\u2011list is locked"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "SX\u2011INS\u2011 0 0  9 4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "MNPI ring\u2011fencing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not email MNPI to external advisors"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Khalid bin Nahar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Lina"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Sara Al\u2011Yami"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "s.al\u2011yami@najd-renewables.example.sa"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+966\u20115x\u2011xxx\u20112 1 0 3"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NRH\u2011GATE\u2011  4 2 1 7"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Desert Hawks FC preseason scores",
+      "reason": "False\u2011positive bait: sports team content unrelated to PII/MNPI."
+    },
+    {
+      "matched_text": "Oasis Mall caf\u00e9 openings",
+      "reason": "False\u2011positive bait: place/retail content unrelated to PII/MNPI."
+    },
+    {
+      "matched_text": "we must move the goalposts",
+      "reason": "False\u2011positive bait: metaphor with no legal relevance."
+    },
+    {
+      "matched_text": "we respect diversity",
+      "reason": "False\u2011positive bait: generic DEI prose not tied to a person."
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC phrase \u2013 do not tag as material_adverse_change."
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC phrase \u2013 do not tag as material_adverse_change."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "This document contains MNPI",
+      "concept": "mnpi_marker",
+      "reason": "Signals sensitivity but not a listed rule; could map to nonpublic/MNPI marker semantics."
+    },
+    {
+      "matched_text": "P\u201177\u2011B\u20110 x",
+      "concept": "permit_number",
+      "reason": "Transfer permit identifier is relevant to compliance but not covered by allowed rules."
+    },
+    {
+      "matched_text": "sdiaa transfer case",
+      "concept": "transfer_case_reference",
+      "reason": "Indicates a transfer workflow/storage case possibly related to cross\u2011border data handling, but not a defined marker."
+    },
+    {
+      "matched_text": "Head of Operations",
+      "concept": "job_title",
+      "reason": "Job title is personal data under PDPL context, but no specific allowed rule for titles."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
