@@ -1220,7 +1220,8 @@ _FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
     r"queries\s+(?:to|contact)|via\s+docroom|"
     r"public\s+(?:queries|enquiries)|regulatory\s+liaison|"
     r"generic\s+help\s*desk|public(?:-facing)?\s+help\s*desk|public\s+helpdesk|"
-    r"public\s+helplines?|general\s+(?:queries|enquiries)|not\s+personal\s+data|"
+    r"secretariat\s+mailbox|public\s+helplines?|general\s+(?:queries|enquiries)|"
+    r"not\s+personal\s+data|"
     r"not\s+linked\s+to\s+an?\s+identifiable\s+individual"
     r")\b",
     re.IGNORECASE,
@@ -1236,7 +1237,8 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"hr\s+help\s*desk|general\s+line|"
     r"hotline\s+investor|nomor\s+publik|bukan\s+nomor\s+pribadi|"
     r"tổng\s+đài|công\s+khai|không\s+dùng\s+số\s+cá\s+nhân|"
-    r"general\s+(?:queries|enquiries)|queries\s+contact|general\s+hotline|not\s+personal\s+data|"
+    r"general\s+(?:queries|enquiries)|queries\s+contact|general\s+hotline|label\s+only|"
+    r"not\s+personal\s+data|"
     r"not\s+a\s+deal\s+contact|not\s+MNPI"
     r")\b",
     re.IGNORECASE,
@@ -1245,7 +1247,7 @@ _ALWAYS_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "admin", "ap", "ar", "billing", "capitalmarkets", "corpsec", "cosec",
     "compliance", "dealroom", "disclosure", "docroom", "dpo", "help", "helpdesk",
     "irmailbox", "listings", "media", "mna", "press", "privacy", "privacydesk",
-    "room", "support", "treasury", "walloffice",
+    "room", "secretariat", "support", "treasury", "walloffice",
 })
 _CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "contact", "info", "legal",
@@ -1270,8 +1272,10 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|a/c|acc\s*t|account|"
     r"bank\s*acct|payroll\s*acct|"
     r"rekening|national\s+id|company\s+no|co\.\s+no|"
-    r"reg\.\s+no|registration\s+no|tax\s+ref|tax\s+no|TINs?|VAT|MST|EPF|SWIFT|"
+    r"reg\.\s+no|registration\s+no|\bCR\b|CRN|commercial\s+registration|"
+    r"tax\s+ref|tax\s+no|TINs?|VAT|ZATCA|GAZT|MST|EPF|SWIFT|"
     r"TRN|CRN|trade\s+licen[cs]e|commercial\s+licen[cs]e|Emirates\s+I\s*D|EID|"
+    r"national\s+address|Bldg|Iqama|IQA\s*MA|National\s+ID|NID|AP\s+No|"
     r"serial|device\s+serial|IMEI|IP|DOB|dated|"
     r"Pag-?IBIG|PhilHealth|MID|doc\s*code|doccode|OCR|artifacts?|"
     r"Rp|IDR|harga|nilai|miliar|triliun|billion|million|RSU|"
@@ -1281,14 +1285,18 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
 )
 _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|postal|IMEI|IP|company\s+no|co\.\s+no|"
-    r"reg\.\s+no|registration\s+no|tax\s+ref|TINs?|VAT|MST|EPF|SWIFT|TRN|CRN|"
+    r"reg\.\s+no|registration\s+no|\bCR\b|CRN|commercial\s+registration|"
+    r"tax\s+ref|TINs?|VAT|ZATCA|GAZT|MST|EPF|SWIFT|TRN|CRN|"
     r"trade\s+licen[cs]e|commercial\s+licen[cs]e|Emirates\s+I\s*D|EID|"
     r"serial|device\s+serial|account\s+no|a/c|"
     r"acc\s*t|rekening|rek\.?|escrow|bank\s+account|akun\s+internal|non-bank|"
     r"internal\s+wallet|wa\.me|session\s+ref|SSA\s+ref|job\s+ID|generic\s+label)\b",
     re.IGNORECASE,
 )
-_URL_PARAM_IDENTIFIER_CONTEXT_RE = re.compile(r"[?&](?:id|uid|co|ref|nik|npwp|nib)=", re.IGNORECASE)
+_URL_PARAM_IDENTIFIER_CONTEXT_RE = re.compile(
+    r"[?&](?:id|uid|co|ref|nik|npwp|nib|cr|nid|iqama)=",
+    re.IGNORECASE,
+)
 _PLACEHOLDER_IDENTIFIER_CONTEXT_RE = re.compile(
     r"\b(?:invalid\s+placeholder|placeholder\s+with\s+an\s+invalid\s+checksum|"
     r"template\s+field|test\s+fields?|generic\s+placeholder|training\s+placeholder|"
@@ -1472,6 +1480,8 @@ def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> 
         r"as\s+disclosed[^\n.;]{0,80}executed\s+on\s+\d{4}|"
         r"as\s+announced[^\n]{0,160}no\s+binding\s+commercial\s+terms|"
         r"publicly\s+announced\s+mou[^\n]{0,180}no\s+binding\s+obligations|"
+        r"public\s+mou[^\n.;]{0,160}(?:non[- ]price\s+sensitive|not\s+issuer[- ]level)|"
+        r"Sha[’'‘ʻʿ]?ban|"
         r"no\s+executed[^\n.;]{0,60}term\s+sheet\s+exists|"
         r"no\s+annexes[^\n.;]{0,80}\bSPA\b|"
         r"term\s+sheet\s+sample[^\n.;]{0,120}training[^\n.;]{0,120}public[- ]source|"
@@ -1550,7 +1560,7 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
         r"\b(?:"
         r"training\s+materials?\s+only|policy\s+training\s+examples?|"
         r"training\s+(?:weeks|decks|drills)|tabletop\s+drills|"
-        r"educational\s+and\s+not\s+transaction[- ]related|"
+        r"educational\s+and\s+not\s+transaction[- ]related|training\s+rosters?|"
         r"for\s+educational\s+purposes\s+only|"
         r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only|"
         r"educational\s+note[^\n.;]{0,120}purely\s+instructional"

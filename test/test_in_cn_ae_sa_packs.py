@@ -199,6 +199,28 @@ class RecognizerFiringTests(unittest.TestCase):
         r = self._review("CR No 1234567890 issued by MoC.", "SA")
         self.assertIn("sa_commercial_registration", {f.rule for f in r.findings})
 
+    def test_sa_identifier_and_address_fragments_do_not_fire_as_phone(self):
+        r = self._review(
+            "Commercial Registration (CR) 101-77-009876, National Address Bldg 2841 "
+            "Riyadh 12211-3322, Iqama (IQA MA: 2 45 6789 012), and AP No. AP-3 8 2 0 "
+            "are identifier fragments.",
+            "SA",
+        )
+        self.assertNotIn("phone_number", {f.rule for f in r.findings})
+
+    def test_sa_role_mailbox_label_phone_training_and_hijri_bait_do_not_fire(self):
+        r = self._review(
+            "Route via Secretariat mailbox secretariat@example.sa. Tel +966-55-000-0000 "
+            "is label only. The insider list phrase appears in training rosters. "
+            "The 28 Sha'ban notice is public, and the public MOU is non-price sensitive.",
+            "SA",
+        )
+        rules = {f.rule for f in r.findings}
+        self.assertNotIn("email_address", rules)
+        self.assertNotIn("phone_number", rules)
+        self.assertNotIn("insider_list_marker", rules)
+        self.assertNotIn("definitive_agreement", rules)
+
 
 class RationaleTests(unittest.TestCase):
     def test_in_aadhaar_rationale_cites_dpdpa(self):

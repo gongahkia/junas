@@ -1,0 +1,281 @@
+{
+  "doc_id": "uk_privacy_events_memo_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "UK",
+  "destination_jurisdiction": "UK",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "priya.kendon@mariner-ridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance-ase@mariner-ridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lennox Vale"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Sir Elwood Hart"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Kendon"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "CRM record minimised"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Alderline"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "price-sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "priya.kendon@mariner-ridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance-ase@mariner-ridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lennox Vale"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Sir Elwood Hart"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Kendon"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "CRM record minimised"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "IXN-4 8 1"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP-9 4 2 - T R N"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E-9 4 2 - T R N"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "CL-7 x\u2014020"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "removes DOB"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age bands only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Alderline"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "price-sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean-team roster"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall crossing scripts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "contemplated secondary placing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no public announcement is being made"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ASE",
+      "reason": "Defined acronym for an exchange; not PII or MNPI itself."
+    },
+    {
+      "matched_text": "UK MAR",
+      "reason": "Regulatory acronym used as context; not PII/MNPI."
+    },
+    {
+      "matched_text": "MAR 1",
+      "reason": "Handbook section reference; not PII/MNPI."
+    },
+    {
+      "matched_text": "UK IDTA",
+      "reason": "Legal mechanism acronym; not PII/MNPI."
+    },
+    {
+      "matched_text": "SCCs",
+      "reason": "Acronym for clauses; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "erasure set 90 days post announcement",
+      "concept": "erasure_marker",
+      "reason": "Erasure schedule is a GDPR control but there is no explicit allowed rule for erasure markers."
+    },
+    {
+      "matched_text": "erasure of legacy contact lists confirmed",
+      "concept": "erasure_marker",
+      "reason": "Confirms deletion; relevant to GDPR but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "trading surveillance logs retained 3 years",
+      "concept": "retention_marker",
+      "reason": "Data retention duration is privacy-relevant but no explicit allowed rule exists."
+    },
+    {
+      "matched_text": "retention marker set to \u201c6Y\u201d in HRIS",
+      "concept": "retention_marker",
+      "reason": "Retention configuration is privacy-relevant but not covered by an allowed rule."
+    },
+    {
+      "matched_text": "DSAR events: two requests received and closed on 28/05/2026",
+      "concept": "DSAR_marker",
+      "reason": "DSAR handling is in scope but there is no specific allowed DSAR rule."
+    },
+    {
+      "matched_text": "the mobile app does not capture MAC addresses",
+      "concept": "device_identifier_negated",
+      "reason": "Mentions a device identifier category but explicitly negated; not an actual identifier value."
+    },
+    {
+      "matched_text": "pseudonymisation keys \u201cPX-0 1\u201d",
+      "concept": "pseudonymisation_key",
+      "reason": "Keys can link to individuals under GDPR but no specific allowed rule exists."
+    },
+    {
+      "matched_text": "draft Q3 revenue guidance",
+      "concept": "material_event_indicator",
+      "reason": "Indicates precise financial guidance context likely price-sensitive, but not a defined MNPI rule element on its own."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

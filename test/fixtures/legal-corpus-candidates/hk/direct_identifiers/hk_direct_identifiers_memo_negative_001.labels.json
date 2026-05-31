@@ -1,10 +1,11 @@
 {
   "_agent_review": {
-    "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
-    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
-    "status": "strict_tier_cleaned_owner_approved"
+    "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
+    "status": "post_ae_sa_global_precision_realign_owner_approved",
+    "reviewed_at_utc": "2026-05-31T12:38:03Z"
   },
   "_agent_review_history": [
     {
@@ -13,6 +14,14 @@
       "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
       "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
       "status": "strict_tier_cleaned_owner_approved"
+    },
+    {
+      "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
+      "status": "post_ae_sa_global_precision_realign_owner_approved",
+      "reviewed_at_utc": "2026-05-31T12:38:03Z"
     }
   ],
   "_human_review": {
@@ -37,7 +46,7 @@
   ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
-  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose.",
+  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose. Post-AE/SA global precision realignment reconciled strict labels to current deterministic output after shared precision/name-parser fixes.",
   "_label_source": "azure:gpt-5-2-auto",
   "_label_warnings": [],
   "_owner_acceptance": {
@@ -55,155 +64,145 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "matched_text": "compliance@harborjade.com.hk",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "compliance@harborjade.com.hk"
     },
     {
       "category": "PII",
-      "matched_text": "hr@seaglassfoods.hk",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "hr@seaglassfoods.hk"
     },
     {
       "category": "PII",
-      "matched_text": "listing@harborjade.com.hk",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "listing@harborjade.com.hk"
     },
     {
       "category": "PII",
-      "matched_text": "regulatory@redbanyanfund.com",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "regulatory@redbanyanfund.com"
     },
     {
       "category": "PII",
-      "matched_text": "+852 3900 0000",
-      "rule": "phone_number"
+      "rule": "phone_number",
+      "matched_text": "+852 3900 0000"
     },
     {
       "category": "PII",
-      "matched_text": "Z123456(0)",
-      "rule": "hk_hkid"
+      "rule": "hk_hkid",
+      "matched_text": "Z123456(0)"
     },
     {
       "category": "PII",
-      "matched_text": "CR No. 9123456",
-      "rule": "hk_cr_no"
+      "rule": "hk_cr_no",
+      "matched_text": "CR No. 9123456"
     },
     {
       "category": "MNPI",
-      "matched_text": "inside information",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
     },
     {
       "category": "MNPI",
-      "matched_text": "specific corporate information not generally known to likely dealers and price\u2011material",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "specific corporate information not generally known to likely dealers and price‑material"
     },
     {
       "category": "MNPI",
-      "matched_text": "No MNPI should be transmitted by email",
-      "rule": "selective_disclosure_risk"
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No MNPI should be transmitted by email"
     },
     {
       "category": "MNPI",
-      "matched_text": "proposed acquisition by Harbor Jade Holdings Limited (the \u201cCompany\u201d) of Seaglass Foods Group Limited via Red Banyan Capital Fund I SPV",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "proposed acquisition by Harbor Jade Holdings Limited (the “Company”) of Seaglass Foods Group Limited via Red Banyan Capital Fund I SPV"
     },
     {
       "category": "MNPI",
-      "matched_text": "any materials beyond what is on HKEX should be stored in the virtual data room with access logged by the deal counsel",
-      "rule": "information_barrier_marker"
+      "rule": "information_barrier_marker",
+      "matched_text": "any materials beyond what is on HKEX should be stored in the virtual data room with access logged by the deal counsel"
     },
     {
       "category": "PII",
-      "matched_text": "HR data minimisation",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "HR data minimisation"
     },
     {
       "category": "PII",
-      "matched_text": "Do not circulate personal files",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "Do not circulate personal files"
     },
     {
       "category": "PII",
-      "matched_text": "without collecting date of birth or bank details at this stage",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "without collecting date of birth or bank details at this stage"
     },
     {
       "category": "PII",
-      "matched_text": "do not request or share bank account numbers, FPS IDs, or e\u2011cheques until Operations circulates a standard form",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not request or share bank account numbers, FPS IDs, or e‑cheques until Operations circulates a standard form"
     },
     {
       "category": "PII",
-      "matched_text": "data minimisation",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal note: HKEX/SFC considerations for proposed acquisition by Harbor Jade Holdings Limited (the \u201cCompany\u201d) of Seaglass Foods Group Limited via Red Banyan Capital Fund I SPV.",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "Internal note: HKEX/SFC considerations for proposed acquisition by Harbor Jade Holdings Limited (the “Company”) of Seaglass Foods Group Limited via Red Banyan Capital Fund I SPV."
     },
     {
       "category": "MNPI",
-      "matched_text": "For fund structuring, Red Banyan Capital Fund I LP will hold through Harbor Jade Acquisition SPV I Limited; CR No. 9123456 and BR No. 12345678-000-00-0 are illustrative placeholders and not validated.",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "For fund structuring, Red Banyan Capital Fund I LP will hold through Harbor Jade Acquisition SPV I Limited; CR No. 9123456 and BR No. 12345678-000-00-0 are illustrative placeholders and not validated."
     },
     {
       "category": "MNPI",
-      "matched_text": "9123456",
-      "rule": "large_number"
+      "rule": "large_number",
+      "matched_text": "9123456"
     },
     {
       "category": "MNPI",
-      "matched_text": "12345678",
-      "rule": "large_number"
+      "rule": "large_number",
+      "matched_text": "12345678"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "matched_text": "hr@seaglassfoods.hk",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "hr@seaglassfoods.hk"
     },
     {
       "category": "PII",
-      "matched_text": "listing@harborjade.com.hk",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "listing@harborjade.com.hk"
     },
     {
       "category": "PII",
-      "matched_text": "regulatory@redbanyanfund.com",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "regulatory@redbanyanfund.com"
     },
     {
       "category": "PII",
-      "matched_text": "+852 3900 0000",
-      "rule": "phone_number"
+      "rule": "phone_number",
+      "matched_text": "+852 3900 0000"
     },
     {
       "category": "PII",
-      "matched_text": "data minimisation",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal note: HKEX/SFC considerations for proposed acquisition by Harbor Jade Holdings Limited (the \u201cCompany\u201d) of Seaglass Foods Group Limited via Red Banyan Capital Fund I SPV.",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "Internal note: HKEX/SFC considerations for proposed acquisition by Harbor Jade Holdings Limited (the “Company”) of Seaglass Foods Group Limited via Red Banyan Capital Fund I SPV."
     },
     {
       "category": "MNPI",
-      "matched_text": "For fund structuring, Red Banyan Capital Fund I LP will hold through Harbor Jade Acquisition SPV I Limited; CR No. 9123456 and BR No. 12345678-000-00-0 are illustrative placeholders and not validated.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "9123456",
-      "rule": "large_number"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "12345678",
-      "rule": "large_number"
+      "rule": "material_event",
+      "matched_text": "For fund structuring, Red Banyan Capital Fund I LP will hold through Harbor Jade Acquisition SPV I Limited; CR No. 9123456 and BR No. 12345678-000-00-0 are illustrative placeholders and not validated."
     }
   ],
   "must_not_detect": [

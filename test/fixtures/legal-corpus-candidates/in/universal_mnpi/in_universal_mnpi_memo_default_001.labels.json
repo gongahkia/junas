@@ -1,9 +1,11 @@
 {
   "_agent_review": {
-    "notes": "Reconciled IN Stage A strict labels to deterministic strict-mode findings after mismatch review; retained broader model-derived labels in ideal_must_detect and recorded project-owner approval for internal benchmarking only.",
+    "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "source_report": "/tmp/kaypoh-in-stage-a-reviewed.json",
-    "status": "strict_tier_cleaned_owner_approved"
+    "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
+    "status": "post_ae_sa_global_precision_realign_owner_approved",
+    "reviewed_at_utc": "2026-05-31T12:38:03Z"
   },
   "_human_review": {
     "decision": "approve",
@@ -27,17 +29,17 @@
   ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-  "_label_note": "IN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery.",
+  "_label_note": "IN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Post-AE/SA global precision realignment reconciled strict labels to current deterministic output after shared precision/name-parser fixes.",
   "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
   "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='\u20b9640 crore'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='~\u20b9110 crore'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='\u20b9300 crore'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='\u20b9120 crore'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='\u20b9640 crore'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='~\u20b9110 crore'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='\u20b9300 crore'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='\u20b9120 crore'"
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='₹640 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='~₹110 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='₹300 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='₹120 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='₹640 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='~₹110 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='₹300 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='₹120 crore'"
   ],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-29T07:04:53Z",
@@ -54,270 +56,265 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "matched_text": "secretariat@shikrarenewables.in",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "secretariat@shikrarenewables.in"
     },
     {
       "category": "PII",
-      "matched_text": "+91-011-4970-0000",
-      "rule": "phone_number"
+      "rule": "phone_number",
+      "matched_text": "+91-011-4970-0000"
     },
     {
       "category": "PII",
-      "matched_text": "data minimisation",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Kavya Raneshkar",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Ms. Kavya Raneshkar"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Devansh Morpith",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Mr. Devansh Morpith"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Rishanv Goelkar",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Dr. Rishanv Goelkar"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Aarya Sethiwan",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Ms. Aarya Sethiwan"
     },
     {
       "category": "PII",
-      "matched_text": "guardian consent",
-      "rule": "minor_data_reference"
+      "rule": "minor_data_reference",
+      "matched_text": "guardian consent"
     },
     {
       "category": "MNPI",
-      "matched_text": "Re: Proposed 51% acquisition of Vrindha GridTech Private Limited for approximately \u20b9640 crore, funded via a mix of primary infusion and acquisition debt.",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "Re: Proposed 51% acquisition of Vrindha GridTech Private Limited for approximately ₹640 crore, funded via a mix of primary infusion and acquisition debt."
     },
     {
       "category": "MNPI",
-      "matched_text": "Financing plan contemplates debt refinancing of \u20b9300 crore at a blended 9.1% and upfront working-capital infusion of \u20b9120 crore, subject to ISX lender consents and negative pledge waivers.",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "Financing plan contemplates debt refinancing of ₹300 crore at a blended 9.1% and upfront working-capital infusion of ₹120 crore, subject to ISX lender consents and negative pledge waivers."
     },
     {
       "category": "MNPI",
-      "matched_text": "CONFIDENTIAL",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
     },
     {
       "category": "MNPI",
-      "matched_text": "restricted",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
     },
     {
       "category": "MNPI",
-      "matched_text": "Project Neem",
-      "rule": "transaction_codename"
+      "rule": "transaction_codename",
+      "matched_text": "Project Neem"
     },
     {
       "category": "MNPI",
-      "matched_text": "Share Purchase Agreement",
-      "rule": "definitive_agreement"
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
     },
     {
       "category": "MNPI",
-      "matched_text": "spa",
-      "rule": "definitive_agreement"
+      "rule": "definitive_agreement",
+      "matched_text": "spa"
     },
     {
       "category": "MNPI",
-      "matched_text": "51%",
-      "rule": "financial_percentage"
+      "rule": "financial_percentage",
+      "matched_text": "51%"
     },
     {
       "category": "MNPI",
-      "matched_text": "10%",
-      "rule": "financial_percentage"
+      "rule": "financial_percentage",
+      "matched_text": "10%"
     },
     {
       "category": "MNPI",
-      "matched_text": "9.1%",
-      "rule": "financial_percentage"
+      "rule": "financial_percentage",
+      "matched_text": "9.1%"
     },
     {
       "category": "MNPI",
-      "matched_text": "UPSI",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
     },
     {
       "category": "MNPI",
-      "matched_text": "Embargo until 17:00 IST, 14 July 2026",
-      "rule": "embargo_marker"
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 17:00 IST, 14 July 2026"
     },
     {
       "category": "MNPI",
-      "matched_text": "Proposed 51% acquisition of Vrindha GridTech Private Limited",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "Proposed 51% acquisition of Vrindha GridTech Private Limited"
     },
     {
       "category": "MNPI",
-      "matched_text": "Shareholders\u2019 Agreement",
-      "rule": "definitive_agreement"
+      "rule": "definitive_agreement",
+      "matched_text": "Shareholders’ Agreement"
     },
     {
       "category": "MNPI",
-      "matched_text": "unpublished price sensitive information",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information"
     },
     {
       "category": "MNPI",
-      "matched_text": "trading window remains closed",
-      "rule": "blackout_period_reference"
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window remains closed"
     },
     {
       "category": "MNPI",
-      "matched_text": "8\u201310%",
-      "rule": "financial_percentage"
+      "rule": "financial_percentage",
+      "matched_text": "8–10%"
     },
     {
       "category": "MNPI",
-      "matched_text": "not for external distribution",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "not for external distribution"
     },
     {
       "category": "MNPI",
-      "matched_text": "Not for circulation beyond the Board and external counsel",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "Not for circulation beyond the Board and external counsel"
     },
     {
       "category": "MNPI",
-      "matched_text": "any leak before the embargo lifts",
-      "rule": "selective_disclosure_risk"
+      "rule": "selective_disclosure_risk",
+      "matched_text": "any leak before the embargo lifts"
     },
     {
       "category": "PII",
-      "matched_text": "mask identifiers (retain last 4 digits only)",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask identifiers (retain last 4 digits only)"
     },
     {
       "category": "PII",
-      "matched_text": "data minimisation standard",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation standard"
     },
     {
       "category": "PII",
-      "matched_text": "children under 18",
-      "rule": "minor_data_reference"
+      "rule": "minor_data_reference",
+      "matched_text": "children under 18"
     },
     {
       "category": "PII",
-      "matched_text": "PAN",
-      "rule": "in_pan"
+      "rule": "in_pan",
+      "matched_text": "PAN"
     },
     {
       "category": "PII",
-      "matched_text": "Aadhaar",
-      "rule": "in_aadhaar"
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar"
     },
     {
       "category": "PII",
-      "matched_text": "GSTIN",
-      "rule": "in_gstin"
+      "rule": "in_gstin",
+      "matched_text": "GSTIN"
     },
     {
       "category": "PII",
-      "matched_text": "compliance@shikrarenewables.in",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "compliance@shikrarenewables.in"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "matched_text": "secretariat@shikrarenewables.in",
-      "rule": "email_address"
+      "rule": "phone_number",
+      "matched_text": "+91-011-4970-0000"
     },
     {
       "category": "PII",
-      "matched_text": "+91-011-4970-0000",
-      "rule": "phone_number"
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
     },
     {
       "category": "PII",
-      "matched_text": "data minimisation",
-      "rule": "data_minimisation_marker"
+      "rule": "named_person",
+      "matched_text": "Ms. Kavya Raneshkar"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Kavya Raneshkar",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Mr. Devansh Morpith"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Devansh Morpith",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Dr. Rishanv Goelkar"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Rishanv Goelkar",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Ms. Aarya Sethiwan"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Aarya Sethiwan",
-      "rule": "named_person"
-    },
-    {
-      "category": "PII",
-      "matched_text": "guardian consent",
-      "rule": "minor_data_reference"
+      "rule": "minor_data_reference",
+      "matched_text": "guardian consent"
     },
     {
       "category": "MNPI",
-      "matched_text": "Re: Proposed 51% acquisition of Vrindha GridTech Private Limited for approximately \u20b9640 crore, funded via a mix of primary infusion and acquisition debt.",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "Re: Proposed 51% acquisition of Vrindha GridTech Private Limited for approximately ₹640 crore, funded via a mix of primary infusion and acquisition debt."
     },
     {
       "category": "MNPI",
-      "matched_text": "Financing plan contemplates debt refinancing of \u20b9300 crore at a blended 9.1% and upfront working-capital infusion of \u20b9120 crore, subject to ISX lender consents and negative pledge waivers.",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "Financing plan contemplates debt refinancing of ₹300 crore at a blended 9.1% and upfront working-capital infusion of ₹120 crore, subject to ISX lender consents and negative pledge waivers."
     },
     {
       "category": "MNPI",
-      "matched_text": "CONFIDENTIAL",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
     },
     {
       "category": "MNPI",
-      "matched_text": "restricted",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
     },
     {
       "category": "MNPI",
-      "matched_text": "Project Neem",
-      "rule": "transaction_codename"
+      "rule": "transaction_codename",
+      "matched_text": "Project Neem"
     },
     {
       "category": "MNPI",
-      "matched_text": "Share Purchase Agreement",
-      "rule": "definitive_agreement"
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
     },
     {
       "category": "MNPI",
-      "matched_text": "spa",
-      "rule": "definitive_agreement"
+      "rule": "definitive_agreement",
+      "matched_text": "spa"
     },
     {
       "category": "MNPI",
-      "matched_text": "51%",
-      "rule": "financial_percentage"
+      "rule": "financial_percentage",
+      "matched_text": "51%"
     },
     {
       "category": "MNPI",
-      "matched_text": "10%",
-      "rule": "financial_percentage"
+      "rule": "financial_percentage",
+      "matched_text": "10%"
     },
     {
       "category": "MNPI",
-      "matched_text": "9.1%",
-      "rule": "financial_percentage"
+      "rule": "financial_percentage",
+      "matched_text": "9.1%"
     }
   ],
   "must_not_detect": [
@@ -352,6 +349,16 @@
       "concept": "minor guardian consent",
       "matched_text": "guardian consent",
       "reason": "Child-consent workflow is legally relevant under DPDPA but no explicit allowed rule except minor_data_reference/consent_withdrawal_marker."
+    }
+  ],
+  "_agent_review_history": [
+    {
+      "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
+      "status": "post_ae_sa_global_precision_realign_owner_approved",
+      "reviewed_at_utc": "2026-05-31T12:38:03Z"
     }
   ]
 }

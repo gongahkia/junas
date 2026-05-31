@@ -1,0 +1,161 @@
+{
+  "doc_id": "uk_jurisdictional_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "UK",
+  "destination_jurisdiction": "UK",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@marstonridge.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Unannounced RSS filing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "until released"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information under UK MAR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No selective briefings should occur"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@marstonridge.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Unannounced RSS filing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "until released"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information under UK MAR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No selective briefings should occur"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "all external queries should be routed via compliance@marstonridge.example and the Company Secretariat"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "close period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "the Board has resolved to discontinue preliminary discussions with Eastbridge Lending plc"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "publication is targeted for 08:30 BST on 15 July"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid names, home addresses, and individual HR notes to remain compliant with UK GDPR"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Marston Ridge Capital plc",
+      "reason": "Corporate entity name, not personal data or MNPI"
+    },
+    {
+      "matched_text": "Heworth Cloud Limited",
+      "reason": "Corporate entity name, not personal data or MNPI"
+    },
+    {
+      "matched_text": "Eastbridge Lending plc",
+      "reason": "Corporate entity name, not personal data or MNPI"
+    },
+    {
+      "matched_text": "MRCP",
+      "reason": "Ticker noted as non-sensitive and public"
+    },
+    {
+      "matched_text": "GB00MRCP0000",
+      "reason": "Placeholder ISIN noted as non-live/non-sensitive"
+    },
+    {
+      "matched_text": "UKMS",
+      "reason": "Regulator acronym, not PII/MNPI"
+    },
+    {
+      "matched_text": "RSS",
+      "reason": "Service acronym, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "PDMRs",
+      "reason": "Role category, not an identified person\u2019s PII"
+    },
+    {
+      "matched_text": "names",
+      "reason": "Generic example text, not an actual PII value"
+    },
+    {
+      "matched_text": "home addresses",
+      "reason": "Generic example text, not an actual PII value"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "publication is targeted for 08:30 BST on 15 July",
+      "concept": "embargo/scheduled disclosure",
+      "reason": "Specific future release timing may function as an embargo marker under local practice though not using explicit embargo keywords"
+    },
+    {
+      "matched_text": "any dealing by PDMRs requires notification within 3 business days",
+      "concept": "PDMR disclosure timing",
+      "reason": "Regulatory reporting obligation is market-compliance relevant but not clearly mapped to a listed MNPI rule"
+    },
+    {
+      "matched_text": "Employee share dealing remains subject to standing pre-clearance",
+      "concept": "dealing pre-clearance policy",
+      "reason": "Insider-dealing control relevant to MAR workflows but not directly covered by listed markers"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

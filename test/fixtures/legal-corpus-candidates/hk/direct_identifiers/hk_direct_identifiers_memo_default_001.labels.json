@@ -1,10 +1,11 @@
 {
   "_agent_review": {
-    "notes": "Reconciled HK Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, warning-heavy labels, public/stale HKEXnews bait, invalid HKID placeholders, CR No span-normalisation, and must-not violations; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
-    "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
-    "status": "strict_tier_cleaned_owner_approved"
+    "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
+    "status": "post_ae_sa_global_precision_realign_owner_approved",
+    "reviewed_at_utc": "2026-05-31T12:38:03Z"
   },
   "_agent_review_history": [
     {
@@ -13,6 +14,14 @@
       "run_dir": "/tmp/kaypoh-hk-stage-a-20260530",
       "source_report": "/tmp/kaypoh-hk-stage-a-reviewed.json",
       "status": "strict_tier_cleaned_owner_approved"
+    },
+    {
+      "notes": "Post-AE/SA global precision realignment: reconciled affected approved strict labels to current deterministic strict-mode findings after shared suppressions/name parsing changed outputs. Covered hyphenated CN/HK/KR person-name spans, Secretariat role-mailbox suppression, phone-like CR/Iqama/National Address/device fragments, Hijri Sha-ban bait, public/HR spa-day bait, and identifier-like large-number suppressions; retained previous labels in ideal_must_detect where useful.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-ae-sa-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-candidates-after-ae-sa-reviewed.json",
+      "status": "post_ae_sa_global_precision_realign_owner_approved",
+      "reviewed_at_utc": "2026-05-31T12:38:03Z"
     }
   ],
   "_human_review": {
@@ -37,7 +46,7 @@
   ],
   "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
-  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose.",
+  "_label_note": "HK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered public/stale MoU/SPA/HKEXnews-style definitive-agreement bait and negated non-public/undisclosed-analysis prose. Post-AE/SA global precision realignment reconciled strict labels to current deterministic output after shared precision/name-parser fixes.",
   "_label_source": "azure:gpt-5-2-auto",
   "_label_warnings": [],
   "_owner_acceptance": {
@@ -55,330 +64,325 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "matched_text": "CR No. 2876543",
-      "rule": "hk_cr_no"
+      "rule": "hk_cr_no",
+      "matched_text": "CR No. 2876543"
     },
     {
       "category": "MNPI",
-      "matched_text": "Project Banyan",
-      "rule": "transaction_codename"
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
     },
     {
       "category": "MNPI",
-      "matched_text": "HKD 4.20",
-      "rule": "financial_amount"
+      "rule": "financial_amount",
+      "matched_text": "HKD 4.20"
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
     },
     {
       "category": "MNPI",
-      "matched_text": "Clean Team",
-      "rule": "information_barrier_marker"
+      "rule": "information_barrier_marker",
+      "matched_text": "Clean Team"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Adrian Lau Kin\u2011Hei",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Lau Kin‑Hei"
     },
     {
       "category": "PII",
-      "matched_text": "adrian.lau@redbayholdings.hk",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "adrian.lau@redbayholdings.hk"
     },
     {
       "category": "PII",
-      "matched_text": "+852 6800 7788",
-      "rule": "phone_number"
+      "rule": "phone_number",
+      "matched_text": "+852 6800 7788"
     },
     {
       "category": "PII",
-      "matched_text": "passport K9082731",
-      "rule": "passport_number"
+      "rule": "passport_number",
+      "matched_text": "passport K9082731"
     },
     {
       "category": "PII",
-      "matched_text": "dealroom@redbayholdings.hk",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "dealroom@redbayholdings.hk"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Serena Wong",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Ms. Serena Wong"
     },
     {
       "category": "PII",
-      "matched_text": "+852 3900 1122",
-      "rule": "phone_number"
+      "rule": "phone_number",
+      "matched_text": "+852 3900 1122"
     },
     {
       "category": "PII",
-      "matched_text": "A/C 102-556677-001",
-      "rule": "bank_account"
+      "rule": "bank_account",
+      "matched_text": "A/C 102-556677-001"
     },
     {
       "category": "MNPI",
-      "matched_text": "blackout continues until HKEX clearance",
-      "rule": "blackout_period_reference"
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout continues until HKEX clearance"
     },
     {
       "category": "MNPI",
-      "matched_text": "conflicts wall in effect",
-      "rule": "information_barrier_marker"
+      "rule": "information_barrier_marker",
+      "matched_text": "conflicts wall in effect"
     },
     {
       "category": "MNPI",
-      "matched_text": "MAC",
-      "rule": "material_adverse_change"
+      "rule": "material_adverse_change",
+      "matched_text": "MAC"
     },
     {
       "category": "MNPI",
-      "matched_text": "18.4%",
-      "rule": "financial_percentage"
+      "rule": "financial_percentage",
+      "matched_text": "18.4%"
     },
     {
       "category": "MNPI",
-      "matched_text": "6.2%",
-      "rule": "financial_percentage"
+      "rule": "financial_percentage",
+      "matched_text": "6.2%"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Carmen Ng Mei\u2011Ting",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Ms. Carmen Ng Mei‑Ting"
     },
     {
       "category": "PII",
-      "matched_text": "+852 5122 0044",
-      "rule": "phone_number"
+      "rule": "phone_number",
+      "matched_text": "+852 5122 0044"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Felix Yau",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Dr. Felix Yau"
     },
     {
       "category": "PII",
-      "matched_text": "legal@redbayholdings.hk",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "legal@redbayholdings.hk"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Lau",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Mr. Lau"
     },
     {
       "category": "MNPI",
-      "matched_text": "term sheet",
-      "rule": "definitive_agreement"
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
     },
     {
       "category": "MNPI",
-      "matched_text": "SPAs",
-      "rule": "definitive_agreement"
+      "rule": "definitive_agreement",
+      "matched_text": "SPAs"
     },
     {
       "category": "MNPI",
-      "matched_text": "no trading by Insiders",
-      "rule": "blackout_period_reference"
+      "rule": "blackout_period_reference",
+      "matched_text": "no trading by Insiders"
     },
     {
       "category": "MNPI",
-      "matched_text": "Clean Team only",
-      "rule": "information_barrier_marker"
+      "rule": "information_barrier_marker",
+      "matched_text": "Clean Team only"
     },
     {
       "category": "MNPI",
-      "matched_text": "cautionary announcement is deferred until a trigger event",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "cautionary announcement is deferred until a trigger event"
     },
     {
       "category": "MNPI",
-      "matched_text": "indirectly reveals the intended 18.4% premium to Seaview\u2019s last close, which is price\u2011material",
-      "rule": "contingent_mnpi_language"
+      "rule": "contingent_mnpi_language",
+      "matched_text": "indirectly reveals the intended 18.4% premium to Seaview’s last close, which is price‑material"
     },
     {
       "category": "MNPI",
-      "matched_text": "Any onward disclosure requests from \u201cOperations Team\u201d or role\u2011only sign\u2011offs are to be rejected unless named approvers (e.g., Dr. Felix Yau, GC) countersign via legal@redbayholdings.hk",
-      "rule": "selective_disclosure_risk"
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Any onward disclosure requests from “Operations Team” or role‑only sign‑offs are to be rejected unless named approvers (e.g., Dr. Felix Yau, GC) countersign via legal@redbayholdings.hk"
     },
     {
       "category": "PII",
-      "matched_text": "do not upload full CVs or HKID images to the VDR",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not upload full CVs or HKID images to the VDR"
     },
     {
       "category": "PII",
-      "matched_text": "68881234-000",
-      "rule": "phone_number"
+      "rule": "phone_number",
+      "matched_text": "68881234-000"
     },
     {
       "category": "PII",
-      "matched_text": "K9082731",
-      "rule": "passport_number"
+      "rule": "passport_number",
+      "matched_text": "K9082731"
     },
     {
       "category": "PII",
-      "matched_text": "2876543",
-      "rule": "hk_cr_no"
+      "rule": "hk_cr_no",
+      "matched_text": "2876543"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Adrian Lau Kin",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Lau Kin"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Carmen Ng Mei",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Ms. Carmen Ng Mei"
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject: Inside information controls for Project Banyan \u2014 proposed acquisition of Seaview Robotics Holdings Ltd. at HKD 4.20 per share",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "Subject: Inside information controls for Project Banyan — proposed acquisition of Seaview Robotics Holdings Ltd. at HKD 4.20 per share"
     },
     {
       "category": "MNPI",
-      "matched_text": "Pursuant to SFO Part XIVA and HKEX LR 13.09, the term sheet and pro forma synergy schedule (headcount rationalisation and 2H FY26 earnings uplift) are MNPI and restricted to the Clean Team only.",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "Pursuant to SFO Part XIVA and HKEX LR 13.09, the term sheet and pro forma synergy schedule (headcount rationalisation and 2H FY26 earnings uplift) are MNPI and restricted to the Clean Team only."
     },
     {
       "category": "MNPI",
-      "matched_text": "restricted",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
     },
     {
       "category": "MNPI",
-      "matched_text": "12345678",
-      "rule": "large_number"
+      "rule": "large_number",
+      "matched_text": "12345678"
     },
     {
       "category": "PII",
-      "matched_text": "A123456(3)",
-      "rule": "hk_hkid"
+      "rule": "hk_hkid",
+      "matched_text": "A123456(3)"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "matched_text": "adrian.lau@redbayholdings.hk",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "adrian.lau@redbayholdings.hk"
     },
     {
       "category": "PII",
-      "matched_text": "legal@redbayholdings.hk",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "legal@redbayholdings.hk"
     },
     {
       "category": "PII",
-      "matched_text": "68881234-000",
-      "rule": "phone_number"
+      "rule": "phone_number",
+      "matched_text": "+852 6800 7788"
     },
     {
       "category": "PII",
-      "matched_text": "+852 6800 7788",
-      "rule": "phone_number"
+      "rule": "phone_number",
+      "matched_text": "+852 3900 1122"
     },
     {
       "category": "PII",
-      "matched_text": "+852 3900 1122",
-      "rule": "phone_number"
+      "rule": "phone_number",
+      "matched_text": "+852 5122 0044"
     },
     {
       "category": "PII",
-      "matched_text": "+852 5122 0044",
-      "rule": "phone_number"
+      "rule": "passport_number",
+      "matched_text": "K9082731"
     },
     {
       "category": "PII",
-      "matched_text": "K9082731",
-      "rule": "passport_number"
+      "rule": "hk_hkid",
+      "matched_text": "A123456(3)"
     },
     {
       "category": "PII",
-      "matched_text": "A123456(3)",
-      "rule": "hk_hkid"
+      "rule": "hk_cr_no",
+      "matched_text": "2876543"
     },
     {
       "category": "PII",
-      "matched_text": "2876543",
-      "rule": "hk_cr_no"
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Lau Kin‑Hei"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Adrian Lau Kin",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Ms. Serena Wong"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Serena Wong",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Ms. Carmen Ng Mei‑Ting"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Carmen Ng Mei",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Dr. Felix Yau"
     },
     {
       "category": "PII",
-      "matched_text": "Dr. Felix Yau",
-      "rule": "named_person"
-    },
-    {
-      "category": "PII",
-      "matched_text": "Mr. Lau",
-      "rule": "named_person"
+      "rule": "named_person",
+      "matched_text": "Mr. Lau"
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject: Inside information controls for Project Banyan \u2014 proposed acquisition of Seaview Robotics Holdings Ltd. at HKD 4.20 per share",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "Subject: Inside information controls for Project Banyan — proposed acquisition of Seaview Robotics Holdings Ltd. at HKD 4.20 per share"
     },
     {
       "category": "MNPI",
-      "matched_text": "Pursuant to SFO Part XIVA and HKEX LR 13.09, the term sheet and pro forma synergy schedule (headcount rationalisation and 2H FY26 earnings uplift) are MNPI and restricted to the Clean Team only.",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "Pursuant to SFO Part XIVA and HKEX LR 13.09, the term sheet and pro forma synergy schedule (headcount rationalisation and 2H FY26 earnings uplift) are MNPI and restricted to the Clean Team only."
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
     },
     {
       "category": "MNPI",
-      "matched_text": "restricted",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
     },
     {
       "category": "MNPI",
-      "matched_text": "Project Banyan",
-      "rule": "transaction_codename"
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
     },
     {
       "category": "MNPI",
-      "matched_text": "term sheet",
-      "rule": "definitive_agreement"
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
     },
     {
       "category": "MNPI",
-      "matched_text": "HKD 4.20",
-      "rule": "financial_amount"
+      "rule": "financial_amount",
+      "matched_text": "HKD 4.20"
     },
     {
       "category": "MNPI",
-      "matched_text": "6.2%",
-      "rule": "financial_percentage"
+      "rule": "financial_percentage",
+      "matched_text": "6.2%"
     },
     {
       "category": "MNPI",
-      "matched_text": "18.4%",
-      "rule": "financial_percentage"
+      "rule": "financial_percentage",
+      "matched_text": "18.4%"
     },
     {
       "category": "MNPI",
-      "matched_text": "12345678",
-      "rule": "large_number"
+      "rule": "large_number",
+      "matched_text": "12345678"
     }
   ],
   "must_not_detect": [
@@ -424,12 +428,12 @@
     },
     {
       "concept": "Hong Kong tax file number",
-      "matched_text": "IRD Ref. 9A\u2011772\u2011091",
+      "matched_text": "IRD Ref. 9A‑772‑091",
       "reason": "Tax identifier is PII but no HK tax-ID rule in allowed set"
     },
     {
       "concept": "Limited Partnership Fund registration number",
-      "matched_text": "LPF No. LPF\u201100988",
+      "matched_text": "LPF No. LPF‑00988",
       "reason": "Regulatory fund identifier not in allowed rule list"
     },
     {
