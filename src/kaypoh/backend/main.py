@@ -430,13 +430,13 @@ def build_ready_snapshot() -> dict[str, Any]:
         reasons.append(f"missing required layers: {', '.join(missing_layers)}")
     if warming_layers:
         reasons.append(f"warming required layers: {', '.join(warming_layers)}")
-    image_status = get_dependency_status().get("image_scan")
+    dependency_status = get_dependency_status()
+    image_status = dependency_status.get("image_scan")
     image_scan_ready = True
     if image_status is not None and image_status.configured and image_status.healthy is False:
         image_scan_ready = False
         reasons.append(f"image_scan unavailable: {image_status.detail}")
     helper_ready = True
-    dependency_status = get_dependency_status()
     for helper_name in ("llm_defined_term_extractor", "llm_coverage_auditor"):
         status = dependency_status.get(helper_name)
         if status is not None and status.configured and status.healthy is False:
