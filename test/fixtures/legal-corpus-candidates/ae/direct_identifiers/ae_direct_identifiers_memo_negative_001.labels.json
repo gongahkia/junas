@@ -1,0 +1,200 @@
+{
+  "doc_id": "ae_direct_identifiers_memo_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-1987-1234567-5"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-92-778899-01"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@desertfalconcap.adgm.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "procurement@gulfdunesutilities.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "marketconduct@gulfdunesutilities.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-1987-1234567-5"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-92-778899-01"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@desertfalconcap.adgm.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "procurement@gulfdunesutilities.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "marketconduct@gulfdunesutilities.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only collect what is necessary for onboarding under UAE PDPL and DIFC/ADGM data rules"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must be redacted or hashed within 7 days"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid storing full residential addresses"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not record full account numbers in trackers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not capture personal emails or private numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers to hosting in UAE mainland require PDPL-compliant safeguards and transfer assessment"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "[Full Name]",
+      "reason": "generic form label placeholder (not actual PII)"
+    },
+    {
+      "matched_text": "[Family Origin]",
+      "reason": "generic form label placeholder (not actual PII)"
+    },
+    {
+      "matched_text": "[Passport No]",
+      "reason": "generic form label placeholder (not actual PII)"
+    },
+    {
+      "matched_text": "[Emirates ID]",
+      "reason": "generic form label placeholder (not actual PII)"
+    },
+    {
+      "matched_text": "[IBAN]",
+      "reason": "generic form label placeholder (not actual PII)"
+    },
+    {
+      "matched_text": "[Residential Address]",
+      "reason": "generic form label placeholder (not actual PII)"
+    },
+    {
+      "matched_text": "[ID reference on file]",
+      "reason": "placeholder reference field (not actual PII)"
+    },
+    {
+      "matched_text": "[City]",
+      "reason": "generic form label placeholder (not actual PII)"
+    },
+    {
+      "matched_text": "[Emirate]",
+      "reason": "generic form label placeholder (not actual PII)"
+    },
+    {
+      "matched_text": "[Unit XX, Level XX, Al Noor Tower, Abu Dhabi]",
+      "reason": "example placeholder (not an actual address)"
+    },
+    {
+      "matched_text": "[Bank Name]",
+      "reason": "generic form label placeholder (not actual PII)"
+    },
+    {
+      "matched_text": "[Last 4 digits]",
+      "reason": "generic form label placeholder (not actual PII)"
+    },
+    {
+      "matched_text": "800-120-0000",
+      "reason": "public helpline number (organizational contact, not a natural person)"
+    },
+    {
+      "matched_text": "+971-600-000000",
+      "reason": "public helpline number (organizational contact, not a natural person)"
+    },
+    {
+      "matched_text": "LF-000000",
+      "reason": "placeholder licence number (not an actual identifier)"
+    },
+    {
+      "matched_text": "TRN-100000000000000",
+      "reason": "placeholder tax registration number (corporate identifier, not personal PII)"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "family-origin details",
+      "concept": "ethnic_origin (sensitive personal data)",
+      "reason": "Origin/ethnicity is sensitive under PDPL but no explicit allowed rule exists for ethnic origin"
+    },
+    {
+      "matched_text": "ADGM Licence",
+      "concept": "adgm_licence_identifier",
+      "reason": "Local company licence identifier relevant for UAE onboarding; no specific allowed rule besides ae_trade_licence"
+    },
+    {
+      "matched_text": "Tax Registration Number",
+      "concept": "uae_trn_identifier",
+      "reason": "UAE TRN is a corporate identifier relevant to compliance but not covered by an allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

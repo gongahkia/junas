@@ -1,0 +1,214 @@
+{
+  "doc_id": "ae_direct_identifiers_memo_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@falcon-dunes.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971 55 000 0009"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_passport",
+      "matched_text": "AE U1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN AE42 9910 0000 1234 5678 9012"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Layla Al\u2011Qamar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nadir Al\u2011Hafez"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "DFZ\u2011LLC\u20119075312"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "(not public)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@falcon\u2011dunes.ae"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@falcon-dunes.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971 55 000 0009"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_passport",
+      "matched_text": "AE U1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN AE42 9910 0000 1234 5678 9012"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Layla Al\u2011Qamar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nadir Al\u2011Hafez"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "DFZ\u2011LLC\u20119075312"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "7 8 4\u20112 0 0 7\u20111 2 3 4 5 6 7\u20110"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "family origin (self\u2011declared): Al\u2011Hafez clan, Ras Al Manhal"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "residential address: Apt 19B, Al Bahar Residences, Marina Corniche, Al Saruq Emirate"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "token=eid784-2007-1234567-0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "pre\u2011listing bridge financing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "dual\u2011listing application"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "(not public)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "distribution restricted per ECMA Rulebook 6.2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not circulate"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@falcon\u2011dunes.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers require SCCs"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Helpdesk 800 0000",
+      "reason": "Public helpline bait; not individual PII"
+    },
+    {
+      "matched_text": "Full Name",
+      "reason": "Generic form label; not PII"
+    },
+    {
+      "matched_text": "Head of Compliance",
+      "reason": "Role-only title; no natural person identified"
+    },
+    {
+      "matched_text": "+971 600 000 000",
+      "reason": "Generic IVR number; not tied to an individual"
+    },
+    {
+      "matched_text": "head of listings",
+      "reason": "Role-only reference; not a named person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ADFZ CRN 00\u2011098765",
+      "concept": "company_registration_number",
+      "reason": "Issuer registration number is legally relevant but no explicit allowed rule for ADFZ CRN"
+    },
+    {
+      "matched_text": "VAT TRN 100312345600000",
+      "concept": "tax_registration_number",
+      "reason": "UAE VAT TRN is sensitive company identifier; no explicit allowed rule for TRN"
+    },
+    {
+      "matched_text": "Apt 19B, Al Bahar Residences, Marina Corniche, Al Saruq Emirate",
+      "concept": "physical_address",
+      "reason": "Residential address is personal data but no explicit generic address rule in allowed set"
+    },
+    {
+      "matched_text": "family origin (self\u2011declared): Al\u2011Hafez clan, Ras Al Manhal",
+      "concept": "family_origin_sensitive",
+      "reason": "Family/tribal origin is potentially sensitive personal data under PDPL but not mapped to a specific allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 9.20\u20139.60'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 9.20\u20139.60'"
+  ],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}
