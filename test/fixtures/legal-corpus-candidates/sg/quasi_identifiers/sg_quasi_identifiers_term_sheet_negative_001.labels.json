@@ -3,13 +3,177 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990\u201107\u201119"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "OP\u2011M12"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "AT\u20117F22"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@asterareef.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@lionwave.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure to analysts or trade press"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "any material information not generally available will be cleansed by announcement prior to definitive signing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PDPA: Only the above quasi-identifiers will be provided under a data processing agreement; no NRIC, passport numbers, or residential addresses will be disclosed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990\u201107\u201119"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "OP\u2011M12"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "AT\u20117F22"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@asterareef.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@lionwave.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure to analysts or trade press"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "any material information not generally available will be cleansed by announcement prior to definitive signing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PDPA: Only the above quasi-identifiers will be provided under a data processing agreement; no NRIC, passport numbers, or residential addresses will be disclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Limited HR sample (for testing payroll integration only): staff code OP\u2011M12, date of birth 1990\u201107\u201119, office location Toa Payoh logistics hub, employer Coral Metrics Pte. Ltd., role Group Payroll Analyst, laptop asset tag AT\u20117F22, internal sandbox account ID GL\u201109871"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "GL\u201109871"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_sgx_counter",
+      "matched_text": "ARFZ"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "any material information not generally available will be cleansed by announcement prior to definitive signing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Convertible Notes and Strategic Alliance"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no personal emails or direct phone numbers will be shared"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role/caption treated as a defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role noun treated as a defined term, not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ZZ0000000000",
+      "concept": "security_identifier (ISIN placeholder)",
+      "reason": "ISINs are legally relevant securities IDs but not covered by an allowed rule in this taxonomy."
+    },
+    {
+      "matched_text": "AR\u2011NOTE\u2011A",
+      "concept": "internal security series code",
+      "reason": "Internal security series identifiers are relevant but not mapped to a specific allowed rule."
+    },
+    {
+      "matched_text": "2019-ARFZ-000",
+      "concept": "Singapore UEN placeholder",
+      "reason": "Looks like a UEN-style identifier but does not match allowed UEN formats."
+    },
+    {
+      "matched_text": "2024-LWVP-999",
+      "concept": "Singapore UEN placeholder",
+      "reason": "Looks like a UEN-style identifier but does not match allowed UEN formats."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

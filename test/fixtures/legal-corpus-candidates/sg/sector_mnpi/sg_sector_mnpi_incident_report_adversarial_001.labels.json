@@ -3,13 +3,308 @@
   "document_type": "memo",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harbourmeridian.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "singapore@orchardstrand.law"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Kwan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "a.kwan@harbourmeridian.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investorrelations@harbourmeridian.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aaron Teh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec_compliance@harbourmeridian.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not publicly available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Beryl"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout imposed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers reinforced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list updated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list v2.3 appended"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "2.10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Tipping/selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harbourmeridian.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "singapore@orchardstrand.law"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Kwan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "a.kwan@harbourmeridian.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investorrelations@harbourmeridian.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aaron Teh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec_compliance@harbourmeridian.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6X20 4X23"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "139.*.*.*"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E-9X3-7Q"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not publicly available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Beryl"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "ESG KPIs include Scope 1+2 cap at 4,900 tCO2e (FY26), step-up to 2.10% if exceeded, coupon ratchet tied to verified RE100 adoption by FY27"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "2.10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "disclosure premature could affect pricing negotiations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_pre_listing_marker",
+      "matched_text": "DPT (crypto) treasury pilot metrics"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_pre_listing_marker",
+      "matched_text": "MAS sandbox feedback"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_pre_listing_marker",
+      "matched_text": "tokenised SGD pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "need-to-know basis"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout imposed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers reinforced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list updated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list v2.3 appended"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "do not discuss \u201cProject Beryl,\u201d DPT pilot, or SLL terms with unauthorised parties"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Tipping/selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "SGX RegCo to be notified if leakage indicates market impact"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "compromised OAuth token"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun; not PII under named_person rule."
+    },
+    {
+      "matched_text": "external counsel",
+      "reason": "Role noun; not PII under named_person rule."
+    },
+    {
+      "matched_text": "SGX-ST issuer",
+      "reason": "Not an SGX counter code or PII."
+    },
+    {
+      "matched_text": "We do not believe a material adverse change has occurred",
+      "reason": "Negated MAC; excluded by rule 8."
+    },
+    {
+      "matched_text": "no NRICs",
+      "reason": "Negated sensitive identifier; should not trigger PII detection."
+    },
+    {
+      "matched_text": "Operational notice (benign)",
+      "reason": "Educational/marketing context; not MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "+65 6X20 4X23",
+      "concept": "phone_number (masked)",
+      "reason": "Partially redacted phone; format may not match strict regex but is contact PII."
+    },
+    {
+      "matched_text": "139.*.*.*",
+      "concept": "ip_address (masked)",
+      "reason": "Redacted IP pattern; not a full IPv4 address but indicates network identifier."
+    },
+    {
+      "matched_text": "E-9X3-7Q",
+      "concept": "employee_id",
+      "reason": "Internal userId likely identifies a specific staff member; not a standard ID pattern."
+    },
+    {
+      "matched_text": "GL-29 1 0-X",
+      "concept": "internal_account_identifier",
+      "reason": "General ledger/account tag could be sensitive internal reference but not a defined PII type."
+    },
+    {
+      "matched_text": "K. Liew",
+      "concept": "initialed_name_on_insider_list",
+      "reason": "Identifies an individual in context, but lacks honorific/signature to meet named_person rule."
+    },
+    {
+      "matched_text": "P. Kwan",
+      "concept": "initialed_name_on_insider_list",
+      "reason": "Identifies an individual in context, but lacks honorific/signature to meet named_person rule."
+    },
+    {
+      "matched_text": "S. Rahman",
+      "concept": "initialed_name_on_insider_list",
+      "reason": "Identifies an individual in context, but lacks honorific/signature to meet named_person rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
