@@ -12,6 +12,7 @@ from scripts.candidate_review import (
     record_human_review,
     write_labels,
 )
+from scripts.check_candidate_stage_gate import STAGE_B_DOCS, main as stage_gate_main, stage_gate_status
 from scripts.promote_candidate_fixtures import MANIFEST_NAME, promote_candidates
 from scripts.recall_gate import main as recall_gate_main
 from scripts.review_candidate_fixture import main as review_candidate_main
@@ -188,6 +189,58 @@ class CandidateReviewWorkflowTests(unittest.TestCase):
             )
             self.assertEqual(approved_result, 0)
             self.assertTrue((corpus / f"{corpus.name}.lock.json").exists())
+
+    def test_stage_gate_reports_evaluated_but_pending_owner_review(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            corpus = root / "candidates"
+            cell = corpus / "sg" / "direct_identifiers"
+            cell.mkdir(parents=True)
+            documents = []
+            for idx in range(1, STAGE_B_DOCS + 1):
+                fixture = cell / f"sg_direct_identifiers_memo_default_{idx:03d}.txt"
+                fixture.write_text("Send S1234567D before announcement.\n", encoding="utf-8")
+                labels = _fixture_labels(review_status="approved" if idx == 1 else "pending")
+                labels["doc_id"] = fixture.stem
+                labels["source_jurisdiction"] = "SG"
+                write_labels(labels_path_for(fixture), labels)
+                documents.append({
+                    "source_jurisdiction": "SG",
+                    "matched": [{"rule": "sg_nric_fin", "matched_text": "S1234567D"}],
+                    "missed": [],
+                    "unexpected": [],
+                    "must_not_detect_violations": [],
+                    "ideal_matched": [{"rule": "sg_nric_fin", "matched_text": "S1234567D"}],
+                    "ideal_missed": [],
+                })
+            eval_report = root / "eval.json"
+            eval_report.write_text(json.dumps({"documents": documents}), encoding="utf-8")
+
+            status = stage_gate_status(
+                corpus=corpus,
+                jurisdiction="SG",
+                target_stage="stage_b",
+                eval_reports=[eval_report],
+            )
+            self.assertEqual(status["status"], "evaluated_pending_owner_review")
+            self.assertTrue(status["clean_eval"])
+            self.assertFalse(status["owner_reviewed"])
+
+            rc = _quiet_main(
+                stage_gate_main,
+                [
+                    "--corpus",
+                    str(corpus),
+                    "--jurisdiction",
+                    "SG",
+                    "--target-stage",
+                    "stage_b",
+                    "--eval-report",
+                    str(eval_report),
+                    "--require-promotion-ready",
+                ],
+            )
+            self.assertEqual(rc, 1)
 
 
 def collect_review_status_violations_for_payload(labels: dict) -> list[str]:
