@@ -284,6 +284,8 @@ def main(argv: list[str] | None = None) -> int:
             args.autolabel_model,
             "--workers",
             str(max(1, args.workers)),
+            "--manifest-dir",
+            str(run_dir),
         ]
         rc = _print_or_run(label_cmd, dry_run=args.dry_run, run_dir=run_dir, step="autolabel")
         if rc != 0:
@@ -318,6 +320,18 @@ def main(argv: list[str] | None = None) -> int:
         if rc == 1:
             print("review-status check found pending generated labels, as expected for quarantine candidates.")
             rc = 0
+    if not args.dry_run:
+        ledger_cmd = [
+            sys.executable,
+            str(REPO_ROOT / "scripts" / "candidate_run_ledger.py"),
+            "--run-dir",
+            str(run_dir),
+            "--candidate-dir",
+            str(candidate_dir),
+        ]
+        ledger_rc = _print_or_run(ledger_cmd, dry_run=False, run_dir=run_dir, step="run-ledger")
+        if ledger_rc != 0 and rc == 0:
+            rc = ledger_rc
     return rc
 
 

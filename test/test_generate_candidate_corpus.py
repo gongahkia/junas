@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts import generate_candidate_corpus, run_candidate_corpus_pipeline
+from scripts import candidate_run_ledger, generate_candidate_corpus, run_candidate_corpus_pipeline
 from scripts.fixture_taxonomy import CONCEPTS, JURISDICTIONS
 
 
@@ -114,6 +114,48 @@ class CandidatePipelineEnvTests(unittest.TestCase):
                 os.environ.pop("SECONDARY_PRESENT", None)
             else:
                 os.environ["SECONDARY_PRESENT"] = previous
+
+    def test_candidate_run_ledger_summarises_manifests_eval_and_cost_shape(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            run_dir = root / "run"
+            candidate_dir = root / "candidates"
+            run_dir.mkdir()
+            candidate_dir.mkdir()
+            (candidate_dir / "sample.txt").write_text("Synthetic fixture text.\n", encoding="utf-8")
+            (candidate_dir / "sample.labels.json").write_text('{"_human_review_status":"pending"}\n', encoding="utf-8")
+            (run_dir / "pipeline_manifest.jsonl").write_text(
+                '{"event":"finish","step":"generate","returncode":0,"elapsed_seconds":3}\n'
+                '{"event":"finish","step":"autolabel","returncode":0,"elapsed_seconds":5}\n',
+                encoding="utf-8",
+            )
+            (run_dir / "generation_manifest.jsonl").write_text(
+                '{"event":"planned","slug":"sample"}\n'
+                '{"event":"generated","slug":"sample"}\n'
+                '{"event":"summary","expected":2,"planned":1,"generated":1,"failed":0,'
+                '"skipped_existing_or_complete":1,"elapsed_seconds":3,"provider":"azure","model":"mini"}\n',
+                encoding="utf-8",
+            )
+            (run_dir / "autolabel_manifest.jsonl").write_text(
+                '{"event":"fixture","fixture":"sample.txt","status":"labeled","warnings":2}\n'
+                '{"event":"summary","provider":"azure","model":"mini","label_model":"azure:mini",'
+                '"labeled":1,"skipped":0,"errors":0,"elapsed_seconds":5,"workers":1}\n',
+                encoding="utf-8",
+            )
+            (run_dir / "candidate_evaluation.json").write_text(
+                '{"summary":{"doc_count":1,"candidate_recall":1.0,"candidate_precision":1.0}}\n',
+                encoding="utf-8",
+            )
+
+            ledger = candidate_run_ledger.build_ledger(run_dir, candidate_dir=candidate_dir)
+
+        self.assertEqual(ledger["pipeline"]["elapsed_seconds"], 8)
+        self.assertEqual(ledger["generation"]["generated"], 1)
+        self.assertEqual(ledger["generation"]["skipped_existing_or_complete"], 1)
+        self.assertEqual(ledger["autolabel"]["labeled"], 1)
+        self.assertEqual(ledger["autolabel"]["warnings"], 2)
+        self.assertEqual(ledger["evaluation"]["summary"]["candidate_recall"], 1.0)
+        self.assertEqual(ledger["cost"]["status"], "estimate_only_no_provider_token_usage")
 
 
 if __name__ == "__main__":

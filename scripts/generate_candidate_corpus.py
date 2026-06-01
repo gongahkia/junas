@@ -316,6 +316,21 @@ def main(argv: list[str] | None = None) -> int:
                 )
                 break
     elapsed = int(time.monotonic() - t0)
+    if manifest_dir and not args.dry_run:
+        _append_jsonl(
+            manifest_dir / "generation_manifest.jsonl",
+            {
+                "event": "summary",
+                "expected": expected,
+                "planned": len(plan),
+                "generated": ok,
+                "failed": failed,
+                "skipped_existing_or_complete": expected - len(plan),
+                "elapsed_seconds": elapsed,
+                "provider": args.provider,
+                "model": args.model,
+            },
+        )
     print(f"candidate generation summary: ok={ok} failed={failed} skipped={expected - len(plan)} elapsed={elapsed}s")
     if not args.dry_run:
         print("candidate fixtures are quarantine-only; human review is required before lock promotion.")

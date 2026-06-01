@@ -15,6 +15,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 import time
@@ -29,6 +30,12 @@ from scripts.autolabel_fixture import _azure_env, _existing_is_human, autolabel,
 CORPUS = REPO / "test" / "fixtures" / "legal-corpus"
 ADV = REPO / "test" / "fixtures" / "legal-corpus-adversarial"
 CANDIDATES = REPO / "test" / "fixtures" / "legal-corpus-candidates"
+
+
+def _append_jsonl(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n")
 
 
 def _provider_label_model(provider: str, model: str) -> str:
@@ -115,6 +122,35 @@ def _record_result(payload: dict) -> tuple[int, int, int]:
     return 0, 0, 1
 
 
+def _manifest_payload(payload: dict, *, provider: str, model: str) -> dict:
+    fixture = payload["fixture"]
+    base = {
+        "event": "fixture",
+        "fixture": str(fixture),
+        "provider": provider,
+        "model": model,
+        "dt_ms": int(payload.get("dt_ms") or 0),
+    }
+    if "exception" in payload:
+        return {
+            **base,
+            "status": "error",
+            "error": str(payload["exception"])[:1000],
+        }
+    result = payload.get("result", {})
+    return {
+        **base,
+        "status": str(result.get("status") or "unknown"),
+        "path": str(result.get("path") or ""),
+        "must_detect_count": int(result.get("must_detect_count") or 0),
+        "ideal_must_detect_count": int(result.get("ideal_must_detect_count") or 0),
+        "must_not_detect_count": int(result.get("must_not_detect_count") or 0),
+        "uncertain_count": int(result.get("uncertain_count") or 0),
+        "warnings": int(result.get("warnings") or 0),
+        "error": str(result.get("error") or "")[:1000],
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Batch auto-labeler")
     parser.add_argument(
@@ -142,6 +178,7 @@ def main() -> int:
         default=int(os.environ.get("KAYPOH_AUTOLABEL_WORKERS", "1")),
         help="Parallel OpenAI calls to run (default: 1, env KAYPOH_AUTOLABEL_WORKERS)",
     )
+    parser.add_argument("--manifest-dir", type=Path, help="write autolabel JSONL manifest here")
     args = parser.parse_args()
 
     if args.provider == "azure":
@@ -180,6 +217,10 @@ def main() -> int:
         flush=True,
     )
     label_model = _provider_label_model(args.provider, args.model)
+    manifest_path = None
+    if args.manifest_dir:
+        manifest_dir = args.manifest_dir if args.manifest_dir.is_absolute() else REPO / args.manifest_dir
+        manifest_path = manifest_dir / "autolabel_manifest.jsonl"
 
     ok = skip = err = 0
     t_start = time.monotonic()
@@ -191,6 +232,8 @@ def main() -> int:
                 fx, model=args.model, api_key=api_key, force=args.force, provider=args.provider
             )
             d_ok, d_skip, d_err = _record_result(payload)
+            if manifest_path:
+                _append_jsonl(manifest_path, _manifest_payload(payload, provider=args.provider, model=args.model))
             ok += d_ok
             skip += d_skip
             err += d_err
@@ -203,6 +246,11 @@ def main() -> int:
             status = _skip_status(fx, label_model=label_model, force=args.force)
             if status:
                 d_ok, d_skip, d_err = _record_result(_skip_payload(fx, status))
+                if manifest_path:
+                    _append_jsonl(
+                        manifest_path,
+                        _manifest_payload(_skip_payload(fx, status), provider=args.provider, model=args.model),
+                    )
                 ok += d_ok
                 skip += d_skip
                 err += d_err
@@ -236,6 +284,8 @@ def main() -> int:
                 for future in done:
                     payload = future.result()
                     d_ok, d_skip, d_err = _record_result(payload)
+                    if manifest_path:
+                        _append_jsonl(manifest_path, _manifest_payload(payload, provider=args.provider, model=args.model))
                     ok += d_ok
                     skip += d_skip
                     err += d_err
@@ -252,6 +302,21 @@ def main() -> int:
     elapsed = int(time.monotonic() - t_start)
     print("\n=== summary ===")
     print(f"labeled: {ok}  skipped: {skip}  errors: {err}  elapsed: {elapsed}s")
+    if manifest_path:
+        _append_jsonl(
+            manifest_path,
+            {
+                "event": "summary",
+                "provider": args.provider,
+                "model": args.model,
+                "label_model": label_model,
+                "labeled": ok,
+                "skipped": skip,
+                "errors": err,
+                "elapsed_seconds": elapsed,
+                "workers": workers,
+            },
+        )
     print("Spot-check at least 10% of auto-labeled fixtures before refreshing recall.lock.json.")
     return 0 if err == 0 else 1
 
