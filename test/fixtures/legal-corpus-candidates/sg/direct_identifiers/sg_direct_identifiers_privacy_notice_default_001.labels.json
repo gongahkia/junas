@@ -3,13 +3,311 @@
   "document_type": "generic",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "018888"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@oridacap.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-123-4567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lydia Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lydia.koh@oridacap.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6900 1122"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567Z"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_nric_fin",
+      "matched_text": "G1234567T"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "E34567891"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aaron Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "a/c 031-224-668-1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sgs-mlro@helixstrandlaw.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@oridacap.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "info@oridacap.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout notifications"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "018888"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@oridacap.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-123-4567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lydia Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lydia.koh@oridacap.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6900 1122"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567Z"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_nric_fin",
+      "matched_text": "G1234567T"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "E34567891"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aaron Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "a/c 031-224-668-1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sgs-mlro@helixstrandlaw.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@oridacap.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "info@oridacap.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout notifications"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "201912345K"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "201834567C"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "draft earnings"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSARs"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation and retention"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked NRIC"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "S123****Z"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not email full NRIC/FIN"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "purge any file labelled \u201cMaster NRIC List (Public)\u201d"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Head of HR",
+      "reason": "Role-only term; not an identifiable individual"
+    },
+    {
+      "matched_text": "Name of Employee",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "NRIC/FIN",
+      "reason": "Generic form label placeholder, not actual PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "retained 7 years post-termination",
+      "concept": "retention_marker",
+      "reason": "Retention schedule reference is a privacy control, but no explicit allowed rule label for retention provided"
+    },
+    {
+      "matched_text": "retained 6 years from transaction close",
+      "concept": "retention_marker",
+      "reason": "Retention schedule reference is a privacy control, but no explicit allowed rule label for retention provided"
+    },
+    {
+      "matched_text": "retained at least 5 years",
+      "concept": "retention_marker",
+      "reason": "Retention schedule reference is a privacy control, but no explicit allowed rule label for retention provided"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
