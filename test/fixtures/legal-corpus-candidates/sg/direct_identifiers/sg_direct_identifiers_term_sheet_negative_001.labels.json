@@ -3,13 +3,164 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10\u201315%"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "049999"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "129999"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567A"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10\u201315%"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "049999"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "129999"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567A"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "201912345Z"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "201800000Z"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PDPA compliance applies\u2014no NRIC/passport collection except where legally required (e.g., MAS AML/CFT onboarding)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid including employees\u2019 home addresses, personal emails, or direct mobile numbers in the data room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Non-Binding Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not transmit sensitive or MNPI content to this mailbox"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Strategic Investment"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role defined term, not an individual\u2019s name"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role defined term, not an individual\u2019s name"
+    },
+    {
+      "matched_text": "Director",
+      "reason": "Role/title only, not an identified person"
+    },
+    {
+      "matched_text": "+65 1800 000 0000",
+      "reason": "Public helpline number, not personal data"
+    },
+    {
+      "matched_text": "+65 1800 111 1111",
+      "reason": "Public helpline number, not personal data"
+    },
+    {
+      "matched_text": "+65 1800 222 0000",
+      "reason": "Public helpline number, not personal data"
+    },
+    {
+      "matched_text": "888-000-123456",
+      "reason": "Fictional corporate account number, not personal data"
+    },
+    {
+      "matched_text": "legal@tembusu-hz.example.com",
+      "reason": "Role/generic mailbox, not personal data"
+    },
+    {
+      "matched_text": "cosec@lionforge.example.com",
+      "reason": "Role/generic mailbox, not personal data"
+    },
+    {
+      "matched_text": "sgx-enquiries@public.example.com",
+      "reason": "Role/generic mailbox, not personal data"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "SG-TEST-0000",
+      "concept": "security_identifier_placeholder",
+      "reason": "Looks like a securities/ISIN-style code but marked as a non-functional placeholder; no specific allowed rule covers this format."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

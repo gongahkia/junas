@@ -3,13 +3,293 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "202412345Z"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "201812345K"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "S$1.20 per share"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No.: 012-345-678-901"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@liontech.test"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "049999"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tan Mei Lin"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "Passport No.: K1234567Z"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. David Ong"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "david.ong@tamarincap.test"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "059999"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$1,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$500,000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@liontech.test"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "202412345Z"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "201812345K"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "S$1.20 per share"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No.: 012-345-678-901"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@liontech.test"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6123 4567"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "049999"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tan Mei Lin"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "Passport No.: K1234567Z"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. David Ong"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "david.ong@tamarincap.test"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "059999"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$1,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$500,000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@liontech.test"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "share purchase agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no dealing in LionTech securities until information is generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may constitute MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure under Listing Rule 703"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal data transfers to be limited to purpose of transaction"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "NRIC and FIN numbers masked except where legally required"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "1800 123 4567",
+      "reason": "Public helpline bait; exclude from PII phone detection."
+    },
+    {
+      "matched_text": "NRIC: S1234567A (invalid checksum)",
+      "reason": "Invalid-checksum bait; exclude from sg_nric_fin detection."
+    },
+    {
+      "matched_text": "Name of Director: ______",
+      "reason": "Form placeholder; not actual PII."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "PDPA-compliant consents",
+      "concept": "consent marker",
+      "reason": "Indicates consent requirement under PDPA but allowed rules lack a generic consent marker (only withdrawal specified)."
+    },
+    {
+      "matched_text": "proposed SGX Mainboard issuer",
+      "concept": "pre-listing status",
+      "reason": "Potentially price-sensitive listing status but no explicit allowed rule for equity pre-listing markers."
+    },
+    {
+      "matched_text": "BIC: TMBKSGSG",
+      "concept": "bank identifier code",
+      "reason": "Financial institution identifier may be sensitive in context but not covered by allowed PII rules."
+    },
+    {
+      "matched_text": "Long-stop date 30 November 2026",
+      "concept": "transaction milestone date",
+      "reason": "Key deal timeline could be market-sensitive but not among specified embargo markers."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
