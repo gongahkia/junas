@@ -81,7 +81,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "BIR/Tax: use template fields only \u2014 TIN: ___-___-___; RDO Code: ___; do not insert actual digits in working drafts",
+      "matched_text": "BIR/Tax: use template fields only — TIN: ___-___-___; RDO Code: ___; do not insert actual digits in working drafts",
       "rule": "data_minimisation_marker"
     },
     {
@@ -158,8 +158,26 @@
   "uncertain": [
     {
       "concept": "cyber_incident_pre_disclosure",
-      "matched_text": "Incident note: a cloud link showed a generic \u201cForm 2307.pdf\u201d label; no personal tax details were uploaded, and the link is no longer accessible",
+      "matched_text": "Incident note: a cloud link showed a generic “Form 2307.pdf” label; no personal tax details were uploaded, and the link is no longer accessible",
       "reason": "Mentions an incident and access change but asserts no data exposure; borderline and unlikely to be material MNPI."
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

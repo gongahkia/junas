@@ -7,6 +7,7 @@ from pathlib import Path
 
 from scripts.candidate_review import (
     collect_review_status_violations,
+    collect_stage_b_readiness_violations,
     labels_path_for,
     record_human_review,
     write_labels,
@@ -80,6 +81,28 @@ class CandidateReviewWorkflowTests(unittest.TestCase):
             write_labels(labels_path_for(fixture), labels)
 
             self.assertEqual(collect_review_status_violations(corpus), [])
+
+    def test_stage_b_readiness_check_requires_explicit_metadata(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus = Path(tmp)
+            fixture = _write_fixture(corpus)
+            labels = json.loads(labels_path_for(fixture).read_text(encoding="utf-8"))
+            record_human_review(labels, decision="approve", reviewer="counsel@example.com")
+            write_labels(labels_path_for(fixture), labels)
+
+            violations = collect_stage_b_readiness_violations(corpus)
+            self.assertEqual(len(violations), 1)
+            self.assertIn("stage_b_readiness=missing", violations[0])
+
+            labels["_stage_readiness"] = {
+                "stage_a": "reviewed",
+                "stage_b": "ready",
+                "stage_c": "pending",
+                "status": "stage_b_ready",
+                "reviewer": "project-owner",
+            }
+            write_labels(labels_path_for(fixture), labels)
+            self.assertEqual(collect_stage_b_readiness_violations(corpus), [])
 
     def test_review_cli_show_only_does_not_require_decision_or_reviewer(self):
         with tempfile.TemporaryDirectory() as tmp:

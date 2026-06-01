@@ -80,12 +80,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "union membership: Sakura Vertex Workers Council ID SV-WC 0 3 4 \u25a0\u25a0",
+      "matched_text": "union membership: Sakura Vertex Workers Council ID SV-WC 0 3 4 ■■",
       "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "matched_text": "fingerprint template hash fp: a9c3: 00\u2014  17 z",
+      "matched_text": "fingerprint template hash fp: a9c3: 00—  17 z",
       "rule": "biometric_identifier"
     },
     {
@@ -95,7 +95,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Genetic screening: Ms. Fujikawa\u2019s voluntary BRCA panel result recorded as \u201cnegative\u201d",
+      "matched_text": "Genetic screening: Ms. Fujikawa’s voluntary BRCA panel result recorded as “negative”",
       "rule": "genetic_data"
     },
     {
@@ -145,12 +145,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "\u00a52,450",
+      "matched_text": "¥2,450",
       "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "matched_text": "Board resolution to launch TOB at \u00a52,450 per share",
+      "matched_text": "Board resolution to launch TOB at ¥2,450 per share",
       "rule": "material_event"
     },
     {
@@ -357,7 +357,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "\u00a52,450",
+      "matched_text": "¥2,450",
       "rule": "financial_amount"
     },
     {
@@ -429,23 +429,41 @@
   "uncertain": [
     {
       "concept": "masked My Number token",
-      "matched_text": "mn masked \u500b\u4eba\u756a\u53f7 token: 77xx-43xx-20xx (not a government ID)",
+      "matched_text": "mn masked 個人番号 token: 77xx-43xx-20xx (not a government ID)",
       "reason": "Looks like a My Number-like token but explicitly masked and not a government ID; not clearly covered by jp_my_number or other allowed rules"
     },
     {
       "concept": "encrypted My Number field",
-      "matched_text": "mn:: e4-  1 9 \u2014k   (line-broken OCR copy)",
+      "matched_text": "mn:: e4-  1 9 —k   (line-broken OCR copy)",
       "reason": "Appears to be an internal encrypted/tokenized field referencing My Number; not clearly covered by allowed identifier rules"
     },
     {
       "concept": "internal reference code",
-      "matched_text": "r e f: SVK\u20140 0 7 1",
+      "matched_text": "r e f: SVK—0 0 7 1",
       "reason": "Internal project/reference identifier; may be sensitive operational code but not mapped to any allowed identifier rule"
     },
     {
       "concept": "insider portal URL",
       "matched_text": "https://intra.sakuravertex.co.jp/c/TOB?id=sv-  091&sec=mnpi",
       "reason": "Internal MNPI portal link; URLs are not covered by allowed PII/MNPI rules though operationally sensitive"
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

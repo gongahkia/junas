@@ -47,7 +47,7 @@
   "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Post-PH precision realignment removed strict labels now suppressed by narrow precision guards; the broader spans remain in ideal_must_detect when useful for gap tracking.",
   "_label_source": "azure:gpt-5-2-auto",
   "_label_warnings": [
-    "drop ideal_must_detect: drop must-not bait from ideal tier rule='cross_border_transfer_marker' text='Data Export Approval DEA\u2011TH/ZX\u201121 granted by DPO on 2026\u201105\u201120'"
+    "drop ideal_must_detect: drop must-not bait from ideal tier rule='cross_border_transfer_marker' text='Data Export Approval DEA‑TH/ZX‑21 granted by DPO on 2026‑05‑20'"
   ],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-30T01:36:04Z",
@@ -89,12 +89,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal Legal Memo \u2014 Thanarat Dynamics Public Company Limited (TND PCL) \u2014 PDPA/SEA readiness for bridge financing and HRIS upgrade \u2014 29 May 2026",
+      "matched_text": "Internal Legal Memo — Thanarat Dynamics Public Company Limited (TND PCL) — PDPA/SEA readiness for bridge financing and HRIS upgrade — 29 May 2026",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Financing/MNPI handling: draft term sheet for privately placed Series B debentures is restricted to Clean Room CR\u201102; information barriers active; this memo contains no price\u2011sensitive terms and omits coupon/tenor; team uses code name \u201cPrai Seua.\u201d",
+      "matched_text": "Financing/MNPI handling: draft term sheet for privately placed Series B debentures is restricted to Clean Room CR‑02; information barriers active; this memo contains no price‑sensitive terms and omits coupon/tenor; team uses code name “Prai Seua.”",
       "rule": "material_event"
     },
     {
@@ -129,7 +129,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "EmpID: TH_xx_00\u20119  81",
+      "matched_text": "EmpID: TH_xx_00‑9  81",
       "rule": "employee_id"
     },
     {
@@ -184,7 +184,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Clean Room CR\u201102",
+      "matched_text": "Clean Room CR‑02",
       "rule": "information_barrier_marker"
     },
     {
@@ -194,7 +194,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Project \u201cNok Yai\u201d",
+      "matched_text": "Project “Nok Yai”",
       "rule": "transaction_codename"
     },
     {
@@ -231,12 +231,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal Legal Memo \u2014 Thanarat Dynamics Public Company Limited (TND PCL) \u2014 PDPA/SEA readiness for bridge financing and HRIS upgrade \u2014 29 May 2026",
+      "matched_text": "Internal Legal Memo — Thanarat Dynamics Public Company Limited (TND PCL) — PDPA/SEA readiness for bridge financing and HRIS upgrade — 29 May 2026",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Financing/MNPI handling: draft term sheet for privately placed Series B debentures is restricted to Clean Room CR\u201102; information barriers active; this memo contains no price\u2011sensitive terms and omits coupon/tenor; team uses code name \u201cPrai Seua.\u201d",
+      "matched_text": "Financing/MNPI handling: draft term sheet for privately placed Series B debentures is restricted to Clean Room CR‑02; information barriers active; this memo contains no price‑sensitive terms and omits coupon/tenor; team uses code name “Prai Seua.”",
       "rule": "material_event"
     },
     {
@@ -275,7 +275,7 @@
     },
     {
       "matched_text": "DPO",
-      "reason": "Role acronym, not an individual\u2019s name."
+      "reason": "Role acronym, not an individual’s name."
     },
     {
       "matched_text": "Finance Ops",
@@ -291,12 +291,12 @@
     },
     {
       "concept": "customer_reference",
-      "matched_text": "CUST\u20117x9G",
+      "matched_text": "CUST‑7x9G",
       "reason": "Customer reference identifier is PII-like but no specific allowed rule category fits."
     },
     {
       "concept": "erasure_marker",
-      "matched_text": "call recordings for 2025\u2011Q4 erased",
+      "matched_text": "call recordings for 2025‑Q4 erased",
       "reason": "Erasure/deletion events are legally relevant but not included in allowed rules."
     },
     {
@@ -306,12 +306,12 @@
     },
     {
       "concept": "erasure_marker",
-      "matched_text": "purged 2026\u201105\u201122",
+      "matched_text": "purged 2026‑05‑22",
       "reason": "Signals deletion timing; erasure markers not in allowed rules."
     },
     {
       "concept": "erasure_confirmation_id",
-      "matched_text": "ER\u2011SG\u2011024",
+      "matched_text": "ER‑SG‑024",
       "reason": "Deletion confirmation ID is relevant to erasure but not in allowed rules."
     },
     {
@@ -326,8 +326,26 @@
     },
     {
       "concept": "phone_number",
-      "matched_text": "hotline +66\u2011X\u2011XXX\u2011XXXX (masked)",
+      "matched_text": "hotline +66‑X‑XXX‑XXXX (masked)",
       "reason": "Masked phone-like string; may not be matched by strict phone regexes."
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

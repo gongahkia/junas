@@ -71,7 +71,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "apply blackout for directors, officers, and covered employees from 29 May until two full trading days after 17\u2011C disclosure",
+      "matched_text": "apply blackout for directors, officers, and covered employees from 29 May until two full trading days after 17‑C disclosure",
       "rule": "blackout_period_reference"
     },
     {
@@ -86,12 +86,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Acct No. 74\u2011xx\u20113189",
+      "matched_text": "Acct No. 74‑xx‑3189",
       "rule": "bank_account"
     },
     {
       "category": "PII",
-      "matched_text": "Employee ID E\u201114x2",
+      "matched_text": "Employee ID E‑14x2",
       "rule": "employee_id"
     },
     {
@@ -156,7 +156,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "avoid any off\u2011the\u2011record mention of pricing ranges or bookbuild timing",
+      "matched_text": "avoid any off‑the‑record mention of pricing ranges or bookbuild timing",
       "rule": "tipping_language"
     },
     {
@@ -201,7 +201,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non-public: preliminary unaudited Q2 re s ult s indicate EBITDA of ~PHP 418m vs. prior guidance of PHP 360\u2013380m; this is potentially material under SRC and PSE Disclosure Rules; apply blackout for directors, officers, and covered employees from 29 May until two full trading days after 17\u2011C disclosure.",
+      "matched_text": "Non-public: preliminary unaudited Q2 re s ult s indicate EBITDA of ~PHP 418m vs. prior guidance of PHP 360–380m; this is potentially material under SRC and PSE Disclosure Rules; apply blackout for directors, officers, and covered employees from 29 May until two full trading days after 17‑C disclosure.",
       "rule": "material_event"
     },
     {
@@ -211,7 +211,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Treasury: tentative FOO parameters (internal only) contemplate a PHP 5.60\u20136.10 price range and bookbuild window 12\u201314 July; any guidance to PSE/PTPs will follow a 17\u2011C and PSE Notice; breaches of blackout will be escalated to the Compliance Officer, Atty. Ramon J. Elazegui.",
+      "matched_text": "Treasury: tentative FOO parameters (internal only) contemplate a PHP 5.60–6.10 price range and bookbuild window 12–14 July; any guidance to PSE/PTPs will follow a 17‑C and PSE Notice; breaches of blackout will be escalated to the Compliance Officer, Atty. Ramon J. Elazegui.",
       "rule": "material_event"
     },
     {
@@ -243,7 +243,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Non-public: preliminary unaudited Q2 re s ult s indicate EBITDA of ~PHP 418m vs. prior guidance of PHP 360\u2013380m; this is potentially material under SRC and PSE Disclosure Rules; apply blackout for directors, officers, and covered employees from 29 May until two full trading days after 17\u2011C disclosure.",
+      "matched_text": "Non-public: preliminary unaudited Q2 re s ult s indicate EBITDA of ~PHP 418m vs. prior guidance of PHP 360–380m; this is potentially material under SRC and PSE Disclosure Rules; apply blackout for directors, officers, and covered employees from 29 May until two full trading days after 17‑C disclosure.",
       "rule": "material_event"
     },
     {
@@ -253,7 +253,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Treasury: tentative FOO parameters (internal only) contemplate a PHP 5.60\u20136.10 price range and bookbuild window 12\u201314 July; any guidance to PSE/PTPs will follow a 17\u2011C and PSE Notice; breaches of blackout will be escalated to the Compliance Officer, Atty. Ramon J. Elazegui.",
+      "matched_text": "Treasury: tentative FOO parameters (internal only) contemplate a PHP 5.60–6.10 price range and bookbuild window 12–14 July; any guidance to PSE/PTPs will follow a 17‑C and PSE Notice; breaches of blackout will be escalated to the Compliance Officer, Atty. Ramon J. Elazegui.",
       "rule": "material_event"
     },
     {
@@ -336,11 +336,11 @@
     {
       "concept": "financial covenant",
       "matched_text": "leverage covenant at 3.0x",
-      "reason": "Potentially material financing covenant but ratio format isn\u2019t covered by current allowed rules."
+      "reason": "Potentially material financing covenant but ratio format isn’t covered by current allowed rules."
     },
     {
       "concept": "offering timeline",
-      "matched_text": "bookbuild window 12\u201314 July",
+      "matched_text": "bookbuild window 12–14 July",
       "reason": "Indicative bookbuild window is sensitive scheduling information not explicitly covered by embargo markers."
     },
     {
@@ -351,12 +351,30 @@
     {
       "concept": "nonpublic status",
       "matched_text": "internal only",
-      "reason": "Indicates restricted circulation but isn\u2019t a standard non-public anchor phrase in strict detectors."
+      "reason": "Indicates restricted circulation but isn’t a standard non-public anchor phrase in strict detectors."
     },
     {
       "concept": "blackout reference",
       "matched_text": "trading blackout",
       "reason": "Mentions a blackout but without explicit window details; strict rules prefer specific blackout period phrasing."
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

@@ -65,7 +65,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non\u2011public",
+      "matched_text": "non‑public",
       "rule": "nonpublic_marker"
     },
     {
@@ -100,39 +100,39 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "public references only: q4 2025 revenue range \u201cmid\u2011single\u2011digit growth\u201d as stated on 02/10/26 earnings call transcript.",
+      "matched_text": "public references only: q4 2025 revenue range “mid‑single‑digit growth” as stated on 02/10/26 earnings call transcript.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "negated mac language: per prior s\u20114 for the 2024 inland beacon merger, no \u201cmaterial adverse effect\u201d occurred through closing; do not extrapolate to current quarter.",
+      "matched_text": "negated mac language: per prior s‑4 for the 2024 inland beacon merger, no “material adverse effect” occurred through closing; do not extrapolate to current quarter.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "embargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8\u2011k before market open.",
+      "matched_text": "embargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8‑k before market open.",
       "rule": "material_event"
     }
   ],
   "must_detect": [
     {
       "category": "MNPI",
-      "matched_text": "public references only: q4 2025 revenue range \u201cmid\u2011single\u2011digit growth\u201d as stated on 02/10/26 earnings call transcript.",
+      "matched_text": "public references only: q4 2025 revenue range “mid‑single‑digit growth” as stated on 02/10/26 earnings call transcript.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "negated mac language: per prior s\u20114 for the 2024 inland beacon merger, no \u201cmaterial adverse effect\u201d occurred through closing; do not extrapolate to current quarter.",
+      "matched_text": "negated mac language: per prior s‑4 for the 2024 inland beacon merger, no “material adverse effect” occurred through closing; do not extrapolate to current quarter.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "negated mac language: per prior s\u20114 for the 2024 inland beacon merger, no \u201cmaterial adverse effect\u201d occurred through closing; do not extrapolate to current quarter.",
+      "matched_text": "negated mac language: per prior s‑4 for the 2024 inland beacon merger, no “material adverse effect” occurred through closing; do not extrapolate to current quarter.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "embargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8\u2011k before market open.",
+      "matched_text": "embargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8‑k before market open.",
       "rule": "material_event"
     },
     {
@@ -147,7 +147,7 @@
       "reason": "Negated MAC/MAE context; rule excludes negated occurrences."
     },
     {
-      "matched_text": "spa\u2011day",
+      "matched_text": "spa‑day",
       "reason": "False-positive bait for SPA (Share Purchase Agreement); this refers to a wellness event."
     },
     {
@@ -163,11 +163,11 @@
       "reason": "Masked placeholder example; not a real bank account number."
     },
     {
-      "matched_text": "loan id XX\u2011000",
+      "matched_text": "loan id XX‑000",
       "reason": "Placeholder example; not a real bank customer reference."
     },
     {
-      "matched_text": "cusip XXX\u2011000\u2011YYY",
+      "matched_text": "cusip XXX‑000‑YYY",
       "reason": "Placeholder identifier; not real and not PII."
     },
     {
@@ -185,6 +185,24 @@
       "concept": "bank routing number",
       "matched_text": "aba 000000000",
       "reason": "Potentially sensitive financial identifier, but no specific allowed rule for ABA/routing numbers."
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

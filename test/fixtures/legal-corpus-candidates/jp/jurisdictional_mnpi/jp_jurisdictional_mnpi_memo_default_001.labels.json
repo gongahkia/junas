@@ -70,7 +70,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f",
+      "matched_text": "未公表の重要事実",
       "rule": "nonpublic_marker"
     },
     {
@@ -95,7 +95,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "\u672a\u516c\u8868",
+      "matched_text": "未公表",
       "rule": "nonpublic_marker"
     },
     {
@@ -150,12 +150,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "hr\u2011privacy@kanzakitech.co.jp",
+      "matched_text": "hr‑privacy@kanzakitech.co.jp",
       "rule": "email_address"
     },
     {
       "category": "PII",
-      "matched_text": "cross\u2011border processing",
+      "matched_text": "cross‑border processing",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -175,7 +175,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "employee code KZ\u20114421",
+      "matched_text": "employee code KZ‑4421",
       "rule": "employee_id"
     },
     {
@@ -185,7 +185,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "only need\u2011to\u2011know distribution via secure board portal",
+      "matched_text": "only need‑to‑know distribution via secure board portal",
       "rule": "information_barrier_marker"
     },
     {
@@ -195,7 +195,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "heads\u2011of\u2011terms shared under NDA",
+      "matched_text": "heads‑of‑terms shared under NDA",
       "rule": "information_barrier_marker"
     },
     {
@@ -272,7 +272,7 @@
       "reason": "public filing reference; not MNPI"
     },
     {
-      "matched_text": "EDINEX\u2011JP (code EX12345)",
+      "matched_text": "EDINEX‑JP (code EX12345)",
       "reason": "public filing code; not MNPI"
     },
     {
@@ -285,11 +285,11 @@
     },
     {
       "matched_text": "Nadeshiko Plastics KK",
-      "reason": "non\u2011issuer operational update; not MNPI"
+      "reason": "non‑issuer operational update; not MNPI"
     },
     {
       "matched_text": "the Company",
-      "reason": "role\u2011noun reference; not PII/MNPI"
+      "reason": "role‑noun reference; not PII/MNPI"
     }
   ],
   "source_jurisdiction": "JP",
@@ -301,38 +301,56 @@
     },
     {
       "concept": "employee_id",
-      "matched_text": "employee code KZ\u20114421",
+      "matched_text": "employee code KZ‑4421",
       "reason": "Employee identifier phrased as 'code' rather than 'ID'; semantically an employee ID but may be missed by strict detectors."
     },
     {
       "concept": "definitive_agreement",
-      "matched_text": "heads\u2011of\u2011terms shared under NDA",
+      "matched_text": "heads‑of‑terms shared under NDA",
       "reason": "Transactional document reference relevant to deal status, but not one of the enumerated definitive agreement types."
     },
     {
       "concept": "local disclosure channel",
-      "matched_text": "J\u2011TDlink",
-      "reason": "Timely disclosure system indicator relevant to public/non\u2011public status; not explicitly covered by allowed rules."
+      "matched_text": "J‑TDlink",
+      "reason": "Timely disclosure system indicator relevant to public/non‑public status; not explicitly covered by allowed rules."
     },
     {
       "concept": "timely disclosure",
-      "matched_text": "\u9069\u6642\u958b\u793a",
+      "matched_text": "適時開示",
       "reason": "Local public disclosure mechanism affecting MNPI status; mapping to existing markers is not explicit."
     },
     {
-      "concept": "nonpublic/public\u2011status semantics",
-      "matched_text": "rumors in general press do not render facts public unless the Company issues corrective disclosure via \u9069\u6642\u958b\u793a",
+      "concept": "nonpublic/public‑status semantics",
+      "matched_text": "rumors in general press do not render facts public unless the Company issues corrective disclosure via 適時開示",
       "reason": "Policy guidance on public status thresholds; useful MNPI context but not a direct match to a listed rule."
     },
     {
       "concept": "MNPI scope",
-      "matched_text": "board minutes, pricing models, and post\u2011TOB governance slate",
+      "matched_text": "board minutes, pricing models, and post‑TOB governance slate",
       "reason": "Undisclosed internal materials treated as MNPI; not an enumerated material fact."
     },
     {
       "concept": "consent marker",
       "matched_text": "record APPI consents",
-      "reason": "Consent tracking is privacy\u2011relevant, but allowed rules only include consent withdrawal marker."
+      "reason": "Consent tracking is privacy‑relevant, but allowed rules only include consent withdrawal marker."
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

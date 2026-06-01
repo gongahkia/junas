@@ -141,7 +141,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "A subtle identifiability signal arises from building access logs noting an 08:17 QR check-in tied to device model Orion X2 and Wi\u2011Fi SSID LHI-Vistamar-5G in the same time window",
+      "matched_text": "A subtle identifiability signal arises from building access logs noting an 08:17 QR check-in tied to device model Orion X2 and Wi‑Fi SSID LHI-Vistamar-5G in the same time window",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -386,7 +386,7 @@
       "reason": "Negated sensitive-category bait; explicitly stated as not processed"
     },
     {
-      "matched_text": "children\u2019s data",
+      "matched_text": "children’s data",
       "reason": "Negated sensitive-category bait; explicitly stated as not processed"
     },
     {
@@ -398,7 +398,7 @@
   "uncertain": [
     {
       "concept": "network identifier",
-      "matched_text": "Wi\u2011Fi SSID LHI-Vistamar-5G",
+      "matched_text": "Wi‑Fi SSID LHI-Vistamar-5G",
       "reason": "Unique SSID may identify a location/device but not clearly covered by allowed PII rules"
     },
     {
@@ -420,6 +420,24 @@
       "concept": "tax form identifier",
       "matched_text": "BIR Form 2316",
       "reason": "Document type implies tax/PII content but is not itself an enumerated identifier in the rule set"
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

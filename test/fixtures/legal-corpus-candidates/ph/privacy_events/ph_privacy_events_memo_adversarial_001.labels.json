@@ -141,7 +141,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "BankAcct PH\u20149800  44  23\u2014x9",
+      "matched_text": "BankAcct PH—9800  44  23—x9",
       "rule": "bank_account"
     },
     {
@@ -151,7 +151,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "masked PH\u2011TIN",
+      "matched_text": "masked PH‑TIN",
       "rule": "ph_tin"
     },
     {
@@ -322,7 +322,7 @@
     },
     {
       "concept": "audit hash",
-      "matched_text": "audit hash 0xA1c9\u2014f7\u2026",
+      "matched_text": "audit hash 0xA1c9—f7…",
       "reason": "Hash values can be unique identifiers; not covered by allowed PII rules."
     },
     {
@@ -332,7 +332,7 @@
     },
     {
       "concept": "masked requester IDs",
-      "matched_text": "R\u20148z, M\u20141d",
+      "matched_text": "R—8z, M—1d",
       "reason": "Pseudonymous requester IDs are privacy-relevant but do not match an allowed category."
     },
     {
@@ -359,6 +359,24 @@
       "concept": "internal case URL/ID",
       "matched_text": "http://intra/hr/case/DSAR-20  41",
       "reason": "Internal case link contains a case identifier not covered by allowed rules."
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

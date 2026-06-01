@@ -115,7 +115,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "insider\u2011list entries",
+      "matched_text": "insider‑list entries",
       "rule": "insider_list_marker"
     },
     {
@@ -185,7 +185,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "access\u2011limited",
+      "matched_text": "access‑limited",
       "rule": "data_minimisation_marker"
     },
     {
@@ -205,12 +205,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "yen\u2011pegged stable DPT",
+      "matched_text": "yen‑pegged stable DPT",
       "rule": "dpt_protocol_event_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "ESG/climate tie\u2011in",
+      "matched_text": "ESG/climate tie‑in",
       "rule": "esg_climate_pre_disclosure"
     },
     {
@@ -270,12 +270,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Update the insider list with Mr. Kenji Takahata (Corp Dev), Dr. Ryohei Kanda (Director), and Ms. Ayaka Mori (HR for payroll data segregation); record timestamps and roles per J\u2011FSA guidance.",
+      "matched_text": "Update the insider list with Mr. Kenji Takahata (Corp Dev), Dr. Ryohei Kanda (Director), and Ms. Ayaka Mori (HR for payroll data segregation); record timestamps and roles per J‑FSA guidance.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Blackout window: trading by directors and employees is prohibited from 3 June until Q2 earnings release; pre\u2011clearance for any exceptions is revoked.",
+      "matched_text": "Blackout window: trading by directors and employees is prohibited from 3 June until Q2 earnings release; pre‑clearance for any exceptions is revoked.",
       "rule": "material_event"
     },
     {
@@ -327,12 +327,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Update the insider list with Mr. Kenji Takahata (Corp Dev), Dr. Ryohei Kanda (Director), and Ms. Ayaka Mori (HR for payroll data segregation); record timestamps and roles per J\u2011FSA guidance.",
+      "matched_text": "Update the insider list with Mr. Kenji Takahata (Corp Dev), Dr. Ryohei Kanda (Director), and Ms. Ayaka Mori (HR for payroll data segregation); record timestamps and roles per J‑FSA guidance.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Blackout window: trading by directors and employees is prohibited from 3 June until Q2 earnings release; pre\u2011clearance for any exceptions is revoked.",
+      "matched_text": "Blackout window: trading by directors and employees is prohibited from 3 June until Q2 earnings release; pre‑clearance for any exceptions is revoked.",
       "rule": "material_event"
     },
     {
@@ -436,7 +436,7 @@
   "uncertain": [
     {
       "concept": "deal term",
-      "matched_text": "no\u2011shop",
+      "matched_text": "no‑shop",
       "reason": "Commercial-term signal relevant to MNPI but not covered by allowed markers"
     },
     {
@@ -451,28 +451,46 @@
     },
     {
       "concept": "cyber incident detail",
-      "matched_text": "credential\u2011stuffing attempt",
+      "matched_text": "credential‑stuffing attempt",
       "reason": "Pre-disclosure cyber context; phrase may not match allowed rule patterns"
     },
     {
       "concept": "custody subsystem data exposure",
-      "matched_text": "key\u2011shard metadata",
+      "matched_text": "key‑shard metadata",
       "reason": "Security-sensitive detail; not covered by allowed rule list"
     },
     {
       "concept": "ESG financing term",
-      "matched_text": "sustainability\u2011linked loan margin step\u2011down",
+      "matched_text": "sustainability‑linked loan margin step‑down",
       "reason": "Material ESG instrument; not explicitly in allowed markers"
     },
     {
       "concept": "trading control",
-      "matched_text": "pre\u2011clearance",
+      "matched_text": "pre‑clearance",
       "reason": "Compliance control adjacent to blackout; not explicitly listed in allowed markers"
     },
     {
       "concept": "privacy/compliance control",
       "matched_text": "watermarked",
       "reason": "Document control measure; not covered by privacy-event markers"
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

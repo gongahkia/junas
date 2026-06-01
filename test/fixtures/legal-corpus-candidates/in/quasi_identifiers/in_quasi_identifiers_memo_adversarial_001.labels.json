@@ -202,12 +202,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Data Cluster \u2014 Mr. Devansh Kulkarni (Sales Ops Manager, Navapeta unit), DOB 1991-07-04, uses device ABT-MBB-PN-193, VPN zone KP-East, corp id ABT-OPS-4631, email devansh.kulkarni@abtl.example.in",
+      "matched_text": "Data Cluster — Mr. Devansh Kulkarni (Sales Ops Manager, Navapeta unit), DOB 1991-07-04, uses device ABT-MBB-PN-193, VPN zone KP-East, corp id ABT-OPS-4631, email devansh.kulkarni@abtl.example.in",
       "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "matched_text": "Separated weak identifiers (not linked to any named person): dob 1983-12-01, role \u201cfield engineer\u201d, location \u201cHaripura district\u201d, device code FE-MOB-003, account alias \u201cops-sandbox-22\u201d; these are examples in training material",
+      "matched_text": "Separated weak identifiers (not linked to any named person): dob 1983-12-01, role “field engineer”, location “Haripura district”, device code FE-MOB-003, account alias “ops-sandbox-22”; these are examples in training material",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -334,7 +334,7 @@
       "reason": "Sprint name; not a transaction codename per rule"
     },
     {
-      "matched_text": "age band 25\u201334, east zone, android user",
+      "matched_text": "age band 25–34, east zone, android user",
       "reason": "Generic demographics; not identifying alone"
     }
   ],
@@ -362,8 +362,26 @@
     },
     {
       "concept": "data room context",
-      "matched_text": "VDR \u201cPeepalRoom\u201d",
+      "matched_text": "VDR “PeepalRoom”",
       "reason": "Indicates VDR use in MNPI handling but not directly mapped to a listed MNPI rule"
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

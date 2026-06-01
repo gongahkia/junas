@@ -117,7 +117,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "+91\u201100000\u201100000",
+      "matched_text": "+91‑00000‑00000",
       "rule": "phone_number"
     },
     {
@@ -127,7 +127,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "DoB 14\u2011Feb\u20112009",
+      "matched_text": "DoB 14‑Feb‑2009",
       "rule": "date_of_birth"
     },
     {
@@ -137,7 +137,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Cross\u2011border transfer",
+      "matched_text": "Cross‑border transfer",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -167,17 +167,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "v\u2011rahul\u2011t\u2011\u2026",
+      "matched_text": "v‑rahul‑t‑…",
       "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "matched_text": "token=a9c%2F2f\u2011sig",
+      "matched_text": "token=a9c%2F2f‑sig",
       "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "matched_text": "records minimised to token v\u2011rahul\u2011t\u2011\u2026",
+      "matched_text": "records minimised to token v‑rahul‑t‑…",
       "rule": "data_minimisation_marker"
     },
     {
@@ -275,7 +275,7 @@
     },
     {
       "concept": "Erasure event",
-      "matched_text": "erasure completed on 18\u2011May\u20112026",
+      "matched_text": "erasure completed on 18‑May‑2026",
       "reason": "Erasure completion is a privacy handling event not enumerated in allowed rule list"
     },
     {
@@ -292,6 +292,24 @@
       "concept": "Backup erasure control",
       "matched_text": "legacy backups scrubbed",
       "reason": "Indicates data deletion in backups; privacy-relevant but not an allowed marker rule"
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

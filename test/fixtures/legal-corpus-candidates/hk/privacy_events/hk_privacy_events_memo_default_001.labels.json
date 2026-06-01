@@ -43,12 +43,12 @@
     "drop must_detect: invalid rule 'dsar' text='DSAR'",
     "drop must_detect: invalid rule 'erasure' text='erased'",
     "drop must_detect: invalid rule 'retention' text='Data retention:'",
-    "drop must_detect: invalid rule 'retention' text='12\u2011month retention period'",
+    "drop must_detect: invalid rule 'retention' text='12‑month retention period'",
     "drop must_detect: invalid rule 'retention' text='retention hold'",
     "drop ideal_must_detect: invalid rule 'dsar' text='DSAR'",
     "drop ideal_must_detect: invalid rule 'erasure' text='erased'",
     "drop ideal_must_detect: invalid rule 'retention' text='Data retention:'",
-    "drop ideal_must_detect: invalid rule 'retention' text='12\u2011month retention period'",
+    "drop ideal_must_detect: invalid rule 'retention' text='12‑month retention period'",
     "drop ideal_must_detect: invalid rule 'retention' text='retention hold'",
     "drop ideal_must_detect: invalid rule 'erasure' text='Erasure request window:'"
   ],
@@ -87,7 +87,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Cross\u2011border transfer",
+      "matched_text": "Cross‑border transfer",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -177,12 +177,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal memo (HK) \u2013 Harbour Peak Holdings Limited: M&A and privacy controls status for proposed acquisition of Lotus Ferrum Technology Co. with co-investment by Jade Banyan Partners Fund I LP.",
+      "matched_text": "Internal memo (HK) – Harbour Peak Holdings Limited: M&A and privacy controls status for proposed acquisition of Lotus Ferrum Technology Co. with co-investment by Jade Banyan Partners Fund I LP.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Cross\u2011border transfer: data export approval DEA\u20112026\u2011041 for payroll processing to DataFoundry Pte. Ltd. (Singapore) was approved on 18 May, with DPA Schedule 2 (processor terms), encryption at rest, and a transfer impact assessment referencing PCPD guidance; there are no unapproved outbound transfers.",
+      "matched_text": "Cross‑border transfer: data export approval DEA‑2026‑041 for payroll processing to DataFoundry Pte. Ltd. (Singapore) was approved on 18 May, with DPA Schedule 2 (processor terms), encryption at rest, and a transfer impact assessment referencing PCPD guidance; there are no unapproved outbound transfers.",
       "rule": "material_event"
     },
     {
@@ -224,12 +224,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal memo (HK) \u2013 Harbour Peak Holdings Limited: M&A and privacy controls status for proposed acquisition of Lotus Ferrum Technology Co. with co-investment by Jade Banyan Partners Fund I LP.",
+      "matched_text": "Internal memo (HK) – Harbour Peak Holdings Limited: M&A and privacy controls status for proposed acquisition of Lotus Ferrum Technology Co. with co-investment by Jade Banyan Partners Fund I LP.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Cross\u2011border transfer: data export approval DEA\u20112026\u2011041 for payroll processing to DataFoundry Pte. Ltd. (Singapore) was approved on 18 May, with DPA Schedule 2 (processor terms), encryption at rest, and a transfer impact assessment referencing PCPD guidance; there are no unapproved outbound transfers.",
+      "matched_text": "Cross‑border transfer: data export approval DEA‑2026‑041 for payroll processing to DataFoundry Pte. Ltd. (Singapore) was approved on 18 May, with DPA Schedule 2 (processor terms), encryption at rest, and a transfer impact assessment referencing PCPD guidance; there are no unapproved outbound transfers.",
       "rule": "material_event"
     },
     {
@@ -267,18 +267,36 @@
   "uncertain": [
     {
       "concept": "internal approval identifier",
-      "matched_text": "DEA\u20112026\u2011041",
+      "matched_text": "DEA‑2026‑041",
       "reason": "Internal reference ID may be sensitive but not covered by allowed PII rules"
     },
     {
       "concept": "internal ticket identifier",
-      "matched_text": "EP\u20111441",
+      "matched_text": "EP‑1441",
       "reason": "Internal ticket ID may be sensitive but not covered by allowed PII rules"
     },
     {
       "concept": "internal ticket identifier",
-      "matched_text": "EP\u20111443",
+      "matched_text": "EP‑1443",
       "reason": "Internal ticket ID may be sensitive but not covered by allowed PII rules"
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

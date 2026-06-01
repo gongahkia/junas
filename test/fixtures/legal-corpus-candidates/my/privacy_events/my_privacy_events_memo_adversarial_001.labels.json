@@ -92,7 +92,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal Compliance Memo \u2014 Aurasumber Berhad (Co. No. 2021010-XYZ) \u2014 29 May 2026 \u2014 PDPA handling and CMSA/MMLR disclosure controls for Project Kelip financing (internal-only; not for external distribution).",
+      "matched_text": "Internal Compliance Memo — Aurasumber Berhad (Co. No. 2021010-XYZ) — 29 May 2026 — PDPA handling and CMSA/MMLR disclosure controls for Project Kelip financing (internal-only; not for external distribution).",
       "rule": "material_event"
     },
     {
@@ -122,7 +122,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "E-7Q3\u202219",
+      "matched_text": "E-7Q3•19",
       "rule": "employee_id"
     },
     {
@@ -147,12 +147,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Cross\u2011Border Addendum",
+      "matched_text": "Cross‑Border Addendum",
       "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "matched_text": "Cross\u2011border transfer policy",
+      "matched_text": "Cross‑border transfer policy",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -172,7 +172,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "price\u2011sensitive ranges",
+      "matched_text": "price‑sensitive ranges",
       "rule": "nonpublic_marker"
     },
     {
@@ -204,7 +204,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Internal Compliance Memo \u2014 Aurasumber Berhad (Co. No. 2021010-XYZ) \u2014 29 May 2026 \u2014 PDPA handling and CMSA/MMLR disclosure controls for Project Kelip financing (internal-only; not for external distribution).",
+      "matched_text": "Internal Compliance Memo — Aurasumber Berhad (Co. No. 2021010-XYZ) — 29 May 2026 — PDPA handling and CMSA/MMLR disclosure controls for Project Kelip financing (internal-only; not for external distribution).",
       "rule": "material_event"
     },
     {
@@ -226,7 +226,7 @@
   "must_not_detect": [
     {
       "matched_text": "material adverse change",
-      "reason": "Negated MAC \u2014 not a live MNPI per rule 8."
+      "reason": "Negated MAC — not a live MNPI per rule 8."
     },
     {
       "matched_text": "MAC addresses",
@@ -268,7 +268,7 @@
     },
     {
       "concept": "retention marker",
-      "matched_text": "Schedule RS\u20115A",
+      "matched_text": "Schedule RS‑5A",
       "reason": "Indicates retention/purge schedule; retention marker not in allowed rule list."
     },
     {
@@ -300,6 +300,24 @@
       "concept": "cross-border authorization",
       "matched_text": "DEA-2026-04",
       "reason": "Approval code ties to data export; not an explicit allowed marker rule."
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

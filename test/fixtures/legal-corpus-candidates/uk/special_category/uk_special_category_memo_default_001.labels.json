@@ -40,7 +40,7 @@
   "_label_note": "UK Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered public HR assistance-line bait, UK entity/FRN/UTR numeric fragments, obfuscated employee/session IDs, system-bucket account bait, genetic-data metaphor wording, and public/manual employment-matter material-event bait. UK IDTA labels were kept as deterministic cross-border-transfer findings where the fixture describes actual payroll/HR data exports.",
   "_label_source": "azure:gpt-5-2-auto",
   "_label_warnings": [
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='210\u2013235 pence per share'"
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='210–235 pence per share'"
   ],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T15:54:54Z",
@@ -72,7 +72,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "HF\u20111197",
+      "matched_text": "HF‑1197",
       "rule": "employee_id"
     },
     {
@@ -117,7 +117,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "guardian to a 15\u2011year\u2011old",
+      "matched_text": "guardian to a 15‑year‑old",
       "rule": "minor_data_reference"
     },
     {
@@ -127,7 +127,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non\u2011public",
+      "matched_text": "non‑public",
       "rule": "nonpublic_marker"
     },
     {
@@ -142,7 +142,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "employee ID HF\u20111197",
+      "matched_text": "employee ID HF‑1197",
       "rule": "employee_id"
     },
     {
@@ -177,7 +177,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Do not record or circulate Ms. Harrow\u2019s health status, union membership, or sexual orientation beyond HR and Legal",
+      "matched_text": "Do not record or circulate Ms. Harrow’s health status, union membership, or sexual orientation beyond HR and Legal",
       "rule": "data_minimisation_marker"
     },
     {
@@ -192,12 +192,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI: Project Dovetail\u2014proposed acquisition of Mistral Payments Ltd, confidential offer range 210\u2013235 pence per share and a draft dividend policy change; inside information under UK MAR Article 7, non\u2011public and likely to significantly affect price on the Britannic Exchange.",
+      "matched_text": "MNPI: Project Dovetail—proposed acquisition of Mistral Payments Ltd, confidential offer range 210–235 pence per share and a draft dividend policy change; inside information under UK MAR Article 7, non‑public and likely to significantly affect price on the Britannic Exchange.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Effective immediately, add Ms. Harrow to the insider list and impose personal account dealing restrictions and pre\u2011clearance, per Harborstead Market Conduct Policy 12 and MCA\u2011UK guidance.",
+      "matched_text": "Effective immediately, add Ms. Harrow to the insider list and impose personal account dealing restrictions and pre‑clearance, per Harborstead Market Conduct Policy 12 and MCA‑UK guidance.",
       "rule": "material_event"
     },
     {
@@ -254,17 +254,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI: Project Dovetail\u2014proposed acquisition of Mistral Payments Ltd, confidential offer range 210\u2013235 pence per share and a draft dividend policy change; inside information under UK MAR Article 7, non\u2011public and likely to significantly affect price on the Britannic Exchange.",
+      "matched_text": "MNPI: Project Dovetail—proposed acquisition of Mistral Payments Ltd, confidential offer range 210–235 pence per share and a draft dividend policy change; inside information under UK MAR Article 7, non‑public and likely to significantly affect price on the Britannic Exchange.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI: Project Dovetail\u2014proposed acquisition of Mistral Payments Ltd, confidential offer range 210\u2013235 pence per share and a draft dividend policy change; inside information under UK MAR Article 7, non\u2011public and likely to significantly affect price on the Britannic Exchange.",
+      "matched_text": "MNPI: Project Dovetail—proposed acquisition of Mistral Payments Ltd, confidential offer range 210–235 pence per share and a draft dividend policy change; inside information under UK MAR Article 7, non‑public and likely to significantly affect price on the Britannic Exchange.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Effective immediately, add Ms. Harrow to the insider list and impose personal account dealing restrictions and pre\u2011clearance, per Harborstead Market Conduct Policy 12 and MCA\u2011UK guidance.",
+      "matched_text": "Effective immediately, add Ms. Harrow to the insider list and impose personal account dealing restrictions and pre‑clearance, per Harborstead Market Conduct Policy 12 and MCA‑UK guidance.",
       "rule": "material_event"
     },
     {
@@ -359,7 +359,7 @@
     },
     {
       "concept": "PA dealing controls",
-      "matched_text": "personal account dealing restrictions and pre\u2011clearance",
+      "matched_text": "personal account dealing restrictions and pre‑clearance",
       "reason": "Compliance control related to MNPI handling; not clearly covered by an allowed rule."
     },
     {
@@ -371,6 +371,24 @@
       "concept": "product performance pre-disclosure",
       "matched_text": "stress test results for SilverGull ISA portfolios and Quayside TradePro margin features",
       "reason": "Potentially market-sensitive non-public information, but not clearly covered by a specific allowed MNPI rule."
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

@@ -9,6 +9,7 @@ from typing import Any
 
 VALID_DECISIONS = frozenset({"approve", "reject", "needs_edit"})
 APPROVED_STATUS = "approved"
+STAGE_B_READY_STATUS = "stage_b_ready"
 
 
 def utc_now() -> str:
@@ -46,6 +47,18 @@ def is_human_approved(labels: dict[str, Any]) -> bool:
         return False
     review = labels.get("_human_review")
     return isinstance(review, dict) and bool(str(review.get("reviewer") or "").strip())
+
+
+def is_stage_b_ready(labels: dict[str, Any]) -> bool:
+    readiness = labels.get("_stage_readiness")
+    if not isinstance(readiness, dict):
+        return False
+    return (
+        str(readiness.get("status") or "") == STAGE_B_READY_STATUS
+        and str(readiness.get("stage_a") or "") == "reviewed"
+        and str(readiness.get("stage_b") or "") == "ready"
+        and bool(str(readiness.get("reviewer") or "").strip())
+    )
 
 
 def record_human_review(
@@ -104,6 +117,32 @@ def collect_review_status_violations(corpus_dir: Path) -> list[str]:
             violations.append(f"{labels_path}: labels unreadable: {exc}")
             continue
         violation = review_status_violation(labels_path, labels)
+        if violation:
+            violations.append(violation)
+    return violations
+
+
+def stage_b_readiness_violation(labels_path: Path, labels: dict[str, Any]) -> str:
+    if not is_candidate_label(labels):
+        return ""
+    if is_stage_b_ready(labels):
+        return ""
+    readiness = labels.get("_stage_readiness")
+    status = "missing"
+    if isinstance(readiness, dict):
+        status = str(readiness.get("status") or "missing")
+    return f"{labels_path}: candidate label stage_b_readiness={status}"
+
+
+def collect_stage_b_readiness_violations(corpus_dir: Path) -> list[str]:
+    violations: list[str] = []
+    for labels_path in sorted(corpus_dir.glob("**/*.labels.json")):
+        try:
+            labels = load_labels(labels_path)
+        except (OSError, json.JSONDecodeError) as exc:
+            violations.append(f"{labels_path}: labels unreadable: {exc}")
+            continue
+        violation = stage_b_readiness_violation(labels_path, labels)
         if violation:
             violations.append(violation)
     return violations

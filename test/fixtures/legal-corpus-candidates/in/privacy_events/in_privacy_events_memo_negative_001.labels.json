@@ -102,7 +102,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "1234\u20115678\u20119999",
+      "matched_text": "1234‑5678‑9999",
       "rule": "in_aadhaar"
     },
     {
@@ -127,12 +127,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Children\u2019s data",
+      "matched_text": "Children’s data",
       "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "matched_text": "VOL\u20117842",
+      "matched_text": "VOL‑7842",
       "rule": "employee_id"
     },
     {
@@ -147,7 +147,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "consent\u2011withdrawal",
+      "matched_text": "consent‑withdrawal",
       "rule": "consent_withdrawal_marker"
     }
   ],
@@ -164,11 +164,11 @@
       "reason": "Explicitly negated; no unpublished price-sensitive information is included."
     },
     {
-      "matched_text": "cross\u2011border transfer",
+      "matched_text": "cross‑border transfer",
       "reason": "Completed/closed action noted, not a live transfer marker."
     },
     {
-      "matched_text": "DEA\u20112026\u2011014",
+      "matched_text": "DEA‑2026‑014",
       "reason": "Internal approval reference, not personal data."
     },
     {
@@ -180,7 +180,7 @@
       "reason": "Document/version label, not PII."
     },
     {
-      "matched_text": "Insider\u2011trading safeguards",
+      "matched_text": "Insider‑trading safeguards",
       "reason": "Policy/control reference, not MNPI content."
     }
   ],
@@ -188,7 +188,7 @@
   "uncertain": [
     {
       "concept": "internal person identifier",
-      "matched_text": "VOL\u20117842",
+      "matched_text": "VOL‑7842",
       "reason": "Looks like a data-subject internal ID for a former campus ambassador but not clearly covered by a specific allowed rule beyond employee_id."
     },
     {
@@ -208,8 +208,26 @@
     },
     {
       "concept": "completed cross-border transfer record",
-      "matched_text": "The cross\u2011border transfer above is completed, logged in the Register of Processing, and subject to quarterly revalidation",
+      "matched_text": "The cross‑border transfer above is completed, logged in the Register of Processing, and subject to quarterly revalidation",
       "reason": "Relevant for cross-border compliance posture but not a live transfer per rule 17."
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

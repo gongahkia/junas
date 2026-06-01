@@ -11,7 +11,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.candidate_review import collect_review_status_violations  # noqa: E402
+from scripts.candidate_review import (  # noqa: E402
+    collect_review_status_violations,
+    collect_stage_b_readiness_violations,
+)
 
 DEFAULT_CORPUS = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
 
@@ -19,6 +22,7 @@ DEFAULT_CORPUS = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Require human approval for candidate/auto labels")
     parser.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
+    parser.add_argument("--require-stage-b-ready", action="store_true")
     args = parser.parse_args(argv)
 
     corpus = args.corpus if args.corpus.is_absolute() else REPO_ROOT / args.corpus
@@ -26,6 +30,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"corpus missing: {corpus}", file=sys.stderr)
         return 2
     violations = collect_review_status_violations(corpus)
+    if args.require_stage_b_ready:
+        violations.extend(collect_stage_b_readiness_violations(corpus))
     for violation in violations:
         print(f"review-status violation: {violation}", file=sys.stderr)
     print(f"checked {corpus}: violations={len(violations)}")

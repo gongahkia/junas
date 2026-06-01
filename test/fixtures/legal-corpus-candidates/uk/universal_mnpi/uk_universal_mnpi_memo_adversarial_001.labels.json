@@ -95,7 +95,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "\u00a3148,500,000",
+      "matched_text": "£148,500,000",
       "rule": "financial_amount"
     },
     {
@@ -135,7 +135,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "price\u2011sensitive content",
+      "matched_text": "price‑sensitive content",
       "rule": "nonpublic_marker"
     },
     {
@@ -175,12 +175,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "subject to pre\u2011emption disapplication",
+      "matched_text": "subject to pre‑emption disapplication",
       "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "matched_text": "non\u2011public",
+      "matched_text": "non‑public",
       "rule": "nonpublic_marker"
     },
     {
@@ -225,7 +225,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Deal codename: Project Rowan; non\u2011public: do not circulate; definitive SPA with Hearthmere Bank Ltd to acquire Itswitch Payments Ltd, execution targeted 19 Sep 2026, embargo 18 Sep 2026 at 14:00 BST.",
+      "matched_text": "Deal codename: Project Rowan; non‑public: do not circulate; definitive SPA with Hearthmere Bank Ltd to acquire Itswitch Payments Ltd, execution targeted 19 Sep 2026, embargo 18 Sep 2026 at 14:00 BST.",
       "rule": "material_event"
     },
     {
@@ -277,7 +277,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Deal codename: Project Rowan; non\u2011public: do not circulate; definitive SPA with Hearthmere Bank Ltd to acquire Itswitch Payments Ltd, execution targeted 19 Sep 2026, embargo 18 Sep 2026 at 14:00 BST.",
+      "matched_text": "Deal codename: Project Rowan; non‑public: do not circulate; definitive SPA with Hearthmere Bank Ltd to acquire Itswitch Payments Ltd, execution targeted 19 Sep 2026, embargo 18 Sep 2026 at 14:00 BST.",
       "rule": "material_event"
     },
     {
@@ -312,7 +312,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "\u00a3148,500,000",
+      "matched_text": "£148,500,000",
       "rule": "financial_amount"
     },
     {
@@ -338,7 +338,7 @@
   ],
   "must_not_detect": [
     {
-      "matched_text": "spa\u2011day promotions",
+      "matched_text": "spa‑day promotions",
       "reason": "False-positive bait; not PII/MNPI."
     },
     {
@@ -354,18 +354,36 @@
   "uncertain": [
     {
       "concept": "bank_account",
-      "matched_text": "Acct: BBK****29\u201177",
+      "matched_text": "Acct: BBK****29‑77",
       "reason": "Masked corporate account reference; not clearly personal PII."
     },
     {
       "concept": "bank_customer_reference",
-      "matched_text": "client ref: BBK/FR\u2011I/I\u2011372",
+      "matched_text": "client ref: BBK/FR‑I/I‑372",
       "reason": "Internal client reference; unclear if tied to a natural person."
     },
     {
       "concept": "internal_session_id",
-      "matched_text": "9Z\u2011 BR AM 26",
+      "matched_text": "9Z‑ BR AM 26",
       "reason": "Meet-me code may function as an internal session identifier but not clearly personal."
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

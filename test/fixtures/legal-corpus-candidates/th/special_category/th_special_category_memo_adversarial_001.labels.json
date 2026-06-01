@@ -87,17 +87,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject: SEA Section 59 MNPI controls for cross\u2011border financing and SET disclosure; PDPA special\u2011category data in HR files",
+      "matched_text": "Subject: SEA Section 59 MNPI controls for cross‑border financing and SET disclosure; PDPA special‑category data in HR files",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Non\u2011exhaustive: Mr. Aran Kietkamol (Ops) disclosed same\u2011sex partnership status to HR for spousal insurance; retain onshore only and segregate from project dataroom; note that the phrase sexual orientation in our DEI policy is generic guidance and not personal data in itself",
+      "matched_text": "Non‑exhaustive: Mr. Aran Kietkamol (Ops) disclosed same‑sex partnership status to HR for spousal insurance; retain onshore only and segregate from project dataroom; note that the phrase sexual orientation in our DEI policy is generic guidance and not personal data in itself",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "For SEC Thailand queries on Sections 59/241 enforcement and CMSB notifications on PP, contact Legal at legal@tnd.co.th or Compliance Line +66 2100 8899; project\u2011management chat (lowercase): #financing\u2011workstream is archived hourly",
+      "matched_text": "For SEC Thailand queries on Sections 59/241 enforcement and CMSB notifications on PP, contact Legal at legal@tnd.co.th or Compliance Line +66 2100 8899; project‑management chat (lowercase): #financing‑workstream is archived hourly",
       "rule": "material_event"
     },
     {
@@ -137,22 +137,22 @@
     },
     {
       "category": "PII",
-      "matched_text": "+66\u20112\u20113 4 5\u20116 7 8 9",
+      "matched_text": "+66‑2‑3 4 5‑6 7 8 9",
       "rule": "phone_number"
     },
     {
       "category": "PII",
-      "matched_text": "Employee No. TH\u2011EMP\u20110 2 7 7",
+      "matched_text": "Employee No. TH‑EMP‑0 2 7 7",
       "rule": "employee_id"
     },
     {
       "category": "PII",
-      "matched_text": "HR Ref. TH\u2011INT\u20111 6\u2011S",
+      "matched_text": "HR Ref. TH‑INT‑1 6‑S",
       "rule": "employee_id"
     },
     {
       "category": "PII",
-      "matched_text": "stored facial\u2011geometry templates",
+      "matched_text": "stored facial‑geometry templates",
       "rule": "biometric_identifier"
     },
     {
@@ -167,17 +167,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "registered to the Eastern Manufacturing Workers\u2019 Union",
+      "matched_text": "registered to the Eastern Manufacturing Workers’ Union",
       "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "matched_text": "same\u2011sex partnership status",
+      "matched_text": "same‑sex partnership status",
       "rule": "sexual_orientation"
     },
     {
       "category": "PII",
-      "matched_text": "16\u2011year\u2011old trainee (minor data)",
+      "matched_text": "16‑year‑old trainee (minor data)",
       "rule": "minor_data_reference"
     },
     {
@@ -259,17 +259,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject: SEA Section 59 MNPI controls for cross\u2011border financing and SET disclosure; PDPA special\u2011category data in HR files",
+      "matched_text": "Subject: SEA Section 59 MNPI controls for cross‑border financing and SET disclosure; PDPA special‑category data in HR files",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Non\u2011exhaustive: Mr. Aran Kietkamol (Ops) disclosed same\u2011sex partnership status to HR for spousal insurance; retain onshore only and segregate from project dataroom; note that the phrase sexual orientation in our DEI policy is generic guidance and not personal data in itself",
+      "matched_text": "Non‑exhaustive: Mr. Aran Kietkamol (Ops) disclosed same‑sex partnership status to HR for spousal insurance; retain onshore only and segregate from project dataroom; note that the phrase sexual orientation in our DEI policy is generic guidance and not personal data in itself",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "For SEC Thailand queries on Sections 59/241 enforcement and CMSB notifications on PP, contact Legal at legal@tnd.co.th or Compliance Line +66 2100 8899; project\u2011management chat (lowercase): #financing\u2011workstream is archived hourly",
+      "matched_text": "For SEC Thailand queries on Sections 59/241 enforcement and CMSB notifications on PP, contact Legal at legal@tnd.co.th or Compliance Line +66 2100 8899; project‑management chat (lowercase): #financing‑workstream is archived hourly",
       "rule": "material_event"
     },
     {
@@ -329,18 +329,36 @@
   "uncertain": [
     {
       "concept": "cross_border_transfer_control",
-      "matched_text": "do not transmit her file cross\u2011border without consent and DPA safeguards",
+      "matched_text": "do not transmit her file cross‑border without consent and DPA safeguards",
       "reason": "Cross-border transfer and consent are mentioned, but as a prohibition rather than a live transfer; rule advises not to tag negated controls."
     },
     {
       "concept": "masked_thai_national_id",
-      "matched_text": "TH\u2011**\u2011***\u2011****\u2011**",
+      "matched_text": "TH‑**‑***‑****‑**",
       "reason": "Appears to be a masked Thai identifier from OCR artefacts; not a full valid ID but indicates potential PII requiring redaction."
     },
     {
       "concept": "embargo_timing",
       "matched_text": "Until signing",
       "reason": "Signals a timing restriction linked to signing, but does not match explicit Embargoed/Signing Date patterns in allowed rules."
+    }
+  ],
+  "_stage_readiness": {
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+  },
+  "_stage_readiness_history": [
+    {
+      "stage": "stage_b",
+      "status": "ready",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }
