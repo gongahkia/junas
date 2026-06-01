@@ -3,13 +3,281 @@
   "document_type": "memo",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Felicia Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Darius Lim"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "felicia.tan@anza-renew.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "breachdesk@chai-tamar.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cosec@anza-renew.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "192.0.2.42"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "APR-SN-7722"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "APR-VPN-2026-05-31-2234-FELT"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1987-02-11"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 39"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1993-07-30"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Raintree"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber incident"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Felicia Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Darius Lim"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "felicia.tan@anza-renew.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "breachdesk@chai-tamar.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cosec@anza-renew.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "192.0.2.42"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "APR-SN-7722"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "APR-VPN-2026-05-31-2234-FELT"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1987-02-11"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 39"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1993-07-30"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Raintree"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber incident"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "For Ms. Tan, the following weak identifiers form a linkable cluster: DOB 1987-02-11 (age 39), office location Seacrest Tower, Level 18, 9 Pelican Quay, Singapore, corporate email felicia.tan@anza-renew.sg, and workstation APR-FIN-LAT-11 (KestrelBook 14) serial APR-SN-7722"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Similar weak identifiers appear elsewhere in logs but are not tied to any identified person, e.g., a standalone DOB 1993-07-30, a generic asset tag APR-IT-77, and a geotag \u201cNorthshore Yard,\u201d which by themselves should not be treated as identifying information"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "APR-IT-77"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "APR-FIN-LAT-11"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked bank tails (e.g., ***912)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Broadstone Hydro Pte Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "potential pre-conditional voluntary offer"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun; not a covered PII/MNPI value by itself"
+    },
+    {
+      "matched_text": "the company",
+      "reason": "Generic role noun; not a specific PII/MNPI span"
+    },
+    {
+      "matched_text": "Assistant Finance Manager",
+      "reason": "Job title/role noun alone should not be labeled as PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "NP-FELT-004",
+      "concept": "bank_customer_reference",
+      "reason": "Appears to be a NimbusPay export identifier; may function as a payment/customer reference but not clearly covered by a specific rule."
+    },
+    {
+      "matched_text": "Northshore Yard",
+      "concept": "location_quasi_identifier",
+      "reason": "Geotag reference could aid re-identification but location strings alone are not a covered PII rule."
+    },
+    {
+      "matched_text": "Kelaran finance hub",
+      "concept": "work_location_quasi_identifier",
+      "reason": "Specific worksite contributes to identifiability but is not mapped to a dedicated PII rule."
+    },
+    {
+      "matched_text": "Seacrest Tower, Level 18, 9 Pelican Quay, Singapore",
+      "concept": "postal_address_without_postcode",
+      "reason": "Looks like a Singapore address but lacks a 6-digit postal code required for sg_postal_address rule."
+    },
+    {
+      "matched_text": "***912",
+      "concept": "bank_account_tail",
+      "reason": "Masked bank account tail may still identify an account holder in context but does not meet the bank_account rule for strict detection."
+    },
+    {
+      "matched_text": "breach notification workflow initiated to the PDPC within three business days",
+      "concept": "breach_notification_marker",
+      "reason": "Regulatory breach notification is legally relevant privacy compliance but not included in allowed rules."
+    },
+    {
+      "matched_text": "trading halt was considered but not requested",
+      "concept": "trading_halt_decision",
+      "reason": "Market-sensitive process note; not mapped to an explicit allowed MNPI rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

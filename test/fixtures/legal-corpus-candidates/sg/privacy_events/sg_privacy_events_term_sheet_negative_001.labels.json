@@ -3,13 +3,197 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring\u2011fenced clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@ficusmarine.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@orchardvp.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer approval"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Personal data fields in diligence rooms are limited to role\u2011based contact points"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "unnecessary identity\u2011number fields are removed as part of minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_sgx_counter",
+      "matched_text": "FMHL"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring\u2011fenced clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@ficusmarine.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@orchardvp.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer approval"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "A one\u2011time export of an employee contact directory to a regional HRIS vendor in Malaysia has been approved"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Personal data fields in diligence rooms are limited to role\u2011based contact points"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "unnecessary identity\u2011number fields are removed as part of minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "role mailboxes only\u2014no personal addresses to be used"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Only aggregated or role\u2011based data is accessible to Orchard\u2019s diligence team"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no customer PII is shared"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "marketing consent withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team under Annex CT\u20111"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_sgx_counter",
+      "matched_text": "FMHL"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Role noun in context, not PII or MNPI."
+    },
+    {
+      "matched_text": "parties",
+      "reason": "Generic role noun; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "There are no outstanding DSARs",
+      "concept": "DSAR marker",
+      "reason": "Access rights are privacy-relevant but there is no explicit DSAR rule; also denotes closure."
+    },
+    {
+      "matched_text": "retention for diligence artifacts is capped at 6 years per Policy PD\u2011RET\u201106",
+      "concept": "retention marker",
+      "reason": "Retention limits are relevant but no explicit retention marker rule exists."
+    },
+    {
+      "matched_text": "after which erasure procedures apply",
+      "concept": "erasure marker",
+      "reason": "Erasure controls are referenced but no allowed rule exists for erasure markers."
+    },
+    {
+      "matched_text": "Erasure status: Routine quarterly erasure of obsolete applicant CVs in the diligence staging folder was completed and logged (Batch ER\u2011Q1\u20112025)",
+      "concept": "erasure status",
+      "reason": "Describes erasure program/closure; no explicit erasure marker rule."
+    },
+    {
+      "matched_text": "as at signing",
+      "concept": "embargo/timing reference",
+      "reason": "Temporal reference to signing but not one of the exact allowed embargo markers."
+    },
+    {
+      "matched_text": "ex\u2011employee access",
+      "concept": "DSAR request",
+      "reason": "Indicates an access request under PDPA but no explicit DSAR rule exists; marked as completed/closed."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
