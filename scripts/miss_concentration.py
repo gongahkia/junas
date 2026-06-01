@@ -18,11 +18,34 @@ def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _rate(miss_count: int, doc_count: int) -> dict[str, Any]:
+    return {
+        "miss_count": miss_count,
+        "doc_count": doc_count,
+        "misses_per_doc": round(miss_count / doc_count, 4) if doc_count else None,
+        "misses_per_100_docs": round((miss_count / doc_count) * 100, 2) if doc_count else None,
+    }
+
+
+def _doc_counts_by_jurisdiction(bucket_report: dict[str, Any]) -> dict[str, int]:
+    summary = bucket_report.get("summary", {})
+    raw = summary.get("doc_count_by_jurisdiction")
+    if isinstance(raw, dict) and raw:
+        return {str(key): int(value) for key, value in raw.items()}
+    fallback: dict[str, set[str]] = {}
+    for miss in bucket_report.get("misses", []):
+        jurisdiction = str(miss.get("source_jurisdiction") or "unknown")
+        path = str(miss.get("path") or miss.get("doc_id") or "")
+        fallback.setdefault(jurisdiction, set()).add(path)
+    return {key: len(value) for key, value in fallback.items()}
+
+
 def concentration_report(bucket_report: dict[str, Any], *, examples_per_cell: int = 3) -> dict[str, Any]:
     cells: dict[tuple[str, str, str], dict[str, Any]] = {}
     by_family: Counter[str] = Counter()
     by_jurisdiction: Counter[str] = Counter()
     by_bucket: Counter[str] = Counter()
+    doc_counts = _doc_counts_by_jurisdiction(bucket_report)
     for miss in bucket_report.get("misses", []):
         family = str(miss.get("detector_family") or "unknown")
         jurisdiction = str(miss.get("source_jurisdiction") or "unknown")
@@ -54,16 +77,21 @@ def concentration_report(bucket_report: dict[str, Any], *, examples_per_cell: in
 
     rendered_cells = []
     for cell in cells.values():
+        rate = _rate(cell["miss_count"], doc_counts.get(cell["jurisdiction"], 0))
         rendered_cells.append({
             "detector_family": cell["detector_family"],
             "jurisdiction": cell["jurisdiction"],
             "bucket": cell["bucket"],
             "miss_count": cell["miss_count"],
+            "doc_count": rate["doc_count"],
+            "misses_per_doc": rate["misses_per_doc"],
+            "misses_per_100_docs": rate["misses_per_100_docs"],
             "rules": dict(sorted(cell["rules"].items())),
             "examples": cell["examples"],
         })
     rendered_cells.sort(
         key=lambda item: (
+            -(item["misses_per_100_docs"] or 0),
             -item["miss_count"],
             item["detector_family"],
             item["jurisdiction"],
@@ -79,6 +107,11 @@ def concentration_report(bucket_report: dict[str, Any], *, examples_per_cell: in
             "by_bucket": dict(sorted(by_bucket.items())),
             "by_detector_family": dict(sorted(by_family.items())),
             "by_jurisdiction": dict(sorted(by_jurisdiction.items())),
+            "doc_count_by_jurisdiction": dict(sorted(doc_counts.items())),
+            "by_jurisdiction_normalized": {
+                jurisdiction: _rate(miss_count, doc_counts.get(jurisdiction, 0))
+                for jurisdiction, miss_count in sorted(by_jurisdiction.items())
+            },
         },
         "cells": rendered_cells,
         "note": (
@@ -91,6 +124,21 @@ def concentration_report(bucket_report: dict[str, Any], *, examples_per_cell: in
 def _format_counter(counter: dict[str, Any], *, limit: int = 10) -> str:
     items = sorted(counter.items(), key=lambda item: (-int(item[1]), item[0]))[:limit]
     return ", ".join(f"{key}: {value}" for key, value in items)
+
+
+def _format_normalized(counter: dict[str, Any], *, limit: int = 10) -> str:
+    items = sorted(
+        counter.items(),
+        key=lambda item: (
+            -float(item[1].get("misses_per_100_docs") or 0),
+            -int(item[1].get("miss_count") or 0),
+            item[0],
+        ),
+    )[:limit]
+    return ", ".join(
+        f"{key}: {value.get('misses_per_100_docs')} per 100 docs ({value.get('miss_count')} raw)"
+        for key, value in items
+    )
 
 
 def render_markdown(payload: dict[str, Any], *, max_cells: int = 20) -> str:
@@ -107,12 +155,13 @@ def render_markdown(payload: dict[str, Any], *, max_cells: int = 20) -> str:
         f"- Miss count: {summary.get('miss_count', 0)}",
         f"- Buckets: {_format_counter(summary.get('by_bucket', {}))}",
         f"- Detector families: {_format_counter(summary.get('by_detector_family', {}))}",
-        f"- Jurisdictions: {_format_counter(summary.get('by_jurisdiction', {}))}",
+        f"- Jurisdictions by raw misses: {_format_counter(summary.get('by_jurisdiction', {}))}",
+        f"- Jurisdictions by misses per 100 docs: {_format_normalized(summary.get('by_jurisdiction_normalized', {}))}",
         "",
         "## Top Cells",
         "",
-        "| Detector family | Jurisdiction | Bucket | Misses | Top rules | Example |",
-        "|---|---|---|---:|---|---|",
+        "| Detector family | Jurisdiction | Bucket | Misses | Docs | Misses / 100 docs | Top rules | Example |",
+        "|---|---|---|---:|---:|---:|---|---|",
     ]
     for cell in payload.get("cells", [])[:max_cells]:
         rules = _format_counter(cell.get("rules", {}), limit=4)
@@ -125,11 +174,13 @@ def render_markdown(payload: dict[str, Any], *, max_cells: int = 20) -> str:
                 matched = matched[:77] + "..."
             example = f"{first.get('path', '')}: `{matched}`"
         lines.append(
-            "| {family} | {jurisdiction} | {bucket} | {misses} | {rules} | {example} |".format(
+            "| {family} | {jurisdiction} | {bucket} | {misses} | {docs} | {rate} | {rules} | {example} |".format(
                 family=cell.get("detector_family", ""),
                 jurisdiction=cell.get("jurisdiction", ""),
                 bucket=cell.get("bucket", ""),
                 misses=cell.get("miss_count", 0),
+                docs=cell.get("doc_count", 0),
+                rate="" if cell.get("misses_per_100_docs") is None else cell.get("misses_per_100_docs"),
                 rules=rules.replace("|", "\\|"),
                 example=example,
             )

@@ -113,10 +113,12 @@ class CandidateMissBucketingTests(unittest.TestCase):
         ])
         self.assertEqual(payload["summary"]["by_bucket"]["coverage_gap"], 1)
         self.assertEqual(payload["summary"]["by_detector_family"]["quasi_identifier"]["singling_out_miss"], 1)
+        self.assertEqual(payload["summary"]["doc_count_by_jurisdiction"]["SG"], 1)
 
     def test_concentration_report_keeps_examples(self):
         bucketed = {
             "source_review_profile": "strict",
+            "summary": {"doc_count_by_jurisdiction": {"SG": 2}},
             "misses": [
                 {
                     "doc_id": "d1",
@@ -142,11 +144,15 @@ class CandidateMissBucketingTests(unittest.TestCase):
         }
         payload = miss_concentration.concentration_report(bucketed, examples_per_cell=1)
         self.assertEqual(payload["summary"]["by_detector_family"]["direct_identifier"], 2)
+        self.assertEqual(payload["summary"]["by_jurisdiction_normalized"]["SG"]["misses_per_100_docs"], 100.0)
         self.assertEqual(payload["cells"][0]["miss_count"], 2)
+        self.assertEqual(payload["cells"][0]["doc_count"], 2)
+        self.assertEqual(payload["cells"][0]["misses_per_doc"], 1.0)
+        self.assertEqual(payload["cells"][0]["misses_per_100_docs"], 100.0)
         self.assertEqual(len(payload["cells"][0]["examples"]), 1)
         markdown = miss_concentration.render_markdown(payload)
         self.assertIn("# Miss Concentration", markdown)
-        self.assertIn("| direct_identifier | SG | coverage_gap | 2 |", markdown)
+        self.assertIn("| direct_identifier | SG | coverage_gap | 2 | 2 | 100.0 |", markdown)
 
 
 class LayerAttributionRunnerTests(unittest.TestCase):

@@ -177,9 +177,11 @@ def bucket_report(eval_report: dict[str, Any]) -> dict[str, Any]:
     summary_by_jurisdiction: dict[str, Counter[str]] = defaultdict(Counter)
     summary_by_family: dict[str, Counter[str]] = defaultdict(Counter)
     summary_by_rule: dict[str, Counter[str]] = defaultdict(Counter)
+    doc_count_by_jurisdiction: Counter[str] = Counter()
 
     for doc in eval_report.get("documents", []):
         jurisdiction = str(doc.get("source_jurisdiction") or "")
+        doc_count_by_jurisdiction[jurisdiction] += 1
         for miss in doc.get("ideal_missed", []):
             rule = str(miss.get("rule") or "")
             family = detector_family(rule)
@@ -223,6 +225,7 @@ def bucket_report(eval_report: dict[str, Any]) -> dict[str, Any]:
             "by_rule": {
                 key: dict(sorted(value.items())) for key, value in sorted(summary_by_rule.items())
             },
+            "doc_count_by_jurisdiction": dict(sorted(doc_count_by_jurisdiction.items())),
         },
         "misses": entries,
         "note": "heuristic item-124 bucketing; spot-check before treating buckets as reviewed truth.",

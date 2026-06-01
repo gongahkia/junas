@@ -1,98 +1,9 @@
 {
   "cells": [
     {
-      "bucket": "conjunction_miss",
-      "detector_family": "mnpi_context",
-      "examples": [
-        {
-          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
-          "doc_id": "sg_direct_identifiers_incident_report_adversarial_001",
-          "matched_text": "may constitute MNPI",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_adversarial_001.txt",
-          "rule": "contingent_mnpi_language"
-        },
-        {
-          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
-          "doc_id": "sg_direct_identifiers_incident_report_default_001",
-          "matched_text": "trading blackout",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_default_001.txt",
-          "rule": "blackout_period_reference"
-        }
-      ],
-      "jurisdiction": "SG",
-      "miss_count": 324,
-      "rules": {
-        "blackout_period_reference": 69,
-        "contingent_mnpi_language": 47,
-        "information_barrier_marker": 76,
-        "insider_list_marker": 30,
-        "selective_disclosure_risk": 77,
-        "tipping_language": 25
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "mnpi_lexicon",
-      "examples": [
-        {
-          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
-          "doc_id": "sg_direct_identifiers_incident_report_adversarial_001",
-          "matched_text": "not generally available",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_adversarial_001.txt",
-          "rule": "nonpublic_marker"
-        },
-        {
-          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
-          "doc_id": "sg_direct_identifiers_incident_report_adversarial_001",
-          "matched_text": "proposed acquisition of CoralStack Ltd",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_adversarial_001.txt",
-          "rule": "material_event"
-        }
-      ],
-      "jurisdiction": "SG",
-      "miss_count": 217,
-      "rules": {
-        "definitive_agreement": 19,
-        "embargo_marker": 16,
-        "financial_percentage": 8,
-        "large_number": 4,
-        "material_adverse_change": 14,
-        "material_event": 79,
-        "nonpublic_marker": 71,
-        "transaction_codename": 6
-      }
-    },
-    {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
-      "examples": [
-        {
-          "bucket_reason": "privacy_event detector did not cover the ideal span",
-          "doc_id": "sg_direct_identifiers_memo_adversarial_001",
-          "matched_text": "minimised",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "data_minimisation_marker"
-        },
-        {
-          "bucket_reason": "privacy_event detector did not cover the ideal span",
-          "doc_id": "sg_direct_identifiers_memo_adversarial_001",
-          "matched_text": "collected with consent",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "consent_withdrawal_marker"
-        }
-      ],
-      "jurisdiction": "SG",
-      "miss_count": 170,
-      "rules": {
-        "consent_withdrawal_marker": 18,
-        "cross_border_transfer_marker": 41,
-        "data_minimisation_marker": 104,
-        "minor_data_reference": 7
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -111,6 +22,8 @@
       ],
       "jurisdiction": "CN",
       "miss_count": 134,
+      "misses_per_100_docs": 638.1,
+      "misses_per_doc": 6.381,
       "rules": {
         "consent_withdrawal_marker": 3,
         "cross_border_transfer_marker": 65,
@@ -121,6 +34,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -139,6 +53,8 @@
       ],
       "jurisdiction": "HK",
       "miss_count": 117,
+      "misses_per_100_docs": 557.14,
+      "misses_per_doc": 5.5714,
       "rules": {
         "blackout_period_reference": 22,
         "contingent_mnpi_language": 10,
@@ -151,6 +67,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -169,6 +86,8 @@
       ],
       "jurisdiction": "IN",
       "miss_count": 116,
+      "misses_per_100_docs": 552.38,
+      "misses_per_doc": 5.5238,
       "rules": {
         "bank_account": 5,
         "email_address": 36,
@@ -181,40 +100,9 @@
       }
     },
     {
-      "bucket": "coverage_gap",
-      "detector_family": "direct_identifier",
-      "examples": [
-        {
-          "bucket_reason": "direct_identifier detector did not cover the ideal span",
-          "doc_id": "sg_direct_identifiers_incident_report_adversarial_001",
-          "matched_text": "dpo@harbourquay.com",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_adversarial_001.txt",
-          "rule": "email_address"
-        },
-        {
-          "bucket_reason": "direct_identifier detector did not cover the ideal span",
-          "doc_id": "sg_direct_identifiers_incident_report_default_001",
-          "matched_text": "021-443-992-1",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_default_001.txt",
-          "rule": "bank_account"
-        }
-      ],
-      "jurisdiction": "SG",
-      "miss_count": 116,
-      "rules": {
-        "bank_account": 10,
-        "email_address": 68,
-        "named_person": 11,
-        "passport_number": 3,
-        "phone_number": 9,
-        "sg_nric_fin": 5,
-        "sg_postal_address": 3,
-        "sg_sgx_counter": 7
-      }
-    },
-    {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -233,6 +121,8 @@
       ],
       "jurisdiction": "US",
       "miss_count": 114,
+      "misses_per_100_docs": 542.86,
+      "misses_per_doc": 5.4286,
       "rules": {
         "blackout_period_reference": 15,
         "contingent_mnpi_language": 7,
@@ -245,6 +135,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -263,6 +154,8 @@
       ],
       "jurisdiction": "EU",
       "miss_count": 111,
+      "misses_per_100_docs": 528.57,
+      "misses_per_doc": 5.2857,
       "rules": {
         "blackout_period_reference": 23,
         "contingent_mnpi_language": 10,
@@ -275,6 +168,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -293,6 +187,8 @@
       ],
       "jurisdiction": "UK",
       "miss_count": 111,
+      "misses_per_100_docs": 528.57,
+      "misses_per_doc": 5.2857,
       "rules": {
         "blackout_period_reference": 28,
         "contingent_mnpi_language": 12,
@@ -305,6 +201,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -323,6 +220,8 @@
       ],
       "jurisdiction": "IN",
       "miss_count": 111,
+      "misses_per_100_docs": 528.57,
+      "misses_per_doc": 5.2857,
       "rules": {
         "consent_withdrawal_marker": 14,
         "cross_border_transfer_marker": 5,
@@ -333,6 +232,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -351,6 +251,8 @@
       ],
       "jurisdiction": "SA",
       "miss_count": 108,
+      "misses_per_100_docs": 514.29,
+      "misses_per_doc": 5.1429,
       "rules": {
         "bank_account": 5,
         "email_address": 24,
@@ -364,6 +266,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -382,6 +285,8 @@
       ],
       "jurisdiction": "CN",
       "miss_count": 105,
+      "misses_per_100_docs": 500.0,
+      "misses_per_doc": 5.0,
       "rules": {
         "bank_account": 13,
         "cn_passport": 1,
@@ -397,6 +302,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -415,6 +321,8 @@
       ],
       "jurisdiction": "KR",
       "miss_count": 105,
+      "misses_per_100_docs": 500.0,
+      "misses_per_doc": 5.0,
       "rules": {
         "bank_account": 8,
         "email_address": 33,
@@ -428,6 +336,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -446,6 +355,8 @@
       ],
       "jurisdiction": "IN",
       "miss_count": 102,
+      "misses_per_100_docs": 485.71,
+      "misses_per_doc": 4.8571,
       "rules": {
         "blackout_period_reference": 31,
         "contingent_mnpi_language": 12,
@@ -458,6 +369,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -476,6 +388,8 @@
       ],
       "jurisdiction": "MY",
       "miss_count": 96,
+      "misses_per_100_docs": 457.14,
+      "misses_per_doc": 4.5714,
       "rules": {
         "blackout_period_reference": 26,
         "contingent_mnpi_language": 10,
@@ -488,6 +402,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -506,6 +421,8 @@
       ],
       "jurisdiction": "PH",
       "miss_count": 94,
+      "misses_per_100_docs": 447.62,
+      "misses_per_doc": 4.4762,
       "rules": {
         "bank_account": 16,
         "email_address": 29,
@@ -518,6 +435,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -536,6 +454,8 @@
       ],
       "jurisdiction": "ID",
       "miss_count": 92,
+      "misses_per_100_docs": 438.1,
+      "misses_per_doc": 4.381,
       "rules": {
         "definitive_agreement": 5,
         "embargo_marker": 15,
@@ -551,6 +471,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -569,6 +490,8 @@
       ],
       "jurisdiction": "JP",
       "miss_count": 92,
+      "misses_per_100_docs": 438.1,
+      "misses_per_doc": 4.381,
       "rules": {
         "definitive_agreement": 6,
         "embargo_marker": 9,
@@ -583,6 +506,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -601,6 +525,8 @@
       ],
       "jurisdiction": "JP",
       "miss_count": 85,
+      "misses_per_100_docs": 404.76,
+      "misses_per_doc": 4.0476,
       "rules": {
         "blackout_period_reference": 22,
         "contingent_mnpi_language": 5,
@@ -613,6 +539,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -631,6 +558,8 @@
       ],
       "jurisdiction": "MY",
       "miss_count": 85,
+      "misses_per_100_docs": 404.76,
+      "misses_per_doc": 4.0476,
       "rules": {
         "definitive_agreement": 16,
         "embargo_marker": 7,
@@ -645,6 +574,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -663,6 +593,8 @@
       ],
       "jurisdiction": "UK",
       "miss_count": 85,
+      "misses_per_100_docs": 404.76,
+      "misses_per_doc": 4.0476,
       "rules": {
         "definitive_agreement": 3,
         "embargo_marker": 11,
@@ -678,6 +610,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -696,6 +629,8 @@
       ],
       "jurisdiction": "IN",
       "miss_count": 83,
+      "misses_per_100_docs": 395.24,
+      "misses_per_doc": 3.9524,
       "rules": {
         "definitive_agreement": 6,
         "embargo_marker": 4,
@@ -708,6 +643,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -726,6 +662,8 @@
       ],
       "jurisdiction": "EU",
       "miss_count": 83,
+      "misses_per_100_docs": 395.24,
+      "misses_per_doc": 3.9524,
       "rules": {
         "consent_withdrawal_marker": 4,
         "cross_border_transfer_marker": 49,
@@ -736,6 +674,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -754,6 +693,8 @@
       ],
       "jurisdiction": "SA",
       "miss_count": 82,
+      "misses_per_100_docs": 390.48,
+      "misses_per_doc": 3.9048,
       "rules": {
         "blackout_period_reference": 22,
         "contingent_mnpi_language": 9,
@@ -766,6 +707,40 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "sg_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "may constitute MNPI",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "contingent_mnpi_language"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "sg_direct_identifiers_incident_report_default_001",
+          "matched_text": "trading blackout",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_default_001.txt",
+          "rule": "blackout_period_reference"
+        }
+      ],
+      "jurisdiction": "SG",
+      "miss_count": 324,
+      "misses_per_100_docs": 385.71,
+      "misses_per_doc": 3.8571,
+      "rules": {
+        "blackout_period_reference": 69,
+        "contingent_mnpi_language": 47,
+        "information_barrier_marker": 76,
+        "insider_list_marker": 30,
+        "selective_disclosure_risk": 77,
+        "tipping_language": 25
+      }
+    },
+    {
+      "bucket": "conjunction_miss",
+      "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -784,6 +759,8 @@
       ],
       "jurisdiction": "AE",
       "miss_count": 81,
+      "misses_per_100_docs": 385.71,
+      "misses_per_doc": 3.8571,
       "rules": {
         "blackout_period_reference": 13,
         "contingent_mnpi_language": 9,
@@ -796,6 +773,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -814,6 +792,8 @@
       ],
       "jurisdiction": "SA",
       "miss_count": 81,
+      "misses_per_100_docs": 385.71,
+      "misses_per_doc": 3.8571,
       "rules": {
         "consent_withdrawal_marker": 5,
         "cross_border_transfer_marker": 40,
@@ -824,6 +804,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -842,6 +823,8 @@
       ],
       "jurisdiction": "AE",
       "miss_count": 80,
+      "misses_per_100_docs": 380.95,
+      "misses_per_doc": 3.8095,
       "rules": {
         "ae_emirates_id": 22,
         "ae_passport": 1,
@@ -855,6 +838,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -873,6 +857,8 @@
       ],
       "jurisdiction": "PH",
       "miss_count": 79,
+      "misses_per_100_docs": 376.19,
+      "misses_per_doc": 3.7619,
       "rules": {
         "blackout_period_reference": 24,
         "contingent_mnpi_language": 9,
@@ -885,6 +871,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -903,6 +890,8 @@
       ],
       "jurisdiction": "TH",
       "miss_count": 78,
+      "misses_per_100_docs": 371.43,
+      "misses_per_doc": 3.7143,
       "rules": {
         "blackout_period_reference": 24,
         "contingent_mnpi_language": 10,
@@ -915,6 +904,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -933,6 +923,8 @@
       ],
       "jurisdiction": "AU",
       "miss_count": 78,
+      "misses_per_100_docs": 371.43,
+      "misses_per_doc": 3.7143,
       "rules": {
         "definitive_agreement": 10,
         "embargo_marker": 8,
@@ -946,6 +938,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -964,6 +957,8 @@
       ],
       "jurisdiction": "AU",
       "miss_count": 77,
+      "misses_per_100_docs": 366.67,
+      "misses_per_doc": 3.6667,
       "rules": {
         "blackout_period_reference": 19,
         "contingent_mnpi_language": 12,
@@ -976,6 +971,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -994,6 +990,8 @@
       ],
       "jurisdiction": "ID",
       "miss_count": 77,
+      "misses_per_100_docs": 366.67,
+      "misses_per_doc": 3.6667,
       "rules": {
         "blackout_period_reference": 16,
         "contingent_mnpi_language": 10,
@@ -1006,6 +1004,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -1024,6 +1023,8 @@
       ],
       "jurisdiction": "HK",
       "miss_count": 76,
+      "misses_per_100_docs": 361.9,
+      "misses_per_doc": 3.619,
       "rules": {
         "definitive_agreement": 11,
         "embargo_marker": 8,
@@ -1039,6 +1040,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -1057,6 +1059,8 @@
       ],
       "jurisdiction": "VN",
       "miss_count": 76,
+      "misses_per_100_docs": 361.9,
+      "misses_per_doc": 3.619,
       "rules": {
         "definitive_agreement": 7,
         "embargo_marker": 8,
@@ -1072,6 +1076,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -1090,6 +1095,8 @@
       ],
       "jurisdiction": "CN",
       "miss_count": 75,
+      "misses_per_100_docs": 357.14,
+      "misses_per_doc": 3.5714,
       "rules": {
         "blackout_period_reference": 20,
         "contingent_mnpi_language": 6,
@@ -1102,6 +1109,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -1120,6 +1128,8 @@
       ],
       "jurisdiction": "MY",
       "miss_count": 74,
+      "misses_per_100_docs": 352.38,
+      "misses_per_doc": 3.5238,
       "rules": {
         "bank_account": 11,
         "email_address": 24,
@@ -1132,6 +1142,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -1150,6 +1161,8 @@
       ],
       "jurisdiction": "PH",
       "miss_count": 74,
+      "misses_per_100_docs": 352.38,
+      "misses_per_doc": 3.5238,
       "rules": {
         "definitive_agreement": 6,
         "embargo_marker": 6,
@@ -1164,6 +1177,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -1182,6 +1196,8 @@
       ],
       "jurisdiction": "AU",
       "miss_count": 73,
+      "misses_per_100_docs": 347.62,
+      "misses_per_doc": 3.4762,
       "rules": {
         "au_abn": 12,
         "au_acn": 7,
@@ -1197,6 +1213,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -1215,6 +1232,8 @@
       ],
       "jurisdiction": "VN",
       "miss_count": 72,
+      "misses_per_100_docs": 342.86,
+      "misses_per_doc": 3.4286,
       "rules": {
         "blackout_period_reference": 18,
         "contingent_mnpi_language": 9,
@@ -1227,6 +1246,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -1245,6 +1265,8 @@
       ],
       "jurisdiction": "TH",
       "miss_count": 72,
+      "misses_per_100_docs": 342.86,
+      "misses_per_doc": 3.4286,
       "rules": {
         "consent_withdrawal_marker": 4,
         "cross_border_transfer_marker": 21,
@@ -1255,6 +1277,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -1273,6 +1296,8 @@
       ],
       "jurisdiction": "ID",
       "miss_count": 71,
+      "misses_per_100_docs": 338.1,
+      "misses_per_doc": 3.381,
       "rules": {
         "bank_account": 7,
         "email_address": 19,
@@ -1285,6 +1310,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -1303,6 +1329,8 @@
       ],
       "jurisdiction": "TH",
       "miss_count": 71,
+      "misses_per_100_docs": 338.1,
+      "misses_per_doc": 3.381,
       "rules": {
         "definitive_agreement": 12,
         "embargo_marker": 6,
@@ -1318,6 +1346,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -1336,6 +1365,8 @@
       ],
       "jurisdiction": "JP",
       "miss_count": 69,
+      "misses_per_100_docs": 328.57,
+      "misses_per_doc": 3.2857,
       "rules": {
         "consent_withdrawal_marker": 4,
         "cross_border_transfer_marker": 8,
@@ -1346,6 +1377,7 @@
     {
       "bucket": "conjunction_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
@@ -1364,6 +1396,8 @@
       ],
       "jurisdiction": "KR",
       "miss_count": 68,
+      "misses_per_100_docs": 323.81,
+      "misses_per_doc": 3.2381,
       "rules": {
         "blackout_period_reference": 10,
         "contingent_mnpi_language": 4,
@@ -1376,6 +1410,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -1394,6 +1429,8 @@
       ],
       "jurisdiction": "VN",
       "miss_count": 65,
+      "misses_per_100_docs": 309.52,
+      "misses_per_doc": 3.0952,
       "rules": {
         "bank_account": 17,
         "email_address": 18,
@@ -1406,6 +1443,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -1424,6 +1462,8 @@
       ],
       "jurisdiction": "JP",
       "miss_count": 59,
+      "misses_per_100_docs": 280.95,
+      "misses_per_doc": 2.8095,
       "rules": {
         "bank_account": 3,
         "email_address": 19,
@@ -1436,6 +1476,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -1454,6 +1495,8 @@
       ],
       "jurisdiction": "EU",
       "miss_count": 59,
+      "misses_per_100_docs": 280.95,
+      "misses_per_doc": 2.8095,
       "rules": {
         "definitive_agreement": 1,
         "embargo_marker": 5,
@@ -1466,67 +1509,8 @@
     },
     {
       "bucket": "coverage_gap",
-      "detector_family": "sector_mnpi",
-      "examples": [
-        {
-          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
-          "doc_id": "sg_direct_identifiers_incident_report_default_001",
-          "matched_text": "Cyber Data Exposure",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_default_001.txt",
-          "rule": "cyber_incident_pre_disclosure"
-        },
-        {
-          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
-          "doc_id": "sg_direct_identifiers_incident_report_negative_001",
-          "matched_text": "phishing attempt",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_negative_001.txt",
-          "rule": "cyber_incident_pre_disclosure"
-        }
-      ],
-      "jurisdiction": "SG",
-      "miss_count": 59,
-      "rules": {
-        "cyber_incident_pre_disclosure": 35,
-        "dpt_pre_listing_marker": 5,
-        "dpt_protocol_event_marker": 6,
-        "esg_climate_pre_disclosure": 13
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "special_category",
-      "examples": [
-        {
-          "bucket_reason": "special_category detector did not cover the ideal span",
-          "doc_id": "sg_privacy_events_incident_report_default_001",
-          "matched_text": "biometric door access templates",
-          "path": "test/fixtures/legal-corpus-candidates/sg/privacy_events/sg_privacy_events_incident_report_default_001.txt",
-          "rule": "biometric_identifier"
-        },
-        {
-          "bucket_reason": "special_category detector did not cover the ideal span",
-          "doc_id": "sg_special_category_incident_report_adversarial_001",
-          "matched_text": "had a medical claim revealing Type 1 diabetes",
-          "path": "test/fixtures/legal-corpus-candidates/sg/special_category/sg_special_category_incident_report_adversarial_001.txt",
-          "rule": "health_condition"
-        }
-      ],
-      "jurisdiction": "SG",
-      "miss_count": 59,
-      "rules": {
-        "biometric_identifier": 14,
-        "genetic_data": 3,
-        "health_condition": 10,
-        "medical_treatment": 7,
-        "political_opinion": 1,
-        "religious_belief": 8,
-        "sexual_orientation": 4,
-        "trade_union_membership": 12
-      }
-    },
-    {
-      "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -1545,6 +1529,8 @@
       ],
       "jurisdiction": "EU",
       "miss_count": 57,
+      "misses_per_100_docs": 271.43,
+      "misses_per_doc": 2.7143,
       "rules": {
         "bank_account": 7,
         "email_address": 31,
@@ -1556,6 +1542,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -1574,6 +1561,8 @@
       ],
       "jurisdiction": "AE",
       "miss_count": 57,
+      "misses_per_100_docs": 271.43,
+      "misses_per_doc": 2.7143,
       "rules": {
         "definitive_agreement": 4,
         "embargo_marker": 6,
@@ -1587,6 +1576,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -1605,6 +1595,8 @@
       ],
       "jurisdiction": "KR",
       "miss_count": 57,
+      "misses_per_100_docs": 271.43,
+      "misses_per_doc": 2.7143,
       "rules": {
         "definitive_agreement": 7,
         "embargo_marker": 9,
@@ -1619,6 +1611,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -1637,6 +1630,8 @@
       ],
       "jurisdiction": "KR",
       "miss_count": 57,
+      "misses_per_100_docs": 271.43,
+      "misses_per_doc": 2.7143,
       "rules": {
         "consent_withdrawal_marker": 4,
         "cross_border_transfer_marker": 4,
@@ -1647,6 +1642,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -1665,6 +1661,8 @@
       ],
       "jurisdiction": "CN",
       "miss_count": 56,
+      "misses_per_100_docs": 266.67,
+      "misses_per_doc": 2.6667,
       "rules": {
         "definitive_agreement": 5,
         "embargo_marker": 6,
@@ -1677,7 +1675,43 @@
     },
     {
       "bucket": "coverage_gap",
+      "detector_family": "mnpi_lexicon",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "not generally available",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "nonpublic_marker"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "proposed acquisition of CoralStack Ltd",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "material_event"
+        }
+      ],
+      "jurisdiction": "SG",
+      "miss_count": 217,
+      "misses_per_100_docs": 258.33,
+      "misses_per_doc": 2.5833,
+      "rules": {
+        "definitive_agreement": 19,
+        "embargo_marker": 16,
+        "financial_percentage": 8,
+        "large_number": 4,
+        "material_adverse_change": 14,
+        "material_event": 79,
+        "nonpublic_marker": 71,
+        "transaction_codename": 6
+      }
+    },
+    {
+      "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -1696,6 +1730,8 @@
       ],
       "jurisdiction": "AE",
       "miss_count": 52,
+      "misses_per_100_docs": 247.62,
+      "misses_per_doc": 2.4762,
       "rules": {
         "consent_withdrawal_marker": 2,
         "cross_border_transfer_marker": 8,
@@ -1706,6 +1742,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -1724,6 +1761,8 @@
       ],
       "jurisdiction": "VN",
       "miss_count": 52,
+      "misses_per_100_docs": 247.62,
+      "misses_per_doc": 2.4762,
       "rules": {
         "consent_withdrawal_marker": 2,
         "cross_border_transfer_marker": 5,
@@ -1733,35 +1772,8 @@
     },
     {
       "bucket": "coverage_gap",
-      "detector_family": "pseudonymised_linkable",
-      "examples": [
-        {
-          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
-          "doc_id": "sg_direct_identifiers_privacy_notice_negative_001",
-          "matched_text": "EMP-0000",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_privacy_notice_negative_001.txt",
-          "rule": "employee_id"
-        },
-        {
-          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
-          "doc_id": "sg_jurisdictional_mnpi_privacy_notice_adversarial_001",
-          "matched_text": "P S L - 2 3 - 7 7",
-          "path": "test/fixtures/legal-corpus-candidates/sg/jurisdictional_mnpi/sg_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
-          "rule": "employee_id"
-        }
-      ],
-      "jurisdiction": "SG",
-      "miss_count": 51,
-      "rules": {
-        "bank_customer_reference": 1,
-        "customer_account_number": 9,
-        "employee_id": 28,
-        "internal_session_id": 13
-      }
-    },
-    {
-      "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -1780,6 +1792,8 @@
       ],
       "jurisdiction": "US",
       "miss_count": 50,
+      "misses_per_100_docs": 238.1,
+      "misses_per_doc": 2.381,
       "rules": {
         "bank_account": 8,
         "email_address": 25,
@@ -1792,37 +1806,8 @@
     },
     {
       "bucket": "coverage_gap",
-      "detector_family": "online_device",
-      "examples": [
-        {
-          "bucket_reason": "online_device detector did not cover the ideal span",
-          "doc_id": "sg_direct_identifiers_incident_report_default_001",
-          "matched_text": "145.77.32.18",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_default_001.txt",
-          "rule": "ip_address"
-        },
-        {
-          "bucket_reason": "online_device detector did not cover the ideal span",
-          "doc_id": "sg_jurisdictional_mnpi_incident_report_negative_001",
-          "matched_text": "h-9f3b***",
-          "path": "test/fixtures/legal-corpus-candidates/sg/jurisdictional_mnpi/sg_jurisdictional_mnpi_incident_report_negative_001.txt",
-          "rule": "device_serial_number"
-        }
-      ],
-      "jurisdiction": "SG",
-      "miss_count": 50,
-      "rules": {
-        "age_reference": 15,
-        "date_of_birth": 6,
-        "device_serial_number": 19,
-        "imei": 2,
-        "ip_address": 7,
-        "mac_address": 1
-      }
-    },
-    {
-      "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -1841,6 +1826,8 @@
       ],
       "jurisdiction": "PH",
       "miss_count": 49,
+      "misses_per_100_docs": 233.33,
+      "misses_per_doc": 2.3333,
       "rules": {
         "consent_withdrawal_marker": 4,
         "cross_border_transfer_marker": 2,
@@ -1851,6 +1838,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -1869,6 +1857,8 @@
       ],
       "jurisdiction": "HK",
       "miss_count": 48,
+      "misses_per_100_docs": 228.57,
+      "misses_per_doc": 2.2857,
       "rules": {
         "bank_account": 6,
         "email_address": 20,
@@ -1882,6 +1872,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -1900,6 +1891,8 @@
       ],
       "jurisdiction": "US",
       "miss_count": 47,
+      "misses_per_100_docs": 223.81,
+      "misses_per_doc": 2.2381,
       "rules": {
         "definitive_agreement": 5,
         "embargo_marker": 5,
@@ -1912,6 +1905,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
@@ -1930,6 +1924,8 @@
       ],
       "jurisdiction": "SA",
       "miss_count": 46,
+      "misses_per_100_docs": 219.05,
+      "misses_per_doc": 2.1905,
       "rules": {
         "definitive_agreement": 2,
         "embargo_marker": 5,
@@ -1943,6 +1939,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -1961,6 +1958,8 @@
       ],
       "jurisdiction": "HK",
       "miss_count": 45,
+      "misses_per_100_docs": 214.29,
+      "misses_per_doc": 2.1429,
       "rules": {
         "consent_withdrawal_marker": 4,
         "cross_border_transfer_marker": 6,
@@ -1970,6 +1969,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -1988,6 +1988,8 @@
       ],
       "jurisdiction": "MY",
       "miss_count": 45,
+      "misses_per_100_docs": 214.29,
+      "misses_per_doc": 2.1429,
       "rules": {
         "consent_withdrawal_marker": 4,
         "cross_border_transfer_marker": 7,
@@ -1998,6 +2000,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -2016,6 +2019,8 @@
       ],
       "jurisdiction": "EU",
       "miss_count": 43,
+      "misses_per_100_docs": 204.76,
+      "misses_per_doc": 2.0476,
       "rules": {
         "biometric_identifier": 10,
         "genetic_data": 1,
@@ -2030,6 +2035,38 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_memo_adversarial_001",
+          "matched_text": "minimised",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_memo_adversarial_001",
+          "matched_text": "collected with consent",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "consent_withdrawal_marker"
+        }
+      ],
+      "jurisdiction": "SG",
+      "miss_count": 170,
+      "misses_per_100_docs": 202.38,
+      "misses_per_doc": 2.0238,
+      "rules": {
+        "consent_withdrawal_marker": 18,
+        "cross_border_transfer_marker": 41,
+        "data_minimisation_marker": 104,
+        "minor_data_reference": 7
+      }
+    },
+    {
+      "bucket": "coverage_gap",
+      "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -2048,6 +2085,8 @@
       ],
       "jurisdiction": "US",
       "miss_count": 42,
+      "misses_per_100_docs": 200.0,
+      "misses_per_doc": 2.0,
       "rules": {
         "consent_withdrawal_marker": 3,
         "cross_border_transfer_marker": 3,
@@ -2058,6 +2097,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -2076,6 +2116,8 @@
       ],
       "jurisdiction": "TH",
       "miss_count": 41,
+      "misses_per_100_docs": 195.24,
+      "misses_per_doc": 1.9524,
       "rules": {
         "bank_account": 5,
         "email_address": 15,
@@ -2087,6 +2129,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
@@ -2105,6 +2148,8 @@
       ],
       "jurisdiction": "UK",
       "miss_count": 39,
+      "misses_per_100_docs": 185.71,
+      "misses_per_doc": 1.8571,
       "rules": {
         "bank_account": 6,
         "email_address": 18,
@@ -2117,6 +2162,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -2135,6 +2181,8 @@
       ],
       "jurisdiction": "UK",
       "miss_count": 35,
+      "misses_per_100_docs": 166.67,
+      "misses_per_doc": 1.6667,
       "rules": {
         "consent_withdrawal_marker": 3,
         "cross_border_transfer_marker": 5,
@@ -2145,6 +2193,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -2163,6 +2212,8 @@
       ],
       "jurisdiction": "AU",
       "miss_count": 34,
+      "misses_per_100_docs": 161.9,
+      "misses_per_doc": 1.619,
       "rules": {
         "consent_withdrawal_marker": 6,
         "cross_border_transfer_marker": 4,
@@ -2172,6 +2223,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "privacy_event",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
@@ -2190,6 +2242,8 @@
       ],
       "jurisdiction": "ID",
       "miss_count": 32,
+      "misses_per_100_docs": 152.38,
+      "misses_per_doc": 1.5238,
       "rules": {
         "consent_withdrawal_marker": 5,
         "cross_border_transfer_marker": 6,
@@ -2200,6 +2254,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -2218,6 +2273,8 @@
       ],
       "jurisdiction": "AU",
       "miss_count": 32,
+      "misses_per_100_docs": 152.38,
+      "misses_per_doc": 1.5238,
       "rules": {
         "bank_customer_reference": 4,
         "customer_account_number": 9,
@@ -2229,6 +2286,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -2247,6 +2305,8 @@
       ],
       "jurisdiction": "EU",
       "miss_count": 30,
+      "misses_per_100_docs": 142.86,
+      "misses_per_doc": 1.4286,
       "rules": {
         "cyber_incident_pre_disclosure": 6,
         "dpt_protocol_event_marker": 1,
@@ -2255,33 +2315,44 @@
       }
     },
     {
-      "bucket": "singling_out_miss",
-      "detector_family": "quasi_identifier",
+      "bucket": "coverage_gap",
+      "detector_family": "direct_identifier",
+      "doc_count": 84,
       "examples": [
         {
-          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
-          "doc_id": "sg_privacy_events_incident_report_default_001",
-          "matched_text": "employee names, staff IDs, and salary bands",
-          "path": "test/fixtures/legal-corpus-candidates/sg/privacy_events/sg_privacy_events_incident_report_default_001.txt",
-          "rule": "quasi_identifier_combination"
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "dpo@harbourquay.com",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "email_address"
         },
         {
-          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
-          "doc_id": "sg_quasi_identifiers_incident_report_adversarial_001",
-          "matched_text": "Mr. Daniel Teo Wei Jian (b. 1987-05-03, approx. 39), contract systems analyst seconded from NexPillar Services Pte Ltd to Alto Meridian, accessed internal share \u201c/CorpFin/Capital Projects\u201d from AMH Bugis site during change window",
-          "path": "test/fixtures/legal-corpus-candidates/sg/quasi_identifiers/sg_quasi_identifiers_incident_report_adversarial_001.txt",
-          "rule": "quasi_identifier_combination"
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_incident_report_default_001",
+          "matched_text": "021-443-992-1",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_default_001.txt",
+          "rule": "bank_account"
         }
       ],
       "jurisdiction": "SG",
-      "miss_count": 26,
+      "miss_count": 116,
+      "misses_per_100_docs": 138.1,
+      "misses_per_doc": 1.381,
       "rules": {
-        "quasi_identifier_combination": 26
+        "bank_account": 10,
+        "email_address": 68,
+        "named_person": 11,
+        "passport_number": 3,
+        "phone_number": 9,
+        "sg_nric_fin": 5,
+        "sg_postal_address": 3,
+        "sg_sgx_counter": 7
       }
     },
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -2300,6 +2371,8 @@
       ],
       "jurisdiction": "US",
       "miss_count": 25,
+      "misses_per_100_docs": 119.05,
+      "misses_per_doc": 1.1905,
       "rules": {
         "bank_customer_reference": 1,
         "customer_account_number": 3,
@@ -2311,6 +2384,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -2329,6 +2403,8 @@
       ],
       "jurisdiction": "VN",
       "miss_count": 25,
+      "misses_per_100_docs": 119.05,
+      "misses_per_doc": 1.1905,
       "rules": {
         "bank_customer_reference": 4,
         "customer_account_number": 3,
@@ -2339,6 +2415,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -2357,6 +2434,8 @@
       ],
       "jurisdiction": "IN",
       "miss_count": 24,
+      "misses_per_100_docs": 114.29,
+      "misses_per_doc": 1.1429,
       "rules": {
         "age_reference": 13,
         "date_of_birth": 2,
@@ -2368,6 +2447,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -2386,6 +2466,8 @@
       ],
       "jurisdiction": "MY",
       "miss_count": 24,
+      "misses_per_100_docs": 114.29,
+      "misses_per_doc": 1.1429,
       "rules": {
         "customer_account_number": 4,
         "employee_id": 13,
@@ -2395,6 +2477,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -2413,6 +2496,8 @@
       ],
       "jurisdiction": "CN",
       "miss_count": 23,
+      "misses_per_100_docs": 109.52,
+      "misses_per_doc": 1.0952,
       "rules": {
         "biometric_identifier": 6,
         "genetic_data": 1,
@@ -2427,6 +2512,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -2445,6 +2531,8 @@
       ],
       "jurisdiction": "EU",
       "miss_count": 22,
+      "misses_per_100_docs": 104.76,
+      "misses_per_doc": 1.0476,
       "rules": {
         "customer_account_number": 6,
         "employee_id": 10,
@@ -2454,6 +2542,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -2472,6 +2561,8 @@
       ],
       "jurisdiction": "AU",
       "miss_count": 22,
+      "misses_per_100_docs": 104.76,
+      "misses_per_doc": 1.0476,
       "rules": {
         "biometric_identifier": 1,
         "health_condition": 11,
@@ -2484,6 +2575,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -2502,6 +2594,8 @@
       ],
       "jurisdiction": "JP",
       "miss_count": 19,
+      "misses_per_100_docs": 90.48,
+      "misses_per_doc": 0.9048,
       "rules": {
         "customer_account_number": 4,
         "employee_id": 8,
@@ -2511,6 +2605,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -2529,6 +2624,8 @@
       ],
       "jurisdiction": "UK",
       "miss_count": 19,
+      "misses_per_100_docs": 90.48,
+      "misses_per_doc": 0.9048,
       "rules": {
         "customer_account_number": 1,
         "employee_id": 15,
@@ -2538,6 +2635,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -2556,6 +2654,8 @@
       ],
       "jurisdiction": "ID",
       "miss_count": 18,
+      "misses_per_100_docs": 85.71,
+      "misses_per_doc": 0.8571,
       "rules": {
         "bank_customer_reference": 1,
         "customer_account_number": 5,
@@ -2566,6 +2666,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -2584,6 +2685,8 @@
       ],
       "jurisdiction": "PH",
       "miss_count": 18,
+      "misses_per_100_docs": 85.71,
+      "misses_per_doc": 0.8571,
       "rules": {
         "customer_account_number": 3,
         "employee_id": 10,
@@ -2594,6 +2697,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -2612,6 +2716,8 @@
       ],
       "jurisdiction": "AE",
       "miss_count": 18,
+      "misses_per_100_docs": 85.71,
+      "misses_per_doc": 0.8571,
       "rules": {
         "biometric_identifier": 8,
         "genetic_data": 1,
@@ -2625,6 +2731,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -2643,6 +2750,8 @@
       ],
       "jurisdiction": "JP",
       "miss_count": 18,
+      "misses_per_100_docs": 85.71,
+      "misses_per_doc": 0.8571,
       "rules": {
         "biometric_identifier": 5,
         "genetic_data": 1,
@@ -2657,6 +2766,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -2675,6 +2785,8 @@
       ],
       "jurisdiction": "HK",
       "miss_count": 17,
+      "misses_per_100_docs": 80.95,
+      "misses_per_doc": 0.8095,
       "rules": {
         "biometric_identifier": 3,
         "genetic_data": 2,
@@ -2689,6 +2801,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -2707,6 +2820,8 @@
       ],
       "jurisdiction": "VN",
       "miss_count": 16,
+      "misses_per_100_docs": 76.19,
+      "misses_per_doc": 0.7619,
       "rules": {
         "age_reference": 2,
         "cookie_id": 2,
@@ -2720,6 +2835,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -2738,6 +2854,8 @@
       ],
       "jurisdiction": "AE",
       "miss_count": 16,
+      "misses_per_100_docs": 76.19,
+      "misses_per_doc": 0.7619,
       "rules": {
         "cyber_incident_pre_disclosure": 6,
         "dpt_pre_listing_marker": 4,
@@ -2749,6 +2867,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -2767,6 +2886,8 @@
       ],
       "jurisdiction": "IN",
       "miss_count": 16,
+      "misses_per_100_docs": 76.19,
+      "misses_per_doc": 0.7619,
       "rules": {
         "biometric_identifier": 5,
         "genetic_data": 3,
@@ -2781,6 +2902,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -2799,6 +2921,8 @@
       ],
       "jurisdiction": "CN",
       "miss_count": 15,
+      "misses_per_100_docs": 71.43,
+      "misses_per_doc": 0.7143,
       "rules": {
         "age_reference": 4,
         "date_of_birth": 1,
@@ -2811,6 +2935,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -2829,6 +2954,8 @@
       ],
       "jurisdiction": "TH",
       "miss_count": 15,
+      "misses_per_100_docs": 71.43,
+      "misses_per_doc": 0.7143,
       "rules": {
         "bank_customer_reference": 4,
         "employee_id": 9,
@@ -2838,6 +2965,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -2856,6 +2984,8 @@
       ],
       "jurisdiction": "ID",
       "miss_count": 15,
+      "misses_per_100_docs": 71.43,
+      "misses_per_doc": 0.7143,
       "rules": {
         "biometric_identifier": 3,
         "genetic_data": 1,
@@ -2869,6 +2999,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -2887,6 +3018,8 @@
       ],
       "jurisdiction": "KR",
       "miss_count": 15,
+      "misses_per_100_docs": 71.43,
+      "misses_per_doc": 0.7143,
       "rules": {
         "biometric_identifier": 4,
         "genetic_data": 1,
@@ -2900,6 +3033,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -2918,6 +3052,8 @@
       ],
       "jurisdiction": "MY",
       "miss_count": 15,
+      "misses_per_100_docs": 71.43,
+      "misses_per_doc": 0.7143,
       "rules": {
         "biometric_identifier": 4,
         "genetic_data": 1,
@@ -2930,7 +3066,74 @@
     },
     {
       "bucket": "coverage_gap",
+      "detector_family": "sector_mnpi",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_incident_report_default_001",
+          "matched_text": "Cyber Data Exposure",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_default_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_incident_report_negative_001",
+          "matched_text": "phishing attempt",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_negative_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
+        }
+      ],
+      "jurisdiction": "SG",
+      "miss_count": 59,
+      "misses_per_100_docs": 70.24,
+      "misses_per_doc": 0.7024,
+      "rules": {
+        "cyber_incident_pre_disclosure": 35,
+        "dpt_pre_listing_marker": 5,
+        "dpt_protocol_event_marker": 6,
+        "esg_climate_pre_disclosure": 13
+      }
+    },
+    {
+      "bucket": "coverage_gap",
+      "detector_family": "special_category",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "sg_privacy_events_incident_report_default_001",
+          "matched_text": "biometric door access templates",
+          "path": "test/fixtures/legal-corpus-candidates/sg/privacy_events/sg_privacy_events_incident_report_default_001.txt",
+          "rule": "biometric_identifier"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "sg_special_category_incident_report_adversarial_001",
+          "matched_text": "had a medical claim revealing Type 1 diabetes",
+          "path": "test/fixtures/legal-corpus-candidates/sg/special_category/sg_special_category_incident_report_adversarial_001.txt",
+          "rule": "health_condition"
+        }
+      ],
+      "jurisdiction": "SG",
+      "miss_count": 59,
+      "misses_per_100_docs": 70.24,
+      "misses_per_doc": 0.7024,
+      "rules": {
+        "biometric_identifier": 14,
+        "genetic_data": 3,
+        "health_condition": 10,
+        "medical_treatment": 7,
+        "political_opinion": 1,
+        "religious_belief": 8,
+        "sexual_orientation": 4,
+        "trade_union_membership": 12
+      }
+    },
+    {
+      "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -2949,6 +3152,8 @@
       ],
       "jurisdiction": "AE",
       "miss_count": 14,
+      "misses_per_100_docs": 66.67,
+      "misses_per_doc": 0.6667,
       "rules": {
         "age_reference": 4,
         "date_of_birth": 4,
@@ -2960,6 +3165,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -2978,6 +3184,8 @@
       ],
       "jurisdiction": "MY",
       "miss_count": 14,
+      "misses_per_100_docs": 66.67,
+      "misses_per_doc": 0.6667,
       "rules": {
         "age_reference": 4,
         "date_of_birth": 3,
@@ -2988,6 +3196,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -3006,6 +3215,8 @@
       ],
       "jurisdiction": "PH",
       "miss_count": 14,
+      "misses_per_100_docs": 66.67,
+      "misses_per_doc": 0.6667,
       "rules": {
         "age_reference": 5,
         "date_of_birth": 1,
@@ -3017,6 +3228,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -3035,6 +3247,8 @@
       ],
       "jurisdiction": "IN",
       "miss_count": 14,
+      "misses_per_100_docs": 66.67,
+      "misses_per_doc": 0.6667,
       "rules": {
         "bank_customer_reference": 1,
         "customer_account_number": 1,
@@ -3045,6 +3259,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -3063,6 +3278,8 @@
       ],
       "jurisdiction": "PH",
       "miss_count": 14,
+      "misses_per_100_docs": 66.67,
+      "misses_per_doc": 0.6667,
       "rules": {
         "cyber_incident_pre_disclosure": 5,
         "dpt_pre_listing_marker": 2,
@@ -3073,6 +3290,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -3091,6 +3309,8 @@
       ],
       "jurisdiction": "PH",
       "miss_count": 14,
+      "misses_per_100_docs": 66.67,
+      "misses_per_doc": 0.6667,
       "rules": {
         "biometric_identifier": 4,
         "genetic_data": 1,
@@ -3104,6 +3324,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -3122,6 +3343,8 @@
       ],
       "jurisdiction": "ID",
       "miss_count": 13,
+      "misses_per_100_docs": 61.9,
+      "misses_per_doc": 0.619,
       "rules": {
         "advertising_id": 1,
         "age_reference": 1,
@@ -3134,6 +3357,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -3152,6 +3376,8 @@
       ],
       "jurisdiction": "HK",
       "miss_count": 13,
+      "misses_per_100_docs": 61.9,
+      "misses_per_doc": 0.619,
       "rules": {
         "customer_account_number": 1,
         "employee_id": 8,
@@ -3161,6 +3387,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -3179,6 +3406,8 @@
       ],
       "jurisdiction": "CN",
       "miss_count": 13,
+      "misses_per_100_docs": 61.9,
+      "misses_per_doc": 0.619,
       "rules": {
         "cyber_incident_pre_disclosure": 4,
         "dpt_protocol_event_marker": 4,
@@ -3189,6 +3418,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -3207,6 +3437,8 @@
       ],
       "jurisdiction": "UK",
       "miss_count": 13,
+      "misses_per_100_docs": 61.9,
+      "misses_per_doc": 0.619,
       "rules": {
         "cyber_incident_pre_disclosure": 2,
         "dpt_protocol_event_marker": 3,
@@ -3217,6 +3449,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -3235,6 +3468,8 @@
       ],
       "jurisdiction": "VN",
       "miss_count": 13,
+      "misses_per_100_docs": 61.9,
+      "misses_per_doc": 0.619,
       "rules": {
         "cyber_incident_pre_disclosure": 4,
         "dpt_pre_listing_marker": 2,
@@ -3245,6 +3480,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -3263,6 +3499,8 @@
       ],
       "jurisdiction": "UK",
       "miss_count": 13,
+      "misses_per_100_docs": 61.9,
+      "misses_per_doc": 0.619,
       "rules": {
         "biometric_identifier": 5,
         "health_condition": 1,
@@ -3275,6 +3513,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -3293,6 +3532,8 @@
       ],
       "jurisdiction": "US",
       "miss_count": 13,
+      "misses_per_100_docs": 61.9,
+      "misses_per_doc": 0.619,
       "rules": {
         "biometric_identifier": 2,
         "genetic_data": 1,
@@ -3306,6 +3547,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -3324,6 +3566,8 @@
       ],
       "jurisdiction": "VN",
       "miss_count": 13,
+      "misses_per_100_docs": 61.9,
+      "misses_per_doc": 0.619,
       "rules": {
         "biometric_identifier": 2,
         "health_condition": 2,
@@ -3335,7 +3579,72 @@
     },
     {
       "bucket": "coverage_gap",
+      "detector_family": "pseudonymised_linkable",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_privacy_notice_negative_001",
+          "matched_text": "EMP-0000",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_privacy_notice_negative_001.txt",
+          "rule": "employee_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "sg_jurisdictional_mnpi_privacy_notice_adversarial_001",
+          "matched_text": "P S L - 2 3 - 7 7",
+          "path": "test/fixtures/legal-corpus-candidates/sg/jurisdictional_mnpi/sg_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+          "rule": "employee_id"
+        }
+      ],
+      "jurisdiction": "SG",
+      "miss_count": 51,
+      "misses_per_100_docs": 60.71,
+      "misses_per_doc": 0.6071,
+      "rules": {
+        "bank_customer_reference": 1,
+        "customer_account_number": 9,
+        "employee_id": 28,
+        "internal_session_id": 13
+      }
+    },
+    {
+      "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_incident_report_default_001",
+          "matched_text": "145.77.32.18",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_default_001.txt",
+          "rule": "ip_address"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "sg_jurisdictional_mnpi_incident_report_negative_001",
+          "matched_text": "h-9f3b***",
+          "path": "test/fixtures/legal-corpus-candidates/sg/jurisdictional_mnpi/sg_jurisdictional_mnpi_incident_report_negative_001.txt",
+          "rule": "device_serial_number"
+        }
+      ],
+      "jurisdiction": "SG",
+      "miss_count": 50,
+      "misses_per_100_docs": 59.52,
+      "misses_per_doc": 0.5952,
+      "rules": {
+        "age_reference": 15,
+        "date_of_birth": 6,
+        "device_serial_number": 19,
+        "imei": 2,
+        "ip_address": 7,
+        "mac_address": 1
+      }
+    },
+    {
+      "bucket": "coverage_gap",
+      "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -3354,6 +3663,8 @@
       ],
       "jurisdiction": "AU",
       "miss_count": 12,
+      "misses_per_100_docs": 57.14,
+      "misses_per_doc": 0.5714,
       "rules": {
         "age_reference": 1,
         "date_of_birth": 5,
@@ -3363,6 +3674,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -3381,6 +3693,8 @@
       ],
       "jurisdiction": "EU",
       "miss_count": 12,
+      "misses_per_100_docs": 57.14,
+      "misses_per_doc": 0.5714,
       "rules": {
         "age_reference": 4,
         "date_of_birth": 2,
@@ -3392,6 +3706,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -3410,6 +3725,8 @@
       ],
       "jurisdiction": "KR",
       "miss_count": 12,
+      "misses_per_100_docs": 57.14,
+      "misses_per_doc": 0.5714,
       "rules": {
         "age_reference": 1,
         "cookie_id": 1,
@@ -3422,6 +3739,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -3440,6 +3758,8 @@
       ],
       "jurisdiction": "KR",
       "miss_count": 12,
+      "misses_per_100_docs": 57.14,
+      "misses_per_doc": 0.5714,
       "rules": {
         "customer_account_number": 2,
         "employee_id": 4,
@@ -3449,6 +3769,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -3467,6 +3788,8 @@
       ],
       "jurisdiction": "IN",
       "miss_count": 12,
+      "misses_per_100_docs": 57.14,
+      "misses_per_doc": 0.5714,
       "rules": {
         "quasi_identifier_combination": 12
       }
@@ -3474,6 +3797,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -3492,6 +3816,8 @@
       ],
       "jurisdiction": "MY",
       "miss_count": 12,
+      "misses_per_100_docs": 57.14,
+      "misses_per_doc": 0.5714,
       "rules": {
         "cyber_incident_pre_disclosure": 3,
         "dpt_pre_listing_marker": 2,
@@ -3502,6 +3828,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -3520,6 +3847,8 @@
       ],
       "jurisdiction": "HK",
       "miss_count": 11,
+      "misses_per_100_docs": 52.38,
+      "misses_per_doc": 0.5238,
       "rules": {
         "age_reference": 1,
         "date_of_birth": 4,
@@ -3530,6 +3859,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -3548,6 +3878,8 @@
       ],
       "jurisdiction": "SA",
       "miss_count": 11,
+      "misses_per_100_docs": 52.38,
+      "misses_per_doc": 0.5238,
       "rules": {
         "age_reference": 2,
         "date_of_birth": 3,
@@ -3559,6 +3891,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -3577,6 +3910,8 @@
       ],
       "jurisdiction": "SA",
       "miss_count": 11,
+      "misses_per_100_docs": 52.38,
+      "misses_per_doc": 0.5238,
       "rules": {
         "employee_id": 7,
         "internal_session_id": 4
@@ -3585,6 +3920,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -3603,6 +3939,8 @@
       ],
       "jurisdiction": "US",
       "miss_count": 11,
+      "misses_per_100_docs": 52.38,
+      "misses_per_doc": 0.5238,
       "rules": {
         "quasi_identifier_combination": 11
       }
@@ -3610,6 +3948,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -3628,6 +3967,8 @@
       ],
       "jurisdiction": "AU",
       "miss_count": 11,
+      "misses_per_100_docs": 52.38,
+      "misses_per_doc": 0.5238,
       "rules": {
         "cyber_incident_pre_disclosure": 4,
         "dpt_pre_listing_marker": 2,
@@ -3638,6 +3979,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -3656,6 +3998,8 @@
       ],
       "jurisdiction": "JP",
       "miss_count": 11,
+      "misses_per_100_docs": 52.38,
+      "misses_per_doc": 0.5238,
       "rules": {
         "cyber_incident_pre_disclosure": 3,
         "dpt_protocol_event_marker": 4,
@@ -3665,6 +4009,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -3683,6 +4028,8 @@
       ],
       "jurisdiction": "KR",
       "miss_count": 11,
+      "misses_per_100_docs": 52.38,
+      "misses_per_doc": 0.5238,
       "rules": {
         "cyber_incident_pre_disclosure": 4,
         "dpt_pre_listing_marker": 1,
@@ -3694,6 +4041,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -3712,6 +4060,8 @@
       ],
       "jurisdiction": "TH",
       "miss_count": 11,
+      "misses_per_100_docs": 52.38,
+      "misses_per_doc": 0.5238,
       "rules": {
         "cyber_incident_pre_disclosure": 4,
         "dpt_pre_listing_marker": 1,
@@ -3722,6 +4072,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -3740,6 +4091,8 @@
       ],
       "jurisdiction": "TH",
       "miss_count": 10,
+      "misses_per_100_docs": 47.62,
+      "misses_per_doc": 0.4762,
       "rules": {
         "age_reference": 1,
         "date_of_birth": 3,
@@ -3750,6 +4103,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -3768,6 +4122,8 @@
       ],
       "jurisdiction": "UK",
       "miss_count": 10,
+      "misses_per_100_docs": 47.62,
+      "misses_per_doc": 0.4762,
       "rules": {
         "age_reference": 3,
         "date_of_birth": 1,
@@ -3777,6 +4133,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -3795,6 +4152,8 @@
       ],
       "jurisdiction": "US",
       "miss_count": 10,
+      "misses_per_100_docs": 47.62,
+      "misses_per_doc": 0.4762,
       "rules": {
         "age_reference": 2,
         "date_of_birth": 2,
@@ -3805,6 +4164,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -3823,6 +4183,8 @@
       ],
       "jurisdiction": "AE",
       "miss_count": 10,
+      "misses_per_100_docs": 47.62,
+      "misses_per_doc": 0.4762,
       "rules": {
         "customer_account_number": 2,
         "employee_id": 2,
@@ -3832,6 +4194,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -3850,6 +4213,8 @@
       ],
       "jurisdiction": "AE",
       "miss_count": 10,
+      "misses_per_100_docs": 47.62,
+      "misses_per_doc": 0.4762,
       "rules": {
         "quasi_identifier_combination": 10
       }
@@ -3857,6 +4222,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -3875,6 +4241,8 @@
       ],
       "jurisdiction": "AU",
       "miss_count": 10,
+      "misses_per_100_docs": 47.62,
+      "misses_per_doc": 0.4762,
       "rules": {
         "quasi_identifier_combination": 10
       }
@@ -3882,6 +4250,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -3900,6 +4269,8 @@
       ],
       "jurisdiction": "CN",
       "miss_count": 10,
+      "misses_per_100_docs": 47.62,
+      "misses_per_doc": 0.4762,
       "rules": {
         "quasi_identifier_combination": 10
       }
@@ -3907,6 +4278,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -3925,6 +4297,8 @@
       ],
       "jurisdiction": "TH",
       "miss_count": 10,
+      "misses_per_100_docs": 47.62,
+      "misses_per_doc": 0.4762,
       "rules": {
         "biometric_identifier": 2,
         "medical_treatment": 4,
@@ -3936,6 +4310,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "pseudonymised_linkable",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
@@ -3954,6 +4329,8 @@
       ],
       "jurisdiction": "CN",
       "miss_count": 9,
+      "misses_per_100_docs": 42.86,
+      "misses_per_doc": 0.4286,
       "rules": {
         "customer_account_number": 1,
         "employee_id": 6,
@@ -3963,6 +4340,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -3981,6 +4359,8 @@
       ],
       "jurisdiction": "ID",
       "miss_count": 9,
+      "misses_per_100_docs": 42.86,
+      "misses_per_doc": 0.4286,
       "rules": {
         "quasi_identifier_combination": 9
       }
@@ -3988,6 +4368,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -4006,6 +4387,8 @@
       ],
       "jurisdiction": "KR",
       "miss_count": 9,
+      "misses_per_100_docs": 42.86,
+      "misses_per_doc": 0.4286,
       "rules": {
         "quasi_identifier_combination": 9
       }
@@ -4013,6 +4396,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -4031,6 +4415,8 @@
       ],
       "jurisdiction": "PH",
       "miss_count": 9,
+      "misses_per_100_docs": 42.86,
+      "misses_per_doc": 0.4286,
       "rules": {
         "quasi_identifier_combination": 9
       }
@@ -4038,6 +4424,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -4056,6 +4443,8 @@
       ],
       "jurisdiction": "VN",
       "miss_count": 9,
+      "misses_per_100_docs": 42.86,
+      "misses_per_doc": 0.4286,
       "rules": {
         "quasi_identifier_combination": 9
       }
@@ -4063,6 +4452,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -4081,6 +4471,8 @@
       ],
       "jurisdiction": "ID",
       "miss_count": 9,
+      "misses_per_100_docs": 42.86,
+      "misses_per_doc": 0.4286,
       "rules": {
         "cyber_incident_pre_disclosure": 4,
         "dpt_protocol_event_marker": 1,
@@ -4090,6 +4482,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -4108,6 +4501,8 @@
       ],
       "jurisdiction": "IN",
       "miss_count": 9,
+      "misses_per_100_docs": 42.86,
+      "misses_per_doc": 0.4286,
       "rules": {
         "cyber_incident_pre_disclosure": 3,
         "dpt_protocol_event_marker": 3,
@@ -4117,6 +4512,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -4135,6 +4531,8 @@
       ],
       "jurisdiction": "MY",
       "miss_count": 8,
+      "misses_per_100_docs": 38.1,
+      "misses_per_doc": 0.381,
       "rules": {
         "quasi_identifier_combination": 8
       }
@@ -4142,6 +4540,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -4160,6 +4559,8 @@
       ],
       "jurisdiction": "UK",
       "miss_count": 8,
+      "misses_per_100_docs": 38.1,
+      "misses_per_doc": 0.381,
       "rules": {
         "quasi_identifier_combination": 8
       }
@@ -4167,6 +4568,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -4185,6 +4587,8 @@
       ],
       "jurisdiction": "SA",
       "miss_count": 8,
+      "misses_per_100_docs": 38.1,
+      "misses_per_doc": 0.381,
       "rules": {
         "cyber_incident_pre_disclosure": 3,
         "dpt_protocol_event_marker": 2,
@@ -4194,6 +4598,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "special_category",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "special_category detector did not cover the ideal span",
@@ -4212,6 +4617,8 @@
       ],
       "jurisdiction": "SA",
       "miss_count": 8,
+      "misses_per_100_docs": 38.1,
+      "misses_per_doc": 0.381,
       "rules": {
         "biometric_identifier": 2,
         "medical_treatment": 3,
@@ -4222,6 +4629,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "online_device",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "online_device detector did not cover the ideal span",
@@ -4240,6 +4648,8 @@
       ],
       "jurisdiction": "JP",
       "miss_count": 7,
+      "misses_per_100_docs": 33.33,
+      "misses_per_doc": 0.3333,
       "rules": {
         "age_reference": 2,
         "device_serial_number": 4,
@@ -4249,6 +4659,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -4267,6 +4678,8 @@
       ],
       "jurisdiction": "JP",
       "miss_count": 7,
+      "misses_per_100_docs": 33.33,
+      "misses_per_doc": 0.3333,
       "rules": {
         "quasi_identifier_combination": 7
       }
@@ -4274,6 +4687,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -4292,6 +4706,8 @@
       ],
       "jurisdiction": "SA",
       "miss_count": 7,
+      "misses_per_100_docs": 33.33,
+      "misses_per_doc": 0.3333,
       "rules": {
         "quasi_identifier_combination": 7
       }
@@ -4299,6 +4715,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -4317,6 +4734,8 @@
       ],
       "jurisdiction": "US",
       "miss_count": 7,
+      "misses_per_100_docs": 33.33,
+      "misses_per_doc": 0.3333,
       "rules": {
         "cyber_incident_pre_disclosure": 3,
         "dpt_protocol_event_marker": 2,
@@ -4324,34 +4743,37 @@
       }
     },
     {
-      "bucket": "needs_review",
-      "detector_family": "unknown",
+      "bucket": "singling_out_miss",
+      "detector_family": "quasi_identifier",
+      "doc_count": 84,
       "examples": [
         {
-          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
-          "doc_id": "sg_direct_identifiers_term_sheet_default_001",
-          "matched_text": "S$1.20 per share",
-          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_term_sheet_default_001.txt",
-          "rule": "contract_unit_price"
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "sg_privacy_events_incident_report_default_001",
+          "matched_text": "employee names, staff IDs, and salary bands",
+          "path": "test/fixtures/legal-corpus-candidates/sg/privacy_events/sg_privacy_events_incident_report_default_001.txt",
+          "rule": "quasi_identifier_combination"
         },
         {
-          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
-          "doc_id": "sg_privacy_events_term_sheet_adversarial_001",
-          "matched_text": "S$4.20 per share",
-          "path": "test/fixtures/legal-corpus-candidates/sg/privacy_events/sg_privacy_events_term_sheet_adversarial_001.txt",
-          "rule": "contract_unit_price"
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "sg_quasi_identifiers_incident_report_adversarial_001",
+          "matched_text": "Mr. Daniel Teo Wei Jian (b. 1987-05-03, approx. 39), contract systems analyst seconded from NexPillar Services Pte Ltd to Alto Meridian, accessed internal share \u201c/CorpFin/Capital Projects\u201d from AMH Bugis site during change window",
+          "path": "test/fixtures/legal-corpus-candidates/sg/quasi_identifiers/sg_quasi_identifiers_incident_report_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
         }
       ],
       "jurisdiction": "SG",
-      "miss_count": 7,
+      "miss_count": 26,
+      "misses_per_100_docs": 30.95,
+      "misses_per_doc": 0.3095,
       "rules": {
-        "contract_unit_price": 5,
-        "crypto_wallet_address": 2
+        "quasi_identifier_combination": 26
       }
     },
     {
       "bucket": "true_inference_miss",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "label rationale requires domain/public-status inference",
@@ -4370,6 +4792,8 @@
       ],
       "jurisdiction": "HK",
       "miss_count": 6,
+      "misses_per_100_docs": 28.57,
+      "misses_per_doc": 0.2857,
       "rules": {
         "nonpublic_marker": 6
       }
@@ -4377,6 +4801,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -4395,6 +4820,8 @@
       ],
       "jurisdiction": "EU",
       "miss_count": 6,
+      "misses_per_100_docs": 28.57,
+      "misses_per_doc": 0.2857,
       "rules": {
         "quasi_identifier_combination": 6
       }
@@ -4402,6 +4829,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -4420,6 +4848,8 @@
       ],
       "jurisdiction": "HK",
       "miss_count": 6,
+      "misses_per_100_docs": 28.57,
+      "misses_per_doc": 0.2857,
       "rules": {
         "quasi_identifier_combination": 6
       }
@@ -4427,6 +4857,7 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "sector_mnpi",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
@@ -4445,6 +4876,8 @@
       ],
       "jurisdiction": "HK",
       "miss_count": 6,
+      "misses_per_100_docs": 28.57,
+      "misses_per_doc": 0.2857,
       "rules": {
         "cyber_incident_pre_disclosure": 3,
         "dpt_pre_listing_marker": 1,
@@ -4454,6 +4887,7 @@
     {
       "bucket": "singling_out_miss",
       "detector_family": "quasi_identifier",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
@@ -4472,6 +4906,8 @@
       ],
       "jurisdiction": "TH",
       "miss_count": 5,
+      "misses_per_100_docs": 23.81,
+      "misses_per_doc": 0.2381,
       "rules": {
         "quasi_identifier_combination": 5
       }
@@ -4479,6 +4915,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4497,6 +4934,8 @@
       ],
       "jurisdiction": "VN",
       "miss_count": 5,
+      "misses_per_100_docs": 23.81,
+      "misses_per_doc": 0.2381,
       "rules": {
         "contract_unit_price": 3,
         "crypto_wallet_address": 1,
@@ -4506,6 +4945,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4524,6 +4964,8 @@
       ],
       "jurisdiction": "UK",
       "miss_count": 4,
+      "misses_per_100_docs": 19.05,
+      "misses_per_doc": 0.1905,
       "rules": {
         "contract_discount_rate": 2,
         "contract_unit_price": 1,
@@ -4533,6 +4975,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4551,6 +4994,8 @@
       ],
       "jurisdiction": "KR",
       "miss_count": 3,
+      "misses_per_100_docs": 14.29,
+      "misses_per_doc": 0.1429,
       "rules": {
         "contract_unit_price": 1,
         "volume_commitment": 2
@@ -4559,6 +5004,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4577,6 +5023,8 @@
       ],
       "jurisdiction": "AU",
       "miss_count": 2,
+      "misses_per_100_docs": 9.52,
+      "misses_per_doc": 0.0952,
       "rules": {
         "contract_unit_price": 1,
         "volume_commitment": 1
@@ -4585,6 +5033,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4603,6 +5052,8 @@
       ],
       "jurisdiction": "CN",
       "miss_count": 2,
+      "misses_per_100_docs": 9.52,
+      "misses_per_doc": 0.0952,
       "rules": {
         "contract_unit_price": 2
       }
@@ -4610,6 +5061,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4628,6 +5080,8 @@
       ],
       "jurisdiction": "EU",
       "miss_count": 2,
+      "misses_per_100_docs": 9.52,
+      "misses_per_doc": 0.0952,
       "rules": {
         "contract_discount_rate": 1,
         "crypto_wallet_address": 1
@@ -4636,6 +5090,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4654,6 +5109,8 @@
       ],
       "jurisdiction": "JP",
       "miss_count": 2,
+      "misses_per_100_docs": 9.52,
+      "misses_per_doc": 0.0952,
       "rules": {
         "contract_unit_price": 2
       }
@@ -4661,6 +5118,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4679,14 +5137,46 @@
       ],
       "jurisdiction": "MY",
       "miss_count": 2,
+      "misses_per_100_docs": 9.52,
+      "misses_per_doc": 0.0952,
       "rules": {
         "contract_discount_rate": 1,
         "volume_commitment": 1
       }
     },
     {
+      "bucket": "needs_review",
+      "detector_family": "unknown",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "sg_direct_identifiers_term_sheet_default_001",
+          "matched_text": "S$1.20 per share",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_term_sheet_default_001.txt",
+          "rule": "contract_unit_price"
+        },
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "sg_privacy_events_term_sheet_adversarial_001",
+          "matched_text": "S$4.20 per share",
+          "path": "test/fixtures/legal-corpus-candidates/sg/privacy_events/sg_privacy_events_term_sheet_adversarial_001.txt",
+          "rule": "contract_unit_price"
+        }
+      ],
+      "jurisdiction": "SG",
+      "miss_count": 7,
+      "misses_per_100_docs": 8.33,
+      "misses_per_doc": 0.0833,
+      "rules": {
+        "contract_unit_price": 5,
+        "crypto_wallet_address": 2
+      }
+    },
+    {
       "bucket": "true_inference_miss",
       "detector_family": "mnpi_context",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "label rationale requires domain/public-status inference",
@@ -4698,6 +5188,8 @@
       ],
       "jurisdiction": "AE",
       "miss_count": 1,
+      "misses_per_100_docs": 4.76,
+      "misses_per_doc": 0.0476,
       "rules": {
         "selective_disclosure_risk": 1
       }
@@ -4705,6 +5197,7 @@
     {
       "bucket": "true_inference_miss",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "label rationale requires domain/public-status inference",
@@ -4716,6 +5209,8 @@
       ],
       "jurisdiction": "AE",
       "miss_count": 1,
+      "misses_per_100_docs": 4.76,
+      "misses_per_doc": 0.0476,
       "rules": {
         "nonpublic_marker": 1
       }
@@ -4723,6 +5218,7 @@
     {
       "bucket": "true_inference_miss",
       "detector_family": "mnpi_lexicon",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "label rationale requires domain/public-status inference",
@@ -4734,6 +5230,8 @@
       ],
       "jurisdiction": "SA",
       "miss_count": 1,
+      "misses_per_100_docs": 4.76,
+      "misses_per_doc": 0.0476,
       "rules": {
         "nonpublic_marker": 1
       }
@@ -4741,6 +5239,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4752,6 +5251,8 @@
       ],
       "jurisdiction": "HK",
       "miss_count": 1,
+      "misses_per_100_docs": 4.76,
+      "misses_per_doc": 0.0476,
       "rules": {
         "crypto_wallet_address": 1
       }
@@ -4759,6 +5260,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4770,6 +5272,8 @@
       ],
       "jurisdiction": "ID",
       "miss_count": 1,
+      "misses_per_100_docs": 4.76,
+      "misses_per_doc": 0.0476,
       "rules": {
         "crypto_wallet_address": 1
       }
@@ -4777,6 +5281,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4788,6 +5293,8 @@
       ],
       "jurisdiction": "PH",
       "miss_count": 1,
+      "misses_per_100_docs": 4.76,
+      "misses_per_doc": 0.0476,
       "rules": {
         "contract_discount_rate": 1
       }
@@ -4795,6 +5302,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4806,6 +5314,8 @@
       ],
       "jurisdiction": "SA",
       "miss_count": 1,
+      "misses_per_100_docs": 4.76,
+      "misses_per_doc": 0.0476,
       "rules": {
         "contract_unit_price": 1
       }
@@ -4813,6 +5323,7 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
+      "doc_count": 21,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
@@ -4824,12 +5335,14 @@
       ],
       "jurisdiction": "TH",
       "miss_count": 1,
+      "misses_per_100_docs": 4.76,
+      "misses_per_doc": 0.0476,
       "rules": {
         "volume_commitment": 1
       }
     }
   ],
-  "generated_at_unix": 1780286965,
+  "generated_at_unix": 1780290470,
   "note": "concentration report over item-124 heuristic buckets; inspect examples before prioritising detector work.",
   "source_review_profile": "strict",
   "summary": {
@@ -4870,6 +5383,129 @@
       "UK": 337,
       "US": 319,
       "VN": 346
+    },
+    "by_jurisdiction_normalized": {
+      "AE": {
+        "doc_count": 21,
+        "miss_count": 340,
+        "misses_per_100_docs": 1619.05,
+        "misses_per_doc": 16.1905
+      },
+      "AU": {
+        "doc_count": 21,
+        "miss_count": 351,
+        "misses_per_100_docs": 1671.43,
+        "misses_per_doc": 16.7143
+      },
+      "CN": {
+        "doc_count": 21,
+        "miss_count": 442,
+        "misses_per_100_docs": 2104.76,
+        "misses_per_doc": 21.0476
+      },
+      "EU": {
+        "doc_count": 21,
+        "miss_count": 425,
+        "misses_per_100_docs": 2023.81,
+        "misses_per_doc": 20.2381
+      },
+      "HK": {
+        "doc_count": 21,
+        "miss_count": 346,
+        "misses_per_100_docs": 1647.62,
+        "misses_per_doc": 16.4762
+      },
+      "ID": {
+        "doc_count": 21,
+        "miss_count": 337,
+        "misses_per_100_docs": 1604.76,
+        "misses_per_doc": 16.0476
+      },
+      "IN": {
+        "doc_count": 21,
+        "miss_count": 487,
+        "misses_per_100_docs": 2319.05,
+        "misses_per_doc": 23.1905
+      },
+      "JP": {
+        "doc_count": 21,
+        "miss_count": 369,
+        "misses_per_100_docs": 1757.14,
+        "misses_per_doc": 17.5714
+      },
+      "KR": {
+        "doc_count": 21,
+        "miss_count": 349,
+        "misses_per_100_docs": 1661.9,
+        "misses_per_doc": 16.619
+      },
+      "MY": {
+        "doc_count": 21,
+        "miss_count": 375,
+        "misses_per_100_docs": 1785.71,
+        "misses_per_doc": 17.8571
+      },
+      "PH": {
+        "doc_count": 21,
+        "miss_count": 366,
+        "misses_per_100_docs": 1742.86,
+        "misses_per_doc": 17.4286
+      },
+      "SA": {
+        "doc_count": 21,
+        "miss_count": 364,
+        "misses_per_100_docs": 1733.33,
+        "misses_per_doc": 17.3333
+      },
+      "SG": {
+        "doc_count": 84,
+        "miss_count": 1079,
+        "misses_per_100_docs": 1284.52,
+        "misses_per_doc": 12.8452
+      },
+      "TH": {
+        "doc_count": 21,
+        "miss_count": 314,
+        "misses_per_100_docs": 1495.24,
+        "misses_per_doc": 14.9524
+      },
+      "UK": {
+        "doc_count": 21,
+        "miss_count": 337,
+        "misses_per_100_docs": 1604.76,
+        "misses_per_doc": 16.0476
+      },
+      "US": {
+        "doc_count": 21,
+        "miss_count": 319,
+        "misses_per_100_docs": 1519.05,
+        "misses_per_doc": 15.1905
+      },
+      "VN": {
+        "doc_count": 21,
+        "miss_count": 346,
+        "misses_per_100_docs": 1647.62,
+        "misses_per_doc": 16.4762
+      }
+    },
+    "doc_count_by_jurisdiction": {
+      "AE": 21,
+      "AU": 21,
+      "CN": 21,
+      "EU": 21,
+      "HK": 21,
+      "ID": 21,
+      "IN": 21,
+      "JP": 21,
+      "KR": 21,
+      "MY": 21,
+      "PH": 21,
+      "SA": 21,
+      "SG": 84,
+      "TH": 21,
+      "UK": 21,
+      "US": 21,
+      "VN": 21
     },
     "miss_count": 6946
   }
