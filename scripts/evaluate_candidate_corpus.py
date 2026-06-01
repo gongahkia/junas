@@ -4,8 +4,8 @@
 from __future__ import annotations
 
 import argparse
-import re
 import json
+import re
 import sys
 import time
 from collections import Counter
@@ -55,7 +55,7 @@ def _load_pair(path: Path) -> tuple[str, dict[str, Any]]:
     return path.read_text(encoding="utf-8"), json.loads(labels_path.read_text(encoding="utf-8"))
 
 
-def _run_engine(text: str, labels: dict[str, Any]) -> list[dict[str, str]]:
+def _run_engine(text: str, labels: dict[str, Any], *, review_profile: str) -> list[dict[str, str]]:
     result = PreSendReviewEngine().review(
         text=text,
         source_jurisdiction=labels.get("source_jurisdiction", "SG"),
@@ -63,7 +63,7 @@ def _run_engine(text: str, labels: dict[str, Any]) -> list[dict[str, str]]:
         entity_id=None,
         include_suggestions=False,
         document_type=labels.get("document_type", "generic"),
-        review_profile="strict",
+        review_profile=review_profile,
     )
     return [
         {
@@ -142,15 +142,17 @@ def _triage_unexpected(
     }
 
 
-def _evaluate_one(path: Path) -> CandidateDocReport:
+def _evaluate_one(path: Path, *, review_profile: str = "strict") -> CandidateDocReport:
     text, labels = _load_pair(path)
-    findings = _run_engine(text, labels)
+    findings = _run_engine(text, labels, review_profile=review_profile)
     finding_keys = {(f["rule"], f["matched_text"]) for f in findings}
     expected = [
         {
             "category": str(item.get("category") or ""),
             "rule": str(item["rule"]),
             "matched_text": str(item["matched_text"]),
+            "concept": str(item.get("concept") or ""),
+            "reason": str(item.get("reason") or ""),
         }
         for item in labels.get("must_detect", [])
     ]
@@ -162,6 +164,8 @@ def _evaluate_one(path: Path) -> CandidateDocReport:
             "category": str(item.get("category") or ""),
             "rule": str(item["rule"]),
             "matched_text": str(item["matched_text"]),
+            "concept": str(item.get("concept") or ""),
+            "reason": str(item.get("reason") or ""),
         }
         for item in labels.get("ideal_must_detect", [])
     ]
@@ -270,6 +274,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Evaluate candidate fixtures without updating recall locks")
     parser.add_argument("--corpus", type=Path, default=DEFAULT_CORPUS)
     parser.add_argument("--output", type=Path, help="Write JSON report to this path")
+    parser.add_argument("--profile", choices=("strict", "audit_grade"), default="strict")
     parser.add_argument("--fail-on-missed", action="store_true")
     args = parser.parse_args(argv)
 
@@ -279,10 +284,11 @@ def main(argv: list[str] | None = None) -> int:
         print(f"no candidate fixtures found in {corpus}", file=sys.stderr)
         return 2
 
-    reports = [_evaluate_one(path) for path in paths]
+    reports = [_evaluate_one(path, review_profile=args.profile) for path in paths]
     payload = {
         "generated_at_unix": int(time.time()),
         "corpus": str(corpus),
+        "review_profile": args.profile,
         "summary": _summary(reports),
         "documents": [report.__dict__ for report in reports],
         "note": "candidate report only; do not update recall locks without human review.",

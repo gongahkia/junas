@@ -1401,7 +1401,17 @@ def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
 
 def _is_obfuscated_email_fragment_context(text: str, start: int, end: int) -> bool:
     before = text[max(0, start - 24):start]
-    return bool(re.search(r"[A-Z0-9._%+-]*\.[A-Z0-9._%+-]*\s{2,}\Z", before, re.IGNORECASE))
+    return bool(re.search(r"[A-Z0-9._%+-]*\.[A-Z0-9._%+-]*[ \t]{2,}\Z", before, re.IGNORECASE))
+
+
+def _trim_phone_span(text: str, start: int, end: int) -> tuple[int, int]:
+    matched = text[start:end]
+    newline_offset = matched.find("\n")
+    if newline_offset >= 0:
+        end = start + newline_offset
+    while end > start and text[end - 1] in " \t.,;:":
+        end -= 1
+    return start, end
 
 
 def _is_spaced_passport_numeric_context(text: str, start: int, end: int) -> bool:
@@ -3229,6 +3239,10 @@ class PreSendReviewEngine:
                     start, end = match.span()
                 if end <= start:
                     continue
+                if rule == "phone_number":
+                    start, end = _trim_phone_span(text, start, end)
+                    if end <= start:
+                        continue
                 if rule in _PII_NEGATION_GUARDED and _is_negated_context(text, start):
                     continue
                 if (

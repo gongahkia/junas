@@ -225,7 +225,10 @@ class MacMaePrecisionGuards(unittest.TestCase):
             )
 
     def test_indonesian_public_context_heading_does_not_fire_material_event(self):
-        text = "Corporate context: Indonesian fintech issuer with employment onboarding for post-acquisition integration."
+        text = (
+            "Corporate context: Indonesian fintech issuer with employment onboarding "
+            "for post-acquisition integration."
+        )
         for rule, matched in _rules_matched(text, jurisdiction="ID"):
             self.assertNotEqual(
                 rule,
@@ -348,6 +351,12 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
     def test_real_phone_with_country_code_still_fires(self):
         text = "Contact: +65 6111 2233 for follow-up."
         self.assertTrue(self._has_phone_match(text, "+65 6111 2233"))
+
+    def test_phone_span_stops_before_following_list_number(self):
+        text = "1. Lead contact phone: +65 9123 4567.\n\n2. Next party starts here."
+        phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
+        self.assertIn("+65 9123 4567", phones)
+        self.assertNotIn("+65 9123 4567.\n\n2", phones)
 
     def test_phone_partially_overlapping_id_still_fires(self):
         # `phone_number` only gets dropped when *fully contained* in a higher-priority span.
@@ -654,6 +663,11 @@ class FunctionalContactGuards(unittest.TestCase):
         emails = [m for r, m in _rules_matched(text) if r == "email_address"]
         self.assertIn("jane.tan@example.sg", emails)
 
+    def test_personal_email_after_company_line_still_fires(self):
+        text = "Ms. Clara Lim\nHuman Resources Manager\nQuantum Insights Pte. Ltd.  \nclara.lim@quantuminsights.sg"
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertIn("clara.lim@quantuminsights.sg", emails)
+
     def test_ph_role_mailboxes_do_not_fire(self):
         text = (
             "Route disclosure to disclosure@example.ph, privacydesk@example.ph, "
@@ -846,7 +860,10 @@ class FinancialAmountGuards(unittest.TestCase):
         self.assertNotIn(("information_barrier_marker", "Information barriers"), rules)
 
     def test_ph_fully_announced_term_sheet_does_not_fire(self):
-        text = "The term sheet excerpts cited in the deck are from transactions that closed in 2022 and have been fully announced."
+        text = (
+            "The term sheet excerpts cited in the deck are from transactions that closed in 2022 "
+            "and have been fully announced."
+        )
         agreements = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "definitive_agreement"]
         self.assertNotIn("term sheet", agreements)
 
