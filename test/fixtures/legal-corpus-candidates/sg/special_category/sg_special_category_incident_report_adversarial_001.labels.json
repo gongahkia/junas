@@ -1,300 +1,405 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
   "doc_id": "sg_special_category_incident_report_adversarial_001",
   "document_type": "memo",
-  "source_jurisdiction": "SG",
-  "destination_jurisdiction": "SG",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Daryl Kho Chen Wei"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "AWR-7l0O-993-x"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Aisha Lim Mei Fen"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "AWR-4Q2-5i1-z"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "had a medical claim revealing Type 1 diabetes"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "a prenatal claim referencing gestational hypertension"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "a benefits attachment noting thalassaemia trait"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "access-control biometric templates"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "access badge fingerprint template"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "Biometric timekeeping images (face-scan jpgs)"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "declared religion: Buddhist"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "union membership with payroll deduction of 1.5%"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Meera Lim (age 9)"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 9"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@aspenwave.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@aspenwave.example"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+65 6000 0000"
-    },
-    {
-      "category": "PII",
-      "rule": "sg_postal_address",
-      "matched_text": "000000"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kho"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lim"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not generally available"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "would be expected to materially affect the price of Aspenwave shares on the MSX"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists have been updated"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "please do not forward MNPI outside need-to-know"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "without tipping MNPI"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Daryl Kho Chen Wei"
+      "matched_text": "Mr. Daryl Kho Chen Wei",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "AWR-7l0O-993-x"
+      "matched_text": "AWR-7l0O-993-x",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Aisha Lim Mei Fen"
+      "matched_text": "Ms. Aisha Lim Mei Fen",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "AWR-4Q2-5i1-z"
+      "matched_text": "AWR-4Q2-5i1-z",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "had a medical claim revealing Type 1 diabetes"
+      "matched_text": "had a medical claim revealing Type 1 diabetes",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "a prenatal claim referencing gestational hypertension"
+      "matched_text": "a prenatal claim referencing gestational hypertension",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "a benefits attachment noting thalassaemia trait"
+      "matched_text": "a benefits attachment noting thalassaemia trait",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "access-control biometric templates"
+      "matched_text": "access-control biometric templates",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "access badge fingerprint template"
+      "matched_text": "access badge fingerprint template",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "an access badge fingerprint template compromised"
+      "matched_text": "an access badge fingerprint template compromised",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "Biometric timekeeping images (face-scan jpgs)"
+      "matched_text": "Biometric timekeeping images (face-scan jpgs)",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "declared religion: Buddhist"
+      "matched_text": "declared religion: Buddhist",
+      "rule": "religious_belief"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "declared religion: Buddhist (for festival leave scheduling)"
+      "matched_text": "declared religion: Buddhist (for festival leave scheduling)",
+      "rule": "religious_belief"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "union membership with payroll deduction of 1.5%"
+      "matched_text": "union membership with payroll deduction of 1.5%",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Meera Lim (age 9)"
+      "matched_text": "Meera Lim (age 9)",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "her dependent, Meera Lim (age 9), was listed for clinic reimbursements (minor data)"
+      "matched_text": "her dependent, Meera Lim (age 9), was listed for clinic reimbursements (minor data)",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 9"
+      "matched_text": "age 9",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@aspenwave.example"
+      "matched_text": "dpo@aspenwave.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@aspenwave.example"
+      "matched_text": "ir@aspenwave.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+65 6000 0000"
+      "matched_text": "+65 6000 0000",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "sg_postal_address",
-      "matched_text": "000000"
+      "matched_text": "000000",
+      "rule": "sg_postal_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kho"
+      "matched_text": "Mr. Kho",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lim"
+      "matched_text": "Ms. Lim",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "88  341-XX-29"
+      "matched_text": "88  341-XX-29",
+      "rule": "bank_account"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not generally available"
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "this information is not generally available"
+      "matched_text": "this information is not generally available",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "would be expected to materially affect the price of Aspenwave shares on the MSX"
+      "matched_text": "would be expected to materially affect the price of Aspenwave shares on the MSX",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet \u201cTRX-NOVA-2026-05\u201d"
+      "matched_text": "term sheet \u201cTRX-NOVA-2026-05\u201d",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed acquisition of NovaDock Systems Pte. Ltd"
+      "matched_text": "proposed acquisition of NovaDock Systems Pte. Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "preliminary Q3 revenue guidance"
+      "matched_text": "preliminary Q3 revenue guidance",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists have been updated"
+      "matched_text": "insider lists have been updated",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "please do not forward MNPI outside need-to-know"
+      "matched_text": "please do not forward MNPI outside need-to-know",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "without tipping MNPI"
+      "matched_text": "without tipping MNPI",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2 0 2 6 - 0 6 - 0 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erencing",
+      "rule": "sg_insurance_policy_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Lim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "religion: Buddhist",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 9",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Separately, a draft term sheet \u201cTRX-NOVA-2026-05\u201d for a proposed acquisition of NovaDock Systems Pte. Ltd. and preliminary Q3 revenue guidance were found in the same share; this information is not generally available and would be expected to materially affect the price of Aspenwave shares on the MSX.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Accordingly, this content is restricted under the Securities and Futures Act (Singapore) and the MSX Listing Rules; escalation to MSX RegCo for guidance on immediate disclosure (Rule 7.03 analogue) is in progress and insider lists have been updated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For clarity, this incident report does not constitute a material adverse change representation, an earnings pre-announcement, or an offer of securities; our general policy prohibits discrimination on religion, sexual orientation, or union status.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "next steps: create jira epic \u201cmsx-703-incident\u201d, prepare PDPA breach notification within 3 calendar days, stage but do not publish market update pending msx regco advice, and schedule union liaison briefing for transparency without tipping MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Manager",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6 %",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "2 0 2 6 - 0 6 - 0 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6000 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erencing",
+      "rule": "sg_insurance_policy_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daryl Kho Chen Wei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aisha Lim Mei Fen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kho",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Lim",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "religion: Buddhist",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 9",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Separately, a draft term sheet \u201cTRX-NOVA-2026-05\u201d for a proposed acquisition of NovaDock Systems Pte. Ltd. and preliminary Q3 revenue guidance were found in the same share; this information is not generally available and would be expected to materially affect the price of Aspenwave shares on the MSX.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Accordingly, this content is restricted under the Securities and Futures Act (Singapore) and the MSX Listing Rules; escalation to MSX RegCo for guidance on immediate disclosure (Rule 7.03 analogue) is in progress and insider lists have been updated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For clarity, this incident report does not constitute a material adverse change representation, an earnings pre-announcement, or an offer of securities; our general policy prohibits discrimination on religion, sexual orientation, or union status.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "next steps: create jira epic \u201cmsx-703-incident\u201d, prepare PDPA breach notification within 3 calendar days, stage but do not publish market update pending msx regco advice, and schedule union liaison briefing for transparency without tipping MNPI.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announcement",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Manager",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6 %",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -319,28 +424,22 @@
       "reason": "generic policy reference, not linked to an individual"
     }
   ],
+  "source_jurisdiction": "SG",
   "uncertain": [
     {
-      "matched_text": "term sheet \u201cTRX-NOVA-2026-05\u201d",
       "concept": "definitive_agreement",
+      "matched_text": "term sheet \u201cTRX-NOVA-2026-05\u201d",
       "reason": "lower-case 'term sheet' and draft status may fall outside strict detectors expecting 'Term Sheet' or executed agreements"
     },
     {
-      "matched_text": "Incident Report \u2014 Cyber/Operational (PDPA/SFA context)",
       "concept": "cyber_incident_pre_disclosure",
+      "matched_text": "Incident Report \u2014 Cyber/Operational (PDPA/SFA context)",
       "reason": "internal cyber incident details prior to public disclosure could be market-sensitive depending on severity; not explicitly categorized"
     },
     {
-      "matched_text": "88  341-XX-29",
       "concept": "bank_account",
+      "matched_text": "88  341-XX-29",
       "reason": "masked and partial; may not meet strict bank account regex yet still identifies an individual's account fragment"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

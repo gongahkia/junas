@@ -1,180 +1,275 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
   "doc_id": "sg_quasi_identifiers_privacy_notice_adversarial_001",
   "document_type": "generic",
-  "source_jurisdiction": "SG",
-  "destination_jurisdiction": "SG",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Menon"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@seabreezelegal.sg"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Darius Lim"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DOB 1990-04-18"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "TM-LT-093"
-    },
-    {
-      "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "8 7 1 9 - 0 3"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "dlim-tm"
-    },
-    {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "ZX9-20260418-SG1"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfers"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "redact direct identifiers (e.g., full NRIC not stored)"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Menon"
+      "matched_text": "Ms. Priya Menon",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@seabreezelegal.sg"
+      "matched_text": "dpo@seabreezelegal.sg",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "IL-2026-0418-TM"
+      "matched_text": "IL-2026-0418-TM",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not generally available information expected to materially affect price"
+      "matched_text": "not generally available information expected to materially affect price",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no selective disclosure"
+      "matched_text": "no selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "need-to-know basis"
+      "matched_text": "need-to-know basis",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed acquisition of Coral Nexus Pte. Ltd"
+      "matched_text": "proposed acquisition of Coral Nexus Pte. Ltd",
+      "rule": "material_event"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Darius Lim"
+      "matched_text": "Mr. Darius Lim",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DOB 1990-04-18"
+      "matched_text": "DOB 1990-04-18",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "TM-LT-093"
+      "matched_text": "TM-LT-093",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "8 7 1 9 - 0 3"
+      "matched_text": "8 7 1 9 - 0 3",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "dlim-tm"
+      "matched_text": "dlim-tm",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "dlim"
+      "matched_text": "dlim",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "ZX9-20260418-SG1"
+      "matched_text": "ZX9-20260418-SG1",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfers"
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "transfer impact assessment"
+      "matched_text": "transfer impact assessment",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "ASEAN MCCs"
+      "matched_text": "ASEAN MCCs",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "redact direct identifiers (e.g., full NRIC not stored)"
+      "matched_text": "redact direct identifiers (e.g., full NRIC not stored)",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "we do not log MAC addresses"
+      "matched_text": "we do not log MAC addresses",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "3 3 - P A L M - 9 9"
+      "matched_text": "3 3 - P A L M - 9 9",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Quasi-identifier cluster (employee): Mr. Darius Lim (DOB 1990-04-18; Senior Analyst, Corporate Development, Pasir Panjang Tower 3), dev ice TM-LT-093, A c c t :  8 7 1 9 - 0 3, internal user \u201cdlim-tm\u201d"
+      "matched_text": "Quasi-identifier cluster (employee): Mr. Darius Lim (DOB 1990-04-18; Senior Analyst, Corporate Development, Pasir Panjang Tower 3), dev ice TM-LT-093, A c c t :  8 7 1 9 - 0 3, internal user \u201cdlim-tm\u201d",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9-20260418",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-0418",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-04-18",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1975-12-01",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Matter exemplar (MNPI): draft term sheet for proposed acquisition of Coral Nexus Pte. Ltd.; circulate on need-to-know basis, insider list ref IL-2026-0418-TM.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "9-20260418",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-0418",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ASEAN MCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-04-18",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1975-12-01",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darius Lim",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Matter exemplar (MNPI): draft term sheet for proposed acquisition of Coral Nexus Pte. Ltd.; circulate on need-to-know basis, insider list ref IL-2026-0418-TM.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -195,43 +290,37 @@
       "reason": "Generic role noun, not a personal identifier"
     }
   ],
+  "source_jurisdiction": "SG",
   "uncertain": [
     {
-      "matched_text": "SG-PD-2026-0418",
       "concept": "internal case/docket ID",
+      "matched_text": "SG-PD-2026-0418",
       "reason": "Could reference an individual\u2019s DSAR record but not clearly covered by a specific PII rule"
     },
     {
-      "matched_text": "TM-CM-2026",
       "concept": "matter code",
+      "matched_text": "TM-CM-2026",
       "reason": "Internal matter identifier; may link to a person or case but not a defined PII rule"
     },
     {
-      "matched_text": "user=dlim",
       "concept": "username in URL parameter",
+      "matched_text": "user=dlim",
       "reason": "Represents a user identifier but extraction as a standalone employee_id is context-dependent"
     },
     {
-      "matched_text": "A-2026-FA",
       "concept": "deal code",
+      "matched_text": "A-2026-FA",
       "reason": "Internal transaction code that might link to confidential matter; not a defined MNPI/PII rule"
     },
     {
-      "matched_text": "Harbour-12",
       "concept": "device/asset name",
+      "matched_text": "Harbour-12",
       "reason": "Printer/asset label could be a device identifier but not clearly within allowed device ID rules"
     },
     {
-      "matched_text": "Pasir Panjang Tower 3",
       "concept": "work location",
+      "matched_text": "Pasir Panjang Tower 3",
       "reason": "Location contributes to a quasi-identifier cluster but is not PII on its own"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

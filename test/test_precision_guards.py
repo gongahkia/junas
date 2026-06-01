@@ -377,6 +377,11 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
         self.assertNotIn("+65 6100 0000", phones)
 
+    def test_sg_country_code_toll_free_enquiries_line_does_not_fire(self):
+        text = "For procedural queries only, call the fictional SGX Enquiries Line at +65 1800 222 0000."
+        phones = [m for r, m in _rules_matched(text) if r == "phone_number"]
+        self.assertNotIn("+65 1800 222 0000", phones)
+
     def test_public_hotline_and_public_line_do_not_fire(self):
         text = (
             "Public hotline for HR queries: 1-300-88-0000. "
@@ -693,6 +698,21 @@ class FunctionalContactGuards(unittest.TestCase):
         emails = [m for r, m in _rules_matched(text) if r == "email_address"]
         self.assertIn("legal@techinsights.sg", emails)
 
+    def test_public_contacts_non_pii_email_does_not_fire(self):
+        text = "Public contacts that are non-PII: careers@example.sg and generic form labels."
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertNotIn("careers@example.sg", emails)
+
+    def test_generic_mailbox_channel_does_not_fire(self):
+        text = "Submission channels prefer generic mailboxes such as mna-team@example.sg."
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertNotIn("mna-team@example.sg", emails)
+
+    def test_procedural_enquiries_mailbox_does_not_fire(self):
+        text = "For procedural queries only, write to sgx-enquiries@public.example.com."
+        emails = [m for r, m in _rules_matched(text) if r == "email_address"]
+        self.assertNotIn("sgx-enquiries@public.example.com", emails)
+
 
 class BankAccountGuards(unittest.TestCase):
     def test_bank_account_proof_sentence_does_not_eat_prose(self):
@@ -827,6 +847,16 @@ class FinancialAmountGuards(unittest.TestCase):
     def test_negated_genetic_data_context_does_not_fire(self):
         text = "References to genetic algorithms are software features and not about any person's genetic data."
         findings = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "genetic_data"]
+        self.assertNotIn("genetic data", findings)
+
+    def test_no_genetic_data_kept_context_does_not_fire(self):
+        text = "Ms. Hana Noor had her leave schedule accessed; no genetic data was kept in this repository."
+        findings = [m for r, m in _rules_matched(text) if r == "genetic_data"]
+        self.assertNotIn("genetic data", findings)
+
+    def test_genetic_data_category_label_only_does_not_fire(self):
+        text = "The term genetic data is a category label only and does not describe any person's sensitive data."
+        findings = [m for r, m in _rules_matched(text) if r == "genetic_data"]
         self.assertNotIn("genetic data", findings)
 
     def test_no_material_nonpublic_information_does_not_fire_marker(self):

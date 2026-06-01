@@ -1233,12 +1233,14 @@ _FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"role[- ]only|role[- ]based|role\s+mailbox|functional\s+mailbox|"
     r"role/functional\s+mailbox|shared\s+inbox|treasury\s+contact|"
+    r"generic\s+mailboxes?|public\s+contacts?|procedural\s+queries\s+only|"
     r"compliance\s+desk|deal\s+desk|contact\s+compliance|route\s+enquiries|"
     r"queries\s+(?:to|contact)|rout(?:e|ed)\s+to\s+legal|via\s+docroom|"
     r"public\s+(?:queries|enquiries)|regulatory\s+liaison|"
     r"generic\s+help\s*desk|public(?:-facing)?\s+help\s*desk|public\s+helpdesk|"
     r"secretariat\s+mailbox|public\s+helplines?|general\s+(?:queries|enquiries)|"
     r"not\s+personal\s+data|"
+    r"non[- ]PII|not\s+PII|"
     r"not\s+linked\s+to\s+an?\s+identifiable\s+individual"
     r")\b",
     re.IGNORECASE,
@@ -1248,6 +1250,7 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"compliance\s+desk|deal\s+desk|"
     r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helplines?|"
     r"public\s+hotline|public\s+line|public\s+service\s+line|"
+    r"enquiries\s+line|procedural\s+queries\s+only|"
     r"public\s+(?:queries|enquiries)|"
     r"support\s+hotline|switchboard|reception|information\s+line|contact\s+centre|client\s+services|"
     r"(?:privacy|ethics)\s+helplines?|assistance\s+line|published\s+contacts?|"
@@ -1383,6 +1386,15 @@ def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
     right = min(right_candidates) if right_candidates else len(text)
     context = text[left:right].strip()
     local_part = text[start:end].split("@", 1)[0].casefold()
+    if _FUNCTIONAL_CONTACT_CONTEXT_RE.search(context):
+        strong_public_context = re.search(
+            r"\b(?:generic\s+mailboxes?|public\s+contacts?|procedural\s+queries\s+only|"
+            r"non[- ]PII|not\s+PII|public\s+helplines?|enquiries\s+line)\b",
+            context,
+            re.IGNORECASE,
+        )
+        if strong_public_context:
+            return True
     if (
         local_part in _ALWAYS_ROLE_MAILBOX_LOCAL_PARTS
         or bool(_ROLE_MAILBOX_LOCAL_RE.fullmatch(local_part))
@@ -1439,7 +1451,8 @@ def _is_placeholder_passport_context(text: str, start: int, end: int) -> bool:
 
 def _is_public_or_generic_phone_context(text: str, start: int, end: int) -> bool:
     digits = _digits_only(text[start:end])
-    if digits.startswith(("1800", "0800", "00800")):
+    local_digits = digits[2:] if digits.startswith("65") else digits
+    if local_digits.startswith(("1800", "0800", "00800")):
         return True
     context = _line_context(text, start, end)
     return bool(_PUBLIC_PHONE_CONTEXT_RE.search(context))
@@ -1579,7 +1592,9 @@ def _is_special_category_false_positive_context(rule_name: str, text: str, start
         return True
     if rule_name == "genetic_data" and re.search(
         r"\b(?:no\s+genetic\s+data[^\n.;]{0,80}(?:collected|stored|processed)|"
+        r"no\s+genetic\s+data[^\n.;]{0,80}(?:kept|held|retained)|"
         r"genetic\s+algorithms?|software\s+features?|not\s+about\s+any\s+person|"
+        r"category\s+label\s+only|does\s+not\s+describe\s+any\s+person|"
         r"genetics?\s+of\s+innovation[^\n.;]{0,80}metaphors?|"
         r"not\s+personal\s+data)\b",
         context,

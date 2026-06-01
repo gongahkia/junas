@@ -1,173 +1,4 @@
 {
-  "doc_id": "sa_jurisdictional_mnpi_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "SA",
-  "destination_jurisdiction": "SA",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "governance@nisco.example"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimisation"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "MOU"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "sa_commercial_registration",
-      "matched_text": "CR 101-XX-7654321"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "governance@nisco.example"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border processing"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_national_id",
-      "matched_text": "NIN 1234-XXXX-5678-000"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_iqama",
-      "matched_text": "Iqama 98A-12B3-4567"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "XX00-NISCO-0000000000"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Data & AI Authority of the Kingdom (DAAK) transfer gateway"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "potentially material variance"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed period"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "designated insiders"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not discuss draft numbers with analysts or suppliers"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "MOU"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "issuer",
-      "reason": "Generic role noun, not PII/MNPI"
-    },
-    {
-      "matched_text": "Finance",
-      "reason": "Department/role reference, not PII/MNPI"
-    },
-    {
-      "matched_text": "Audit Committee",
-      "reason": "Body/role reference, not PII/MNPI"
-    },
-    {
-      "matched_text": "Investor Relations",
-      "reason": "Function/role reference, not PII/MNPI"
-    },
-    {
-      "matched_text": "suppliers",
-      "reason": "Generic counterparty role, not PII/MNPI"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "scheduled REX Portal submission by 10 Dhu al-Qa‘dah 1447H",
-      "concept": "disclosure timing",
-      "reason": "Indicates a specific future disclosure schedule relevant to blackout/timing controls but not an explicit Embargo/Signing/Closing/Effective Date marker."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
   "_agent_review": {
     "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -204,6 +35,12 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "post-sg-stage-b-public-mailbox-realign-2026-06-01",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T12:36:18Z",
     "accepted_by": "gongahkia",
@@ -212,21 +49,188 @@
     "status": "owner_approved_sa_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation_history": [
+    {
+      "basis": "SG Stage B precision fix broadened public/generic mailbox suppression; this fixture text expressly describes the email as public, role-based, generic, or non-personal.",
+      "reviewed_at_utc": "2026-06-01T03:48:17Z",
+      "reviewer": "Codex GPT-5.5",
+      "span": "governance@nisco.example",
+      "status": "public_role_mailbox_demoted_from_strict"
+    }
+  ],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_jurisdictional_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "CR 101-XX-7654321",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NIN 1234-XXXX-5678-000",
+      "rule": "sa_national_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama 98A-12B3-4567",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "XX00-NISCO-0000000000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data & AI Authority of the Kingdom (DAAK) transfer gateway",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potentially material variance",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closed period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "designated insiders",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not discuss draft numbers with analysts or suppliers",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Generic role noun, not PII/MNPI"
+    },
+    {
+      "matched_text": "Finance",
+      "reason": "Department/role reference, not PII/MNPI"
+    },
+    {
+      "matched_text": "Audit Committee",
+      "reason": "Body/role reference, not PII/MNPI"
+    },
+    {
+      "matched_text": "Investor Relations",
+      "reason": "Function/role reference, not PII/MNPI"
+    },
+    {
+      "matched_text": "suppliers",
+      "reason": "Generic counterparty role, not PII/MNPI"
+    },
+    {
+      "matched_text": "governance@nisco.example",
+      "reason": "Generic governance mailbox for role-based insider-list hygiene, not a personal email."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "disclosure timing",
+      "matched_text": "scheduled REX Portal submission by 10 Dhu al-Qa\u2018dah 1447H",
+      "reason": "Indicates a specific future disclosure schedule relevant to blackout/timing controls but not an explicit Embargo/Signing/Closing/Effective Date marker."
     }
   ]
 }

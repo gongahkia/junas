@@ -1,320 +1,495 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
   "doc_id": "sg_sector_mnpi_term_sheet_default_001",
   "document_type": "term_sheet",
-  "source_jurisdiction": "SG",
-  "destination_jurisdiction": "SG",
-  "must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Tamarind"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$78,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$58,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$20,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$6,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$12,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$5,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$1,500,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$1,600,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "30%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "20%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information\u2011barrier protocols"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "No selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "No tipping"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "cyber incident"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "credential\u2011stuffing incident"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Hao Leong"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Tan"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Adrian Chua"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "priya.tan@oriolecap.sg"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "achua@seabreezekota.com"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+65 6123 4567"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Tamarind"
+      "matched_text": "Project Tamarind",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed acquisition of GreenLedger Pte. Ltd. by Oriole Capital Ltd. (SGX-ST Mainboard)"
+      "matched_text": "Proposed acquisition of GreenLedger Pte. Ltd. by Oriole Capital Ltd. (SGX-ST Mainboard)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$78,000,000"
+      "matched_text": "S$78,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$58,000,000"
+      "matched_text": "S$58,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$20,000,000"
+      "matched_text": "S$20,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$6,000,000"
+      "matched_text": "S$6,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$12,000,000"
+      "matched_text": "S$12,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$5,000,000"
+      "matched_text": "S$5,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$1,500,000"
+      "matched_text": "S$1,500,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "S$1,600,000"
+      "matched_text": "S$1,600,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "30%"
+      "matched_text": "30%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "20%"
+      "matched_text": "20%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information\u2011barrier protocols"
+      "matched_text": "information\u2011barrier protocols",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "No selective disclosure"
+      "matched_text": "No selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "No tipping"
+      "matched_text": "No tipping",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout"
+      "matched_text": "blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "wall-crossed investors"
+      "matched_text": "wall-crossed investors",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "wall-cross"
+      "matched_text": "wall-cross",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "cleansing announcement"
+      "matched_text": "cleansing announcement",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_protocol_event_marker",
-      "matched_text": "DPT staking products"
+      "matched_text": "DPT staking products",
+      "rule": "dpt_protocol_event_marker"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "Major Payment Institution (DPT) licence"
+      "matched_text": "Major Payment Institution (DPT) licence",
+      "rule": "dpt_pre_listing_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "30% Scope 2 emissions reduction"
+      "matched_text": "30% Scope 2 emissions reduction",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "dealing window"
+      "matched_text": "dealing window",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "March 2026 credential\u2011stuffing incident"
+      "matched_text": "March 2026 credential\u2011stuffing incident",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "no material adverse cyber incident"
+      "matched_text": "no material adverse cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Hao Leong"
+      "matched_text": "Mr. Hao Leong",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Tan"
+      "matched_text": "Ms. Priya Tan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Adrian Chua"
+      "matched_text": "Mr. Adrian Chua",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "priya.tan@oriolecap.sg"
+      "matched_text": "priya.tan@oriolecap.sg",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "achua@seabreezekota.com"
+      "matched_text": "achua@seabreezekota.com",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+65 6123 4567"
+      "matched_text": "+65 6123 4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "credential\u2011stuffing incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of GreenLedger Pte. Ltd. by Oriole Capital Ltd. (SGX-ST Mainboard) \u2014 Project Tamarind",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Oriole to acquire 100% of GreenLedger for S$78,000,000 (S$58,000,000 cash; S$20,000,000 in new Oriole shares), with S$6,000,000 placed in escrow for 18 months.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber & PDPA warranties: Seller warrants no undisclosed PDPA breach; diligence noted a March 2026 credential\u2011stuffing incident affecting 4,200 hashed emails, with remediation (MFA roll\u2011out, SIEM tuning) to be completed pre\u2011closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conduct of business: Target to refrain from launching new DPT staking products pre\u2011closing without Buyer consent; ordinary course capex limited to S$1,500,000 per quarter.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Leak response: On leak or unusual trading, parties will notify SGX RegCo and issue a holding announcement; break fee of S$1,600,000 payable by Seller for wilful breach of exclusivity.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Long\u2011stop and closing: Signing target 30 July 2026; long\u2011stop 31 December 2026; completion upon satisfaction of CPs and share issue approval under Chapter 8 of the SGX Listing Manual.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "78,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "58,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,600,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "priya.tan@oriolecap.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "achua@seabreezekota.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+65 6123 4567",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hao Leong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Tan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian Chua",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of GreenLedger Pte. Ltd. by Oriole Capital Ltd. (SGX-ST Mainboard) \u2014 Project Tamarind",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Oriole to acquire 100% of GreenLedger for S$78,000,000 (S$58,000,000 cash; S$20,000,000 in new Oriole shares), with S$6,000,000 placed in escrow for 18 months.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber & PDPA warranties: Seller warrants no undisclosed PDPA breach; diligence noted a March 2026 credential\u2011stuffing incident affecting 4,200 hashed emails, with remediation (MFA roll\u2011out, SIEM tuning) to be completed pre\u2011closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conduct of business: Target to refrain from launching new DPT staking products pre\u2011closing without Buyer consent; ordinary course capex limited to S$1,500,000 per quarter.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Leak response: On leak or unusual trading, parties will notify SGX RegCo and issue a holding announcement; break fee of S$1,600,000 payable by Seller for wilful breach of exclusivity.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Long\u2011stop and closing: Signing target 30 July 2026; long\u2011stop 31 December 2026; completion upon satisfaction of CPs and share issue approval under Chapter 8 of the SGX Listing Manual.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Tamarind",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$78,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$58,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$20,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$6,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$12,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$5,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$1,500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S$1,600,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "78,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "58,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "6,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,600,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
     }
   ],
   "must_not_detect": [
@@ -335,33 +510,27 @@
       "reason": "Role title, not PII/MNPI."
     }
   ],
+  "source_jurisdiction": "SG",
   "uncertain": [
     {
-      "matched_text": "PDPA\u2011compliant notices for HR data transfer and employee consent",
       "concept": "PDPA consent/transfer",
+      "matched_text": "PDPA\u2011compliant notices for HR data transfer and employee consent",
       "reason": "Privacy compliance reference may indicate consent processing but not covered by specific allowed markers (e.g., withdrawal, cross-border)."
     },
     {
-      "matched_text": "cleansing announcement on SGXNET",
       "concept": "Cleansing/embargo mechanics",
+      "matched_text": "cleansing announcement on SGXNET",
       "reason": "Indicates transition from non-public to public information; not explicitly listed in allowed embargo markers."
     },
     {
-      "matched_text": "MAS in-principle approval for a Major Payment Institution (DPT) licence",
       "concept": "Crypto/DPT regulatory approval",
+      "matched_text": "MAS in-principle approval for a Major Payment Institution (DPT) licence",
       "reason": "Material crypto licensing milestone; mapping to dpt_* rules is not explicit though sector-significant."
     },
     {
-      "matched_text": "SGX RegCo confirmation of the proposed announcement approach",
       "concept": "Listing-regulator pre-clear",
+      "matched_text": "SGX RegCo confirmation of the proposed announcement approach",
       "reason": "Pre-disclosure regulator engagement suggests MNPI context but lacks a direct allowed rule anchor."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

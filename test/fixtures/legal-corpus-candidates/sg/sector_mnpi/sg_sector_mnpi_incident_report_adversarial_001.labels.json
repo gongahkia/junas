@@ -1,240 +1,290 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SG",
   "doc_id": "sg_sector_mnpi_incident_report_adversarial_001",
   "document_type": "memo",
-  "source_jurisdiction": "SG",
-  "destination_jurisdiction": "SG",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@harbourmeridian.sg"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "singapore@orchardstrand.law"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Kwan"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "a.kwan@harbourmeridian.sg"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investorrelations@harbourmeridian.sg"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Aaron Teh"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sec_compliance@harbourmeridian.sg"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not publicly available"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Beryl"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout imposed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers reinforced"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list updated"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list v2.3 appended"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "2.10%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Tipping/selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@harbourmeridian.sg"
+      "matched_text": "dpo@harbourmeridian.sg",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "singapore@orchardstrand.law"
+      "matched_text": "singapore@orchardstrand.law",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Kwan"
+      "matched_text": "Ms. Priya Kwan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "a.kwan@harbourmeridian.sg"
+      "matched_text": "a.kwan@harbourmeridian.sg",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investorrelations@harbourmeridian.sg"
+      "matched_text": "investorrelations@harbourmeridian.sg",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Aaron Teh"
+      "matched_text": "Mr. Aaron Teh",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sec_compliance@harbourmeridian.sg"
+      "matched_text": "sec_compliance@harbourmeridian.sg",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+65 6X20 4X23"
+      "matched_text": "+65 6X20 4X23",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "139.*.*.*"
+      "matched_text": "139.*.*.*",
+      "rule": "ip_address"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "E-9X3-7Q"
+      "matched_text": "E-9X3-7Q",
+      "rule": "employee_id"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not publicly available"
+      "matched_text": "not publicly available",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Beryl"
+      "matched_text": "Project Beryl",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "ESG KPIs include Scope 1+2 cap at 4,900 tCO2e (FY26), step-up to 2.10% if exceeded, coupon ratchet tied to verified RE100 adoption by FY27"
+      "matched_text": "ESG KPIs include Scope 1+2 cap at 4,900 tCO2e (FY26), step-up to 2.10% if exceeded, coupon ratchet tied to verified RE100 adoption by FY27",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "2.10%"
+      "matched_text": "2.10%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "disclosure premature could affect pricing negotiations"
+      "matched_text": "disclosure premature could affect pricing negotiations",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "DPT (crypto) treasury pilot metrics"
+      "matched_text": "DPT (crypto) treasury pilot metrics",
+      "rule": "dpt_pre_listing_marker"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "MAS sandbox feedback"
+      "matched_text": "MAS sandbox feedback",
+      "rule": "dpt_pre_listing_marker"
     },
     {
       "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "tokenised SGD pilot"
+      "matched_text": "tokenised SGD pilot",
+      "rule": "dpt_pre_listing_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "need-to-know basis"
+      "matched_text": "need-to-know basis",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout imposed"
+      "matched_text": "trading blackout imposed",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers reinforced"
+      "matched_text": "information barriers reinforced",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list updated"
+      "matched_text": "insider list updated",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list v2.3 appended"
+      "matched_text": "insider list v2.3 appended",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "do not discuss \u201cProject Beryl,\u201d DPT pilot, or SLL terms with unauthorised parties"
+      "matched_text": "do not discuss \u201cProject Beryl,\u201d DPT pilot, or SLL terms with unauthorised parties",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Tipping/selective disclosure"
+      "matched_text": "Tipping/selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "SGX RegCo to be notified if leakage indicates market impact"
+      "matched_text": "SGX RegCo to be notified if leakage indicates market impact",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "compromised OAuth token"
+      "matched_text": "compromised OAuth token",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2 0 2 6-0 6-0 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Kwan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employment note: affected contractor Mr. Aaron Teh (Octarine Cyber) suspended pending PDPA s.24 investigation; PD queries to dpo@harbourmeridian.sg; internal queries to sec_compliance@harbourmeridian.sg",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tCO2e",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "singapore@orchardstrand.law",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a.kwan@harbourmeridian.sg",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2 0 2 6-0 6-0 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Kwan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Aaron Teh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Kwan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employment note: affected contractor Mr. Aaron Teh (Octarine Cyber) suspended pending PDPA s.24 investigation; PD queries to dpo@harbourmeridian.sg; internal queries to sec_compliance@harbourmeridian.sg",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Beryl",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2.10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tCO2e",
+      "rule": "esg_climate_pre_disclosure"
     }
   ],
   "must_not_detect": [
@@ -263,48 +313,42 @@
       "reason": "Educational/marketing context; not MNPI."
     }
   ],
+  "source_jurisdiction": "SG",
   "uncertain": [
     {
-      "matched_text": "+65 6X20 4X23",
       "concept": "phone_number (masked)",
+      "matched_text": "+65 6X20 4X23",
       "reason": "Partially redacted phone; format may not match strict regex but is contact PII."
     },
     {
-      "matched_text": "139.*.*.*",
       "concept": "ip_address (masked)",
+      "matched_text": "139.*.*.*",
       "reason": "Redacted IP pattern; not a full IPv4 address but indicates network identifier."
     },
     {
-      "matched_text": "E-9X3-7Q",
       "concept": "employee_id",
+      "matched_text": "E-9X3-7Q",
       "reason": "Internal userId likely identifies a specific staff member; not a standard ID pattern."
     },
     {
-      "matched_text": "GL-29 1 0-X",
       "concept": "internal_account_identifier",
+      "matched_text": "GL-29 1 0-X",
       "reason": "General ledger/account tag could be sensitive internal reference but not a defined PII type."
     },
     {
+      "concept": "initialed_name_on_insider_list",
       "matched_text": "K. Liew",
-      "concept": "initialed_name_on_insider_list",
       "reason": "Identifies an individual in context, but lacks honorific/signature to meet named_person rule."
     },
     {
+      "concept": "initialed_name_on_insider_list",
       "matched_text": "P. Kwan",
-      "concept": "initialed_name_on_insider_list",
       "reason": "Identifies an individual in context, but lacks honorific/signature to meet named_person rule."
     },
     {
-      "matched_text": "S. Rahman",
       "concept": "initialed_name_on_insider_list",
+      "matched_text": "S. Rahman",
       "reason": "Identifies an individual in context, but lacks honorific/signature to meet named_person rule."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

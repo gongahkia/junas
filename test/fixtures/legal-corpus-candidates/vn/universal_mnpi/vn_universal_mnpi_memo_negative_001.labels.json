@@ -39,6 +39,7 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "VN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered Vietnam MST/VAT/TIN and public-hotline numeric bait, grouped CCCD recognition, Vietnamese placeholder CCCD context, negated MAC/MAE prose, and wellness spa bait.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tiers_version": "post-sg-stage-b-public-mailbox-realign-2026-06-01",
   "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-30T03:12:44Z",
@@ -47,6 +48,33 @@
     "source_report": "/tmp/kaypoh-vn-stage-a-reviewed.json",
     "status": "owner_approved_vn_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation_history": [
+    {
+      "basis": "SG Stage B precision fix broadened public/generic mailbox suppression; this fixture text expressly describes the email as public, role-based, generic, or non-personal.",
+      "reviewed_at_utc": "2026-06-01T03:48:17Z",
+      "reviewer": "Codex GPT-5.5",
+      "span": "vendor@lotusridge.example.vn",
+      "status": "public_role_mailbox_demoted_from_strict"
+    }
+  ],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "VN",
@@ -67,11 +95,6 @@
       "category": "MNPI",
       "matched_text": "MAC clause",
       "rule": "material_adverse_change"
-    },
-    {
-      "category": "PII",
-      "matched_text": "vendor@lotusridge.example.vn",
-      "rule": "email_address"
     },
     {
       "category": "PII",
@@ -157,11 +180,6 @@
   "must_detect": [
     {
       "category": "PII",
-      "matched_text": "vendor@lotusridge.example.vn",
-      "rule": "email_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "data minimization",
       "rule": "data_minimisation_marker"
     },
@@ -218,6 +236,10 @@
     {
       "matched_text": "no MAC/MAE has occurred or is expected as of today",
       "reason": "Negated MAC language is excluded by rule"
+    },
+    {
+      "matched_text": "vendor@lotusridge.example.vn",
+      "reason": "Public supplier helpline email; fixture states no personal email."
     }
   ],
   "source_jurisdiction": "VN",
@@ -236,24 +258,6 @@
       "concept": "project nickname / codename",
       "matched_text": "ops-update july",
       "reason": "Codename-like string but does not match the required 'Project <CapitalizedName>' pattern for transaction_codename"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

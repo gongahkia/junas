@@ -1,12 +1,22 @@
 {
   "_agent_review": {
     "notes": "Post-EU global realignment after narrow precision guards for placeholder passport values, obfuscated passport phone-shaped fragments, and tax-ID phone-shaped bait. Strict labels now match current deterministic strict-mode findings; removed false strict labels are kept out of strict benchmark truth.",
+    "reviewed_at_utc": "2026-05-31T17:32:45Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
     "run_dir": "/tmp/kaypoh-eu-stage-a-20260601",
     "source_report": "/tmp/kaypoh-candidates-after-eu-reviewed.json",
-    "status": "post_eu_precision_realign",
-    "reviewed_at_utc": "2026-05-31T17:32:45Z"
+    "status": "post_eu_precision_realign"
   },
+  "_agent_review_history": [
+    {
+      "notes": "Post-EU global realignment after narrow precision guards for placeholder passport values, obfuscated passport phone-shaped fragments, and tax-ID phone-shaped bait. Strict labels now match current deterministic strict-mode findings; removed false strict labels are kept out of strict benchmark truth.",
+      "reviewed_at_utc": "2026-05-31T17:32:45Z",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-eu-stage-a-20260601",
+      "source_report": "/tmp/kaypoh-candidates-after-eu-reviewed.json",
+      "status": "post_eu_precision_realign"
+    }
+  ],
   "_human_review": {
     "decision": "approve",
     "notes": "Project owner approval remains internal/project benchmark approval based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
@@ -31,6 +41,7 @@
   "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
   "_label_note": "MY Stage A strict tier realigned to deterministic strict-mode engine after IN precision audit; broader model-derived labels retained in ideal_must_detect for gap discovery. Post-EU precision realignment removed placeholder/invalid passport or phone-shaped tax/passport bait from strict benchmark truth where current deterministic strict mode correctly suppresses it.",
   "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+  "_label_tiers_version": "post-sg-stage-b-public-mailbox-realign-2026-06-01",
   "_label_warnings": [
     "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
     "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
@@ -46,6 +57,24 @@
     "source_report": "/tmp/kaypoh-my-after-in-precision-reviewed.json",
     "status": "owner_approved_my_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
   "_strict_label_cleanup": {
     "new_ideal_must_detect_count": 23,
     "new_must_detect_count": 11,
@@ -56,17 +85,21 @@
     "reviewed_at_utc": "2026-05-29T03:59:20Z",
     "reviewer": "codex-gpt-assisted-strict-tier-review"
   },
+  "_strict_reconciliation_history": [
+    {
+      "basis": "SG Stage B precision fix broadened public/generic mailbox suppression; this fixture text expressly describes the email as public, role-based, generic, or non-personal.",
+      "reviewed_at_utc": "2026-06-01T03:48:17Z",
+      "reviewer": "Codex GPT-5.5",
+      "span": "hr@serilapis.com.my",
+      "status": "public_role_mailbox_demoted_from_strict"
+    }
+  ],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "MY",
   "doc_id": "my_direct_identifiers_memo_negative_001",
   "document_type": "memo",
   "ideal_must_detect": [
-    {
-      "category": "PII",
-      "matched_text": "hr@serilapis.com.my",
-      "rule": "email_address"
-    },
     {
       "category": "PII",
       "matched_text": "800101-14-7788",
@@ -89,7 +122,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender’s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
+      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender\u2019s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
       "rule": "material_event"
     },
     {
@@ -176,11 +209,6 @@
   "must_detect": [
     {
       "category": "PII",
-      "matched_text": "hr@serilapis.com.my",
-      "rule": "email_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "800101-14-7788",
       "rule": "my_mykad"
     },
@@ -201,7 +229,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender’s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
+      "matched_text": "Subject to the above controls, Legal and Compliance consider the current drafts fit for submission to the exchange portal and lender\u2019s data room without risk of inadvertent PDPA breach or unlawful selective disclosure.",
       "rule": "material_event"
     },
     {
@@ -275,6 +303,10 @@
     {
       "matched_text": "A1234567",
       "reason": "invalid/non-operative passport sample; not live personal data"
+    },
+    {
+      "matched_text": "hr@serilapis.com.my",
+      "reason": "Role mailbox used by employment templates; fixture says to omit personal contacts."
     }
   ],
   "source_jurisdiction": "MY",
@@ -298,34 +330,6 @@
       "concept": "tax_identifier_generic",
       "matched_text": "TIN C-1234567890",
       "reason": "Tax identifier reference not mapped to an allowed jurisdictional rule and marked invalid format."
-    }
-  ],
-  "_agent_review_history": [
-    {
-      "notes": "Post-EU global realignment after narrow precision guards for placeholder passport values, obfuscated passport phone-shaped fragments, and tax-ID phone-shaped bait. Strict labels now match current deterministic strict-mode findings; removed false strict labels are kept out of strict benchmark truth.",
-      "reviewer": "codex-gpt-assisted-strict-tier-review",
-      "run_dir": "/tmp/kaypoh-eu-stage-a-20260601",
-      "source_report": "/tmp/kaypoh-candidates-after-eu-reviewed.json",
-      "status": "post_eu_precision_realign",
-      "reviewed_at_utc": "2026-05-31T17:32:45Z"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }
