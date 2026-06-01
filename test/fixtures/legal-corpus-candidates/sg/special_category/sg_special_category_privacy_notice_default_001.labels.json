@@ -3,13 +3,238 @@
   "document_type": "generic",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "SM-4172"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Mr. Adrian Koh (employee code SM-4172) provided cardiac treatment discharge summaries and a thumbprint template used for Bukit Merah office access"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "Mr. Adrian Koh (employee code SM-4172) provided cardiac treatment discharge summaries and a thumbprint template used for Bukit Merah office access"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "his dependent Ethan Koh (age 12) is recorded for medical benefits as a minor"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Nair"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Ms. Priya Nair (contractor) voluntarily disclosed Hindu religious observance preferences and union membership status for roster planning and payroll deductions"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Ms. Priya Nair (contractor) voluntarily disclosed Hindu religious observance preferences and union membership status for roster planning and payroll deductions"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "where Mr. Adrian Koh consented to a voluntary genetic panel as part of a pilot wellness programme, the results were stored separately and not used for performance evaluation"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@shentonmeridian.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We do not require or infer sexual orientation for marketing; our Harmony@Work DEI Charter mentions religion and sexual orientation in principle without collecting them for analytics"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers to overseas counsel or vendors (e.g., MarinaCloud backup nodes in Johor Bahru and Tokyo) occur under contractual clauses ensuring protection comparable to the PDPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean-team access"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "SM-4172"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Mr. Adrian Koh (employee code SM-4172) provided cardiac treatment discharge summaries and a thumbprint template used for Bukit Merah office access"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "Mr. Adrian Koh (employee code SM-4172) provided cardiac treatment discharge summaries and a thumbprint template used for Bukit Merah office access"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "his dependent Ethan Koh (age 12) is recorded for medical benefits as a minor"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Nair"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Ms. Priya Nair (contractor) voluntarily disclosed Hindu religious observance preferences and union membership status for roster planning and payroll deductions"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Ms. Priya Nair (contractor) voluntarily disclosed Hindu religious observance preferences and union membership status for roster planning and payroll deductions"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "where Mr. Adrian Koh consented to a voluntary genetic panel as part of a pilot wellness programme, the results were stored separately and not used for performance evaluation"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@shentonmeridian.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We do not require or infer sexual orientation for marketing; our Harmony@Work DEI Charter mentions religion and sexual orientation in principle without collecting them for analytics"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers to overseas counsel or vendors (e.g., MarinaCloud backup nodes in Johor Bahru and Tokyo) occur under contractual clauses ensuring protection comparable to the PDPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean-team access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Orange Kestrel Capital Pte. Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "is disclosed externally only after public announcement through the securities exchange"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "is segregated in the MarinaCloud Dataroom (Singapore region) with clean-team access"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "For recruitment, genetic wellness screening results are never mandatory"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LionCity CRM",
+      "reason": "Product name (false-positive bait)"
+    },
+    {
+      "matched_text": "Orchid Pay",
+      "reason": "Product name (false-positive bait)"
+    },
+    {
+      "matched_text": "MarinaCloud",
+      "reason": "Vendor/product name (false-positive bait)"
+    },
+    {
+      "matched_text": "Tampines Tigers",
+      "reason": "Sports team (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "opening the playbook",
+      "reason": "Metaphor (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "Harmony@Work DEI Charter",
+      "reason": "Policy name (non-PII/MNPI bait)"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: HR medical and biometric records are retained for 7 years from cessation of employment; MNPI working papers are retained for 6 years to meet securities law obligations and audit",
+      "concept": "retention_marker",
+      "reason": "Retention periods are legally relevant but no explicit 'retention_marker' rule is provided."
+    },
+    {
+      "matched_text": "DSAR: To access, correct, or port your data, email dpo@shentonmeridian.com.sg with your name and employee code; we will respond within 30 days unless an extension applies",
+      "concept": "DSAR_rights",
+      "reason": "DSAR handling is a privacy-event marker but there is no allowed DSAR-specific rule."
+    },
+    {
+      "matched_text": "We may refuse DSARs that would reveal another person\u2019s data or MNPI before it becomes generally available; any refusal will cite the statutory basis and provide a review channel",
+      "concept": "DSAR_exemptions",
+      "reason": "DSAR exemptions and review rights are legally relevant but lack a mapped rule token."
+    },
+    {
+      "matched_text": "Such health, biometric, and minor data are obtained with explicit consent for HR benefits and access control only, not for capital-markets purposes",
+      "concept": "consent_basis",
+      "reason": "Explicit consent is a key legal basis but only 'consent_withdrawal_marker' is available in the rule set."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

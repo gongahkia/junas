@@ -3,13 +3,130 @@
   "document_type": "generic",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@auroraharbour.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy-office@auroraharbour.example"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_sgx_counter",
+      "matched_text": "AHL0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed until 2026-07-15 08:00 sgt"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@auroraharbour.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy-office@auroraharbour.example"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_sgx_counter",
+      "matched_text": "AHL0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed until 2026-07-15 08:00 sgt"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "mnpi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restrict mnpi folders to need-to-know under sfa/sgx frameworks"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "if stored in ap-southeast-1 cloud, apply pdpa transfer limitation and comparable protection"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "accept only masked nric/fin if volunteered (last 3 characters)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not collect full identifiers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "auto-delete after 120 days"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "0000-xyz-0000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC language; training-only, not a live deal memo"
+    },
+    {
+      "matched_text": "definitive share purchase agreement",
+      "reason": "Public training sample; not a current transaction document"
+    },
+    {
+      "matched_text": "spa-day signups",
+      "reason": "Bait term; not a Share Purchase Agreement (SPA)"
+    },
+    {
+      "matched_text": "completion of meridian docks pte. ltd. acquisition",
+      "reason": "Publicly announced/stale; not MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "0000-xyz-0000",
+      "concept": "account identifier",
+      "reason": "May be a customer_account_number or internal ID; format is non-standard and context is illustrative"
+    },
+    {
+      "matched_text": "ap-southeast-1",
+      "concept": "cloud region location",
+      "reason": "May not constitute a cross-border transfer under PDPA if hosted in Singapore; cross-border applicability ambiguous"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

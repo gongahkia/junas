@@ -3,13 +3,185 @@
   "document_type": "generic",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID E\u20110913"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "medical certificates relating to physiotherapy"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harbourapex.example.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "listingcompliance@harbourapex.example.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean teams"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PDPA minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent records until withdrawal"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID E\u20110913"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "medical certificates relating to physiotherapy"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harbourapex.example.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "listingcompliance@harbourapex.example.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean teams"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PDPA minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent records until withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "information not generally available and reasonably expected to affect price/value"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "before wider internal circulation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "draft term sheets"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced milestones"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid unnecessary capture of NRIC, full DOB, home addresses, or photos"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "exclude personal contact details"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer impact assessment"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Marina Vista smartwatch",
+      "reason": "Product name placeholder; not PII/MNPI"
+    },
+    {
+      "matched_text": "Garden City Productivity Policy",
+      "reason": "Policy name/metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "Lion City United FC",
+      "reason": "Sports team; not PII/MNPI"
+    },
+    {
+      "matched_text": "Rainbow Spectrum DEI Charter",
+      "reason": "Generic DEI/policy placeholder; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "HR files 7 years after cessation",
+      "concept": "retention_period",
+      "reason": "Retention marker is legally relevant but no explicit allowed rule for retention markers."
+    },
+    {
+      "matched_text": "VDR/due\u2011diligence materials 6 years post\u2011completion",
+      "concept": "retention_period",
+      "reason": "Retention marker is legally relevant but not covered by an allowed rule."
+    },
+    {
+      "matched_text": "trading surveillance logs 5 years",
+      "concept": "retention_period",
+      "reason": "Retention control is relevant but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "Legal hold: if notified by the Litigation Team, suspend deletion",
+      "concept": "legal_hold_marker",
+      "reason": "Legal hold instructions are compliance\u2011relevant but not covered by an allowed rule."
+    },
+    {
+      "matched_text": "pseudonymise CVs with candidate IDs",
+      "concept": "pseudonymisation_control",
+      "reason": "Privacy\u2011by\u2011design control relevant to PDPA but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "pre\u2011clear with the Disclosure Committee",
+      "concept": "disclosure_governance",
+      "reason": "MNPI governance control; not clearly covered by provided MNPI rules."
+    },
+    {
+      "matched_text": "release via SGXNet",
+      "concept": "public_disclosure_channel",
+      "reason": "Public disclosure mechanism relevant to selective disclosure risk but not an explicit allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

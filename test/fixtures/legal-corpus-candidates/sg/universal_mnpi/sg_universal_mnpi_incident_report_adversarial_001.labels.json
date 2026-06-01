@@ -3,13 +3,266 @@
   "document_type": "memo",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 14 Jun 2026 08:00 SGT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Orchid"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@solis-meridian.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "SGD 48.5m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "87.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Quek"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "adrian.quek@solis-meridian.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Halimah Noor"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "halimah.noor@solis-meridian.sg"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 14 Jun 2026 08:00 SGT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Orchid"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@solis-meridian.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "SGD 48.5m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "87.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Quek"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "adrian.quek@solis-meridian.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Halimah Noor"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "halimah.noor@solis-meridian.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "\u201cneed\u2011to\u2011know\u201d controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "SFA s.218 prohibitions on trading"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be released before the embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Incident Report (Cyber)"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "SRV-0x3F1A"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "SRV0x3F1A"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "mrs loh"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "target",
+      "reason": "Defined role-noun in parentheses, not PII/MNPI"
+    },
+    {
+      "matched_text": "spa\u2011day",
+      "reason": "Wellness context; false-positive bait for SPA/definitive agreement"
+    },
+    {
+      "matched_text": "MAC/MAE",
+      "reason": "Negated MAC/MAE reference; excluded by rule"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "I N C - 2 9 7 3 / O R C H I D",
+      "concept": "internal_ticket_id",
+      "reason": "Internal incident ticket identifier; potentially sensitive but not mapped to allowed rules"
+    },
+    {
+      "matched_text": "SG**45-09xx",
+      "concept": "masked bank account reference",
+      "reason": "Masked/partial account string; not clearly within bank_account rule scope"
+    },
+    {
+      "matched_text": "https://ir.solis-meridian.sg/drafts?doc=Q2-ORCHID-SSA-v4",
+      "concept": "nonpublic draft link",
+      "reason": "Nonpublic IR draft URL suggests MNPI/selecdist risk but URLs not explicitly covered"
+    },
+    {
+      "matched_text": "https://sec.sol-meridian.sg/logs?id=SRV0x3F1A",
+      "concept": "security log URL",
+      "reason": "Internal security log link may expose incident details; no direct rule mapping"
+    },
+    {
+      "matched_text": "SGX Rule 703 materiality review in progress",
+      "concept": "regulatory materiality review",
+      "reason": "Signals MNPI handling but not a defined marker category"
+    },
+    {
+      "matched_text": "unauthorised IMAP access",
+      "concept": "cyber incident detail",
+      "reason": "Cyber breach descriptor; relevance high but detection may rely on broader semantics"
+    },
+    {
+      "matched_text": "notification to PDPC is under consideration within 3 business days",
+      "concept": "breach notification planning",
+      "reason": "PDPA notification intent is privacy-event relevant but not among enumerated markers"
+    },
+    {
+      "matched_text": "subject to MAS approval",
+      "concept": "regulatory approval condition",
+      "reason": "Material to completion; not a specifically listed MNPI rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

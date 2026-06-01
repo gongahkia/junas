@@ -3,13 +3,293 @@
   "document_type": "generic",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rina Low"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rina.low@oriellelegal.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6123 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@ferrosun.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpCode E\u20111A3\u201177"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR tag H\u201104\u2011bb"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR portal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimise collection"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "replace personal emails with token IDs (tkn:u5\u2011**\u201131)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact/anonymise"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border hosting"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project SeaGlass"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$145,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "62.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 2026\u201107\u201115 08:30 SGT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC/MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "4%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON\u2011PUBLIC"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rina Low"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rina.low@oriellelegal.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6123 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@ferrosun.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpCode E\u20111A3\u201177"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR tag H\u201104\u2011bb"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR portal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimise collection"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "replace personal emails with token IDs (tkn:u5\u2011**\u201131)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact/anonymise"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border hosting"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no names in task cards and avoid attaching CV scans"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "verify with EmpCode + last payroll month only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project SeaGlass"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$145,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "62.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 2026\u201107\u201115 08:30 SGT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC/MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "4%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List IL\u2011S L e\u2011SeaG l a s s"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON\u2011PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Blue Banyan Pte. Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "room access limited to Role: M&A\u2011Core\u2011A only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "segregate emails using label \u201cprj\u2011sgl\u2011m n p i\u201d"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day",
+      "reason": "Not a definitive agreement; casual phrase unrelated to 'SPA'"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "within 18 months post\u2011completion or sooner if no longer necessary",
+      "concept": "retention_marker",
+      "reason": "Retention timeline is legally relevant but there is no explicit allowed rule name for retention in the provided taxonomy."
+    },
+    {
+      "matched_text": "enable auto\u2011purge of mailboxes 30 days post\u2011announcement",
+      "concept": "retention_marker",
+      "reason": "Automatic purge policy indicates retention controls, which are not clearly mapped to an allowed rule label."
+    },
+    {
+      "matched_text": "apply rolling 90\u2011day purge post\u2011go\u2011live",
+      "concept": "retention_marker",
+      "reason": "Rolling purge is a retention control not explicitly covered by allowed rule names."
+    },
+    {
+      "matched_text": "ticket=SG-24-SEA%2FGL%2F0091",
+      "concept": "internal_session_id",
+      "reason": "Could be a DSAR ticket identifier linked to an individual session/case, but the taxonomy does not clearly define treatment of such ticket IDs."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

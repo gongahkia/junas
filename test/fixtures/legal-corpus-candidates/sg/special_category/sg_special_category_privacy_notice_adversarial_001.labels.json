@@ -3,13 +3,256 @@
   "document_type": "generic",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@meridianquaylaw.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Devan Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "Mr. Devan Koh\u2019s fingerprint template for office access (biometric)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rina Tham"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "Ms. Rina Tham\u2019s voluntarily declared bisexual orientation"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Jian Wei Ong"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "12\u2011year\u2011old"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Faris Yakob"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kelvin Chia"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "Mr. Kelvin Chia disclosed membership of the Green Horizon Party for conflict checks (political opinions)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfers to our review centre in Sydney occur via SFTP with encryption"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@meridianquaylaw.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Devan Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "Mr. Devan Koh\u2019s fingerprint template for office access (biometric)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "his hypertension treatment plan from the clinic panel (health)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rina Tham"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "Ms. Rina Tham\u2019s voluntarily declared bisexual orientation"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "her HarbourTech Staff Union membership for payroll deductions (sexual orientation + union)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Jian Wei Ong"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "his 12\u2011year\u2011old son\u2019s medical coverage"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "12\u2011year\u2011old"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Faris Yakob"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kelvin Chia"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "Mr. Kelvin Chia disclosed membership of the Green Horizon Party for conflict checks (political opinions)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of AlloyNova Pte. Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "need\u2011to\u2011know"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "recorded in a restricted log"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfers to our review centre in Sydney occur via SFTP with encryption"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "genetic data",
+      "reason": "Generic category mention; not about any identifiable person"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated clause; not an active MAC/MAE term to tag"
+    },
+    {
+      "matched_text": "NimbusVault",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "CloudSkipper Pro",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Kallang Kraken FC",
+      "reason": "Sports team name; false-positive bait"
+    },
+    {
+      "matched_text": "Open Orchard Fair Hiring",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Jurong Gateway",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Bukit Merah",
+      "reason": "Place name; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "UEN-FIC12345X",
+      "concept": "sg_uen_candidate",
+      "reason": "Looks like a UEN label but does not match valid SG UEN formats"
+    },
+    {
+      "matched_text": "7Zx9Q4",
+      "concept": "internal_session_id",
+      "reason": "Appears as a DSAR request token in a URL query but not explicitly identified"
+    },
+    {
+      "matched_text": "L F H\u2011839\u2011 Z",
+      "concept": "internal_identifier",
+      "reason": "Presented as a data\u2011key; may be a system identifier but no matching allowed rule"
+    },
+    {
+      "matched_text": "term sheets",
+      "concept": "definitive_agreement",
+      "reason": "Could refer to deal documents but not capitalised as a defined agreement type"
+    },
+    {
+      "matched_text": "restricted log",
+      "concept": "insider_list_marker",
+      "reason": "Functions like an insider list but not explicitly named"
+    },
+    {
+      "matched_text": "need\u2011to\u2011know",
+      "concept": "information_barrier_marker",
+      "reason": "Indicates access controls around MNPI but may be too contextual for strict detection"
+    },
+    {
+      "matched_text": "card ID",
+      "concept": "employee_id",
+      "reason": "Identifies a person via access card in logs, but no specific ID value provided"
+    },
+    {
+      "matched_text": "retention follows PDPC advisory notes and LionForge Retention Policy v3.2",
+      "concept": "retention_marker",
+      "reason": "Describes a retention control, but retention marker is not an enumerated allowed rule"
+    },
+    {
+      "matched_text": "Submit DSARs",
+      "concept": "dsar_intake_marker",
+      "reason": "Indicates DSAR intake process but not a defined rule in the allowed set"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
