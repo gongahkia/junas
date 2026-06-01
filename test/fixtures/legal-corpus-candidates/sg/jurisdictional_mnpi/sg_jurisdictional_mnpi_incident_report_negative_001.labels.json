@@ -3,13 +3,137 @@
   "document_type": "memo",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Magnolia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout scheduling"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list protocol"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Magnolia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not yet been announced on LCXNet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "may materially affect revenue recognition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "likely to have a material adverse effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure in analyst briefings is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout scheduling for half-year results"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list protocol"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "h-9f3b***"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "NRIC formats",
+      "reason": "Generic reference to an identifier format; no actual NRIC/FIN number present."
+    },
+    {
+      "matched_text": "contact numbers",
+      "reason": "Generic reference; no actual phone number present."
+    },
+    {
+      "matched_text": "mobile numbers",
+      "reason": "Generic reference; no actual phone number present."
+    },
+    {
+      "matched_text": "role-mailbox headers",
+      "reason": "Generic description of email metadata; no actual email address present."
+    },
+    {
+      "matched_text": "HPSX",
+      "reason": "Ticker mention not an SGX counter rule instance and not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "ISIN ZZ-HPS-000000",
+      "reason": "Security identifier; not covered by allowed PII/MNPI rules."
+    },
+    {
+      "matched_text": "LCX-2024-000999",
+      "reason": "Public filing reference; not PII/MNPI under the allowed rules."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "hashed device identifiers",
+      "concept": "device identifier (hashed)",
+      "reason": "Hashed device IDs may constitute personal data depending on context; mapping to device_serial_number rule is indirect."
+    },
+    {
+      "matched_text": "(internal)",
+      "concept": "internal-only/nonpublic handling marker",
+      "reason": "Suggests nonpublic status but not an explicit embargo marker per allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

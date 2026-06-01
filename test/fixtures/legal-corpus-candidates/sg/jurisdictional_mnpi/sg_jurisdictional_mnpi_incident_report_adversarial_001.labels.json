@@ -3,13 +3,247 @@
   "document_type": "memo",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Internal use only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "This information is not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list updated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre\u2011results closed period (1 Jun\u201315 Jul)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Internal Cyber Incident Update"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "<0.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "management assesses event not likely to be material to the issuer at this time"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aurumtech.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@aurumtech.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@aurumtech.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Soo Lian"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Wei Ong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Darren Khoo"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data\u2011minimisation steps recorded"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Internal use only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "This information is not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list updated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre\u2011results closed period (1 Jun\u201315 Jul)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Internal Cyber Incident Update"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "<0.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "management assesses event not likely to be material to the issuer at this time"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aurumtech.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@aurumtech.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@aurumtech.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Soo Lian"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Wei Ong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Darren Khoo"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data\u2011minimisation steps recorded"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "project banyan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "remain under NDA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no counterparties will be briefed until any SGE\u2011Net release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "directors/officers must not deal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "~212"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated material adverse change should not be tagged as MNPI."
+    },
+    {
+      "matched_text": "NRICs",
+      "reason": "Generic mention without any identifier values and explicitly negated."
+    },
+    {
+      "matched_text": "names, work emails, office numbers",
+      "reason": "Data categories only; no specific PII values present."
+    },
+    {
+      "matched_text": "SGE\u2011Net 12 Apr 2026 \u201cOperational Resilience Update Q1\u201d (public)",
+      "reason": "Explicitly public filing; not MNPI."
+    },
+    {
+      "matched_text": "Harbour Times Online (1 Jun 2026) reported \u201cregional telco credential stuffing\u201d",
+      "reason": "Public news unrelated to issuer; not MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "EID sa m p l e AUR\u2011**47H9",
+      "concept": "employee_id",
+      "reason": "Looks like an obfuscated employee ID sample; unclear if it should be tagged as employee_id."
+    },
+    {
+      "matched_text": "INC\u2011202605\u2011017",
+      "concept": "internal_ticket_id",
+      "reason": "Appears to be an internal incident ticket; not clearly covered by allowed rules."
+    },
+    {
+      "matched_text": "AT\u2011C I R T\u20112 0 2 6 / 05\u20110 1 7",
+      "concept": "internal_case_reference",
+      "reason": "Internal case/reference number; may fall under internal_session_id but not explicit."
+    },
+    {
+      "matched_text": "DP\u20112 0 2 6\u201105\u2011AT\u2011017",
+      "concept": "internal_breach_log_id",
+      "reason": "Breach log reference; internal tracking ID not clearly mapped to a current rule."
+    },
+    {
+      "matched_text": "obfuscated test Acct 9xx\u201177\u2011123",
+      "concept": "bank_account",
+      "reason": "Resembles an account number but obfuscated and labeled as test."
+    },
+    {
+      "matched_text": "hash trace 89a4:2f...e f",
+      "concept": "device_identifier/hash",
+      "reason": "Cryptographic/hash-like value; potentially sensitive but not in allowed categories."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

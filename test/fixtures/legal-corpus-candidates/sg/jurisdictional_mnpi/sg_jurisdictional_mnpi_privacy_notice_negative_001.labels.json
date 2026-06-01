@@ -3,13 +3,135 @@
   "document_type": "generic",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@orchidbridgelaw.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "a trading blackout window applies from 01\u201314 Jul 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not-yet-announced 1H2026 results"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "prohibit selective disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers (PDPA Transfer Limitation): where processors in Malaysia or the Philippines are engaged, we use contract terms ensuring comparable protection and conduct transfer impact assessments"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we will verify identity using reference tokens (not full NRIC)"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@orchidbridgelaw.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "a trading blackout window applies from 01\u201314 Jul 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not-yet-announced 1H2026 results"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "prohibit selective disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers (PDPA Transfer Limitation): where processors in Malaysia or the Philippines are engaged, we use contract terms ensuring comparable protection and conduct transfer impact assessments"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we will verify identity using reference tokens (not full NRIC)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "MNPI and PD are segregated by matter"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "issuer-relative materiality assessments under Listing Rule 703"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "we never announce on behalf of issuers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Internal notice to staff with access to Helios Straits Holdings Ltd files"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "Account: 1234-XYZ-567"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "HXH/2023/PR-000",
+      "reason": "Stale public SGXNet reference; not MNPI"
+    },
+    {
+      "matched_text": "CAT/2022/ANN-XYZ",
+      "reason": "Stale public SGXNet reference; not MNPI"
+    },
+    {
+      "matched_text": "02 Mar 2024",
+      "reason": "Public announcement date; not MNPI"
+    },
+    {
+      "matched_text": "14 Sep 2023",
+      "reason": "Public announcement date; not MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: capital-markets and M&A files are retained for 6 years from matter close (aligned with Limitation Act) unless a legal hold applies; recruitment records are purged after 12 months",
+      "concept": "retention_policy_marker",
+      "reason": "Retention is a privacy-event marker but there is no explicit allowed rule token for retention in the provided list."
+    },
+    {
+      "matched_text": "respond within 30 days per PDPA",
+      "concept": "dsar_timeline_marker",
+      "reason": "DSAR response timelines are legally relevant but not clearly mapped to an allowed rule token."
+    },
+    {
+      "matched_text": "breach notifications will be made to PDPC and affected individuals when required",
+      "concept": "breach_notification_policy_marker",
+      "reason": "Breach notification policy is legally relevant but not enumerated as an allowed rule token."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

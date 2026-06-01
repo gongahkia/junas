@@ -3,13 +3,252 @@
   "document_type": "generic",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lcmh.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "l.ortega@seagrove.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpa@lcmh.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Devi Nair"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Quek"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jun Wei Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. L. Ortega"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer approval: yes \u2014 limited HR and vendor contact files exported to counsel in Kowloon and servers in eu\u2011west\u20111"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lcmh.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "l.ortega@seagrove.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpa@lcmh.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy   @ bayfrontlex.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Devi Nair"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Quek"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jun Wei Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. L. Ortega"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer approval: yes \u2014 limited HR and vendor contact files exported to counsel in Kowloon and servers in eu\u2011west\u20111"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only initials and last 2 digits of phone numbers kept"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no new collection will occur for ex\u2011employees beyond statutory need"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6 0 0 0 0 0 0"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "0 9 9 9 9 9"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean\u2011team access enforced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "only Bayfront Lex LLP and Orchid Quay Capital Advisors (internal) may view non\u2011public revenue ranges"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MNPI",
+      "reason": "Negated statement; should not be treated as MNPI presence."
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated Material Adverse Change; do not flag as MAC."
+    },
+    {
+      "matched_text": "no insider dealing risk",
+      "reason": "Explicit negation; not an insider risk signal."
+    },
+    {
+      "matched_text": "device MAC addresses",
+      "reason": "Policy-only negation; not collecting these identifiers."
+    },
+    {
+      "matched_text": "9c:a1:\u2022\u2022:3e",
+      "reason": "Explicitly noted as not a device MAC address."
+    },
+    {
+      "matched_text": "NRIC:SxxxxxxxA",
+      "reason": "Placeholder example; not a real NRIC/FIN."
+    },
+    {
+      "matched_text": "S\u2011*******A",
+      "reason": "Masked token; not a real NRIC/FIN."
+    },
+    {
+      "matched_text": "T\u2011XXX\u2011XXXXZ",
+      "reason": "Masked token; not a real NRIC/FIN."
+    },
+    {
+      "matched_text": "export will not proceed",
+      "reason": "Blocked transfer; not a live cross-border transfer event."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "REQ\u20114f3a\u2011009",
+      "concept": "internal reference ID",
+      "reason": "Could be an internal request/session identifier associated with a DSAR but not covered by a specific allowed PII rule."
+    },
+    {
+      "matched_text": "XFR\u20112O26\u2011B7",
+      "concept": "internal transfer request ID",
+      "reason": "Internal exception/transfer reference; may be PII in context but no explicit rule for such IDs."
+    },
+    {
+      "matched_text": "ONB\u20112O26\u2011SEA\u2011**37**",
+      "concept": "onboarding form reference",
+      "reason": "Internal reference tied to consent records; not clearly mapped to a listed PII rule."
+    },
+    {
+      "matched_text": "https://portal.lcmh.example/dsar?id=REQ-4f3a-009",
+      "concept": "DSAR portal URL with request ID",
+      "reason": "URL contains an internal identifier that may link to an individual; not directly covered by listed PII rules."
+    },
+    {
+      "matched_text": "38 Pelican Quay, #22\u201101, Lion Harbour, Singapore 0 9 9 9 9 9",
+      "concept": "postal address (full)",
+      "reason": "Full SG address is personal data, but the allowed rule only targets the 6\u2011digit postal code and spacing hinders strict detection."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'DSAR' text='Data Subject Access Request DSAR'",
+    "drop must_detect: invalid rule 'erasure' text='Erasure:'",
+    "drop must_detect: invalid rule 'retention' text='Retention:'",
+    "drop ideal_must_detect: invalid rule 'DSAR' text='Data Subject Access Request DSAR'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='Erasure:'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Retention:'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

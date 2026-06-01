@@ -3,13 +3,193 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@asterline.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@orionacq.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed-window policy"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@asterline.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@orionacq.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed-window policy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of a controlling interest"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "scheme of arrangement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "share purchase agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no LCXNet announcement has yet been made"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "two weeks before quarterly results"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "one month before full-year results"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure outside of LCXNet announcements"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "No personal data other than business contact information will be shared pre-signing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "aggregated or pseudonymised"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Offeror",
+      "reason": "Defined role term; not PII/MNPI content on its own"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined role term; not PII/MNPI content on its own"
+    },
+    {
+      "matched_text": "press release dated 03 Mar 2024",
+      "reason": "Public information; not MNPI"
+    },
+    {
+      "matched_text": "LCXNet notices dated 12 Jun 2023",
+      "reason": "Stale public disclosures; not MNPI"
+    },
+    {
+      "matched_text": "ZZ0000000000",
+      "reason": "Placeholder ISIN; out of scope for listed rules"
+    },
+    {
+      "matched_text": "LCX-000000-XYZ",
+      "reason": "Placeholder announcement ID; out of scope for listed rules"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "LCX-SG: AHL0",
+      "concept": "exchange counter code",
+      "reason": "Looks like a Singapore exchange ticker but not SGX; unclear if covered by sg_sgx_counter rule"
+    },
+    {
+      "matched_text": "LCX-SG: NVX0",
+      "concept": "exchange counter code",
+      "reason": "Looks like a Singapore exchange ticker but not SGX; unclear if covered by sg_sgx_counter rule"
+    },
+    {
+      "matched_text": "LCX Listing Manual Rule 703-SG",
+      "concept": "disclosure rule reference",
+      "reason": "Relevant to disclosure timing for material information but no explicit rule to tag such references"
+    },
+    {
+      "matched_text": "Personal Data Protection Act (Singapore)",
+      "concept": "PDPA compliance reference",
+      "reason": "Legal basis mention; not a specific privacy-event marker under allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,195 @@
   "document_type": "memo",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer under DPA Schedule 2"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collect only last 4 bank ac c o u nt digits"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "withhold NRIC scans"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Liyana Teo"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. K. Rahman"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Felicia Ong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Darryl Chua"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@riverton.example.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Seadrift"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer under DPA Schedule 2"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collect only last 4 bank ac c o u nt digits"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "withhold NRIC scans"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Liyana Teo"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. K. Rahman"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Felicia Ong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Darryl Chua"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@riverton.example.sg"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Seadrift"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "address fields were tokenised"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "payroll bank details were redacted"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "BayCrescent Solutions Pte. Ltd.\u2019s Chennai support node"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "we segregated workspaces"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company Secretary",
+      "reason": "Role noun/organizational title, not a personal name under named_person rule"
+    },
+    {
+      "matched_text": "no MAC was triggered",
+      "reason": "Negated Material Adverse Change; do not label as material_adverse_change"
+    },
+    {
+      "matched_text": "no cross-border transfers occurred thereafter",
+      "reason": "Negated transfer; not a live cross-border transfer marker"
+    },
+    {
+      "matched_text": "external counsel",
+      "reason": "Generic role title, not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "a DSAR",
+      "concept": "dsar_marker",
+      "reason": "DSAR is a privacy handling event under PDPA but no explicit allowed rule name for DSAR in this taxonomy"
+    },
+    {
+      "matched_text": "Erasure of duplicate files was completed at 14:22 SGT on 29 May",
+      "concept": "erasure_marker",
+      "reason": "Erasure/deletion event relevant to PDPA but no explicit erasure rule is listed"
+    },
+    {
+      "matched_text": "retention for recruitment records reduced from 24 to 12 months effective 1 June",
+      "concept": "retention_marker",
+      "reason": "Retention schedule change is a privacy event but retention marker not in allowed rules"
+    },
+    {
+      "matched_text": "confirmed downstream deletion by the vendor",
+      "concept": "erasure_marker",
+      "reason": "Downstream deletion confirmation is privacy-relevant but not covered by an allowed rule"
+    },
+    {
+      "matched_text": "DR-0088",
+      "concept": "dsar_reference_number",
+      "reason": "Internal DSAR reference linked to an individual; potentially personal data but not covered by allowed rules"
+    },
+    {
+      "matched_text": "INC-2 9 7 5-SG",
+      "concept": "internal_ticket_id",
+      "reason": "Internal incident/ticket identifier; may relate to an individual but lacks a matching allowed rule"
+    },
+    {
+      "matched_text": "EX-2026-014",
+      "concept": "internal_approval_id",
+      "reason": "Internal approval identifier; workflow metadata not covered by allowed rules"
+    },
+    {
+      "matched_text": "jira://RIV-OPS/PRJ-7O0l",
+      "concept": "internal_system_locator",
+      "reason": "Internal helpdesk locator that could indirectly map to a person but has no matching allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

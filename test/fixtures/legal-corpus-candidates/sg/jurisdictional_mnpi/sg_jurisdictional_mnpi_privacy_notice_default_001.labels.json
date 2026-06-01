@@ -3,13 +3,209 @@
   "document_type": "generic",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harbourfinch.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@harbourfinch.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rina Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Tham"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Before any overseas transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "access on a need-to-know basis"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be selectively disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "During blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harbourfinch.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@harbourfinch.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rina Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Tham"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Before any overseas transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "offshore review centre in Johur Bay"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "access on a need-to-know basis"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "a proposed acquisition of Bright Reef Robotics Pte. Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "draft terms of a convertible note offering"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "unannounced changes to dividend policy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be selectively disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "During blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "internal blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "MNPI segregated and subject to stricter access controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring-fenced in a restricted folder"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "If confidentiality cannot be maintained or a leak is suspected"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SCX",
+      "reason": "Defined acronym/reference, not a PII or MNPI span"
+    },
+    {
+      "matched_text": "SCXNet",
+      "reason": "Defined system name/acronym, not a PII or MNPI span"
+    },
+    {
+      "matched_text": "PDPA",
+      "reason": "Statutory acronym, not PII/MNPI data"
+    },
+    {
+      "matched_text": "SFA",
+      "reason": "Statutory acronym, not PII/MNPI data"
+    },
+    {
+      "matched_text": "MNPI",
+      "reason": "Concept/acronym reference, not a concrete MNPI data point"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "we retain case files for 6 years from matter close",
+      "concept": "retention_marker",
+      "reason": "Data retention duration is legally relevant under PDPA but no explicit allowed rule exists for retention markers"
+    },
+    {
+      "matched_text": "Individuals may submit a data access or correction request",
+      "concept": "DSAR marker",
+      "reason": "PDPA access/correction request is a DSAR-type right but not clearly mapped to an allowed rule"
+    },
+    {
+      "matched_text": "relying on consent or deemed consent by contractual necessity where applicable",
+      "concept": "consent legal basis",
+      "reason": "Consent/deemed consent basis is relevant but allowed rules only include consent_withdrawal_marker"
+    },
+    {
+      "matched_text": "pre-cleared personnel",
+      "concept": "insider access control",
+      "reason": "Indicates insider-only handling but not a clear match to insider_list_marker"
+    },
+    {
+      "matched_text": "trading halt",
+      "concept": "listing action for MNPI management",
+      "reason": "Material exchange action tied to MNPI handling but no specific allowed rule for trading halts"
+    },
+    {
+      "matched_text": "SCXN-2026-0154",
+      "concept": "exchange filing reference",
+      "reason": "Legally relevant identifier for a public filing but no allowed rule covers exchange filing numbers"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

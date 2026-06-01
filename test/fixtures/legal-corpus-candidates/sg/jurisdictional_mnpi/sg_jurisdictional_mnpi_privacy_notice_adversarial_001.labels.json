@@ -3,13 +3,271 @@
   "document_type": "generic",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aisha Rahim"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@meridianharbour.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6 8 8 8 1 2 3 4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Peridot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may reasonably be expected to materially affect the price or value"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "14-day blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "30-day blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed period"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Overseas transfers (PDPA s.26)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we will not collect full NRIC numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "they must be masked"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lionel Chua"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lionel.chua@northbankslaw.sg"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aisha Rahim"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@meridianharbour.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6 8 8 8 1 2 3 4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Peridot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may reasonably be expected to materially affect the price or value"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "14-day blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "30-day blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed period"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Overseas transfers (PDPA s.26)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we will not collect full NRIC numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "they must be masked"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lionel Chua"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lionel.chua@northbankslaw.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "0 1 8 9 8 8"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Aurora Quays Pte. Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Listing Rule 703 requires immediate announcement via S G X - N E T"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restricted to named team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not paste MNPI into public Teams channels or ticketing tools"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "P S L - 2 3 - 7 7"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "when in possession of MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAC expected for FY2026",
+      "reason": "Negated MAC; excluded from material_adverse_change by rule 8."
+    },
+    {
+      "matched_text": "no profit guidance",
+      "reason": "Explicit non-MNPI example per document."
+    },
+    {
+      "matched_text": "canteen refurbishment scheduling",
+      "reason": "Operational update; explicitly non-MNPI."
+    },
+    {
+      "matched_text": "toner purchases",
+      "reason": "Operational update; explicitly non-MNPI."
+    },
+    {
+      "matched_text": "vendor onboarding for Meridian CloudDesk v2.1",
+      "reason": "Operational update; explicitly non-MNPI."
+    },
+    {
+      "matched_text": "logistics^app",
+      "reason": "Operational reference; explicitly non-MNPI."
+    },
+    {
+      "matched_text": "2019 Sustainability Report",
+      "reason": "Public-source reference; not MNPI."
+    },
+    {
+      "matched_text": "2024 Investor Day press release",
+      "reason": "Public-source reference; not MNPI."
+    },
+    {
+      "matched_text": "Annct ID: m h d g - 2 5 0 2 - 0 1 1",
+      "reason": "Public SGX announcement reference; not MNPI."
+    },
+    {
+      "matched_text": "Seabright Logistics (minor subsidiary)",
+      "reason": "Publicly announced item; not MNPI per example."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "retained 7 years from completion or abort (whichever later), then securely destroyed",
+      "concept": "retention_policy",
+      "reason": "Retention/secure destruction is a privacy control but no explicit retention_marker rule provided."
+    },
+    {
+      "matched_text": "employment files 6 years post-cessation",
+      "concept": "retention_policy",
+      "reason": "Employment data retention is relevant under PDPA but no explicit retention marker in allowed rules."
+    },
+    {
+      "matched_text": "within 3 calendar days after determining a notifiable data breach",
+      "concept": "breach_notification_timeline",
+      "reason": "PDPC notification timing is a privacy-event marker but not listed among allowed rules."
+    },
+    {
+      "matched_text": "we may defer until the information is generally available",
+      "concept": "dsar_deferral_for_mnpi",
+      "reason": "Deferral of access request due to market-sensitive drafts is relevant to non-public status but not covered by explicit marker names."
+    },
+    {
+      "matched_text": "we may request a trading halt",
+      "concept": "trading_halt_request",
+      "reason": "SGX trading halt is market-sensitive process control; not mapped to an allowed MNPI rule name."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop ideal_must_detect: invalid Singapore NRIC/FIN shape rule='sg_nric_fin' text='S9 9 0 0 0 1 2 A'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

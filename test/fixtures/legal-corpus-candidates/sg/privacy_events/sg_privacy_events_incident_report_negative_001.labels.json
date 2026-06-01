@@ -3,13 +3,132 @@
   "document_type": "memo",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@harborwell.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@harborwell.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimal mandatory fields"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked values at rest"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opt-out instructions"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "NRIC/FIN",
+      "reason": "Field label mention; no actual SG NRIC/FIN number present."
+    },
+    {
+      "matched_text": "ID-0000",
+      "reason": "Test placeholder identifier, not real PII."
+    },
+    {
+      "matched_text": "bank transfer",
+      "reason": "Generic phrase; not a bank account or transaction identifier."
+    },
+    {
+      "matched_text": "Phase 2 \u2013 diligence",
+      "reason": "Not a transaction codename pattern (Project <Name> required)."
+    },
+    {
+      "matched_text": "Harborwell Renewables Ltd",
+      "reason": "Company name; not a named person."
+    },
+    {
+      "matched_text": "SGX-ST listed",
+      "reason": "Exchange listing descriptor; not an SGX counter code."
+    },
+    {
+      "matched_text": "account suspension",
+      "reason": "Training phrase; not PII or MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "One DSAR was received during the outage window and was fulfilled on 15 May 2026",
+      "concept": "DSAR marker",
+      "reason": "DSAR handling event is legally relevant under PDPA but no explicit DSAR rule is in the allowed set."
+    },
+    {
+      "matched_text": "erasure of an outdated personal email tag",
+      "concept": "erasure marker",
+      "reason": "Erasure request fulfillment is relevant but there is no explicit erasure marker in the allowed rules."
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "retention marker",
+      "reason": "Retention handling is relevant but there is no explicit retention marker in the allowed rules."
+    },
+    {
+      "matched_text": "retain logs for 12 months",
+      "concept": "retention period",
+      "reason": "Specifies a retention duration; useful for compliance but not covered by an allowed rule."
+    },
+    {
+      "matched_text": "DEX-2026-014",
+      "concept": "data-export approval reference",
+      "reason": "Internal approval ID for cross-border data export; relevant but not mapped to any allowed rule."
+    },
+    {
+      "matched_text": "No MNPI under SFA/SGX rules was exposed",
+      "concept": "MNPI status",
+      "reason": "Addresses MNPI exposure in a negated way; not clearly covered by existing MNPI markers."
+    },
+    {
+      "matched_text": "pseudonymised payroll back-ups",
+      "concept": "pseudonymisation",
+      "reason": "Indicates protective technique in cross-border context; no specific allowed rule for pseudonymisation."
+    },
+    {
+      "matched_text": "segregated, read-only data room",
+      "concept": "information barrier",
+      "reason": "Implies barrier/segregation control relevant to MNPI handling but not an explicit allowed marker."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

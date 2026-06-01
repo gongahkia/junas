@@ -3,13 +3,260 @@
   "document_type": "memo",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@tamel.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@tamel.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "communications@tamel.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Seah"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Clara Toh"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may be expected to materially affect the price of the Company\u2019s securities"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window (15 July\u201330 July)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "unauthorised access to an external virtual data room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "external forensics engaged"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "the intrusion vector was a compromised advisor account"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "incident timeline"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective briefings to analysts or investors will be made"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "reduce the risk of selective disclosure during blackout windows"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@tamel.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@tamel.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "communications@tamel.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Seah"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Clara Toh"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may be expected to materially affect the price of the Company\u2019s securities"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window (15 July\u201330 July)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "unauthorised access to an external virtual data room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "external forensics engaged"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "the intrusion vector was a compromised advisor account"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "incident timeline"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective briefings to analysts or investors will be made"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "reduce the risk of selective disclosure during blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "share purchase agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of HarbourNova Robotics Pte. Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "planned dual-tranche SGD note issuance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal unaudited H1 FY2026 trading update"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed\u2011period access controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "board papers on the proposed acquisition"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor Day deck posted on SGXNET on 5 May 2026",
+      "reason": "Public filing reference; not MNPI"
+    },
+    {
+      "matched_text": "SGXNET announcement dated 3 March 2026",
+      "reason": "Public filing reference; not MNPI"
+    },
+    {
+      "matched_text": "press release on 12 January 2026",
+      "reason": "Public press release reference; not MNPI"
+    },
+    {
+      "matched_text": "the Port of Pasir Putih\u2019s planned crane maintenance outage on 19\u201321 July",
+      "reason": "Third-party operational update; not issuer MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "consistent with PDPA minimisation guidelines",
+      "concept": "data_minimisation_marker",
+      "reason": "References PDPA data minimisation, but phrased as a general control statement rather than a live processing event."
+    },
+    {
+      "matched_text": "closed\u2011period access controls",
+      "concept": "information barrier vs blackout control",
+      "reason": "Could be tagged as an information_barrier_marker or a blackout-period control; taxonomy alignment is ambiguous."
+    },
+    {
+      "matched_text": "board papers on the proposed acquisition",
+      "concept": "nonpublic board materials",
+      "reason": "Likely nonpublic and sensitive but lacks explicit \u2018non-public\u2019 wording; semantic inference required."
+    },
+    {
+      "matched_text": "draft offering circular",
+      "concept": "capital-markets pre-disclosure document",
+      "reason": "Pre-disclosure offering materials can be MNPI, but not covered by a specific allowed rule."
+    },
+    {
+      "matched_text": "planned dual-tranche SGD note issuance under our MTN Programme",
+      "concept": "financing plan MNPI",
+      "reason": "Material financing intent without amounts; sensitive but not matched to a numeric-trigger rule."
+    },
+    {
+      "matched_text": "internal unaudited H1 FY2026 trading update",
+      "concept": "nonpublic financial update",
+      "reason": "Implies nonpublic interim financial information, but relies on context rather than explicit \u2018non-public\u2019 phrasing here."
+    },
+    {
+      "matched_text": "trading halt",
+      "concept": "market control action",
+      "reason": "Potential request to SGX RegCo is sensitive context but not covered by an allowed MNPI rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

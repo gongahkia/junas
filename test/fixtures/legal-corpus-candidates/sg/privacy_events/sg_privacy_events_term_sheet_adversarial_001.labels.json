@@ -3,13 +3,162 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "priya.d@kelana-legal.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "a.koh@novaluxe.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Dhanalakshmi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer marker: documents will be mirrored to a VDR in Osaka via https://vdr.novaluxe.sg/xfer?id=fx9-12a, with transfer-limitation and equivalent-protection undertakings (PDPA s.26)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal mechanism (HR Form R\u201112) enabled and last used on 03\u2011Mar\u20112026"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retention/minimisation: government ID fields are replaced with hashed aliases and retained for 24 months post-termination"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$4.20"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "priya.d@kelana-legal.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "a.koh@novaluxe.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Dhanalakshmi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Koh"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer marker: documents will be mirrored to a VDR in Osaka via https://vdr.novaluxe.sg/xfer?id=fx9-12a, with transfer-limitation and equivalent-protection undertakings (PDPA s.26)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal mechanism (HR Form R\u201112) enabled and last used on 03\u2011Mar\u20112026"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retention/minimisation: government ID fields are replaced with hashed aliases and retained for 24 months post-termination"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "S$4.20"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "S$4.20 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "SGX-ST approval for delisting"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "no\u2011detriment withdrawal clause"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun defined term"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR log shows 1 request closed on 12\u2011Apr\u20112026",
+      "concept": "dsar_marker",
+      "reason": "DSAR handling is a key privacy workflow event but there is no explicit allowed rule for DSAR markers."
+    },
+    {
+      "matched_text": "Erasure marker: legacy marketing list back\u2011ups (list code \u201cC0\u2011g1\u201d) were irreversibly erased on 28\u2011Feb\u20112026",
+      "concept": "erasure_marker",
+      "reason": "Erasure events are privacy handling markers but there is no explicit allowed rule for erasure in the current list."
+    },
+    {
+      "matched_text": "retained for 24 months post-termination",
+      "concept": "retention_marker",
+      "reason": "Retention duration is a privacy handling signal but there is no explicit retention marker rule in the allowed list."
+    },
+    {
+      "matched_text": "Data\u2011export approvals: cross\u2011border assessment and intra\u2011group SCCs are countersigned (internal ticket \u201cXPT\u201107\u2011sg\u201d marked C O M P L E T E); no further export is scheduled pre\u2011Closing",
+      "concept": "cross_border_controls_completed",
+      "reason": "Completed cross-border approvals relate to transfer governance but are not a live transfer marker and not covered by an allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
