@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from scripts import autolabel_fixture, generate_legal_fixture
+from scripts.candidate_corpus_report import STAGE_A_DOCS, build_report, render_markdown
 from scripts.evaluate_candidate_corpus import _evaluate_one, _summary
 from scripts.fixture_taxonomy import JURISDICTIONS, MNPI_RULES, PII_RULES
 
@@ -134,6 +135,63 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         self.assertIn("candidate_precision", summary)
         self.assertIn("unexpected_triage", summary)
         self.assertEqual(summary["ideal_candidate_recall"], 0.6667)
+
+    def test_candidate_corpus_report_groups_stage_review_and_eval_by_jurisdiction(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            corpus = root / "candidates"
+            sg = corpus / "sg" / "direct_identifiers"
+            sg.mkdir(parents=True)
+            for idx in range(1, STAGE_A_DOCS + 1):
+                fixture = sg / f"sg_direct_identifiers_memo_default_{idx:03d}.txt"
+                fixture.write_text("Send S1234567D before announcement.\n", encoding="utf-8")
+                fixture.with_suffix(".labels.json").write_text(
+                    json.dumps(
+                        {
+                            "doc_id": fixture.stem,
+                            "document_type": "memo",
+                            "source_jurisdiction": "SG",
+                            "destination_jurisdiction": "SG",
+                            "_taxonomy_concept": "direct_identifiers",
+                            "_label_source": "azure:test-auto",
+                            "_label_model": "azure:test",
+                            "_human_review_status": "approved" if idx == 1 else "pending",
+                            "must_detect": [],
+                            "ideal_must_detect": [],
+                            "must_not_detect": [],
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+            eval_report = root / "eval.json"
+            eval_report.write_text(
+                json.dumps(
+                    {
+                        "documents": [
+                            {
+                                "source_jurisdiction": "SG",
+                                "matched": [{"rule": "sg_nric_fin", "matched_text": "S1234567D"}],
+                                "missed": [],
+                                "unexpected": [],
+                                "must_not_detect_violations": [],
+                                "ideal_matched": [{"rule": "sg_nric_fin", "matched_text": "S1234567D"}],
+                                "ideal_missed": [{"rule": "nonpublic_marker", "matched_text": "before announcement"}],
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            report = build_report(corpus, eval_reports=[eval_report])
+
+        sg_row = next(item for item in report["jurisdictions"] if item["jurisdiction"] == "SG")
+        self.assertEqual(sg_row["doc_count"], STAGE_A_DOCS)
+        self.assertEqual(sg_row["stage_by_doc_count"], "stage_a")
+        self.assertEqual(sg_row["review_status"]["approved"], 1)
+        self.assertEqual(sg_row["review_status"]["pending"], STAGE_A_DOCS - 1)
+        self.assertEqual(sg_row["evaluation"]["candidate_recall"], 1.0)
+        self.assertEqual(sg_row["evaluation"]["ideal_candidate_recall"], 0.5)
+        self.assertIn("| SG |", render_markdown(report))
 
 
 if __name__ == "__main__":
