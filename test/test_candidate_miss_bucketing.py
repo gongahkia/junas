@@ -144,6 +144,9 @@ class CandidateMissBucketingTests(unittest.TestCase):
         self.assertEqual(payload["summary"]["by_detector_family"]["direct_identifier"], 2)
         self.assertEqual(payload["cells"][0]["miss_count"], 2)
         self.assertEqual(len(payload["cells"][0]["examples"]), 1)
+        markdown = miss_concentration.render_markdown(payload)
+        self.assertIn("# Miss Concentration", markdown)
+        self.assertIn("| direct_identifier | SG | coverage_gap | 2 |", markdown)
 
 
 class LayerAttributionRunnerTests(unittest.TestCase):

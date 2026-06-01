@@ -88,10 +88,61 @@ def concentration_report(bucket_report: dict[str, Any], *, examples_per_cell: in
     }
 
 
+def _format_counter(counter: dict[str, Any], *, limit: int = 10) -> str:
+    items = sorted(counter.items(), key=lambda item: (-int(item[1]), item[0]))[:limit]
+    return ", ".join(f"{key}: {value}" for key, value in items)
+
+
+def render_markdown(payload: dict[str, Any], *, max_cells: int = 20) -> str:
+    summary = payload.get("summary", {})
+    lines = [
+        "# Miss Concentration",
+        "",
+        "This is a heuristic ideal-miss concentration report. Inspect examples before prioritising detector work.",
+        "Raw jurisdiction counts reflect fixture volume; compare jurisdictions only at like-for-like stage sizes.",
+        "",
+        "## Summary",
+        "",
+        f"- Review profile: {payload.get('source_review_profile', 'unknown')}",
+        f"- Miss count: {summary.get('miss_count', 0)}",
+        f"- Buckets: {_format_counter(summary.get('by_bucket', {}))}",
+        f"- Detector families: {_format_counter(summary.get('by_detector_family', {}))}",
+        f"- Jurisdictions: {_format_counter(summary.get('by_jurisdiction', {}))}",
+        "",
+        "## Top Cells",
+        "",
+        "| Detector family | Jurisdiction | Bucket | Misses | Top rules | Example |",
+        "|---|---|---|---:|---|---|",
+    ]
+    for cell in payload.get("cells", [])[:max_cells]:
+        rules = _format_counter(cell.get("rules", {}), limit=4)
+        examples = cell.get("examples", [])
+        example = ""
+        if examples:
+            first = examples[0]
+            matched = str(first.get("matched_text") or "").replace("|", "\\|")
+            if len(matched) > 80:
+                matched = matched[:77] + "..."
+            example = f"{first.get('path', '')}: `{matched}`"
+        lines.append(
+            "| {family} | {jurisdiction} | {bucket} | {misses} | {rules} | {example} |".format(
+                family=cell.get("detector_family", ""),
+                jurisdiction=cell.get("jurisdiction", ""),
+                bucket=cell.get("bucket", ""),
+                misses=cell.get("miss_count", 0),
+                rules=rules.replace("|", "\\|"),
+                example=example,
+            )
+        )
+    lines.append("")
+    return "\n".join(lines)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build ideal-miss concentration report from bucketed misses")
     parser.add_argument("--bucket-report", type=Path, required=True)
     parser.add_argument("--output", type=Path, help="Write concentration JSON")
+    parser.add_argument("--markdown-output", type=Path, help="Write Markdown report")
     parser.add_argument("--examples-per-cell", type=int, default=3)
     args = parser.parse_args(argv)
 
@@ -108,6 +159,11 @@ def main(argv: list[str] | None = None) -> int:
         print(f"wrote {output}")
     else:
         print(rendered, end="")
+    if args.markdown_output:
+        markdown_output = args.markdown_output if args.markdown_output.is_absolute() else REPO_ROOT / args.markdown_output
+        markdown_output.parent.mkdir(parents=True, exist_ok=True)
+        markdown_output.write_text(render_markdown(payload), encoding="utf-8")
+        print(f"wrote {markdown_output}")
     return 0
 
 
