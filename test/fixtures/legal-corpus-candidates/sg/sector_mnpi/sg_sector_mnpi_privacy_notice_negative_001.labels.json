@@ -3,13 +3,148 @@
   "document_type": "generic",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@ficusmeridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been announced on SGX"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "share placement"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@ficusmeridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been announced on SGX"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "share placement"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we do not collect NRIC/FIN unless strictly required by law"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We do not process biometric identifiers, precise geolocation, or private keys in these workflows"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "verification limited to company badge or work email domain"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list templates"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout approvals"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information-barrier attestations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Government ID (masked): XXXXX0000X",
+      "reason": "Masked illustrative placeholder; not an actual government ID/PII."
+    },
+    {
+      "matched_text": "Wallet alias (non-custodial): demo-abc123",
+      "reason": "Illustrative alias; not an actual crypto wallet address."
+    },
+    {
+      "matched_text": "Insider-list role: Legal/Finance",
+      "reason": "Illustrative training/template field; not a live insider list entry or identifiable person."
+    },
+    {
+      "matched_text": "tipping",
+      "reason": "Educational example in training context; not a live MNPI event."
+    },
+    {
+      "matched_text": "blackout",
+      "reason": "Educational example in training context; not a live MNPI event."
+    },
+    {
+      "matched_text": "information-barrier",
+      "reason": "Educational example in training context; not a live MNPI control/event."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR: Submit access/correction requests",
+      "concept": "dsar_marker",
+      "reason": "DSAR/rights-request marker is legally relevant but not explicitly listed among allowed PII rules."
+    },
+    {
+      "matched_text": "retained 2\u20133 years",
+      "concept": "retention_marker",
+      "reason": "Retention period is a privacy control but no explicit retention rule is in the allowed list."
+    },
+    {
+      "matched_text": "retained no less than 5 years",
+      "concept": "retention_marker",
+      "reason": "Retention period is a privacy control but no explicit retention rule is in the allowed list."
+    },
+    {
+      "matched_text": "legal operations have no access to production trading systems",
+      "concept": "information_barrier_practice",
+      "reason": "Implied information barrier/segregation control without using the explicit term; useful but not clearly covered by a listed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
