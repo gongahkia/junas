@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts import autolabel_fixture, generate_legal_fixture
+from scripts import autolabel_fixture, autolabel_qa_report, generate_legal_fixture
 from scripts.candidate_corpus_report import STAGE_A_DOCS, build_report, render_markdown
 from scripts.evaluate_candidate_corpus import _evaluate_one, _summary
 from scripts.fixture_taxonomy import JURISDICTIONS, MNPI_RULES, PII_RULES
@@ -192,6 +192,82 @@ class CandidateFixtureToolingTests(unittest.TestCase):
         self.assertEqual(sg_row["evaluation"]["candidate_recall"], 1.0)
         self.assertEqual(sg_row["evaluation"]["ideal_candidate_recall"], 0.5)
         self.assertIn("| SG |", render_markdown(report))
+
+    def test_autolabel_qa_report_buckets_warnings_and_eval_triage(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            corpus = root / "candidates"
+            corpus.mkdir()
+            fixture = corpus / "sample.txt"
+            fixture.write_text("Project Helios contact legal@example.sg.\n", encoding="utf-8")
+            fixture.with_suffix(".labels.json").write_text(
+                json.dumps(
+                    {
+                        "doc_id": "sample",
+                        "source_jurisdiction": "SG",
+                        "destination_jurisdiction": "SG",
+                        "document_type": "memo",
+                        "_label_source": "azure:test-auto",
+                        "_label_model": "azure:test",
+                        "_human_review_status": "pending",
+                        "_label_warnings": [
+                            "drop must_detect: invalid rule 'bad_rule' text='Project Helios'",
+                            "normalise mismatched category 'PII' to 'MNPI' for rule='transaction_codename'",
+                            "drop must_not_detect: valid Singapore NRIC/FIN should be must_detect text='S1234567D'",
+                        ],
+                        "must_detect": [],
+                        "ideal_must_detect": [],
+                        "must_not_detect": [],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            eval_report = root / "eval.json"
+            eval_report.write_text(
+                json.dumps(
+                    {
+                        "summary": {
+                            "doc_count": 1,
+                            "candidate_recall": 1.0,
+                            "candidate_precision": 0.5,
+                            "ideal_candidate_recall": 0.25,
+                            "missed": 0,
+                            "unexpected": 1,
+                            "must_not_detect_violations": 0,
+                            "unexpected_triage": {"ideal_only_statutory_gap": 1},
+                        },
+                        "documents": [
+                            {
+                                "doc_id": "sample",
+                                "path": "sample.txt",
+                                "missed": [],
+                                "unexpected": [{"rule": "transaction_codename", "matched_text": "Project Helios"}],
+                                "must_not_detect_violations": [],
+                                "unexpected_triage": [{"bucket": "ideal_only_statutory_gap"}],
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            bucket_report = root / "bucket.json"
+            bucket_report.write_text(
+                json.dumps({"summary": {"miss_count": 2, "by_bucket": {"coverage_gap": 2}}}),
+                encoding="utf-8",
+            )
+            report = autolabel_qa_report.build_report(
+                corpus,
+                eval_report=eval_report,
+                bucket_report=bucket_report,
+            )
+
+        self.assertEqual(report["labels"]["warning_count"], 3)
+        self.assertEqual(report["labels"]["warning_buckets"]["invalid_rule"], 1)
+        self.assertEqual(report["labels"]["warning_buckets"]["category_normalized"], 1)
+        self.assertEqual(report["labels"]["warning_buckets"]["must_not_conflicts_with_valid_sg_identifier"], 1)
+        self.assertEqual(report["evaluation"]["unexpected"], 1)
+        self.assertEqual(report["ideal_miss_buckets"]["by_bucket"]["coverage_gap"], 2)
+        self.assertIn("Auto-label QA Report", autolabel_qa_report.render_markdown(report))
 
 
 if __name__ == "__main__":
