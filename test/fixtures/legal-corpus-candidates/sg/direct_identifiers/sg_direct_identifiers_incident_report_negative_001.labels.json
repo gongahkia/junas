@@ -3,13 +3,183 @@
   "document_type": "memo",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "sg_nric_fin",
+      "matched_text": "S9812043I"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr-queries@lumisands.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lumisands.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@lumisands.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal-ops@harboursquarelaw.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "000000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "sg_nric_fin",
+      "matched_text": "S9812043I"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr-queries@lumisands.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lumisands.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@lumisands.com.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal-ops@harboursquarelaw.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "000000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "201912345X"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "201834567Q"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of BlueCedar Robotics Pte. Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011generally available information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "phishing attempt"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "unauthorised access"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Mobile: +65 6XXX XXXX",
+      "reason": "Placeholder/masked field; not an actual phone number or personal data."
+    },
+    {
+      "matched_text": "Bank A/c: 0XX-XXXX-XX",
+      "reason": "Placeholder/masked field; not an actual bank account number."
+    },
+    {
+      "matched_text": "Address: [Residential Address]",
+      "reason": "Placeholder; no actual address disclosed."
+    },
+    {
+      "matched_text": "1800-555-2828",
+      "reason": "Public helpline; not personal data."
+    },
+    {
+      "matched_text": "1800-555-9090",
+      "reason": "Public helpline; not personal data."
+    },
+    {
+      "matched_text": "1800-555-2020",
+      "reason": "Public helpline; not personal data."
+    },
+    {
+      "matched_text": "FORM: NRIC/FIN",
+      "reason": "Template title; no personal data."
+    },
+    {
+      "matched_text": "FORM: Emergency Contact",
+      "reason": "Template title; no personal data."
+    },
+    {
+      "matched_text": "FORM: Employee Banking Details (Sample)",
+      "reason": "Sample/template; no personal data."
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role-only term; not a named person."
+    },
+    {
+      "matched_text": "Group DPO",
+      "reason": "Role-only term; not a named person."
+    },
+    {
+      "matched_text": "Capital Markets Counsel",
+      "reason": "Role-only term; not a named person."
+    },
+    {
+      "matched_text": "Employment Counsel",
+      "reason": "Role-only term; not a named person."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "IRS-INC-000742",
+      "concept": "internal incident/ticket ID",
+      "reason": "Internal ticket identifier; potentially sensitive internal reference but no specific allowed rule covers it."
+    },
+    {
+      "matched_text": "LSR-OPS-2026-05-28-A",
+      "concept": "internal incident reference",
+      "reason": "Internal tracking identifier; may be sensitive but not clearly mapped to an allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop ideal_must_detect: invalid Singapore UEN shape rule='sg_uen' text='2020 123456 Z'"
+  ],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

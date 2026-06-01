@@ -3,13 +3,205 @@
   "document_type": "memo",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 8123 4567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "aaron.lim@harbourquay.com"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "E1234567Z"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aaron Lim"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "003-987654-1"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "567890"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Nair"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harbourquay.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6 223 4455"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 8123 4567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "aaron.lim@harbourquay.com"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "E1234567Z"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aaron Lim"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "003-987654-1"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "567890"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Nair"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harbourquay.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 6 223 4455"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally available"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "201912345A"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "202045678B"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of CoralStack Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may constitute MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "NRIC: S 1 2 3 4 5 6 7 A",
+      "reason": "Invalid/obfuscated NRIC with spaces and noted invalid checksum in text"
+    },
+    {
+      "matched_text": "1800 123 4567",
+      "reason": "Public helpline/general contact number"
+    },
+    {
+      "matched_text": "2 0 1 9 1 2 3 4 5 A",
+      "reason": "Obfuscated UEN with spaces; not a clean identifier"
+    },
+    {
+      "matched_text": "aar on.l im@ harb ourqu ay.com",
+      "reason": "Obfuscated email with spaces; not a valid email address"
+    },
+    {
+      "matched_text": "Finance Manager",
+      "reason": "Role-only reference, not a named individual"
+    },
+    {
+      "matched_text": "HR Manager",
+      "reason": "Role-only reference, not a named individual"
+    },
+    {
+      "matched_text": "NRIC: ______",
+      "reason": "Generic template placeholder, not an actual identifier"
+    },
+    {
+      "matched_text": "Account: 0000-0000-0000",
+      "reason": "Template placeholder, not a real account number"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated context; rule excludes negated MAC references"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "12 Meranti Crescent #08-02, Singapore 567890",
+      "concept": "full postal address",
+      "reason": "Full address is PII under PDPA but only the 6-digit postal code is covered by current rules"
+    },
+    {
+      "matched_text": "trading halt",
+      "concept": "market control/blackout",
+      "reason": "Potentially a market-sensitive control action; not explicitly mapped to allowed blackout/embargo markers"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

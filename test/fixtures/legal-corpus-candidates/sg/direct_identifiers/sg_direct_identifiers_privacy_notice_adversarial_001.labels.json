@@ -3,13 +3,225 @@
   "document_type": "generic",
   "source_jurisdiction": "SG",
   "destination_jurisdiction": "SG",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "201834567N"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "202145678R"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567A"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "E9876543Q"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lattice-meridian.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legalops@garnetpalm.law"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 8934 2210"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "032-1199-004"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "449933"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "900772"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Alina Chia"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation: redact address lines except for postal code"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer: to processors in JP and AU under comparable protection with SCC-equivalent clauses"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "MNPI, if any, must be quarantined; do not email MNPI; upload to vault at https://vault.lattice-meridian.sg/share?deal=ProjectTamarind&uen=201834567N"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "For DSARs under the PDPA"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "201834567N"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_uen",
+      "matched_text": "202145678R"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_nric_fin",
+      "matched_text": "S1234567A"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "E9876543Q"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lattice-meridian.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legalops@garnetpalm.law"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+65 8934 2210"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "032-1199-004"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "449933"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "900772"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Alina Chia"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation: redact address lines except for postal code"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer: to processors in JP and AU under comparable protection with SCC-equivalent clauses"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "MNPI, if any, must be quarantined; do not email MNPI; upload to vault at https://vault.lattice-meridian.sg/share?deal=ProjectTamarind&uen=201834567N"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "For DSARs under the PDPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "ProjectTamarind"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "MNPI, if any"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "disclosure to the Exchange is coordinated to avoid premature release"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1800-000-0000",
+      "reason": "Public helpline explicitly stated as non-PII"
+    },
+    {
+      "matched_text": "careers@lattice-meridian.sg",
+      "reason": "Public contact email explicitly stated as non-PII"
+    },
+    {
+      "matched_text": "Name:________",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "NRIC:________",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "HR Manager",
+      "reason": "Role-only contact, not an identifiable individual"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role/defined term, not a person or identifier"
+    },
+    {
+      "matched_text": "SXX-ST",
+      "reason": "Fictional exchange code; not an SGX counter identifier"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "N R I C   S 1 2 3 4 5 6 7 A",
+      "concept": "Obfuscated NRIC/FIN example",
+      "reason": "Spaced-out formatting and noted invalid checksum; likely NRIC format but not caught by strict local-ID regex"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop ideal_must_detect: invalid Singapore UEN shape rule='sg_uen' text='U E N=2 0 1 9 1 2 3 4 0 X'",
+    "drop ideal_must_detect: invalid Singapore UEN shape rule='sg_uen' text='UEN-201834567N'"
+  ],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
