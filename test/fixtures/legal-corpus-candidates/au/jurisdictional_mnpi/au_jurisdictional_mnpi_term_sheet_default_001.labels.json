@@ -1,5 +1,5 @@
 {
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_source": "azure:gpt-5-2-auto",
@@ -10,8 +10,10 @@
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_pending_owner_review",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -91,17 +93,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non\u2011public, issuer\u2011material information reasonably expected to affect Quarrystone\u2019s securities",
+      "matched_text": "non‑public, issuer‑material information reasonably expected to affect Quarrystone’s securities",
       "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "no selective briefings\u2014any deck for Investor meetings must first be released on the ASX Platform",
+      "matched_text": "no selective briefings—any deck for Investor meetings must first be released on the ASX Platform",
       "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "matched_text": "wall\u2011crossing consents required for any additional potential investors",
+      "matched_text": "wall‑crossing consents required for any additional potential investors",
       "rule": "information_barrier_marker"
     },
     {
@@ -141,7 +143,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "closed periods under the Company\u2019s Securities Trading Policy",
+      "matched_text": "closed periods under the Company’s Securities Trading Policy",
       "rule": "blackout_period_reference"
     },
     {
@@ -166,12 +168,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Issuer\u2011relative materiality: Covenants and forecast thresholds are assessed against Quarrystone\u2019s current market capitalisation and liquidity profile; breach of minimum cash covenant (A$4.0m) is considered material for Listing Rule 3.1 purposes.",
+      "matched_text": "Issuer‑relative materiality: Covenants and forecast thresholds are assessed against Quarrystone’s current market capitalisation and liquidity profile; breach of minimum cash covenant (A$4.0m) is considered material for Listing Rule 3.1 purposes.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Events of default and remedies: Non\u2011payment (10 business day cure), insolvency, continuous disclosure breach not rectified within 5 business days, or delisting; upon EoD, Investor may require immediate redemption at 105% of outstanding principal plus accrued interest.",
+      "matched_text": "Events of default and remedies: Non‑payment (10 business day cure), insolvency, continuous disclosure breach not rectified within 5 business days, or delisting; upon EoD, Investor may require immediate redemption at 105% of outstanding principal plus accrued interest.",
       "rule": "material_event"
     },
     {
@@ -233,12 +235,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Issuer\u2011relative materiality: Covenants and forecast thresholds are assessed against Quarrystone\u2019s current market capitalisation and liquidity profile; breach of minimum cash covenant (A$4.0m) is considered material for Listing Rule 3.1 purposes.",
+      "matched_text": "Issuer‑relative materiality: Covenants and forecast thresholds are assessed against Quarrystone’s current market capitalisation and liquidity profile; breach of minimum cash covenant (A$4.0m) is considered material for Listing Rule 3.1 purposes.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Events of default and remedies: Non\u2011payment (10 business day cure), insolvency, continuous disclosure breach not rectified within 5 business days, or delisting; upon EoD, Investor may require immediate redemption at 105% of outstanding principal plus accrued interest.",
+      "matched_text": "Events of default and remedies: Non‑payment (10 business day cure), insolvency, continuous disclosure breach not rectified within 5 business days, or delisting; upon EoD, Investor may require immediate redemption at 105% of outstanding principal plus accrued interest.",
       "rule": "material_event"
     },
     {
@@ -321,16 +323,16 @@
       "reason": "Defined-term abbreviation; not PII or MNPI."
     },
     {
-      "matched_text": "\u201cQ3 Activities Report and Appendix 4C\u201d",
+      "matched_text": "“Q3 Activities Report and Appendix 4C”",
       "reason": "Public ASX filing already generally available; not MNPI per document."
     },
     {
-      "matched_text": "state industry council\u2019s generic media release on robotics tax incentives",
+      "matched_text": "state industry council’s generic media release on robotics tax incentives",
       "reason": "Non-issuer, generic media release; expressly not price-sensitive for the issuer."
     },
     {
-      "matched_text": "Operational note (non\u2011material)",
-      "reason": "Explicitly designated non\u2011material; not MNPI."
+      "matched_text": "Operational note (non‑material)",
+      "reason": "Explicitly designated non‑material; not MNPI."
     }
   ],
   "source_jurisdiction": "AU",
@@ -350,5 +352,34 @@
       "matched_text": "trading halt",
       "reason": "Market halt is a disclosure/embargo control; not one of the explicit embargo strings in allowed rules."
     }
-  ]
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
 }

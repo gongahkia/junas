@@ -1,5 +1,5 @@
 {
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_source": "azure:gpt-5-2-auto",
@@ -10,8 +10,10 @@
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_pending_owner_review",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
   },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -106,7 +108,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "would be expected to influence trading in our SBSX\u2011listed securities",
+      "matched_text": "would be expected to influence trading in our SBSX‑listed securities",
       "rule": "material_event"
     },
     {
@@ -116,12 +118,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "credential\u2011stuffing attack",
+      "matched_text": "credential‑stuffing attack",
       "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "matched_text": "no\u2011MAE clause",
+      "matched_text": "no‑MAE clause",
       "rule": "material_adverse_change"
     },
     {
@@ -136,7 +138,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Draft IR line (not for release before embargo): \u201coperations have normalised, no customer data affected, and we remain on track to deliver FY26 guidance.\u201d",
+      "matched_text": "Draft IR line (not for release before embargo): “operations have normalised, no customer data affected, and we remain on track to deliver FY26 guidance.”",
       "rule": "material_event"
     },
     {
@@ -193,7 +195,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Draft IR line (not for release before embargo): \u201coperations have normalised, no customer data affected, and we remain on track to deliver FY26 guidance.\u201d",
+      "matched_text": "Draft IR line (not for release before embargo): “operations have normalised, no customer data affected, and we remain on track to deliver FY26 guidance.”",
       "rule": "material_event"
     },
     {
@@ -264,7 +266,7 @@
   ],
   "must_not_detect": [
     {
-      "matched_text": "spa\u2011day vouchers",
+      "matched_text": "spa‑day vouchers",
       "reason": "False-positive bait; not a Share Purchase Agreement (SPA) reference."
     },
     {
@@ -284,5 +286,34 @@
       "matched_text": "trading halt request",
       "reason": "Compliance-sensitive action related to disclosure but not mapped to a specific allowed MNPI rule."
     }
-  ]
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
 }

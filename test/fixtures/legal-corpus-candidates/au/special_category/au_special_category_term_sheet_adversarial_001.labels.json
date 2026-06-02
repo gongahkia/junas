@@ -1,5 +1,5 @@
 {
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_source": "azure:gpt-5-2-auto",
@@ -10,8 +10,10 @@
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_pending_owner_review",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
   },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -31,7 +33,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "n.kato@mirrabooka\u2011bio.com.au",
+      "matched_text": "n.kato@mirrabooka‑bio.com.au",
       "rule": "email_address"
     },
     {
@@ -46,12 +48,12 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Bryn O\u2019Keefe",
+      "matched_text": "Mr. Bryn O’Keefe",
       "rule": "named_person"
     },
     {
       "category": "PII",
-      "matched_text": "Mr. O\u2019Keefe",
+      "matched_text": "Mr. O’Keefe",
       "rule": "named_person"
     },
     {
@@ -81,7 +83,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Bryn O\u2019Keefe\u2019s biometric access template (fingerprint hash: F1\u2011A9\u2022\u2022\u20113C)",
+      "matched_text": "Mr. Bryn O’Keefe’s biometric access template (fingerprint hash: F1‑A9••‑3C)",
       "rule": "biometric_identifier"
     },
     {
@@ -106,17 +108,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "her minor child\u2019s school details",
+      "matched_text": "her minor child’s school details",
       "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "matched_text": "acct XX\u2022\u2022\u2011\u2022\u202221",
+      "matched_text": "acct XX••‑••21",
       "rule": "bank_account"
     },
     {
       "category": "PII",
-      "matched_text": "BSB 0\u20225\u20113\u20221",
+      "matched_text": "BSB 0•5‑3•1",
       "rule": "bank_account"
     },
     {
@@ -166,7 +168,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "her minor child\u2019s school details will be redacted from personnel files",
+      "matched_text": "her minor child’s school details will be redacted from personnel files",
       "rule": "data_minimisation_marker"
     },
     {
@@ -206,12 +208,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Confidential, Non\u2011Binding Term Sheet \u2014 Proposed acquisition of Wattle River Robotics Pty Ltd by Mirrabooka Bio Devices Ltd (ASX in t e n d e d).",
+      "matched_text": "Confidential, Non‑Binding Term Sheet — Proposed acquisition of Wattle River Robotics Pty Ltd by Mirrabooka Bio Devices Ltd (ASX in t e n d e d).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Break fee: A$750,000 payable only upon breach of exclusivity; not triggered by board fiduciary duty; payment details: acct XX\u2022\u2022\u2011\u2022\u202221, BSB 0\u20225\u20113\u20221 (obfuscated).",
+      "matched_text": "Break fee: A$750,000 payable only upon breach of exclusivity; not triggered by board fiduciary duty; payment details: acct XX••‑••21, BSB 0•5‑3•1 (obfuscated).",
       "rule": "material_event"
     },
     {
@@ -298,12 +300,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Confidential, Non\u2011Binding Term Sheet \u2014 Proposed acquisition of Wattle River Robotics Pty Ltd by Mirrabooka Bio Devices Ltd (ASX in t e n d e d).",
+      "matched_text": "Confidential, Non‑Binding Term Sheet — Proposed acquisition of Wattle River Robotics Pty Ltd by Mirrabooka Bio Devices Ltd (ASX in t e n d e d).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Break fee: A$750,000 payable only upon breach of exclusivity; not triggered by board fiduciary duty; payment details: acct XX\u2022\u2022\u2011\u2022\u202221, BSB 0\u20225\u20113\u20221 (obfuscated).",
+      "matched_text": "Break fee: A$750,000 payable only upon breach of exclusivity; not triggered by board fiduciary duty; payment details: acct XX••‑••21, BSB 0•5‑3•1 (obfuscated).",
       "rule": "material_event"
     },
     {
@@ -389,5 +391,34 @@
       "matched_text": "t=9g%2F1",
       "reason": "Query parameter may be a tracking/session token but is not clearly identified as such."
     }
-  ]
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
 }

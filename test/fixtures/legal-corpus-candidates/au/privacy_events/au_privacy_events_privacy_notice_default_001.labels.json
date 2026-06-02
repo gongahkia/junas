@@ -1,5 +1,5 @@
 {
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_source": "azure:gpt-5-2-auto",
@@ -10,8 +10,10 @@
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_pending_owner_review",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
   },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -21,7 +23,7 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "matched_text": "Cross\u2011border transfer",
+      "matched_text": "Cross‑border transfer",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -66,7 +68,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "not\u2011generally\u2011available",
+      "matched_text": "not‑generally‑available",
       "rule": "nonpublic_marker"
     },
     {
@@ -81,7 +83,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "transaction\u2011related materials shared with processors exclude any not\u2011generally\u2011available price\u2011sensitive details",
+      "matched_text": "transaction‑related materials shared with processors exclude any not‑generally‑available price‑sensitive details",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -184,7 +186,7 @@
     },
     {
       "matched_text": "health information",
-      "reason": "Generic policy reference without any individual\u2019s health condition"
+      "reason": "Generic policy reference without any individual’s health condition"
     }
   ],
   "source_jurisdiction": "AU",
@@ -210,24 +212,53 @@
       "reason": "Governance/audit marker for retention controls; lacks an allowed rule"
     },
     {
-      "concept": "data\u2011export approval id",
-      "matched_text": "AU\u2011DEX\u20112026\u2011014",
-      "reason": "Internal approval identifier for cross\u2011border governance; no dedicated rule to capture such IDs"
+      "concept": "data‑export approval id",
+      "matched_text": "AU‑DEX‑2026‑014",
+      "reason": "Internal approval identifier for cross‑border governance; no dedicated rule to capture such IDs"
     },
     {
       "concept": "sensitive assessment data",
       "matched_text": "psychometric reports",
-      "reason": "Potentially sensitive personal data but not clearly mapped to existing special\u2011category rules"
+      "reason": "Potentially sensitive personal data but not clearly mapped to existing special‑category rules"
     },
     {
       "concept": "health data class reference",
-      "matched_text": "site\u2011access declarations",
-      "reason": "General reference to health/site access information without individual context; not covered by anchored special\u2011category rules"
+      "matched_text": "site‑access declarations",
+      "reason": "General reference to health/site access information without individual context; not covered by anchored special‑category rules"
     },
     {
       "concept": "health data class reference",
       "matched_text": "site health declarations",
-      "reason": "General reference to health\u2011related declarations rather than specific individual health conditions"
+      "reason": "General reference to health‑related declarations rather than specific individual health conditions"
     }
-  ]
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
 }

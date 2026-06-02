@@ -19,12 +19,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "notes": "Project owner approval remains internal/project benchmark approval based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-    "reviewed_at_utc": "2026-05-29T07:04:53Z",
-    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
     "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-    "reviewer": "gongahkia-project-owner-chat-approval",
-    "status": "approved"
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion."
   },
   "_human_review_history": [
     {
@@ -35,6 +36,16 @@
       "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewer": "gongahkia-project-owner-chat-approval",
       "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "scope": "MY Stage B candidate labels only; no recall-lock promotion."
     }
   ],
   "_human_review_status": "approved",
@@ -338,5 +349,12 @@
       "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'",
       "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
     ]
+  },
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the MY Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
   }
 }

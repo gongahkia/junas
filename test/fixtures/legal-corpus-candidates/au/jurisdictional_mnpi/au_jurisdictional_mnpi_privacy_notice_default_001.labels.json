@@ -1,5 +1,5 @@
 {
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_source": "azure:gpt-5-2-auto",
@@ -10,8 +10,10 @@
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_pending_owner_review",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -51,7 +53,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "\u201cnot generally available\u201d",
+      "matched_text": "“not generally available”",
       "rule": "nonpublic_marker"
     },
     {
@@ -156,7 +158,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Processor will treat any non-public information expected to have a material effect on the price or value of Karrinup BioDevices Ltd\u2019s quoted products as market sensitive and \u201cnot generally available\u201d within the meaning of the Corporations Act (Cth), including project codenames (e.g., Project Kestrel), unannounced earnings ranges, or terms of a pending placement.",
+      "matched_text": "Processor will treat any non-public information expected to have a material effect on the price or value of Karrinup BioDevices Ltd’s quoted products as market sensitive and “not generally available” within the meaning of the Corporations Act (Cth), including project codenames (e.g., Project Kestrel), unannounced earnings ranges, or terms of a pending placement.",
       "rule": "material_event"
     },
     {
@@ -178,7 +180,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Processor will treat any non-public information expected to have a material effect on the price or value of Karrinup BioDevices Ltd\u2019s quoted products as market sensitive and \u201cnot generally available\u201d within the meaning of the Corporations Act (Cth), including project codenames (e.g., Project Kestrel), unannounced earnings ranges, or terms of a pending placement.",
+      "matched_text": "Processor will treat any non-public information expected to have a material effect on the price or value of Karrinup BioDevices Ltd’s quoted products as market sensitive and “not generally available” within the meaning of the Corporations Act (Cth), including project codenames (e.g., Project Kestrel), unannounced earnings ranges, or terms of a pending placement.",
       "rule": "material_event"
     },
     {
@@ -287,5 +289,34 @@
       "matched_text": "OAIC notification",
       "reason": "Regulatory breach notification is privacy-relevant but not an allowed rule label"
     }
-  ]
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
 }

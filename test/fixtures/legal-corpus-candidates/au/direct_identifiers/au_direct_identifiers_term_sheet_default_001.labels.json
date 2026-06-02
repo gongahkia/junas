@@ -1,5 +1,5 @@
 {
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_source": "azure:gpt-5-2-auto",
@@ -10,8 +10,10 @@
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_pending_owner_review",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
   },
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -96,7 +98,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "no health records collected pre\u2011completion",
+      "matched_text": "no health records collected pre‑completion",
       "rule": "data_minimisation_marker"
     },
     {
@@ -131,7 +133,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "could be material to ASX\u2011quoted products",
+      "matched_text": "could be material to ASX‑quoted products",
       "rule": "contingent_mnpi_language"
     },
     {
@@ -186,12 +188,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Confidential Term Sheet \u2014 Proposed acquisition of Murrawin Minerals Pty Ltd by Quokka Ridge Holdings Limited (non-binding save for confidentiality, exclusivity, and costs).",
+      "matched_text": "Confidential Term Sheet — Proposed acquisition of Murrawin Minerals Pty Ltd by Quokka Ridge Holdings Limited (non-binding save for confidentiality, exclusivity, and costs).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Miscellaneous: Exclusivity 45 days; this term sheet does not constitute a binding offer to acquire; completion subject to due diligence, any ASX waiver, and execution of long\u2011form documents.",
+      "matched_text": "Miscellaneous: Exclusivity 45 days; this term sheet does not constitute a binding offer to acquire; completion subject to due diligence, any ASX waiver, and execution of long‑form documents.",
       "rule": "material_event"
     },
     {
@@ -268,12 +270,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Confidential Term Sheet \u2014 Proposed acquisition of Murrawin Minerals Pty Ltd by Quokka Ridge Holdings Limited (non-binding save for confidentiality, exclusivity, and costs).",
+      "matched_text": "Confidential Term Sheet — Proposed acquisition of Murrawin Minerals Pty Ltd by Quokka Ridge Holdings Limited (non-binding save for confidentiality, exclusivity, and costs).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Miscellaneous: Exclusivity 45 days; this term sheet does not constitute a binding offer to acquire; completion subject to due diligence, any ASX waiver, and execution of long\u2011form documents.",
+      "matched_text": "Miscellaneous: Exclusivity 45 days; this term sheet does not constitute a binding offer to acquire; completion subject to due diligence, any ASX waiver, and execution of long‑form documents.",
       "rule": "material_event"
     },
     {
@@ -350,5 +352,34 @@
       "matched_text": "credit checks and payroll onboarding require written consent",
       "reason": "Indicates a consent prerequisite for processing, but taxonomy lacks a general consent marker beyond withdrawal; may warrant coverage as consent/processing condition."
     }
-  ]
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_source": "azure:gpt-5-2-auto",
@@ -10,8 +10,10 @@
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_pending_owner_review",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
   },
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -56,7 +58,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Cross\u2011border transfer",
+      "matched_text": "Cross‑border transfer",
       "rule": "cross_border_transfer_marker"
     },
     {
@@ -81,17 +83,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "limited health clearance outcome (\u201cfit for duty\u201d)",
+      "matched_text": "limited health clearance outcome (“fit for duty”)",
       "rule": "health_condition"
     },
     {
       "category": "PII",
-      "matched_text": "pre\u2011employment health screening outcomes",
+      "matched_text": "pre‑employment health screening outcomes",
       "rule": "health_condition"
     },
     {
       "category": "PII",
-      "matched_text": "summary \u201cpass/fail\u201d only",
+      "matched_text": "summary “pass/fail” only",
       "rule": "health_condition"
     },
     {
@@ -181,11 +183,11 @@
       "reason": "Negated/absence statement; no actual biometric or MAC address values present."
     },
     {
-      "matched_text": "no MNPI exported\u2014draft ASX Listing Rule 3.1 materials are explicitly excluded",
+      "matched_text": "no MNPI exported—draft ASX Listing Rule 3.1 materials are explicitly excluded",
       "reason": "Negated MNPI scope; not a live MNPI disclosure."
     },
     {
-      "matched_text": "no \u201cnot generally available\u201d forecasts",
+      "matched_text": "no “not generally available” forecasts",
       "reason": "Negated MNPI concept; indicates absence of nonpublic info."
     },
     {
@@ -226,18 +228,47 @@
     },
     {
       "concept": "Access token / request identifier",
-      "matched_text": "at https://portal.redgumenergy.au/dsar?req=RGE-4 9 3\u2014O (token expires)",
+      "matched_text": "at https://portal.redgumenergy.au/dsar?req=RGE-4 9 3—O (token expires)",
       "reason": "May contain a token or internal request ID; not clearly covered by an allowed rule (e.g., internal_session_id)."
     },
     {
       "concept": "Case reference number",
-      "matched_text": "Case No. DSAR\u2014Syd\u201400 7",
+      "matched_text": "Case No. DSAR—Syd—00 7",
       "reason": "Docket-like identifier; not mapped to an allowed identifier rule."
     },
     {
       "concept": "au_acn (invalid/placeholder)",
-      "matched_text": "ACN: 00x\u20137 5 2\u201311",
+      "matched_text": "ACN: 00x–7 5 2–11",
       "reason": "Looks like an Australian ACN but is fictional/invalid and will not match strict numeric ACN regex."
     }
-  ]
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
 }

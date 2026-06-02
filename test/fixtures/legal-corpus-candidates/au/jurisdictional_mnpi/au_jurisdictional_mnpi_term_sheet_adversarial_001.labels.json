@@ -1,5 +1,5 @@
 {
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_source": "azure:gpt-5-2-auto",
@@ -19,8 +19,10 @@
     "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_pending_owner_review",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards",
+    "owner_approval_reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -80,7 +82,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "22\u201324%",
+      "matched_text": "22–24%",
       "rule": "financial_percentage"
     },
     {
@@ -170,7 +172,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "C o n f i d e n t i a l  T e r m  S h e e t \u2014 Proposed Strategic Acquisition of KoalaGrid Pty Ltd by Wallaroo Energy Limited (ASX: WLE).",
+      "matched_text": "C o n f i d e n t i a l  T e r m  S h e e t — Proposed Strategic Acquisition of KoalaGrid Pty Ltd by Wallaroo Energy Limited (ASX: WLE).",
       "rule": "material_event"
     },
     {
@@ -180,7 +182,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI: Unaudited Q4 FY26 EBITDA for Wallaroo Energy is expected to exceed prior guidance by 22\u201324%; not generally available; disclosure targeted via ASX announcement no later than 9:30am AEST on T+2 after signing.",
+      "matched_text": "MNPI: Unaudited Q4 FY26 EBITDA for Wallaroo Energy is expected to exceed prior guidance by 22–24%; not generally available; disclosure targeted via ASX announcement no later than 9:30am AEST on T+2 after signing.",
       "rule": "material_event"
     },
     {
@@ -232,7 +234,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "C o n f i d e n t i a l  T e r m  S h e e t \u2014 Proposed Strategic Acquisition of KoalaGrid Pty Ltd by Wallaroo Energy Limited (ASX: WLE).",
+      "matched_text": "C o n f i d e n t i a l  T e r m  S h e e t — Proposed Strategic Acquisition of KoalaGrid Pty Ltd by Wallaroo Energy Limited (ASX: WLE).",
       "rule": "material_event"
     },
     {
@@ -242,7 +244,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "MNPI: Unaudited Q4 FY26 EBITDA for Wallaroo Energy is expected to exceed prior guidance by 22\u201324%; not generally available; disclosure targeted via ASX announcement no later than 9:30am AEST on T+2 after signing.",
+      "matched_text": "MNPI: Unaudited Q4 FY26 EBITDA for Wallaroo Energy is expected to exceed prior guidance by 22–24%; not generally available; disclosure targeted via ASX announcement no later than 9:30am AEST on T+2 after signing.",
       "rule": "material_event"
     },
     {
@@ -319,7 +321,7 @@
     },
     {
       "concept": "issuer_relative_materiality",
-      "matched_text": "issuer-relative materiality assessed as \u201chigh\u201d for energy segment",
+      "matched_text": "issuer-relative materiality assessed as “high” for energy segment",
       "reason": "Materiality assessment is MNPI-relevant but not covered by current rule list"
     },
     {
@@ -327,5 +329,34 @@
       "matched_text": "C o n f i d e n t i a l",
       "reason": "Confidential header indicates non-public status but spacing may evade strict detectors"
     }
-  ]
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-02T07:54:03Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-02T07:54:03Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "AU Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-02T07:54:03Z",
+    "basis": "Project owner stated they manually reviewed the AU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  }
 }
