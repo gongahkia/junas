@@ -3,13 +3,174 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EA-0471"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in the Harbour Tech Employees Union"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@auroraharbor.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "800-000-000"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EA-0471"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in the Harbour Tech Employees Union"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@auroraharbor.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "800-000-000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced price-sensitive terms (if any)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of 60% of the issued shares of Pearl Mosaic Holdings Limited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "major transaction"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retained for the minimum period necessary"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "no collection of biometric, genetic or health records"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "no collection of biometric, genetic or health records"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "no collection of biometric, genetic or health records"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "limited data room with redactions and role-based access controls"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "purchaser",
+      "reason": "Role noun/defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "target",
+      "reason": "Role noun/defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "investor",
+      "reason": "Role noun/defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Harbour Shield Data Policy",
+      "reason": "Policy name; adversarial false-positive bait."
+    },
+    {
+      "matched_text": "Inclusive Pathways Charter",
+      "reason": "Policy/DEI charter; adversarial false-positive bait."
+    },
+    {
+      "matched_text": "CoralPay",
+      "reason": "Product name; adversarial false-positive bait."
+    },
+    {
+      "matched_text": "Bamboo Cloud",
+      "reason": "Product name; adversarial false-positive bait."
+    },
+    {
+      "matched_text": "Kowloon Meteors",
+      "reason": "Sports team; adversarial false-positive bait."
+    },
+    {
+      "matched_text": "Dragon\u2019s Back hikes",
+      "reason": "Place reference; adversarial false-positive bait."
+    },
+    {
+      "matched_text": "Skyline Ledger Notes",
+      "reason": "Product/instrument name; not PII/MNPI under allowed rules."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "inside information under the Securities and Futures Ordinance",
+      "concept": "Inside information compliance",
+      "reason": "Legally relevant MNPI context but not directly mapped to a specific allowed rule token."
+    },
+    {
+      "matched_text": "explicit consent",
+      "concept": "Consent",
+      "reason": "Consent event is privacy-relevant but only withdrawal is covered by allowed rules."
+    },
+    {
+      "matched_text": "Mutual NDA to be executed",
+      "concept": "Confidentiality agreement",
+      "reason": "NDA is a definitive/confidentiality agreement but not among enumerated allowed agreement rules."
+    },
+    {
+      "matched_text": "exchangeable \u201cSkyline Ledger Notes\u201d",
+      "concept": "Security issuance detail",
+      "reason": "Potentially MNPI about instrument terms; not mapped to a specific allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

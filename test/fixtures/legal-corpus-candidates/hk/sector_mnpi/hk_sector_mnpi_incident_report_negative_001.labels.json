@@ -3,13 +3,185 @@
   "document_type": "memo",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@portcrown.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout periods"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping prohibitions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Operational/Cyber (Low)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "99.9%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@portcrown.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout periods"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping prohibitions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Operational/Cyber (Low)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "99.9%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restrict circulation to Clean Team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "pending issuer disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "event-specific insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no-trade restriction"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "emissions metrics planned for its forthcoming HKEX circular"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Mis-scoped API key at vendor NeonGate Systems (Asia) Ltd allowed read-only access to non-client log telemetry from a whitelisted IP; least-privilege restored within 27 minutes"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not discuss outside established information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "maintenance of information barriers"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "AmberBay Coin (test-net)",
+      "reason": "Token name for education; not a wallet address or MNPI event."
+    },
+    {
+      "matched_text": "0X0X",
+      "reason": "Placeholder security code; not PII or MNPI."
+    },
+    {
+      "matched_text": "HK-9999",
+      "reason": "Placeholder security code; not PII or MNPI."
+    },
+    {
+      "matched_text": "Form IR-1",
+      "reason": "Internal form code; not PII or MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Holystone Renewables Holdings Ltd",
+      "concept": "issuer_name_in_mnpi",
+      "reason": "Identifies a specific issuer in a restricted, pre-disclosure context but issuer names are not an explicit MNPI rule."
+    },
+    {
+      "matched_text": "forthcoming HKEX circular",
+      "concept": "anticipated_disclosure",
+      "reason": "Signals pending issuer communication that may be non-public yet not covered by a specific allowed rule."
+    },
+    {
+      "matched_text": "whitelisted IP",
+      "concept": "ip_address_reference",
+      "reason": "References an IP control without an actual IP address; relevant to cyber context but not an explicit rule match."
+    },
+    {
+      "matched_text": "12 May 2026 09:14 HKT",
+      "concept": "incident_timestamp",
+      "reason": "Incident timing is compliance-relevant but not covered by the allowed MNPI/PII rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

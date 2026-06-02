@@ -1250,7 +1250,7 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"compliance\s+desk|deal\s+desk|"
     r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helplines?|"
     r"public\s+hotline|public\s+line|public\s+service\s+line|"
-    r"enquiries\s+line|procedural\s+queries\s+only|"
+    r"public\s+enquir(?:y|ies)\s+hotline|enquiries\s+line|procedural\s+queries\s+only|"
     r"public\s+(?:queries|enquiries)|"
     r"support\s+hotline|switchboard|reception|information\s+line|contact\s+centre|client\s+services|"
     r"(?:privacy|ethics)\s+helplines?|assistance\s+line|published\s+contacts?|"
@@ -1348,6 +1348,7 @@ _PRIVACY_REQUEST_CLOSED_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"fulfilled|closed|completed|executed|resolved|"
     r"zero\s+open\s+tickets|0\s+open\s+tickets|"
+    r"no\s+(?:data\s+subject\s+access\s+request|DSAR)[^\n.;]{0,80}(?:received|needed|triggered)|"
     r"no\s+DSARs?\s+are\s+pending|no\s+(?:request|requests)\s+for\s+correction|"
     r"currently\s+in\s+flight|not\s+a\s+live\s+DSAR|no\s+residual\s+processing"
     r")\b",
@@ -1488,9 +1489,10 @@ def _is_non_phone_numeric_context(text: str, start: int, end: int) -> bool:
 
 def _is_closed_or_historical_privacy_request_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
-    if _PRIVACY_REQUEST_LIVE_CONTEXT_RE.search(context):
+    closed = bool(_PRIVACY_REQUEST_CLOSED_CONTEXT_RE.search(context))
+    if _PRIVACY_REQUEST_LIVE_CONTEXT_RE.search(context) and not closed:
         return False
-    return bool(_PRIVACY_REQUEST_CLOSED_CONTEXT_RE.search(context))
+    return closed
 
 
 def _is_ph_tin_non_tax_context(text: str, start: int, end: int) -> bool:
@@ -1515,6 +1517,8 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         r"no\s+event\s+has\s+occurred[^\n.;]{0,120}material\s+adverse\s+change|"
         r"no\s+[\"“]?material\s+adverse\s+effect[\"”]?\s+occurred|"
         r"no\s+mac[^\n.;]{0,100}material\s+adverse\s+change|"
+        r"nothing\s+in\s+this\s+(?:notice|workflow|document|memo)[^\n.;]{0,120}"
+        r"constitutes[^\n.;]{0,120}material\s+adverse\s+(?:change|effect)|"
         r"nothing\s+herein\s+constitutes[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"nothing\s+herein\s+constitutes\s+or\s+admits[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"not\s+intended\s+to\s+trigger[^\n.;]{0,80}(?:mac|mae)|"
@@ -1522,6 +1526,7 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         r"does\s+not\s+include\s+any[^\n.;]{0,120}material\s+adverse\s+change\s+trigger|"
         r"mac\s+clause[^\n.;]{0,160}does\s+not\s+by\s+itself\s+signal\s+a\s+material\s+adverse\s+change|"
         r"material\s+adverse\s+change[^\n.;]{0,80}not\s+triggered|"
+        r"negates\s+inference\s+of\s+a\s+material\s+adverse\s+(?:change|effect)|"
         r"không\s+phải\s+là[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"tidak[^\n.;]{0,80}material\s+adverse\s+change|"
         r"bukan\s+mac|not\s+a\s+mac"
@@ -1555,6 +1560,9 @@ def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> boo
         r"does\s+not\s+rely\s+on\s+non[- ]public\s+data|"
         r"avoid[^\n.;]{0,80}\bundisclosed\s+assumptions|"
         r"could\s+be\s+construed\s+as\s+mnpi|"
+        r"references?\s+to[^\n.;]{0,100}\bmnpi\b[^\n.;]{0,100}generic\s+risk\s+categor(?:y|ies)|"
+        r"\bmnpi\b[^\n.;]{0,100}generic\s+risk\s+categor(?:y|ies)|"
+        r"do\s+not\s+indicate\s+we\s+hold\s+any\s+non[- ]public\s+deal\s+terms|"
         r"mnpi\s+screening[^\n.;]{0,80}does\s+not\s+trigger|"
         r"does\s+not\s+add\s+unpublished\s+price[- ]sensitive\s+information|"
         r"unless\s+upsi\s+is\s+actually\s+present|mnpi\s+markers?:|"
@@ -1576,6 +1584,7 @@ def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> 
         r"publicly\s+announced\s+mou[^\n]{0,180}no\s+binding\s+obligations|"
         r"public\s+mou[^\n.;]{0,160}(?:non[- ]price\s+sensitive|not\s+issuer[- ]level)|"
         r"Sha[’'‘ʻʿ]?ban|"
+        r"does\s+not\s+vary\s+any\s+SPA\s+MAC\s+clause|"
         r"no\s+executed[^\n.;]{0,60}term\s+sheet\s+exists|"
         r"no\s+annexes[^\n.;]{0,80}\bSPA\b|"
         r"term\s+sheet\s+sample[^\n.;]{0,120}training[^\n.;]{0,120}public[- ]source|"

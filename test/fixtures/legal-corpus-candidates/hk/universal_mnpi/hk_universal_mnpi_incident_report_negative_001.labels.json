@@ -3,13 +3,110 @@
   "document_type": "memo",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it-security@silverharbor.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ops@asteris-capital.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC clause"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it-security@silverharbor.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ops@asteris-capital.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC clause"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo for IR page update: hold until 2026-06-05 08:30 HKT to avoid duplicate notices over the weekend"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "brief disruption at Harborview data room on 2026-05-30 due to vendor patch rollback"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement status unchanged"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "no drawdown condition impacted"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data classification: systems contained only test SKUs and anonymised route tables; no identity is directly or indirectly ascertainable from the affected logs"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day",
+      "reason": "False-positive bait; not a Share Purchase Agreement"
+    },
+    {
+      "matched_text": "Vendor",
+      "reason": "Role noun; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "project managers",
+      "reason": "Not a transaction codename pattern"
+    },
+    {
+      "matched_text": "NDAs",
+      "reason": "Confidentiality agreements are not in the definitive-agreement list"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "not considered inside information and not price-sensitive; no disclosure obligation triggered",
+      "concept": "inside information assessment",
+      "reason": "Legally relevant SFO/Listing Rules assessment but not clearly mapped to an allowed MNPI rule"
+    },
+    {
+      "matched_text": "DPIA not required; DPO to log incident ref SH-OPS-2026-00X in the register for audit trail",
+      "concept": "privacy governance/record-keeping",
+      "reason": "Indicates DPIA assessment and retention logging; relevant but no explicit allowed rule label"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

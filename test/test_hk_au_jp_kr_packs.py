@@ -119,6 +119,40 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
         )
         self.assertNotIn("nonpublic_marker", self._rules(text, "HK"))
 
+    def test_hk_stage_b_public_hotline_and_closed_dsar_do_not_fire(self):
+        samples = [
+            ("The general Public Enquiry Hotline listed on an old brochure (8000 0000) is not in service.", "phone_number"),
+            ("Public Enquiry Hotline (non-transactional): 1000 1000.", "phone_number"),
+            ("No data subject access request (DSAR) was received or needed in relation to this event.", "consent_withdrawal_marker"),
+        ]
+        for text, rule in samples:
+            with self.subTest(rule=rule, text=text):
+                self.assertNotIn(rule, self._rules(text, "HK"))
+
+    def test_hk_stage_b_generic_mnpi_spa_and_negated_mac_do_not_fire(self):
+        samples = [
+            (
+                "References to insider, MNPI, or price sensitive in this notice reflect generic "
+                "risk categories and do not indicate we hold any non-public deal terms.",
+                "nonpublic_marker",
+            ),
+            (
+                "This notice does not constitute a profit forecast and does not vary any SPA MAC clause.",
+                "definitive_agreement",
+            ),
+            (
+                "Nothing in this notice constitutes, or shall be deemed to constitute, a Material Adverse Change.",
+                "material_adverse_change",
+            ),
+            (
+                "This workflow expressly negates inference of a material adverse change from retention entries.",
+                "material_adverse_change",
+            ),
+        ]
+        for text, rule in samples:
+            with self.subTest(rule=rule, text=text):
+                self.assertNotIn(rule, self._rules(text, "HK"))
+
     def test_jp_public_helplines_do_not_fire_as_phone_numbers(self):
         text = (
             "Public helplines for general guidance: FSA Inquiry 03-0000-0000; "

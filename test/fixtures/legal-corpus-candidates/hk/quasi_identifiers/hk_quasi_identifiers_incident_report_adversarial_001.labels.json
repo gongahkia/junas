@@ -3,13 +3,313 @@
   "document_type": "memo",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@harborridge.com.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Ko"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "adrian.ko@harborridge.com.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR-14377"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1996-07-03"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 29"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "203.12.44.88"
+    },
+    {
+      "category": "PII",
+      "rule": "mac_address",
+      "matched_text": "de:ad:be:ef:12:34"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ldesk@hkx-reg.test"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Yvonne Tse"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harborridge.com.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 3900 1234"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Samuel Ip"
+    },
+    {
+      "category": "PII",
+      "rule": "cookie_id",
+      "matched_text": "sid=ak-9314"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may constitute price-sensitive information under the SFO"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally known to persons likely to deal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC clause"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@harborridge.com.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Ko"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "adrian.ko@harborridge.com.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR-14377"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1996-07-03"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 29"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "203.12.44.88"
+    },
+    {
+      "category": "PII",
+      "rule": "mac_address",
+      "matched_text": "de:ad:be:ef:12:34"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ldesk@hkx-reg.test"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Yvonne Tse"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harborridge.com.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 3900 1234"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Samuel Ip"
+    },
+    {
+      "category": "PII",
+      "rule": "cookie_id",
+      "matched_text": "sid=ak-9314"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may constitute price-sensitive information under the SFO"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally known to persons likely to deal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC clause"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "HR-NTB-2291"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "VP-Desk-117"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "s e s s i o n = 9 3 1 4 - A K - 2 8"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "tkn=9f2c-1b7a-8cc5"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Mr. Adrian Ko, IT Support Analyst, adrian.ko@harborridge.com.hk, staffID HR-14377, b. 1996-07-03 (age 29), office: 28/F Prosperity Centre, Wan Chai, HK; account alias 'ako29'; s e s s i o n = 9 3 1 4 - A K - 2 8"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1980-05-10"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "trd-8472"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "0 0 1 2 - 7 7 8 8"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "TermSheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "an offer for HKX-listed Zephyr Crane Logistics Holdings Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Incident Report \u2014 Cybersecurity Event (Hong Kong SAR) \u2014 Harbor Ridge Investments Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "prepared for regulator pre-consultation and fund LP briefings"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "analyst 28\u201335",
+      "reason": "Generic demographic; explicitly stated as non-identifying."
+    },
+    {
+      "matched_text": "Cantonese preferred",
+      "reason": "Generic demographic; explicitly stated as non-identifying."
+    },
+    {
+      "matched_text": "Central office",
+      "reason": "Generic location preference; non-identifying."
+    },
+    {
+      "matched_text": "passports",
+      "reason": "Generic mention without any identifier."
+    },
+    {
+      "matched_text": "HKID numbers",
+      "reason": "Generic mention without any identifier."
+    },
+    {
+      "matched_text": "biometrics",
+      "reason": "Generic mention without any identifier."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "account alias 'ako29'",
+      "concept": "username handle",
+      "reason": "Likely personal identifier but no explicit allowed rule for usernames."
+    },
+    {
+      "matched_text": "28/F Prosperity Centre, Wan Chai, HK",
+      "concept": "office address",
+      "reason": "Addresses can be PDPO personal data but no HK address rule is enumerated."
+    },
+    {
+      "matched_text": "ZCLH",
+      "concept": "internal issuer code",
+      "reason": "Potentially nonpublic corporate code relevant to MNPI, but no explicit rule for internal codes."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

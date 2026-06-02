@@ -3,13 +3,162 @@
   "document_type": "generic",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@orchidridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@orchidridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "identity checks use non-sensitive confirmations without collecting new government ids"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "rid-0000-void"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "potential inside information"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@orchidridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@orchidridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "identity checks use non-sensitive confirmations without collecting new government ids"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "rid-0000-void"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "potential inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "project driftwood"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo expired 2024-05-10 09:00 hkt"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "mnpi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "where possible we reference already-public sources instead of disclosing raw work product"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "negated MAC language"
+    },
+    {
+      "matched_text": "ma(e)/mac trigger",
+      "reason": "negated MAC language"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "hkex announcement archive ref pr-orgl-2024-0510",
+      "concept": "public-source reference code",
+      "reason": "Transaction-related citation is legally relevant context but not covered by allowed rules."
+    },
+    {
+      "matched_text": "transfer impact assessments",
+      "concept": "cross-border assessment",
+      "reason": "Relevant to cross-border privacy compliance; not a specific allowed marker rule."
+    },
+    {
+      "matched_text": "deletion and suppression events logged with immutable timestamps",
+      "concept": "retention/deletion audit",
+      "reason": "Records lifecycle control is privacy-relevant but no explicit allowed retention rule."
+    },
+    {
+      "matched_text": "hr files 7 years post-termination",
+      "concept": "retention duration",
+      "reason": "Specific retention period is privacy-relevant but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "vendor kyc/aml 7 years from last activity",
+      "concept": "retention duration",
+      "reason": "Specific retention period is privacy-relevant but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "fund investor screening 6 years",
+      "concept": "retention duration",
+      "reason": "Specific retention period is privacy-relevant but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "no personal mailbox forwarding",
+      "concept": "information barrier/security control",
+      "reason": "Control reduces leakage/selective disclosure risk but not explicitly covered by an allowed marker."
+    },
+    {
+      "matched_text": "exports watermarked with requester reference",
+      "concept": "traceability watermark",
+      "reason": "Watermarking is compliance-relevant but not mapped to a specific allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

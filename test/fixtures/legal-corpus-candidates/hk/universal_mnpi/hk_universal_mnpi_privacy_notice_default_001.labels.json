@@ -3,13 +3,337 @@
   "document_type": "generic",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for external distribution"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information under the Securities and Futures Ordinance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean-team restrictions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal review only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 1,280,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "contingent earn-out of 12.5% of EBITDA above HKD 200,000,000 for FY2027"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-cross letters"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Kelvin Chow"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tessa Ng"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@veridianharvest.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 3890 1122"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "personal data may be transferred to subprocessors Cypress Vault Systems (HK) Limited (VDR), Nimbus Data Processing Pte. Ltd. (SG), and Oakleaf Analytics Ltd. (UK)"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for external distribution"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information under the Securities and Futures Ordinance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean-team restrictions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal review only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 1,280,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "contingent earn-out of 12.5% of EBITDA above HKD 200,000,000 for FY2027"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-cross letters"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Kelvin Chow"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tessa Ng"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@veridianharvest.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 3890 1122"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "personal data may be transferred to subprocessors Cypress Vault Systems (HK) Limited (VDR), Nimbus Data Processing Pte. Ltd. (SG), and Oakleaf Analytics Ltd. (UK)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Draft Sale and Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Scheme Implementation Deed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Aurora Metals (Asia) Limited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "17 July 2026, 09:00 HKT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "move embargo to tuesday"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC/MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "only licensed corporations who have executed wall-cross letters may access pricing models and synergy schedules"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean-team logs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheets"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "hashed payroll identifiers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked email aliases"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no unmasked special categories will be shared without necessity and prior notice"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Nimbus Data Processing Pte. Ltd. (SG)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Oakleaf Analytics Ltd. (UK)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun defined term; exclude from PII/MNPI labeling."
+    },
+    {
+      "matched_text": "Purchaser",
+      "reason": "Role-noun defined term; exclude from PII/MNPI labeling."
+    },
+    {
+      "matched_text": "Completion",
+      "reason": "Defined transactional milestone/term; exclude from labeling."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term for a party; exclude from labeling."
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "Irrelevant hospitality bait; not PII/MNPI."
+    },
+    {
+      "matched_text": "yoga",
+      "reason": "Irrelevant hospitality bait; not PII/MNPI."
+    },
+    {
+      "matched_text": "No MAC has been asserted",
+      "reason": "Negated MAC language; do not label as material adverse change."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSARs: data subjects may submit access or correction requests",
+      "concept": "DSAR/access rights marker",
+      "reason": "Legally relevant PDPO access/correction workflow but no explicit allowed rule for DSAR markers."
+    },
+    {
+      "matched_text": "will be retained for 7 years from Completion or for 3 months after a Process Abort Notice, whichever occurs first, then securely deleted or anonymised",
+      "concept": "Retention/deletion schedule",
+      "reason": "Privacy retention/erasure control; relevant but not clearly mapped to an allowed rule name."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

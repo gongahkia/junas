@@ -3,13 +3,176 @@
   "document_type": "memo",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@harbourview.capital"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@harbourview.capital"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@harbourview.capital"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 3900 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Employee A submitted a medical leave note indicating ongoing physiotherapy for a knee injury"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Employee A submitted a medical leave note indicating ongoing physiotherapy for a knee injury"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@harbourview.capital"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@harbourview.capital"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@harbourview.capital"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 3900 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Employee A submitted a medical leave note indicating ongoing physiotherapy for a knee injury"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Employee A submitted a medical leave note indicating ongoing physiotherapy for a knee injury"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Banyan HR share set to least-privilege"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "This report contains no client HKID numbers, no bank account numbers, and no live deal codenames, and is intended for internal compliance and audit only"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Banyan HR Cloud",
+      "reason": "Product/system name, not PII or MNPI."
+    },
+    {
+      "matched_text": "Orchid Fund Portal",
+      "reason": "Product/system name, not PII or MNPI."
+    },
+    {
+      "matched_text": "LotusPay Treasury",
+      "reason": "Product/system name, not PII or MNPI."
+    },
+    {
+      "matched_text": "PineGuard IDS",
+      "reason": "Product/system name, not PII or MNPI."
+    },
+    {
+      "matched_text": "Lotus Shield Gateway",
+      "reason": "Product/system name, not PII or MNPI."
+    },
+    {
+      "matched_text": "Blue Lantern Cyber Hygiene Policy",
+      "reason": "Policy name, not PII or MNPI."
+    },
+    {
+      "matched_text": "Inclusive Growth DEI newsletter",
+      "reason": "Generic DEI content, not PII or MNPI."
+    },
+    {
+      "matched_text": "JadeBridge app",
+      "reason": "Product/app name, not PII or MNPI."
+    },
+    {
+      "matched_text": "Kowloon Mariners",
+      "reason": "Sports/charity team name, not PII or MNPI."
+    },
+    {
+      "matched_text": "CloudSec (HK) Ltd",
+      "reason": "Company name, not PII."
+    },
+    {
+      "matched_text": "Harbourview Service Desk",
+      "reason": "Service/display name, not PII."
+    },
+    {
+      "matched_text": "INV-TEST-0001",
+      "reason": "Dummy reference identifier, not personal data."
+    },
+    {
+      "matched_text": "FUND-000-ALPHA",
+      "reason": "Dummy reference identifier, not personal data."
+    },
+    {
+      "matched_text": "stock code placeholder 0X88",
+      "reason": "Placeholder/ticker text, not PII or MNPI."
+    },
+    {
+      "matched_text": "HKID numbers",
+      "reason": "Generic term; no actual identifier present."
+    },
+    {
+      "matched_text": "bank account numbers",
+      "reason": "Generic term; no actual identifier present."
+    },
+    {
+      "matched_text": "live deal codenames",
+      "reason": "Generic reference; no actual codename provided."
+    },
+    {
+      "matched_text": "Employee A",
+      "reason": "Pseudonymous label, not a named person per rule."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "offshore IPs",
+      "concept": "cross-border access",
+      "reason": "Implies potential access from outside Hong Kong that could involve cross-border data handling, but no explicit transfer marker is stated."
+    },
+    {
+      "matched_text": "record entered in PDPO breach register",
+      "concept": "privacy incident register",
+      "reason": "Indicates PDPO compliance logging; relevant to privacy governance but not covered by the allowed privacy-event marker rules."
+    },
+    {
+      "matched_text": "voluntary notification to PCPD considered but deferred pending root-cause memo",
+      "concept": "disclosure deferral/embargo",
+      "reason": "Shows a decision to delay external notification; akin to an embargo but does not match the specified embargo marker tokens."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

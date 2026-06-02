@@ -3,13 +3,327 @@
   "document_type": "generic",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Ko"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "provides a fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "occupational health report on hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "recorded Buddhist affiliation"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Celeste Wong"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@vermilionbay.example"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opt-out rights"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Iris Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor-dependent information"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@vermilionbay.example"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric access records"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Coral"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lantern"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally known to persons accustomed to dealing in securities"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Ko"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "provides a fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "occupational health report on hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "recorded Buddhist affiliation"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Celeste Wong"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@vermilionbay.example"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opt-out rights"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Iris Tan"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor-dependent information"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@vermilionbay.example"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric access records"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "health and biometric access records"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric access logs"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "employee health clearances"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Coral"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lantern"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally known to persons accustomed to dealing in securities"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "We may transfer limited personal data and MNPI to group entities and vetted processors in Lotus Quay and Coral Bay under intra-group agreements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "redact or defer disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic test results"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We prohibit storing genetic test results in deal rooms"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "DragonByte CRM",
+      "reason": "Product name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "NovaBond Pro",
+      "reason": "Product name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "river",
+      "reason": "Metaphor bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "Genetic Alpha Fund",
+      "reason": "Brand/product name, not genetic PII"
+    },
+    {
+      "matched_text": "Fair Winds MNPI Protocol",
+      "reason": "Internal policy name, not a detection marker"
+    },
+    {
+      "matched_text": "Silent Harbor Prevention of Insider Trading Standard",
+      "reason": "Policy name, not a detection marker"
+    },
+    {
+      "matched_text": "Harbour Meteors",
+      "reason": "Sports team name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Pearl Vista",
+      "reason": "Place name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Jade Harbour District office",
+      "reason": "Place/office name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Lotus Quay",
+      "reason": "Place name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Coral Bay",
+      "reason": "Place name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Harbour SAR",
+      "reason": "Place/government reference, not PII/MNPI"
+    },
+    {
+      "matched_text": "Harbour Securities Commission",
+      "reason": "Regulator name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Inclusive Horizons Policy",
+      "reason": "Policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "MNPI Handling Statement",
+      "reason": "Policy/document name, not a detection marker"
+    },
+    {
+      "matched_text": "Privacy Notice",
+      "reason": "Policy/document name, not a detection marker"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic DEI policy reference; negated collection"
+    },
+    {
+      "matched_text": "sexual-orientation",
+      "reason": "Generic DEI policy reference; negated collection"
+    },
+    {
+      "matched_text": "Securities Ordinance of the Harbour SAR",
+      "reason": "Law/policy name, not a detection marker"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "data access or correction requests",
+      "concept": "DSAR rights",
+      "reason": "Legally relevant data subject rights, but not explicitly covered by allowed rule labels"
+    },
+    {
+      "matched_text": "employee health clearances (5 years post-employment)",
+      "concept": "Retention period",
+      "reason": "Retention durations are privacy-relevant but not included in allowed rule set"
+    },
+    {
+      "matched_text": "biometric access logs (90 days rolling)",
+      "concept": "Retention period",
+      "reason": "Retention durations are privacy-relevant but not included in allowed rule set"
+    },
+    {
+      "matched_text": "deal room audit trails (7 years from completion)",
+      "concept": "Retention period",
+      "reason": "Retention durations are privacy-relevant but not included in allowed rule set"
+    },
+    {
+      "matched_text": "stored separately with restricted HR access",
+      "concept": "Access control/minimisation",
+      "reason": "Segregation and restricted access are relevant controls but not covered by allowed rule labels"
+    },
+    {
+      "matched_text": "with encryption at rest and role-based access",
+      "concept": "Security safeguards",
+      "reason": "Security controls are relevant to compliance but not included in allowed rule labels"
+    },
+    {
+      "matched_text": "secure data rooms",
+      "concept": "Information segregation control",
+      "reason": "Data room security is compliance-relevant but not mapped to an allowed marker"
+    },
+    {
+      "matched_text": "likely to be price-material",
+      "concept": "Price materiality",
+      "reason": "MNPI definitional materiality phrase is relevant but not part of the enumerated marker list"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

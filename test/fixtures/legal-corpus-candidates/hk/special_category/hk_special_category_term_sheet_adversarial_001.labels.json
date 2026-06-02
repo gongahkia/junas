@@ -3,13 +3,305 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Lam"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "health: Type 1 diabetes treated with an insulin pump"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "health: Type 1 diabetes treated with an insulin pump"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric: facial\u2011scan template registered for restricted lab access at Silver Bay campus"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "religious belief: practicing Taoist"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "adrian.lam@jiayun\u2011robotics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Celia Fong"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union: elected officer of the Harbour Tech Union"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "celia.fong@jiayun\u2011robotics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kento Wai"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kento.wai@orchidnebula.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. R.Q. Yeung"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rq.yeung@silverquay\u2011cap.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "23.4%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Lam"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "health: Type 1 diabetes treated with an insulin pump"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "health: Type 1 diabetes treated with an insulin pump"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric: facial\u2011scan template registered for restricted lab access at Silver Bay campus"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "religious belief: practicing Taoist"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "adrian.lam@jiayun\u2011robotics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Celia Fong"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union: elected officer of the Harbour Tech Union"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "celia.fong@jiayun\u2011robotics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kento Wai"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kento.wai@orchidnebula.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. R.Q. Yeung"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rq.yeung@silverquay\u2011cap.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 5X33 0O22"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "Access code A C C \u2011 7 1 8 9 \u2011 X X 3"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "k=0O1i\u2011LAa"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "sensitive data above is processed strictly for due diligence"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Jade\u2011Kite"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed voluntary general offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "HK$ 1 2 . 3 0 per Sh a re in cash"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "23.4%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not forward"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "VDR only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "if applicable"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Market MAC qualified"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "no MAC triggered by general market indices"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Offeror",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Nimbus 12 Pro",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "DragonGate X",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "political football",
+      "reason": "Colloquial metaphor, not PII/MNPI"
+    },
+    {
+      "matched_text": "sex\u2011life",
+      "reason": "Generic phrase not tied to an individual\u2019s data"
+    },
+    {
+      "matched_text": "Kowloon Harbour Tigers",
+      "reason": "Sports team name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Silver Bay regatta",
+      "reason": "Sports/community event, not PII/MNPI"
+    },
+    {
+      "matched_text": "Genetic Sunrise",
+      "reason": "Product module name, not genetic personal data"
+    },
+    {
+      "matched_text": "BioMetric Edge",
+      "reason": "Product module name, not biometric personal data"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "+852 5X33 0O22",
+      "concept": "phone_number",
+      "reason": "Contains alphabetic characters; appears to be an obfuscated HK phone number"
+    },
+    {
+      "matched_text": "https://dealroom.orchidnebula.example/v/JRL?rid=ONH%2F7Z09&k=0O1i\u2011LAa",
+      "concept": "internal_session_id in URL",
+      "reason": "Query parameter may embed an access token/session key"
+    },
+    {
+      "matched_text": "Inside information handled per SFO Part XIV\u2011A",
+      "concept": "insider_controls",
+      "reason": "References handling of inside information but not a specific insider list or barrier control rule"
+    },
+    {
+      "matched_text": "Minimum acceptance > 50% of disinterested Shares",
+      "concept": "volume_commitment/threshold",
+      "reason": "Acceptance threshold functions like a quantitative condition; may be treated as material conditional term rather than pure percentage"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,189 @@
   "document_type": "generic",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@harborrisecap.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harborrisecap.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee Ref LZ-118"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "physiotherapy treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "a knee injury"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer limited personal data to service processors outside Hong Kong"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally known"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opt-out is actioned"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@harborrisecap.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harborrisecap.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee Ref LZ-118"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "physiotherapy treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "a knee injury"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer limited personal data to service processors outside Hong Kong"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally known"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opt-out is actioned"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Internal HR File 0H-92"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "physiotherapy treatment for a knee injury"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "segregate \u201cinside information\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "specific information about a corporation that is not generally known and likely price-material"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "pseudonymise diligence files"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "a ban on unvetted biometric tools"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We do not use customer bank account numbers, trade identifiers, or device fingerprints for profiling"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Dragons Cup",
+      "reason": "Sports sponsorship name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Tiger Defense",
+      "reason": "Product nickname; not PII/MNPI."
+    },
+    {
+      "matched_text": "Our Inclusive Futures DEI Charter",
+      "reason": "Policy/program name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Wellness Pathway",
+      "reason": "Program/policy name; not PII/MNPI."
+    },
+    {
+      "matched_text": "000-XYZ-000",
+      "reason": "Placeholder example; not a real identifier."
+    },
+    {
+      "matched_text": "TRADE-NA-123",
+      "reason": "Placeholder example; not a real identifier."
+    },
+    {
+      "matched_text": "passports",
+      "reason": "Generic document mention without identifiers."
+    },
+    {
+      "matched_text": "HKIDs",
+      "reason": "Generic document mention without identifiers."
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "Role noun, not a named individual."
+    },
+    {
+      "matched_text": "Kowloon Harbour Exchange",
+      "reason": "Exchange/institution name; not PII or MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Records retention: HR files 7 years post-cessation; M&A working papers until completion + 6 years; fund KYC per local AML rules; marketing lists until opt-out is actioned",
+      "concept": "retention_marker",
+      "reason": "Retention periods are privacy-relevant but there is no explicit retention rule in the allowed list."
+    },
+    {
+      "matched_text": "Internal Case No. format DSAR-YYYY-SEQ",
+      "concept": "dsar_marker",
+      "reason": "DSAR process/case-number format is privacy-relevant but not explicitly covered by an allowed rule."
+    },
+    {
+      "matched_text": "PDPO s.33 safeguards",
+      "concept": "cross_border_safeguard",
+      "reason": "Legally relevant cross-border safeguard reference, but not clearly covered by a distinct allowed rule beyond transfer markers."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

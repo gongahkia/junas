@@ -3,13 +3,232 @@
   "document_type": "memo",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incidentdesk@aurorawharf.com.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Ko Wai\u2011Ho"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leona Poon Mei\u2011Ting"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Felix Yuen"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ko"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Mr. Adrian Ko Wai\u2011Ho (Senior Analyst) with a diabetes treatment letter dated 2026\u201104\u201111 and clinic booking notes"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Mr. Adrian Ko Wai\u2011Ho (Senior Analyst) with a diabetes treatment letter dated 2026\u201104\u201111 and clinic booking notes"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric access logs for Mr. Ko (door CAM\u201112 face template hash: f9:0b:7d:\u2014corrupted, badge AW\u2011HK\u201109\u20117gF)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Ms. Leona Poon Mei\u2011Ting (Operations) as a Port Engineers Union member"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 1.8"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public fee grid"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Operational Cyber Incident Report"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incidentdesk@aurorawharf.com.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Ko Wai\u2011Ho"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leona Poon Mei\u2011Ting"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Felix Yuen"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ko"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Mr. Adrian Ko Wai\u2011Ho (Senior Analyst) with a diabetes treatment letter dated 2026\u201104\u201111 and clinic booking notes"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Mr. Adrian Ko Wai\u2011Ho (Senior Analyst) with a diabetes treatment letter dated 2026\u201104\u201111 and clinic booking notes"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric access logs for Mr. Ko (door CAM\u201112 face template hash: f9:0b:7d:\u2014corrupted, badge AW\u2011HK\u201109\u20117gF)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Ms. Leona Poon Mei\u2011Ting (Operations) as a Port Engineers Union member"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6l8O 2O2O"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "AWH-KAM-7x2\u20223"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "AW\u2011HK\u201109\u20117gF"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 1.8"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public fee grid"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Operational Cyber Incident Report"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "project \u201cOpal Reef\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "draft term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Coral Steppe Limited"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic DEI training reference; not personal data about an individual"
+    },
+    {
+      "matched_text": "\u201cfingerprint\u201d",
+      "reason": "Metaphor for code deploy; not a biometric identifier"
+    },
+    {
+      "matched_text": "Kowloon Comets FC",
+      "reason": "Sports team name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Sai Tsing",
+      "reason": "Meeting room name; not PII/MNPI"
+    },
+    {
+      "matched_text": "BlueBanyan DLP",
+      "reason": "Product/tool name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Larkspur SIEM",
+      "reason": "Product/tool name; not PII/MNPI"
+    },
+    {
+      "matched_text": "SunHeron",
+      "reason": "Malware/tool name; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "203.88.4O.17",
+      "concept": "ip_address",
+      "reason": "Looks like an IP address but is malformed (contains letter O), so may not be caught by strict IP patterns"
+    },
+    {
+      "matched_text": "+852 6l8O 2O2O",
+      "concept": "phone_number",
+      "reason": "Intended phone number uses letters l/O instead of digits, may evade strict detectors"
+    },
+    {
+      "matched_text": "AWH-KAM-7x2\u20223",
+      "concept": "employee_id",
+      "reason": "User identifier appears to be an employee/user ID but format is nonstandard"
+    },
+    {
+      "matched_text": "AW\u2011HK\u201109\u20117gF",
+      "concept": "employee_id",
+      "reason": "Badge value appears to be an employee identifier but not a common pattern"
+    },
+    {
+      "matched_text": "project \u201cOpal Reef\u201d",
+      "concept": "transaction_codename",
+      "reason": "Lower-case 'project' with quotes may not match strict 'Project <Name>' pattern"
+    },
+    {
+      "matched_text": "We have notified the Company Secretary, the Audit Committee Chair (Dr. Felix Yuen)",
+      "concept": "insider_list_marker",
+      "reason": "Indicates handling of inside information, but no explicit reference to an insider list"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

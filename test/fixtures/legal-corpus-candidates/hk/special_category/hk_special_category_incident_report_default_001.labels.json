@@ -3,13 +3,371 @@
   "document_type": "memo",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Ko Tak-lam"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lila Cheng Mei-yan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hannah Tso"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lighthouseharbor.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "comms@lighthouseharbor.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852-5558-2411"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "outpatient treatment details for sleep apnea"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "sleep apnea"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "a biometric face-template used for turnstile authentication"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in the HarborTech Staff Union"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "dependent child\u2019s name and age (12)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age (12)"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "consent form for genetic screening"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "a self-disclosed sexual orientation field"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "her fingerprint hash used for secure print release"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retention shortened"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "unauthorised access incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally known"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "dealing blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "potential inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "potentially constitute inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Seabright MicroSensors Limited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "37,822"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Ko Tak-lam"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lila Cheng Mei-yan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hannah Tso"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lighthouseharbor.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "comms@lighthouseharbor.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852-5558-2411"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "outpatient treatment details for sleep apnea"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "sleep apnea"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "a biometric face-template used for turnstile authentication"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in the HarborTech Staff Union"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "dependent child\u2019s name and age (12)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age (12)"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "consent form for genetic screening"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "a self-disclosed sexual orientation field"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "her fingerprint hash used for secure print release"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retention shortened"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redaction rules have been tightened"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric face-template"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint hash"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "unauthorised access incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally known"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "dealing blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "draft heads of terms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "potential inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "potentially constitute inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Seabright MicroSensors Limited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "37,822"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "please do not forward this report outside the designated response team"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Harbor Phoenix FC",
+      "reason": "sports team name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "Sky Lantern Data Retention Standard",
+      "reason": "policy name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "PearlBeam",
+      "reason": "product name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "HarborOS",
+      "reason": "product name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "BlueLattice HR Cloud 4.2",
+      "reason": "product name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "Copper Cicada NGFW",
+      "reason": "product name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "Seadrift Vault DMS",
+      "reason": "system/product name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "religion or political belief",
+      "reason": "generic special-category reference explicitly stated as not about any employee\u2019s private data"
+    },
+    {
+      "matched_text": "Harbor View Tower",
+      "reason": "place name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "North Dock Hub",
+      "reason": "place name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "Outsourcing Control Policy Orion-12",
+      "reason": "policy name/code (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "Evidence Handling SOP Caravel-3",
+      "reason": "policy/SOP name (non-PII/MNPI bait)"
+    },
+    {
+      "matched_text": "diversity, equity, and inclusion",
+      "reason": "generic DEI prose (non-PII/MNPI bait)"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "maintain a breach log for not less than two years",
+      "concept": "retention_marker",
+      "reason": "Indicates a retention period; privacy-event relevant but no explicit 'retention_marker' category in allowed rules."
+    },
+    {
+      "matched_text": "we will notify the privacy regulator",
+      "concept": "breach_notification_marker",
+      "reason": "Breach notification commitment is privacy-relevant but not mapped to an allowed marker category."
+    },
+    {
+      "matched_text": "trading halt request",
+      "concept": "trading_halt",
+      "reason": "Potential market action related to MNPI handling; not a listed MNPI category."
+    },
+    {
+      "matched_text": "inform affected data subjects",
+      "concept": "data_subject_notification_marker",
+      "reason": "Planned data subject notifications are privacy-relevant, but there is no explicit category for breach notifications to individuals."
+    },
+    {
+      "matched_text": "internal revenue sensitivities",
+      "concept": "financial_sensitivity_mnpi",
+      "reason": "Price-sensitive internal financial information implied, but no specific allowed rule fits other than broad MNPI context."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

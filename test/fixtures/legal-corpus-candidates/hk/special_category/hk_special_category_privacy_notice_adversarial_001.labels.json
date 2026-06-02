@@ -3,13 +3,261 @@
   "document_type": "generic",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Gavin Lok"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Raina Chu"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID EM P\u20133 4 1"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric access template (hashed fingerprint)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "occupational health record (lumbar disc treatment dated 2025\u201102)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union membership (Harbour Office Staff Federation no. U\u201319 8)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "declared Buddhist religion"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "dependent child ref c h l d:CX-7 0"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic screening report"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6 3 9 8 7 2 0 1"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "copies of local identity cards are not collected in the clean room unless strictly necessary and proportionate"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "can be withdrawn through the DSAR channel"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Sea Lantern"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "specific corporation information not generally known to persons who are accustomed to or would be likely to deal in the issuer\u2019s securities and reasonably expected to be price\u2011sensitive (Part XIVA, SFO)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfers: personal data may be transferred to group processors in Fosdao and Lum Tin (non\u2011local) under contractual safeguards and a transfer impact assessment"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "please upload only redacted documents to the clean team room"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Gavin Lok"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Raina Chu"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID EM P\u20133 4 1"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric access template (hashed fingerprint)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "occupational health record (lumbar disc treatment dated 2025\u201102)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union membership (Harbour Office Staff Federation no. U\u201319 8)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "declared Buddhist religion"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "dependent child ref c h l d:CX-7 0"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic screening report"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6 3 9 8 7 2 0 1"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pr ivacy@oriole-delta.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "3 9 9 0 2 2 8 8"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "copies of local identity cards are not collected in the clean room unless strictly necessary and proportionate"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "please upload only redacted documents to the clean team room"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "can be withdrawn through the DSAR channel"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Sea Lantern"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "specific corporation information not generally known to persons who are accustomed to or would be likely to deal in the issuer\u2019s securities and reasonably expected to be price\u2011sensitive (Part XIVA, SFO)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring\u2011fenced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "DSAR responses may omit or defer such MNPI in line with exemptions"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfers: personal data may be transferred to group processors in Fosdao and Lum Tin (non\u2011local) under contractual safeguards and a transfer impact assessment"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Material Adverse Change",
+      "reason": "Negated MAC/MAE reference and should not be tagged as a material_adverse_change"
+    },
+    {
+      "matched_text": "Kaiyu City Mariners",
+      "reason": "Sports team false-positive bait and not PII/MNPI"
+    },
+    {
+      "matched_text": "NebulaFlow CRM",
+      "reason": "Product name false-positive bait and not PII/MNPI"
+    },
+    {
+      "matched_text": "Eideron Cloud",
+      "reason": "Product name false-positive bait and not PII/MNPI"
+    },
+    {
+      "matched_text": "Open Harbour Inclusion Policy",
+      "reason": "Policy name false-positive bait and not PII/MNPI"
+    },
+    {
+      "matched_text": "metaphorical tiger",
+      "reason": "Metaphor false-positive bait and not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Data retention: payroll and health surveillance records are kept for 7 years from cessation",
+      "concept": "retention period",
+      "reason": "Retention markers are legally relevant but not explicitly listed among allowed rules"
+    },
+    {
+      "matched_text": "biometric templates rotate every 90 days",
+      "concept": "retention/rotation schedule",
+      "reason": "Rotation/retention schedule is privacy-relevant but not covered by an allowed rule"
+    },
+    {
+      "matched_text": "it has been quarantined and is scheduled for purge within 72 hours",
+      "concept": "erasure scheduling",
+      "reason": "Erasure/deletion timing is privacy-relevant but not clearly covered by an allowed rule"
+    },
+    {
+      "matched_text": "https://portal.oriole-delta.com/dsar?ref=cl%2Fhk%2Fma-017&u=EM%20P%E2%80%93341",
+      "concept": "internal identifier in URL",
+      "reason": "Query parameters may carry quasi-identifiers but no explicit allowed rule applies"
+    },
+    {
+      "matched_text": "data user registration no. OD\u2013H K\u2013P D P O\u201307",
+      "concept": "regulatory registration identifier",
+      "reason": "Organizational registration code is sensitive in context but not listed in allowed rules"
+    },
+    {
+      "matched_text": "Company No. OD\u20132 8 1 7 3 9",
+      "concept": "company registration number",
+      "reason": "Corporate identifier could be sensitive contextually but not covered by allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

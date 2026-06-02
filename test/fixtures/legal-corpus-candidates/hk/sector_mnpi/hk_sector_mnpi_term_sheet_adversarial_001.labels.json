@@ -3,13 +3,398 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project JADE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "C O N F I D E N T I A L (SFO/Part XIVA)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "walled off"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber incident (non\u2011public)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "avoid tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 418,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 82,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "\u00b15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aria Fong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kelvin Yip"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lionel Tse"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "aria.fong@auroravantage.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lionel.tse@chamberlane\u2011law.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6 8 2 9 3 4 7 0"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project JADE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "C O N F I D E N T I A L (SFO/Part XIVA)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "walled off"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossed advisors"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "pre\u2011clearance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber incident (non\u2011public)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware attempt"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "avoid tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective channel"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No analyst or investor meetings"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "earn\u2011out"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Non-binding Heads of Terms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Buyer to acquire 70% of Target"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "ESG\u2011linked tokenised carbon certificates"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "tokenised climate units"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "carbon\u2011avoidance attestations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "changes in public ESG taxonomies"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "non\u2011binding climate pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "fiat\u2011referenced stablecoin governance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 418,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 82,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "\u00b15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aria Fong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kelvin Yip"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lionel Tse"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "aria.fong@auroravantage.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lionel.tse@chamberlane\u2011law.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6 8 2 9 3 4 7 0"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "HKO\u2011VA\u201124\u20110\u039e7"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "tok=va\u20117f_1l%2Dtk"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "user=kelvin.yip%2Bext"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun/section heading used as a defined term"
+    },
+    {
+      "matched_text": "crypto custody",
+      "reason": "Generic training/example context; not market-sensitive disclosure"
+    },
+    {
+      "matched_text": "cyber hygiene",
+      "reason": "Generic training/example context; not market-sensitive disclosure"
+    },
+    {
+      "matched_text": "price\u2011sensitive disclosure",
+      "reason": "Explicitly negated as not a deal communication"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Deal ID: HKO\u2011VA\u201124\u20110\u039e7",
+      "concept": "deal identifier",
+      "reason": "May be an internal identifier useful for access control or tracking but not covered by a specific allowed rule in strict detection"
+    },
+    {
+      "matched_text": "hxxps://vault.auroravantage.hk/rooms/JADE/login?tok=va\u20117f_1l%2Dtk&user=kelvin.yip%2Bext",
+      "concept": "dataroom URL",
+      "reason": "Full access link may be sensitive but only token/username components map to allowed rules"
+    },
+    {
+      "matched_text": "C O N F \u2011 2 9 1 3 \u2011 HKEX",
+      "concept": "internal meeting code",
+      "reason": "Likely an internal access/meeting code but not clearly covered by an allowed PII/MNPI rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

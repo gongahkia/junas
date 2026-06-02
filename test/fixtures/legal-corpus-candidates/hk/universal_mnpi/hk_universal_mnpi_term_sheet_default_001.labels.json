@@ -3,13 +3,323 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargoed until 31 July 2026, 18:00 HKT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "contains inside information under Part XIVA of the SFO"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public budget"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Shareholders\u2019 Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HK$480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "HK$3.20 per new share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HK$2,400,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HK$120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "22.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "2.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1.0%"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Pang Hoi\u2011kit"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Cheung Mei\u2011lin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ms.cheung@orchidharbour.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "banyan@orchidharbour.example"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargoed until 31 July 2026, 18:00 HKT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "contains inside information under Part XIVA of the SFO"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public budget"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Strategic subscription for 22.5% of enlarged share capital via new share issuance and 2.5% secondary purchase from Coral Reef Ventures SPC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Shareholders\u2019 Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "targeted for execution on or before 15 August 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "long\u2011stop date 30 September 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HK$480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "HK$3.20 per new share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HK$2,400,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HK$120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "22.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "2.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "Conditions precedent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no analyst briefings"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no release prior to the embargo date/time"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "60\u2011day exclusivity"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Pang Hoi\u2011kit"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Cheung Mei\u2011lin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ms.cheung@orchidharbour.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "banyan@orchidharbour.example"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Transaction",
+      "reason": "Defined term label, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Generic role heading, not PII/MNPI"
+    },
+    {
+      "matched_text": "Target Group",
+      "reason": "Role-style group reference, not PII/MNPI"
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "Bait/administrative note; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "SFC whitewash waiver",
+      "concept": "Takeovers Code waiver",
+      "reason": "Regulatory waiver requirement is material to control but not covered by a specific allowed MNPI rule"
+    },
+    {
+      "matched_text": "HKEX clearance",
+      "concept": "Regulatory approval",
+      "reason": "Listing approval is market-sensitive timing info but not mapped to a specific rule"
+    },
+    {
+      "matched_text": "connected transaction analysis",
+      "concept": "Listing Rules classification",
+      "reason": "Potential price-sensitive classification under HKEX rules; no direct rule category provided"
+    },
+    {
+      "matched_text": "VIE structure review",
+      "concept": "Sensitive structural review",
+      "reason": "Pre-deal structuring review can be MNPI but lacks a dedicated rule category"
+    },
+    {
+      "matched_text": "Jade Lantern Master Fund \u2014 Sub\u2011Fund \u201cPearl Crane\u201d",
+      "concept": "Funding source identity",
+      "reason": "Specific fund source may be MNPI but no explicit rule category exists"
+    },
+    {
+      "matched_text": "no leverage at Buyer level at signing",
+      "concept": "Financing terms sensitivity",
+      "reason": "Capital structure detail is potentially MNPI without a dedicated rule"
+    },
+    {
+      "matched_text": "Board Memo dated 28 June 2026",
+      "concept": "Board materials reference",
+      "reason": "Reference to internal board materials indicates MNPI but not mapped to a specific rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

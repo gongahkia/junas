@@ -3,13 +3,222 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 18 Jul 2026 08:00 HKT"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "boardsec@orchidharbour.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. L. Ko"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HK$1,280,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HK$120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Shareholders\u2019 Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC/MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 18 Jul 2026 08:00 HKT"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "boardsec@orchidharbour.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. L. Ko"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HK$1,280,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HK$120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Shareholders\u2019 Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC/MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "PROJECT LANTERN"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "S h a r e   P u r c h a s e   A g r e e m e n t"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "expected very substantial acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "recipients must maintain confidentiality and comply with applicable securities laws"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "earn-out of up to HK$120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "IR draft (do not release)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "post-embargo"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852-3O88-44O0"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "S P A",
+      "reason": "Defined-term abbreviation in parentheses; avoid mislabeling as data or agreement token."
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "Casual phrase about vouchers; not a Share Purchase Agreement or MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "longstop date 31 Oct 2026",
+      "concept": "longstop date",
+      "reason": "Transaction timing constraint; potentially market-relevant but not an explicit embargo marker in the rule list."
+    },
+    {
+      "matched_text": "whitewash waiver",
+      "concept": "takeovers code condition",
+      "reason": "Regulatory waiver requirement can be price-sensitive but not explicitly covered by current MNPI rule set."
+    },
+    {
+      "matched_text": "OHHL/PRJ-LanT3RN/9X3A-1_2",
+      "concept": "internal reference code",
+      "reason": "Internal tracking code may be sensitive but not mapped to an allowed PII/MNPI rule."
+    },
+    {
+      "matched_text": "BSM-2O13-OO7",
+      "concept": "vendor registration number",
+      "reason": "Corporate identifier could be sensitive but not an allowed PII category (not a HK CR No)."
+    },
+    {
+      "matched_text": "https://dataroom.orchidhbr.example/ts?k=Lan-7_2O26",
+      "concept": "restricted dataroom URL",
+      "reason": "Access pointer to non-public materials; sensitive but not explicitly covered by current rule categories."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,176 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@baylotus.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@baylotus.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@jadeharbour.example"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@baylotus.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@baylotus.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@jadeharbour.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout calendars"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally known"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "under discussion only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "contract role noun heading; not PII/MNPI"
+    },
+    {
+      "matched_text": "Aurora",
+      "reason": "portfolio nickname; not a Project codename per rule"
+    },
+    {
+      "matched_text": "JV",
+      "reason": "generic shorthand for joint venture; not a defined party or agreement term"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "HK Co. No.: BLH-000X",
+      "concept": "hk company registration",
+      "reason": "non-standard format; may be intended as company registration number but not covered by allowed rule"
+    },
+    {
+      "matched_text": "HKEX: JHD0",
+      "concept": "stock code",
+      "reason": "listing identifier; not covered by allowed rules but relevant in market context"
+    },
+    {
+      "matched_text": "ISIN: XX0000000000",
+      "concept": "security identifier",
+      "reason": "ISIN code is legally relevant for securities but not in allowed rules"
+    },
+    {
+      "matched_text": "escrow account ref 000-XYZ-123",
+      "concept": "bank account reference",
+      "reason": "could be an account/customer reference; placeholder and not clearly personal; pattern not covered"
+    },
+    {
+      "matched_text": "ZentoCoin",
+      "concept": "crypto protocol mention",
+      "reason": "sector reference; could be sensitive if tied to non-public DPT events but here framed as educational"
+    },
+    {
+      "matched_text": "price collar",
+      "concept": "commercial term signal",
+      "reason": "deal term potentially price-sensitive; not explicitly mapped to an allowed MNPI rule"
+    },
+    {
+      "matched_text": "board pre-approval",
+      "concept": "internal governance approval",
+      "reason": "indicative of insider information; not explicitly covered by allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

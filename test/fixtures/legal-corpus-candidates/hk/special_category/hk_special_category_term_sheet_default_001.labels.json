@@ -3,13 +3,348 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Tse"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Celia Lau"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Fiona Cheung"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Victor Pang"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@harborzenith.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "victor.pang@orchidpeak.example"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type 1 diabetes treatment plan"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Type 1 diabetes treatment plan"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "registered facial-recognition access template"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "observes Buddhist religious holidays"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "is a member of the Harbour Tech Workers\u2019 Union"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19.9%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "29.9%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 4.20"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "HKD 4.20 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information restrictions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information provisions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Tse"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Celia Lau"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Fiona Cheung"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Victor Pang"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@harborzenith.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "victor.pang@orchidpeak.example"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type 1 diabetes treatment plan"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Type 1 diabetes treatment plan"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "registered facial-recognition access template"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "observes Buddhist religious holidays"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "is a member of the Harbour Tech Workers\u2019 Union"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19.9%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "29.9%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 4.20"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "HKD 4.20 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information restrictions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information provisions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "no onward transfer of personal data outside Hong Kong without prior written approval"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring-fenced in the VDR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "to avoid speculative rumours"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "price-sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Subscription of new shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "secondary purchase"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "standstill at 29.9% for 18 months"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "role-noun header/defined term"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "selling shareholder",
+      "reason": "role-noun (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "negated MAC reference (excluded by rule)"
+    },
+    {
+      "matched_text": "AuroraPay",
+      "reason": "product name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "Nimbus ERP",
+      "reason": "product name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "DragonShield",
+      "reason": "product name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "Kowloon Kites",
+      "reason": "sports team (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "Tsim Sha Tsui",
+      "reason": "place name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "Quarry Bay",
+      "reason": "place name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "lighthouse",
+      "reason": "metaphor (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "Inclusive Workforce Charter 2026",
+      "reason": "policy name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "Fund Manager Code of Conduct",
+      "reason": "policy name (non-PII/MNPI)"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "generic policy reference (non-individual)"
+    },
+    {
+      "matched_text": "gender identity",
+      "reason": "generic policy reference (non-individual)"
+    },
+    {
+      "matched_text": "religion",
+      "reason": "generic policy reference (non-individual)"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Part XIVA of the Securities and Futures Ordinance",
+      "concept": "inside information announcement trigger",
+      "reason": "Signals statutory HK inside information announcement obligations but not directly mapped to an allowed nonpublic marker rule term."
+    },
+    {
+      "matched_text": "until completion",
+      "concept": "embargo-like communications restriction",
+      "reason": "Timing restriction functions like a press hold but does not use the specific embargo keywords enumerated by the rules."
+    },
+    {
+      "matched_text": "consents obtained under the PDPO for VDR disclosure",
+      "concept": "consent status",
+      "reason": "Indicates consent processing, relevant to PDPO, but rules exclude already-completed controls from detection."
+    },
+    {
+      "matched_text": "standstill at 29.9% for 18 months",
+      "concept": "standstill period",
+      "reason": "Period restriction may be market-sensitive akin to a blackout, but not clearly covered by allowed blackout marker vocabulary."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
