@@ -1,0 +1,16 @@
+Redgum Renewables Pty Ltd (ACN 123 456 780) ABN 00 000 000 000 — Operational Incident Report — 28 May 2026.
+Reported by Ms. Priya D. Narayan, CISO; contact ciso@redgumrenewables.com.au and +61 4 35 678 210; Level 12, 88 Banksia Street, Eucalypt Downs NSW 2199.
+On 27–28 May, a third-party credential from Botany Cloud Services Pty Ltd (Supplier ID S-29837) was used to access our payroll SFTP at sftp://files.redgumrenewables.com.au/pay roll/outbox.
+Data exposed comprised staff names, work emails, one Australian passport no. PA 0000001 (flagged invalid), and partial TFNs (xxx xxx 4 92); BSB 123-456 account 00123456 was listed in a test file.
+No Medicare numbers, medical notes, or health claims were accessed, and this is not a material adverse change (MAC) event under our finance documents.
+No customer credit files or loan applications were touched; a $0.01 control payment to BSB 000-000 acct 00000000 was rejected due to deliberate checksum mismatch.
+The pre-close Board pack (not generally available) references unannounced remediation spend and a draft PPA revision likely to reduce FY26 EBITDA by ~6%, which may be MNPI under the Corporations Act and ASX continuous disclosure.
+OAIC notified in line with the Notifiable Data Breaches scheme; preliminary assessment completed within 72 hours; ASIC Markets team briefed; no trading halt or cleansing notice sought at this time.
+Affected cohort: 20 employees including Mr. Lachlan Crowe (Operations Manager) and Ms. Jing Wei (role-only name used for roster contact); email format firstname.lastname@redgumrenewables.com.au.
+For public queries use helpline 1800 777 123 (general enquiries only, fictional) and note that Appendix C contains generic placeholders “Name: ______” and “Address: ______”.
+Internal ref: ticket 7b3- A U - 9 1 2 and link hxxps://portal.redgumrenewables.com.au/case?id=INC%2F2026%2F05%2F28; SOC timeline retained separately.
+Vendor contact (role only): Procurement Officer, Service Desk, Botany Cloud Services Pty Ltd, telephone 1300 000 000 (public switchboard), servicedesk@botanycloud.example.
+Controls enacted: SFTP credentials reset, SSH keys rotated, and leakage controls applied in line with ASX practice; audit shows no access to HR health notes, no address book exports, and no phone metadata.
+Where required we will issue employee notifications via hr-notify@redgumrenewables.com.au and registered post to last known addresses; returned mail will be logged, but not escalated as credit defaults.
+This report is for internal use and to support legal advice; do not circulate externally until the Continuous Disclosure Committee completes its LR 3.1 assessment.
+Signed for Redgum Renewables Pty Ltd by Mr. Owen Tirangi, Company Secretary; +61 2 5550 0000; o.tirangi@redgumrenewables.com.au.
