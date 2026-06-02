@@ -3,13 +3,228 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Cempaka"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 15 July 2026, 17:00 MYT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Sale Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "62%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "22%"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dato' Hisham Razali"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Chan Wei Jian"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Nur Liyana Idris"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "liyana.idris@seripelanduk.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 3-8899 0044"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Cempaka"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 15 July 2026, 17:00 MYT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Sale Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "62%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "22%"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dato' Hisham Razali"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Chan Wei Jian"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Nur Liyana Idris"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "liyana.idris@seripelanduk.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 3-8899 0044"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Ancillary Transitional Services Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC/MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Parties shall not make any public statement or Bursa filing until the embargo lifts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "a draft IR release exists but is not to be uploaded to the Bursa platform yet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "until the embargo lifts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "remains subject to further due diligence and negotiation of binding terms"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Generic role-noun used as a party label, not PII/MNPI."
+    },
+    {
+      "matched_text": "Sellers",
+      "reason": "Generic role-noun party reference, not PII/MNPI."
+    },
+    {
+      "matched_text": "buyer",
+      "reason": "Generic role-noun party reference, not PII/MNPI."
+    },
+    {
+      "matched_text": "spa-day voucher raffle",
+      "reason": "Casual phrase; not a Share Purchase Agreement or MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "to be executed by 30 June 2026",
+      "concept": "signing/execution timing",
+      "reason": "Execution timing may function like a signing date marker but is not explicitly labeled as Signing Date."
+    },
+    {
+      "matched_text": "long-stop date of 30 September 2026",
+      "concept": "transaction timeline marker",
+      "reason": "Long-stop dates are material timing data but not explicitly covered under embargo markers."
+    },
+    {
+      "matched_text": "board memo draft",
+      "concept": "nonpublic/internal document marker",
+      "reason": "Suggests internal non-public status but not an explicit nonpublic marker term."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM 280,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM 180,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM 100,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM 1.75'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM 60,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM 6,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM 280,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM 180,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM 100,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM 1.75'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM 60,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM 6,000,000'"
+  ],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

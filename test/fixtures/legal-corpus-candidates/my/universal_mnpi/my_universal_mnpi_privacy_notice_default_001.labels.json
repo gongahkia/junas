@@ -3,13 +3,311 @@
   "document_type": "generic",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project KENARI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Pn. Noraini Salleh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@semarakenergy.my"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dato\u2019 Amir Hakim"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@semarakenergy.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@semarakenergy.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpa@semarakenergy.my"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transferred outside Malaysia"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "unless strictly necessary"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "anonymise where feasible"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project KENARI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Pn. Noraini Salleh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@semarakenergy.my"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dato\u2019 Amir Hakim"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@semarakenergy.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@semarakenergy.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpa@semarakenergy.my"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transferred outside Malaysia"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "unless strictly necessary"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "anonymise where feasible"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Price-Sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed until 15 Aug 2026 09:00 MYT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "15 Aug 2026 09:00 MYT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed 55% acquisition of Lidalon Resources Sdn Bhd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet executed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Facility Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "treat as insider information until public release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "covenant disclosure remains private pending definitive agreements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "separate workspace \u201ckenari_vdr\u201d with least-privilege"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List custodian"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NOT FOR PUBLIC DISCLOSURE"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer to CloudRimba Pte Ltd (SG)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer impact assessment"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must exclude NRIC scans and bank account numbers unless strictly necessary"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day vouchers",
+      "reason": "Wellness perk bait; not a Share Purchase Agreement or MNPI"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Role noun; not a named person"
+    },
+    {
+      "matched_text": "IR team",
+      "reason": "Role noun; not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "retained 7 years from Bursa announcement",
+      "concept": "retention_marker",
+      "reason": "Privacy retention control is relevant but no explicit allowed rule name for retention provided"
+    },
+    {
+      "matched_text": "request access/correction",
+      "concept": "DSAR",
+      "reason": "Data subject access/correction rights are relevant but no DSAR rule is listed"
+    },
+    {
+      "matched_text": "watermarked with user email",
+      "concept": "watermark/attribution control",
+      "reason": "Security/traceability control potentially related to information barriers but not clearly covered by allowed rules"
+    },
+    {
+      "matched_text": "breach reporting within 72 hours",
+      "concept": "breach_notification_timeline",
+      "reason": "Security incident reporting timeline is relevant but not mapped to an allowed rule"
+    },
+    {
+      "matched_text": "explicit consent",
+      "concept": "consent/legal_basis",
+      "reason": "Refers to consent as a lawful basis but only consent withdrawal marker is allowed"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM60,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM120,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM60,000,000'"
+  ],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
