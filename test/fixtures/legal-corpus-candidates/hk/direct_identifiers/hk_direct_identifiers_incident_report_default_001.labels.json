@@ -1,215 +1,260 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
   "doc_id": "hk_direct_identifiers_incident_report_default_001",
   "document_type": "memo",
-  "source_jurisdiction": "HK",
-  "destination_jurisdiction": "HK",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "hk_cr_no",
-      "matched_text": "CR No. 81234567"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "K1234563"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "T9382715"
-    },
-    {
-      "category": "PII",
-      "rule": "hk_hkid",
-      "matched_text": "A823456(0)"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Desmond Yau"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Clara Poon"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dyau.finance@auroraharbour.com.hk"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dd@orchidbaycap.asia"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@auroraharbour.com.hk"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@auroraharbour.com.hk"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+852 2987 1234"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "713\u2011452\u2011123456\u2011001"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lantern"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information under Part XIVA of the SFO"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not generally known to persons accustomed to dealing in securities"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "operational cyber incident"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "hk_cr_no",
-      "matched_text": "CR No. 81234567"
+      "matched_text": "CR No. 81234567",
+      "rule": "hk_cr_no"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "K1234563"
+      "matched_text": "K1234563",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "T9382715"
+      "matched_text": "T9382715",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "hk_hkid",
-      "matched_text": "A823456(0)"
+      "matched_text": "A823456(0)",
+      "rule": "hk_hkid"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Desmond Yau"
+      "matched_text": "Mr. Desmond Yau",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Clara Poon"
+      "matched_text": "Ms. Clara Poon",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dyau.finance@auroraharbour.com.hk"
+      "matched_text": "dyau.finance@auroraharbour.com.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dd@orchidbaycap.asia"
+      "matched_text": "dd@orchidbaycap.asia",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@auroraharbour.com.hk"
+      "matched_text": "legal@auroraharbour.com.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@auroraharbour.com.hk"
+      "matched_text": "ir@auroraharbour.com.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+852 2987 1234"
+      "matched_text": "+852 2987 1234",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "713\u2011452\u2011123456\u2011001"
+      "matched_text": "713\u2011452\u2011123456\u2011001",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Mr. Desmond Yau, Finance Manager (HKID: A823456(0) \u2013 checksum invalid), payroll email dyau.finance@auroraharbour.com.hk, and office line +852 2987 1234"
+      "matched_text": "Mr. Desmond Yau, Finance Manager (HKID: A823456(0) \u2013 checksum invalid), payroll email dyau.finance@auroraharbour.com.hk, and office line +852 2987 1234",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Ms. Clara Poon (HKSAR Passport No. T9382715), MPF Scheme ID APB-77-4521, and address Unit 2307, 23/F, Harbour Apex, 88 Connaught Road Central, Hong Kong"
+      "matched_text": "Ms. Clara Poon (HKSAR Passport No. T9382715), MPF Scheme ID APB-77-4521, and address Unit 2307, 23/F, Harbour Apex, 88 Connaught Road Central, Hong Kong",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lantern"
+      "matched_text": "Project Lantern",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "potential acquisition of Pearl Orion Holdings Limited"
+      "matched_text": "potential acquisition of Pearl Orion Holdings Limited",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information under Part XIVA of the SFO"
+      "matched_text": "inside information under Part XIVA of the SFO",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not generally known to persons accustomed to dealing in securities"
+      "matched_text": "not generally known to persons accustomed to dealing in securities",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "operational cyber incident"
+      "matched_text": "operational cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "phishing-led credential compromise"
+      "matched_text": "phishing-led credential compromise",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Temporary access to the data room for Orchid Bay Capital SPC is suspended"
+      "matched_text": "Temporary access to the data room for Orchid Bay Capital SPC is suspended",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "This notice is confidential and intended for board and SFC compliance review"
+      "matched_text": "This notice is confidential and intended for board and SFC compliance review",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "unauthorized dealing based on the above may contravene the SFO"
+      "matched_text": "unauthorized dealing based on the above may contravene the SFO",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not use the general hotline listed on forms"
+      "matched_text": "do not use the general hotline listed on forms",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "a trading halt is required if MNPI public disclosure becomes necessary"
+      "matched_text": "a trading halt is required if MNPI public disclosure becomes necessary",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 3765 4402",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "81234567",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A phishing-led credential compromise accessed a shared drive containing draft M&A board papers for \u201cProject Lantern\u201d regarding a potential acquisition of Pearl Orion Holdings Limited.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "External counsel, Jade Meridian Chambers, has advised preservation of evidence and PDPO breach notification steps; queries may be directed to legal@auroraharbour.com.hk.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20334455",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dyau.finance@auroraharbour.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dd@orchidbaycap.asia",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@auroraharbour.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 2987 1234",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+852 3765 4402",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "T9382715",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "81234567",
+      "rule": "hk_cr_no"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Desmond Yau",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Clara Poon",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "A phishing-led credential compromise accessed a shared drive containing draft M&A board papers for \u201cProject Lantern\u201d regarding a potential acquisition of Pearl Orion Holdings Limited.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "External counsel, Jade Meridian Chambers, has advised preservation of evidence and PDPO breach notification steps; queries may be directed to legal@auroraharbour.com.hk.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lantern",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20334455",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
@@ -230,38 +275,32 @@
       "reason": "Role-only alias; not a named individual."
     }
   ],
+  "source_jurisdiction": "HK",
   "uncertain": [
     {
-      "matched_text": "MPF Scheme ID APB-77-4521",
       "concept": "pension_member_id",
+      "matched_text": "MPF Scheme ID APB-77-4521",
       "reason": "Appears to be an individual's MPF membership identifier; not explicitly covered by available PII rules."
     },
     {
-      "matched_text": "tax BR No. 20334455-000-12-6",
       "concept": "hk_business_registration_number",
+      "matched_text": "tax BR No. 20334455-000-12-6",
       "reason": "Hong Kong Business Registration number is a company identifier; not listed among allowed rules but may be sensitive in context."
     },
     {
-      "matched_text": "address Unit 2307, 23/F, Harbour Apex, 88 Connaught Road Central, Hong Kong",
       "concept": "postal_address",
+      "matched_text": "address Unit 2307, 23/F, Harbour Apex, 88 Connaught Road Central, Hong Kong",
       "reason": "Personal residential/mailing address; no explicit generic address rule provided for HK."
     },
     {
-      "matched_text": "SFC-licensed staff were notified under internal compliance policy CP\u2011SFC\u201104",
       "concept": "insider_list_marker",
+      "matched_text": "SFC-licensed staff were notified under internal compliance policy CP\u2011SFC\u201104",
       "reason": "Internal notification to a restricted group may imply creation/use of an insider list but not explicitly stated in allowed markers."
     },
     {
-      "matched_text": "HKID scans",
       "concept": "hkid_document_reference",
+      "matched_text": "HKID scans",
       "reason": "References presence of HKID images/documents without listing specific numbers; indicates sensitive identity data but not directly captured by existing ID rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

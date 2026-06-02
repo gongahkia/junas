@@ -1,245 +1,335 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "HK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "hk-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "HK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-hk-stage-b-eval-after-precision-narrowed.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after HK Stage B precision guards"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "HK",
   "doc_id": "hk_quasi_identifiers_term_sheet_adversarial_001",
   "document_type": "term_sheet",
-  "source_jurisdiction": "HK",
-  "destination_jurisdiction": "HK",
-  "must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "HK$5.80"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "HK$1,160,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Inside information under Part XIVA SFO"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "restricted list to include Nova Tactile Holdings"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "dealing suspended for Harbor Peak traders until cleansing announcement"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Adrian K. Lau"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1985-02-03"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 41"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "adrian.lau@harborpeakcap.hk"
-    },
-    {
-      "category": "PII",
-      "rule": "mac_address",
-      "matched_text": "02-AB-7C-11-22-3F"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_customer_reference",
-      "matched_text": "4029-77"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Grace Y. Poon"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Celia Tong"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "celia.tong@stonelanternlaw.hk"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Hugo Fen"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hugo.fen@eastwindquaycap.com.hk"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
+      "matched_text": "51%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "HK$5.80"
+      "matched_text": "HK$5.80",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "HK$1,160,000,000"
+      "matched_text": "HK$1,160,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Inside information under Part XIVA SFO"
+      "matched_text": "Inside information under Part XIVA SFO",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "not for onward distribution"
+      "matched_text": "not for onward distribution",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "price-sensitive"
+      "matched_text": "price-sensitive",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed acquisition of 51% of Nova Tactile Holdings Limited (HKEX: NTHL) by Harbor Peak Capital Partners Ltd. and Blue Fern Holdings Ltd"
+      "matched_text": "proposed acquisition of 51% of Nova Tactile Holdings Limited (HKEX: NTHL) by Harbor Peak Capital Partners Ltd. and Blue Fern Holdings Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "restricted list to include Nova Tactile Holdings"
+      "matched_text": "restricted list to include Nova Tactile Holdings",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "dealing suspended for Harbor Peak traders until cleansing announcement"
+      "matched_text": "dealing suspended for Harbor Peak traders until cleansing announcement",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Adrian K. Lau"
+      "matched_text": "Mr. Adrian K. Lau",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1985-02-03"
+      "matched_text": "1985-02-03",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 41"
+      "matched_text": "age 41",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "adrian.lau@harborpeakcap.hk"
+      "matched_text": "adrian.lau@harborpeakcap.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Key person cluster (for coordination): Mr. Adrian K. Lau (DOB 1985-02-03; age 41), VP Corporate Development at Harbor Peak Capital Partners Ltd., based at Harbor View Centre, Tower B, Central, Hong Kong"
+      "matched_text": "Key person cluster (for coordination): Mr. Adrian K. Lau (DOB 1985-02-03; age 41), VP Corporate Development at Harbor Peak Capital Partners Ltd., based at Harbor View Centre, Tower B, Central, Hong Kong",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Contact for diligence scheduling: adrian.lau@harborpeakcap.hk; alt a d r i a n . l a u @ h a r b o r p e a k c a p . h k; device ref hk-iphone12-8XY993; VPN session hk-vpn-2026-05-24T08:13Z; client acct 4029-77 at JadeBank HK; SSID HarborPeak_Guest; MAC 02-AB-7C-11-22-3F"
+      "matched_text": "Contact for diligence scheduling: adrian.lau@harborpeakcap.hk; alt a d r i a n . l a u @ h a r b o r p e a k c a p . h k; device ref hk-iphone12-8XY993; VPN session hk-vpn-2026-05-24T08:13Z; client acct 4029-77 at JadeBank HK; SSID HarborPeak_Guest; MAC 02-AB-7C-11-22-3F",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "hk-iphone12-8XY993"
+      "matched_text": "hk-iphone12-8XY993",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "hk-vpn-2026-05-24T08:13Z"
+      "matched_text": "hk-vpn-2026-05-24T08:13Z",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "bank_customer_reference",
-      "matched_text": "4029-77"
+      "matched_text": "4029-77",
+      "rule": "bank_customer_reference"
     },
     {
       "category": "PII",
-      "rule": "mac_address",
-      "matched_text": "02-AB-7C-11-22-3F"
+      "matched_text": "02-AB-7C-11-22-3F",
+      "rule": "mac_address"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "ALau_19850203"
+      "matched_text": "ALau_19850203",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Grace Y. Poon"
+      "matched_text": "Ms. Grace Y. Poon",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "not intended to identify any person by generic descriptors alone"
+      "matched_text": "not intended to identify any person by generic descriptors alone",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Celia Tong"
+      "matched_text": "Ms. Celia Tong",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "celia.tong@stonelanternlaw.hk"
+      "matched_text": "celia.tong@stonelanternlaw.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Hugo Fen"
+      "matched_text": "Mr. Hugo Fen",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hugo.fen@eastwindquaycap.com.hk"
+      "matched_text": "hugo.fen@eastwindquaycap.com.hk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not identify any individual"
+      "matched_text": "do not identify any individual",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Grace",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Non-Binding Term Sheet \u2014 proposed acquisition of 51% of Nova Tactile Holdings Limited (HKEX: NTHL) by Harbor Peak Capital Partners Ltd. and Blue Fern Holdings Ltd.; subject to SFC/HKEX approvals and the Takeovers Code.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing covenants: leverage capped at 2.0x post-closing; offshore fund subscriptions to be finalized by 2026\u201106\u201120; HK security over local receivables; no PF interest rate swaps required.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conflicts and MNPI handling: restricted list to include Nova Tactile Holdings; dealing suspended for Harbor Peak traders until cleansing announcement; staff training under SFC circular guidance issued 2024.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,160,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "adrian.lau@harborpeakcap.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "celia.tong@stonelanternlaw.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hugo.fen@eastwindquaycap.com.hk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1985-02-03",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Adrian",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Grace",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Celia Tong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hugo Fen",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential Non-Binding Term Sheet \u2014 proposed acquisition of 51% of Nova Tactile Holdings Limited (HKEX: NTHL) by Harbor Peak Capital Partners Ltd. and Blue Fern Holdings Ltd.; subject to SFC/HKEX approvals and the Takeovers Code.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing covenants: leverage capped at 2.0x post-closing; offshore fund subscriptions to be finalized by 2026\u201106\u201120; HK security over local receivables; no PF interest rate swaps required.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conflicts and MNPI handling: restricted list to include Nova Tactile Holdings; dealing suspended for Harbor Peak traders until cleansing announcement; staff training under SFC circular guidance issued 2024.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HK$5.80",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HK$1,160,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,160,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -264,48 +354,42 @@
       "reason": "Separated weak identifier not linked to any individual."
     }
   ],
+  "source_jurisdiction": "HK",
   "uncertain": [
     {
-      "matched_text": "hk-iphone12-8XY993",
       "concept": "device identifier",
+      "matched_text": "hk-iphone12-8XY993",
       "reason": "Looks like a device reference/serial but not a standardized serial format; category coverage may be ambiguous."
     },
     {
-      "matched_text": "hk-vpn-2026-05-24T08:13Z",
       "concept": "session identifier",
+      "matched_text": "hk-vpn-2026-05-24T08:13Z",
       "reason": "VPN session token that may qualify as an internal session ID; not explicitly standardized."
     },
     {
-      "matched_text": "HarborPeak_Guest",
       "concept": "network SSID",
+      "matched_text": "HarborPeak_Guest",
       "reason": "SSID can be a weak quasi-identifier but there is no explicit rule for SSIDs."
     },
     {
-      "matched_text": "ALau_19850203",
       "concept": "user/session identifier containing name and DOB",
+      "matched_text": "ALau_19850203",
       "reason": "URL sid parameter combines name and DOB; could be treated as an internal session ID or quasi-identifier."
     },
     {
-      "matched_text": "Rule 3.5 announcement",
       "concept": "regulatory disclosure trigger",
+      "matched_text": "Rule 3.5 announcement",
       "reason": "Key Takeovers Code disclosure milestone; relevant to MNPI status but not an explicit allowed marker."
     },
     {
-      "matched_text": "a d r i a n . l a u @ h a r b o r p e a k c a p . h k",
       "concept": "obfuscated email address",
+      "matched_text": "a d r i a n . l a u @ h a r b o r p e a k c a p . h k",
       "reason": "Likely an email address with spaces inserted; may not be captured by strict detectors."
     },
     {
-      "matched_text": "Harbor View Centre, Tower B, Central, Hong Kong",
       "concept": "workplace location",
+      "matched_text": "Harbor View Centre, Tower B, Central, Hong Kong",
       "reason": "Location can act as a quasi-identifier, but no explicit rule for general HK addresses."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

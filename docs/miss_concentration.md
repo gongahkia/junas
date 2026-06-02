@@ -6,18 +6,17 @@ Raw jurisdiction counts reflect fixture volume; compare jurisdictions only at li
 ## Summary
 
 - Review profile: strict
-- Miss count: 6946
-- Buckets: coverage_gap: 4992, conjunction_miss: 1749, singling_out_miss: 162, needs_review: 34, true_inference_miss: 9
-- Detector families: mnpi_context: 1750, mnpi_lexicon: 1359, direct_identifier: 1301, privacy_event: 1163, pseudonymised_linkable: 337, special_category: 332, online_device: 255, sector_mnpi: 253, quasi_identifier: 162, unknown: 34
-- Jurisdictions by raw misses: SG: 1079, IN: 487, CN: 442, EU: 425, MY: 375, JP: 369, PH: 366, SA: 364, AU: 351, KR: 349
-- Jurisdictions by misses per 100 docs: IN: 2319.05 per 100 docs (487 raw), CN: 2104.76 per 100 docs (442 raw), EU: 2023.81 per 100 docs (425 raw), MY: 1785.71 per 100 docs (375 raw), JP: 1757.14 per 100 docs (369 raw), PH: 1742.86 per 100 docs (366 raw), SA: 1733.33 per 100 docs (364 raw), AU: 1671.43 per 100 docs (351 raw), KR: 1661.9 per 100 docs (349 raw), HK: 1647.62 per 100 docs (346 raw)
+- Miss count: 7882
+- Buckets: coverage_gap: 5674, conjunction_miss: 1954, singling_out_miss: 184, needs_review: 41, true_inference_miss: 29
+- Detector families: mnpi_context: 1955, mnpi_lexicon: 1598, direct_identifier: 1447, privacy_event: 1291, pseudonymised_linkable: 393, special_category: 376, sector_mnpi: 309, online_device: 288, quasi_identifier: 184, unknown: 41
+- Jurisdictions by raw misses: HK: 1282, SG: 1079, IN: 487, CN: 442, EU: 425, MY: 375, JP: 369, PH: 366, SA: 364, AU: 351
+- Jurisdictions by misses per 100 docs: IN: 2319.05 per 100 docs (487 raw), CN: 2104.76 per 100 docs (442 raw), EU: 2023.81 per 100 docs (425 raw), MY: 1785.71 per 100 docs (375 raw), JP: 1757.14 per 100 docs (369 raw), PH: 1742.86 per 100 docs (366 raw), SA: 1733.33 per 100 docs (364 raw), AU: 1671.43 per 100 docs (351 raw), KR: 1661.9 per 100 docs (349 raw), VN: 1647.62 per 100 docs (346 raw)
 
 ## Top Cells
 
 | Detector family | Jurisdiction | Bucket | Misses | Docs | Misses / 100 docs | Top rules | Example |
 |---|---|---|---:|---:|---:|---|---|
 | privacy_event | CN | coverage_gap | 134 | 21 | 638.1 | cross_border_transfer_marker: 65, data_minimisation_marker: 46, minor_data_reference: 20, consent_withdrawal_marker: 3 | test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_memo_adversarial_001.txt: `Cross-border: vendor BrightCloud HK Ltd. will receive HR contact lists; per C...` |
-| mnpi_context | HK | conjunction_miss | 117 | 21 | 557.14 | information_barrier_marker: 41, selective_disclosure_risk: 27, blackout_period_reference: 22, contingent_mnpi_language: 10 | test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_memo_adversarial_001.txt: `update insider list` |
 | direct_identifier | IN | coverage_gap | 116 | 21 | 552.38 | email_address: 36, in_pan: 21, in_gstin: 18, in_aadhaar: 15 | test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_adversarial_001.txt: `91-9876543210` |
 | mnpi_context | US | conjunction_miss | 114 | 21 | 542.86 | selective_disclosure_risk: 58, information_barrier_marker: 23, blackout_period_reference: 15, contingent_mnpi_language: 7 | test/fixtures/legal-corpus-candidates/us/direct_identifiers/us_direct_identifiers_memo_adversarial_001.txt: `not to be shared with sell-side analysts` |
 | mnpi_context | EU | conjunction_miss | 111 | 21 | 528.57 | insider_list_marker: 30, blackout_period_reference: 23, selective_disclosure_risk: 23, information_barrier_marker: 20 | test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_adversarial_001.txt: `maintain insider list entries` |
@@ -36,3 +35,4 @@ Raw jurisdiction counts reflect fixture volume; compare jurisdictions only at li
 | mnpi_lexicon | UK | coverage_gap | 85 | 21 | 404.76 | nonpublic_marker: 35, material_event: 24, embargo_marker: 11, financial_percentage: 4 | test/fixtures/legal-corpus-candidates/uk/direct_identifiers/uk_direct_identifiers_memo_adversarial_001.txt: `6–8%` |
 | mnpi_lexicon | IN | coverage_gap | 83 | 21 | 395.24 | nonpublic_marker: 47, material_event: 23, definitive_agreement: 6, embargo_marker: 4 | test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_adversarial_001.txt: `unpublished order book` |
 | privacy_event | EU | coverage_gap | 83 | 21 | 395.24 | cross_border_transfer_marker: 49, data_minimisation_marker: 28, consent_withdrawal_marker: 4, minor_data_reference: 2 | test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_adversarial_001.txt: `cross-border transfer` |
+| mnpi_context | SA | conjunction_miss | 82 | 21 | 390.48 | blackout_period_reference: 22, selective_disclosure_risk: 20, insider_list_marker: 15, information_barrier_marker: 12 | test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_memo_adversarial_001.txt: `restrict to need‑to‑know` |
