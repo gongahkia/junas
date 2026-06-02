@@ -1560,6 +1560,8 @@ def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> boo
     return bool(re.search(
         r"\b(?:not\s+(?:mnpi|upsi)|no\s+(?:upsi|mnpi)|"
         r"no\s+material\s+non[- ]public\s+information|"
+        r"(?:contains?\s+no|does\s+not\s+contain)[^\n.;]{0,120}"
+        r"material\s+non[- ]public\s+information|"
         r"tidak\s+ada\s+mnpi|no\s+material\s+non[- ]public\s+information\s+remains|"
         r"not[^\n.;]{0,80}\bmnpi|mnpi\s+controls|none\s+are\s+included\s+herein|"
         r"no\s+non[- ]public\s+analyst\s+notes[^\n.;]{0,80}(?:attached|included)|"
@@ -1696,6 +1698,7 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
         r"training[^\n.;]{0,120}generic\s+examples?|"
         r"terms?\s+[\"“]?insider\s+list[\"”]?[^\n.;]{0,120}generic|"
         r"insider\s+list[^\n.;]{0,120}generic[^\n.;]{0,80}(?:policy|controls?)|"
+        r"does\s+not\s+specify[^\n.;]{0,120}\binsider\s+lists?|"
         r"for\s+educational\s+purposes\s+only|"
         r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only|"
         r"educational\s+note[^\n.;]{0,120}purely\s+instructional"

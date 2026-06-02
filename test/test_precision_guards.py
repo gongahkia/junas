@@ -864,6 +864,31 @@ class FinancialAmountGuards(unittest.TestCase):
         markers = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "nonpublic_marker"]
         self.assertNotIn("material non-public information", markers)
 
+    def test_malaysia_contains_no_mnpi_statement_does_not_fire_marker(self):
+        text = (
+            "This schedule contains no earnings guidance, deal terms, or other "
+            "material non-public information; corporate developments referenced "
+            "are already disclosed on Bursa LINK."
+        )
+        markers = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "nonpublic_marker"]
+        self.assertNotIn("material non-public information", markers)
+
+    def test_malaysia_does_not_contain_mnpi_statement_does_not_fire_marker(self):
+        text = (
+            "This notice does not authorise trading, does not contain material "
+            "non-public information, and is intended for general compliance guidance only."
+        )
+        markers = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "nonpublic_marker"]
+        self.assertNotIn("material non-public information", markers)
+
+    def test_malaysia_does_not_specify_insider_lists_does_not_fire(self):
+        text = (
+            "This note does not specify blackout windows, price-sensitive triggers, "
+            "or insider lists."
+        )
+        rules = _rules_matched(text, jurisdiction="MY")
+        self.assertNotIn(("insider_list_marker", "insider lists"), rules)
+
     def test_ph_mnpi_control_and_bait_lines_do_not_fire_marker(self):
         text = (
             "MNPI controls are reviewed quarterly. "

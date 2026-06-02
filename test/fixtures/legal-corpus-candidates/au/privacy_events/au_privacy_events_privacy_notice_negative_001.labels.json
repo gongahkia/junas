@@ -103,11 +103,6 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "material non-public information",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "Insider list",
       "rule": "insider_list_marker"
     }
@@ -116,6 +111,10 @@
     {
       "matched_text": "service provider",
       "reason": "Role-noun used as a party descriptor, not PII/MNPI"
+    },
+    {
+      "matched_text": "material non-public information",
+      "reason": "Negated AU privacy-notice disclaimer; not a live MNPI marker."
     }
   ],
   "source_jurisdiction": "AU",
@@ -144,6 +143,14 @@
       "concept": "deletion/purge operations",
       "matched_text": "Purge jobs run monthly in the AU-Sydney region; the last internal audit (2026-04-30) recorded expected deletions and no unintended data loss",
       "reason": "Operational deletion controls are pertinent to retention/erasure but lack a specific allowed marker rule."
+    }
+  ],
+  "_strict_reconciliation_followups": [
+    {
+      "date": "2026-06-02",
+      "basis": "MY Stage B precision review added a negative-disclaimer guard for 'does not contain material non-public information'. This AU negative fixture used the same disclaimer shape, so the span was removed from strict must_detect and retained as must_not_detect.",
+      "reviewer": "Codex GPT-5.5",
+      "status": "codex_reconciled_pending_owner_review"
     }
   ]
 }
