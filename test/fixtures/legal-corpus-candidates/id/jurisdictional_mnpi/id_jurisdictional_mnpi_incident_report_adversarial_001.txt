@@ -1,0 +1,17 @@
+Memo Dewan Direksi (Internal) — Draf Laporan Insiden Keamanan Siber & Operasional, 17 Mei 2026, 22:14 WIB, Ref: INT-SECOPS/0517/2026
+Emiten: PT  N e x a D a n a  Teknologi Tbk (“Perseroan”) | Kode Saham: NXD | Bursa: Bursa Efek Archipelago (BEA) | Otoritas: OJK-N (fiktif)
+Ringkasan insiden: deteksi akses tidak sah pada 16 Mei 2026 pukul 03:21 WIB ke API sandbox produk SakuQ yang memicu rate spike; indikasi penggunaan credential uji yang tidak dienkripsi sesuai SOP rotasi kunci.
+Data terdampak (UU PDP): nama, email kerja, dan 4 digit akhir nomor seluler dari pengguna uji internal; contoh: Bpk. Arman Sutoyo (VP Keamanan) — 08 12-***-**31, arman.sutoyo@nexadana.co.id; tidak ada password plaintext, hanya token hash.
+Cakupan: tidak ada dana nasabah produksi yang berpindah; 12 akun uji mengalami refresh paksa; log menunjukkan overlap dengan jadwal pemeliharaan vendor CloudSouth-SEA (pihak ketiga) — informasi ini bukan operasi Perseroan yang material.
+Potensi MNPI: estimasi biaya forensik Rp4,2 miliar dan kemungkinan penundaan rilis PayFlex 2.3 selama 2–3 minggu; dapat mempengaruhi negosiasi akuisisi PT Sagara Pay Nusantara (SPN) (uji tuntas tahap 2, belum diumumkan ke publik).
+Materialitas & blackout: evaluasi materialitas berbasis pendapatan kuartal (threshold internal 5%); selama periode blackout pra-publikasi informasi (T–10 hingga H+2 Hari Kerja keterbukaan) seluruh Insan Perseroan dilarang melakukan transaksi NXD (Larangan Perdagangan Orang Dalam).
+Kewajiban keterbukaan: sesuai POJK-N 31/POJK-N.04/2015 jo. 42/POJK-N.04/2020 (simulasi), keterbukaan informasi/fakta material wajib disampaikan ke BEA dan OJK-N paling lambat 2 (dua) Hari Kerja; bila risiko keamanan aktif, dapat dimohonkan penundaan yang terbatas.
+Catatan status publik: Siaran Pers BEA No. BEA-PR/072/2026 (15 Mei 2026) mengenai penggantian Sekretaris Perusahaan telah dipublikasikan dan tidak berkaitan dengan insiden ini.
+Selektif disclosure: informasi insiden ini bersifat tidak untuk dikonsumsi publik; penyampaian terbatas kepada calon kreditur sindikasi PT Bank Nusaprima Sentosa (di bawah NDA) diperbolehkan untuk tujuan covenant monitoring saja.
+Kontak eskalasi: Ibu Maya Lestari (Chief Risk Officer) — maya.lestari@nexadana.co.id, ext. 7719; Posko Insiden: sec-ops@nexadana.co.id; Hotline internal: +62-21-77xx-4x21.
+Referensi teknis: tiket IT-INC-00I7, artefak di hxxps://git.nexadana.co.id/sec/fi1es/INC00I7 (login VPN); bukti log: C:\for3ns1c\NX D\2026-05\api_sandbox\; permintaan hash: POST /v1/sand b 0x/auth.
+Rujukan publik non-sensitif: artikel komunitas “CloudGuard Nusantara” tentang CVE-2026-1442 (publik) menyebut patch tersedia; sumber tersebut tidak memuat data Perseroan dan hanya pedoman teknis umum.
+Klausula MAC: saat ini insiden tidak diperkirakan menimbulkan material adverse change dan tidak memicu ketentuan MAC pada draft CSPA dengan SPN.
+Informasi publik terdahulu: Laporan Keberlanjutan 2025 Perseroan (28 Maret 2026) telah memuat kebijakan retensi log 90 hari—informasi ini sudah bersifat publik dan tidak material terhadap insiden.
+Rencana keterbukaan: ajukan permohonan penundaan terbatas ke OJK-N sesuai Pasal 6 huruf c POJK-N 31 (simulasi) pagi ini; bila disetujui, publikasi ringkas dilakukan dalam 2 Hari Kerja setelah kontrol konten; bila ditolak, keterbukaan akan diumumkan di portal BEA (hxxps://bea.id/di scl0se/NXD-0518) paling lambat 20 Mei 2026 pukul 12.00 WIB.
+catatan kerja internal: root-cause analysis due eod rabu; update ruang wiki “ops-risk” dan kirim notulen steering di channel #sec-ops; ini bukan pengumuman ke publik.
