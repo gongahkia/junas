@@ -3,13 +3,209 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpsec@bungarayatech.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deals@kencanacapital.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nur Aina Salleh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Farid Hakim"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal workflow"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation commitments"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only strictly necessary fields"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpsec@bungarayatech.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deals@kencanacapital.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nur Aina Salleh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Farid Hakim"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data Export Approval DEA-006"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal workflow"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation commitments"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only strictly necessary fields"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "anonymised, aggregated, or synthetic datasets only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price-sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition by Kencana Capital Sdn Bhd (Reg. No. KCS-2001137) of 60% of Bunga Raya Tech Berhad (Reg. No. BRT-2010453), a company listed on the Main Board of Bursa Putra Exchange"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Target",
+      "reason": "Role noun/defined term, not a person or identifier"
+    },
+    {
+      "matched_text": "The parties",
+      "reason": "Role noun/defined term, not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "no unpublished price-sensitive information remains",
+      "concept": "nonpublic_marker (negated)",
+      "reason": "References non-public price-sensitive information but states none remains post-cleansing"
+    },
+    {
+      "matched_text": "no live cross-border flows are active pre-signing",
+      "concept": "cross_border_transfer (negated)",
+      "reason": "Mentions cross-border transfers in the negative; indicates no active flows"
+    },
+    {
+      "matched_text": "all data subject access requests received up to 31 May 2026 have been fulfilled and closed",
+      "concept": "DSAR (completed)",
+      "reason": "DSAR handling referenced but completed/closed, and DSAR not an allowed explicit rule key"
+    },
+    {
+      "matched_text": "the last erasure request (ER-2026-014) was completed on 15 May 2026",
+      "concept": "erasure (completed)",
+      "reason": "Erasure request referenced as completed; erasure not an allowed explicit rule key"
+    },
+    {
+      "matched_text": "Retention Schedule RS-2025-01",
+      "concept": "retention policy reference",
+      "reason": "Retention schedule cited but retention not an allowed explicit rule key"
+    },
+    {
+      "matched_text": "retention limits",
+      "concept": "retention control",
+      "reason": "Retention control referenced; retention not an allowed explicit rule key"
+    },
+    {
+      "matched_text": "this term sheet does not by itself trigger any collection, use, or cross-border transfer of personal data",
+      "concept": "cross_border_transfer (negated) / collection/use (negated)",
+      "reason": "Explicit negation of collection/use/transfer; included for legal relevance but not a live event"
+    },
+    {
+      "matched_text": "encryption keys remain hosted in-country and will not be exported or shared with third-country processors prior to completion",
+      "concept": "cross_border_transfer restriction (negated)",
+      "reason": "Cross-border export restriction stated in the negative; not a live transfer"
+    },
+    {
+      "matched_text": "the legacy data broker engagement with Kelapa Data Brokers Sdn Bhd terminated on 1 March 2026",
+      "concept": "third-party data sharing (terminated)",
+      "reason": "References prior data sharing but indicates it has been terminated"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM118,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM80,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM38,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM118,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM80,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM38,000,000'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

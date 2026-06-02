@@ -3,13 +3,151 @@
   "document_type": "memo",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "fleet.ops@serunai-logistics.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr.contracts@serunai-logistics.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@serunai-logistics.my"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "fleet.ops@serunai-logistics.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr.contracts@serunai-logistics.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@serunai-logistics.my"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "born 1991-08"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "KK-NB-072"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "u072-it"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "A contract analyst in Group IT at Serunai Logistics Berhad, stationed at the Kota Kinabalu branch and born 1991-08, had sign-in activity from device asset KK-NB-072 using temporary domain ID u072-it; the password was rotated at 10:40 MYT and multi-factor enrolment was enforced"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "We note a separate HR matter where a warehouse team leader in Johor Bahru uses an older email alias and a loan-issued phone; no date of birth, device serial, or residential address appears in the incident file"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "quasi-identifiers retained in logs are minimised"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "NRIC scans",
+      "reason": "Generic data-type mention without any actual identifier value."
+    },
+    {
+      "matched_text": "\u201cName\u201d",
+      "reason": "Template placeholder field, not an actual personal data value."
+    },
+    {
+      "matched_text": "\u201cIC No.\u201d",
+      "reason": "Template placeholder field, not an actual personal data value."
+    },
+    {
+      "matched_text": "\u201cPayroll Account\u201d",
+      "reason": "Template placeholder field, not an actual personal data value."
+    },
+    {
+      "matched_text": "\u201cPassport\u201d",
+      "reason": "Template placeholder field, not an actual personal data value."
+    },
+    {
+      "matched_text": "customer bank account numbers",
+      "reason": "Generic data-type mention without any actual identifier value."
+    },
+    {
+      "matched_text": "device serial",
+      "reason": "Generic data-type mention without any actual identifier value."
+    },
+    {
+      "matched_text": "residential address",
+      "reason": "Generic data-type mention without any actual identifier value."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "KK-NB-072",
+      "concept": "device asset ID",
+      "reason": "Likely a device serial/asset identifier but format is not definitively a serial number pattern."
+    },
+    {
+      "matched_text": "u072-it",
+      "concept": "employee/domain ID",
+      "reason": "Appears to be a user/employee identifier but could be a temporary domain login; mapping to employee_id is inferential."
+    },
+    {
+      "matched_text": "ACC-0000-XYZ",
+      "concept": "account/test identifier",
+      "reason": "Looks like an account/reference ID in logs but not clearly a customer_account_number or bank_customer_reference."
+    },
+    {
+      "matched_text": "retention controls applied",
+      "concept": "retention marker",
+      "reason": "Indicates data retention governance, which is legally relevant, but there is no explicit allowed rule for retention markers."
+    },
+    {
+      "matched_text": "VPN-PJ-OLD",
+      "concept": "VPN profile identifier",
+      "reason": "May be a unique configuration/profile label that could indirectly identify an endpoint or user group, not clearly covered by existing rules."
+    },
+    {
+      "matched_text": "Kota Kinabalu branch",
+      "concept": "work location identifier",
+      "reason": "Location tied to a specific role can be quasi-identifying, but location alone is not an allowed standalone PII rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

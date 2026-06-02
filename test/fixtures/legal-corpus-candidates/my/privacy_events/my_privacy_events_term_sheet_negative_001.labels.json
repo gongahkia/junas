@@ -3,13 +3,164 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed strategic acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@orionaccretive.my"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer of limited HR/payroll fields to a group processor outside Malaysia has been approved"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed strategic acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@orionaccretive.my"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer of limited HR/payroll fields to a group processor outside Malaysia has been approved"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collect only necessary fields (e.g., Name, NRIC/Passport, role, start date)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed strategic acquisition by Orion Accretive Berhad (Main Market, Bursa Malaysia) of 70% equity in Kelana Digital Utilities Sdn Bhd via subscription and purchase"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70% equity"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price-sensitive financial projections"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "insider trading prohibitions"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Completion",
+      "reason": "Capitalized transactional milestone/role term, not PII/MNPI data."
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Defined role noun; not a personal name or MNPI."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined role noun for an entity; not PII/MNPI."
+    },
+    {
+      "matched_text": "no price-sensitive figures are set out herein",
+      "reason": "Negated MNPI statement indicating absence of sensitive figures."
+    },
+    {
+      "matched_text": "no bank account numbers or payment identifiers are provided or required by this term sheet",
+      "reason": "Negated PII statement indicating absence of bank/payment identifiers."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Records retained under documented schedules (7 years or as required by Malaysian law)",
+      "concept": "retention_marker",
+      "reason": "Indicates data retention period/policy relevant to PDPA, but no explicit retention rule enumerated."
+    },
+    {
+      "matched_text": "erasure workflows exist but there are no pending erasure requests as at this term sheet date",
+      "concept": "erasure_marker",
+      "reason": "Mentions erasure workflows; relevant to PDPA erasure rights but not a listed rule."
+    },
+    {
+      "matched_text": "Access/correction requests are processed via dpo@orionaccretive.my with standard SLAs; no open DSARs affect the Target or Completion",
+      "concept": "dsar_marker",
+      "reason": "DSAR handling reference; DSAR marker not explicitly in allowed rules."
+    },
+    {
+      "matched_text": "NRIC/Passport",
+      "concept": "identity_document_reference",
+      "reason": "References collection of national ID/passport fields without actual numbers; falls outside strict numeric ID rules."
+    },
+    {
+      "matched_text": "signing/Completion",
+      "concept": "embargo_timing_reference",
+      "reason": "Refers to announcement timing but lacks explicit markers like Signing Date/Closing Date."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

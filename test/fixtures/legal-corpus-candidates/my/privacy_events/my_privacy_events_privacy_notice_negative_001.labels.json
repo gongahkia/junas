@@ -3,13 +3,196 @@
   "document_type": "generic",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@seribanyan.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@seribanyan.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer approval"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdraw consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation policy (onboarding)"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "political beliefs"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "health data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "effective 02 June 2026"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@seribanyan.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@seribanyan.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer approval"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "limited export of HR ticket metadata to NimbusBeta Pte Ltd (Singapore)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdraw consent"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdraw consent for non-mandatory processing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation policy (onboarding)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collect essential fields only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "NRIC/Passport last 4 digits"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked bank account reference"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "telemetry excludes personal identifiers"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "political beliefs"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "health data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "effective 02 June 2026"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Data User",
+      "reason": "Role noun/defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "Data Processor",
+      "reason": "Role noun/defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "Approved Sub-processor",
+      "reason": "Role noun/defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "Vendor",
+      "reason": "Role noun/defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "material non-public information",
+      "reason": "Negated MNPI disclaimer; not a live MNPI signal."
+    },
+    {
+      "matched_text": "blackout windows",
+      "reason": "Negated MNPI control; not a live blackout period."
+    },
+    {
+      "matched_text": "insider lists",
+      "reason": "Negated MNPI control; not a live insider list."
+    },
+    {
+      "matched_text": "there are no outstanding DSARs or erasure requests",
+      "reason": "Negated privacy-event; not a live DSAR/erasure request."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR workflow: access/correction requests via portal.seribanyan.example/dsar with standard 21-day response",
+      "concept": "dsar_marker",
+      "reason": "DSAR channel and SLA are privacy-event markers, but no explicit dsar_marker rule is available."
+    },
+    {
+      "matched_text": "HR onboarding records retained for 7 years post-cessation or shorter if required by law",
+      "concept": "retention_marker",
+      "reason": "Retention duration is a privacy control, but no explicit retention_marker rule is available."
+    },
+    {
+      "matched_text": "helpdesk logs for 24 months",
+      "concept": "retention_marker",
+      "reason": "Retention duration is a privacy control, but no explicit retention_marker rule is available."
+    },
+    {
+      "matched_text": "quarterly purge jobs scheduled per Retention Schedule SB-RET-07",
+      "concept": "erasure_marker",
+      "reason": "Scheduled deletion implies erasure controls, but no explicit erasure_marker rule is available."
+    },
+    {
+      "matched_text": "audit trail retained by the Data User",
+      "concept": "retention_marker",
+      "reason": "Indicates retention of logs, but no explicit retention_marker rule is available."
+    },
+    {
+      "matched_text": "withdrawal does not affect statutory or contractual retention requirements",
+      "concept": "retention_marker",
+      "reason": "Describes retention obligations, but no explicit retention_marker rule is available."
+    },
+    {
+      "matched_text": "no privileged administrator accounts located outside Malaysia",
+      "concept": "cross_border_control",
+      "reason": "Cross-border access limitation is privacy-relevant, but not mapped to an allowed marker rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

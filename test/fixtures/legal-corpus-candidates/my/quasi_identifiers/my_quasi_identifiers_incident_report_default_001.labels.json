@@ -3,13 +3,238 @@
   "document_type": "memo",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Pn. Alia Nordin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Pn. Alia"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 14 Mar 1987"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "aged 39"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "alia.nordin@serilintang.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@serilintang.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "V-30811"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "an insider trading blackout remains in force"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Unauthorised Access and Data Exposure"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Pn. Alia Nordin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Pn. Alia"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 14 Mar 1987"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "aged 39"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "alia.nordin@serilintang.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@serilintang.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "V-30811"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "SLB-LTP-0421"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "SLB-Alia-ThinkPad"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Pn. Alia Nordin (DOB 14 Mar 1987; aged 39; IT Support Lead at Seri Lintang Berhad) signed in using company device ID SLB-LTP-0421 from Kota Mentari on 31 May 2026 at 22:14 MYT via VPN session ref V-30811, account alia.nordin@serilintang.com.my, extension 3214"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Because the role 'night-shift IT support lead' is unique in the Kota Mentari facility, access patterns could be linkable even without full names, increasing quasi-identifier risk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "an insider trading blackout remains in force"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Unauthorised Access and Data Exposure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Kuala Sentral Logistics Sdn Bhd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be shared"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "misconfigured API key"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Generic role noun; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "1990",
+      "reason": "Generic birth year example; not identifying alone"
+    },
+    {
+      "matched_text": "junior analyst",
+      "reason": "Generic job title example; not identifying alone"
+    },
+    {
+      "matched_text": "Bandar Rumbia",
+      "reason": "Generic location example; not identifying alone"
+    },
+    {
+      "matched_text": "3.2 years",
+      "reason": "Aggregate statistic; not personal data"
+    },
+    {
+      "matched_text": "46% female representation",
+      "reason": "Aggregate statistic; not personal data"
+    },
+    {
+      "matched_text": "12-02-1990",
+      "reason": "Placeholder example date; not tied to an individual"
+    },
+    {
+      "matched_text": "Taman Kenanga",
+      "reason": "Example location; not identifying alone"
+    },
+    {
+      "matched_text": "LTP-0001",
+      "reason": "Placeholder device tag; not linked to a person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "extension 3214",
+      "concept": "phone extension",
+      "reason": "Internal extension may be PII but does not meet typical phone_number pattern"
+    },
+    {
+      "matched_text": "tmp-payroll-05",
+      "concept": "internal system identifier",
+      "reason": "Bucket label could be linkable metadata but not covered by explicit allowed rules"
+    },
+    {
+      "matched_text": "internal revenue forecasts",
+      "concept": "MNPI financial projections",
+      "reason": "Material pre-disclosure financial info but not an explicitly enumerated MNPI rule"
+    },
+    {
+      "matched_text": "non-binding mandate letter",
+      "concept": "financing agreement signal",
+      "reason": "Indicative financing document may be MNPI but not in the enumerated definitive_agreement list"
+    },
+    {
+      "matched_text": "draft heads of terms",
+      "concept": "early-stage deal document",
+      "reason": "Potentially material deal context but not enumerated definitive_agreement"
+    },
+    {
+      "matched_text": "Kota Mentari",
+      "concept": "location quasi-identifier",
+      "reason": "Location can help identify a person when combined, but alone not covered by a specific rule"
+    },
+    {
+      "matched_text": "IT Support Lead at Seri Lintang Berhad",
+      "concept": "employment quasi-identifier",
+      "reason": "Job title with employer is identifying in context but not a standalone allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM60m'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM60m'"
+  ],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
