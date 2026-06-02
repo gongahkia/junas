@@ -1,16 +1,45 @@
 {
-  "_human_review_status": "pending",
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+      "reviewed_at_utc": "2026-06-01T05:09:14Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_source": "azure:gpt-5-2-auto",
   "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
   "_label_warnings": [],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-01T05:09:14Z",
+    "basis": "Project owner stated they manually reviewed the SG Stage B generated tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "SG Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
   "_strict_reconciliation": {
     "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewed_at_utc": "2026-06-01T03:46:40Z",
     "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
-    "status": "codex_reconciled_pending_owner_review",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
     "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
   },
   "_taxonomy_concept": "jurisdictional_mnpi",
