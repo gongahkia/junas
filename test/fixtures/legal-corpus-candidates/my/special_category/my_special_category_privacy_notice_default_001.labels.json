@@ -3,13 +3,285 @@
   "document_type": "generic",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Rahman Idris"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID CD-8042"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint templates"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in Kesatuan Pekerja Elektronik Seri Bayu"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "aged 13"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "aged 13"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "allergy information"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Puan Liyana Noor\u2019s voluntarily declared religion"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@cenderawasihdynamics.my"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers may occur"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "temperature screening results"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "access-control biometrics"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed AuroraPay licensing deal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "black-out"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may materially affect our share price"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Rahman Idris"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID CD-8042"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint templates"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "occupational health records noting hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in Kesatuan Pekerja Elektronik Seri Bayu"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "aged 13"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "aged 13"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "allergy information"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Puan Liyana Noor\u2019s voluntarily declared religion"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Liyana Noor"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@cenderawasihdynamics.my"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers may occur"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "temperature screening results"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "access-control biometrics"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "You may object to non-mandatory processing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed AuroraPay licensing deal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed AuroraPay licensing deal and indicative pricing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "black-out"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may materially affect our share price"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "becomes material and accurate"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Kelana City Tigers",
+      "reason": "Sports team name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Bintang ERP",
+      "reason": "Product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Seri8",
+      "reason": "Product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "AuroraPay",
+      "reason": "Product name alone; not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "Harmony DEI Charter",
+      "reason": "Policy/program name; not PII/MNPI."
+    },
+    {
+      "matched_text": "sexual orientation and religion",
+      "reason": "Generic DEI prose about concepts, not linked to an identifiable person."
+    },
+    {
+      "matched_text": "Integrity & MNPI Handling Policy v2.1",
+      "reason": "Internal policy name; not PII/MNPI."
+    },
+    {
+      "matched_text": "\u201ca sunrise over the ledger,\u201d",
+      "reason": "Metaphor; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "To exercise access, correction, or withdrawal of consent",
+      "concept": "DSAR/right of access and correction",
+      "reason": "DSAR phrasing is privacy-event relevant but the allowed rule list lacks an explicit DSAR marker key."
+    },
+    {
+      "matched_text": "PDPA notice-and-choice",
+      "concept": "Consent/notice mechanism",
+      "reason": "Indicates consent/notice practices but there is no explicit rule for generic consent/notice markers."
+    },
+    {
+      "matched_text": "explicit consent for sensitive data",
+      "concept": "Consent for special-category data",
+      "reason": "Legally relevant consent language but only withdrawal marker is explicitly listed in allowed rules."
+    },
+    {
+      "matched_text": "indicative pricing",
+      "concept": "MNPI pricing details",
+      "reason": "Non-public pricing guidance may be material MNPI, but there is no specific rule for non-numeric pricing references."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'retention' text='Retention: access-control biometrics 12 months post-separation'",
+    "drop must_detect: invalid rule 'retention' text='medical certificates 7 years'",
+    "drop must_detect: invalid rule 'retention' text='MNPI access logs 6 years'",
+    "drop must_detect: invalid rule 'retention' text='recruitment CVs 12 months unless consent to retain longer'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Retention: access-control biometrics 12 months post-separation'",
+    "drop ideal_must_detect: invalid rule 'retention' text='medical certificates 7 years'",
+    "drop ideal_must_detect: invalid rule 'retention' text='MNPI access logs 6 years'",
+    "drop ideal_must_detect: invalid rule 'retention' text='recruitment CVs 12 months unless consent to retain longer'"
+  ],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,313 @@
   "document_type": "generic",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Haris Mirza"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "haris.mirza@serambidynamics.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@serambidynamics.my"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 3-7788 0145"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "SDB-FA-1184"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "14-02-1990"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 36"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "LNV-88Q4"
+    },
+    {
+      "category": "PII",
+      "rule": "mac_address",
+      "matched_text": "AE:19:BC:02:77:5F"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "MY-KM-2026-05-01-9345"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.4.17.22"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "DR-MNPI-8192"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1994-03-01"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Restricted List Ref RL-KN-2026-05-14"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed-period attestations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading pre-clearance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may contain MNPI"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Haris Mirza"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "haris.mirza@serambidynamics.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@serambidynamics.my"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 3-7788 0145"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "SDB-FA-1184"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "14-02-1990"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 36"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "LNV-88Q4"
+    },
+    {
+      "category": "PII",
+      "rule": "mac_address",
+      "matched_text": "AE:19:BC:02:77:5F"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "MY-KM-2026-05-01-9345"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.4.17.22"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "DR-MNPI-8192"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1994-03-01"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "payroll account at BayuBank ending 4421"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "For Finance: Encik Haris Mirza, Assistant Finance Manager at Serambi Dynamics Berhad, date of birth 14-02-1990 (age 36), employee code SDB-FA-1184, office location Menara Jati, 88 Jalan Kenanga 5, 50480 Kuala Maya, Wilayah Seroja"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "hosting by Felora Cloud Sdn Bhd (Cybermaya Vista) and Felora Cloud Pte Ltd (Singapura Raya)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "kept 90 days"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "7 years"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "6 years"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "deleted after 30 days"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Restricted List Ref RL-KN-2026-05-14"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed-period attestations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading pre-clearance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-clearance logs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "deal room access tokens (e.g., DR-MNPI-8192) are time-limited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may contain MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "age bands 20\u201360",
+      "reason": "Generic demographic example; non-identifying alone."
+    },
+    {
+      "matched_text": "state of Selantara",
+      "reason": "Region-only location; non-identifying alone."
+    },
+    {
+      "matched_text": "Android phone",
+      "reason": "Generic device type; not an identifier."
+    },
+    {
+      "matched_text": "intern",
+      "reason": "Generic role; not uniquely identifying."
+    },
+    {
+      "matched_text": "Logistics",
+      "reason": "Department name; non-identifying alone."
+    },
+    {
+      "matched_text": "city: Bukit Senja",
+      "reason": "City-only reference; non-identifying alone."
+    },
+    {
+      "matched_text": "Ipohan",
+      "reason": "City reference example; non-identifying alone."
+    },
+    {
+      "matched_text": "iPhone 12",
+      "reason": "Device model; not an identifier."
+    },
+    {
+      "matched_text": "NRIC numbers",
+      "reason": "Generic reference to an ID type; no actual number present."
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "Role title; not a personal name."
+    },
+    {
+      "matched_text": "Serambi Dynamics Berhad",
+      "reason": "Company name; not personal data."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "office location Menara Jati, 88 Jalan Kenanga 5, 50480 Kuala Maya, Wilayah Seroja",
+      "concept": "postal_address (MY)",
+      "reason": "Full postal address is PII under PDPA but no explicit MY address rule is enumerated."
+    },
+    {
+      "matched_text": "SSID SD-Office-KM",
+      "concept": "network_ssid",
+      "reason": "Network SSID can identify a device/network context but is not covered by listed identifier rules."
+    },
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "Data subject access request process is a privacy-rights marker but not explicitly listed as a detectable rule."
+    },
+    {
+      "matched_text": "DPA No. DPA-2026-09",
+      "concept": "data_processing_agreement_identifier",
+      "reason": "Agreement identifier related to cross-border processing; relevant to compliance but not in allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

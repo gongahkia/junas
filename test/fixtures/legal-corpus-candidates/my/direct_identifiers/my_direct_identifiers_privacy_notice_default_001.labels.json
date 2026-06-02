@@ -3,13 +3,274 @@
   "document_type": "generic",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "my_mykad",
+      "matched_text": "900101-14-1234"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "A8234567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Farid Hisham"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "YBhg. Dato\u2019 Suriya Rahman"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 3-6200 8080"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 19-700 1122"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 3-6200 8081"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "info@lentera-kencana.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lentera-kencana.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@lentera-kencana.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "00-0000-000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "pre-announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "my_mykad",
+      "matched_text": "900101-14-1234"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "A8234567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Farid Hisham"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "YBhg. Dato\u2019 Suriya Rahman"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 3-6200 8080"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 19-700 1122"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 3-6200 8081"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "info@lentera-kencana.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lentera-kencana.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@lentera-kencana.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "00-0000-000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "pre-announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "jurisdictions approved under PDPA s.129"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimal necessary details"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask account numbers beyond the last four digits"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redaction applies before external disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "restricted to insiders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "outside need-to-know"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Public Helpline 1-800-00-0000",
+      "reason": "public helpline example; explicitly non-PII bait"
+    },
+    {
+      "matched_text": "Name: __________",
+      "reason": "generic form label placeholder"
+    },
+    {
+      "matched_text": "NRIC/Passport: __________",
+      "reason": "generic form label placeholder"
+    },
+    {
+      "matched_text": "Tel: __________",
+      "reason": "generic form label placeholder"
+    },
+    {
+      "matched_text": "helpdesk@lentera-kencana.com.my",
+      "reason": "explicit non-PII bait/general mailbox"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "role-only label; not an identified individual"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "role-only label; not an identified individual"
+    },
+    {
+      "matched_text": "Investor Relations",
+      "reason": "role-only label; not an identified individual"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "role-only label; not an identified individual"
+    },
+    {
+      "matched_text": "B1-0000-000000000",
+      "reason": "intentionally invalid SST ID bait; do not treat as identifier"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "202401234567",
+      "concept": "MY SSM registration number",
+      "reason": "Company registration identifier appears but no specific allowed rule for Malaysian SSM/ROC"
+    },
+    {
+      "matched_text": "1512347-X",
+      "concept": "MY company registration number",
+      "reason": "Bracketed SSM-style number not covered by allowed rules"
+    },
+    {
+      "matched_text": "SG1234567890",
+      "concept": "Tax identification number (TIN)",
+      "reason": "TIN is PII, but MY/SG tax IDs are not in the allowed rule set"
+    },
+    {
+      "matched_text": "KL-MERG-24-07",
+      "concept": "Internal deal room/session ID",
+      "reason": "Likely internal identifier; may map to internal_session_id but ambiguous"
+    },
+    {
+      "matched_text": "TS/2026/MB/001",
+      "concept": "Term sheet reference code",
+      "reason": "MNPI document reference; not clearly covered by allowed rules"
+    },
+    {
+      "matched_text": "FA/2026/HK/018",
+      "concept": "Facility agreement reference code",
+      "reason": "MNPI document reference; not clearly covered by allowed rules"
+    },
+    {
+      "matched_text": "50450 Kuala Lumpur, Malaysia",
+      "concept": "Postal address",
+      "reason": "MY postal address could be PII but there is no allowed rule for MY postal addresses"
+    },
+    {
+      "matched_text": "device IDs",
+      "concept": "Device identifiers",
+      "reason": "Generic device ID mention without specific values; allowed rules cover specific device IDs like IMEI/device serial"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

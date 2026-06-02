@@ -3,13 +3,190 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "payables-team@oasislattice.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@altapura.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealteam@lamanteratai.com"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990-03-12"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "OLE-SDA-0734"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "AT-MY-5510"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age band 25\u201340"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "Account Ref: 00-000000-XYZ"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal data to be minimised and anonymised where practicable"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "MyKad/NRIC: N/A at term sheet stage"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "payables-team@oasislattice.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@altapura.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealteam@lamanteratai.com"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990-03-12"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "OLE-SDA-0734"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "AT-MY-5510"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age band 25\u201340"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "Account Ref: 00-000000-XYZ"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal data to be minimised and anonymised where practicable"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "MyKad/NRIC: N/A at term sheet stage"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "date of birth 1990-03-12, based in Kota Kinabalu, role title \u201cSenior Data Analyst,\u201d internal payroll ID OLE-SDA-0734, company device asset tag AT-MY-5510, and access via team role mailbox payables-team@oasislattice.my"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "DR-TEST-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no personal emails or direct lines to be used for official notices"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposes to acquire 100% equity interest in Oasis Lattice Engineering Sdn Bhd"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Vendor",
+      "reason": "Role-noun defined term, not a person or PII/MNPI"
+    },
+    {
+      "matched_text": "Purchaser",
+      "reason": "Role-noun defined term, not a person or PII/MNPI"
+    },
+    {
+      "matched_text": "The Company",
+      "reason": "Role-noun defined term, not a person or PII/MNPI"
+    },
+    {
+      "matched_text": "The Target",
+      "reason": "Role-noun defined term, not a person or PII/MNPI"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not a person or PII/MNPI"
+    },
+    {
+      "matched_text": "warehouse staff in Selangor",
+      "reason": "Generic workforce description; non-identifying per context"
+    },
+    {
+      "matched_text": "junior engineer on rotating shifts",
+      "reason": "Generic workforce description; non-identifying per context"
+    },
+    {
+      "matched_text": "Malaysian citizen",
+      "reason": "Generic demographic; non-identifying alone"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC reference; rule excludes negated MAC from detection"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "contains no undisclosed price-sensitive details",
+      "concept": "nonpublic_marker (negated)",
+      "reason": "References price-sensitive information but expressly negates; relevance to MNPI marker is ambiguous under strict rules."
+    },
+    {
+      "matched_text": "no material non-public information has been provided",
+      "concept": "nonpublic_marker (negated)",
+      "reason": "Mentions non-public information in a negated representation; may or may not be treated as a marker by detection rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

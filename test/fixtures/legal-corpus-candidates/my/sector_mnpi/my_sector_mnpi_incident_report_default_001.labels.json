@@ -3,13 +3,325 @@
   "document_type": "memo",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Azlan Firdhaus"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "azlan.firdhaus@seripelangi.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Norlina Bakar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Haris Zikri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "En. Zaid Omar"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@seripelangi.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "haris.z@seripelangi.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "zaid.omar@seripelangi.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Cik Meera Thassan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cosec@seripelangi.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware attempt"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "data exfiltration"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Chinese Wall"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "14%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2 emissions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may be price-sensitive"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Azlan Firdhaus"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "azlan.firdhaus@seripelangi.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Norlina Bakar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Haris Zikri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "En. Zaid Omar"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@seripelangi.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "haris.z@seripelangi.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "zaid.omar@seripelangi.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Cik Meera Thassan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cosec@seripelangi.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware attempt"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "data exfiltration"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Chinese Wall"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "14%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2 emissions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may be price-sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_pre_listing_marker",
+      "matched_text": "DAX Token Pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "go\u2011live date"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_pre_listing_marker",
+      "matched_text": "Negarabit Digital Asset Exchange"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet announced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Senarai Orang Dalam"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "ESG draft"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "potential data exfiltration"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List additions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Role noun/defined term; not PII/MNPI"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun/defined term; not PII/MNPI"
+    },
+    {
+      "matched_text": "Designated Persons",
+      "reason": "Role noun/defined term; not PII/MNPI"
+    },
+    {
+      "matched_text": "crypto wallet safety",
+      "reason": "Educational context; not market sensitive MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "pre-clearance of any urgent trades",
+      "concept": "pre-clearance control",
+      "reason": "Insider dealing control language; compliance-relevant but not explicitly listed in allowed MNPI markers"
+    },
+    {
+      "matched_text": "NRIC numbers",
+      "concept": "PII class mention",
+      "reason": "References sensitive identifier category without any actual identifier values present"
+    },
+    {
+      "matched_text": "external IP",
+      "concept": "IP address reference",
+      "reason": "Indicates access by an IP address but no concrete ip_address value provided"
+    },
+    {
+      "matched_text": "execution draft",
+      "concept": "deal stage indicator",
+      "reason": "Non-public deal-stage status that may be sensitive but not explicitly mapped to an allowed MNPI rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,155 @@
   "document_type": "generic",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "03-07-1985"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpa.office@serilumina.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers outside Malaysia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list entries"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed period"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "03-07-1985"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpa.office@serilumina.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers outside Malaysia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list entries"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed period"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "DL-52K-882"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "corporate card account ending 7621"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "date of birth 03-07-1985, plant location Bayan Lepas, device tag DL-52K-882, and corporate card account ending 7621"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not include sensitive attachments unless requested"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we reject emails that appear to contain unsolicited government ID images"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal contact details are redacted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "segregated from trading clearance systems"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Account No.: 000-XXX-000",
+      "reason": "Placeholder example on a form; not an actual identifier"
+    },
+    {
+      "matched_text": "Passport: AA0000000",
+      "reason": "Placeholder example; not a real passport number"
+    },
+    {
+      "matched_text": "NRIC/Passport No",
+      "reason": "Field label only; no identifiable value"
+    },
+    {
+      "matched_text": "material non-public information",
+      "reason": "Negated disclaimer; not a live MNPI marker"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Bayan Lepas",
+      "concept": "location quasi-identifier",
+      "reason": "Worksite location can contribute to indirect identification but location is not an allowed rule"
+    },
+    {
+      "matched_text": "7 years",
+      "concept": "retention period",
+      "reason": "Retention markers are legally relevant but no explicit rule name is listed"
+    },
+    {
+      "matched_text": "6 years after closure",
+      "concept": "retention period",
+      "reason": "Retention/record-keeping duration not covered by allowed rules"
+    },
+    {
+      "matched_text": "5 years",
+      "concept": "retention period",
+      "reason": "Retention disclosure is relevant but not in allowed rules list"
+    },
+    {
+      "matched_text": "deletion outcome",
+      "concept": "erasure/DSAR marker",
+      "reason": "Data subject erasure outcome is a privacy-event marker but not explicitly mapped to a listed rule"
+    },
+    {
+      "matched_text": "last 4 of an employee ID",
+      "concept": "partial employee identifier",
+      "reason": "Partial employee ID is sensitive but there is no specific rule for partial IDs"
+    },
+    {
+      "matched_text": "work email username",
+      "concept": "username/account identifier",
+      "reason": "Usernames can identify accounts but there is no direct allowed rule for usernames"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

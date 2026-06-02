@@ -3,13 +3,220 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information-barrier guidelines"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List Template"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring-fenced deal teams"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Chinese Walls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout calendar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout schedule"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been announced"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Execution of definitive agreements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information-barrier guidelines"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List Template"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring-fenced deal teams"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Chinese Walls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout calendar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout schedule"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "signing date"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "unresolved ransomware incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "intermittent service outages"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been announced"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Role-noun defined term; not PII/MNPI"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term; not PII/MNPI"
+    },
+    {
+      "matched_text": "the parties",
+      "reason": "Role-noun defined term; not PII/MNPI"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC reference; excluded by rule 8"
+    },
+    {
+      "matched_text": "no personal data will be transferred",
+      "reason": "Negated privacy-event; excluded by rule 17"
+    },
+    {
+      "matched_text": "Crypto Gatekeeper",
+      "reason": "Training/educational context; not a market-sensitive DPT event"
+    },
+    {
+      "matched_text": "mock wallets",
+      "reason": "Training/educational example; not live crypto/DPT activity"
+    },
+    {
+      "matched_text": "no digital asset issuance, trading or custody is contemplated",
+      "reason": "Explicit disclaimer; not a DPT event"
+    },
+    {
+      "matched_text": "already public",
+      "reason": "Explicitly public information; not MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "targeted signing date",
+      "concept": "embargo_marker",
+      "reason": "Embargo-style timing reference but casing/phrasing may not match strict patterns"
+    },
+    {
+      "matched_text": "clean room",
+      "concept": "information_barrier_marker",
+      "reason": "Data segregation/control mechanism indicative of information barriers but not explicitly listed"
+    },
+    {
+      "matched_text": "NRICs",
+      "concept": "my_mykad reference",
+      "reason": "PII category mentioned without an actual identifier value"
+    },
+    {
+      "matched_text": "emails",
+      "concept": "email_address reference",
+      "reason": "PII category mentioned without a specific address"
+    },
+    {
+      "matched_text": "Preliminary finding (MNPI)",
+      "concept": "nonpublic_marker",
+      "reason": "Explicit MNPI classification label; not always captured by strict rule triggers"
+    },
+    {
+      "matched_text": "intermittent service outages",
+      "concept": "material_event",
+      "reason": "Operational impact potentially material but lacks explicit financial or formal event trigger language"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

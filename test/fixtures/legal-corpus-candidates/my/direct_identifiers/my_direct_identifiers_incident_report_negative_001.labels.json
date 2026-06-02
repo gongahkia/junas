@@ -3,13 +3,122 @@
   "document_type": "memo",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "securityops@nadinusantara.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "HZ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123-456-7890123"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-000-0000000"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "securityops@nadinusantara.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "HZ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123-456-7890123"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-000-0000000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Name: _______",
+      "reason": "Generic form label placeholder; not PII"
+    },
+    {
+      "matched_text": "NRIC/Passport: _______",
+      "reason": "Generic form label placeholder; not PII"
+    },
+    {
+      "matched_text": "Phone: _______",
+      "reason": "Generic form label placeholder; not PII"
+    },
+    {
+      "matched_text": "1-300-88-4242",
+      "reason": "Public helpline number; not personal data"
+    },
+    {
+      "matched_text": "The Company",
+      "reason": "Role-noun/defined term; not a person\u2019s name"
+    },
+    {
+      "matched_text": "Employee TIN: XX-XXXX-XX-XXXX",
+      "reason": "Template placeholder; not an actual identifier"
+    },
+    {
+      "matched_text": "Passport No.: [ENTER HERE]",
+      "reason": "Template placeholder; not an actual identifier"
+    },
+    {
+      "matched_text": "Tel: 03-XXXX XXXX",
+      "reason": "Template placeholder; not an actual phone number"
+    },
+    {
+      "matched_text": "QA-TEST-12",
+      "reason": "Internal device/label; not PII"
+    },
+    {
+      "matched_text": "ops_reader",
+      "reason": "Internal role label; not PII"
+    },
+    {
+      "matched_text": "NRIC: 770101-14-000X",
+      "reason": "Invalid placeholder sample; not a valid MyKad"
+    },
+    {
+      "matched_text": "TIN: 12-3456-78-9012",
+      "reason": "Invalid placeholder sample; not a valid TIN"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "202201234567 (9999999-Z)",
+      "concept": "MY company registration number",
+      "reason": "Corporate registration identifiers may be sensitive corporate info but no explicit allowed rule for MY company numbers"
+    },
+    {
+      "matched_text": "Menara Nusantara, No. 88, Jalan Seruling 5, 59099 Kuala Lumpur",
+      "concept": "Business/office address",
+      "reason": "Address-like span present but not a personal address and no MY address rule in allowed set"
+    },
+    {
+      "matched_text": "attempted cyber intrusion",
+      "concept": "Cyber incident MNPI risk",
+      "reason": "Cyber incidents can be market-sensitive; here disclosed as non-material, and no specific MNPI rule clearly applies to this public disclosure"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,183 @@
   "document_type": "generic",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "my_mykad",
+      "matched_text": "800101-14-1234"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@mawardata.my"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 3 2789 4401"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 16 345 7788"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "12-345-678901"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Pn. Siti Mariam Jaafar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed periods"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "my_mykad",
+      "matched_text": "800101-14-1234"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@mawardata.my"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 3 2789 4401"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 16 345 7788"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "12-345-678901"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Pn. Siti Mariam Jaafar"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "A 1 2 3 4 5 6 7 8"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr[at]mawardata.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dp o@mawardata.my"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border processing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We do not collect MAC addresses, IMEI, or Wi\u2011Fi SSIDs for this purpose"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Only authorised insiders (role-only: Company Secretary, Head of Legal) may access the VDR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not circulate price-sensitive drafts via messaging apps"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "800101-14-1235",
+      "reason": "Invalid NRIC checksum sample (negative bait)."
+    },
+    {
+      "matched_text": "1-300-88-0000",
+      "reason": "Public hotline/helpline number, not personal data."
+    },
+    {
+      "matched_text": "Name: ______",
+      "reason": "Generic placeholder, not real PII."
+    },
+    {
+      "matched_text": "Address: ______",
+      "reason": "Generic placeholder, not real PII."
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role-only title, not a named person."
+    },
+    {
+      "matched_text": "Head of Legal",
+      "reason": "Role-only title, not a named person."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Companies Registry No. 202101234567",
+      "concept": "company registration number",
+      "reason": "Corporate identifier relevant in MY filings but not covered by allowed rules."
+    },
+    {
+      "matched_text": "LHDN Tax File No. C1234567890",
+      "concept": "tax number",
+      "reason": "Corporate tax identifier in MY; not in allowed PII rules."
+    },
+    {
+      "matched_text": "SWIFT MAWRMYKL",
+      "concept": "bank identifier code (BIC)",
+      "reason": "Entity-level code; not an allowed rule but related identifier present."
+    },
+    {
+      "matched_text": "Level 32, Menara Batu, 3 Jalan Anggerik, 50450 Kuala Lumpur, Malaysia",
+      "concept": "postal address (MY)",
+      "reason": "Address can be PII but MY postal address rule not listed among allowed rules."
+    },
+    {
+      "matched_text": "Retention: HR files 7 years post-termination; financing/loan documentation 10 years; exchange-related disclosures retained indefinitely; backups auto-expire after 180 days",
+      "concept": "retention policy marker",
+      "reason": "Legally relevant privacy retention info, but no explicit retention rule in allowed set."
+    },
+    {
+      "matched_text": "https://mawardata.my/dsar?ref=MAWAR-0999&req=800101-14-1234",
+      "concept": "URL containing PII",
+      "reason": "Contains NRIC in query string; URL itself not covered by allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

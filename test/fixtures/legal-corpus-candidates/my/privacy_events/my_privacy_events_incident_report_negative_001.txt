@@ -1,0 +1,17 @@
+Selera Hijau Berhad (Company No. 202001012345), a Main Market issuer on Bursa Malaysia, reports an operational cyber event on 02 Jun 2026; no service interruption to disclosure systems occurred.
+Event summary: credential stuffing attempts against vendor-facing SSO were detected and blocked by MFA; SIEM shows no lateral movement and no export of MNPI.
+Investigation scope covered the finance shared drive, HR onboarding forms, and DPA Schedule 1–3 with Ternakan Cloud Sdn Bhd (processor) and LapisPay Services Bhd (sub-processor, sandbox only).
+We confirm no access to material non-public information; references to the discontinued Project Hutan were already disclosed in a Bursa Malaysia announcement (Ref: BM/ANN/2025-1188).
+Privacy handling status: prior DSARs dated 10 May 2026 and 18 May 2026 were completed with erasure letters issued; no new DSAR was received in connection with this event.
+Consent management: an employee withdrew consent for optional wellness-data processing on 15 May 2026 and the attribute was flagged “Do Not Collect”; logs show the minimisation rule was applied.
+Cross-border transfer controls: Data Export Approval DEX/2026/014 remains in force under PDPA s.129 and DPA Schedule 2; no export was triggered by this incident.
+Retention and deletion: per Policy DP-07, applicant CVs are retained 24 months; the March 2026 purge completed and certificates of erasure were archived.
+Positive finding: a contractor onboarding sheet containing names and office contact fields was briefly synced to a non-MY staging bucket for 46 minutes before auto-recall; hashing was not applied at sync time.
+Remediation: the staging rule now enforces field-level hashing and regional pinning; the affected file was replaced with a minimised version and notice sent to the contractor firm’s role mailbox.
+ESG and operations: no health, safety, or environmental impacts; supply chain and payroll runs proceeded; the vendor declared no sub-processor change under DPA Schedule 4.
+MNPI assessment under CMSA: no unpublished price-sensitive data was involved; finance figures referenced were quarter-end numbers already lodged via Bursa’s e-submission.
+Financing arrangements: facility agreements with Nusacapital Bank Berhad carry confidentiality undertakings; no facility schedules were accessed and no negative pledge information was in scope.
+Employment and onboarding forms remain template-only in production; fields labelled “NRIC/Passport” and “Bank Account No.” are placeholders and were not populated in the affected file.
+Reporting and contacts: internal incident reference SHB/IR/2026-06-02; PDPA enquiries via privacy@selerahijau.example and Bursa-related queries via ir@selerahijau.example.
+Negative control affirmation: there is no ongoing consent withdrawal backlog, no retention expiry missed, and no live erasure request pending.
+Governance: the Audit Committee reviewed the incident and closed the item; no Bursa immediate announcement is required under the Listing Requirements.

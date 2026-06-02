@@ -3,13 +3,291 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Angsana"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "MYR 180,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "MYR 265,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "MYR 85,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "MYR 6,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "1020-3399-4455"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "farid.danial@serunai-utilities.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@serunai-utilities.my"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 12-634 7789"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 3-2712 4000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Farid Danial"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Nur Aina Kassim"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "A45283917"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Angsana"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "MYR 180,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "MYR 265,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "MYR 85,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "MYR 6,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "1020-3399-4455"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "farid.danial@serunai-utilities.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@serunai-utilities.my"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 12-634 7789"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 3-2712 4000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Farid Danial"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Nur Aina Kassim"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "A45283917"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading in Serunai Utilities Berhad shares and derivatives is prohibited until announcement on Bursa Sukma"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Long Stop Date"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Closing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of 70% equity in Kencana Data Grid Sdn Bhd"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1-800-88-0000",
+      "reason": "Public helpline number, not personal PII"
+    },
+    {
+      "matched_text": "NRIC/Passport No",
+      "reason": "Generic form label/placeholder, not an actual identifier"
+    },
+    {
+      "matched_text": "IBAN MY00 1234 5678 9012 34",
+      "reason": "Invalid/unsupported identifier bait for Malaysia"
+    },
+    {
+      "matched_text": "999999-999999",
+      "reason": "Generic invalid account reference bait"
+    },
+    {
+      "matched_text": "Chief Financial Officer",
+      "reason": "Role noun, not a named person"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun, not a named person"
+    },
+    {
+      "matched_text": "Acquirer",
+      "reason": "Role label/defined term, not PII"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role label/defined term, not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Company No.: 202101234567",
+      "concept": "my_company_registration_number",
+      "reason": "Malaysia SSM company number; corporate identifier not covered by allowed rules"
+    },
+    {
+      "matched_text": "Malaysian Tax Ref.: C1234567890",
+      "concept": "malaysian_tax_reference",
+      "reason": "Corporate tax reference; jurisdiction-specific identifier not in allowed rules"
+    },
+    {
+      "matched_text": "Company No.: 201801112233",
+      "concept": "my_company_registration_number",
+      "reason": "Malaysia SSM company number; corporate identifier not covered by allowed rules"
+    },
+    {
+      "matched_text": "Company No.: 201901998877",
+      "concept": "my_company_registration_number",
+      "reason": "Malaysia SSM company number; corporate identifier not covered by allowed rules"
+    },
+    {
+      "matched_text": "KCBMMYKL",
+      "concept": "swift_bic",
+      "reason": "Bank SWIFT/BIC code; potentially sensitive financial routing data not in allowed rules"
+    },
+    {
+      "matched_text": "Level 25, Menara Serunai, No. 8 Jalan Mawar Lestari, 50988 Bandar Seri Langit, Wilayah Tengah, Malaysia",
+      "concept": "my_postal_address",
+      "reason": "Full Malaysia postal address; address PII category lacks Malaysia-specific rule"
+    },
+    {
+      "matched_text": "Unit 12-3, Wisma Lazuardi, Persiaran Satria 9, 63110 Kota Bayu, Selangor Muda, Malaysia",
+      "concept": "my_postal_address",
+      "reason": "Full Malaysia postal address; address PII category lacks Malaysia-specific rule"
+    },
+    {
+      "matched_text": "PDPA notices to all transferring employees to be acknowledged on or before Closing",
+      "concept": "pdpa_notice_acknowledgement",
+      "reason": "Privacy compliance obligation potentially within consent/notification scope but not mapped to an allowed privacy marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

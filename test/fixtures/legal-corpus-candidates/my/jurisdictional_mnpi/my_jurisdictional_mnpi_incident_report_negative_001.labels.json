@@ -1,0 +1,139 @@
+{
+  "doc_id": "my_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "MY",
+  "destination_jurisdiction": "MY",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@kelananusantara.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1300-88-4242"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5\u20136%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been announced on Bursa Malaysia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may require an Immediate Announcement"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@kelananusantara.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1300-88-4242"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only vendor codes and invoice totals were queued"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5\u20136%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been announced on Bursa Malaysia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Until any Bursa filing is made"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "circulate the revenue estimate internally only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "CMSA insider information provisions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may require an Immediate Announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "potential deferral of approximately 5\u20136% of 2Q FY2025 revenue recognition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Operational/Cyber Incident Report"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Vendor",
+      "reason": "Role noun/defined-term style label, not PII or MNPI"
+    },
+    {
+      "matched_text": "the Company",
+      "reason": "Role noun/defined-term style label, not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "PDPA scope: Current logs indicate no access to personal data",
+      "concept": "no_personal_data_access_marker",
+      "reason": "PDPA-relevant privacy status statement; useful compliance signal but not clearly covered by an allowed marker rule"
+    },
+    {
+      "matched_text": "service ticket SR-OPS-77821",
+      "concept": "internal_session_id",
+      "reason": "Internal tracking identifier that could relate to a user/session; may not be PII or person-linked"
+    },
+    {
+      "matched_text": "before market open on the next Market Day",
+      "concept": "blackout_period_reference",
+      "reason": "Jurisdiction-specific disclosure timing; relevant to disclosure controls but not a formal blackout reference"
+    },
+    {
+      "matched_text": "do not use these codes in investor materials",
+      "concept": "selective_disclosure_risk",
+      "reason": "Cautionary handling instruction for investor communications; suggests selective disclosure sensitivity but not a standard detector phrase"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

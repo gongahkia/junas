@@ -1,0 +1,255 @@
+{
+  "doc_id": "my_privacy_events_incident_report_default_001",
+  "document_type": "memo",
+  "source_jurisdiction": "MY",
+  "destination_jurisdiction": "MY",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@suntera-mekar.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@suntera-mekar.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@suntera-mekar.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@suntera-mekar.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Firdaus Bin Leman"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Nor Aina Binti Rahman"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Ariff Haikal Bin Musa"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border replication"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "exclude date of birth"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collect only initials plus employee ID hash"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove direct identifiers from filenames"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@suntera-mekar.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@suntera-mekar.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@suntera-mekar.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@suntera-mekar.com.my"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Firdaus Bin Leman"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Nor Aina Binti Rahman"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Ariff Haikal Bin Musa"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border replication"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "exclude date of birth"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collect only initials plus employee ID hash"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove direct identifiers from filenames"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "date of birth"
+    },
+    {
+      "category": "PII",
+      "rule": "my_mykad",
+      "matched_text": "NRIC numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "bank account details"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout procedures"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "internal watchlist"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Deal room segregation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "separate tenancy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "insider information standard"
+    }
+  ],
+  "must_not_detect": [],
+  "uncertain": [
+    {
+      "matched_text": "Retention",
+      "concept": "retention_marker",
+      "reason": "Retention policy reference is a privacy handling event but no explicit allowed rule name for retention markers is provided."
+    },
+    {
+      "matched_text": "retention reduced from 18 months to 6 months",
+      "concept": "retention_marker",
+      "reason": "Indicates a change to data retention periods; coverage desirable though no retention-marker rule is defined."
+    },
+    {
+      "matched_text": "scheduled for purge",
+      "concept": "retention_marker",
+      "reason": "Planned deletion tied to retention; not covered by an explicit allowed rule."
+    },
+    {
+      "matched_text": "Erasure control",
+      "concept": "erasure_marker",
+      "reason": "Describes deletion controls; there is no explicit erasure-marker rule in the allowed list."
+    },
+    {
+      "matched_text": "erasure was completed",
+      "concept": "erasure_marker",
+      "reason": "Records data subject erasure fulfillment; rule not explicitly available."
+    },
+    {
+      "matched_text": "secure deletion",
+      "concept": "erasure_marker",
+      "reason": "Describes deletion of logs; erasure marker not listed among allowed rules."
+    },
+    {
+      "matched_text": "DSAR and consent",
+      "concept": "dsar_marker",
+      "reason": "DSAR processing is referenced; no explicit DSAR marker rule is listed."
+    },
+    {
+      "matched_text": "A DSAR",
+      "concept": "dsar_marker",
+      "reason": "Indicates a data subject access request; not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "addresses",
+      "concept": "postal_address",
+      "reason": "Generic reference to addresses without a Malaysia-specific postal-address rule in the allowed list."
+    },
+    {
+      "matched_text": "employee ID hash",
+      "concept": "employee_id",
+      "reason": "Mentions an employee ID in hashed form; semantically relevant PII but not an actual identifier value."
+    },
+    {
+      "matched_text": "price-sensitive information",
+      "concept": "nonpublic_marker",
+      "reason": "MNPI concept is referenced (negated); no specific allowed marker token for price sensitivity beyond context."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

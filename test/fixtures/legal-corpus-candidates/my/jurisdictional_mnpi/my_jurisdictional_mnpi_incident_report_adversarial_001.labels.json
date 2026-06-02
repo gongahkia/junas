@@ -1,0 +1,228 @@
+{
+  "doc_id": "my_jurisdictional_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "MY",
+  "destination_jurisdiction": "MY",
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non\u2011Public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware event"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Closed period/blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure is permitted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "remains non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "potential material information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "8m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "we are within the closed period for Q2 FY2026"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Firdaus Rahman"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Nor Aisha Idris"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "firdaus.rahman@auriga\u2011nusantara.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec@auriga\u2011nusantara.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@auriga\u2011nusantara.example"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non\u2011Public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware event"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Closed period/blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure is permitted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "remains non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "potential material information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "8m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "we are within the closed period for Q2 FY2026"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Firdaus Rahman"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Nor Aisha Idris"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "firdaus.rahman@auriga\u2011nusantara.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec@auriga\u2011nusantara.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@auriga\u2011nusantara.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "mobile numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corporate emails"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP\u20114X9\u2011***"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "<3%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "communications with counterparties and rating agencies must be limited to previously disclosed public details"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "analyst engagements are subject to blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "intended for Disclosure Committee and Board only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "30 days prior to the targeted results release on 29 Aug 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "without breaching selective disclosure"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated; rule 8 prohibits labeling negated MAC references."
+    },
+    {
+      "matched_text": "MAC clause",
+      "reason": "Negated; rule 8 prohibits labeling negated MAC references."
+    },
+    {
+      "matched_text": "project sunleaf",
+      "reason": "Not a transaction codename (does not match 'Project <CapitalizedName>' pattern)."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "10.5.9.**",
+      "concept": "ip_address",
+      "reason": "Masked/partial IP-like value; resembles an IP but not a standard detectable format."
+    },
+    {
+      "matched_text": "salary bands",
+      "concept": "salary information",
+      "reason": "Employment compensation data is sensitive under PDPA but not mapped to a specific allowed PII rule."
+    },
+    {
+      "matched_text": "by 17:00 MYT today",
+      "concept": "disclosure timing",
+      "reason": "Issuer disclosure-timing commitment is compliance-relevant but not clearly covered by an allowed MNPI rule."
+    },
+    {
+      "matched_text": "500 records",
+      "concept": "disclosure threshold",
+      "reason": "Volume threshold for cyber/PII notification is materially relevant but not clearly mapped to a specific MNPI rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

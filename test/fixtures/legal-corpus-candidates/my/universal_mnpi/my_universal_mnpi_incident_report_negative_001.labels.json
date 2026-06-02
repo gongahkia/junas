@@ -3,13 +3,134 @@
   "document_type": "memo",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "03-0000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "secops@auroramart.invalid"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo note: do not circulate externally before 20 june 2026 09:00 MYT"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "03-0000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "secops@auroramart.invalid"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo note: do not circulate externally before 20 june 2026 09:00 MYT"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not include customer emails in attachments"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact any illustrative screenshots"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "track only public facts already announced or logged in incident inc-26-0514"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "our order-management staging cluster experienced unauthorised access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "syndicated facility agreement dated 2 january 2025"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "main market listing requirements para 9.03"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "do not circulate externally before 20 june 2026 09:00 MYT"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC/MAE language; excluded by rule 8."
+    },
+    {
+      "matched_text": "material adverse effect",
+      "reason": "Negated MAC/MAE language; excluded by rule 8."
+    },
+    {
+      "matched_text": "wellness spa day vouchers remain valid",
+      "reason": "Non-sensitive bait; not PII/MNPI."
+    },
+    {
+      "matched_text": "gdpr cross-check n/a for malaysia",
+      "reason": "Not a live privacy-event marker or cross-border transfer."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "inc-26-0514",
+      "concept": "internal incident identifier",
+      "reason": "May function like an internal_session_id but not clearly covered by allowed rules."
+    },
+    {
+      "matched_text": "it-ops-7721",
+      "concept": "internal ticket identifier",
+      "reason": "Could be an internal identifier akin to session/ticket IDs; not in allowed rules."
+    },
+    {
+      "matched_text": "KE/IR/2026-XYZ-014",
+      "concept": "exchange announcement reference",
+      "reason": "Market filing identifier; not clearly mapped to allowed MNPI rules."
+    },
+    {
+      "matched_text": "0A00",
+      "concept": "Bursa stock code",
+      "reason": "Security identifier; no explicit allowed rule for Malaysian ticker codes."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise category for rule='phone_number' text='03-0000 0000'",
+    "normalise category for rule='email_address' text='secops@auroramart.invalid'",
+    "normalise category for rule='embargo_marker' text='embargo note: do not circulate externally before 20 june 2026 09:00 MYT'",
+    "normalise category for rule='phone_number' text='03-0000 0000'",
+    "normalise category for rule='email_address' text='secops@auroramart.invalid'",
+    "normalise category for rule='embargo_marker' text='embargo note: do not circulate externally before 20 june 2026 09:00 MYT'",
+    "normalise category for rule='data_minimisation_marker' text='do not include customer emails in attachments'",
+    "normalise category for rule='data_minimisation_marker' text='redact any illustrative screenshots'",
+    "normalise category for rule='selective_disclosure_risk' text='track only public facts already announced or logged in incident inc-26-0514'",
+    "normalise category for rule='cyber_incident_pre_disclosure' text='our order-management staging cluster experienced unauthorised access'",
+    "normalise category for rule='definitive_agreement' text='syndicated facility agreement dated 2 january 2025'",
+    "normalise category for rule='material_event' text='main market listing requirements para 9.03'",
+    "normalise category for rule='nonpublic_marker' text='do not circulate externally before 20 june 2026 09:00 MYT'"
+  ],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

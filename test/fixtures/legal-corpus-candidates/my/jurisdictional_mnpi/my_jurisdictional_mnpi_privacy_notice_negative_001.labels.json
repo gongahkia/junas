@@ -1,0 +1,165 @@
+{
+  "doc_id": "my_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "source_jurisdiction": "MY",
+  "destination_jurisdiction": "MY",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@auroranusantara.example.my"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Submit access/correction/erasure requests"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not send national ID copies"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers: we use cloud processors with data centres in Southeast Asia or other jurisdictions with adequate safeguards and standard contractual clauses"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished quarterly results"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No selective disclosure to analysts or lenders"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@auroranusantara.example.my"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Submit access/correction/erasure requests"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not send national ID copies"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers: we use cloud processors with data centres in Southeast Asia or other jurisdictions with adequate safeguards and standard contractual clauses"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished quarterly results"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No selective disclosure to analysts or lenders"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Data Subject Request Form (Form DSAR-MY-01)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We verify DSARs using non-sensitive checks"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "placeholder or invalid IDs (e.g., MY-ID 1234-56-7890) will be rejected"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "staff IDs"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "business emails"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "material information is announced first"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "responses to queries use only what is already public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "we do not discuss live proposals before announcement"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Defined-term role noun; not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: payroll records 7 years",
+      "concept": "retention_marker",
+      "reason": "Retention periods are privacy-relevant but there is no explicit retention rule in allowed categories."
+    },
+    {
+      "matched_text": "recruitment files 12 months post-closure",
+      "concept": "retention_marker",
+      "reason": "Retention periods are privacy-relevant but not covered by a specific allowed rule."
+    },
+    {
+      "matched_text": "investor relations query logs 24 months",
+      "concept": "retention_marker",
+      "reason": "Retention periods are privacy-relevant but not covered by a specific allowed rule."
+    },
+    {
+      "matched_text": "deletion is by secure overwrite",
+      "concept": "deletion_security",
+      "reason": "Erasure method is privacy-relevant but not clearly mapped to an allowed rule."
+    },
+    {
+      "matched_text": "payroll references",
+      "concept": "employee_identifier_reference",
+      "reason": "Implies identifiers within HR/payroll systems but not covered by a specific allowed PII rule."
+    },
+    {
+      "matched_text": "MY-ID 1234-56-7890",
+      "concept": "malaysia_national_id_example",
+      "reason": "Looks like a national ID example but invalid format; not reliably covered by my_mykad rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

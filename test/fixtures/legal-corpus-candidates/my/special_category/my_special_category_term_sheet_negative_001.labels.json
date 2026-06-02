@@ -3,13 +3,168 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19.9%"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee 0047"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "has disclosed a chronic health condition"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Only aggregated and de-identified HR and customer data will be made available to Investor; no personal files or direct identifiers will be transferred as part of due diligence"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no underlying medical records will be shared with Investor"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investorrelations@pemadutech.example"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19.9%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "acquisition of up to 19.9% of GreenIkat Analytics Sdn Bhd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "information shared for this transaction shall be limited to public or cleansing materials suitable for Bursa Kencana announcement"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee 0047"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "has disclosed a chronic health condition"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Only aggregated and de-identified HR and customer data will be made available to Investor; no personal files or direct identifiers will be transferred as part of due diligence"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no underlying medical records will be shared with Investor"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no security interest over consumer data will be taken"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investorrelations@pemadutech.example"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "The Company",
+      "reason": "Role noun/defined party not PII or MNPI"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Role noun/defined party not PII or MNPI"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role noun/defined party not PII or MNPI"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun/defined party not PII or MNPI"
+    },
+    {
+      "matched_text": "Rainbow Cohesion Policy",
+      "reason": "Generic policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Wellness for All",
+      "reason": "Generic programme name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Tiger Strikers supporters\u2019 club",
+      "reason": "Sports/club name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Meranti City pilot lab",
+      "reason": "Place/project name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Sail Past the Monsoon Window",
+      "reason": "Internal marketing tagline; not MNPI"
+    },
+    {
+      "matched_text": "CloudSparrow Platform",
+      "reason": "Product/platform name; not PII/MNPI"
+    },
+    {
+      "matched_text": "HarmonyXP Loan Suite",
+      "reason": "Product name; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "consent for limited processing is obtained under PDPA",
+      "concept": "consent legal basis",
+      "reason": "Consent is a privacy-law basis but only consent_withdrawal_marker is an allowed rule; this is not withdrawal."
+    },
+    {
+      "matched_text": "Parties acknowledge restrictions on dealing while in possession of MNPI",
+      "concept": "insider dealing restriction",
+      "reason": "Legally relevant MNPI handling language but not clearly mapped to a listed MNPI marker (e.g., blackout, insider list, information barrier)."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
