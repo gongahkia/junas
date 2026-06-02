@@ -1,0 +1,14 @@
+Siam NeoEnergy Public Company Limited — Cyber Incident Report pursuant to the Securities and Exchange Act and stock exchange disclosure rules.
+Company Registration No.: 0105567123456; Tax ID (TIN): 0107546123451; Registered Office: 88/19, 25F, Sukhaphiban 12 Rd., Khwaeng Thawinimit, Khet Kanchanaphisek, Bangkok 10459, Thailand.
+Contact for investors: ir@siam-neoenergy.co.th, +66 2 777 8899; Data Protection Officer: dpo@siam-neoenergy.co.th.
+On 27 May 2026 at 02:15 ICT, Khun Nithima Prakongsak (CISO; Passport TH9A473120) reported anomalous access to the vendor payment module and HR document vault.
+Forensics indicates a credential-stuffing attack from an overseas IP, with temporary exfiltration of two payroll index files and one vendor master extract.
+Affected records may include employee names, compensation bands, work emails, and sample Thai National ID formats captured in templates.
+Example identifiers observed in the compromised cache: payroll mailbox hrpay@siam-neoenergy.co.th and vendor bank Account 053-1-234567 at Prasopchai Commercial Bank PCL (SWIFT PRCPTHBK).
+One fraudulent remittance request sought to redirect THB 12,400,000 to Account 093-0-556677 in the name Hua Mak Supplies Co., Ltd., which we froze before execution.
+This event may delay grid inverter shipments and revenue recognition for Q3 by approximately THB 28–35 million, constituting potential MNPI until filed via the national stock exchange e-disclosure portal to the Thai capital markets regulator.
+We have imposed a trading blackout for directors and executives under the SEA, and restricted access to the MD&A draft and Form 56-1 One Report schedules.
+No customer consumption data or operational SCADA credentials were accessed; emergency services numbers such as 1669 are unrelated to this incident.
+Cross-border implications: a log relay to a Singapore SOC was active; transfers are being assessed under PDPA Sections 28 and 37, and data subjects may contact dpo@siam-neoenergy.co.th.
+Note: an onboarding template contained Thai ID 1-2345-67890-12-9 (checksum invalid) and generic placeholders (Company Tax ID: __________; Passport No.: ________), which are not live PII.
+Role-only references like “Authorized Signatory” and “Procurement Officer” appear in the compromised forms without personal names and should not be treated as direct identifiers.
