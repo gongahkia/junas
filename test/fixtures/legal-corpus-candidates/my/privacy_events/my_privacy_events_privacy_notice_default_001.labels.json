@@ -3,13 +3,237 @@
   "document_type": "generic",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@aurumkelana.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rina.dahlan@aurumkelana.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aurumkelana.my"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 16-555 9982"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Pn. Rina Dahlan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "En. Hariz Muzaffar"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Exchange blackout policy"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@aurumkelana.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rina.dahlan@aurumkelana.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aurumkelana.my"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+60 16-555 9982"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Pn. Rina Dahlan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "En. Hariz Muzaffar"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "health declaration for insurance enrolment"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "employee ID"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "bank account alias"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Exchange blackout policy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Disclosure Committee workspace"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Data User",
+      "reason": "role-defined term, not PII"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "role-defined term, not PII"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "role-defined term, not PII"
+    },
+    {
+      "matched_text": "Subprocessors",
+      "reason": "role/header term, not PII"
+    },
+    {
+      "matched_text": "This note does not authorise new transfers",
+      "reason": "negated control, not a live privacy event"
+    },
+    {
+      "matched_text": "no biometric or precise geolocation is collected",
+      "reason": "negated sensitive-data collection"
+    },
+    {
+      "matched_text": "no onward transfer to marketing or data brokers",
+      "reason": "negated transfer risk"
+    },
+    {
+      "matched_text": "HR processors do not access or export MNPI",
+      "reason": "negated MNPI access/export"
+    },
+    {
+      "matched_text": "government-issued identifiers for contractors are not stored in the cloud",
+      "reason": "negated storage of identifiers"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "Privacy event marker relevant under PDPA but not explicitly listed in allowed rules"
+    },
+    {
+      "matched_text": "Retention and erasure",
+      "concept": "retention/erasure marker",
+      "reason": "Privacy retention/erasure handling is relevant but no explicit allowed rule provided"
+    },
+    {
+      "matched_text": "onboarding forms retained 7 years post-separation",
+      "concept": "retention period",
+      "reason": "Specifies retention duration; relevant but retention rule not in allowed list"
+    },
+    {
+      "matched_text": "erasure executed within 30 days",
+      "concept": "erasure execution",
+      "reason": "Erasure handling is relevant but no explicit allowed rule provided"
+    },
+    {
+      "matched_text": "legal holds override erasure",
+      "concept": "legal hold vs erasure",
+      "reason": "Important privacy governance nuance not covered by allowed rules"
+    },
+    {
+      "matched_text": "AKB-RET-2026-07",
+      "concept": "internal record/reference ID",
+      "reason": "Could be an internal log ID; not clearly mapped to an allowed identifier rule"
+    },
+    {
+      "matched_text": "AKB-TRN-9911",
+      "concept": "internal training record ID",
+      "reason": "Internal reference number; not clearly covered by allowed rules"
+    },
+    {
+      "matched_text": "BK-TIA-2026-03",
+      "concept": "transfer impact assessment reference",
+      "reason": "Privacy governance reference; not mapped to an allowed rule"
+    },
+    {
+      "matched_text": "BK-TR-2026-014",
+      "concept": "cross-border approval reference",
+      "reason": "Approval ID relevant to transfers; not clearly covered by allowed rules"
+    },
+    {
+      "matched_text": "Aurum Kelana Berhad (Reg. No. AKB202000123)",
+      "concept": "company registration number",
+      "reason": "Jurisdiction-specific company ID; no matching allowed rule for MY company number"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_not_detect: text not verbatim text='There have been no notifiable incidents in the last 12 months.'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

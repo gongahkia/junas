@@ -3,13 +3,262 @@
   "document_type": "generic",
   "source_jurisdiction": "MY",
   "destination_jurisdiction": "MY",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@serirakitan.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@cloudsarong.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "withdraw@serirakitan.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpa@serirakitan.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "e***@serirakitan.my"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Selina Rahmat"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Firdaus N. Bahri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Arif Jalani"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Haliza Noor"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "SRB-EMP-00I7"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@serirakitan.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@cloudsarong.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "withdraw@serirakitan.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpa@serirakitan.my"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "e***@serirakitan.my"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Puan Selina Rahmat"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Encik Firdaus N. Bahri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Arif Jalani"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Haliza Noor"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "SRB-EMP-00I7"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "fields \u201cbirth_city\u201d and \u201cmiddle_name\u201d flagged as optional"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we do not collect device MAC addresses or geolocation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "International transfer register"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-Border Transfer Memo"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "SRB//E\u20141I\u20147"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "SRB\u20141I\u20147.csv"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Processor",
+      "reason": "Role noun/defined term, not PII or MNPI."
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role noun/defined term, not PII or MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "Privacy-event DSAR is relevant but not an allowed rule token in the current taxonomy."
+    },
+    {
+      "matched_text": "erasure completed",
+      "concept": "Erasure marker",
+      "reason": "Erasure completion is a privacy-event but not an enumerated allowed rule."
+    },
+    {
+      "matched_text": "retention for onboarding: 24 months post-termination",
+      "concept": "Retention marker",
+      "reason": "Data-retention duration is relevant but no explicit retention rule is available."
+    },
+    {
+      "matched_text": "payroll records retained 7 years",
+      "concept": "Retention marker",
+      "reason": "Record-retention period is relevant but not covered by an allowed rule."
+    },
+    {
+      "matched_text": "schedules purge after 730 days",
+      "concept": "Erasure scheduling",
+      "reason": "Purge scheduling relates to retention/erasure but lacks a specific allowed marker rule."
+    },
+    {
+      "matched_text": "sg.cloudsarong.net SFTP endpoint was decommissioned and outbound port 22 was disabled (completed control, no active channel)",
+      "concept": "Completed control (transfer channel)",
+      "reason": "Cross-border channel decommissioning is relevant governance context but not mapped to an allowed marker."
+    },
+    {
+      "matched_text": "project rambutan",
+      "concept": "transaction codename candidate",
+      "reason": "Looks like a project codename but does not meet the 'Project <CapitalizedName>' pattern."
+    },
+    {
+      "matched_text": "ERS-2026-003",
+      "concept": "case/ticket ID",
+      "reason": "Internal ticket identifier could be a tracking identifier but not clearly mapped to an allowed rule."
+    },
+    {
+      "matched_text": "DEA-2026-05",
+      "concept": "internal approval ID",
+      "reason": "Internal approval/control reference may be sensitive operationally but not an allowed rule."
+    },
+    {
+      "matched_text": "T-EX-00I7",
+      "concept": "transfer register entry ID",
+      "reason": "Operational register ID is potentially linkable but not covered by allowed rules."
+    },
+    {
+      "matched_text": "SRB-HR-OF-44",
+      "concept": "internal form ID",
+      "reason": "Operational document identifier is not directly mapped to an allowed PII rule."
+    },
+    {
+      "matched_text": "CFR-19",
+      "concept": "internal form ID",
+      "reason": "Operational document identifier is not directly mapped to an allowed PII rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
