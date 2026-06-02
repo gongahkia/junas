@@ -3,13 +3,157 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "hk_hkid",
+      "matched_text": "Z123456(0)"
+    },
+    {
+      "category": "PII",
+      "rule": "hk_cr_no",
+      "matched_text": "3123456"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@harborline.example.hk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Indicative Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19.9%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "hk_hkid",
+      "matched_text": "Z123456(0)"
+    },
+    {
+      "category": "PII",
+      "rule": "hk_hkid",
+      "matched_text": "HKID: Z123456(0)"
+    },
+    {
+      "category": "PII",
+      "rule": "hk_cr_no",
+      "matched_text": "3123456"
+    },
+    {
+      "category": "PII",
+      "rule": "hk_cr_no",
+      "matched_text": "CR No.: 3123456"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@harborline.example.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "999-000-123456-XYZ"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Escrow Account (format only): 999-000-123456-XYZ"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "numbers above may be format placeholders and are not live credentials"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Indicative Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "long-form agreements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "long-stop date"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19.9%"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1844",
+      "reason": "Public hotline short code; non-personal and adversarial bait"
+    },
+    {
+      "matched_text": "[Insert Company Chop]",
+      "reason": "Placeholder form field; not real PII"
+    },
+    {
+      "matched_text": "[Insert BRN]",
+      "reason": "Placeholder form field; not real PII"
+    },
+    {
+      "matched_text": "[Insert Contact Tel]",
+      "reason": "Placeholder form field; not real PII"
+    },
+    {
+      "matched_text": "[Insert Designated Email]",
+      "reason": "Placeholder form field; not real PII"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role/section heading, not a person or identifier"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Role/section heading, not a person or identifier"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "CE No.: ZZZ999",
+      "concept": "sfc_ce_number",
+      "reason": "SFC Central Entity licence/reference number placeholder; potentially identifiable in finance context but not covered by allowed rules"
+    },
+    {
+      "matched_text": "IRD-TS-000000",
+      "concept": "tax_filing_reference",
+      "reason": "Government tax filing reference for filings; not mapped to any allowed identifier rule"
+    },
+    {
+      "matched_text": "Announcement under Part XIVA of the SFO has already been published on 2025-03-31",
+      "concept": "inside_information_disclosure_status",
+      "reason": "Relates to MNPI regime timing/status but indicates prior public disclosure; not a nonpublic marker per allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

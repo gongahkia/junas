@@ -1,0 +1,189 @@
+{
+  "doc_id": "hk_quasi_identifiers_privacy_notice_negative_001",
+  "document_type": "generic",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "HK",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "mna.ops@harbourpeak.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@harbourpeak.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.services@harbourpeak.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@harbourpeak.example"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.0.0.0/8"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Overseas processing may occur"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "mna.ops@harbourpeak.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@harbourpeak.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.services@harbourpeak.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@harbourpeak.example"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.0.0.0/8"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Overseas processing may occur"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1987-05"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "(DOB 1987-05; residence district: Yuen Long; internal staff code RPO-118; workstation asset tag HK-WKS-19-A7; payroll account ending 4412; employing entity Harbour Peak Capital (HK) Ltd)"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "internal staff code RPO-118"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "workstation asset tag HK-WKS-19-A7"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "payroll account ending 4412"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "Form Ref: SUB-A1-000-XYZ"
+    },
+    {
+      "category": "PII",
+      "rule": "cookie_id",
+      "matched_text": "cookie IDs"
+    },
+    {
+      "category": "PII",
+      "rule": "advertising_id",
+      "matched_text": "advertising identifiers"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "over 18"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Quasi-identifiers are processed minimally"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal contact details are avoided for this workflow"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "please avoid including full dates of birth or complete bank account numbers in free-text fields"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider",
+      "reason": "Generic category mention; not a specific MNPI event."
+    },
+    {
+      "matched_text": "MNPI",
+      "reason": "Generic category mention; not a specific MNPI event."
+    },
+    {
+      "matched_text": "price sensitive",
+      "reason": "Generic category mention; not a specific MNPI event."
+    },
+    {
+      "matched_text": "ID: 1234-XX-000",
+      "reason": "Example of invalid/sample identifier; not real PII."
+    },
+    {
+      "matched_text": "complete bank account numbers",
+      "reason": "Generic mention; not an actual identifiable account number."
+    },
+    {
+      "matched_text": "biometric templates",
+      "reason": "Negated presence; generic mention rather than actual biometric data."
+    },
+    {
+      "matched_text": "graduate",
+      "reason": "Generic demographic label; not identifying on its own."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "subject access request marker",
+      "reason": "Privacy rights handling is legally relevant but not explicitly covered by allowed marker rules beyond consent withdrawal."
+    },
+    {
+      "matched_text": "country of tax residence",
+      "concept": "tax residency attribute",
+      "reason": "Personal data under PDPO but not mapped to a specific allowed PII rule."
+    },
+    {
+      "matched_text": "Yuen Long",
+      "concept": "residence location",
+      "reason": "Location can be a quasi-identifier; not directly covered by a standalone allowed rule."
+    },
+    {
+      "matched_text": "public announcement date",
+      "concept": "timeline/embargo scheduling",
+      "reason": "Relevant to disclosure/retention timing; not explicitly included in allowed embargo markers."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

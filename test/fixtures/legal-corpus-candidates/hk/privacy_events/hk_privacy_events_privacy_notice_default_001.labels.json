@@ -1,0 +1,207 @@
+{
+  "doc_id": "hk_privacy_events_privacy_notice_default_001",
+  "document_type": "generic",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "HK",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@verdantrise.example.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@verdantrise.example.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@verdantrise.example.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tamsin Yiu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Koji Ng"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer: hosting in Singapore is authorised subject to encryption in transit/at rest and Hong Kong model contractual safeguards attached as Annex A; no onward transfers outside APAC are approved under this Schedule"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal: where consent is the lawful basis (e.g., staff wellness benefits), individuals may email privacy@verdantrise.example.hk to withdraw; processing based on legal obligation or contract will continue where applicable"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation: employment forms capture only name, role, work email, payroll alias, and emergency contact name; optional fields and any identity document numbers are suppressed unless a legal basis is documented"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing for M&A diligence"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List Policy"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@verdantrise.example.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@verdantrise.example.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@verdantrise.example.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tamsin Yiu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Koji Ng"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer: hosting in Singapore is authorised subject to encryption in transit/at rest and Hong Kong model contractual safeguards attached as Annex A; no onward transfers outside APAC are approved under this Schedule"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal: where consent is the lawful basis (e.g., staff wellness benefits), individuals may email privacy@verdantrise.example.hk to withdraw; processing based on legal obligation or contract will continue where applicable"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation: employment forms capture only name, role, work email, payroll alias, and emergency contact name; optional fields and any identity document numbers are suppressed unless a legal basis is documented"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing for M&A diligence"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List Policy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition scenario involving Amber Harbor Advisory Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "effective 2026-01-10"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "was completed on 2026-01-09"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "data user",
+      "reason": "Role noun/descriptor, not PII"
+    },
+    {
+      "matched_text": "processor",
+      "reason": "Role noun/descriptor, not PII"
+    },
+    {
+      "matched_text": "Compliance Director",
+      "reason": "Role/title, not a PII value"
+    },
+    {
+      "matched_text": "No personal data is currently transferred to the United States",
+      "reason": "Negated transfer statement; not a live cross-border marker"
+    },
+    {
+      "matched_text": "no biometric templates are collected in these workflows",
+      "reason": "Negated special-category data; should not trigger biometric detection"
+    },
+    {
+      "matched_text": "no onward transfers outside APAC are approved under this Schedule",
+      "reason": "Negated onward transfer; not a live cross-border marker"
+    },
+    {
+      "matched_text": "no live export is pending at the time of this memo",
+      "reason": "Negated export status; not a live transfer marker"
+    },
+    {
+      "matched_text": "this note does not indicate any incident",
+      "reason": "Negated incident; not a cyber incident pre-disclosure"
+    },
+    {
+      "matched_text": "breach notification drills concluded on 2025-12-15",
+      "reason": "Drill/completed control; not a live cyber incident"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR: access and correction requests may be submitted using Form VR-DA-18 to dpo@verdantrise.example.hk; acknowledgements within 7 days and substantive responses within 40 days will be provided, consistent with PDPO ss. 18 and 22",
+      "concept": "DSAR marker",
+      "reason": "DSAR is a privacy handling event but not explicitly listed in allowed PII rules"
+    },
+    {
+      "matched_text": "Erasure: requests will be granted where data is no longer necessary and no statutory retention applies; processor deletion certificates will be recorded under Change Ticket CQ-HK-ER-2026-014",
+      "concept": "erasure marker",
+      "reason": "Erasure is a privacy handling event but not explicitly listed in allowed PII rules"
+    },
+    {
+      "matched_text": "Retention: HR records are retained 7 years post-termination; fund AML/KYC records are retained 6 years after relationship end or longer if required by Hong Kong law; access logs rotate every 90 days",
+      "concept": "retention marker",
+      "reason": "Retention is a privacy handling event but not explicitly listed in allowed PII rules"
+    },
+    {
+      "matched_text": "effective 2026-01-10",
+      "concept": "embargo timing",
+      "reason": "Indicates an effective date but does not use the explicit term \"Effective Date\" from the allowed examples"
+    },
+    {
+      "matched_text": "was completed on 2026-01-09",
+      "concept": "embargo timing",
+      "reason": "Completion date suggests timing control but not one of the explicit embargo labels (Signing/Closing/Effective Date)"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

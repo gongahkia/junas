@@ -3,13 +3,332 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "hk_cr_no",
+      "matched_text": "3123456"
+    },
+    {
+      "category": "PII",
+      "rule": "hk_hkid",
+      "matched_text": "Z654321(0)"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "K9876543"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6800 4321"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6900 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 0000 2468"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "852-3000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kelvin.tso@harbourpeak.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ada.leung@prosperdragon.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "finance@prosperdragon.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "payments@support.com"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "128-889944-001"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kelvin Tso"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ada Leung"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Ryan Chan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 2.3b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "80,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally known"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may be price-sensitive"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "hk_cr_no",
+      "matched_text": "3123456"
+    },
+    {
+      "category": "PII",
+      "rule": "hk_hkid",
+      "matched_text": "Z654321(0)"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "K9876543"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6800 4321"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6900 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 0000 2468"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "852-3000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kelvin.tso@harbourpeak.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ada.leung@prosperdragon.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "finance@prosperdragon.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "payments@support.com"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "128-889944-001"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kelvin Tso"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ada Leung"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Ryan Chan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 2.3b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "80,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not generally known"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may be price-sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "announcement to be made per SFO s.307B"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "SFO Part XIVA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "a contemplated divestment of the IoT module unit"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "FY2026 revenue guidance"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Authorised Signatory",
+      "reason": "Generic role label, not PII/MNPI."
+    },
+    {
+      "matched_text": "Name (Mr./Ms.): __________",
+      "reason": "Blank form field, no personal data value present."
+    },
+    {
+      "matched_text": "HKID/Passport: __________",
+      "reason": "Blank form field, no personal data value present."
+    },
+    {
+      "matched_text": "1000 1000",
+      "reason": "Public enquiry hotline; not personal data."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "BZZ123",
+      "concept": "HK SFC CE number",
+      "reason": "Regulatory licence/CE identifier relevant in HK but no specific allowed rule to tag."
+    },
+    {
+      "matched_text": "67654321-000-01-01-5",
+      "concept": "HK Business Registration number",
+      "reason": "Local business registration identifier; no explicit allowed rule provided."
+    },
+    {
+      "matched_text": "HCBKHKHX",
+      "concept": "SWIFT/BIC code",
+      "reason": "Bank identifier may be sensitive operationally but not covered by allowed rules and not personal."
+    },
+    {
+      "matched_text": "Unit 1203, 12/F, South Quays Tower, 88 King Wan Road, Kowloon, Hong Kong",
+      "concept": "Registered office address",
+      "reason": "Address identifier but for a company, and no HK address rule in allowed list."
+    },
+    {
+      "matched_text": "Room 1902, 19/F, Harborview Exchange Tower, 1 Seabreeze Lane, Central, Hong Kong",
+      "concept": "Business correspondence address",
+      "reason": "Address could be identifying but corporate; no allowed HK address rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

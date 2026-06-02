@@ -1,0 +1,248 @@
+{
+  "doc_id": "hk_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "HK",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Lau"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Yvette Ho"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Connie Yeh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@seaportjade.com.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Emp Num: E3  7  9*HK"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation controls"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "pii minimisation in talent onboarding form"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Lau"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Yvette Ho"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Connie Yeh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@seaportjade.com.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Emp Num: E3  7  9*HK"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation controls"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "pii minimisation in talent onboarding form"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean room"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011Border Transfer Safeguards"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "outside HK"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Singapore processor"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "lodged withdrawal of consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked (e.g., A**n L**)"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "u:hk\u2011onb\u2011xx4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Orchid Reef Systems Limited by Harbor Frontier Capital Fund I LP"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC addresses",
+      "reason": "Negated bait: explicitly stated not collected/exported"
+    },
+    {
+      "matched_text": "device IMEI",
+      "reason": "Negated bait: explicitly stated not collected/exported"
+    },
+    {
+      "matched_text": "GPS",
+      "reason": "Negated bait: explicitly stated not collected/exported"
+    },
+    {
+      "matched_text": "face images",
+      "reason": "Negated bait: explicitly stated not collected/exported"
+    },
+    {
+      "matched_text": "ID card scans",
+      "reason": "Negated bait: explicitly stated not collected/exported"
+    },
+    {
+      "matched_text": "financial forecasts",
+      "reason": "Negated MNPI content: explicitly not included"
+    },
+    {
+      "matched_text": "deal terms",
+      "reason": "Negated MNPI content: explicitly not included"
+    },
+    {
+      "matched_text": "inside information likely to be price\u2011sensitive under Part X I V A SFO",
+      "reason": "Negated MNPI content: explicitly not included"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "Data subject access request event is a privacy handling marker but no explicit allowed rule key for DSAR"
+    },
+    {
+      "matched_text": "data subject access request",
+      "concept": "DSAR marker",
+      "reason": "Phrase indicates DSAR but DSAR-specific rule is not listed in allowed taxonomy"
+    },
+    {
+      "matched_text": "Erasure",
+      "concept": "Erasure marker",
+      "reason": "Erasure event heading; erasure marker not in allowed rules list"
+    },
+    {
+      "matched_text": "remotely purged",
+      "concept": "Erasure action",
+      "reason": "Indicates deletion/erasure but no explicit erasure rule in allowed taxonomy"
+    },
+    {
+      "matched_text": "wiped via secure erase v2",
+      "concept": "Erasure action",
+      "reason": "Indicates secure deletion but not mapped to an allowed rule"
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "Retention marker",
+      "reason": "Retention event heading; retention marker not present in allowed rules"
+    },
+    {
+      "matched_text": "retained for 90 days",
+      "concept": "Retention period",
+      "reason": "Specifies retention term but no explicit retention rule in allowed taxonomy"
+    },
+    {
+      "matched_text": "auto\u2011delete at day 91",
+      "concept": "Retention deletion trigger",
+      "reason": "Specifies auto-deletion schedule; retention rule not provided"
+    },
+    {
+      "matched_text": "Permit CBT\u2011HK\u20112026\u201105\u201118",
+      "concept": "Data-export permit ID",
+      "reason": "Governance artifact identifier relevant to cross-border transfers but not mapped to an allowed rule"
+    },
+    {
+      "matched_text": "NAD\u2011DEL\u20112026\u2011051",
+      "concept": "Deletion certificate ID",
+      "reason": "Operational certificate identifier; relevant to erasure but not covered by allowed rules"
+    },
+    {
+      "matched_text": "DSAR\u20112026\u2011HK\u20111z",
+      "concept": "Case reference ID",
+      "reason": "Unique DSAR case reference may link to an individual but not mapped to allowed PII rules"
+    },
+    {
+      "matched_text": "ord\u2011ref M&A\u2011DR\u20112026//cbt\u201101",
+      "concept": "Internal job/log reference",
+      "reason": "Internal run identifier may track user activity; potential internal session/job ID but not clearly covered by allowed rules"
+    },
+    {
+      "matched_text": "A**n L**",
+      "concept": "Pseudonymised name",
+      "reason": "Masked personal identifier indicates personal data handling but not directly covered by a specific allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

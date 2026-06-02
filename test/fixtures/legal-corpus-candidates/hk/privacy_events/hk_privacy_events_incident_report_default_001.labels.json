@@ -1,0 +1,173 @@
+{
+  "doc_id": "hk_privacy_events_incident_report_default_001",
+  "document_type": "memo",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "HK",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@redharbourcapital.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@redharbourcapital.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Lau"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Yvonne Cho"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border log export"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside\u2011information obligations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "price\u2011sensitive information"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@redharbourcapital.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@redharbourcapital.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Lau"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Yvonne Cho"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border log export"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "LotusEdge SG\u20111 (Singapore)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data\u2011Export Approval"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011Border Clauses"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation controls"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "field\u2011level redaction"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside\u2011information obligations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "price\u2011sensitive information"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "term sheets",
+      "reason": "Lowercase, negated reference; not a definitive agreement trigger"
+    },
+    {
+      "matched_text": "board papers",
+      "reason": "Generic governance documents; not an MNPI rule match"
+    },
+    {
+      "matched_text": "this is a completed control and does not indicate a continuing risk",
+      "reason": "Completed-control disclaimer; avoid flagging as live privacy risk"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "DSAR is a privacy-handling event but no explicit DSAR rule is listed in allowed rules"
+    },
+    {
+      "matched_text": "erasure request",
+      "concept": "Erasure marker",
+      "reason": "Erasure handling is relevant but no explicit erasure rule is listed in allowed rules"
+    },
+    {
+      "matched_text": "certified erasure",
+      "concept": "Erasure marker (completed)",
+      "reason": "Indicates data erasure completed, but there is no explicit erasure rule in allowed list"
+    },
+    {
+      "matched_text": "Retention periods for onboarding forms have been shortened from 24 to 18 months",
+      "concept": "Retention marker",
+      "reason": "Retention change is relevant but no explicit retention rule is listed in allowed rules"
+    },
+    {
+      "matched_text": "deletion hash RH\u2011DEL\u201100931",
+      "concept": "Erasure verification reference",
+      "reason": "Deletion hash evidences erasure but is not covered by an allowed PII/MNPI rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

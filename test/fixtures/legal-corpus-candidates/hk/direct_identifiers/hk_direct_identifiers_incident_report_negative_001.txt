@@ -1,0 +1,14 @@
+Incident Report: Network Intrusion Summary — Eastern Pearl Logistics Holdings Limited (the Company), incorporated in Hong Kong.
+On 29 May 2026 at 02:40 HKT, SOC detected anomalous exfiltration attempts from the office LAN at Unit 2301, 23/F, Jade Tower, 88 Seabreeze Avenue, Wan Chai, Hong Kong.
+Impacted repositories: \\fileserver\OPS-STAFF\, \\fileserver\HR-Onboarding\, \\fileserver\M&A-Archive (read-only).
+HR-Onboarding contained scanned forms with fields [Name], [HKID], [Passport No.], [Tel], [Email]; M&A-Archive comprised only completed deal circulars and press announcements already on the Exchange website.
+One identifiable document was accessed: Contractor (IT Support) identity page — HKSAR Passport No.: KZ1234567.
+Other samples in the same folder were blank templates (e.g., HKID: A123456(9) [invalid checksum sample], Tel (public): 3700 0000, Email: staff.form@example).
+Company identifiers present elsewhere include: CR No.: 2876543; BR No.: 12345678-000-12-3 (illustrative); vendor bank a/c (masked): 003-456-000123-9 in favour of Coral Tech Services Co.
+No payroll bank accounts, no customer addresses, and no trading account numbers were accessed; IR56E files reviewed were placeholders.
+The Company notified its Data Protection Officer in accordance with PDPO guidelines and filed an incident update to the Harbour Securities Commission and the Victoria Exchange’s Listing Division within 1 business day.
+Having regard to inside information provisions under local securities law, the information involved is either non-identifying templates or previously announced corporate materials; no price-sensitive information likely to influence dealers.
+For the avoidance of doubt, there is no impact to fund operations managed by Pearl Bay Capital SPC or to any ongoing employment consultations.
+Immediate controls applied: VPN token reset, privileged account audit, and forced rotation of shared folder passwords; malware indicator signatures updated.
+Staff are instructed to submit the “Personal Data Handling Form (PDHO-01)” via hr@eplhltd.example; public enquiries may call our Helpdesk at 3800 1212.
+External forensics support has been engaged from Lotus Ridge Cyber Advisory Ltd.; no suspension of dealings is anticipated under VEX Listing Rule 13.10, but we will continue to liaise with HSC as needed.

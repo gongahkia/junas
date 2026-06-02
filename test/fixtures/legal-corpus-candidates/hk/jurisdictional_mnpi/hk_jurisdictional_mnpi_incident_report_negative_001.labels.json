@@ -1,0 +1,163 @@
+{
+  "doc_id": "hk_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "HK",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@harboursummit.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harboursummit.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 0000 0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout periods"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "before any public filing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "a small group of analysts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been posted to the CBX portal or company website"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet announced"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@harboursummit.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harboursummit.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 0000 0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout periods"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "before any public filing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "a small group of analysts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been posted to the CBX portal or company website"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet announced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "background only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "a review is in progress to determine issuer\u2011relative materiality under Part XIVA of the Securities and Futures Ordinance"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Board",
+      "reason": "Role noun \u2014 not PII or MNPI"
+    },
+    {
+      "matched_text": "Directors",
+      "reason": "Role noun \u2014 not PII or MNPI"
+    },
+    {
+      "matched_text": "The Audit and Risk Committee",
+      "reason": "Role noun \u2014 not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "HS\u2011OPS\u20112025\u2011XYZ1",
+      "concept": "internal reference identifier",
+      "reason": "Administrative ticket code may resemble an internal identifier but is not clearly covered by allowed PII rules."
+    },
+    {
+      "matched_text": "CBX stock code: 9A88",
+      "concept": "security identifier",
+      "reason": "Exchange stock code is a public identifier; not covered by listed PII/MNPI rules but may be relevant metadata."
+    },
+    {
+      "matched_text": "2\u20133 week pilot delay",
+      "concept": "potential timing guidance",
+      "reason": "Could be issuer\u2011relative material information depending on context, but not explicitly covered by a specific MNPI rule beyond contingent language."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

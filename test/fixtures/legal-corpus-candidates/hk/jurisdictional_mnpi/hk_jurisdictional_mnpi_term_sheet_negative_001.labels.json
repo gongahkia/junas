@@ -1,0 +1,163 @@
+{
+  "doc_id": "hk_jurisdictional_mnpi_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "HK",
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been disclosed publicly"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout periods"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "last blackout"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been disclosed publicly"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout periods"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "last blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "discloseable or major transaction"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "15 August 20X4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "late Q3 20X4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "non-binding indication of interest"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to negotiation of definitive agreements and completion of confirmatory due diligence"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "expects to utilise"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "this intended timing has not been disclosed publicly"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to third-party consents"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Purchaser",
+      "reason": "Role-noun defined term used as a party reference, not PII/MNPI."
+    },
+    {
+      "matched_text": "Vendor",
+      "reason": "Role-noun defined term used as a party reference, not PII/MNPI."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term used as a party reference, not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "stock code 00XX0",
+      "concept": "hkex_stock_code",
+      "reason": "Security identifier relevant to issuers; no explicit allowed rule for HKEX stock codes."
+    },
+    {
+      "matched_text": "Verdant Tern Capital Fund I, L.P",
+      "concept": "potential cornerstone investor identity",
+      "reason": "Counterparty/funder identity may be MNPI in context but not covered by an allowed rule."
+    },
+    {
+      "matched_text": "whitewash waiver",
+      "concept": "Takeovers Code waiver indicator",
+      "reason": "Regulatory waiver status can be sensitive but no specific allowed rule maps to this phrase."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

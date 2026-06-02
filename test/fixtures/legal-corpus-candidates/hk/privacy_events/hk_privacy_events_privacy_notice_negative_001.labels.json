@@ -1,0 +1,111 @@
+{
+  "doc_id": "hk_privacy_events_privacy_notice_negative_001",
+  "document_type": "generic",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "HK",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@harbourcrest.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpa@silverquay.example"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@harbourcrest.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpa@silverquay.example"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer approval"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "DPP1 (minimisation)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "HKID (masked)",
+      "reason": "Placeholder label indicates masking; not an actual identifier value."
+    },
+    {
+      "matched_text": "Account (masked)",
+      "reason": "Placeholder label indicates masking; not an actual account identifier."
+    },
+    {
+      "matched_text": "DPA Schedule",
+      "reason": "Not a definitive agreement type (SPA/SHA/APA/MOU/LOI/Term Sheet)."
+    },
+    {
+      "matched_text": "DPA Schedule 2",
+      "reason": "Not a definitive agreement type (SPA/SHA/APA/MOU/LOI/Term Sheet)."
+    },
+    {
+      "matched_text": "inside information",
+      "reason": "Explicitly excluded; not indicating live MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR workflow",
+      "concept": "DSAR marker",
+      "reason": "DSAR handling is a privacy-event signal but no explicit DSAR rule is defined in the allowed taxonomy."
+    },
+    {
+      "matched_text": "Retention standards",
+      "concept": "Retention marker",
+      "reason": "Data retention handling is relevant but there is no explicit retention marker in the allowed rules."
+    },
+    {
+      "matched_text": "Erasure and restriction",
+      "concept": "Erasure/restriction marker",
+      "reason": "Erasure/restriction handling is relevant but there is no explicit erasure marker in the allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

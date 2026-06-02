@@ -3,13 +3,277 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Selina Chan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Lau"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6523 8890"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 9300 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 3901 2211"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@harborcrest-cap.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@crescent-ventures.asia"
+    },
+    {
+      "category": "PII",
+      "rule": "hk_hkid",
+      "matched_text": "A123456(0)"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "KE1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "012-345-678901-001"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 920,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 9,200,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "LOI"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Selina Chan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrian Lau"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6523 8890"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 9300 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 3901 2211"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@harborcrest-cap.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@crescent-ventures.asia"
+    },
+    {
+      "category": "PII",
+      "rule": "hk_hkid",
+      "matched_text": "A123456(0)"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "KE1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "012-345-678901-001"
+    },
+    {
+      "category": "PII",
+      "rule": "hk_cr_no",
+      "matched_text": "3123456"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Flat C, 8/F, Harbor Gardens, 22 Starcrest Lane, Tsing Wai South, Hong Kong"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "role-only titles such as \u201cAuthorised Signatory\u201d and \u201cManager\u201d are placeholders and do not identify individuals"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "is not generally known"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of 51% of HarborCrest Robotics Holdings Limited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 920,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "HKD 9,200,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "LOI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not circulate beyond board and advisers"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not PII."
+    },
+    {
+      "matched_text": "Authorised Signatory",
+      "reason": "Role-only placeholder title."
+    },
+    {
+      "matched_text": "Manager",
+      "reason": "Role-only placeholder title."
+    },
+    {
+      "matched_text": "Name: ________",
+      "reason": "Generic form label, non-identifying."
+    },
+    {
+      "matched_text": "ID No.: ________",
+      "reason": "Generic form label, non-identifying."
+    },
+    {
+      "matched_text": "Date: ________",
+      "reason": "Generic form label, non-identifying."
+    },
+    {
+      "matched_text": "1823",
+      "reason": "Public helpline number, not party contact."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "C R   N o . :  3 1 2 3 4 5 6",
+      "concept": "hk_cr_no_spaced_format",
+      "reason": "HK Companies Registry number with atypical spacing; regulator ID but spacing may defeat hk_cr_no regex."
+    },
+    {
+      "matched_text": "BR No.: 7-6543212-000",
+      "concept": "hk_br_number",
+      "reason": "HK Business Registration number likely, but no explicit rule provided for BR numbers."
+    },
+    {
+      "matched_text": "SFC CE No.: XZQ123",
+      "concept": "sfc_ce_number",
+      "reason": "HK SFC Central Entity number; a regulatory identifier not covered by allowed rules."
+    },
+    {
+      "matched_text": "HCRTHKHH",
+      "concept": "swift_bic",
+      "reason": "SWIFT/BIC code; financial identifier not in allowed rules list."
+    },
+    {
+      "matched_text": "selina.chan @ harborcrest-cap.hk",
+      "concept": "email_address_obfuscated",
+      "reason": "Intended email address but contains spaces around '@', may be deliberately obfuscated; not strictly matching email rule."
+    },
+    {
+      "matched_text": "ProjectTyphoon",
+      "concept": "transaction_codename",
+      "reason": "Appears to be a project codename but lacks the 'Project <Name>' pattern (no space); appears only within a mailto subject."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

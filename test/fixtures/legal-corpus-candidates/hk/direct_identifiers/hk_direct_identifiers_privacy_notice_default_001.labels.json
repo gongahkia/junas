@@ -3,13 +3,192 @@
   "document_type": "generic",
   "source_jurisdiction": "HK",
   "destination_jurisdiction": "HK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "hk_cr_no",
+      "matched_text": "2894432"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "KZ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "NHC-HK-009412"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nhc-hk.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 0000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leona T. Kwan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackouts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "to cloud providers in Singapore"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "will collect only what is necessary"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "hk_cr_no",
+      "matched_text": "2894432"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "KZ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "NHC-HK-009412"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nhc-hk.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 0000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leona T. Kwan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackouts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "to cloud providers in Singapore"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "will collect only what is necessary"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Wall-crossing consents"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "partial redaction of identification numbers"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company",
+      "reason": "Defined term role-noun; not a person identifier"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "Role noun; not a named person"
+    },
+    {
+      "matched_text": "8000 0000",
+      "reason": "Public hotline reference; adversarial bait not to treat as PII"
+    },
+    {
+      "matched_text": "A123456(0)",
+      "reason": "HKID placeholder with invalid checksum; adversarial bait"
+    },
+    {
+      "matched_text": "Name/Title",
+      "reason": "Generic form field label; not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "61234578-000-02-25-3",
+      "concept": "hk_business_registration_number",
+      "reason": "Hong Kong business registration number is a company identifier; no explicit rule enumerated"
+    },
+    {
+      "matched_text": "Unit 1602, Jade Harbour Centre, 88 Harbour Crescent, Kowloon East, Hong Kong",
+      "concept": "postal_address",
+      "reason": "HK postal address is PII in context, but no allowed rule for HK address"
+    },
+    {
+      "matched_text": "board materials",
+      "concept": "mnpi_corporate_documents",
+      "reason": "MNPI context but no specific allowed rule; semantic indicator of sensitive corporate info"
+    },
+    {
+      "matched_text": "are kept 7 years from cessation",
+      "concept": "retention_period",
+      "reason": "Retention markers are privacy-relevant, but no explicit retention rule enumerated"
+    },
+    {
+      "matched_text": "before disclosing transaction details",
+      "concept": "selective_disclosure_risk",
+      "reason": "Selective disclosure compliance context; may be MNPI but string not clearly covered by a deterministic rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

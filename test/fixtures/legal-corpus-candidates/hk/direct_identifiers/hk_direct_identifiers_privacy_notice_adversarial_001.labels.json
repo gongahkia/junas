@@ -1,0 +1,202 @@
+{
+  "doc_id": "hk_direct_identifiers_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "HK",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "hk_cr_no",
+      "matched_text": "CR No. 2899123"
+    },
+    {
+      "category": "PII",
+      "rule": "hk_hkid",
+      "matched_text": "K123456(0)"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "KZ1 234 567"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6 1 2 3  9 9 0 0"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@harborcap.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ada Chow"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. K. L. Fong"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kl.fong@harborcap.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "102\u2011356\u2011123456\u2011001"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "hk_cr_no",
+      "matched_text": "CR No. 2899123"
+    },
+    {
+      "category": "PII",
+      "rule": "hk_hkid",
+      "matched_text": "K123456(0)"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "KZ1 234 567"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+852 6 1 2 3  9 9 0 0"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@harborcap.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ada Chow"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. K. L. Fong"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kl.fong@harborcap.hk"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "102\u2011356\u2011123456\u2011001"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "unannounced, price\u2011sensitive term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unless generally known"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossed insiders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading in the issuer\u2019s securities is prohibited until HKEX disclosure is made"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "may be transferred to Blue Kite Services Pte. Ltd. (processor) and to our fund administrator in Singapore under contractual safeguards"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we do not collect device MAC addresses or GPS"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ID No.: ________",
+      "reason": "Generic form label; not personal data by itself"
+    },
+    {
+      "matched_text": "Head of Compliance",
+      "reason": "Role-only title; no individual identified"
+    },
+    {
+      "matched_text": "1234 5678",
+      "reason": "Public enquiries placeholder number; excluded per text"
+    },
+    {
+      "matched_text": "C E  N o .  Z Y Q 9 9 9",
+      "reason": "OCR artefact; explicitly stated to have no legal effect"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "BR\u2011No: 59871234\u2011000",
+      "concept": "HK Business Registration number",
+      "reason": "Likely an HK BR identifier but no explicit allowed rule for BR numbers"
+    },
+    {
+      "matched_text": "SFC CE No. ZYQ999",
+      "concept": "SFC licence/CE number",
+      "reason": "Regulatory licence identifier not covered by an allowed rule"
+    },
+    {
+      "matched_text": "hxxps://dataroom.harborcap.example.hk/rights?req=dsar&case=BR-59871234-000%2Femp%3Dachow",
+      "concept": "Portal URL with case/employee reference",
+      "reason": "Could embed internal case or employee ID but URL detection not covered by allowed rules"
+    },
+    {
+      "matched_text": "18/F, Pearl Gate, 12 Hoi Ming Lane, East Central, Hong Kong",
+      "concept": "Postal address",
+      "reason": "Address may be sensitive contextually but no HK postal-address rule in allowed set"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

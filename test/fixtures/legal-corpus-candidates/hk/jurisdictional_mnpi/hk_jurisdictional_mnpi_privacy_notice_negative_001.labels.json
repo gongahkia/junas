@@ -1,0 +1,149 @@
+{
+  "doc_id": "hk_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "HK",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lotusridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance.hk@lotusridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation: do not collect bank account numbers on supplier onboarding forms unless needed for settlement; dummy examples in forms (e.g., 000-000-0000X) must never be reused"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-announcement blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Seabrook Maritime Group Limited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lotusridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance.hk@lotusridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation: do not collect bank account numbers on supplier onboarding forms unless needed for settlement; dummy examples in forms (e.g., 000-000-0000X) must never be reused"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-announcement blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Seabrook Maritime Group Limited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers: where Personal Data is processed by group service centres in Kowloon East or Singapore data centres, we use processor terms and safeguard onward transfers in line with PDPO DPPs"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "For employment workflows, do not store full HKID images; accept only redacted copies and destroy verification copies immediately after completion of onboarding checks"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "bank account numbers"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ISIN ZZ0000000000",
+      "reason": "Explicit placeholder; invalid and not a live record."
+    },
+    {
+      "matched_text": "account 000-000-0000X",
+      "reason": "Explicit placeholder; invalid and not a real bank account."
+    },
+    {
+      "matched_text": "BR No. 12345678-000-00-00-0",
+      "reason": "Explicit placeholder; invalid and not a real HK Companies Registry/BR number."
+    },
+    {
+      "matched_text": "\u201coffer price\u201d",
+      "reason": "Benign public press-release phrase; not MNPI in stated context."
+    },
+    {
+      "matched_text": "HK-0000-XX",
+      "reason": "Internal template reference placeholder; not PII."
+    },
+    {
+      "matched_text": "Disclosure Committee",
+      "reason": "Role/committee name; not PII."
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "Role title; not a named person."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "HKID images",
+      "concept": "hk_hkid mention",
+      "reason": "Mentions sensitive local ID type without an actual HKID number; relevant but not clearly covered by ID-value rules."
+    },
+    {
+      "matched_text": "Suite 1901, Prospero Tower, 88 Sunbeam Road, Kowloon",
+      "concept": "postal address",
+      "reason": "Physical address is PII under PDPO, but HK postal address is not an enumerated rule in this taxonomy."
+    },
+    {
+      "matched_text": "until publication on the issuer announcement website",
+      "concept": "embargo/timing marker",
+      "reason": "Indicates local disclosure timing/blackout semantics, but not one of the enumerated embargo markers."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

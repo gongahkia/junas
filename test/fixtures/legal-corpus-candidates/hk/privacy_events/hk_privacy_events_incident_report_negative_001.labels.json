@@ -1,0 +1,123 @@
+{
+  "doc_id": "hk_privacy_events_incident_report_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "HK",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "info-security@harborpeakhk.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@harborpeakhk.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "info-security@harborpeakhk.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@harborpeakhk.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation policy P-12 requirements met"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "fields for name, ID number, account, and address were unpopulated"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "DSAR",
+      "reason": "Negated mention; no request was received, so not a live privacy event"
+    },
+    {
+      "matched_text": "authorised and completed transfer",
+      "reason": "Completed control; should not be treated as an active cross-border transfer marker"
+    },
+    {
+      "matched_text": "no cross-border data flows occurred as part of the incident response",
+      "reason": "Negated; not a live cross-border transfer"
+    },
+    {
+      "matched_text": "no erasure requests were triggered",
+      "reason": "Negated; no erasure event"
+    },
+    {
+      "matched_text": "no specific corporation information likely to be price-material was present",
+      "reason": "Negated MNPI; not a nonpublic/material disclosure"
+    },
+    {
+      "matched_text": "no disclosure obligation under SFO Part XIVA",
+      "reason": "Negated regulatory trigger; not MNPI"
+    },
+    {
+      "matched_text": "the consent withdrawal register shows zero open items",
+      "reason": "Negated; no active consent withdrawal"
+    },
+    {
+      "matched_text": "no personal data accessed or disclosed",
+      "reason": "Negated; confirms absence of PII exposure"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "retention schedule R-3 (HK) remains in effect for archived materials",
+      "concept": "retention_marker",
+      "reason": "Retention is a privacy handling event but no explicit allowed rule key for retention is provided."
+    },
+    {
+      "matched_text": "Cross-border transfer: unrelated to the incident, Data Export Approval DEA-2025-004 authorised and completed transfer of pseudonymised security logs to Technova Systems SG on 2025-05-12 under DPA Schedule 2 (HK); controls operated as designed",
+      "concept": "cross_border_transfer_marker (completed)",
+      "reason": "Legally relevant cross-border transfer, but completed and unrelated; rules exclude already-completed controls."
+    },
+    {
+      "matched_text": "Incident ref: OP-2025-044",
+      "concept": "internal_identifier",
+      "reason": "Could be treated as an internal session/incident ID by some systems but not covered by allowed rules."
+    },
+    {
+      "matched_text": "audit trail reference QN-AT-8845",
+      "concept": "internal_identifier",
+      "reason": "Internal audit reference could be considered a session/log ID; not an allowed rule."
+    },
+    {
+      "matched_text": "CAB-OPS-2025-061",
+      "concept": "internal_identifier",
+      "reason": "Change approval identifier; potentially sensitive internal reference not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "InvestorID: 000-XX-VOID",
+      "concept": "customer_account_number (placeholder)",
+      "reason": "Looks like an investor/customer ID but explicitly an invalid placeholder; may be useful for coverage though not a live PII."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}
