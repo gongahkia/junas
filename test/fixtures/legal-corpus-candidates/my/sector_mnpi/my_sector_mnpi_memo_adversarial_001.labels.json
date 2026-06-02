@@ -29,10 +29,7 @@
   "_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
   "_label_note": "MY Stage A strict tier realigned to deterministic strict-mode engine after IN precision audit; broader model-derived labels retained in ideal_must_detect for gap discovery.",
   "_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM250m'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM250m'"
-  ],
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-29T07:04:53Z",
     "accepted_by": "gongahkia",
@@ -446,5 +443,16 @@
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
-  ]
+  ],
+  "_resolved_label_warnings_history": [],
+  "_resolved_label_warnings": {
+    "count": 2,
+    "basis": "MY Stage B QA cleanup resolved stale auto-label normalization warnings. The current deterministic strict evaluation is clean; warning text describes earlier category normalization, unsupported-shape drops, or non-verbatim-span drops during auto-label creation.",
+    "resolved_by": "Codex GPT-5.5",
+    "resolved_at_utc": "2026-06-02T00:00:00Z",
+    "sample": [
+      "drop must_detect: unsupported financial amount shape rule='financial_amount' text='RM250m'",
+      "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='RM250m'"
+    ]
+  }
 }

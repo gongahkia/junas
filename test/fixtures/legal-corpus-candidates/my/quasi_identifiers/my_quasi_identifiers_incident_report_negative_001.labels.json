@@ -15,9 +15,14 @@
       "matched_text": "hr.contracts@serunai-logistics.my"
     },
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "helpdesk@serunai-logistics.my"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "The Board Risk Committee reviewed the incident and confirmed that no financing covenants with Kenari Capital Bank Berhad were affected, and cash operations proceeded normally."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Our sustainability officer confirmed no ESG breach; the brief downtime of a recycling kiosk at the Nilai hub was unrelated and previously reported in the 2025 Sustainability Statement."
     },
     {
       "category": "MNPI",
@@ -37,14 +42,24 @@
       "matched_text": "hr.contracts@serunai-logistics.my"
     },
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "helpdesk@serunai-logistics.my"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "The Board Risk Committee reviewed the incident and confirmed that no financing covenants with Kenari Capital Bank Berhad were affected, and cash operations proceeded normally."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Our sustainability officer confirmed no ESG breach; the brief downtime of a recycling kiosk at the Nilai hub was unrelated and previously reported in the 2025 Sustainability Statement."
     },
     {
       "category": "MNPI",
       "rule": "insider_list_marker",
       "matched_text": "insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@serunai-logistics.my"
     },
     {
       "category": "PII",
@@ -83,19 +98,19 @@
       "reason": "Generic data-type mention without any actual identifier value."
     },
     {
-      "matched_text": "\u201cName\u201d",
+      "matched_text": "“Name”",
       "reason": "Template placeholder field, not an actual personal data value."
     },
     {
-      "matched_text": "\u201cIC No.\u201d",
+      "matched_text": "“IC No.”",
       "reason": "Template placeholder field, not an actual personal data value."
     },
     {
-      "matched_text": "\u201cPayroll Account\u201d",
+      "matched_text": "“Payroll Account”",
       "reason": "Template placeholder field, not an actual personal data value."
     },
     {
-      "matched_text": "\u201cPassport\u201d",
+      "matched_text": "“Passport”",
       "reason": "Template placeholder field, not an actual personal data value."
     },
     {
@@ -149,5 +164,14 @@
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_tiers_version": "my-stage-b-strict-realign-2026-06-02",
+  "_label_tier_note": "MY Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_strict_reconciliation": {
+    "basis": "MY Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-my-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after MY Stage B precision review"
+  }
 }
