@@ -1489,10 +1489,15 @@ def _is_non_phone_numeric_context(text: str, start: int, end: int) -> bool:
 
 def _is_closed_or_historical_privacy_request_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
-    closed = bool(_PRIVACY_REQUEST_CLOSED_CONTEXT_RE.search(context))
-    if _PRIVACY_REQUEST_LIVE_CONTEXT_RE.search(context) and not closed:
+    if re.search(
+        r"\bno\s+(?:data\s+subject\s+access\s+request|DSAR)[^\n.;]{0,80}(?:received|needed|triggered)\b",
+        context,
+        re.IGNORECASE,
+    ):
+        return True
+    if _PRIVACY_REQUEST_LIVE_CONTEXT_RE.search(context):
         return False
-    return closed
+    return bool(_PRIVACY_REQUEST_CLOSED_CONTEXT_RE.search(context))
 
 
 def _is_ph_tin_non_tax_context(text: str, start: int, end: int) -> bool:
