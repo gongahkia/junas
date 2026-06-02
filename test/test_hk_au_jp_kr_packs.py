@@ -205,6 +205,40 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
         self.assertNotIn("email_address", rules)
         self.assertNotIn("material_adverse_change", rules)
 
+    def test_au_stage_b_role_mailbox_generic_mnpi_and_negated_mac_bait_do_not_fire(self):
+        samples = [
+            (
+                "Do not use the email format firstname.lastname@redgumrenewables.com.au as "
+                "a live contact. Vendor contact (role only): servicedesk@botanycloud.example; "
+                "employee notifications via hr-notify@redgumrenewables.com.au.",
+                "email_address",
+            ),
+            (
+                "The vendor issue is not expected to constitute a material adverse change.",
+                "material_adverse_change",
+            ),
+            (
+                '"MNPI" means information not generally available for policy training only.',
+                "nonpublic_marker",
+            ),
+            (
+                'The term "insider list" and references to MNPI are generic and describe controls.',
+                "insider_list_marker",
+            ),
+            (
+                "The vendor MSA is not a definitive agreement for any acquisition.",
+                "definitive_agreement",
+            ),
+            (
+                "This event does not constitute, and is not reasonably likely to constitute, "
+                "a material adverse change.",
+                "material_adverse_change",
+            ),
+        ]
+        for text, rule in samples:
+            with self.subTest(rule=rule, text=text):
+                self.assertNotIn(rule, self._rules(text, "AU"))
+
 
 class HkAuJpKrRationaleTests(unittest.TestCase):
     def test_pii_rationales_cite_local_statutes(self):

@@ -1269,7 +1269,7 @@ _ALWAYS_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "admin", "ap", "ar", "billing", "capitalmarkets", "corpsec", "cosec",
     "compliance", "dealroom", "disclosure", "docroom", "dpo", "help", "helpdesk",
     "irmailbox", "listings", "media", "mna", "press", "privacy", "privacydesk",
-    "role", "room", "secretariat", "support", "treasury", "walloffice",
+    "role", "room", "secretariat", "servicedesk", "support", "treasury", "walloffice",
 })
 _CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "contact", "info", "legal",
@@ -1279,7 +1279,7 @@ _ROLE_MAILBOX_LOCAL_RE = re.compile(
     r"(?:sg|hk|au|jp|kr|my|id|th|ph|vn|uk|eu|us|in)?compliance|"
     r".*[._-]compliance|"
     r"ir|investor[._-]?relations|grievance|noreply|no-reply|procurement|infosec|"
-    r"privacyoffice|pitcompliance|pit-code|"
+    r"privacyoffice|pitcompliance|pit-code|hr[._-]?notify|"
     r".*[._-](?:support|helpdesk|procurement|infosec|grievance)$"
     r")$"
 )
@@ -1387,6 +1387,8 @@ def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
     right = min(right_candidates) if right_candidates else len(text)
     context = text[left:right].strip()
     local_part = text[start:end].split("@", 1)[0].casefold()
+    if local_part in {"firstname.lastname", "first.last", "name.surname", "given.family"}:
+        return True
     if _FUNCTIONAL_CONTACT_CONTEXT_RE.search(context):
         strong_public_context = re.search(
             r"\b(?:generic\s+mailboxes?|public\s+contacts?|procedural\s+queries\s+only|"
@@ -1522,6 +1524,8 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         r"no\s+event\s+has\s+occurred[^\n.;]{0,120}material\s+adverse\s+change|"
         r"no\s+[\"“]?material\s+adverse\s+effect[\"”]?\s+occurred|"
         r"no\s+mac[^\n.;]{0,100}material\s+adverse\s+change|"
+        r"not\s+expected\s+to\s+constitute[^\n.;]{0,120}material\s+adverse\s+(?:change|effect)|"
+        r"does\s+not\s+constitute[^\n.;]{0,140}material\s+adverse\s+(?:change|effect)|"
         r"nothing\s+in\s+this\s+(?:notice|workflow|document|memo)[^\n.;]{0,120}"
         r"constitutes[^\n.;]{0,120}material\s+adverse\s+(?:change|effect)|"
         r"nothing\s+herein\s+constitutes[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
@@ -1565,7 +1569,9 @@ def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> boo
         r"does\s+not\s+rely\s+on\s+non[- ]public\s+data|"
         r"avoid[^\n.;]{0,80}\bundisclosed\s+assumptions|"
         r"could\s+be\s+construed\s+as\s+mnpi|"
+        r"[\"“]?\bmnpi\b[\"”]?\s+means|"
         r"references?\s+to[^\n.;]{0,100}\bmnpi\b[^\n.;]{0,100}generic\s+risk\s+categor(?:y|ies)|"
+        r"references?\s+to[^\n.;]{0,100}\bmnpi\b[^\n.;]{0,120}generic|"
         r"\bmnpi\b[^\n.;]{0,100}generic\s+risk\s+categor(?:y|ies)|"
         r"do\s+not\s+indicate\s+we\s+hold\s+any\s+non[- ]public\s+deal\s+terms|"
         r"mnpi\s+screening[^\n.;]{0,80}does\s+not\s+trigger|"
@@ -1590,6 +1596,7 @@ def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> 
         r"public\s+mou[^\n.;]{0,160}(?:non[- ]price\s+sensitive|not\s+issuer[- ]level)|"
         r"Sha[’'‘ʻʿ]?ban|"
         r"does\s+not\s+vary\s+any\s+SPA\s+MAC\s+clause|"
+        r"not\s+a\s+definitive\s+agreement|"
         r"no\s+executed[^\n.;]{0,60}term\s+sheet\s+exists|"
         r"no\s+annexes[^\n.;]{0,80}\bSPA\b|"
         r"term\s+sheet\s+sample[^\n.;]{0,120}training[^\n.;]{0,120}public[- ]source|"
@@ -1687,6 +1694,8 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
         r"training\s+(?:weeks|decks|drills)|tabletop\s+drills|"
         r"educational\s+and\s+not\s+transaction[- ]related|training\s+rosters?|"
         r"training[^\n.;]{0,120}generic\s+examples?|"
+        r"terms?\s+[\"“]?insider\s+list[\"”]?[^\n.;]{0,120}generic|"
+        r"insider\s+list[^\n.;]{0,120}generic[^\n.;]{0,80}(?:policy|controls?)|"
         r"for\s+educational\s+purposes\s+only|"
         r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only|"
         r"educational\s+note[^\n.;]{0,120}purely\s+instructional"
