@@ -1,0 +1,195 @@
+{
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_quasi_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "payroll@murraenergy.example.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.relations@murraenergy.example.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ABN 00 000 000 000",
+      "rule": "au_abn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TFN: 000 000 000",
+      "rule": "au_tfn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "One screenshot in the finance share drive displayed combined weak identifiers for a Murra Energy employee in QLD\u2014role title \u201cPayroll Officer,\u201d office location Milton, month/year of birth 03/1986, device hostname FIN-LAP-072, internal staff code EMP-2741, and corporate card suffix 4421 on a receipt",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03/1986",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EMP-2741",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 30s",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "account 00000000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "not to store health declarations or credit templates with live data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-0512",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2741",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "With regard to MNPI under the Corporations Act and ASIC guidance, the materials did not include forecasts, undeclared transactions, or pricing; the only financial artifact was a previously published 2025 sustainability scorecard and a public cashflow summary already announced on the ASX.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "payroll@murraenergy.example.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-0512",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2741",
+      "rule": "employee_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "With regard to MNPI under the Corporations Act and ASIC guidance, the materials did not include forecasts, undeclared transactions, or pricing; the only financial artifact was a previously published 2025 sustainability scorecard and a public cashflow summary already announced on the ASX.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Payroll Officer",
+      "reason": "Role title, not a named person."
+    },
+    {
+      "matched_text": "**** 11",
+      "reason": "Masked card digits; not a full identifiable account or card number per allowed rules."
+    },
+    {
+      "matched_text": "TID-ALPHA-9021",
+      "reason": "Test transaction reference; not an allowed PII/MNPI category."
+    },
+    {
+      "matched_text": "INV-0000-TEST",
+      "reason": "Test invoice reference; not an allowed PII/MNPI category."
+    },
+    {
+      "matched_text": "ASX Listing Rule 3.1",
+      "reason": "Regulatory reference; not an MNPI event marker by itself."
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "device_hostname",
+      "matched_text": "FIN-LAP-072",
+      "reason": "Device identifiers can be linkable but hostname is not covered by the allowed device rules (e.g., MAC, IMEI, serial)."
+    },
+    {
+      "concept": "internal_incident_identifier",
+      "matched_text": "ME-CYB-2026-0512",
+      "reason": "Internal incident ID may be sensitive but not clearly mapped to an allowed identifier rule."
+    },
+    {
+      "concept": "payment_card_last4",
+      "matched_text": "corporate card suffix 4421",
+      "reason": "Partial card number could be linkable, but there is no specific allowed rule for card last-4 or partial PAN."
+    },
+    {
+      "concept": "bank_routing_code",
+      "matched_text": "BSB 000-000",
+      "reason": "BSB is a bank routing identifier; no explicit allowed rule for routing codes though related to banking details."
+    },
+    {
+      "concept": "cross_border_access",
+      "matched_text": "outside AU regions",
+      "reason": "Indicates potential cross-border access context, but not a live cross-border data transfer per the allowed marker definitions."
+    }
+  ]
+}

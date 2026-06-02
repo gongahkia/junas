@@ -1,0 +1,15 @@
+Incident Report (Cyber) — Northport Renewables Ltd — 12 Aug 2026 09:40 AEST — prepared for board and ASX context under the Privacy Act 1988 (Cth).
+On 9 Aug 2026, Harborlight Data Pty Ltd (our MSP) detected unauthorised SharePoint access; OAIC Notifiable Data Breaches scheme notification is in progress and an ASX Listing Rule 3.1 update is being assessed.
+Initial timeline: anomalous sign‑in 03:11 AEST, privilege escalation at 03:16, export job created 03:22, session dropped 03:28; detection via KoalaShield SIEM rule CV‑AU‑412.
+Employee impact (anchored): Mr. Darius Kelm (EmpID: E‑4A3*1) had HR files accessed containing health details (physiotherapy treatment plan for a back injury) and a stored finger‑scan template (biom etric hash snippet: e3**9d0…aa).
+Employee impact (anchored): Ms. Priya Halberg (ID: HR‑77_—) had union membership (Riverstate Workers Collective), sexual orientation noted as bisexual in a voluntary survey, and dependent information (minor child, age 12) accessed.
+Employee impact (anchored): Dr. Lionel Freed (R&D‑1x9) had a pre‑employment genetic screening summary (shift‑work fatigue markers, internal pilot) and a calendar reference to the Saint Ada Fellowship (religious affiliation).
+Network note: no MAC addresses were collected and wi‑fi logs retained only anonymised device IDs; the word “biometric” in a product brochure refers to industry features and not any person’s data.
+MNPI exposure: a draft board paper on a potential green bond and unannounced Q4 production guidance were in scope; this is information not generally available and reasonably expected to influence financial products under the Corporations Act 2001 (Cth).
+Observed artefacts: “CedarVault” project folder and KoalaShield exports were staged; s up p l y.c ha in.xlsx was renamed to bbq.xlsx before exfiltration.
+Public‑source cache: the Inclusion & Respect Charter, ESG policy, and media posts about our Eastbridge Kookaburras community sponsorship are non‑sensitive; a benign paragraph uses the word “genetic” to describe algorithms, not persons.
+Access path: vpn‑tokyo.nplabs.net.au with a throwaway Oa th token; EventIDs 4624/4634 map to “svc_archivist” via IP 10.42.7.**; no interactive desktop sessions observed.
+Commercial data: supplier Quarry Finch Logistics Pty Ltd PDF stubs show BSB 06‑5*1 and acct ****0459 with $0 placeholders; no card PANs or driver licence numbers present.
+Regulatory posture: we will brief ASIC’s market team and lodge an ASX announcements platform update post‑containment; a trading halt is not sought at this time.
+Remediation: rotate privileged credentials, invalidate stale s‑a keys, tighten conditional access, and uplift IR playbooks; project management notes: open jira, stand up war room, continuous monitoring.
+Contact: Ms. Tamsin Rowe (CISO), Northport Renewables Ltd — security@northport‑renewables.com.au — status https://status.northport-renewables.com.au/inc?case=RPT%2D2026%2F0x12a.

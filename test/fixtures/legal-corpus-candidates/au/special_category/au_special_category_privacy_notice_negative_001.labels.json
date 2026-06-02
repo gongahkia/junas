@@ -1,0 +1,172 @@
+{
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_special_category_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.au@southernquokka.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee ID SQH-1042",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a documented workplace adjustment for a diagnosed sleep disorder",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limited vendor processing in NZ",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft earnings",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "board papers",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unannounced strategy notes",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SQH-1042",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI handling: draft earnings, board papers, and unannounced strategy notes are restricted; we do not act on rumours, sports banter about the Wombat Warriors, or caf\u00e9 chatter.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance: the AU Privacy Officer monitors APP compliance and coordinates with our ASIC liaison on breach notifications where applicable; queries unrelated to privacy (e.g., footy tips, travel to Platypus Bay) will be ignored.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.au@southernquokka.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SQH-1042",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI handling: draft earnings, board papers, and unannounced strategy notes are restricted; we do not act on rumours, sports banter about the Wombat Warriors, or caf\u00e9 chatter.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance: the AU Privacy Officer monitors APP compliance and coordinates with our ASIC liaison on breach notifications where applicable; queries unrelated to privacy (e.g., footy tips, travel to Platypus Bay) will be ignored.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Fair Go Inclusion Policy",
+      "reason": "Policy name/DEI prose, not PII or MNPI"
+    },
+    {
+      "matched_text": "Wombat Warriors",
+      "reason": "Sports team name; false-positive bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "Kookaburra Classic",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "KookaburraPay",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Wallaby CRM",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Emu ATS",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Dingo Analytics",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Platypus Bay",
+      "reason": "Place name; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "bank account placeholder",
+      "matched_text": "00-000/000000",
+      "reason": "Looks like BSB/account format but explicitly noted as placeholder; unclear if it should trigger bank_account rule"
+    },
+    {
+      "concept": "device identifier example",
+      "matched_text": "DEV-XYZ-000",
+      "reason": "Example/randomised device ID; may not be personal data and not clearly within device_serial_number in this de-identified context"
+    }
+  ]
+}

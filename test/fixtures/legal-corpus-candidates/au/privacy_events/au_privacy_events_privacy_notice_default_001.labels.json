@@ -1,0 +1,233 @@
+{
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_privacy_events_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@kestrelbay.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar.au@kestrelbay.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rowan E. Hartford",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jamal T. Coen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Narelle Quinn",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tahlia K. Merriweather",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not\u2011generally\u2011available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Effective 15 June 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Level 23, 18 Kookaburra Terrace, North Hanfield VIC, Australia",
+      "rule": "au_postal_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "transaction\u2011related materials shared with processors exclude any not\u2011generally\u2011available price\u2011sensitive details",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent may be withdrawn at any time for marketing",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rowan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jamal",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tahlia",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar.au@kestrelbay.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Rowan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jamal",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Narelle Quinn",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tahlia",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "TFNs",
+      "reason": "Negated generic reference; no specific identifier present"
+    },
+    {
+      "matched_text": "health information",
+      "reason": "Generic policy reference without any individual\u2019s health condition"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR (APP 12 access)",
+      "reason": "Privacy-event access request heading; no explicit DSAR marker rule available"
+    },
+    {
+      "concept": "erasure marker",
+      "matched_text": "Erasure",
+      "reason": "Deletion request heading is legally relevant but not in allowed rules"
+    },
+    {
+      "concept": "retention marker",
+      "matched_text": "Retention",
+      "reason": "Retention handling event heading; no retention marker rule provided"
+    },
+    {
+      "concept": "retention audit marker",
+      "matched_text": "Retention review",
+      "reason": "Governance/audit marker for retention controls; lacks an allowed rule"
+    },
+    {
+      "concept": "data\u2011export approval id",
+      "matched_text": "AU\u2011DEX\u20112026\u2011014",
+      "reason": "Internal approval identifier for cross\u2011border governance; no dedicated rule to capture such IDs"
+    },
+    {
+      "concept": "sensitive assessment data",
+      "matched_text": "psychometric reports",
+      "reason": "Potentially sensitive personal data but not clearly mapped to existing special\u2011category rules"
+    },
+    {
+      "concept": "health data class reference",
+      "matched_text": "site\u2011access declarations",
+      "reason": "General reference to health/site access information without individual context; not covered by anchored special\u2011category rules"
+    },
+    {
+      "concept": "health data class reference",
+      "matched_text": "site health declarations",
+      "reason": "General reference to health\u2011related declarations rather than specific individual health conditions"
+    }
+  ]
+}

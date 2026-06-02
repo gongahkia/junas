@@ -1,0 +1,189 @@
+{
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_resolved_label_warnings": {
+    "basis": "AU Stage B QA after strict-tier reconciliation: stale auto-label warning metadata was cleared after strict labels were realigned to deterministic engine output and ideal labels were preserved for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "resolved_at_utc": "2026-06-02T04:39:19Z",
+    "reviewer": "Codex GPT-5.5",
+    "warning_buckets": [
+      "invalid_rule"
+    ],
+    "warning_count": 3
+  },
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Ms. Naya Elbridge",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@redgumrenewables.example.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Aiden K. Marsh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lila K. Mornay",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation control",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "j.rooke%40example.net",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7  1  9  0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RG\u2011  0042",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "r g - t k n : 0 1 9 E / C",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A. Tenley",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Aiden",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lila",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational follow\u2011up: jira ops\u20112190 closed; vendor onboarding checklist (rev. 4) now requires a witnessed data\u2011export approval and check\u2011back on sFTP endpoint aliases (no change window breach).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "7  1  9  0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Naya Elbridge",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Aiden",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lila",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational follow\u2011up: jira ops\u20112190 closed; vendor onboarding checklist (rev. 4) now requires a witnessed data\u2011export approval and check\u2011back on sFTP endpoint aliases (no change window breach).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC addresses",
+      "reason": "Negated statement indicates none were captured; not a live PII instance"
+    },
+    {
+      "matched_text": "project \u201cWattle Ridge\u201d",
+      "reason": "Project name; does not meet transaction codename pattern"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun, not a personal identifier"
+    },
+    {
+      "matched_text": "AuroraPay",
+      "reason": "Product name, not PII"
+    },
+    {
+      "matched_text": "SeedTrack",
+      "reason": "Product name, not PII"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "customer_account_number",
+      "matched_text": "acctId=ZX9%2D77C",
+      "reason": "Parameter appears to be an account identifier potentially tied to an individual, but format and context are system-internal and percent-encoded"
+    },
+    {
+      "concept": "internal reference identifier",
+      "matched_text": "RGX\u20112026\u2011APR",
+      "reason": "Export approval reference may identify an individual\u2019s request/session but is not clearly mapped to a supported PII rule"
+    }
+  ]
+}

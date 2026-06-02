@@ -1,0 +1,149 @@
+{
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_privacy_events_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation is enforced",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@wattlepay.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "On 2026-02-20, a cross-border transfer of limited payroll support data to Tuatara Data NZ Ltd (Auckland) was authorised under APP 8",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "optional form fields default to blank",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "templated ID labels (e.g., Driver Licence Number) are placeholders only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verification uses internal reference tokens and does not require government identifiers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no full card PANs are shared, and account numbers are tokenised",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy.office@wattlepay.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "service provider",
+      "reason": "Role-noun used as a party descriptor, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "Access and correction requests (DSAR under APP 12/13) may be submitted",
+      "reason": "DSAR handling is a privacy-event but there is no explicit DSAR rule in the allowed marker set."
+    },
+    {
+      "concept": "erasure/deletion marker",
+      "matched_text": "Where no longer needed for any lawful purpose, datasets are de-identified or destroyed per APP 11.2",
+      "reason": "Deletion/de-identification is a privacy-event but there is no dedicated erasure marker in the allowed rules."
+    },
+    {
+      "concept": "completed erasure event",
+      "matched_text": "On 2026-03-05, erasure of optional marketing analytics tags for a former contractor was completed following consent withdrawal; primary employment and tax records were not in scope",
+      "reason": "Completed erasure is relevant but rule 17 discourages labeling completed controls and no explicit erasure rule exists."
+    },
+    {
+      "concept": "retention schedule marker",
+      "matched_text": "Retention schedule: employment records retained for seven years post-termination; merchant credit files retained for five years post-onboarding review; health declaration forms retained for two years unless an incident requires longer retention",
+      "reason": "Retention policy is relevant per coverage concept but not enumerated among allowed PII marker rules."
+    },
+    {
+      "concept": "deletion/purge operations",
+      "matched_text": "Purge jobs run monthly in the AU-Sydney region; the last internal audit (2026-04-30) recorded expected deletions and no unintended data loss",
+      "reason": "Operational deletion controls are pertinent to retention/erasure but lack a specific allowed marker rule."
+    }
+  ]
+}

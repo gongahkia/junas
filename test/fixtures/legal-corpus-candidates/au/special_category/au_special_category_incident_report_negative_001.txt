@@ -1,0 +1,15 @@
+Incident Report — Operational Data Exposure (Loddon Ridge Technologies Ltd, AU)
+Date: 17 Apr 2026; Reg context: ASIC, OAIC; ASX Listing Rule 3.1 considered and not triggered.
+Summary: A KoalaShield Endpoint debug export was left unencrypted in a HarbourCloud AU-East bucket for approximately 4 hours during patch testing.
+Scope: No production customer records; files were internal QA logs and redacted training corpora used for DEI and wellbeing communications.
+Bait content: policy headers included “Rainbow Workforce Pledge 2025”, “Inclusive Language Guide”, and “Sustainability Pathway”, but contained only templates.
+Data elements: staff role aliases (e.g., ops-analyst-04), generic form labels (Given Name, Medicare No., Condition), and stub IDs (EMP-000XX) appeared as headings only.
+Intentional sensitive item: HR case notes indicate Employee-72 disclosed mild asthma on 12 Mar 2026 for a reasonable adjustment to shift duties.
+No TFNs, licences, biometrics, genetic data, political or religious affiliations, or union memberships were present in the export.
+Credit/transaction artefacts were sandbox only, e.g., Acct: 000-000 123456-XYZ, Card: 4111-****-****-1111 (demo), and test vendor IDs VEND-00-AU; no live rails touched.
+Market impact: immaterial; details align with cyber uplift already announced on 18 Apr 2026 and do not constitute MNPI under the Corporations Act.
+Actions taken: bucket ACL corrected, CMEK rotated via WallabyVault HSM, KoalaShield debug disabled, and Platypus SSO tokens invalidated.
+Notifications: internal advisory sent via allhands@loddonridge.example.com; external queries via compliance@loddonridge.example.com; OAIC notification not required per Privacy Management Plan.
+Controls and policies: Cyber Resilience Standard v3.2, Data Retention Register, Workplace Wellbeing Charter, and Secure Development Guideline AU applied.
+Assurance: independent review by Quokka Ridge Risk Advisory Pty Ltd concluded no customer harm and no ASX query expected.
+Note: This was a dropped ball in the backfield, not a grand final; remediation complete and monitoring ongoing through Ironbill Pay staging and HarbourCloud guardrails.

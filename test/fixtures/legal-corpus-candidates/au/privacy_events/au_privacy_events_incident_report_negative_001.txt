@@ -1,0 +1,16 @@
+Operational Incident Report – Kurrami Utilities Limited (ASX: KURX; ACN 123 456 789) – minor cyber event dated 28 Aug 2025, no service impact to customers.
+Scope: transient vendor SFTP misconfiguration at Talberra Cloud Pty Ltd (hosting provider under DPA Schedule 2), resolved within change window.
+Privacy assessment (Privacy Act 1988): no personal information or opinion about an identified or reasonably identifiable individual was accessed, used, or disclosed.
+Cross‑border transfer: prior Data Export Approval AU‑NZ‑2024‑07 allows backup replication to Auckland; this path was not invoked during the event and no overseas transfer occurred.
+Consent management: one employee withdrew direct‑marketing consent on 27 Aug 2025 and this routine request was actioned in the CRM independent of the incident.
+DSAR posture: all data subject access requests received this quarter were closed before the incident; no DSAR was triggered by the event.
+Erasure controls: scheduled deletion jobs ran per Records Retention Standard RS‑07; no ad‑hoc erasure was required in response to the event.
+Data minimisation: only system log metadata (timestamps and job IDs) was processed for remediation, and no health, credit, or payroll fields were loaded.
+Employment and health artefacts: onboarding forms and pre‑employment health declarations remain stored in AU data centres; no access logs indicate reads during the incident window.
+Credit and transaction artefacts: training copies of credit assessment PDFs contain redacted placeholders (e.g., “Account No: 0000‑000‑000”) and were not part of the affected SFTP path.
+MNPI review (Corporations Act/ASIC): the repository contained no information not generally available that would reasonably be expected to materially affect KURX financial products.
+ASX/ASIC notifications: an informational ASX announcement was lodged after internal approval; ASIC breach reporting thresholds were assessed as not met and no report was required.
+DPA/Schedule controls: Talberra Cloud Pty Ltd affirmed encryption at rest, key management within Australia, and termination assistance obligations; penetration‑test results referenced were from a public assurance summary.
+Retention markers: immutable retention tags prevented alteration of audit logs, and over‑retention checks did not flag any exceptions.
+False‑positive note: generic form labels such as “Full name”, “Address”, and “Medicare (if supplied)” appear in templates only and are not live records.
+Contact: for privacy queries use the role mailbox privacy@kurrami.example or the public helpline listed on the company website; OAIC notification thresholds were considered and not reached.

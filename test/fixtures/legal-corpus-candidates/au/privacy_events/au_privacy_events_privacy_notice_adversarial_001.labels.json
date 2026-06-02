@@ -1,0 +1,243 @@
+{
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "au-stage-b-strict-realign-2026-06-02",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "AU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-au-stage-b-eval-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after AU Stage B precision guards"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AU",
+  "doc_id": "au_privacy_events_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy@redgumenergy.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 2 5550 8190",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EmpID AU-9X3*47",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "203.0.113.77",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arlo Finch",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar+au@redgumenergy.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent for marketing emails on 29/03/2026",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll line items sent to Southern Byte Pte Ltd (SG) for processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tahlia.vance@redgumenergy.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tahlia Vance",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimisation applied to remove raw medical notes and full bureau files",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "limited health clearance outcome (\u201cfit for duty\u201d)",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pre\u2011employment health screening outcomes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "summary \u201cpass/fail\u201d only",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cloud Koala NZ Ltd (Wellington) for encrypted backups",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9b",
+      "rule": "financial_amount"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dsar+au@redgumenergy.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "tahlia.vance@redgumenergy.au",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+61 2 5550 8190",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Arlo Finch",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tahlia Vance",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9b",
+      "rule": "financial_amount"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "processor",
+      "reason": "Role noun/defined term, not PII or MNPI."
+    },
+    {
+      "matched_text": "APP entity",
+      "reason": "Role noun/defined term, not PII or MNPI."
+    },
+    {
+      "matched_text": "no biometric templates or device MAC addresses are collected",
+      "reason": "Negated/absence statement; no actual biometric or MAC address values present."
+    },
+    {
+      "matched_text": "no MNPI exported\u2014draft ASX Listing Rule 3.1 materials are explicitly excluded",
+      "reason": "Negated MNPI scope; not a live MNPI disclosure."
+    },
+    {
+      "matched_text": "no \u201cnot generally available\u201d forecasts",
+      "reason": "Negated MNPI concept; indicates absence of nonpublic info."
+    },
+    {
+      "matched_text": "this approval is not presently active and no live transfers are scheduled",
+      "reason": "Negated/absence statement; not an active cross-border transfer."
+    },
+    {
+      "matched_text": "this is a completed action",
+      "reason": "Completed control; not an ongoing erasure event."
+    }
+  ],
+  "source_jurisdiction": "AU",
+  "uncertain": [
+    {
+      "concept": "DSAR marker",
+      "matched_text": "DSAR event",
+      "reason": "DSAR is a privacy handling event but there is no explicit DSAR rule in the allowed rule set."
+    },
+    {
+      "concept": "DSAR access request",
+      "matched_text": "access request received 01/04/2026 under APP 12",
+      "reason": "Access request context is DSAR-related but not covered by an allowed rule name."
+    },
+    {
+      "concept": "Erasure marker",
+      "matched_text": "Erasure event",
+      "reason": "Erasure/deletion is a privacy event but no allowed erasure marker rule is defined."
+    },
+    {
+      "concept": "Retention marker",
+      "matched_text": "Retention controls",
+      "reason": "Retention policy is a privacy event but no allowed retention marker rule is defined."
+    },
+    {
+      "concept": "Cross-border processing",
+      "matched_text": "Cloud Koala NZ Ltd (Wellington) for encrypted backups",
+      "reason": "Indicates offshore subprocessor; relevant to cross-border transfer but not explicitly labeled as a transfer marker."
+    },
+    {
+      "concept": "Access token / request identifier",
+      "matched_text": "at https://portal.redgumenergy.au/dsar?req=RGE-4 9 3\u2014O (token expires)",
+      "reason": "May contain a token or internal request ID; not clearly covered by an allowed rule (e.g., internal_session_id)."
+    },
+    {
+      "concept": "Case reference number",
+      "matched_text": "Case No. DSAR\u2014Syd\u201400 7",
+      "reason": "Docket-like identifier; not mapped to an allowed identifier rule."
+    },
+    {
+      "concept": "au_acn (invalid/placeholder)",
+      "matched_text": "ACN: 00x\u20137 5 2\u201311",
+      "reason": "Looks like an Australian ACN but is fictional/invalid and will not match strict numeric ACN regex."
+    }
+  ]
+}
