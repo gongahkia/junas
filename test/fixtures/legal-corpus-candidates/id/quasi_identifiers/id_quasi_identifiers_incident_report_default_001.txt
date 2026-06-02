@@ -1,0 +1,15 @@
+Confidential – Incident Report for PT Selaras Fintek Tbk (BES issuer) – Potential Material Cyber Event.
+On 12 Mei 2026 at 23:41 WIB, our monitoring flagged unusual admin console activity and a misconfigured object storage bucket hosting draft HR and vendor files.
+Ibu Maya Lestari (DOB 14-06-1988), Senior Risk Analyst at PT Selaras Fintek Tbk, using a personal Android device "SORA-A53" via SF-VPN-NUS-03 from Kec. Cilangun, Kota Nusajaya, entered session sf-ux-7734 (account maya.l@selarasfintek.example) and accessed the "uat-loan-4521" workspace.
+The same session invoked API key "sf-key-9f8a12", touched payroll-test.csv and vendor-screening.xlsx tagged for Project "Acq Sagara", and triggered a download alert to IP 203.0.113.41 (Nusajaya PoP).
+These files include pre-announcement diligence notes on the proposed acquisition of PT Sagara Inovasi and headcount rationalization drafts, which may constitute MNPI prior to BES/OKN disclosure.
+No customer KTP scans, NPWP numbers, biometrics, or production loan ledgers were stored in the affected bucket; only test datasets with masked values were present.
+Generic references such as "male, 30s, Kota Samudra" found in anonymized samples do not identify an individual on their own and should not be treated as reportable PII.
+A standalone log entry shows age 27, device "RUMI-9A", city "Kota Serayu", and user role "contractor" without any name or account linkage; this alone is not sufficient to identify a person.
+One HR draft listed shift rotations (night, 22:00–06:00) for Risk Ops and a salary band range only; no personal telephone or home addresses were included.
+We disabled API key sf-key-9f8a12 at 00:07 WIB, revoked session sf-ux-7734, and rotated credentials for OKN reporting folders and the "Acq Sagara" share.
+A draft keterbukaan informasi to Bursa Efek Samudra and a confidential notice to the Otoritas Keuangan Nusantara have been prepared, pending Legal and Board Audit Committee review.
+Preliminary RCA indicates misapplied IAM policy on the "uat-loan-4521" workspace and a personal device bypass of MDM enrollment, contrary to our BYOD SOP.
+We will reclassify the "Acq Sagara" artifacts to "Material", enforce MDM on BYOD by 15 Juni 2026, and implement geo-fencing for admin access to the Arunika DC only.
+This memo does not alter our ESG commitments; supplier due diligence and data minimization controls remain in force under the PDP Law and internal Policy D-07.
+For follow-up, email incidentdesk@selarasfintek.example or join the IR-Compliance bridge on TalkRooms channel "BES-Disclosure-2026-06".

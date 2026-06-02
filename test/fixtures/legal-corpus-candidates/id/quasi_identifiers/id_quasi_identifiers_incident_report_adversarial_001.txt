@@ -1,0 +1,16 @@
+Laporan Insiden Operasional PT Sinar Arunika Teknologi Tbk (emiten BEI), tanggal 2026-06-02, untuk evaluasi pelaporan OJK dan Dewan Direksi.
+Ringkasan: akses API tidak sah pada modul dompet elektronik menyebabkan eksposur metadata 2.314 profil uji; tidak ada kata sandi, NIK/KTP, atau MAC address yang disimpan.
+Potensi MNPI: folder /board berisi KPI internal Q2 dan draf term sheet akuisisi PT Orbit Nusantara Inovasi (belum diumumkan ke OJK/BEI); penyebaran informasi ini dapat memengaruhi harga efek.
+Klaster pengenal lemah terkait personel: Bpk. Raka Gunawan (lahir 14-02-1986, usia 40), Senior DevOps PT Sinar Arunika Teknologi Tbk, perangkat “Andalas-14” (asset tag A-14-77), login terakhir 22:41 WIB dari Bandung (ID-WJ), surel r.gunawan@sinararunika.co.id.
+Detail tambahan: s e s s i o n: 7F-9 2-A1; vpn acct rgunawan-ops; akun admin dompet akhiran -4421; endpoint hxxps://ops.sinararunika.co.id/panel?user=raka.g.1986&view=logs.
+Walau beberapa nama muncul di komentar kode, kami tidak menyimpan NPWP, nomor rekening bank nasabah, atau data biometrik; data publik seperti pedoman POJK tersedia umum dan bukan PII.
+Pengenal lemah terpisah (contoh QA, tidak terhubung ke individu): DOB 1979-03-05; kota: Yogyakarta; model perangkat “Merapi-3”; rekening uji berakhiran 5520; email sample.user@example.test.
+Dampak nasabah: 118 saldo sandbox menampilkan cap waktu transaksi yang keliru; tidak ada perpindahan dana; estimasi DAU/churn Q2 berada dalam draf non-publik dan berpotensi material.
+Tingkat keparahan diklasifikasikan Tinggi sesuai kebijakan risiko TI (Ref: POJK-IT/2025-07 internal); Divisi Kepatuhan (Ibu Sari Mahendra) melakukan konsultasi ke OJK; belum ada keterbukaan informasi ke BEI.
+Akar penyebab: kunci API usang pada microservice “GarudaPay-Ledger” dideploy rekanan 2026-05-20; kunci diputar 2026-06-01 03:10 WIB; audit trail antarsistem kustodian dan kliring internal tidak terpengaruh.
+Penanganan: endpoint /v1/export dinonaktifkan; 12 token layanan direset; aturan WAF id XJ-208 diterapkan; tiket insiden hxxps://portal.sinararunika.co.id/case?id=INV%3D7731&user=rgunawan_1986.
+Artefak forensik: perangkat “Andalas-14” mencatat sha256 1c6f…0b2 (dipotong); uID 9x-44-77 (trunc); log OCR terpisah: “acc ount: adm in-4421 ban d u n g”.
+Catatan kepegawaian: Mr. Gunawan dalam PKWT hingga 2026-12-31 di PT Sinar Arunika Teknologi Tbk; HR menilai kesesuaian lingkup akses dengan peran.
+Tata kelola: draf memo RemCo ke Dewan memuat grid kinerja kandidat COO kelahiran 1990-07 (bulan saja), tanpa nama; informasi generik ini tidak mengidentifikasi siapa pun.
+Komunikasi: draf holding statement disiapkan; kami menghindari proyeksi keuangan; kontak media: media@sinararunika.co.id, hotline +62-21-555-0182.
+Catatan: laporan ini bersifat internal dan rahasia; penyebutan “GreenOps” dan “Project Tembaga” adalah nama produk; bukan MAC, IMEI, atau identitas perangkat lain.
