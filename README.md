@@ -77,6 +77,8 @@ Performance baselines and the synthetic redaction fixture corpus are tracked in 
 
 The public roadmap is tracked in [`docs/roadmap.md`](./docs/roadmap.md).
 
+Contributor setup and pull request expectations are documented in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+
 ## Quick Commands
 
 ```console
