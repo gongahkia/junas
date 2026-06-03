@@ -77,6 +77,8 @@ Performance baselines and the synthetic redaction fixture corpus are tracked in 
 
 Release history and the next release notes are tracked in [`CHANGELOG.md`](./CHANGELOG.md).
 
+The companion engineering blog draft is tracked in [`docs/engineering-blog-draft.md`](./docs/engineering-blog-draft.md).
+
 The public roadmap is tracked in [`docs/roadmap.md`](./docs/roadmap.md).
 
 Contributor setup and pull request expectations are documented in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
