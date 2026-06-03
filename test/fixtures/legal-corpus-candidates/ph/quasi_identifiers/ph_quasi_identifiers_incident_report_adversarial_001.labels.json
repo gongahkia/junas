@@ -3,13 +3,216 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Riven T. Mabical"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1987-07-18"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "r.mabical@lpri.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosure@lpri.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lpri.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 9 17 3 3 3 8 8 77"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non\u2011public information"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Lira Z. Quimada"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 24\u201326"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Riven T. Mabical"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1987-07-18"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "r.mabical@lpri.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosure@lpri.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lpri.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 9 17 3 3 3 8 8 77"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non\u2011public information"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Lira Z. Quimada"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 24\u201326"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN: 4 5 0 - 9 2 1 - 0 1 3"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "sid=APAC_8 8 2 9-rt m"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "sid=MX-88 2 9-xyz"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "tok: a1f-4c9\u2026-pH"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "LPRI-LPT-0A2"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "ISLA-00 47 77"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "2 1 3 0"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "User cluster: Mr. Riven T. Mabical (born 1987-07-18), IT support supervisor at LPRI\u2013Merluna Hub, logged in from Barangay San Eleno, Merluna City, device LPRI-LPT-0A2 (Win10), session \"sid=APAC_8 8 2 9-rt m\", and ac c t: ISLA-00 47 77 at IslaBank Cooperative"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Separate debug log shows: age 24\u201326; female; South Archipelago region; Android 11; SSID \"OfficeWiFi-Guest\"; last_4 acct \"2 1 3 0\"\u2014no name or employee ID present"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked TINs"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no full card data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "lockout period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tip"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC address",
+      "reason": "Generic device term mentioned; no actual identifier value disclosed."
+    },
+    {
+      "matched_text": "female",
+      "reason": "Generic demographic attribute not in allowed rules and not identifying alone."
+    },
+    {
+      "matched_text": "Android 11",
+      "reason": "OS version; not covered as PII by allowed rules."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "SSID \"OfficeWiFi-Guest\"",
+      "concept": "network identifier",
+      "reason": "Wi-Fi SSID can be identifying in context but not covered by allowed PII rules."
+    },
+    {
+      "matched_text": "GL-03",
+      "concept": "internal ledger code",
+      "reason": "May be sensitive operational/financial reference but no matching allowed rule."
+    },
+    {
+      "matched_text": "BR-119",
+      "concept": "batch job identifier",
+      "reason": "Operational job ID could be sensitive but not in allowed rules."
+    },
+    {
+      "matched_text": "retention windows",
+      "concept": "data retention marker",
+      "reason": "References privacy retention practices; retention marker not explicitly listed in allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,330 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "m.basa@lakanholdings.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63-9  17-88  7-0  112"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "romulo.deasis@kislappay.com"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Miriam C. Basa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Romulo De Asis"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "00\u20118 8\u20111234\u20119007"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 400,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.25%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011Border Transfers and Export Approval"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimised"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP\u2011**7A"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP\u2011**C3"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation control active"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "m.basa@lakanholdings.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63-9  17-88  7-0  112"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "romulo.deasis@kislappay.com"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Miriam C. Basa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Romulo De Asis"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "00\u20118 8\u20111234\u20119007"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 400,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.25%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011Border Transfers and Export Approval"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimised"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP\u2011**7A"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP\u2011**C3"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation control active"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Lakan to acquire 80% of KislapPay"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "need-to-know basis"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "c r o s s - b o r d e r processing"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "Ref: ESC\u2011LKN\u2011KSP\u201126"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "DS\u20114419"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "PRIV\u20110 1 77"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "4F\u2011%20 82"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "RSC\u2011PH\u2011CP\u2011  12"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "TS\u20112026\u201114"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "FS\u2011A/2026\u2011044"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "NDSC/24\u2011000 9"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "ONB\u2011CUST\u2011PH/22"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "HR\u2011ONB\u201111"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "EC\u201104"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "DEL\u2011PH\u2011004  1"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "The parties",
+      "reason": "Role-noun reference, not a person"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun used as a defined party description"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "BAH AP HMM",
+      "concept": "bank_identifier_code",
+      "reason": "SWIFT/BIC may be treated as a financial identifier but is not in the allowed PII rules"
+    },
+    {
+      "matched_text": "1108",
+      "concept": "ph_postal_code",
+      "reason": "Appears to be a postal code in a PH address but PH postal codes are not an allowed rule here"
+    },
+    {
+      "matched_text": "PRJ-7G9X-2\u27c2",
+      "concept": "deal_code_mnpi",
+      "reason": "Nonpublic deal code could be sensitive but does not match the 'Project <Name>' codename rule"
+    },
+    {
+      "matched_text": "material adverse change",
+      "concept": "material_adverse_change_negated",
+      "reason": "MAC phrase appears in a negated clause; rule excludes 'no MAC', but the term itself is legally relevant"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'retention_marker' text='R e t e n t i o n'",
+    "drop must_detect: invalid rule 'erasure' text='data e r a s u r e'",
+    "drop must_detect: invalid rule 'DSAR' text='DSAR'",
+    "drop must_detect: invalid rule 'retention_marker' text='retention'",
+    "drop ideal_must_detect: invalid rule 'retention_marker' text='R e t e n t i o n'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='data e r a s u r e'",
+    "drop ideal_must_detect: invalid rule 'DSAR' text='DSAR'",
+    "drop ideal_must_detect: invalid rule 'retention_marker' text='retention'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='completed e r a s u r e'",
+    "drop ideal_must_detect: invalid rule 'DSAR' text='DSAR portal'",
+    "drop ideal_must_detect: invalid rule 'DSAR' text='DSAR hold'",
+    "drop ideal_must_detect: invalid rule 'retention_marker' text='retention of tax records shall be limited to statutory periods only'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

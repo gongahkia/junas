@@ -3,13 +3,269 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for external release until Form 17-C is filed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "\u201cLRHI_SLN_pre-mkt_v3\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "Php 420,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber event"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "\u201cPluma\u201d DPT wallet pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "ESG impact: the cyber event may delay third-party assurance on FY2025 emissions data, potentially activating the SLN step-up in Q4; this timing is material and remains non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nilo V. Argonza"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lrhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63-28-555-0188"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for external release until Form 17-C is filed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "For internal circulation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "\u201cLRHI_SLN_pre-mkt_v3\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list \u201cLRHI_SLN_pre-mkt_v3\u201d has been updated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "must remain within the information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Do not discuss this incident or the SLN pricing grid with counterparties"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "Php 420,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Security Operations Center detected anomalous outbound traffic"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "compromised service account"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "\u201cPluma\u201d DPT wallet pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "tokenized REC settlement (testnet)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "ESG impact: the cyber event may delay third-party assurance on FY2025 emissions data, potentially activating the SLN step-up in Q4; this timing is material and remains non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "FY2025 emissions data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "this timing is material"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "potentially activating"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Nilo V. Argonza"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lrhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63-28-555-0188"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider lists",
+      "reason": "Educational/operational mention with no trading or MNPI relevance."
+    },
+    {
+      "matched_text": "crypto wallet training",
+      "reason": "Training context; not a DPT MNPI event."
+    },
+    {
+      "matched_text": "Effective immediately",
+      "reason": "Not an 'Effective Date' embargo marker as defined by rule."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated context; do not label MAC/MAE when negated per rule."
+    },
+    {
+      "matched_text": "term sheets",
+      "reason": "Generic reference; not a capitalized definitive agreement term."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "OrbitShield SIEM alert ID T X N - 4 9 B 2",
+      "concept": "internal_session_id",
+      "reason": "Internal alert/ticket identifier may be sensitive operational data but is not clearly covered as PII and not linked to an individual."
+    },
+    {
+      "matched_text": "ticket: SOC-INC-00O7",
+      "concept": "internal_session_id",
+      "reason": "Internal ticket/reference number; may be sensitive but not a defined PII/MNPI rule and not person-identifying on its own."
+    },
+    {
+      "matched_text": "jira ops/infra-crypto#144",
+      "concept": "internal_session_id",
+      "reason": "Internal tracker ID; operational identifier not clearly covered by allowed rules."
+    },
+    {
+      "matched_text": "CAB-ESG-0021",
+      "concept": "internal_session_id",
+      "reason": "Change ticket ID; potentially sensitive internal ops data but not PII under listed rules."
+    },
+    {
+      "matched_text": "acct: tr3as-svc 7 2 9 - **13",
+      "concept": "account_identifier",
+      "reason": "Service account identifier; could be linkable to a user with other data but not an explicit allowed PII rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

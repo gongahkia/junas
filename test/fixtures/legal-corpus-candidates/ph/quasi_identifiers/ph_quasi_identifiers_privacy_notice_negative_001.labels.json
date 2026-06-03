@@ -3,13 +3,199 @@
   "document_type": "generic",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@amihanpv.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosures@amihanpv.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@amihanpv.example"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1990-11-07"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout schedules"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@amihanpv.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosures@amihanpv.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@amihanpv.example"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1990-11-07"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout schedules"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "a field technician applicant with DOB 1990-11-07 in Barangay Mapayapa, San Telmo City, past employer \u201cLaguna Ridge Tools,\u201d applied role \u201cShift Supervisor,\u201d device tag RFT-91-004, and payroll account suffix 7324"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "Device Tag DEV-TEST-123"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "device tag RFT-91-004"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data-minimization testing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not send scans of government IDs\u2014submit only the reference number from our DSAR portal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "will be pseudonymized at ingestion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "are quarantined"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "Sample Account ACCT-0000-XXXX"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "age band 30\u201339",
+      "reason": "Generic demographic example that does not identify a person alone"
+    },
+    {
+      "matched_text": "Northern district",
+      "reason": "Generic location example that does not identify a person alone"
+    },
+    {
+      "matched_text": "Android",
+      "reason": "Generic device type example; not an identifier"
+    },
+    {
+      "matched_text": "FNS-03",
+      "reason": "Internal team code explicitly stated not to be a unique identifier"
+    },
+    {
+      "matched_text": "OPS-11",
+      "reason": "Internal team code explicitly stated not to be a unique identifier"
+    },
+    {
+      "matched_text": "XXXX-XXXX-1234",
+      "reason": "Masked account example; not a full identifier"
+    },
+    {
+      "matched_text": "ISIN XX0000000000",
+      "reason": "Security identifier example; not within allowed PII/MNPI rules"
+    },
+    {
+      "matched_text": "Form 17-Q",
+      "reason": "Public filing form reference; not MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Device Tag DEV-TEST-123",
+      "concept": "device_serial_number",
+      "reason": "Looks like a device identifier but presented as a testing placeholder; detector coverage may vary"
+    },
+    {
+      "matched_text": "device tag RFT-91-004",
+      "concept": "device_serial_number",
+      "reason": "Device tag could be linkable to a person\u2019s device; pattern not standardized for strict detection"
+    },
+    {
+      "matched_text": "Sample Account ACCT-0000-XXXX",
+      "concept": "customer_account_number",
+      "reason": "Account-like string but explicitly a placeholder with masking; unclear if it should be captured as PII"
+    },
+    {
+      "matched_text": "Local Tax Ref T-000-000-TEST",
+      "concept": "ph_tin",
+      "reason": "Appears to be a tax reference placeholder; not explicitly a PH TIN and nonstandard format"
+    },
+    {
+      "matched_text": "payroll account suffix 7324",
+      "concept": "bank_account",
+      "reason": "Partial account information may still be identifying in context but is not a full account number"
+    },
+    {
+      "matched_text": "are quarantined",
+      "concept": "information_barrier_marker",
+      "reason": "Indicates restricted handling/segregation but does not use explicit \u2018information barrier\u2019 terminology"
+    },
+    {
+      "matched_text": "undisclosed projects",
+      "concept": "nonpublic_marker",
+      "reason": "Implies nonpublic information but not necessarily material or specific to investors"
+    },
+    {
+      "matched_text": "Draft earnings",
+      "concept": "material_event",
+      "reason": "Refers to earnings information that could be material if nonpublic, but here is mentioned only as controlled and not disclosed"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

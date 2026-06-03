@@ -3,13 +3,182 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@brfc.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec-filings@brfc.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN 000-000-000-0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not yet been posted on PSE EDGE"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@brfc.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec-filings@brfc.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN 000-000-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Acct 1234-XXXX-5678"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not yet been posted on PSE EDGE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barrier posture"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "issuer blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping prohibitions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber/Operational Event"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Form 17-C"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "sustainability-linked note investor deck"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "prospective underwriter"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information-barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout terminology"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "ESG coupon step-up"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider-list",
+      "reason": "Training context only; not a live insider list for a material event"
+    },
+    {
+      "matched_text": "blackout terminology",
+      "reason": "Educational reference; not an actual issuer blackout period"
+    },
+    {
+      "matched_text": "crypto-wallet sandbox",
+      "reason": "Demo system reference; no wallet address or funds present"
+    },
+    {
+      "matched_text": "ChainSim-UAT",
+      "reason": "Test system name; not a transaction codename pattern"
+    },
+    {
+      "matched_text": "issuer blackout window",
+      "reason": "Scenario-based training reference; not a real blackout period"
+    },
+    {
+      "matched_text": "ESG coupon step-up",
+      "reason": "Scenario-based training reference; not agreed commercial terms"
+    },
+    {
+      "matched_text": "grid connection pricing",
+      "reason": "Scenario-based training reference; not an actual contract price"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "anonymized training records",
+      "concept": "data_minimisation_marker",
+      "reason": "Indicates anonymization/de-identification but not a clear, live minimisation control per rule scope"
+    },
+    {
+      "matched_text": "education-only",
+      "concept": "information_barrier_marker",
+      "reason": "Banner suggests informational segregation, but not an explicit barrier control phrase"
+    },
+    {
+      "matched_text": "NPC notification not triggered",
+      "concept": "nonpublic_regulatory_status",
+      "reason": "Regulatory outcome statement may signal disclosure status, but not a defined nonpublic marker keyword"
+    },
+    {
+      "matched_text": "QA IP range",
+      "concept": "ip_address",
+      "reason": "References IP range without containing a specific IP address value"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

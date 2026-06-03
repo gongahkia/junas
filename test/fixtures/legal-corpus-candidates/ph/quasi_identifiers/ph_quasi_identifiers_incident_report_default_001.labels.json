@@ -3,13 +3,246 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Laya Domingo"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "12 May 1991"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "7f2b\u2011VisMin\u20111130"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID\u2011LD\u20110912"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "account ending 4421"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lrhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident\u20112026\u201105@lrhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 02 3999 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "172.24.33.0/24"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Reo Villamor"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Domingo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "\u22126%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Laya Domingo"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "12 May 1991"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "7f2b\u2011VisMin\u20111130"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID\u2011LD\u20110912"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "account ending 4421"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lrhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident\u20112026\u201105@lrhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 02 3999 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "172.24.33.0/24"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Reo Villamor"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Domingo"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "LD\u2011ORCA\u2011A920"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Ms. Laya Domingo (HR Business Partner, LRHI), born 12 May 1991, assigned to Kota Isla office, used personal handset LD\u2011ORCA\u2011A920 on guest Wi\u2011Fi SSID 'LRHI\u2011Visitor', session ref 7f2b\u2011VisMin\u20111130"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "nickname only, not full number"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "\u22126%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "draft H1 investor update"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "draft ASB filing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "under embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "reports a cyber\u2011operational incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "potential MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal only"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "aged 29",
+      "reason": "Generic demographic reference not linked to an identified person"
+    },
+    {
+      "matched_text": "1988",
+      "reason": "Birth year alone is generic and not identifying on its own"
+    },
+    {
+      "matched_text": "1994",
+      "reason": "Birth year alone is generic and not identifying on its own"
+    },
+    {
+      "matched_text": "LRHI\u2011Visitor",
+      "reason": "Wi\u2011Fi SSID is an internal label and not a listed PII category"
+    },
+    {
+      "matched_text": "VEND\u2011AR\u2011771",
+      "reason": "Vendor code is not personal data"
+    },
+    {
+      "matched_text": "BACH\u201120260531\u201102",
+      "reason": "Batch identifier is operational metadata, not personal data"
+    },
+    {
+      "matched_text": "CloudTune 8",
+      "reason": "Device model name is not a unique device identifier"
+    },
+    {
+      "matched_text": "QuickPDF 4",
+      "reason": "Application name is not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Laya Payroll",
+      "concept": "account nickname PII",
+      "reason": "Bank account nickname containing a person\u2019s name may be identifying but not covered by a specific allowed rule"
+    },
+    {
+      "matched_text": "RCO\u2011Maple\u2011441",
+      "concept": "internal tax mapping code",
+      "reason": "Person-linked internal tax mapping could be an identifier but lacks a dedicated rule"
+    },
+    {
+      "matched_text": "limited disclosure",
+      "concept": "selective_disclosure_risk",
+      "reason": "Could imply selective disclosure risk context though disclosure is to the exchange"
+    },
+    {
+      "matched_text": "LRHI\u2011Visitor",
+      "concept": "network identifier",
+      "reason": "SSID might be considered a device/network identifier but not listed in allowed PII rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,222 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "38%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@orchidbay.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosures@narra-commerce.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1987-03-07"
+    },
+    {
+      "category": "PII",
+      "rule": "imei",
+      "matched_text": "990000112233445"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NX-20415"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "38%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no trading will occur on undisclosed material information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "intended for immediate public disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@orchidbay.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosures@narra-commerce.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1987-03-07"
+    },
+    {
+      "category": "PII",
+      "rule": "imei",
+      "matched_text": "990000112233445"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NX-20415"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "HR diligence example (single sample record with names redacted): employee code NX-20415; date of birth 1987-03-07; assigned location \u201cSouth Metro Warehouse, Lanuja Province\u201d; role \u201cShift Supervisor\u201d; device IMEI 990000112233445; internal payroll account ending -7746"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "internal payroll account ending -7746"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "to be provided post-signing in anonymised form only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "anonymised headcount by region and function"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no personal mailboxes will be used"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "this line contains labels only and is non-identifying"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Generic role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "The parties",
+      "reason": "Generic role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "Closing",
+      "reason": "Section header; not an explicit embargo marker like 'Closing Date'"
+    },
+    {
+      "matched_text": "Employee Name: ____",
+      "reason": "Form label only; no identifying value present"
+    },
+    {
+      "matched_text": "TIN: ____",
+      "reason": "Form label only; no identifying value present"
+    },
+    {
+      "matched_text": "SSS: ____",
+      "reason": "Form label only; no identifying value present"
+    },
+    {
+      "matched_text": "PhilHealth: ____",
+      "reason": "Form label only; no identifying value present"
+    },
+    {
+      "matched_text": "Bank Acct No.: ____",
+      "reason": "Form label only; no identifying value present"
+    },
+    {
+      "matched_text": "PH-0000-TEST",
+      "reason": "Internal placeholder security code; not personal/MNPI"
+    },
+    {
+      "matched_text": "aged 20\u201324",
+      "reason": "Generic demographic range; does not identify an individual"
+    },
+    {
+      "matched_text": "IDP-E-2025-000123",
+      "reason": "Public filing reference; not personal data"
+    },
+    {
+      "matched_text": "Shift Supervisor",
+      "reason": "Job title alone is not identifying"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "001-234567-89",
+      "concept": "corporate account reference",
+      "reason": "Looks like a bank/account number but refers to a corporate settlement reference, not an individual bank account under PH DPA"
+    },
+    {
+      "matched_text": "internal payroll account ending -7746",
+      "concept": "partial account identifier",
+      "reason": "Only the last four digits are shown; may be an account identifier tied to an individual but incomplete"
+    },
+    {
+      "matched_text": "Material Disclosure Form 17-C",
+      "concept": "material_event filing marker",
+      "reason": "Indicates a material disclosure trigger but not itself an allowed MNPI rule token"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
