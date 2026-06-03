@@ -7,7 +7,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Positive MNPI — financing: We have received a pre-signing, non-binding term sheet for an ESG-linked revolving credit facility from Mariner Jade Bank (Singapore) Limited (fictional); terms are under negotiation and remain undisclosed pending Board approval and an SEA‑compliant stock exchange announcement."
+      "matched_text": "Positive MNPI \u2014 financing: We have received a pre-signing, non-binding term sheet for an ESG-linked revolving credit facility from Mariner Jade Bank (Singapore) Limited (fictional); terms are under negotiation and remain undisclosed pending Board approval and an SEA\u2011compliant stock exchange announcement."
     },
     {
       "category": "MNPI",
@@ -44,7 +44,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Positive MNPI — financing: We have received a pre-signing, non-binding term sheet for an ESG-linked revolving credit facility from Mariner Jade Bank (Singapore) Limited (fictional); terms are under negotiation and remain undisclosed pending Board approval and an SEA‑compliant stock exchange announcement."
+      "matched_text": "Positive MNPI \u2014 financing: We have received a pre-signing, non-binding term sheet for an ESG-linked revolving credit facility from Mariner Jade Bank (Singapore) Limited (fictional); terms are under negotiation and remain undisclosed pending Board approval and an SEA\u2011compliant stock exchange announcement."
     },
     {
       "category": "MNPI",
@@ -79,7 +79,7 @@
     {
       "category": "PII",
       "rule": "email_address",
-      "matched_text": "compliance@om‑pcl.example"
+      "matched_text": "compliance@om\u2011pcl.example"
     },
     {
       "category": "PII",
@@ -119,25 +119,25 @@
     {
       "category": "MNPI",
       "rule": "information_barrier_marker",
-      "matched_text": "wall‑crossed"
+      "matched_text": "wall\u2011crossed"
     },
     {
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
-      "matched_text": "only the Treasury, Legal, and IR role groups are wall‑crossed"
+      "matched_text": "only the Treasury, Legal, and IR role groups are wall\u2011crossed"
     }
   ],
   "must_not_detect": [
     {
-      "matched_text": "Notice of Blackout Period — Sample",
+      "matched_text": "Notice of Blackout Period \u2014 Sample",
       "reason": "Template/example; not a live blackout restriction"
     },
     {
-      "matched_text": "OM‑ISIN‑THXX0000",
+      "matched_text": "OM\u2011ISIN\u2011THXX0000",
       "reason": "Dummy code; not a live securities identifier or PII/MNPI"
     },
     {
-      "matched_text": "CUS‑TH‑000X",
+      "matched_text": "CUS\u2011TH\u2011000X",
       "reason": "Dummy code; not a live securities identifier or PII/MNPI"
     },
     {
@@ -211,13 +211,14 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
   },
   "_human_review": {
-    "status": "approved",
     "decision": "approve",
-    "reviewer": "gongahkia-project-owner-chat-approval",
-    "reviewed_at_utc": "2026-05-29T09:42:20Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
   },
   "_human_review_history": [
     {
@@ -228,6 +229,16 @@
       "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
       "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    },
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
     }
   ],
   "_stage_readiness": {
@@ -247,5 +258,19 @@
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
-  ]
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  }
 }

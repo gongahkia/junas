@@ -89,7 +89,7 @@
     {
       "category": "PII",
       "rule": "employee_id",
-      "matched_text": "emp_id n k//20_26‑pR‑7"
+      "matched_text": "emp_id n k//20_26\u2011pR\u20117"
     },
     {
       "category": "PII",
@@ -164,7 +164,7 @@
   ],
   "must_not_detect": [
     {
-      "matched_text": "MNPI‑SHIELD",
+      "matched_text": "MNPI\u2011SHIELD",
       "reason": "Not a valid transaction codename pattern"
     },
     {
@@ -186,52 +186,52 @@
   ],
   "uncertain": [
     {
-      "matched_text": "SUPP‑ID: s‑  991‑  r",
+      "matched_text": "SUPP\u2011ID: s\u2011  991\u2011  r",
       "concept": "suppression identifier",
       "reason": "Looks like a marketing suppression reference; could map to customer_account_number or internal_session_id but ambiguous"
     },
     {
-      "matched_text": "ticket DSAR‑A S‑2026‑04‑30",
+      "matched_text": "ticket DSAR\u2011A S\u20112026\u201104\u201130",
       "concept": "internal ticket id",
       "reason": "Internal request/ticket identifier; unclear mapping to allowed PII rules"
     },
     {
-      "matched_text": "Data Export Approval ID: EXP‑SIN‑20 26/NK/x7",
+      "matched_text": "Data Export Approval ID: EXP\u2011SIN\u201120 26/NK/x7",
       "concept": "export approval id",
       "reason": "Compliance record id for cross-border transfer; not clearly an allowed marker/value type"
     },
     {
-      "matched_text": "export‑check: 0x9bF…fA",
+      "matched_text": "export\u2011check: 0x9bF\u2026fA",
       "concept": "crypto-like hash",
       "reason": "Truncated 0x-hex string; could be a crypto wallet address or checksum but not definitive"
     },
     {
-      "matched_text": "https://exports.nk-fin.id/dsar/req?id=8f2c‑ 1Z9#au",
+      "matched_text": "https://exports.nk-fin.id/dsar/req?id=8f2c\u2011 1Z9#au",
       "concept": "dsar export link/token",
       "reason": "Contains an id-like token; may be an internal session or request id but category unclear"
     },
     {
-      "matched_text": "KD lokasi: LOC‑JKT‑  M18",
+      "matched_text": "KD lokasi: LOC\u2011JKT\u2011  M18",
       "concept": "location code",
       "reason": "Internal location code; no direct mapping to allowed PII rules"
     },
     {
-      "matched_text": "EMP‑X7  1A",
+      "matched_text": "EMP\u2011X7  1A",
       "concept": "employee reference code",
       "reason": "Could be an employee code; unclear if it should be treated as employee_id"
     },
     {
-      "matched_text": "PAY‑Z9‑  004",
+      "matched_text": "PAY\u2011Z9\u2011  004",
       "concept": "payroll reference code",
       "reason": "Internal payroll/reference id; mapping to allowed PII categories unclear"
     },
     {
-      "matched_text": "CN‑  9902",
+      "matched_text": "CN\u2011  9902",
       "concept": "consent record id",
       "reason": "Appears to be a consent note identifier; not clearly covered by allowed PII rules"
     },
     {
-      "matched_text": "http://nk‑ops.id/audit?ref=erasure%2Flog%2F24‑05‑01",
+      "matched_text": "http://nk\u2011ops.id/audit?ref=erasure%2Flog%2F24\u201105\u201101",
       "concept": "audit log link",
       "reason": "Internal audit reference link; may embed internal ids but no clear allowed category"
     }
@@ -241,7 +241,7 @@
   "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_resolved_label_warnings": [
     {
@@ -250,23 +250,54 @@
       "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
       "warnings": [
         "drop must_detect: invalid rule 'dsar' text='Peristiwa DSAR'",
-        "drop must_detect: invalid rule 'erasure' text='Erasure Run “ER A‑24‑05‑01”'",
+        "drop must_detect: invalid rule 'erasure' text='Erasure Run \u201cER A\u201124\u201105\u201101\u201d'",
         "drop must_detect: invalid rule 'retention' text='Retensi: 3 tahun pasca terminasi'",
         "drop ideal_must_detect: invalid rule 'dsar' text='Peristiwa DSAR'",
-        "drop ideal_must_detect: invalid rule 'erasure' text='Erasure Run “ER A‑24‑05‑01”'",
+        "drop ideal_must_detect: invalid rule 'erasure' text='Erasure Run \u201cER A\u201124\u201105\u201101\u201d'",
         "drop ideal_must_detect: invalid rule 'retention' text='Retensi: 3 tahun pasca terminasi'",
         "drop ideal_must_detect: invalid rule 'erasure' text='penghapusan terjadwal'"
       ]
     }
   ],
   "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tier_note": "ID Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ID Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
   "_strict_reconciliation": {
     "basis": "ID Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "reviewer": "Codex GPT-5.5",
     "reviewed_at": "2026-06-03T03:27:55Z",
     "source_report": "/tmp/kaypoh-id-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_pending_owner_review",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "ID Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the ID Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
   }
 }

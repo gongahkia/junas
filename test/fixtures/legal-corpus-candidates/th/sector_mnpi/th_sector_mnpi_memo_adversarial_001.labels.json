@@ -21,12 +21,13 @@
   ],
   "_human_review": {
     "decision": "approve",
-    "notes": "Project-owner approval for post-PH precision realignment of strict candidate labels; internal/project benchmarking only, not legal advice or external procurement-grade legal approval.",
-    "reviewed_at_utc": "2026-05-30T01:36:04Z",
-    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-    "reviewer": "gongahkia-project-owner-chat-approval",
-    "status": "approved"
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
   },
   "_human_review_history": [
     {
@@ -46,6 +47,16 @@
       "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewer": "gongahkia-project-owner-chat-approval",
       "status": "approved"
+    },
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
     }
   ],
   "_human_review_status": "approved",
@@ -85,12 +96,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject: Pre-announcement MNPI on (i) THB private placement of sustainability-linked notes and (ii) cross-border acquisition of a licensed digital asset broker; deal code P r o j e c t   B a n y a n (BNY-Δ/2569).",
+      "matched_text": "Subject: Pre-announcement MNPI on (i) THB private placement of sustainability-linked notes and (ii) cross-border acquisition of a licensed digital asset broker; deal code P r o j e c t   B a n y a n (BNY-\u0394/2569).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Operations-only note: the cybersecurity awareness webinar titled “Wallets, Whales, and Walls” is for staff education and does not disclose any ongoing incident or insider information.",
+      "matched_text": "Operations-only note: the cybersecurity awareness webinar titled \u201cWallets, Whales, and Walls\u201d is for staff education and does not disclose any ongoing incident or insider information.",
       "rule": "material_event"
     },
     {
@@ -165,7 +176,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Information barriers—",
+      "matched_text": "Information barriers\u2014",
       "rule": "information_barrier_marker"
     },
     {
@@ -175,12 +186,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Selective disclosure risk—",
+      "matched_text": "Selective disclosure risk\u2014",
       "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "matched_text": "Blackout—",
+      "matched_text": "Blackout\u2014",
       "rule": "blackout_period_reference"
     },
     {
@@ -270,12 +281,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Clean Room ‘CR-OGX-BNY’",
+      "matched_text": "Clean Room \u2018CR-OGX-BNY\u2019",
       "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "matched_text": "trading blackout from 29/05–15/06/2569",
+      "matched_text": "trading blackout from 29/05\u201315/06/2569",
       "rule": "blackout_period_reference"
     },
     {
@@ -317,12 +328,12 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Subject: Pre-announcement MNPI on (i) THB private placement of sustainability-linked notes and (ii) cross-border acquisition of a licensed digital asset broker; deal code P r o j e c t   B a n y a n (BNY-Δ/2569).",
+      "matched_text": "Subject: Pre-announcement MNPI on (i) THB private placement of sustainability-linked notes and (ii) cross-border acquisition of a licensed digital asset broker; deal code P r o j e c t   B a n y a n (BNY-\u0394/2569).",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "Operations-only note: the cybersecurity awareness webinar titled “Wallets, Whales, and Walls” is for staff education and does not disclose any ongoing incident or insider information.",
+      "matched_text": "Operations-only note: the cybersecurity awareness webinar titled \u201cWallets, Whales, and Walls\u201d is for staff education and does not disclose any ongoing incident or insider information.",
       "rule": "material_event"
     },
     {
@@ -418,5 +429,19 @@
         "drop uncertain: text not verbatim text='BNY-\\x00\\x00/2569'"
       ]
     }
-  ]
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  }
 }

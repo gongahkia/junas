@@ -42,7 +42,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Financing: THB 700,000,000 bridge facility from Chao Phraya Capital Bank, facility account alias “CP-Bridge-2026,” with proceeds to be escrowed at Lotus Trust (Thailand) Ltd. under escrow ledger “Meridian-2026-Deal,” ref code LTT-8893; financial advisor: Sapphire Advisory Co., Ltd."
+      "matched_text": "Financing: THB 700,000,000 bridge facility from Chao Phraya Capital Bank, facility account alias \u201cCP-Bridge-2026,\u201d with proceeds to be escrowed at Lotus Trust (Thailand) Ltd. under escrow ledger \u201cMeridian-2026-Deal,\u201d ref code LTT-8893; financial advisor: Sapphire Advisory Co., Ltd."
     },
     {
       "category": "MNPI",
@@ -184,7 +184,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Financing: THB 700,000,000 bridge facility from Chao Phraya Capital Bank, facility account alias “CP-Bridge-2026,” with proceeds to be escrowed at Lotus Trust (Thailand) Ltd. under escrow ledger “Meridian-2026-Deal,” ref code LTT-8893; financial advisor: Sapphire Advisory Co., Ltd."
+      "matched_text": "Financing: THB 700,000,000 bridge facility from Chao Phraya Capital Bank, facility account alias \u201cCP-Bridge-2026,\u201d with proceeds to be escrowed at Lotus Trust (Thailand) Ltd. under escrow ledger \u201cMeridian-2026-Deal,\u201d ref code LTT-8893; financial advisor: Sapphire Advisory Co., Ltd."
     },
     {
       "category": "MNPI",
@@ -324,7 +324,7 @@
     {
       "category": "PII",
       "rule": "quasi_identifier_combination",
-      "matched_text": "Access/Device Context (Target): Sirinapa accessed the VDR via Lenovo ThinkPad T14 asset tag MS-T14-0881, session reference VDR-TH-2197-BKK, corporate Teams handle “sirinapa.k,” and last file check-in at 15:30 ICT on 12 September 2026; meeting room booking: “Meridian Tower L18—Deal Desk.”"
+      "matched_text": "Access/Device Context (Target): Sirinapa accessed the VDR via Lenovo ThinkPad T14 asset tag MS-T14-0881, session reference VDR-TH-2197-BKK, corporate Teams handle \u201csirinapa.k,\u201d and last file check-in at 15:30 ICT on 12 September 2026; meeting room booking: \u201cMeridian Tower L18\u2014Deal Desk.\u201d"
     },
     {
       "category": "PII",
@@ -349,12 +349,12 @@
     {
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
-      "matched_text": "circulation is limited to “need-to-know” personnel"
+      "matched_text": "circulation is limited to \u201cneed-to-know\u201d personnel"
     },
     {
       "category": "MNPI",
       "rule": "information_barrier_marker",
-      "matched_text": "circulation is limited to “need-to-know” personnel"
+      "matched_text": "circulation is limited to \u201cneed-to-know\u201d personnel"
     },
     {
       "category": "MNPI",
@@ -430,7 +430,7 @@
       "reason": "Ticker symbol is market identifier; only SGX counter explicitly covered by current rules"
     },
     {
-      "matched_text": "Meridian Tower L18—Deal Desk",
+      "matched_text": "Meridian Tower L18\u2014Deal Desk",
       "concept": "meeting_room_booking",
       "reason": "Meeting room booking string could be identifying in combination but not directly covered as PII"
     }
@@ -440,16 +440,47 @@
   "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
   "_strict_reconciliation": {
     "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "reviewer": "Codex GPT-5.5",
     "reviewed_at": "2026-06-03T03:27:55Z",
     "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_pending_owner_review",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
   }
 }

@@ -52,7 +52,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Lanna Meridian PCL (a SET-listed public company) — Thailand PDPA Privacy Notice and Data Processing Addendum for financing, employment, and SEC disclosure workflows with Ayu Data Services Co., Ltd. as Processor."
+      "matched_text": "Lanna Meridian PCL (a SET-listed public company) \u2014 Thailand PDPA Privacy Notice and Data Processing Addendum for financing, employment, and SEC disclosure workflows with Ayu Data Services Co., Ltd. as Processor."
     },
     {
       "category": "MNPI",
@@ -109,7 +109,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Lanna Meridian PCL (a SET-listed public company) — Thailand PDPA Privacy Notice and Data Processing Addendum for financing, employment, and SEC disclosure workflows with Ayu Data Services Co., Ltd. as Processor."
+      "matched_text": "Lanna Meridian PCL (a SET-listed public company) \u2014 Thailand PDPA Privacy Notice and Data Processing Addendum for financing, employment, and SEC disclosure workflows with Ayu Data Services Co., Ltd. as Processor."
     },
     {
       "category": "MNPI",
@@ -164,7 +164,7 @@
     {
       "category": "PII",
       "rule": "internal_session_id",
-      "matched_text": "VPN sess id=ARU21-9f2c••"
+      "matched_text": "VPN sess id=ARU21-9f2c\u2022\u2022"
     },
     {
       "category": "PII",
@@ -174,12 +174,12 @@
     {
       "category": "PII",
       "rule": "device_serial_number",
-      "matched_text": "t14‑**77"
+      "matched_text": "t14\u2011**77"
     },
     {
       "category": "PII",
       "rule": "employee_id",
-      "matched_text": "LMN‑TREA‑021"
+      "matched_text": "LMN\u2011TREA\u2011021"
     },
     {
       "category": "PII",
@@ -248,22 +248,22 @@
       "reason": "Appears to be an IP address but masked and may not meet strict pattern"
     },
     {
-      "matched_text": "QA‑LMN‑093",
+      "matched_text": "QA\u2011LMN\u2011093",
       "concept": "internal_order_id",
       "reason": "Order identifier can indirectly identify a person in context but lacks a specific allowed rule"
     },
     {
-      "matched_text": "A‑2‑1",
+      "matched_text": "A\u20112\u20111",
       "concept": "internal_log_reference",
       "reason": "Internal reference number can be a linkable ID but not covered by an allowed rule"
     },
     {
-      "matched_text": "pre‑close blue‑orchid",
+      "matched_text": "pre\u2011close blue\u2011orchid",
       "concept": "transaction_codename_like",
       "reason": "Project-like label but does not match the 'Project <Name>' pattern for transaction_codename"
     },
     {
-      "matched_text": "andr‑cc3d‑77",
+      "matched_text": "andr\u2011cc3d\u201177",
       "concept": "device_tag_id",
       "reason": "Device tag is a linkable identifier but not listed in allowed rules"
     }
@@ -273,16 +273,47 @@
   "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
   "_strict_reconciliation": {
     "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "reviewer": "Codex GPT-5.5",
     "reviewed_at": "2026-06-03T03:27:55Z",
     "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_pending_owner_review",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
   }
 }

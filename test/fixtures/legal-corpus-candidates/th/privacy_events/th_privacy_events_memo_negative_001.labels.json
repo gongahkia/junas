@@ -64,17 +64,17 @@
     {
       "category": "PII",
       "rule": "cross_border_transfer_marker",
-      "matched_text": "cross‑border transfers remain restricted to approved destinations per Section 28 PDPA"
+      "matched_text": "cross\u2011border transfers remain restricted to approved destinations per Section 28 PDPA"
     },
     {
       "category": "PII",
       "rule": "cross_border_transfer_marker",
-      "matched_text": "Positive cross‑border transfer: Data‑Export Approval TH‑GX‑091 granted 10 May 2569 for hashed payroll identifiers to SkyLedger Analytics SGP Pte. Ltd. (Singapore) under SCC‑TH‑SG v2.1"
+      "matched_text": "Positive cross\u2011border transfer: Data\u2011Export Approval TH\u2011GX\u2011091 granted 10 May 2569 for hashed payroll identifiers to SkyLedger Analytics SGP Pte. Ltd. (Singapore) under SCC\u2011TH\u2011SG v2.1"
     },
     {
       "category": "PII",
       "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross‑border vendor due diligence confirms onward transfer bans and encryption at rest"
+      "matched_text": "Cross\u2011border vendor due diligence confirms onward transfer bans and encryption at rest"
     },
     {
       "category": "PII",
@@ -84,18 +84,18 @@
     {
       "category": "PII",
       "rule": "data_minimisation_marker",
-      "matched_text": "Minimisation: onboarding forms collect role‑based elements only; optional fields (e.g., personal interests) are suppressed by default and not stored"
+      "matched_text": "Minimisation: onboarding forms collect role\u2011based elements only; optional fields (e.g., personal interests) are suppressed by default and not stored"
     }
   ],
   "must_not_detect": [],
   "uncertain": [
     {
-      "matched_text": "DSAR handling: no open access/correction/erasure requests as of month‑end; the DSAR SLA tracker shows 0 pending and 0 overdue",
+      "matched_text": "DSAR handling: no open access/correction/erasure requests as of month\u2011end; the DSAR SLA tracker shows 0 pending and 0 overdue",
       "concept": "dsar_marker",
       "reason": "DSAR and erasure handling is a privacy-event signal, but there is no explicit DSAR/erasure rule in the allowed list."
     },
     {
-      "matched_text": "Retention: employee files are governed by RET‑12 (12 months post‑termination) and finance records by RET‑07 (7 years); no exceptions or holds are recorded",
+      "matched_text": "Retention: employee files are governed by RET\u201112 (12 months post\u2011termination) and finance records by RET\u201107 (7 years); no exceptions or holds are recorded",
       "concept": "retention_marker",
       "reason": "Retention policies are privacy-event signals, but there is no explicit retention rule in the allowed list."
     }
@@ -121,13 +121,14 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
   },
   "_human_review": {
-    "status": "approved",
     "decision": "approve",
-    "reviewer": "gongahkia-project-owner-chat-approval",
-    "reviewed_at_utc": "2026-05-29T09:42:20Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
   },
   "_human_review_history": [
     {
@@ -138,6 +139,16 @@
       "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
       "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    },
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
     }
   ],
   "_stage_readiness": {
@@ -157,5 +168,19 @@
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
-  ]
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  }
 }

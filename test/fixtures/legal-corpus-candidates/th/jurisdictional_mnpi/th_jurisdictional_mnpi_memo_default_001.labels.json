@@ -22,7 +22,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Status: The Company entered a non-binding term sheet on 27 May 2569 (ยังไม่ได้เปิดเผย/Non‑public) for a THB 450m secured cross‑border facility with Yamato Capital KK and Lanka Trade Finance PLC; closing contingent on CPX clearance and TCMA notification."
+      "matched_text": "Status: The Company entered a non-binding term sheet on 27 May 2569 (\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e1c\u0e22/Non\u2011public) for a THB 450m secured cross\u2011border facility with Yamato Capital KK and Lanka Trade Finance PLC; closing contingent on CPX clearance and TCMA notification."
     },
     {
       "category": "MNPI",
@@ -99,7 +99,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Status: The Company entered a non-binding term sheet on 27 May 2569 (ยังไม่ได้เปิดเผย/Non‑public) for a THB 450m secured cross‑border facility with Yamato Capital KK and Lanka Trade Finance PLC; closing contingent on CPX clearance and TCMA notification."
+      "matched_text": "Status: The Company entered a non-binding term sheet on 27 May 2569 (\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e1c\u0e22/Non\u2011public) for a THB 450m secured cross\u2011border facility with Yamato Capital KK and Lanka Trade Finance PLC; closing contingent on CPX clearance and TCMA notification."
     },
     {
       "category": "MNPI",
@@ -174,17 +174,17 @@
     {
       "category": "PII",
       "rule": "phone_number",
-      "matched_text": "+66‑20‑555‑019"
+      "matched_text": "+66\u201120\u2011555\u2011019"
     },
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "ยังไม่ได้เปิดเผย/Non‑public"
+      "matched_text": "\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e1c\u0e22/Non\u2011public"
     },
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "remains non‑public"
+      "matched_text": "remains non\u2011public"
     },
     {
       "category": "MNPI",
@@ -214,7 +214,7 @@
     {
       "category": "MNPI",
       "rule": "financial_percentage",
-      "matched_text": "5.25–6.10%"
+      "matched_text": "5.25\u20136.10%"
     },
     {
       "category": "MNPI",
@@ -234,12 +234,12 @@
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "non‑public items"
+      "matched_text": "non\u2011public items"
     },
     {
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
-      "matched_text": "Do not discuss non‑public items during supplier due‑diligence calls or with headhunters"
+      "matched_text": "Do not discuss non\u2011public items during supplier due\u2011diligence calls or with headhunters"
     },
     {
       "category": "MNPI",
@@ -282,12 +282,12 @@
       "reason": "Issuer-specific disclosure deadline is compliance-relevant but not covered by an explicit allowed rule token"
     },
     {
-      "matched_text": "KinnareeChat ID “AuroraCompliance”",
+      "matched_text": "KinnareeChat ID \u201cAuroraCompliance\u201d",
       "concept": "internal handle PII",
       "reason": "Internal chat ID may identify a person or team; not clearly covered by allowed PII rules"
     },
     {
-      "matched_text": "≤3.0x",
+      "matched_text": "\u22643.0x",
       "concept": "financial covenant ratio",
       "reason": "Material covenant metric likely MNPI but not mapped to an allowed MNPI rule type"
     },
@@ -297,7 +297,7 @@
       "reason": "Content of a one-to-one disclosure may be MNPI-relevant but lacks a direct allowed-rule tag"
     },
     {
-      "matched_text": "CPXLink “Immediate Report”",
+      "matched_text": "CPXLink \u201cImmediate Report\u201d",
       "concept": "regulatory filing type",
       "reason": "Represents disclosure mechanism/timing; not explicitly covered by allowed markers"
     }
@@ -323,13 +323,14 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review."
   },
   "_human_review": {
-    "status": "approved",
     "decision": "approve",
-    "reviewer": "gongahkia-project-owner-chat-approval",
-    "reviewed_at_utc": "2026-05-29T09:42:20Z",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
   },
   "_human_review_history": [
     {
@@ -340,6 +341,16 @@
       "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
       "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
       "notes": "Project owner approved TH Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval."
+    },
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
     }
   ],
   "_stage_readiness": {
@@ -359,5 +370,19 @@
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
-  ]
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  }
 }

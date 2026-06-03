@@ -37,7 +37,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Retention workflow: HR payroll records 7 years; financing KYC records 10 years; MNPI‑tagged datasets retained only until public posting or transaction withdrawal, then anonymized within 30 days; sample obfuscated UserID: EM‑TH‑0 1 2 3 x x."
+      "matched_text": "Retention workflow: HR payroll records 7 years; financing KYC records 10 years; MNPI\u2011tagged datasets retained only until public posting or transaction withdrawal, then anonymized within 30 days; sample obfuscated UserID: EM\u2011TH\u20110 1 2 3 x x."
     },
     {
       "category": "MNPI",
@@ -99,7 +99,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Retention workflow: HR payroll records 7 years; financing KYC records 10 years; MNPI‑tagged datasets retained only until public posting or transaction withdrawal, then anonymized within 30 days; sample obfuscated UserID: EM‑TH‑0 1 2 3 x x."
+      "matched_text": "Retention workflow: HR payroll records 7 years; financing KYC records 10 years; MNPI\u2011tagged datasets retained only until public posting or transaction withdrawal, then anonymized within 30 days; sample obfuscated UserID: EM\u2011TH\u20110 1 2 3 x x."
     },
     {
       "category": "MNPI",
@@ -154,7 +154,7 @@
     {
       "category": "PII",
       "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross‑border transfer: permitted to Processor’s regional node in Raintree Isle under encryption and contractual safeguards; transfer log at https://auroraledger.example/xfer?id=th%2Fmk-459&st=pe n d i n g; PDPA Section 28 derogations may apply"
+      "matched_text": "Cross\u2011border transfer: permitted to Processor\u2019s regional node in Raintree Isle under encryption and contractual safeguards; transfer log at https://auroraledger.example/xfer?id=th%2Fmk-459&st=pe n d i n g; PDPA Section 28 derogations may apply"
     },
     {
       "category": "PII",
@@ -164,12 +164,12 @@
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "non‑public facts"
+      "matched_text": "non\u2011public facts"
     },
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "non‑public"
+      "matched_text": "non\u2011public"
     },
     {
       "category": "MNPI",
@@ -179,12 +179,12 @@
     {
       "category": "MNPI",
       "rule": "blackout_period_reference",
-      "matched_text": "Blackout/silent windows: trading by relevant persons is prohibited T‑14 to T+2 around quarterly results and during the silent period; any pre‑briefs must use only information already posted, and “immediate disclosure” applies to material agreements per listing rules"
+      "matched_text": "Blackout/silent windows: trading by relevant persons is prohibited T\u201114 to T+2 around quarterly results and during the silent period; any pre\u2011briefs must use only information already posted, and \u201cimmediate disclosure\u201d applies to material agreements per listing rules"
     },
     {
       "category": "MNPI",
       "rule": "blackout_period_reference",
-      "matched_text": "trades in the Controller’s securities by Processor staff are prohibited during blackout"
+      "matched_text": "trades in the Controller\u2019s securities by Processor staff are prohibited during blackout"
     },
     {
       "category": "MNPI",
@@ -199,22 +199,22 @@
     {
       "category": "MNPI",
       "rule": "contingent_mnpi_language",
-      "matched_text": "likely to affect the price of the Controller’s listed shares"
+      "matched_text": "likely to affect the price of the Controller\u2019s listed shares"
     },
     {
       "category": "MNPI",
       "rule": "blackout_period_reference",
-      "matched_text": "T‑14 to T+2"
+      "matched_text": "T\u201114 to T+2"
     },
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "not yet submitted on the issuer portal is non‑public"
+      "matched_text": "not yet submitted on the issuer portal is non\u2011public"
     },
     {
       "category": "MNPI",
       "rule": "selective_disclosure_risk",
-      "matched_text": "any pre‑briefs must use only information already posted"
+      "matched_text": "any pre\u2011briefs must use only information already posted"
     },
     {
       "category": "PII",
@@ -248,22 +248,22 @@
       "reason": "Looks like an internal request/reference ID; no specific allowed rule for such IDs."
     },
     {
-      "matched_text": "Retention workflow: HR payroll records 7 years; financing KYC records 10 years; MNPI‑tagged datasets retained only until public posting or transaction withdrawal, then anonymized within 30 days",
+      "matched_text": "Retention workflow: HR payroll records 7 years; financing KYC records 10 years; MNPI\u2011tagged datasets retained only until public posting or transaction withdrawal, then anonymized within 30 days",
       "concept": "retention marker",
       "reason": "Records retention and anonymisation timelines are privacy-event controls not covered by an explicit allowed rule token."
     },
     {
-      "matched_text": "UserID: EM‑TH‑0 1 2 3 x x",
+      "matched_text": "UserID: EM\u2011TH\u20110 1 2 3 x x",
       "concept": "internal identifier",
       "reason": "Example user identifier could be personal/system ID but no matching allowed rule token (e.g., no generic user_id)."
     },
     {
-      "matched_text": "acknowledgments of insider‑information training",
+      "matched_text": "acknowledgments of insider\u2011information training",
       "concept": "insider-information controls",
       "reason": "Training/controls may relate to information barriers/insider lists but not clearly covered by allowed MNPI markers."
     },
     {
-      "matched_text": "“immediate disclosure” applies to material agreements per listing rules",
+      "matched_text": "\u201cimmediate disclosure\u201d applies to material agreements per listing rules",
       "concept": "disclosure timing/material event control",
       "reason": "Relates to MNPI disclosure obligations but not an explicit allowed MNPI rule token."
     }
@@ -273,16 +273,47 @@
   "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
+  "_human_review_status": "approved",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_tiers_version": "id-th-stage-b-strict-realign-2026-06-03",
-  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tier_note": "TH Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. TH Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
   "_strict_reconciliation": {
     "basis": "TH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "reviewer": "Codex GPT-5.5",
     "reviewed_at": "2026-06-03T03:27:55Z",
     "source_report": "/tmp/kaypoh-th-stage-b-eval-after-precision.json",
-    "status": "codex_reconciled_pending_owner_review",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards"
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after ID/TH Stage B precision guards",
+    "owner_approval_reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
+  },
+  "_human_review": {
+    "decision": "approve",
+    "status": "approved",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-03T03:42:46Z",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion."
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "status": "approved",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "notes": "Project owner manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-03T03:42:46Z",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "scope": "TH Stage B candidate labels only; no recall-lock promotion."
+    }
+  ],
+  "_stage_b_approval": {
+    "approved_at_utc": "2026-06-03T03:42:46Z",
+    "basis": "Project owner stated they manually reviewed the TH Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, or procurement-grade legal approval; candidate labels remain separate from locked recall baselines.",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
+    "status": "approved_for_internal_benchmarking"
   }
 }
