@@ -118,6 +118,8 @@ The command decodes the first video stream with `ffmpeg`, runs the same local OC
 
 When `--output` is omitted, `Aki` writes next to the input as `<name>.redacted.<ext>`. Existing output files are refused unless `--overwrite` is passed, and the input file is never used as the output path.
 
+The recording-only time-machine buffer prototype is documented in [`docs/time-machine-buffer.md`](./docs/time-machine-buffer.md). It can re-render buffered local-recording frames before finalization, but it cannot unsend live-stream or screen-share pixels.
+
 ## Power-User / Developer Commands
 
 ```console
