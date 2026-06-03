@@ -3,13 +3,329 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Joaquin S. Valmores"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Mara Consing\u2011Ilustre"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec-compliance@lmhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 82 555 0199"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "r.narvaez@lmhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "may.sapa@lmhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "directors@lmhi.ph"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "EMBARGO until 15 Aug 2026 09:00 PHT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Asset Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "APA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 12,400,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1.9%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 780,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5.0%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Joaquin S. Valmores"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Mara Consing\u2011Ilustre"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec-compliance@lmhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 82 555 0199"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "r.narvaez@lmhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "may.sapa@lmhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "directors@lmhi.ph"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "EMBARGO until 15 Aug 2026 09:00 PHT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project TUBA0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Asset Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "APA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet TS\u2011APA\u2011v5.3 (non\u2011binding)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC/MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber intrusion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "SCADA dashboard lockouts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 12,400,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1.9%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 780,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Investor\u2011relations draft (do not release)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "release only after EMBARGO date above"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "retain in board portal only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not forward outside directors@lmhi.ph"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "N o n \u2011 P u b l i c"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "a Form 17\u2011C may be required upon execution of definitive agreements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "unless impact exceeds 5.0% of consolidated EBITDA, this event does not constitute a Material Adverse Change"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "vendor",
+      "reason": "Role noun; not PII/MNPI."
+    },
+    {
+      "matched_text": "board",
+      "reason": "Generic role noun; not PII/MNPI."
+    },
+    {
+      "matched_text": "GM",
+      "reason": "Role acronym; not PII/MNPI."
+    },
+    {
+      "matched_text": "spa\u2011day vouchers",
+      "reason": "False\u2011positive bait; HR perk not legally sensitive."
+    },
+    {
+      "matched_text": "CN\u20112024\u2011198",
+      "reason": "Public memo reference; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "A c c t : XX**\u20117 7 3 1\u20110 0 4 9",
+      "concept": "bank_account",
+      "reason": "Masked and spaced account reference; likely a bank account but not a clean pattern for strict detection."
+    },
+    {
+      "matched_text": "OCR tag \u201cE7U\u201131\u201d",
+      "concept": "bank_customer_reference",
+      "reason": "Appears to be a bank/customer reference tag, but format is non\u2011standard."
+    },
+    {
+      "matched_text": "ASN\u201199122",
+      "concept": "network_identifier",
+      "reason": "Autonomous System Number may be sensitive in incident context but lacks a specific allowed rule."
+    },
+    {
+      "matched_text": "DocID LMHI\u2011IR\u20112026\u201108\u201102\u2011A",
+      "concept": "internal_session_id",
+      "reason": "Internal document identifier; may be treated like a session/document token but not clearly covered."
+    },
+    {
+      "matched_text": "SvcID KR0\u2011NE\u2011T15",
+      "concept": "vendor_service_id",
+      "reason": "Vendor service/account identifier; not mapped to an explicit allowed rule."
+    },
+    {
+      "matched_text": "https://ir.lmhi.ph/r/8f9a1-apa?co=TUBA0",
+      "concept": "information_barrier_marker",
+      "reason": "Private board portal link implies restricted access; URLs are not explicitly covered by allowed rules."
+    },
+    {
+      "matched_text": "Project TUBA0",
+      "concept": "transaction_codename",
+      "reason": "Codename includes a digit; strict detectors may only match purely alphabetic codenames."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

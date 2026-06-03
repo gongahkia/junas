@@ -3,13 +3,217 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 30 June 2026 18:00 PHT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Taal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber Incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "RSEC Form 17-C"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "Php 42,500,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "Php 10,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "Php 1.25 billion"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@islawave.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 28 555 0199"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Lirio San Matias"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 30 June 2026 18:00 PHT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Taal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber Incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "RSEC Form 17-C"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "RSEC Form 17-C current report"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "Php 42,500,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "Php 10,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "Php 1.25 billion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Draft Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "This memo is not for external release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "any trading in IslaWave securities prior to public disclosure is prohibited under SRC provisions on material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "2,314"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@islawave.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 28 555 0199"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Lirio San Matias"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day",
+      "reason": "False-positive bait: not a Share Purchase Agreement (SPA)."
+    },
+    {
+      "matched_text": "MAC/MAE",
+      "reason": "Negated MAC language; do not label as material_adverse_change."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "names and corporate emails only",
+      "concept": "personal_data_category",
+      "reason": "Describes categories of personal data implicated in incident but no specific PII value present."
+    },
+    {
+      "matched_text": "pricing window remains 15\u201319 July 2026",
+      "concept": "sensitive_timing_window",
+      "reason": "Timing of securities pricing window could be MNPI, but not covered by explicit embargo markers list."
+    },
+    {
+      "matched_text": "we expect no change to FY2026 EBITDA guidance",
+      "concept": "financial_guidance_pre_disclosure",
+      "reason": "Forward-looking guidance may be MNPI but there is no specific allowed rule for guidance statements."
+    },
+    {
+      "matched_text": "MCX listing",
+      "concept": "listing_event_pre_disclosure",
+      "reason": "Upcoming listing context can be material, but no specific allowed rule outside DPT markers."
+    },
+    {
+      "matched_text": "will file with the privacy authority within 72 hours",
+      "concept": "data_breach_notification",
+      "reason": "Regulatory notification timing is privacy-relevant but not captured by the allowed privacy-event markers."
+    },
+    {
+      "matched_text": "two outbound transfers flagged by the CBR-supervised clearing network were reversed before settlement",
+      "concept": "incident_financial_transfer",
+      "reason": "Operational/cyber incident detail with potential materiality, but not mapped to a specific allowed MNPI rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
