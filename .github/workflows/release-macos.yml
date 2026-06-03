@@ -1,0 +1,75 @@
+name: Aki macOS release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version to package, for example 0.1.0
+        required: true
+        type: string
+      tag:
+        description: Git tag or release name, for example v0.1.0
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Install native dependencies
+        run: brew install tesseract libarchive
+
+      - name: Import Developer ID certificate
+        env:
+          CERT_P12_BASE64: ${{ secrets.MACOS_DEVELOPER_ID_APPLICATION_CERT_P12_BASE64 }}
+          CERT_PASSWORD: ${{ secrets.MACOS_DEVELOPER_ID_APPLICATION_CERT_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          test -n "$CERT_P12_BASE64"
+          test -n "$CERT_PASSWORD"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" build-signing.keychain
+          security set-keychain-settings -lut 21600 build-signing.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" build-signing.keychain
+          echo "$CERT_P12_BASE64" | base64 --decode > developer-id.p12
+          security import developer-id.p12 \
+            -k build-signing.keychain \
+            -P "$CERT_PASSWORD" \
+            -T /usr/bin/codesign
+          security list-keychains -d user -s build-signing.keychain login.keychain
+          security set-key-partition-list \
+            -S apple-tool:,apple:,codesign: \
+            -s \
+            -k "$KEYCHAIN_PASSWORD" \
+            build-signing.keychain
+
+      - name: Build signed notarized DMG
+        env:
+          AKI_VERSION: ${{ inputs.version }}
+          AKI_SIGN_IDENTITY: ${{ secrets.MACOS_DEVELOPER_ID_APPLICATION_IDENTITY }}
+          AKI_NOTARY_APPLE_ID: ${{ secrets.AKI_NOTARY_APPLE_ID }}
+          AKI_NOTARY_TEAM_ID: ${{ secrets.AKI_NOTARY_TEAM_ID }}
+          AKI_NOTARY_PASSWORD: ${{ secrets.AKI_NOTARY_PASSWORD }}
+        run: scripts/release_macos_dmg.sh --version "$AKI_VERSION"
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          DMG="dist/macos/Aki-${VERSION}-macos.dmg"
+          SHA="${DMG}.sha256"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$DMG" "$SHA" --clobber
+          else
+            gh release create "$TAG" "$DMG" "$SHA" \
+              --title "Aki ${VERSION}" \
+              --generate-notes
+          fi
