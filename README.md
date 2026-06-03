@@ -3,9 +3,11 @@
 
 # `Aki`
 
-`Aki` is a local-first real-time privacy filter for screen sharing and livestreaming. It reads screen pixels, uses OCR and pattern matching to find secrets or PII, then redacts detected regions before the frame leaves through a virtual camera or MJPEG output.
+`Aki` is a macOS-first, local-first, real-time privacy filter for screen sharing and livestreaming. It reads screen pixels, uses OCR and pattern matching to detect secrets or PII, then redacts detected regions before frames leave through a virtual camera or MJPEG output.
 
 Because `Aki` works on pixels instead of browser DOM nodes, it can cover terminals, editors, design tools, documents, and other app surfaces where DOM-based blur extensions cannot reliably inspect content.
+
+`Aki` reduces leak risk; it is not a guarantee that every sensitive value will be caught. OCR can miss tiny, low-contrast, or newly appeared text, and pattern rules only cover the secret shapes they know about.
 
 ## Install
 
@@ -84,9 +86,9 @@ Set `AKI_LOG_STDERR=1` only when you explicitly want mirror logs in terminal out
 On startup, `Aki` also auto-selects a likely app window source (instead of full-display capture)
 to reduce self-capture feedback artifacts. Press `w` anytime to override.
 
-## Blocked List
+## Detected List
 
-Currently `Aki` blocks the below by default.
+Currently `Aki` looks for the patterns below by default and redacts matched regions.
 
 **API Keys & Tokens**
 * AWS access keys (`AKIA...`) and secret access keys
