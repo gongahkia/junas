@@ -37,11 +37,33 @@ should be treated as architectural invariants.
    cookies, never password forwarding. The server never persists user
    credentials.
 4. **Provenance is mandatory.** Every `SourceDocument` carries a full
-   provenance record (source_id, source_url, document_id, published &
-   fetched dates, licence summary, tier).
+   provenance record (source_id, source_url, document_id, legis_id,
+   doc_type, country, sort_date, year, dates, licence summary, tier).
 5. **Unimplemented fetches raise loudly.** Stubs raise `SourceAdapterError`
    rather than returning empty iterators so silent benchmark builds
    against a non-implemented adapter cannot happen.
+6. **Each adapter declares `doc_type` + `extra_schema`.** `doc_type` must
+   be a value from `DocType`; `extra_schema` documents the per-source
+   fields populated on `SourceDocument.extra`. Both are enforced by tests.
+
+## Envelope alignment
+
+`SourceDocument` carries a core envelope that mirrors the contract
+adjacent SG legal ingestion pipelines normalise into:
+
+| Field | Source | Notes |
+|---|---|---|
+| `legis_id` | derived by `derive_legis_id()` if not provided | falls back from raw_id → title slug → hash |
+| `document_id` | adapter-supplied | stable per source |
+| `source_url` | adapter-supplied | canonical public URL |
+| `country` | `metadata.country` (defaults to "SG") | exposed as property |
+| `doc_type` | adapter-declared (`DocType` value) | enforces canonical taxonomy |
+| `sort_date` | `published_date or fetched_date` ISO string | property |
+| `year` | year of `sort_date` | property |
+| `extra` | per-source `dict` | shape documented in `extra_schema` |
+
+A junas-scraped corpus is therefore drop-in compatible with downstream
+SG legal AI tooling that expects this envelope, without re-mapping.
 
 ## When a `benchmark_eligible` flag is False
 

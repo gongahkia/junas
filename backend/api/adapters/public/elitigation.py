@@ -1,10 +1,18 @@
-"""eLitigation public judgments adapter — TOS-gated per #34."""
+"""eLitigation public judgments adapter — TOS-gated per #34.
+
+Bronze schema reference: Supreme Court spider yields per-judgment rows
+with the judgment metadata extracted from page structure. ``body`` is
+the full judgment text. Large judgments (>1MB scrapy items) historically
+required field splitting; the canonical row keeps ``body`` as the
+authoritative text and downstream loaders chunk for ES.
+"""
 from __future__ import annotations
 
 from typing import Iterator
 
 from api.adapters.base import (
     AdapterTier,
+    DocType,
     LegalSourceAdapter,
     SourceAdapterError,
     SourceDocument,
@@ -30,6 +38,21 @@ class ElitigationAdapter(LegalSourceAdapter):
         # Conservative default until #34 TOS pass clears the source.
         benchmark_eligible=False,
     )
+
+    doc_type: str = DocType.CASE.value
+
+    extra_schema: dict[str, str] = {
+        "citation": "str (neutral citation, e.g. [2023] SGCA 5)",
+        "coram": "list[str] (presiding judges)",
+        "author": "str (judgment author)",
+        "counsel": "list[str] | str",
+        "categories": "list[str] (case categorisation tags)",
+        "decision_date": "str (court-recorded decision date)",
+        "pub_date": "str (publication date)",
+        "proceedings_no": "str",
+        "body": "list[str] (judgment paragraphs)",
+        "split": "int | None (chunk index when judgment exceeds row size)",
+    }
 
     def fetch_all(self) -> Iterator[SourceDocument]:
         raise SourceAdapterError(

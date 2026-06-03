@@ -5,6 +5,7 @@ from typing import Iterator
 
 from api.adapters.base import (
     AdapterTier,
+    DocType,
     LegalSourceAdapter,
     SourceAdapterError,
     SourceDocument,
@@ -13,6 +14,9 @@ from api.adapters.base import (
 
 
 class PracticalLawSgAdapter(LegalSourceAdapter):
+    doc_type: str = DocType.GUIDELINE.value
+    extra_schema: dict[str, str] = {}
+
     metadata = SourceMetadata(
         source_id="practical-law-sg",
         display_name="Practical Law Singapore (Thomson Reuters)",

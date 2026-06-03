@@ -11,6 +11,7 @@ from typing import Iterator
 
 from api.adapters.base import (
     AdapterTier,
+    DocType,
     LegalSourceAdapter,
     SourceAdapterError,
     SourceDocument,
@@ -34,6 +35,18 @@ class PdpcGuidanceAdapter(LegalSourceAdapter):
         crawl_delay_seconds=3.0,
         requires_attribution=True,
     )
+
+    doc_type: str = DocType.GUIDELINE.value
+
+    extra_schema: dict[str, str] = {
+        "category": "str (e.g. Key Concepts, Selected Topics, Healthcare)",
+        "title": "str",
+        "blurb": "str | None",
+        "tags": "list[str]",
+        "file_urls": "list[str] (PDF urls — primary content lives here)",
+        "other_urls": "list[str]",
+        "extracted_worked_examples": "list[{scenario, statute_section, label}]",
+    }
 
     def fetch_all(self) -> Iterator[SourceDocument]:
         raise SourceAdapterError("PdpcGuidanceAdapter.fetch_all() not implemented; see #60")

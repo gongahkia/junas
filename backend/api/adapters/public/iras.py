@@ -5,6 +5,7 @@ from typing import Iterator
 
 from api.adapters.base import (
     AdapterTier,
+    DocType,
     LegalSourceAdapter,
     SourceAdapterError,
     SourceDocument,
@@ -29,6 +30,15 @@ class IrasAdapter(LegalSourceAdapter):
         # IRAS coverage deferred to v0.3 per coverage-matrix.md §7.
         benchmark_eligible=False,
     )
+
+    doc_type: str = DocType.GUIDELINE.value
+
+    extra_schema: dict[str, str] = {
+        "guide_category": "str",
+        "title": "str",
+        "tax_topic": "str",
+        "file_urls": "list[str]",
+    }
 
     def fetch_all(self) -> Iterator[SourceDocument]:
         raise SourceAdapterError("IrasAdapter.fetch_all() deferred to v0.3")

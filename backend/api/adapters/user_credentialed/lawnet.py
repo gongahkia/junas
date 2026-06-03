@@ -5,6 +5,7 @@ from typing import Iterator
 
 from api.adapters.base import (
     AdapterTier,
+    DocType,
     LegalSourceAdapter,
     SourceAdapterError,
     SourceDocument,
@@ -13,6 +14,9 @@ from api.adapters.base import (
 
 
 class LawnetAdapter(LegalSourceAdapter):
+    doc_type: str = DocType.CASE.value
+    extra_schema: dict[str, str] = {}
+
     metadata = SourceMetadata(
         source_id="lawnet",
         display_name="LawNet (Singapore Academy of Law)",

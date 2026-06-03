@@ -1,10 +1,17 @@
-"""PDPC enforcement decisions adapter — public, regulator-published."""
+"""PDPC enforcement decisions adapter — public, regulator-published.
+
+Bronze schema reference: PDPC content is heterogeneous; the spider yields
+items differentiated by ``resource_type``. For SGLB-01 (PDPA-Outcome) the
+adapter focuses on ``resource_type == "decision"``; ``undertaking`` rows
+are an adjacent enforcement form and can feed counterfactual tasks.
+"""
 from __future__ import annotations
 
 from typing import Iterator
 
 from api.adapters.base import (
     AdapterTier,
+    DocType,
     LegalSourceAdapter,
     SourceAdapterError,
     SourceDocument,
@@ -27,6 +34,19 @@ class PdpcAdapter(LegalSourceAdapter):
         crawl_delay_seconds=3.0,
         requires_attribution=True,
     )
+
+    doc_type: str = DocType.ENFORCEMENT_DECISION.value
+
+    extra_schema: dict[str, str] = {
+        "resource_type": "str (decision | undertaking | guideline | help_and_resources)",
+        "decision_title": "str (for resource_type=decision)",
+        "dp_obligations": "list[str] (PDPC obligation tags as published)",
+        "decision": "str (PDPC outcome verbiage)",
+        "pub_date": "str (publication date in PDPC's format)",
+        "blurb": "str | None",
+        "tags": "list[str]",
+        "file_urls": "list[str] (PDF attachments)",
+    }
 
     def fetch_all(self) -> Iterator[SourceDocument]:
         raise SourceAdapterError("PdpcAdapter.fetch_all() not implemented; see #27")

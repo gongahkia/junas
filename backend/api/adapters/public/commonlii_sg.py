@@ -5,6 +5,7 @@ from typing import Iterator
 
 from api.adapters.base import (
     AdapterTier,
+    DocType,
     LegalSourceAdapter,
     SourceAdapterError,
     SourceDocument,
@@ -28,6 +29,16 @@ class CommonliiSgAdapter(LegalSourceAdapter):
         crawl_delay_seconds=5.0,
         requires_attribution=True,
     )
+
+    doc_type: str = DocType.CASE.value
+
+    extra_schema: dict[str, str] = {
+        "citation": "str (neutral or report citation)",
+        "court_code": "str (SGCA | SGHC | SGDC etc.)",
+        "year": "int",
+        "case_no": "int",
+        "html_url": "str (canonical CommonLII page)",
+    }
 
     def fetch_all(self) -> Iterator[SourceDocument]:
         raise SourceAdapterError("CommonliiSgAdapter.fetch_all() not implemented")

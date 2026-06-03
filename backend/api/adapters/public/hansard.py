@@ -1,10 +1,17 @@
-"""Singapore Parliament Hansard adapter — public debates."""
+"""Singapore Parliament Hansard adapter — public debates.
+
+Bronze schema reference: hansard items are JSON topic payloads from the
+sprs API. Each topic carries reportType, sittingDate, and content. The
+adapter preserves the JSON payload on ``extra.payload`` so downstream
+consumers can apply their own structure (e.g. per-speaker snapshots).
+"""
 from __future__ import annotations
 
 from typing import Iterator
 
 from api.adapters.base import (
     AdapterTier,
+    DocType,
     LegalSourceAdapter,
     SourceAdapterError,
     SourceDocument,
@@ -30,6 +37,16 @@ class HansardAdapter(LegalSourceAdapter):
         # coverage-matrix.md §7.
         benchmark_eligible=False,
     )
+
+    doc_type: str = DocType.HANSARD_TOPIC.value
+
+    extra_schema: dict[str, str] = {
+        "topic_id": "str",
+        "topic_version": "str",
+        "report_type": "str",
+        "sitting_date": "str",
+        "payload": "dict (raw sprs topic JSON)",
+    }
 
     def fetch_all(self) -> Iterator[SourceDocument]:
         raise SourceAdapterError("HansardAdapter.fetch_all() deferred to v0.3")

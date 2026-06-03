@@ -5,6 +5,7 @@ from typing import Iterator
 
 from api.adapters.base import (
     AdapterTier,
+    DocType,
     LegalSourceAdapter,
     SourceAdapterError,
     SourceDocument,
@@ -13,6 +14,9 @@ from api.adapters.base import (
 
 
 class LexisNexisSgAdapter(LegalSourceAdapter):
+    doc_type: str = DocType.CASE.value
+    extra_schema: dict[str, str] = {}
+
     metadata = SourceMetadata(
         source_id="lexisnexis-sg",
         display_name="LexisNexis Singapore",

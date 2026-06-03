@@ -5,6 +5,7 @@ from typing import Iterator
 
 from api.adapters.base import (
     AdapterTier,
+    DocType,
     LegalSourceAdapter,
     SourceAdapterError,
     SourceDocument,
@@ -27,6 +28,16 @@ class AustliiSgAdapter(LegalSourceAdapter):
         crawl_delay_seconds=5.0,
         requires_attribution=True,
     )
+
+    doc_type: str = DocType.CASE.value
+
+    extra_schema: dict[str, str] = {
+        "citation": "str",
+        "court_code": "str",
+        "year": "int",
+        "case_no": "int",
+        "html_url": "str",
+    }
 
     def fetch_all(self) -> Iterator[SourceDocument]:
         raise SourceAdapterError("AustliiSgAdapter.fetch_all() not implemented")
