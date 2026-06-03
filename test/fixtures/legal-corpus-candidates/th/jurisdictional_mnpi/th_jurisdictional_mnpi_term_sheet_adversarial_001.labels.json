@@ -3,13 +3,249 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,150,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "60,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "8.25%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "90%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window applies from quarter-end until MD&A is posted on SETLink"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure to analysts is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "recipients must not trade issuer securities"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Waranuch Dechchai"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "waranuch.d@orchid-asiatica.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border remittance subject to exchange control filing with Bank of Siam and equivalent approvals"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,150,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "60,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "8.25%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "90%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window applies from quarter-end until MD&A is posted on SETLink"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure to analysts is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "recipients must not trade issuer securities"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Waranuch Dechchai"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "waranuch.d@orchid-asiatica.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border remittance subject to exchange control filing with Bank of Siam and equivalent approvals"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal+mnpi@riverstone-capital.t h"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Nova Meridian Foods Co., Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "long-stop date: 30 Listopad 2567"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "insiders are restricted under SEA Section 241"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "\u226515%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "volume_commitment",
+      "matched_text": "60,000,000 new ordinary shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Bridge Financing and Share Subscription"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "no MAC clause",
+      "reason": "Negated MAC; rule excludes negated MAC/MAE phrases."
+    },
+    {
+      "matched_text": "lotus v2",
+      "reason": "Does not match 'Project <CapitalizedName>' transaction codename pattern."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "D e a l   I D: TH\u2013ORC//2567\u201304 \u03b2",
+      "concept": "internal deal identifier",
+      "reason": "Potential internal quasi-identifier but not clearly covered by allowed rules."
+    },
+    {
+      "matched_text": "Board meeting scheduled 12 Sar a p h a d a 2567",
+      "concept": "issuer board schedule",
+      "reason": "Potentially sensitive timing but not an allowed embargo marker."
+    },
+    {
+      "matched_text": "immediate public disclosure via SET within one business day",
+      "concept": "disclosure timing window",
+      "reason": "Local disclosure timing may be MNPI-relevant but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "exclusivity 60 days",
+      "concept": "exclusivity period",
+      "reason": "Material term potentially price-sensitive but not an explicit allowed rule category."
+    },
+    {
+      "matched_text": "SET News No. OA-IR/2566-014 (already announced)",
+      "concept": "public reference",
+      "reason": "Explicitly public/stale reference; relevant to nonpublic status but outside allowed rule set."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

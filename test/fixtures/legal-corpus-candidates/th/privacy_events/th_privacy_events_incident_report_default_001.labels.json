@@ -3,13 +3,170 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@siammeridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Thanapol Chinnawat"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lalita Wongjai"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-Border Processing"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Mango River"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "market silent period"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@siammeridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Thanapol Chinnawat"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lalita Wongjai"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Siriporn Jantasiri"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-Border Processing"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data Export Approval DX-AP-03"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Mango River"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "market silent period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "credential-stuffing attempt"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Defined-role term not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Khun Siriporn Jantasiri",
+      "concept": "named_person (non-standard honorific)",
+      "reason": "Thai honorific 'Khun' may not be recognized by strict honorific-based detectors."
+    },
+    {
+      "matched_text": "credential-stuffing attempt",
+      "concept": "cyber_incident_pre_disclosure",
+      "reason": "Describes a cyber event pre-disclosure but does not use the exact keyword 'cyber incident'."
+    },
+    {
+      "matched_text": "confidential financing initiative",
+      "concept": "nonpublic_marker",
+      "reason": "Indicates nonpublic nature via 'confidential' which may be too generic for strict matching."
+    },
+    {
+      "matched_text": "Data Export Approval DX-AP-03",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Evidence of cross-border governance/approval but not an explicit 'transfer' phrase."
+    },
+    {
+      "matched_text": "not material under the Securities and Exchange Act B.E. 2535 (as amended)",
+      "concept": "material_event determination",
+      "reason": "Materiality conclusion is negative; unclear mapping to 'material_event' rule for MNPI tagging."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'DSAR' text='DSAR'",
+    "drop must_detect: invalid rule 'erasure' text='erasure'",
+    "drop must_detect: invalid rule 'retention' text='retention'",
+    "drop ideal_must_detect: invalid rule 'DSAR' text='DSAR'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='erasure'",
+    "drop ideal_must_detect: invalid rule 'retention' text='retention'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,327 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pramote.anuwat@siammeridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "chariya.v@siammeridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Pramote Anuwat"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Chariya Vongpaisal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information relative to Siam Meridian securities"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No selective disclosure to analysts/investors"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "signing date"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,600,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 30,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5.20%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "40%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pramote.anuwat@siammeridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "chariya.v@siammeridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Pramote Anuwat"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Chariya Vongpaisal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information relative to Siam Meridian securities"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No selective disclosure to analysts/investors"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "signing date"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,600,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 30,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5.20%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "40%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Acquisition and Financing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "to acquire 60% of Eastern Palma Holdings Co., Ltd. (\u201cEPH\u201d), an unlisted Thai company, for THB 1,480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "financing via private placement of THB 1,600,000,000 debentures to North Coast Capital (Thailand) Co., Ltd., 5-year, 5.20% fixed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "triggering a Class 1 acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Signing targeted 20 June 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Board meeting 18 June 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "closing within 90 days post-CPs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Break fee THB 30,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "insiders will observe a trading blackout from circulation of Board materials until 24 hours after SET publication of the transaction notice and financial statements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "an unaudited Q2 revenue bridge"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet announced and therefore inside information relative to Siam Meridian securities"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "subject to SEC Thailand approval for private placement and registration of debentures"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Maintain Net Debt/EBITDA \u2264 3.5x post-close"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "no dividend beyond 40% of NPAT until leverage \u2264 2.5x"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proceeds applied only to EPH acquisition and transaction fees"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "no change-in-control at Siam Meridian without debenture holder consent"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Siam Meridian",
+      "reason": "Defined term/entity name; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "EPH",
+      "reason": "Defined term abbreviation; not PII/MNPI"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC/MAE phrase should not be labeled per rule 8"
+    },
+    {
+      "matched_text": "press release dated 15 November 2024",
+      "reason": "Publicly disclosed; not MNPI"
+    },
+    {
+      "matched_text": "Bangna plant automation pilot is complete",
+      "reason": "Public information per document; not MNPI"
+    },
+    {
+      "matched_text": "widely reported draft biomass tariff discussions",
+      "reason": "Public domain information; not MNPI"
+    },
+    {
+      "matched_text": "The Port Authority of Eastern Gulf\u2019s maintenance schedule for Berth C",
+      "reason": "Non-issuer operational update; not issuer-specific MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "PDPA-compliant data-room consents",
+      "concept": "PDPA consent marker",
+      "reason": "References data processing consent but allowed PII markers only cover withdrawal/minimisation/cross-border"
+    },
+    {
+      "matched_text": "This term sheet and any personal data will be handled under confidentiality and PDPA",
+      "concept": "PDPA handling/processing",
+      "reason": "Privacy compliance statement; not a specific allowed PDPA marker"
+    },
+    {
+      "matched_text": "a trading halt may be requested to prevent disorderly markets",
+      "concept": "trading halt request",
+      "reason": "Market control measure relevant to MNPI/disclosure but not in allowed rule list"
+    },
+    {
+      "matched_text": "announcement via SETLink and SET News within 1 business day of Board resolution and in any case before the next SET trading session if price-sensitive",
+      "concept": "disclosure timing (SET/SEA)",
+      "reason": "Issuer-specific disclosure timing guidance; useful for MNPI context but not a defined marker in the allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
