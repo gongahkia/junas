@@ -6,9 +6,9 @@ This roadmap is a public direction board for contributors and evaluators. It is 
 
 | Column | Meaning |
 |--------|---------|
-| Now | Current contributor-facing polish and trust work. These are the best issues to check first. |
-| Next | Useful follow-up work once the contributor surface is cleaner. |
-| Later | Brand, launch, and stretch ideas that should not block core quality. |
+| Now | Current v1 contributor-facing polish and trust work. These are the best issues to check first. |
+| Next | Phase-2 distribution and launch preparation once the contributor surface is cleaner. |
+| Later | Brand, launch, and stretch ideas that should not imply commitments or block core quality. |
 
 ## Now
 
