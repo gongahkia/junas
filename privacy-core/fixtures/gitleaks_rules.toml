@@ -1,10 +1,10 @@
 title = "aki gitleaks fixture"
 
 [[rules]]
-id = "fixture-github-pat"
-description = "Fixture GitHub personal access token"
-regex = '''ghp_[A-Za-z0-9]{36}'''
-keywords = ["ghp_"]
+id = "fixture-aki-token"
+description = "Fixture Aki-only token shape"
+regex = '''aki_fixture_[A-Za-z0-9]{12}'''
+keywords = ["aki_fixture_"]
 
 [[rules]]
 id = "fixture-private-key"

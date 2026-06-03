@@ -100,11 +100,11 @@ mod tests {
         let fixture = include_str!("../../fixtures/gitleaks_rules.toml");
         let patterns = load_gitleaks_from_str(fixture, DEFAULT_MAX_IMPORTED_PATTERNS).unwrap();
 
-        let github = patterns
+        let fixture_token = patterns
             .iter()
-            .find(|p| p.name == "gitleaks:fixture-github-pat")
+            .find(|p| p.name == "gitleaks:fixture-aki-token")
             .unwrap();
-        assert!(github.is_match("token=ghp_abcdefghijklmnopqrstuvwxyzABCDEFGH12"));
+        assert!(fixture_token.is_match("token=aki_fixture_ABCDEF123456"));
 
         let private_key = patterns
             .iter()
