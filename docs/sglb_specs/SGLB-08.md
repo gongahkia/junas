@@ -44,8 +44,12 @@ Model output is a single-element JSON list with one of:
 
 - Adapter: none external. Dataset bootstraps from the SG clause library
   at `backend/api/services/clause_service.py`.
-- Labelling: ensemble of ≥3 frontier LLM judges with a fixed prompt;
-  label is majority vote; disagreements held out and hand-spot-checked.
+- Synthetic-tier tone taxonomy lives at
+  `backend/benchmark/synthetic/sglb_08_tones.yaml`. The selected tone is the
+  gold label by construction for generated candidates.
+- Historical or non-synthetic label studies may still use an ensemble of ≥3
+  frontier LLM judges with a fixed prompt; those votes are not used as the
+  synthetic gold label.
 
 ## Limitations
 
@@ -68,3 +72,8 @@ Model output is a single-element JSON list with one of:
 SGLB-08 may use `benchmark.synthetic` because the target tone is fixed by the
 generation instruction. Candidates must be human-reviewed before promotion to
 the reviewed dataset, and receipts must be reported under the `synthetic` tier.
+
+The synthetic planner emits only tone labels declared in
+`backend/benchmark/synthetic/sglb_08_tones.yaml`. Prompt rendering includes the
+tone description and generation guidance, and validation rejects candidates
+whose label, declared tone metadata, or tone taxonomy version diverges.

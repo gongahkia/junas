@@ -36,8 +36,15 @@ required audit metadata, reviewed-only state, and aggregate dataset consistency.
 It also runs task-specific quality gates:
 
 - prompt leakage / markdown-fence / refusal text is a hard error;
+- SGLB-08 tone labels outside `sglb_08_tones.yaml`, stale tone taxonomy
+  versions, or label/metadata mismatches are hard errors;
 - SGLB-12 machine-readable issue-label leakage is a hard error;
+- SGLB-12 labels outside `sglb_12_taxonomy.yaml` are hard errors;
+- SGLB-12 issue compositions outside `sglb_12_compositions.yaml`, stale
+  composition versions, or label/composition mismatches are hard errors;
 - SGLB-15 input-vs-expected constraint mismatch is a hard error;
+- SGLB-15 constraint sets outside `sglb_15_constraints.yaml`, stale taxonomy
+  versions, or invalid template/set pairings are hard errors;
 - length drift and SGLB-08 tone words appearing verbatim are warnings for human
   review, not automatic rejection.
 
@@ -71,6 +78,13 @@ python -m benchmark.synthetic generate --task sglb_12 --n 100 \
   --providers anthropic,openai,google --max-cost-usd 5
 ```
 
+The Makefile target passes through the same controls:
+
+```sh
+make synth-gen TASK=sglb_08 N=20 DRY_RUN=1
+make synth-gen TASK=sglb_08 N=50 PROVIDERS="anthropic,openai,google" MAX_COST_USD=5
+```
+
 Generation loads `.env` by default and only fills missing environment variables.
 Use `--env-file path/to/.env` to select a file or `--no-env-file` to require the
 current shell environment. Real providers fail a preflight check before any LLM
@@ -83,3 +97,36 @@ client is constructed when required keys are missing:
 All randomness goes through one `random.Random(seed)` in the planner, so the
 same `(task, n, providers, seed, generator_version, prompt_version)` yields the
 same matrix and candidate metadata.
+
+## SGLB-08 Tone Taxonomy
+
+`sglb_08_tones.yaml` is the synthetic-tier source of truth for SGLB-08 tone
+labels. It defines the four allowed labels, their descriptions, and generation
+guidance. The planner only emits tones from this file, prompt rendering includes
+the tone context, and `validate` rejects candidates whose label, declared tone,
+or tone taxonomy version diverges.
+
+## SGLB-12 Taxonomy
+
+`sglb_12_taxonomy.yaml` is the synthetic-tier source of truth for allowed
+SGLB-12 issue codes. It currently mirrors the 25-label surface in issue #53
+across PDPA, Employment Act / MOM, and Rules of Court 2021. The generation
+planner canonicalises aliases through this file, prompt rendering includes each
+label's trigger description, and `validate` rejects any candidate whose labels
+fall outside the taxonomy.
+
+`sglb_12_compositions.yaml` is the source of truth for the synthetic
+multi-issue matrix. Each composition declares a fixed 2-4 label set, mixes at
+least two source families, and is validated against `sglb_12_taxonomy.yaml`.
+The planner only emits declared compositions, and `validate` rejects candidates
+whose labels do not match their declared composition ID and version.
+
+## SGLB-15 Constraint Sets
+
+`sglb_15_constraints.yaml` is the synthetic-tier source of truth for SGLB-15
+constraint sets. It declares each set's Python constraint payload and the SG
+template IDs it can be paired with. The generation planner only emits
+template/set combinations allowed by this file, prompt rendering includes the
+set description, and `validate` rejects stale set IDs, non-applicable
+template/set pairings, or constraint payloads that do not match the declared
+set.

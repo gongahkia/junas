@@ -1,0 +1,62 @@
+version: sglb-12-synthetic-compositions-v1
+description: >
+  Synthetic-tier composition matrix for SGLB-12. Each composition is a fixed
+  multi-issue label set used as the gold label by construction; labels are
+  validated against sglb_12_taxonomy.yaml.
+compositions:
+  - id: pdpa_protection_ea_notice
+    description: Personal data security failure paired with termination notice breach.
+    labels:
+      - pdpa.protection_obligation
+      - ea.notice_period_breach
+  - id: pdpa_consent_roc_service_out
+    description: Unconsented personal-data use paired with defective overseas service.
+    labels:
+      - pdpa.consent_not_obtained
+      - roc.service_out_of_jurisdiction_without_leave
+  - id: pdpa_notification_ea_salary_roc_originating_claim
+    description: Notification failure, salary arrears, and defective originating claim.
+    labels:
+      - pdpa.notification_failure
+      - ea.salary_arrears
+      - roc.originating_claim_improper_form
+  - id: pdpa_retention_ea_ot
+    description: Over-retention of employee data paired with unpaid overtime.
+    labels:
+      - pdpa.retention_limitation
+      - ea.ot_payment_breach
+  - id: pdpa_dnc_roc_expert_evidence
+    description: Marketing-message DNC breach paired with expert-evidence procedure defects.
+    labels:
+      - pdpa.dnc_registry_breach
+      - roc.expert_evidence_procedure_breach
+  - id: pdpa_protection_ea_leave_roc_ideals
+    description: Data security, paid-leave, and litigation-cooperation failures.
+    labels:
+      - pdpa.protection_obligation
+      - ea.paid_leave_breach
+      - roc.ideals_cooperation_breach
+  - id: pdpa_consent_notification_ea_notice_roc_service
+    description: Consent and notification failures combined with employment notice and service-out issues.
+    labels:
+      - pdpa.consent_not_obtained
+      - pdpa.notification_failure
+      - ea.notice_period_breach
+      - roc.service_out_of_jurisdiction_without_leave
+  - id: pdpa_retention_ea_salary_roc_expert
+    description: Data retention, salary arrears, and expert procedure issues.
+    labels:
+      - pdpa.retention_limitation
+      - ea.salary_arrears
+      - roc.expert_evidence_procedure_breach
+  - id: pdpa_transfer_ea_work_pass
+    description: Cross-border data-transfer safeguards paired with work-pass fraud.
+    labels:
+      - pdpa.transfer_limitation_breach
+      - ea.work_pass_fraud
+  - id: pdpa_intermediary_ea_cpf_roc_single_application
+    description: Data-intermediary failure, CPF non-contribution, and single-application breach.
+    labels:
+      - pdpa.data_intermediary_failure
+      - ea.cpf_non_contribution
+      - roc.single_application_pending_breach

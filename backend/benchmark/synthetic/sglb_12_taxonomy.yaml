@@ -1,0 +1,110 @@
+version: sglb-12-synthetic-taxonomy-v1
+description: >
+  Synthetic-tier issue taxonomy for SGLB-12. Labels are used only when the
+  generation instruction fixes the gold issue set; this file is not a
+  regulator-tier extracted corpus.
+issues:
+  - code: pdpa.consent_not_obtained
+    source: pdpa
+    source_ref: Personal Data Protection Act 2012, consent obligation
+    trigger: Organisation collects, uses, or discloses personal data without valid consent or a recognised exception.
+  - code: pdpa.purpose_limitation_breach
+    source: pdpa
+    source_ref: Personal Data Protection Act 2012, purpose limitation obligation
+    trigger: Personal data is used or disclosed for a purpose not notified to the individual and not reasonably appropriate.
+  - code: pdpa.notification_failure
+    source: pdpa
+    source_ref: Personal Data Protection Act 2012, notification obligation
+    trigger: Individual is not told the purposes for collection, use, or disclosure before or at collection.
+  - code: pdpa.protection_obligation
+    aliases: [pdpa.protection_obligation_breach]
+    source: pdpa
+    source_ref: Personal Data Protection Act 2012, protection obligation
+    trigger: Organisation fails to make reasonable security arrangements to protect personal data.
+  - code: pdpa.retention_limitation
+    aliases: [pdpa.retention_limitation_breach]
+    source: pdpa
+    source_ref: Personal Data Protection Act 2012, retention limitation obligation
+    trigger: Personal data is retained after the legal or business purpose has ended.
+  - code: pdpa.data_portability_failure
+    source: pdpa
+    source_ref: Personal Data Protection Act 2012, data portability obligation
+    trigger: Organisation fails to transmit covered personal data when a valid portability request applies.
+  - code: pdpa.dpo_not_appointed
+    source: pdpa
+    source_ref: Personal Data Protection Act 2012, accountability obligation
+    trigger: Organisation has no designated person responsible for PDPA compliance.
+  - code: pdpa.dnc_registry_breach
+    source: pdpa
+    source_ref: Personal Data Protection Act 2012, Do Not Call provisions
+    trigger: Organisation sends specified marketing messages without required DNC checks or consent.
+  - code: pdpa.data_intermediary_failure
+    source: pdpa
+    source_ref: Personal Data Protection Act 2012, data intermediary obligations
+    trigger: Data intermediary mishandles personal data while processing it for another organisation.
+  - code: pdpa.transfer_limitation_breach
+    source: pdpa
+    source_ref: Personal Data Protection Act 2012, transfer limitation obligation
+    trigger: Personal data is transferred outside Singapore without comparable protection safeguards.
+  - code: ea.notice_period_breach
+    source: ea
+    source_ref: Employment Act 1968, termination notice provisions
+    trigger: Employer or employee terminates without required notice or salary in lieu.
+  - code: ea.salary_arrears
+    aliases: [ea.salary_payment_breach]
+    source: ea
+    source_ref: Employment Act 1968, salary payment provisions
+    trigger: Salary is unpaid, underpaid, or paid late beyond statutory timelines.
+  - code: ea.cpf_non_contribution
+    source: ea
+    source_ref: CPF Act / MOM employment enforcement context
+    trigger: Employer fails to make required CPF contributions for covered employees.
+  - code: ea.unfair_dismissal
+    source: ea
+    source_ref: Employment Act 1968, wrongful dismissal framework
+    trigger: Employee is dismissed without just cause or excuse, including retaliatory dismissal.
+  - code: ea.foreign_worker_act_breach
+    source: ea
+    source_ref: Employment of Foreign Manpower Act / MOM enforcement context
+    trigger: Employer breaches foreign manpower conditions or work pass requirements.
+  - code: ea.work_pass_fraud
+    source: ea
+    source_ref: Employment of Foreign Manpower Act / MOM enforcement context
+    trigger: False declarations or sham arrangements are used to obtain or maintain a work pass.
+  - code: ea.paid_leave_breach
+    source: ea
+    source_ref: Employment Act 1968, leave entitlement provisions
+    trigger: Covered employee is denied statutory annual leave, sick leave, or other paid leave.
+  - code: ea.ot_payment_breach
+    aliases: [ea.overtime_pay_breach]
+    source: ea
+    source_ref: Employment Act 1968, overtime payment provisions
+    trigger: Covered employee works overtime without statutory overtime pay.
+  - code: ea.rest_day_breach
+    source: ea
+    source_ref: Employment Act 1968, rest day provisions
+    trigger: Covered employee is denied required weekly rest day protections.
+  - code: ea.employment_pass_misrepresentation
+    source: ea
+    source_ref: Employment of Foreign Manpower Act / MOM enforcement context
+    trigger: Employment pass application or renewal contains false salary, role, qualification, or employer information.
+  - code: roc.originating_claim_improper_form
+    source: roc
+    source_ref: Rules of Court 2021, originating process requirements
+    trigger: Civil proceedings are commenced using the wrong originating form or deficient originating claim.
+  - code: roc.service_out_of_jurisdiction_without_leave
+    source: roc
+    source_ref: Rules of Court 2021, service out of jurisdiction provisions
+    trigger: Process is served outside Singapore without required leave or gateway compliance.
+  - code: roc.single_application_pending_breach
+    source: roc
+    source_ref: Rules of Court 2021, single application pending trial framework
+    trigger: Party files piecemeal interlocutory applications contrary to the single-application framework.
+  - code: roc.ideals_cooperation_breach
+    source: roc
+    source_ref: Rules of Court 2021, Ideals and duty to cooperate
+    trigger: Party conducts litigation contrary to expeditious, proportionate, economical, or cooperative procedure.
+  - code: roc.expert_evidence_procedure_breach
+    source: roc
+    source_ref: Rules of Court 2021, expert evidence provisions
+    trigger: Expert evidence is used without required permission, independence, report contents, or procedural compliance.

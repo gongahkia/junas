@@ -51,6 +51,13 @@ Model output is a JSON list of issue labels:
      inclusion.
 - Issue taxonomy lives at `data/sglb_12/taxonomy.yaml`; each label has
   a trigger condition citing the underlying Act/Rule.
+- Synthetic-tier scaffolding currently stores its allowed issue taxonomy at
+  `backend/benchmark/synthetic/sglb_12_taxonomy.yaml`. This file mirrors the
+  intended 25-code surface and gates generated labels, but does not replace the
+  future regulator-tier source-derived taxonomy.
+- Synthetic-tier composition cells live at
+  `backend/benchmark/synthetic/sglb_12_compositions.yaml`. Each cell declares
+  the fixed 2-4 issue labels that become the gold label by construction.
 
 ## Limitations
 
@@ -73,3 +80,10 @@ SGLB-12 may use `benchmark.synthetic` because the issue set is fixed by the
 compound-scenario generation instruction. The synthetic pipeline does not use a
 second LLM autolabel call; candidates must be human-reviewed before promotion
 and are reported under the `synthetic` tier.
+
+The synthetic planner canonicalises all issue labels against
+`backend/benchmark/synthetic/sglb_12_taxonomy.yaml` and emits only declared
+cells from `backend/benchmark/synthetic/sglb_12_compositions.yaml`. Prompt
+rendering includes both composition context and issue-trigger descriptions, and
+validation rejects candidates with labels outside the taxonomy or labels that
+do not match their declared composition.

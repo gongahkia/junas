@@ -52,6 +52,9 @@ Model output is the drafted document as Markdown.
   durations, currency amounts.
 - Constraint generation is programmatic: each brief samples 3–6
   constraints from the taxonomy.
+- Synthetic-tier scaffolding stores constraint-set applicability at
+  `backend/benchmark/synthetic/sglb_15_constraints.yaml`. This gates which
+  constraint payloads can be paired with each SG template type.
 
 ## Limitations
 
@@ -73,3 +76,9 @@ Model output is the drafted document as Markdown.
 SGLB-15 may use `benchmark.synthetic` because every hard constraint is fixed by
 the generation instruction and scored by Python functions. Candidates must be
 human-reviewed before promotion and are reported under the `synthetic` tier.
+
+The synthetic planner reads `backend/benchmark/synthetic/sglb_15_constraints.yaml`
+to pair template IDs with applicable constraint sets. Validation rejects
+candidate fixtures whose input constraints diverge from expected constraints,
+whose constraint set is stale or unknown, or whose template/set pairing is not
+declared in that taxonomy.

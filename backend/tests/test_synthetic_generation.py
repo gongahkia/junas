@@ -26,6 +26,9 @@ from benchmark.synthetic.promoter import AUDIT_LOG, AGGREGATE_DATASET, promote_t
 from benchmark.synthetic.prompts import render_prompt
 from benchmark.synthetic.quality import check_case_quality
 from benchmark.synthetic.reviewer import record_decision, resolve_fixture
+from benchmark.synthetic.sglb_08 import load_tone_taxonomy
+from benchmark.synthetic.sglb_12 import issue_prompt_context, load_issue_compositions, load_issue_taxonomy
+from benchmark.synthetic.sglb_15 import load_constraint_taxonomy
 from benchmark.synthetic.taxonomy import cells_for, supported_tasks
 
 
@@ -47,6 +50,17 @@ def test_sglb_08_taxonomy_covers_clause_tones_and_variants() -> None:
     variants = {cell.variant for cell in cells}
     assert tones == {"standard", "aggressive", "balanced", "protective"}
     assert variants == {"default", "adversarial", "negative"}
+    assert all(cell.params["tone_taxonomy_version"] == load_tone_taxonomy().version for cell in cells)
+    assert all(cell.params["tone_context"]["id"] == cell.params["tone"] for cell in cells)
+
+
+def test_sglb_08_tone_taxonomy_loads_definitions() -> None:
+    taxonomy = load_tone_taxonomy()
+    assert taxonomy.version == "sglb-08-synthetic-tones-v1"
+    assert taxonomy.ids == ("standard", "aggressive", "balanced", "protective")
+    assert "risk" in taxonomy.require_valid("protective").generation_guidance.lower()
+    with pytest.raises(ValueError):
+        taxonomy.require_valid("not_a_tone")
 
 
 def test_sglb_12_taxonomy_uses_compound_issue_sets() -> None:
@@ -56,6 +70,46 @@ def test_sglb_12_taxonomy_uses_compound_issue_sets() -> None:
         labels = cell.label["labels"]
         assert 2 <= len(labels) <= 4
         assert all(label.startswith(("pdpa.", "ea.", "roc.")) for label in labels)
+        assert cell.params["composition_version"] == load_issue_compositions().version
+        assert cell.params["composition_id"]
+        assert len(cell.params["sources"]) >= 2
+        assert len(cell.params["issue_context"]) == len(labels)
+
+
+def test_sglb_12_yaml_taxonomy_has_25_issue_codes() -> None:
+    taxonomy = load_issue_taxonomy()
+    assert taxonomy.version == "sglb-12-synthetic-taxonomy-v1"
+    assert len(taxonomy.issues) == 25
+    sources = {issue.source for issue in taxonomy.issues}
+    assert sources == {"pdpa", "ea", "roc"}
+    assert {"pdpa.protection_obligation", "ea.notice_period_breach", "roc.expert_evidence_procedure_breach"} <= taxonomy.code_set
+
+
+def test_sglb_12_taxonomy_canonicalizes_legacy_aliases() -> None:
+    taxonomy = load_issue_taxonomy()
+    labels = taxonomy.require_valid(["ea.salary_payment_breach", "ea.overtime_pay_breach"])
+    assert labels == ("ea.salary_arrears", "ea.ot_payment_breach")
+
+
+def test_sglb_12_composition_matrix_is_validated_against_taxonomy() -> None:
+    taxonomy = load_issue_taxonomy()
+    matrix = load_issue_compositions()
+    assert matrix.version == "sglb-12-synthetic-compositions-v1"
+    assert len(matrix.compositions) == 10
+    for composition in matrix.compositions:
+        assert 2 <= len(composition.labels) <= 4
+        assert len(composition.sources) >= 2
+        assert set(composition.labels) <= taxonomy.code_set
+        assert matrix.require_valid(composition.id).id == composition.id
+    with pytest.raises(ValueError):
+        matrix.require_valid("not_a_composition")
+
+
+def test_sglb_12_issue_prompt_context_contains_trigger_text() -> None:
+    context = issue_prompt_context(["pdpa.protection_obligation", "ea.notice_period_breach"])
+    assert context[0]["code"] == "pdpa.protection_obligation"
+    assert "security" in context[0]["trigger"].lower()
+    assert context[1]["source"] == "ea"
 
 
 def test_sglb_15_taxonomy_references_registered_constraints() -> None:
@@ -66,6 +120,19 @@ def test_sglb_15_taxonomy_references_registered_constraints() -> None:
     }
     assert kinds <= set(CONSTRAINTS)
     assert {"named_party_present", "governing_law_singapore", "required_section_present"} <= kinds
+    assert all(cell.params["constraint_taxonomy_version"] == load_constraint_taxonomy().version for cell in cells_for("sglb_15"))
+    assert all(cell.params["constraint_set_id"] for cell in cells_for("sglb_15"))
+
+
+def test_sglb_15_constraint_taxonomy_loads_applicability() -> None:
+    taxonomy = load_constraint_taxonomy()
+    assert taxonomy.version == "sglb-15-synthetic-constraints-v1"
+    assert len(taxonomy.sets) == 4
+    assert "core_execution_formalities" in taxonomy.ids
+    assert taxonomy.applicable_sets("board-resolution-sg")
+    assert taxonomy.require_valid_set_for_template("core_execution_formalities", "board-resolution-sg").id == "core_execution_formalities"
+    with pytest.raises(ValueError):
+        taxonomy.require_valid_set_for_template("confidentiality_value_controls", "board-resolution-sg")
 
 
 def test_planner_expands_exact_n_and_candidate_paths(tmp_path: Path) -> None:
@@ -103,6 +170,7 @@ def test_prompt_sglb_08_contains_tone_label() -> None:
     text = "\n".join(message["content"] for message in prompt.messages)
     assert cell.params["tone"] in text
     assert "Gold label payload" in text
+    assert "Tone context" in text
 
 
 def test_prompt_sglb_12_contains_all_issue_labels() -> None:
@@ -110,6 +178,8 @@ def test_prompt_sglb_12_contains_all_issue_labels() -> None:
     text = "\n".join(message["content"] for message in render_prompt(cell).messages)
     for label in cell.label["labels"]:
         assert label in text
+    assert "Composition context" in text
+    assert "Issue trigger context" in text
 
 
 def test_prompt_sglb_15_contains_constraint_payload() -> None:
@@ -117,6 +187,7 @@ def test_prompt_sglb_15_contains_constraint_payload() -> None:
     text = "\n".join(message["content"] for message in render_prompt(cell).messages)
     for constraint in cell.label["constraints"]:
         assert constraint["kind"] in text
+    assert "Constraint-set context" in text
 
 
 def test_generator_shim_counts_calls_per_model(tmp_path: Path) -> None:
@@ -388,6 +459,34 @@ def test_quality_detects_prompt_leakage_in_clause(tmp_path: Path) -> None:
     assert any("prompt leakage" in error for error in report.errors)
 
 
+def test_quality_detects_sglb_08_tone_outside_taxonomy(tmp_path: Path) -> None:
+    item = build_plan(task="sglb_08", n=1, providers="mock", seed=1, base_dir=tmp_path)[0]
+    case = case_from_body(item=item, body="A neutral clause that does not disclose labels.", seed=1)
+    case["expected_output"]["labels"] = ["not_a_tone"]
+    report = check_case_quality(case)
+    assert report.ok is False
+    assert any("not in taxonomy" in error for error in report.errors)
+
+
+def test_quality_detects_sglb_08_tone_metadata_mismatch(tmp_path: Path) -> None:
+    item = build_plan(task="sglb_08", n=1, providers="mock", seed=1, base_dir=tmp_path)[0]
+    case = case_from_body(item=item, body="A neutral clause that does not disclose labels.", seed=1)
+    label = case["expected_output"]["labels"][0]
+    case["metadata"]["taxonomy_cell"]["params"]["tone"] = "protective" if label != "protective" else "standard"
+    report = check_case_quality(case)
+    assert report.ok is False
+    assert any("does not match declared tone metadata" in error for error in report.errors)
+
+
+def test_quality_detects_sglb_08_stale_tone_taxonomy(tmp_path: Path) -> None:
+    item = build_plan(task="sglb_08", n=1, providers="mock", seed=1, base_dir=tmp_path)[0]
+    case = case_from_body(item=item, body="A neutral clause that does not disclose labels.", seed=1)
+    case["metadata"]["taxonomy_cell"]["params"]["tone_taxonomy_version"] = "old"
+    report = check_case_quality(case)
+    assert report.ok is False
+    assert any("tone taxonomy version is missing or stale" in error for error in report.errors)
+
+
 def test_quality_detects_sglb_12_machine_label_leakage(tmp_path: Path) -> None:
     item = build_plan(task="sglb_12", n=1, providers="mock", seed=1, base_dir=tmp_path)[0]
     case = case_from_body(
@@ -400,6 +499,33 @@ def test_quality_detects_sglb_12_machine_label_leakage(tmp_path: Path) -> None:
     assert any("machine-readable issue labels" in error for error in report.errors)
 
 
+def test_quality_detects_sglb_12_label_outside_taxonomy(tmp_path: Path) -> None:
+    item = build_plan(task="sglb_12", n=1, providers="mock", seed=1, base_dir=tmp_path)[0]
+    case = case_from_body(item=item, body="A compound scenario without machine-readable labels.", seed=1)
+    case["expected_output"]["labels"] = ["pdpa.not_a_real_issue", "ea.notice_period_breach"]
+    report = check_case_quality(case)
+    assert report.ok is False
+    assert any("not in taxonomy" in error for error in report.errors)
+
+
+def test_quality_detects_sglb_12_stale_issue_composition(tmp_path: Path) -> None:
+    item = build_plan(task="sglb_12", n=1, providers="mock", seed=1, base_dir=tmp_path)[0]
+    case = case_from_body(item=item, body="A compound scenario without machine-readable labels.", seed=1)
+    case["metadata"]["taxonomy_cell"]["params"]["composition_id"] = "does_not_exist"
+    report = check_case_quality(case)
+    assert report.ok is False
+    assert any("unknown issue composition" in error for error in report.errors)
+
+
+def test_quality_detects_sglb_12_label_mismatch_with_composition(tmp_path: Path) -> None:
+    item = build_plan(task="sglb_12", n=1, providers="mock", seed=1, base_dir=tmp_path)[0]
+    case = case_from_body(item=item, body="A compound scenario without machine-readable labels.", seed=1)
+    case["expected_output"]["labels"] = ["pdpa.consent_not_obtained", "roc.service_out_of_jurisdiction_without_leave"]
+    report = check_case_quality(case)
+    assert report.ok is False
+    assert any("do not match the declared issue composition" in error for error in report.errors)
+
+
 def test_quality_detects_sglb_15_constraint_mismatch(tmp_path: Path) -> None:
     item = build_plan(task="sglb_15", n=1, providers="mock", seed=1, base_dir=tmp_path)[0]
     case = case_from_body(item=item, body="Draft a short agreement brief for Acme.", seed=1)
@@ -407,6 +533,25 @@ def test_quality_detects_sglb_15_constraint_mismatch(tmp_path: Path) -> None:
     report = check_case_quality(case)
     assert report.ok is False
     assert any("constraints differ" in error for error in report.errors)
+
+
+def test_quality_detects_sglb_15_stale_constraint_set(tmp_path: Path) -> None:
+    item = build_plan(task="sglb_15", n=1, providers="mock", seed=1, base_dir=tmp_path)[0]
+    case = case_from_body(item=item, body="Draft a short agreement brief for Acme.", seed=1)
+    case["metadata"]["taxonomy_cell"]["params"]["constraint_set_id"] = "does_not_exist"
+    report = check_case_quality(case)
+    assert report.ok is False
+    assert any("unknown constraint set" in error for error in report.errors)
+
+
+def test_quality_detects_sglb_15_constraint_payload_not_matching_set(tmp_path: Path) -> None:
+    item = build_plan(task="sglb_15", n=1, providers="mock", seed=1, base_dir=tmp_path)[0]
+    case = case_from_body(item=item, body="Draft a short agreement brief for Acme.", seed=1)
+    case["expected_output"]["constraints"] = case["expected_output"]["constraints"][:-1]
+    case["inputs"]["constraints"] = case["expected_output"]["constraints"]
+    report = check_case_quality(case)
+    assert report.ok is False
+    assert any("do not match the declared constraint set" in error for error in report.errors)
 
 
 def test_validate_task_rejects_prompt_leaking_candidate(tmp_path: Path) -> None:
