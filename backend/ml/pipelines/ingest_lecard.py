@@ -6,6 +6,7 @@ from typing import Any
 
 from prefect import flow, task
 
+from api.indices import ES
 from data.parsers.lecard_parser import (
     attach_candidate_charges,
     build_candidate_charge_map,
@@ -20,7 +21,7 @@ from data.parsers.lecard_parser import (
 )
 from ml.retrieval.case_retrieval import index_corpus_to_qdrant
 
-INDEX_NAME = "junas_cases"
+INDEX_NAME = ES.cases
 ES_BATCH_SIZE = 200
 
 MAPPING = {

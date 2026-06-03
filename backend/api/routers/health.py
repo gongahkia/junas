@@ -91,13 +91,15 @@ async def metrics(request: Request) -> dict[str, Any]:
     if getattr(app.state, "tos_scanner", None) is not None:
         models_loaded.append("unfair-tos-classifier")
 
+    from api.indices import all_es_indices, all_qdrant_collections
+
     indices = await _collect_indices(
         getattr(app.state, "elasticsearch", None),
-        ["junas_glossary", "junas_statutes"],
+        all_es_indices(),
     )
     qdrant_collections = await _collect_qdrant_collections(
         getattr(app.state, "qdrant", None),
-        ["junas_statutes", "sg_cases"],
+        all_qdrant_collections(),
     )
 
     pg_pool = getattr(app.state, "pg_pool", None)

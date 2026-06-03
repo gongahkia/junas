@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any, Iterable
 
+from api.indices import ES, QDRANT
+
 
 class SourceType(str, Enum):
     STATUTE = "statute"
@@ -80,7 +82,7 @@ class RetrievalOrchestrator:
             },
             "size": limit,
         }
-        response = await self.es.search(index="junas_statutes", body=body)
+        response = await self.es.search(index=ES.statutes, body=body)
         hits = response.get("hits", {}).get("hits", [])
 
         chunks: list[RetrievedChunk] = []
@@ -124,13 +126,13 @@ class RetrievalOrchestrator:
         try:
             if hasattr(self.qdrant, "search"):
                 hits = await self.qdrant.search(
-                    collection_name="junas_statutes",
+                    collection_name=QDRANT.statutes,
                     query_vector=query_vector,
                     limit=limit,
                 )
             elif hasattr(self.qdrant, "query_points"):
                 response = await self.qdrant.query_points(
-                    collection_name="junas_statutes",
+                    collection_name=QDRANT.statutes,
                     query=query_vector,
                     limit=limit,
                 )
@@ -177,7 +179,7 @@ class RetrievalOrchestrator:
             },
             "size": limit,
         }
-        response = await self.es.search(index="junas_glossary", body=body)
+        response = await self.es.search(index=ES.glossary, body=body)
         hits = response.get("hits", {}).get("hits", [])
 
         chunks: list[RetrievedChunk] = []
@@ -261,13 +263,13 @@ class RetrievalOrchestrator:
         try:
             if hasattr(self.qdrant, "search"):
                 hits = await self.qdrant.search(
-                    collection_name="lecard_cases",
+                    collection_name=QDRANT.cases,
                     query_vector=query_vector,
                     limit=limit,
                 )
             elif hasattr(self.qdrant, "query_points"):
                 response = await self.qdrant.query_points(
-                    collection_name="lecard_cases",
+                    collection_name=QDRANT.cases,
                     query=query_vector,
                     limit=limit,
                 )

@@ -7,13 +7,14 @@ from typing import Any
 
 from prefect import flow, task
 
+from api.indices import ES
 from data.parsers.glossary_parser import (
     discover_dataset_root,
     discover_glossary_files,
     parse_glossary_file,
 )
 
-INDEX_NAME = "junas_glossary"
+INDEX_NAME = ES.glossary
 BATCH_SIZE = 500
 
 MAPPING = {

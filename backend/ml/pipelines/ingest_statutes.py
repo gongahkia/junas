@@ -8,10 +8,11 @@ from typing import Any
 
 from prefect import flow, task
 
+from api.indices import ES, QDRANT
 from data.parsers.statute_parser import StatuteSection, discover_ors_file, parse_ors_file, strip_html
 
-INDEX_NAME = "junas_statutes"
-COLLECTION_NAME = "junas_statutes"
+INDEX_NAME = ES.statutes
+COLLECTION_NAME = QDRANT.statutes
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 EMBEDDING_DIM = 384
 ES_BATCH_SIZE = 500

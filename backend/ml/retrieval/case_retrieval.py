@@ -6,9 +6,10 @@ import time
 from pathlib import Path
 from typing import Any, Iterable
 
+from api.indices import QDRANT
 from data.parsers.lecard_parser import discover_lecard_data_root
 
-QDRANT_COLLECTION = "lecard_cases"
+QDRANT_COLLECTION = QDRANT.cases
 DEFAULT_BIENCODER_MODEL = "models/case-retrieval-biencoder"
 DEFAULT_CROSS_ENCODER_MODEL = "models/case-retrieval-crossencoder"
 

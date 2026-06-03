@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from api.indices import ES
+
 JURISDICTION_NAMES = {
     "AUS": "Australia",
     "CAN": "Canada",
@@ -16,7 +18,7 @@ JURISDICTION_NAMES = {
 class GlossaryService:
     def __init__(self, es: Any):
         self.es = es
-        self.index = "junas_glossary"
+        self.index = ES.glossary
 
     async def search(
         self,

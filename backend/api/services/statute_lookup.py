@@ -3,8 +3,10 @@ from __future__ import annotations
 import importlib
 from typing import Any
 
-INDEX_NAME = "junas_statutes"
-COLLECTION_NAME = "junas_statutes"
+from api.indices import ES, QDRANT
+
+INDEX_NAME = ES.statutes
+COLLECTION_NAME = QDRANT.statutes
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 
 class StatuteService:
