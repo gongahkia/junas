@@ -3,13 +3,153 @@
   "document_type": "generic",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lanternbamboo.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@lanternbamboo.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers: limited hosting in Singapore under contractual safeguards"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimization: we redact personal fields in investor query logs, hash role emails, and segregate shareholder PII"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo date: 2026-07-14 09:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lanternbamboo.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@lanternbamboo.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers: limited hosting in Singapore under contractual safeguards"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimization: we redact personal fields in investor query logs, hash role emails, and segregate shareholder PII"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo date: 2026-07-14 09:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR channel: submit the generic form \u201cRequest for Access/Correction\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "ACCT-ID LBM-000-XYZ"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "VNB-XXXX-9999"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement signing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo calendars"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAC/MAE has occurred",
+      "reason": "Negated MAC/MAE language is excluded by rule 8."
+    },
+    {
+      "matched_text": "checklist_v0",
+      "reason": "Lowercase internal label; explicitly not a deal codename."
+    },
+    {
+      "matched_text": "draft_ir_note_v1",
+      "reason": "Lowercase internal label; explicitly not a deal codename."
+    },
+    {
+      "matched_text": "archive_ready",
+      "reason": "Lowercase internal label; explicitly not a deal codename."
+    },
+    {
+      "matched_text": "ISIN VNF0000000X",
+      "reason": "Invalid placeholder example; not PII or MNPI."
+    },
+    {
+      "matched_text": "staff spa-day scheduling",
+      "reason": "Spa-day bait; not a special-category PII under the rules."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention workflow: board memo drafts 12 months; research notes 6 months; investor-relations drafts 3 months; unexecuted term sheets destroyed after 30 days; access logs auto-purged after 180 days",
+      "concept": "retention_marker",
+      "reason": "Retention scheduling is a privacy-event marker per rule 17 but no explicit allowed rule name for retention is provided."
+    },
+    {
+      "matched_text": "restricted to authorized users until release to HOSE",
+      "concept": "information_barrier_marker",
+      "reason": "Access restriction suggests information-barrier controls, but it is not explicitly labeled as such."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

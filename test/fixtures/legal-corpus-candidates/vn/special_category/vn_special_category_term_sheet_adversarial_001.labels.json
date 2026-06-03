@@ -3,13 +3,277 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. L\u00ea Quang Hi\u1ebfu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hi\u1ebfu"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "Mr. Hi\u1ebfu\u2019s biometric fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "medical note indicating controlled hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Mr. Hi\u1ebfu identifies as Buddhist"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Mr. Hi\u1ebfu identifies as Buddhist and is a registered member of Mekalya Labor Union Chapter 07"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 406,250,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "32,500,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "VND 12,500 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 1.8 trillion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 45,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. L\u00ea Quang Hi\u1ebfu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hi\u1ebfu"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "Mr. Hi\u1ebfu\u2019s biometric fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "medical note indicating controlled hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Mr. Hi\u1ebfu identifies as Buddhist"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Mr. Hi\u1ebfu identifies as Buddhist and is a registered member of Mekalya Labor Union Chapter 07"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hie u . lqh@mekalya.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84-90-777"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "account 7 6 2-xxx-VN"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR ref BIO-MKR-0 3 9"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "without any person-specific detail"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed strategic acquisition of 51% of Mekalya Robotics JSC by TamBien Capital Ltd., Vietnam issuer to pursue HOSE listing in 2027"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 406,250,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "32,500,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "32,500,000 new ordinary shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "VND 12,500 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced FY2027 revenue forecast"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "draft HOSE registration"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading in MKR equity or debt before public notice is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 1.8 trillion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 45,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "No Material Adverse Change",
+      "reason": "Negated MAC reference should not be labeled per rule 8."
+    },
+    {
+      "matched_text": "No MAC",
+      "reason": "Negated MAC reference should not be labeled per rule 8."
+    },
+    {
+      "matched_text": "Saigon Tigers",
+      "reason": "Sports team name is false-positive bait, not PII/MNPI."
+    },
+    {
+      "matched_text": "Orange Nebula Router",
+      "reason": "Product name is false-positive bait, not PII/MNPI."
+    },
+    {
+      "matched_text": "generic DEI prose",
+      "reason": "Generic DEI mention is explicitly non-sensitive per instructions."
+    },
+    {
+      "matched_text": "Internal Labor Dialogue Policy v2.1",
+      "reason": "Policy name is not PII/MNPI."
+    },
+    {
+      "matched_text": "move the mountain",
+      "reason": "Metaphor; explicitly non-sensitive per instructions."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "with his consent",
+      "concept": "consent marker",
+      "reason": "Indicates data subject consent, but allowed rule list only includes consent_withdrawal_marker."
+    },
+    {
+      "matched_text": "sig=abf9",
+      "concept": "internal_session_id/token",
+      "reason": "Looks like a URL signature/token parameter but not clearly defined as a session ID."
+    },
+    {
+      "matched_text": "SEA-12 3",
+      "concept": "bank_customer_reference",
+      "reason": "Appears in bank escrow URL as a deal code; may be a customer/bank reference but ambiguous due to spacing and context."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

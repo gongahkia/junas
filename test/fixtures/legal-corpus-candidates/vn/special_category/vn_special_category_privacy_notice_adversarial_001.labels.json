@@ -3,13 +3,347 @@
   "document_type": "generic",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dataprivacy@silverbamboo.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84-28-6012-0099"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "SB-EMP-0421"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "VietLac Bank acct 5300-***-9812"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric fingerprint template hash 9f:a3:7c:xx:3d"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "hypertension treatment at Hoa Truc Clinic"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Rx code HTR-0xB7"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "trade union membership (Lotus Manufacturing Union ID LMU-77-093)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "minh.t@silverbamboo.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tran Quoc Minh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "M r .  T r a n   Q u o c   M i n h"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tran Ngoc Lan"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "His minor child, Ms. Tran Ngoc Lan (age 12)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdraw consent via https://portal.silverbamboo.vn/dsar?ref=SFX-2025&user=tran_minh_0x7f"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer registration"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "template id: FACE_7\u2014qp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84-90-000-1212"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Religious belief of Mr. Minh: registered Buddhist practice (pagoda: Thien Truc)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@silverbamboo.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen Thi Hai"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Minh"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced Q3 guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dataprivacy@silverbamboo.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84-28-6012-0099"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "SB-EMP-0421"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "VietLac Bank acct 5300-***-9812"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric fingerprint template hash 9f:a3:7c:xx:3d"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "hypertension treatment at Hoa Truc Clinic"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Rx code HTR-0xB7"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "trade union membership (Lotus Manufacturing Union ID LMU-77-093)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "minh.t@silverbamboo.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tran Quoc Minh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "M r .  T r a n   Q u o c   M i n h"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tran Ngoc Lan"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "His minor child, Ms. Tran Ngoc Lan (age 12)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdraw consent via https://portal.silverbamboo.vn/dsar?ref=SFX-2025&user=tran_minh_0x7f"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer registration"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "template id: FACE_7\u2014qp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84-90-000-1212"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Religious belief of Mr. Minh: registered Buddhist practice (pagoda: Thien Truc)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@silverbamboo.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen Thi Hai"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Minh"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced Q3 guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "SFX buyback calendar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "BambooLink card margin changes"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "pre-listing valuation models"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "face template data"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "genetics refers to our fraud genetic algorithms",
+      "reason": "Algorithmic/prose; not personal genetic data"
+    },
+    {
+      "matched_text": "sexual orientation is not collected",
+      "reason": "Negated special-category policy statement"
+    },
+    {
+      "matched_text": "political opinions are not profiled",
+      "reason": "Negated special-category policy statement"
+    },
+    {
+      "matched_text": "project zen-bamboo roadmap",
+      "reason": "Product/metaphor; not a transaction codename"
+    },
+    {
+      "matched_text": "red river falcons",
+      "reason": "Sports team bait"
+    },
+    {
+      "matched_text": "azure cranes",
+      "reason": "Metaphor bait"
+    },
+    {
+      "matched_text": "we value inclusion and diversity",
+      "reason": "Generic DEI prose; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "SCV-FIC-4217",
+      "concept": "customer/reference identifier",
+      "reason": "May be an internal reference that could be PII but not mapped to a specific allowed rule"
+    },
+    {
+      "matched_text": "COMPLAINT-0x12ab",
+      "concept": "tracking/complaint reference",
+      "reason": "Potential identifier but no specific allowed rule covers it"
+    },
+    {
+      "matched_text": "retention is 5 years for transaction records and 2 years for access logs",
+      "concept": "retention marker",
+      "reason": "Retention schedule is privacy-relevant but no explicit allowed rule"
+    },
+    {
+      "matched_text": "MNPI files retained until public disclosure on SFX",
+      "concept": "retention marker (MNPI)",
+      "reason": "MNPI retention is relevant but not covered by the allowed rules"
+    },
+    {
+      "matched_text": "submit DSAR at https://portal.silverbamboo.vn/dsar#form?case=DSAR-11&lang=vi",
+      "concept": "DSAR submission marker",
+      "reason": "Data subject request/rights marker relevant to privacy but not an allowed rule"
+    },
+    {
+      "matched_text": "disclosure to analysts is limited to public info",
+      "concept": "selective disclosure control",
+      "reason": "Compliance control referencing public-only disclosures; not a risk marker covered by allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

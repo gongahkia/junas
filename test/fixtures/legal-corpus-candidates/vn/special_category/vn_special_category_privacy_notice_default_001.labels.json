@@ -3,13 +3,308 @@
   "document_type": "generic",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@tanthuan-energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@tanthuan-energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "B\u00e0 Ph\u1ea1m Thu Giang"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng \u0110\u1ed7 H\u1eefu Kh\u1ea3i"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "\u0111i\u1ec1u tr\u1ecb t\u0103ng huy\u1ebft \u00e1p"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "m\u1eabu v\u00e2n tay d\u00f9ng ki\u1ec3m so\u00e1t c\u1eeda"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "m\u00e3 th\u00e0nh vi\u00ean C\u00f4ng \u0111o\u00e0n \u00c1nh D\u01b0\u01a1ng C\u0110-01892"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "xu h\u01b0\u1edbng t\u00ednh d\u1ee5c \u0111\u1ed3ng t\u00ednh"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "t\u00f4n gi\u00e1o Ph\u1eadt gi\u00e1o H\u00f2a B\u00ecnh"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "77228899004"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "con ch\u01b0a th\u00e0nh ni\u00ean L\u00ea \u00c1i Duy\u00ean 12 tu\u1ed5i"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "12 tu\u1ed5i"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "ch\u01b0a c\u00f4ng b\u1ed1"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@tanthuan-energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@tanthuan-energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "B\u00e0 Ph\u1ea1m Thu Giang"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng \u0110\u1ed7 H\u1eefu Kh\u1ea3i"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "\u0111i\u1ec1u tr\u1ecb t\u0103ng huy\u1ebft \u00e1p"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "m\u1eabu v\u00e2n tay d\u00f9ng ki\u1ec3m so\u00e1t c\u1eeda"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "m\u00e3 th\u00e0nh vi\u00ean C\u00f4ng \u0111o\u00e0n \u00c1nh D\u01b0\u01a1ng C\u0110-01892"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "xu h\u01b0\u1edbng t\u00ednh d\u1ee5c \u0111\u1ed3ng t\u00ednh"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "t\u00f4n gi\u00e1o Ph\u1eadt gi\u00e1o H\u00f2a B\u00ecnh"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "77228899004"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "con ch\u01b0a th\u00e0nh ni\u00ean L\u00ea \u00c1i Duy\u00ean 12 tu\u1ed5i"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "12 tu\u1ed5i"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "ch\u01b0a c\u00f4ng b\u1ed1"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "d\u1eef li\u1ec7u sinh tr\u1eafc"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "t\u00f4n gi\u00e1o"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "th\u00e0nh vi\u00ean c\u00f4ng \u0111o\u00e0n"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "quan \u0111i\u1ec3m ch\u00ednh tr\u1ecb"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "xu h\u01b0\u1edbng t\u00ednh d\u1ee5c"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "d\u1eef li\u1ec7u tr\u1ebb v\u1ecb th\u00e0nh ni\u00ean"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "h\u1ed3 s\u01a1 b\u1ec7nh"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "t\u0103ng huy\u1ebft \u00e1p"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "MNPI \u0111\u01b0\u1ee3c c\u00e1ch ly v\u00e0 ch\u1ec9 xem b\u1edfi ng\u01b0\u1eddi c\u00f3 th\u1ea9m quy\u1ec1n"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "MNPI b\u1ecb kh\u00f3a cho t\u1edbi khi c\u00f4ng b\u1ed1 ch\u00ednh th\u1ee9c t\u1ea1i SGCHM"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "tr\u01b0\u1edbc khi \u201cn\u00e2ng m\u00e0n\u201d d\u1eef li\u1ec7u"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "d\u1ef1 b\u00e1o doanh thu ch\u01b0a c\u00f4ng b\u1ed1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "t\u00edn hi\u1ec7u n\u1ed9i b\u1ed9 \u201cch\u1ec9 l\u00e0 ph\u1ea7n n\u1ed5i c\u1ee7a t\u1ea3ng b\u0103ng\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "TT-2024-08-77"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "h\u1ea1n ch\u1ebf truy c\u1eadp"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "B\u00e0 Ph\u1ea1m Thu Giang, chuy\u00ean vi\u00ean nh\u00e2n s\u1ef1 TTE, c\u00f3 ghi nh\u1eadn \u0111i\u1ec1u tr\u1ecb t\u0103ng huy\u1ebft \u00e1p"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "B\u00e0 Ph\u1ea1m Thu Giang, chuy\u00ean vi\u00ean nh\u00e2n s\u1ef1 TTE"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "t\u1ef1 khai t\u00f4n gi\u00e1o Ph\u1eadt gi\u00e1o H\u00f2a B\u00ecnh"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SunRift Inverter v3",
+      "reason": "Product name; not PII/MNPI token by itself"
+    },
+    {
+      "matched_text": "LotusBond",
+      "reason": "Product/bond name; not personal data"
+    },
+    {
+      "matched_text": "Thi\u00ean Ph\u00fa Tigers",
+      "reason": "Sports team; non-PII"
+    },
+    {
+      "matched_text": "H\u1ea3i L\u00e2m Comets",
+      "reason": "Sports team; non-PII"
+    },
+    {
+      "matched_text": "Ch\u00ednh s\u00e1ch B\u1ea3o m\u1eadt Sao Bi\u1ec3n 2024",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Quy ch\u1ebf C\u00f4ng b\u1ed1 Th\u00f4ng tin N\u1ed9i b\u1ed9 \u00c1nh D\u01b0\u01a1ng",
+      "reason": "Policy/regulation name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Ph\u1ed1 Sao \u0110\u00eam",
+      "reason": "Place name; not covered by allowed address rule"
+    },
+    {
+      "matched_text": "TP. H\u1ea3i L\u00e2m",
+      "reason": "Place/city reference; not covered by allowed rules"
+    },
+    {
+      "matched_text": "\u201cs\u1ee9c kh\u1ecfe h\u1ec7 th\u1ed1ng\u201d",
+      "reason": "Metaphor; not actual health data"
+    },
+    {
+      "matched_text": "\u201cdi truy\u1ec1n d\u1eef li\u1ec7u\u201d",
+      "reason": "Metaphor; not genetic data"
+    },
+    {
+      "matched_text": "\u0111a d\u1ea1ng, c\u00f4ng b\u1eb1ng v\u00e0 h\u00f2a nh\u1eadp",
+      "reason": "Generic DEI phrase; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Ng\u01b0\u1eddi d\u00f9ng c\u00f3 quy\u1ec1n y\u00eau c\u1ea7u truy c\u1eadp, ch\u1ec9nh s\u1eeda, x\u00f3a ho\u1eb7c h\u1ea1n ch\u1ebf x\u1eed l\u00fd PII",
+      "concept": "dsar/erasure rights",
+      "reason": "Represents DSAR and erasure rights; no explicit allowed rule token for DSAR/erasure"
+    },
+    {
+      "matched_text": "Th\u1eddi h\u1ea1n l\u01b0u gi\u1eef: h\u1ed3 s\u01a1 lao \u0111\u1ed9ng 10 n\u0103m; h\u1ed3 s\u01a1 giao d\u1ecbch ch\u1ee9ng kho\u00e1n v\u00e0 \u0111\u1ed1i chi\u1ebfu ng\u00e2n h\u00e0ng 7 n\u0103m; d\u1eef li\u1ec7u sinh tr\u1eafc v\u00e0 s\u1ee9c kh\u1ecfe 2 n\u0103m",
+      "concept": "retention",
+      "reason": "Data retention durations; retention marker not explicitly listed among allowed rules"
+    },
+    {
+      "matched_text": "Vi\u1ec7c chuy\u1ec3n d\u1eef li\u1ec7u c\u00f3 th\u1ec3 t\u1edbi C\u00f4ng ty T\u01b0 v\u1ea5n Ni\u00eam y\u1ebft H\u01b0\u1edbng D\u01b0\u01a1ng v\u00e0 Ki\u1ec3m to\u00e1n Th\u1ecbnh V\u01b0\u1ee3ng \u0111\u1ec3 ph\u1ee5c v\u1ee5 chu\u1ea9n b\u1ecb ni\u00eam y\u1ebft t\u1ea1i SGCHM",
+      "concept": "cross-border transfer",
+      "reason": "Describes data transfer to third parties; appears domestic, so cross-border status is unclear"
+    },
+    {
+      "matched_text": "x\u00e1c minh qua th\u1ebb nh\u00e2n vi\u00ean TTE v\u00e0 k\u00eanh email \u0111\u00e3 \u0111\u0103ng k\u00fd",
+      "concept": "employee_id verification",
+      "reason": "Indicates use of employee ID/email for verification but no specific identifier value present"
+    },
+    {
+      "matched_text": "ghi nh\u1eadt k\u00fd t\u1ea1i SGCHM",
+      "concept": "compliance logging/information barriers",
+      "reason": "Market compliance control is relevant to MNPI handling but not clearly mapped to an allowed marker token"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,201 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@thienbao.example.vn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information-barrier procedure overview"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "intranet blackout calendars"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "anti-tipping training"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list template"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "internal information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping prohibition reiterated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet filed with SSC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "material change"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@thienbao.example.vn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information-barrier procedure overview"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "intranet blackout calendars"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "anti-tipping training"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list template"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "internal information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping prohibition reiterated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet filed with SSC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "material change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Draft variance analysis of Q2 ESG emissions (Scope 2)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to verification before any disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Only designated role accounts may access draft disclosures"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring-fenced under internal information barriers"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LotusToken",
+      "reason": "Educational hypothetical token reference; not a live DPT/crypto event"
+    },
+    {
+      "matched_text": "LEI: 0000FAKELEI0000",
+      "reason": "Organization identifier; not PII/MNPI"
+    },
+    {
+      "matched_text": "ISIN: VN-EXAMPLE-123-XYZ",
+      "reason": "Security identifier; not PII/MNPI"
+    },
+    {
+      "matched_text": "Ticker: NPG*",
+      "reason": "Public security ticker; not MNPI"
+    },
+    {
+      "matched_text": "777-ABC-VND",
+      "reason": "Corporate placeholder account ID; not personal data"
+    },
+    {
+      "matched_text": "555-XYZ-VND",
+      "reason": "Corporate placeholder account ID; not personal data"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Role noun; not a natural person identifier"
+    },
+    {
+      "matched_text": "parties",
+      "reason": "Role noun; not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Account IDs 777-ABC-VND and 555-XYZ-VND",
+      "concept": "bank_account identifiers (corporate)",
+      "reason": "Account IDs appear but are placeholders for corporate settlement accounts; may not be PII under Decree 13"
+    },
+    {
+      "matched_text": "Target signing post-SSC consultation",
+      "concept": "embargo/timing marker",
+      "reason": "Indicates timing of signing but does not use explicit Embargo/Signing Date phrasing"
+    },
+    {
+      "matched_text": "legal@thienbao.example.vn",
+      "concept": "role email vs personal PII",
+      "reason": "Role mailbox may not identify a specific person under Decree 13 though it matches an email pattern"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,398 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lan.nguyen@aurorarobotics.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "bao.pham@aurorarobotics.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@aurorarobotics.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No. 98765432100"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen Thi Lan (CFO)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Bao Pham"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "is a member of the Tech Workers Union of Thu Duc"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "is under ongoing treatment for Type 1 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "is under ongoing treatment for Type 1 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "her facial-recognition biometric template is registered for treasury sign-off"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "her minor child Nguyen Thien Vy (age 12) is a beneficiary under the company\u2019s medical plan"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "(age 12)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "his declared Buddhist faith is noted"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "prior membership in the fictional Green Growth Party"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "the acquisition of LotusPay Systems Co., Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "30,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 22,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "VND 22,000 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "call option for 51% of LotusPay Systems"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced Q4 margin guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may have a significant price impact"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be shared before HOSE disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no public statements will be made until disclosure via HOSE Portal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 660 billion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "such forecasts are price-sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "volume_commitment",
+      "matched_text": "30,000,000 ordinary shares"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lan.nguyen@aurorarobotics.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "bao.pham@aurorarobotics.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@aurorarobotics.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No. 98765432100"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen Thi Lan (CFO)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Bao Pham"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "is a member of the Tech Workers Union of Thu Duc"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "is under ongoing treatment for Type 1 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "is under ongoing treatment for Type 1 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "her facial-recognition biometric template is registered for treasury sign-off"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "her minor child Nguyen Thien Vy (age 12) is a beneficiary under the company\u2019s medical plan"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "(age 12)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "his declared Buddhist faith is noted"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "prior membership in the fictional Green Growth Party"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "the acquisition of LotusPay Systems Co., Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "30,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 22,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "VND 22,000 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "call option for 51% of LotusPay Systems"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced Q4 margin guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may have a significant price impact"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be shared before HOSE disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no public statements will be made until disclosure via HOSE Portal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 660 billion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "such forecasts are price-sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "volume_commitment",
+      "matched_text": "30,000,000 ordinary shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "SSC filing draft attached"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "draft board risk register"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Role/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "genetic models",
+      "reason": "Non-personal algorithmic reference; false-positive bait per instruction"
+    },
+    {
+      "matched_text": "sexual-orientation content rules",
+      "reason": "Policy/prose reference, not a data point about a person"
+    },
+    {
+      "matched_text": "Saigon Firebirds football club",
+      "reason": "Sports team name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Sunrise Equal Opportunity Policy",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Anti-Political Bias Charter",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "bamboo bridge",
+      "reason": "Metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "LotusPay Core v3.1",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "TigerCloud ARM modules",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Hai Thuong Commune",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC; excluded by rule"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "12 Orchid Lane, Thu Duc Innovation Park, HCMC",
+      "concept": "postal_address (VN)",
+      "reason": "Postal addresses are PII under VN law but no explicit generic postal_address rule is provided"
+    },
+    {
+      "matched_text": "biometric gate at the issuer\u2019s treasury office",
+      "concept": "biometric_control_reference",
+      "reason": "Biometric processing mentioned but not linked to an identified person"
+    },
+    {
+      "matched_text": "union consultation minutes",
+      "concept": "trade_union_data_processing",
+      "reason": "May contain special-category PII but presented as a generic document type"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

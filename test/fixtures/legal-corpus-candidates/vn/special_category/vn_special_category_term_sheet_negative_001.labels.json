@@ -3,13 +3,140 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP-00421"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "settlement@hoasonbank.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@mekongfuture.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-888-000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP-00421"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "settlement@hoasonbank.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@mekongfuture.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-888-000"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Named Subject \u2014 Le Vinh Phuc, employee code EMP-00421, address Block C, Khu Nh\u00e0 Tre, Ph\u01b0\u1eddng Th\u1ea1ch M\u1ed9c, Qu\u1eadn M\u00e2y Tr\u1eafng, Th\u00e0nh ph\u1ed1 Cam L\u1eeda"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Purchase of 55% issued shares of Target via negotiated block trade on Han River Stock Exchange (HRSE) plus primary issuance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid inclusion of any insider information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "signing 2023-10-15"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "closing 2023-12-31"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term, not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Le Vinh Phuc",
+      "concept": "named person without honorific",
+      "reason": "Identifies a specific individual under VN PII, but fails the strict named_person rule requiring honorific/signature context."
+    },
+    {
+      "matched_text": "FAKE-88992-VND",
+      "concept": "bank customer reference",
+      "reason": "Looks like a facility/account reference; may be a bank/customer identifier but appears corporate and not clearly personal."
+    },
+    {
+      "matched_text": "Block C, Khu Nh\u00e0 Tre, Ph\u01b0\u1eddng Th\u1ea1ch M\u1ed9c, Qu\u1eadn M\u00e2y Tr\u1eafng, Th\u00e0nh ph\u1ed1 Cam L\u1eeda",
+      "concept": "postal address (VN)",
+      "reason": "Personal address data under VN PII, but there is no generic postal_address rule for VN; only covered via quasi-identifier combination."
+    },
+    {
+      "matched_text": "Indicative signing 2023-10-15 and closing 2023-12-31",
+      "concept": "embargo/timeline markers",
+      "reason": "Date markers for signing/closing but not using the exact phrases Signing Date/Closing Date expected by strict detectors."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

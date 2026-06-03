@@ -3,13 +3,171 @@
   "document_type": "generic",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee Code DS-ALPHA"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "a biometric fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric templates"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet posted to the Investor Announcements page"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee Code DS-ALPHA"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "a biometric fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric templates"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet posted to the Investor Announcements page"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "are not for trading"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Compliance Gate"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "before any trade or communication"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "pre-announcement"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "verification relies on role-based checks and ticket numbers, not personal email addresses"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "our forms use generic fields such as Name, Role, Department, and Date"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Account: 000-XYZ-8888",
+      "reason": "placeholder format; explicitly not a valid identifier"
+    },
+    {
+      "matched_text": "Trade Ticket No.: TT-VN-ABCD-12345",
+      "reason": "placeholder format; explicitly not a valid identifier"
+    },
+    {
+      "matched_text": "Diversity Promise Policy",
+      "reason": "policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Blue Kite DEI Vision",
+      "reason": "policy name; DEI prose"
+    },
+    {
+      "matched_text": "Cloud Box 12",
+      "reason": "product name; public/stale fact"
+    },
+    {
+      "matched_text": "Thanh Son Falcons",
+      "reason": "sports team; not personal data"
+    },
+    {
+      "matched_text": "union membership",
+      "reason": "negated special-category; no specific person"
+    },
+    {
+      "matched_text": "political opinions",
+      "reason": "negated special-category; no specific person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "privacy.office@lapis-hoa.vn",
+      "concept": "email_address",
+      "reason": "Functional mailbox for DSAR; may not identify a specific person under VN Decree 13"
+    },
+    {
+      "matched_text": "1800-000-VN",
+      "concept": "phone_number",
+      "reason": "Vanity hotline; organizational contact not tied to a specific person"
+    },
+    {
+      "matched_text": "Requests for access, rectification, or deletion (DSAR)",
+      "concept": "DSAR marker",
+      "reason": "Privacy rights process reference but no explicit allowed rule for DSAR markers"
+    },
+    {
+      "matched_text": "explicit consent",
+      "concept": "consent basis",
+      "reason": "Mentions consent basis; allowed rule only covers withdrawal markers"
+    },
+    {
+      "matched_text": "biometric templates are deleted within 12 months after employment termination",
+      "concept": "retention/deletion",
+      "reason": "Retention/deletion control; no explicit retention marker rule provided"
+    },
+    {
+      "matched_text": "payroll and reimbursement documents follow a 10-year retention policy",
+      "concept": "retention",
+      "reason": "Retention schedule referenced; not mapped to an allowed rule"
+    },
+    {
+      "matched_text": "Banking records processed for employee reimbursements via LotusPay Salary follow the retention workflow of 5 years active, 2 years archive, then purge, with audit logs retained for compliance review",
+      "concept": "retention workflow",
+      "reason": "Retention timeline/control; no allowed retention rule"
+    },
+    {
+      "matched_text": "data remains within Viet Nam unless mandated by law",
+      "concept": "cross-border transfer boundary",
+      "reason": "States domestic-only transfer boundary; not a live cross-border transfer per allowed marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

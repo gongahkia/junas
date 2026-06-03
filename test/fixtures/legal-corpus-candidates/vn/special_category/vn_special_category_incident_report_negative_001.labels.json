@@ -3,13 +3,136 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosure@apm.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@hoaviet-bank.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@apm.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cco@apm.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NV-4382"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "t\u00ecnh tr\u1ea1ng s\u1ee9c kh\u1ecfe: \u0111i\u1ec1u tr\u1ecb t\u0103ng huy\u1ebft \u00e1p"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "t\u00ecnh tr\u1ea1ng s\u1ee9c kh\u1ecfe: \u0111i\u1ec1u tr\u1ecb t\u0103ng huy\u1ebft \u00e1p"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosure@apm.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@hoaviet-bank.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@apm.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cco@apm.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NV-4382"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "t\u00ecnh tr\u1ea1ng s\u1ee9c kh\u1ecfe: \u0111i\u1ec1u tr\u1ecb t\u0103ng huy\u1ebft \u00e1p"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "t\u00ecnh tr\u1ea1ng s\u1ee9c kh\u1ecfe: \u0111i\u1ec1u tr\u1ecb t\u0103ng huy\u1ebft \u00e1p"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LotusPay API",
+      "reason": "Product/tool name; not PII or MNPI."
+    },
+    {
+      "matched_text": "DragonShield WAF",
+      "reason": "Product/tool name; not PII or MNPI."
+    },
+    {
+      "matched_text": "CloudR\u1ed3ng Vault",
+      "reason": "Service/product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "ZeroTrust Ngu\u1ed3n Tre 2.1",
+      "reason": "Product/version name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Bamboo ERP \u2013 An to\u00e0n d\u1eef li\u1ec7u",
+      "reason": "Process/policy/tool name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Minh b\u1ea1ch Th\u1ecbnh V\u01b0\u1ee3ng 2025",
+      "reason": "Policy/slogan; not PII or MNPI."
+    },
+    {
+      "matched_text": "Khu c\u00f4ng ngh\u1ec7 Hi\u1ec7p Ph\u00fa",
+      "reason": "Place name; not PII or MNPI."
+    },
+    {
+      "matched_text": "S\u1ed1 CCCD: null",
+      "reason": "Null placeholder for ID; no actual PII value present."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "M\u00e3 t\u00e0i kho\u1ea3n n\u1ed9i b\u1ed9: ACC-12X34-000",
+      "concept": "internal account identifier",
+      "reason": "Could be a customer or staff account number (PII) if linked to a person; text states not linked to a specific person."
+    },
+    {
+      "matched_text": "M\u00e3 \u0111\u1ecbnh danh giao d\u1ecbch hi\u1ec3n th\u1ecb d\u1ea1ng gi\u1ea3 l\u1eadp: TX-00X-APM-789A",
+      "concept": "transaction/session ID",
+      "reason": "May identify an individual's transaction if associated with a person; here described as simulated and not linked to a person."
+    },
+    {
+      "matched_text": "d\u1eef li\u1ec7u n\u00e0y \u0111\u00e3 \u0111\u01b0\u1ee3c c\u00f4 l\u1eadp v\u00e0 x\u00f3a kh\u1ecfi g\u00f3i log d\u00f9ng cho ph\u00e2n t\u00edch",
+      "concept": "erasure/minimisation",
+      "reason": "Describes deletion of personal data; a privacy-event control but already completed, which may be out-of-scope for strict markers."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

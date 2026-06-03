@@ -3,13 +3,288 @@
   "document_type": "generic",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Camellia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SSA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC/MAE clause"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo date 14 October 2026 09:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 1,250,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Linh \u0110\u00e0o"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@thanhphong-materials.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 24 3988 5520"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Quang Phan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@thanhphong-materials.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "88-0 152-99"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mrs. T\u00fa Anh"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 28 7777 4666"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec@thanhphong-materials.vn"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Camellia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SSA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC/MAE clause"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo date 14 October 2026 09:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 1,250,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Linh \u0110\u00e0o"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@thanhphong-materials.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 24 3988 5520"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Quang Phan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@thanhphong-materials.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "88-0 152-99"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mrs. T\u00fa Anh"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 28 7777 4666"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec@thanhphong-materials.vn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed raise VND 1,250,000,000,000 for 12.5% new shares on the H C S E, subject to CMO-VN review and approval"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheets"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border analytics to Nimbus Analytics Pte Ltd (SG)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "limited to hashed and tokenized PII"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "TP_2024-07a"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role noun/defined term not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role noun/defined term not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role noun/defined term not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "issuer",
+      "reason": "Role noun/defined term not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Board Secretary",
+      "reason": "Role noun/defined term not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "False-positive bait; not a Share Purchase Agreement"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "V N-0 3 9 8",
+      "concept": "vn_cccd",
+      "reason": "Obfuscated ID reference; may be a personal identifier but does not match VN CCCD format"
+    },
+    {
+      "matched_text": "00-7 1 2",
+      "concept": "internal_session_id",
+      "reason": "Ticket reference in DSAR workflow; likely an internal tracking ID but category mapping is unclear"
+    },
+    {
+      "matched_text": "TPH2026-SSA",
+      "concept": "internal_session_id",
+      "reason": "Internal deal code potentially sensitive MNPI but not clearly covered by allowed rules"
+    },
+    {
+      "matched_text": "Retention: board memos (5 years), term sheets (5 years), research notes (3 years), employee payroll and tax data (10 years), banking transaction logs (7 years)",
+      "concept": "retention_marker",
+      "reason": "Privacy retention schedule is legally relevant but no explicit allowed rule provided"
+    },
+    {
+      "matched_text": "Deletion: drafts and IR working copies are deleted 30 days post-embargo unless legal hold applies",
+      "concept": "erasure_marker",
+      "reason": "Erasure/deletion control is relevant but not clearly mapped to an allowed rule"
+    },
+    {
+      "matched_text": "MNPI-tagged IR drafts carry NON-PUBLIC markers",
+      "concept": "selective_disclosure_risk",
+      "reason": "Control to prevent selective disclosure; relevant MNPI handling but not explicitly covered beyond generic non-public marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
