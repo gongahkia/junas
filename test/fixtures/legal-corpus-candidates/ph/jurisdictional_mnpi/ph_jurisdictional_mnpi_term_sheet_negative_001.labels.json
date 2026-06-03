@@ -3,13 +3,162 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosures@islanortefoods.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpsec@barasoainholdings.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "000-000-000-000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "insider-trading blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "40%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosures@islanortefoods.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpsec@barasoainholdings.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "000-000-000-000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Draft Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Acquisition of a Controlling Stake in Isla Norte Foods Corporation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may constitute"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "insider-trading blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "01\u201315 July 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "signing/closing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosures"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "mandatory tender offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "40%"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Acquirer",
+      "reason": "Defined role-noun"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined role-noun"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "A2026-00X-9999",
+      "concept": "ph_sec_company_registration_number",
+      "reason": "PH SEC company registration numbers are relevant identifiers but not covered by allowed PII rules."
+    },
+    {
+      "matched_text": "Unit 1601, Apo Center, Makisig District, Quezon Vista, Metro Manila",
+      "concept": "postal_address_PH",
+      "reason": "Addresses can be identifying; PH postal address is not in the allowed PII rule set."
+    },
+    {
+      "matched_text": "SEC Form 17-C within five business days",
+      "concept": "disclosure_timing",
+      "reason": "Jurisdiction-specific disclosure timeline is MNPI-relevant but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "provisional symbol: INF0",
+      "concept": "pse_ticker_symbol_placeholder",
+      "reason": "Pre-assigned ticker symbols can be market-sensitive but no specific MNPI rule exists for this."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
