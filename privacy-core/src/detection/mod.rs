@@ -15,6 +15,7 @@ pub mod line_expand;
 pub mod ocr;
 pub mod patterns;
 pub mod pii_patterns;
+pub mod profiles;
 pub mod registry;
 pub mod scanner;
 pub mod training;

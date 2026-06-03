@@ -305,9 +305,18 @@ accelerator = "auto"        # auto | cuda | coreml | cpu (for neural mode)
 [output]
 sink = "auto"               # auto | v4l2 | coremedia | mjpeg
 http_port = 9876
+
+[foreground_profiles]
+enabled = true              # auto-select detector profile from foreground app
+override_profile = ""       # broad | secrets | pii | browser, or empty for auto
+update_interval_ms = 1000
 ```
 
-Named profiles (e.g. `[profiles.streaming]`) can override transform mode and intensity for different contexts.
+Automatic foreground detector profiles are macOS-first and use the frontmost app name when available. Terminals use the `secrets` detector profile, Slack/Discord/Messages use `pii`, VS Code/Cursor/Xcode use `broad`, and browsers use a broad OCR-based `browser` profile. Browser DOM inspection is not used in v1 because Aki stays pixel-first.
+
+Set `foreground_profiles.enabled = false` to disable automatic detector profile selection, or set `foreground_profiles.override_profile` to force one detector profile.
+
+Named transform profiles (e.g. `[profiles.streaming]`) can override transform mode and intensity for different contexts.
 
 ### Optional external detector rules
 

@@ -3,6 +3,7 @@ mod control_server;
 mod demo;
 mod doctor;
 mod event;
+mod foreground;
 mod logging;
 mod offline_redact;
 mod shutdown;
@@ -447,6 +448,7 @@ fn cmd_run(use_pty: bool) -> Result<()> {
     let mut app = app::App::new();
     app.use_pty = use_pty;
     auto_select_initial_window(&mut app);
+    app.refresh_foreground_profile();
     let sink_kind = detect_best_sink(9876);
     app.active_sink_kind = Some(sink_kind.clone());
     let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
@@ -519,6 +521,7 @@ fn auto_select_initial_window(app: &mut app::App) {
 
     if let Some(w) = pick {
         app.selected_window_id = Some(w.id);
+        app.selected_window_title = Some(w.title.clone());
         log::info!(
             "auto-select window: id={} title='{}' {}x{}",
             w.id,
@@ -828,10 +831,12 @@ fn handle_event(app: &mut app::App, ev: Event) {
                         app.window_selector.move_up()
                     }
                     KeyCode::Enter => {
-                        let id = app.window_selector.selected_window().map(|w| w.id);
-                        if let Some(id) = id {
-                            log::info!("action:window_selector.select window_id={id}");
-                            app.selected_window_id = Some(id);
+                        let selected = app.window_selector.selected_window().cloned();
+                        if let Some(window) = selected {
+                            log::info!("action:window_selector.select window_id={}", window.id);
+                            app.selected_window_id = Some(window.id);
+                            app.selected_window_title = Some(window.title);
+                            app.refresh_foreground_profile();
                             app.pipeline_restart_needed = true;
                         }
                         log::debug!("action:window_selector.close");
