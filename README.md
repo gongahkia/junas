@@ -34,6 +34,8 @@ The TUI includes a local in-memory redaction log, with explicit export only. Its
 
 ## Install
 
+### macOS App
+
 The primary macOS release install path is the Homebrew cask:
 
 ```console
@@ -41,18 +43,45 @@ $ brew tap gongahkia/aki
 $ brew install --cask aki
 ```
 
-If the signed DMG for the current version has not been published yet, use the source install path:
+The cask installs the signed app bundle once the GitHub Release DMG exists for the current version.
+
+### Rust CLI From Source
+
+The CLI binary is named `aki`, but the workspace package is currently `privacy-tui`. `cargo install aki` from crates.io is not available until a crate is published, so install the package from Git:
 
 ```console
-$ brew install rust tesseract
-$ git clone https://github.com/gongahkia/aki
-$ cd aki
-$ cargo install --path privacy-tui
+$ brew install rust tesseract ffmpeg
+$ cargo install --git https://github.com/gongahkia/aki privacy-tui --locked
 $ aki self-test
 $ aki run
 ```
 
-If you do not want to install the binary yet, run the TUI directly from the workspace:
+For a local checkout, use the path install:
+
+```console
+$ git clone https://github.com/gongahkia/aki
+$ cd aki
+$ cargo install --path privacy-tui --locked
+$ aki self-test
+$ aki run
+```
+
+`ffmpeg` is only required for `aki redact` and direct MP4 output, but installing it up front keeps those commands available.
+
+### Nix CLI
+
+Nix users can run or install the CLI package from the flake:
+
+```console
+$ nix run github:gongahkia/aki#aki -- doctor
+$ nix profile install github:gongahkia/aki#aki
+```
+
+The Nix path is documented in [`docs/nix-install.md`](./docs/nix-install.md). It builds the Rust CLI from source and does not replace the signed macOS app cask.
+
+### Developer Workspace
+
+If you do not want to install the binary, run the TUI directly from the workspace:
 
 ```console
 $ cargo run -p privacy-tui -- run
