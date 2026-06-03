@@ -105,6 +105,8 @@ def test_run_sglb_04_oracle_agreement(client: TestClient, tmp_path) -> None:
     assert body["total_cases"] == 30
     assert body["strict"] is True
     assert body["weak_evaluators_used"] == []
+    # SGLB-04 uses a regulator-tier (grammar oracle) dataset; default tier.
+    assert body["data_tier"] == "regulator"
 
     # Receipt was persisted.
     runs_dir = Path(os.environ["JUNAS_BENCHMARK_RUNS_DIR"])
@@ -113,6 +115,40 @@ def test_run_sglb_04_oracle_agreement(client: TestClient, tmp_path) -> None:
     payload = json.loads(receipts[0].read_text(encoding="utf-8"))
     assert payload["workflow"] == "sglb_04"
     assert payload["total_cases"] == 30
+    assert payload["data_tier"] == "regulator"
+
+
+def test_run_response_carries_data_tier(client: TestClient) -> None:
+    resp = client.post(
+        "/api/v1/benchmarks/run",
+        json={
+            "workflow": "sglb_04",
+            "dataset": "benchmark/datasets/sglb_04_citation_verify.yaml",
+            "evaluators": ["multi_label_f1"],
+        },
+    )
+    assert resp.status_code == 200
+    body = resp.json()
+    # Default tier when no case carries data_tier metadata.
+    assert body["data_tier"] == "regulator"
+
+
+def test_leaderboard_entry_carries_data_tier(client: TestClient) -> None:
+    # Produce a run, then verify the leaderboard echoes data_tier.
+    client.post(
+        "/api/v1/benchmarks/run",
+        json={
+            "workflow": "sglb_04",
+            "dataset": "benchmark/datasets/sglb_04_citation_verify.yaml",
+            "evaluators": ["multi_label_f1"],
+        },
+    )
+    resp = client.get("/api/v1/benchmarks/leaderboard")
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["entries"], "expected at least one leaderboard entry"
+    assert all("data_tier" in entry for entry in body["entries"])
+    assert body["entries"][0]["data_tier"] == "regulator"
 
 
 def test_leaderboard_empty_when_no_receipts(client: TestClient) -> None:
