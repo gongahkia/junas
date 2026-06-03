@@ -2,6 +2,7 @@ mod app;
 mod control_server;
 mod event;
 mod logging;
+mod offline_redact;
 mod shutdown;
 mod tui;
 mod ui;
@@ -10,6 +11,7 @@ use anyhow::{bail, Result};
 use clap::{Parser, Subcommand, ValueEnum};
 use event::{is_quit, next_event, Event};
 use privacy_common::transform::TransformMode;
+use std::path::PathBuf;
 use std::time::{Duration, Instant};
 
 const TICK_RATE: Duration = Duration::from_millis(100); // 10 Hz
@@ -104,6 +106,23 @@ enum Command {
     TestScreen,
     /// Run detection pipeline self-test against synthetic sensitive data.
     SelfTest,
+    /// Redact an existing local video file and write a new redacted output.
+    Redact {
+        /// Input video file to redact.
+        input: PathBuf,
+        /// Output video path. Defaults to <input-stem>.redacted.<ext>.
+        #[arg(short, long)]
+        output: Option<PathBuf>,
+        /// Transform mode to apply to detected regions. Defaults to config.
+        #[arg(long, value_enum)]
+        transform: Option<CliTransform>,
+        /// Transform intensity in the range 0.0 to 1.0. Defaults to config.
+        #[arg(long)]
+        intensity: Option<f32>,
+        /// Allow replacing an existing output file. The input file is never overwritten.
+        #[arg(long)]
+        overwrite: bool,
+    },
 }
 
 fn main() -> Result<()> {
@@ -127,6 +146,13 @@ fn main() -> Result<()> {
         Command::CheckOutput => cmd_check_output(),
         Command::TestScreen => cmd_test_screen(),
         Command::SelfTest => cmd_self_test(),
+        Command::Redact {
+            input,
+            output,
+            transform,
+            intensity,
+            overwrite,
+        } => cmd_redact(input, output, transform, intensity, overwrite),
     }
 }
 
@@ -286,6 +312,39 @@ fn transform_mode_from_config(mode: &str) -> TransformMode {
 fn runtime_registry_from_disk() -> privacy_core::detection::patterns::PatternRegistry {
     let cfg = privacy_core::config::AppConfig::load().unwrap_or_default();
     privacy_core::detection::registry::runtime_registry(&cfg)
+}
+
+fn cmd_redact(
+    input: PathBuf,
+    output: Option<PathBuf>,
+    transform: Option<CliTransform>,
+    intensity: Option<f32>,
+    overwrite: bool,
+) -> Result<()> {
+    let cfg = privacy_core::config::AppConfig::load().unwrap_or_default();
+    let mode = transform
+        .map(TransformMode::from)
+        .unwrap_or_else(|| transform_mode_from_config(&cfg.transform.mode));
+    let intensity = intensity.unwrap_or(cfg.transform.intensity);
+    if !(0.0..=1.0).contains(&intensity) {
+        bail!("--intensity must be between 0.0 and 1.0");
+    }
+
+    let summary = offline_redact::redact_video(offline_redact::RedactOptions {
+        input,
+        output,
+        transform_mode: mode,
+        intensity,
+        overwrite,
+        config: cfg,
+    })?;
+
+    println!(
+        "redacted {} frame(s), {} detected region(s)",
+        summary.frames, summary.detected_regions
+    );
+    println!("output: {}", summary.output.display());
+    Ok(())
 }
 
 fn apply_headless_control(

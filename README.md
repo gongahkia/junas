@@ -76,9 +76,23 @@ macOS DMG release packaging is documented in [`docs/macos-release.md`](./docs/ma
 ```console
 $ aki list-windows
 $ aki test-patterns "SECRET_KEY=abc123"
+$ aki redact ./recording.mov --output ./recording.redacted.mov
 $ aki check-output
 $ aki --headless --source screen
 ```
+
+### Offline Video Redaction
+
+Use `aki redact` to process an existing screen recording without real-time capture or a virtual camera:
+
+```console
+$ aki redact ./recording.mov
+$ aki redact ./recording.mov --output ./recording.redacted.mov --transform ascii --intensity 0.9
+```
+
+The command decodes the first video stream with `ffmpeg`, runs the same local OCR, pattern detection, and transform logic used by the live pipeline on each frame, then writes a redacted video through `ffmpeg`. Install `ffmpeg` and `ffprobe` before using it.
+
+When `--output` is omitted, `Aki` writes next to the input as `<name>.redacted.<ext>`. Existing output files are refused unless `--overwrite` is passed, and the input file is never used as the output path.
 
 ## Power-User / Developer Commands
 

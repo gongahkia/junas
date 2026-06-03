@@ -1,7 +1,7 @@
 //! Frame recorder: pipes RGBA frames to an ffmpeg subprocess → MP4 output.
 //! Start/stop via Recorder::start() / Recorder::stop().
 
-use anyhow::{Context, Result};
+use anyhow::{bail, Context, Result};
 use privacy_common::frame::TransformedFrame;
 use std::{
     io::Write,
@@ -67,7 +67,10 @@ impl Recorder {
     /// Flush stdin, wait for ffmpeg to finish encoding.
     pub fn stop(mut self) -> Result<String> {
         drop(self.stdin); // close stdin → ffmpeg will flush and exit
-        self.proc.wait().context("waiting for ffmpeg to finish")?;
+        let status = self.proc.wait().context("waiting for ffmpeg to finish")?;
+        if !status.success() {
+            bail!("ffmpeg encoder exited with status {status}");
+        }
         Ok(self.path)
     }
 }
