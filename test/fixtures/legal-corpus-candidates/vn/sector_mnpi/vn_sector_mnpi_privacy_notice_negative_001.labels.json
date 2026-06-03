@@ -3,13 +3,185 @@
   "document_type": "generic",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lotuswave.energy"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border access"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lotuswave.energy"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border access"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "DTIA requirements"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "SCC-equivalent clauses"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP-7XQ"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we do not collect national ID or personal crypto keys for routine operations"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we do not capture PII beyond role accounts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "restricted list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "must not disclose or trade"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "draft ESG-linked convertible note issuance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "convertible note issuance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "will not disclose MNPI outside legal requirements"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "crypto-sandbox webinars",
+      "reason": "Educational/marketing context; explicitly not price sensitive or deal-stage"
+    },
+    {
+      "matched_text": "tabletop cyber incident drills",
+      "reason": "Training scenario; not an actual incident or disclosure"
+    },
+    {
+      "matched_text": "information-barrier e-learning",
+      "reason": "Training reference; not a live information barrier control in effect"
+    },
+    {
+      "matched_text": "insider-list policy refreshers",
+      "reason": "Training reference; not an actual insider list event"
+    },
+    {
+      "matched_text": "blackout",
+      "reason": "Glossary mention only; not an active blackout period"
+    },
+    {
+      "matched_text": "tipping",
+      "reason": "Glossary mention only; not an active selective-disclosure risk"
+    },
+    {
+      "matched_text": "insider-list",
+      "reason": "Glossary mention only; not an active insider list"
+    },
+    {
+      "matched_text": "cyber patch program",
+      "reason": "Declared public/stale; not MNPI"
+    },
+    {
+      "matched_text": "ISIN: VN-000-XYZ",
+      "reason": "Placeholder/invalid security identifier; not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "We retain routine logs 12 months",
+      "concept": "retention_period_marker",
+      "reason": "Retention periods are privacy-relevant but no explicit retention marker rule is available in the allowed list"
+    },
+    {
+      "matched_text": "trading-system alerts 6 months",
+      "concept": "retention_period_marker",
+      "reason": "Retention periods are privacy-relevant but no explicit retention marker rule is available in the allowed list"
+    },
+    {
+      "matched_text": "access, correction, deletion, restriction",
+      "concept": "dsar_rights_marker",
+      "reason": "DSAR/rights enumeration is privacy-relevant but there is no explicit DSAR/erasure marker in the allowed rules"
+    },
+    {
+      "matched_text": "FORM-DSAR-VN-000X",
+      "concept": "dsar_form_identifier",
+      "reason": "Identifier relates to DSAR processing but does not match any allowed PII rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

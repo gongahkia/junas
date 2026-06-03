@@ -3,13 +3,220 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Ph\u1ea1m Qu\u1ed1c Minh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "B\u00e0 L\u00ea Thu H\u00e0"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Nguy\u1ec5n Gia Tr\u00ed"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "le.ha@htxtp.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "bao_mat@htxtp.vn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "s\u1ef1 c\u1ed1 v\u1eadn h\u00e0nh/cyber"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Th\u00f4ng tin ch\u01b0a c\u00f4ng b\u1ed1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7,2%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7,5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Ph\u1ea1m Qu\u1ed1c Minh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "B\u00e0 L\u00ea Thu H\u00e0"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Nguy\u1ec5n Gia Tr\u00ed"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "le.ha@htxtp.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "bao_mat@htxtp.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "crypto_wallet_address",
+      "matched_text": "0x9F3b\u20261d9a"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "DEV-00 7"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "s\u1ef1 c\u1ed1 v\u1eadn h\u00e0nh/cyber"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "b\u1ecb truy c\u1eadp tr\u00e1i ph\u00e9p"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "b\u1ecb \u0111\u1ecdc metadata"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "t\u00e0i li\u1ec7u deal-stage ch\u01b0a c\u00f4ng b\u1ed1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "n\u1ed9i dung n\u00e0y ch\u01b0a c\u00f4ng b\u1ed1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Danh s\u00e1ch ng\u01b0\u1eddi n\u1ed9i b\u1ed9 t\u1ea1m th\u1eddi ph\u1ee5c v\u1ee5 \u0111i\u1ec1u tra v\u00e0 h\u1ea1n ch\u1ebf giao d\u1ecbch"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "\u00e1p d\u1ee5ng r\u00e0o ch\u1eafn th\u00f4ng tin gi\u1eefa Kh\u1ed1i T\u01b0 v\u1ea5n V\u1ed1n v\u00e0 Kh\u1ed1i Giao d\u1ecbch"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "R\u00e0o ch\u1eafn th\u00f4ng tin \u0111\u01b0\u1ee3c k\u00edch ho\u1ea1t: ph\u00e2n t\u00e1ch email, k\u00eanh chat v\u00e0 quy\u1ec1n truy c\u1eadp d\u1eef li\u1ec7u gi\u1eefa kh\u1ed1i ESG, kh\u1ed1i T\u00e0i ch\u00ednh, v\u00e0 kh\u1ed1i IB; ki\u1ec3m so\u00e1t danh s\u00e1ch ng\u01b0\u1eddi \u0111\u01b0\u1ee3c ph\u00e9p nh\u1eadn t\u00e0i li\u1ec7u"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Nghi\u00eam c\u1ea5m chia s\u1ebb ch\u1ecdn l\u1ecdc/tipping v\u1edbi b\u1ea5t k\u1ef3 b\u00ean th\u1ee9 ba"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "kh\u00f4ng th\u1ef1c hi\u1ec7n trao \u0111\u1ed5i ri\u00eang v\u1edbi nh\u00e0 \u0111\u1ea7u t\u01b0 tr\u01b0\u1edbc gi\u1edd m\u1edf c\u1eeda SGDCA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "\u0111i\u1ec1u kho\u1ea3n d\u1ef1 th\u1ea3o ph\u00e1t h\u00e0nh tr\u00e1i phi\u1ebfu xanh tr\u1ecb gi\u00e1 320 t\u1ef7 VND v\u1edbi l\u00e3i coupon 7,2%, d\u1ef1 ki\u1ebfn ni\u00eam y\u1ebft tr\u00ean S\u1edf Giao d\u1ecbch Ch\u1ee9ng kho\u00e1n An Ph\u00fa (SGDCA) trong Q3/2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "d\u1ef1 \u00e1n t\u00edn ch\u1ec9 xanh n\u1ed9i b\u1ed9"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "B\u1ea3n th\u1ea3o h\u1ee3p \u0111\u1ed3ng mua t\u00edn ch\u1ec9 xanh v\u1edbi nh\u00e0 cung c\u1ea5p \u201cGreenDelta Nam V\u1ef9\u201d n\u00eau gi\u00e1 chuy\u1ec3n giao 480.000.000 VND/l\u00f4 v\u00e0 m\u1ee9c chi\u1ebft kh\u1ea5u 7,5%; n\u1ed9i dung n\u00e0y ch\u01b0a c\u00f4ng b\u1ed1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7,2%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7,5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "480.000.000 VND/l\u00f4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_discount_rate",
+      "matched_text": "m\u1ee9c chi\u1ebft kh\u1ea5u 7,5%"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "HTXTP",
+      "reason": "Entity acronym/defined abbreviation, not PII or MNPI"
+    },
+    {
+      "matched_text": "SGDCA",
+      "reason": "Exchange acronym used as a defined abbreviation, not sensitive PII/MNPI"
+    },
+    {
+      "matched_text": "UTVNV",
+      "reason": "Regulator acronym used as a defined abbreviation, not PII/MNPI"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated MAC mention; do not label material adverse change when negated"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "k e y - i d : 3f:    a9:    12",
+      "concept": "mac_address/device_identifier",
+      "reason": "Colon-delimited hardware-like identifier with irregular spacing; resembles a truncated MAC or key ID but not clearly covered by a specific allowed PII rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='320 t\u1ef7 VND'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='480.000.000 VND'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='320 t\u1ef7 VND'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='480.000.000 VND'"
+  ],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

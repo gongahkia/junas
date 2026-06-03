@@ -3,13 +3,143 @@
   "document_type": "generic",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@namthinh-bamboo.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@namthinh-bamboo.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "02/11/1987"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@namthinh-bamboo.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@namthinh-bamboo.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "02/11/1987"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "device tag NT-HN-118, date of birth 02/11/1987, ward Tan Phu, role FX settlement assistant at NamThinh Bamboo Holdings JSC, payroll account suffix 2231 at Mekong Vista Bank, internal user ID UA-77129"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "device tag NT-HN-118"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "internal user ID UA-77129"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "payroll account suffix 2231"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers to processors in Singapore are limited to payroll and IT support"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PII is collected only where necessary"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "without dates or addresses that could help identify a person"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Banking records used solely to confirm salary payments are masked; account numbers appear only as suffixes and do not identify an individual when considered alone"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "aggregate attendance stats are anonymized"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "they are not combined to create profiles unless required for security verification"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "IR-0000-XYZ",
+      "reason": "Explicitly described as an invalid ticket reference; not a real identifier."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Citizen ID No.: [XXXX-XXXX-XXXX]",
+      "concept": "vn_cccd field placeholder",
+      "reason": "Indicates collection of Vietnam national ID but value is masked/placeholder and not an actual number."
+    },
+    {
+      "matched_text": "Tax Code: [XXXXXXXXXX]",
+      "concept": "personal tax code placeholder",
+      "reason": "Vietnamese personal tax code likely a unique identifier but masked and no explicit allowed rule for VN tax ID."
+    },
+    {
+      "matched_text": "Bank Account: [****-****]",
+      "concept": "bank account placeholder",
+      "reason": "Bank account is PII but this is a masked placeholder rather than an actual number."
+    },
+    {
+      "matched_text": "employee device tags and branch logs are kept 24 months",
+      "concept": "retention period",
+      "reason": "Retention is a privacy-event marker but there is no explicit allowed rule label for retention here."
+    },
+    {
+      "matched_text": "investor event RSVPs are deleted after 30 days",
+      "concept": "retention period",
+      "reason": "Retention/deletion schedule noted but no specific allowed retention rule label."
+    },
+    {
+      "matched_text": "Data subjects in Vietnam may submit access requests to dpo@namthinh-bamboo.vn",
+      "concept": "DSAR rights marker",
+      "reason": "Access request (DSAR) is a privacy-event concept but not mapped to a specific allowed rule except consent_withdrawal_marker."
+    },
+    {
+      "matched_text": "no securities-sensitive data is exported before a bourse announcement is posted",
+      "concept": "nonpublic gating policy",
+      "reason": "Indicates pre-announcement nonpublic gating; does not match canonical embargo terms in allowed rules."
+    },
+    {
+      "matched_text": "Date of Birth (DD/MM/YYYY): [ ]",
+      "concept": "DOB field placeholder",
+      "reason": "Indicates DOB collection but is empty; detectors typically expect an actual date value."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

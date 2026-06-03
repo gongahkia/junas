@@ -3,13 +3,343 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Le Thi Minh Chau"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 12/07/1985"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 40"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "chau.le@lotusriverfoods.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "escrow@pacificmeridianbank.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kien.tran@mekonghorizoncapital.com"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tran Bao Kien"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "serial VN\u2011LRF\u20112019\u2011IR"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "internal session ref SEE\u2011IR\u20112026\u20110815"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "session ID AN\u2011DA\u20112026\u201107\u201103\u20111400"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 28 3777 4433"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 1,250,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 225,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 50,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 3,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public issuer financial and governance information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no trading in LRF shares or related instruments until official disclosure by the issuer via SEE\u2011VN and VSSA channels"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Le Thi Minh Chau"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 12/07/1985"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 40"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "chau.le@lotusriverfoods.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "escrow@pacificmeridianbank.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kien.tran@mekonghorizoncapital.com"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tran Bao Kien"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "serial VN\u2011LRF\u20112019\u2011IR"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "laptop LRF\u2011IR\u2011001"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "internal session ref SEE\u2011IR\u20112026\u20110815"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "session ID AN\u2011DA\u20112026\u201107\u201103\u20111400"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 28 3777 4433"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "VSDC sub\u2011account LRF\u2011EM\u20119981"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Issuer representative identifiers: Ms. Le Thi Minh Chau (DOB 12/07/1985; age 40), Investor Relations Manager at Lotus River Foods JSC; office: Lotus Park Campus, Block C, Techno Ward, Thu Duc City; work email: chau.le@lotusriverfoods.vn; device: laptop LRF\u2011IR\u2011001, serial VN\u2011LRF\u20112019\u2011IR; VSDC sub\u2011account LRF\u2011EM\u20119981; internal session ref SEE\u2011IR\u20112026\u20110815; extension 2205"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 1,250,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 225,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 50,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 3,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "contemplated listing on Southern Equities Exchange (SEE\u2011VN) in 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure prior to formal public announcement via the issuer CBTT portal and SEE\u2011VN"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no trading in LRF shares or related instruments until official disclosure by the issuer via SEE\u2011VN and VSSA channels"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "subscription for 18% newly issued ordinary shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "appointment of underwriter pending"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Closing targeted for 30 August 2026"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1,200 staff",
+      "reason": "Generic workforce count is non-identifying per text and not PII/MNPI"
+    },
+    {
+      "matched_text": "aged 35",
+      "reason": "Separated weak age reference not linked to a person"
+    },
+    {
+      "matched_text": "Hanoi",
+      "reason": "Generic location reference not identifying on its own"
+    },
+    {
+      "matched_text": "Redwood X4 smartphone",
+      "reason": "Generic device model not identifying on its own"
+    },
+    {
+      "matched_text": "SeaNet W300",
+      "reason": "Generic router model not identifying on its own"
+    },
+    {
+      "matched_text": "extension 2205",
+      "reason": "Internal phone extension alone is not covered PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Escrow Account 101\u2011882\u2011VN\u2011LRF",
+      "concept": "bank_account",
+      "reason": "Operational escrow account identifier may be sensitive but is corporate rather than personal per VN PII scope"
+    },
+    {
+      "matched_text": "client code TR\u20115578",
+      "concept": "customer_account_number",
+      "reason": "Client code is an account identifier but appears to be organizational and not tied to a natural person"
+    },
+    {
+      "matched_text": "payroll sub\u2011account PR\u20114427",
+      "concept": "bank_account",
+      "reason": "Payroll sub-account reference may be sensitive but not clearly linked to an identifiable individual"
+    },
+    {
+      "matched_text": "VSDC sub\u2011account LRF\u2011EM\u20119981",
+      "concept": "customer_account_number",
+      "reason": "Securities depository sub-account likely identifies the issuer representative but mapping to a personal account ID category is ambiguous"
+    },
+    {
+      "matched_text": "laptop LRF\u2011IR\u2011001",
+      "concept": "device_serial_number",
+      "reason": "Device identifier not explicitly labeled as a serial; may or may not fall under device-specific identifiers"
+    },
+    {
+      "matched_text": "vn\u2011hmx\u2011vpn\u201104",
+      "concept": "ip_address",
+      "reason": "Network endpoint/hostname is logged but is not an IP address; coverage under network identifiers is unclear"
+    },
+    {
+      "matched_text": "Closing targeted for 30 August 2026",
+      "concept": "embargo_marker",
+      "reason": "Refers to Closing timing but does not use the explicit term \u201cClosing Date\u201d required by strict rule"
+    },
+    {
+      "matched_text": "information in this term sheet may constitute MNPI under Vietnamese Securities Law",
+      "concept": "nonpublic_marker",
+      "reason": "States potential MNPI status but without explicit \u2018non\u2011public\u2019 or embargo wording; borderline for strict detection"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
