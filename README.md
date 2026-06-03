@@ -13,7 +13,14 @@ Because `Aki` works on pixels instead of browser DOM nodes, it can cover termina
 
 ## Install
 
-The current primary path is a source install. A signed macOS app and Homebrew cask are planned, but not published yet.
+The primary macOS release install path is the Homebrew cask:
+
+```console
+$ brew tap gongahkia/aki
+$ brew install --cask aki
+```
+
+If the signed DMG for the current version has not been published yet, use the source install path:
 
 ```console
 $ brew install rust tesseract
@@ -41,7 +48,7 @@ $ AKI_BINARY="$PWD/target/debug/aki" swift run --package-path macos/AkiMenuBar
 
 The menu-bar shell can start and stop the headless redaction pipeline, pause or resume it, switch transforms, choose the capture/output mode used on restart, show redaction/FPS/CPU stats, and open the TUI in Terminal. The v1 sidecar protocol is documented in [`docs/sidecar-protocol.md`](./docs/sidecar-protocol.md).
 
-macOS DMG release packaging is documented in [`docs/macos-release.md`](./docs/macos-release.md).
+macOS DMG release packaging is documented in [`docs/macos-release.md`](./docs/macos-release.md), and the cask path is documented in [`docs/homebrew-cask.md`](./docs/homebrew-cask.md).
 
 ## Quick Commands
 

@@ -83,6 +83,8 @@ The workflow creates or updates the requested GitHub Release and uploads the DMG
 
 Contributors without release credentials should use `scripts/release_macos_dmg.sh --unsigned` instead of the signed workflow.
 
+After the signed DMG is published, validate the Homebrew cask path documented in [`docs/homebrew-cask.md`](./homebrew-cask.md).
+
 ## Failure Modes
 
 If `AKI_SIGN_IDENTITY` is missing or is not a Developer ID Application identity, the script fails before creating a public release artifact.
