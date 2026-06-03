@@ -202,6 +202,8 @@ pub struct App {
     pub selected_window_id: Option<u64>,
     /// Title for the selected capture window, used as a fallback when foreground app detection is unavailable.
     pub selected_window_title: Option<String>,
+    /// Selected display indexes for full-display or multi-display capture.
+    pub selected_display_indexes: Vec<usize>,
     pub window_selector: crate::ui::window_selector::WindowSelectorState,
     pub pattern_manager: crate::ui::pattern_manager::PatternManagerState,
     pub pattern_registry: PatternRegistry,
@@ -302,6 +304,7 @@ impl App {
             preview_height: 0,
             selected_window_id: None,
             selected_window_title: None,
+            selected_display_indexes: Vec::new(),
             window_selector: crate::ui::window_selector::WindowSelectorState::new(),
             pattern_manager: crate::ui::pattern_manager::PatternManagerState::new(),
             pattern_registry,

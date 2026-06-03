@@ -28,6 +28,9 @@ struct Cli {
     /// Capture source for sidecar/headless runs.
     #[arg(long, value_enum)]
     source: Option<CliSource>,
+    /// Display index to capture. Repeat or comma-separate for side-by-side multi-display capture.
+    #[arg(long = "display", value_name = "INDEX", value_delimiter = ',')]
+    display_indexes: Vec<usize>,
     /// Use PTY capture (compatibility alias for --source pty).
     #[arg(long)]
     pty: bool,
@@ -102,12 +105,25 @@ enum CliOutput {
     Mp4,
 }
 
+struct HeadlessOptions {
+    source_choice: CliSource,
+    display_indexes: Vec<usize>,
+    transform: Option<CliTransform>,
+    output: Option<CliOutput>,
+    http_port: u16,
+    record_output: Option<PathBuf>,
+    record_fps: u32,
+    record_overwrite: bool,
+}
+
 #[derive(Debug, Subcommand)]
 enum Command {
     /// Launch TUI + pipeline (default when no subcommand given).
     Run,
     /// Print all available capturable windows.
     ListWindows,
+    /// Print all available displays and their indexes.
+    ListDisplays,
     /// Run sensitivity patterns against provided text.
     TestPatterns {
         /// Text to test against all enabled patterns.
@@ -161,26 +177,30 @@ fn main() -> Result<()> {
     log::info!("log file ready at {}", log_path.display());
     let cli = Cli::parse();
     let source = resolve_source(cli.source, cli.pty)?;
+    let display_indexes = normalize_display_indexes(cli.display_indexes)?;
     log::info!(
-        "cli parsed headless={} source={} command={:?}",
+        "cli parsed headless={} source={} displays={:?} command={:?}",
         cli.headless,
         source.protocol_value(),
+        display_indexes,
         cli.command
     );
     if cli.headless {
-        return cmd_headless(
-            source,
-            cli.transform,
-            cli.output,
-            cli.http_port,
-            cli.record_output,
-            cli.record_fps,
-            cli.record_overwrite,
-        );
+        return cmd_headless(HeadlessOptions {
+            source_choice: source,
+            display_indexes,
+            transform: cli.transform,
+            output: cli.output,
+            http_port: cli.http_port,
+            record_output: cli.record_output,
+            record_fps: cli.record_fps,
+            record_overwrite: cli.record_overwrite,
+        });
     }
     match cli.command.unwrap_or(Command::Run) {
-        Command::Run => cmd_run(source.uses_pty()),
+        Command::Run => cmd_run(source.uses_pty(), display_indexes),
         Command::ListWindows => cmd_list_windows(),
+        Command::ListDisplays => cmd_list_displays(),
         Command::TestPatterns { text } => cmd_test_patterns(&text),
         Command::CheckOutput => cmd_check_output(),
         Command::Doctor { obs } => doctor::run_doctor(doctor::DoctorOptions { check_obs: obs }),
@@ -214,16 +234,20 @@ fn resolve_source(source: Option<CliSource>, pty: bool) -> Result<CliSource> {
     }
 }
 
+fn normalize_display_indexes(indexes: Vec<usize>) -> Result<Vec<usize>> {
+    let mut seen = std::collections::HashSet::new();
+    let mut normalized = Vec::with_capacity(indexes.len());
+    for index in indexes {
+        if !seen.insert(index) {
+            bail!("display index {index} was provided more than once");
+        }
+        normalized.push(index);
+    }
+    Ok(normalized)
+}
+
 /// Headless mode: full pipeline without TUI; logs stats to XDG config dir; Ctrl-C to stop.
-fn cmd_headless(
-    source_choice: CliSource,
-    transform: Option<CliTransform>,
-    output: Option<CliOutput>,
-    http_port: u16,
-    record_output: Option<PathBuf>,
-    record_fps: u32,
-    record_overwrite: bool,
-) -> Result<()> {
+fn cmd_headless(options: HeadlessOptions) -> Result<()> {
     use crossbeam_channel::bounded;
     use privacy_common::frame::TransformedFrame;
     use privacy_core::{
@@ -235,9 +259,25 @@ fn cmd_headless(
         Arc, Mutex,
     };
 
+    let HeadlessOptions {
+        source_choice,
+        display_indexes,
+        transform,
+        output,
+        http_port,
+        record_output,
+        record_fps,
+        record_overwrite,
+    } = options;
+
+    if source_choice.uses_pty() && !display_indexes.is_empty() {
+        bail!("--display can only be used with --source screen");
+    }
+
     log::info!(
-        "starting headless mode source={}",
-        source_choice.protocol_value()
+        "starting headless mode source={} displays={:?}",
+        source_choice.protocol_value(),
+        display_indexes
     );
     let running = Arc::new(AtomicBool::new(true));
     let r = running.clone();
@@ -261,14 +301,14 @@ fn cmd_headless(
         .unwrap_or_else(|| transform_mode_from_config(&cfg.transform.mode));
     let initial_intensity = cfg.transform.intensity.clamp(0.0, 1.0);
     let control_state = control_server::ControlState::new(initial_mode, initial_intensity);
-    control_state.set_source(source_choice.protocol_value());
+    control_state.set_source(&capture_source_label(source_choice, &display_indexes));
     control_state.set_output(&output_label);
     control_server::spawn(
         Arc::clone(&control_state),
         control_server::DEFAULT_CONTROL_PORT,
     );
     let registry = runtime_registry(&cfg);
-    let source = create_capture_source(None, source_choice.uses_pty());
+    let source = create_capture_source(None, source_choice.uses_pty(), &display_indexes);
     let (out_tx, out_rx) = bounded::<TransformedFrame>(8);
     let handle = spawn_pipeline(source, None, registry, out_tx)?;
     *handle.state.transform_mode.lock().unwrap() = initial_mode;
@@ -360,6 +400,22 @@ fn sink_kind_label(sink_kind: &privacy_output::SinkKind) -> String {
         privacy_output::SinkKind::Obs(port) => format!("obs:{port}"),
         privacy_output::SinkKind::Twitch => "twitch".to_string(),
         privacy_output::SinkKind::Mp4 { path, .. } => format!("mp4:{}", path.display()),
+    }
+}
+
+fn capture_source_label(source: CliSource, display_indexes: &[usize]) -> String {
+    match (source, display_indexes) {
+        (CliSource::Pty, _) => "pty".to_string(),
+        (CliSource::Screen, []) => "screen".to_string(),
+        (CliSource::Screen, [display]) => format!("screen:display:{display}"),
+        (CliSource::Screen, displays) => {
+            let joined = displays
+                .iter()
+                .map(|display| display.to_string())
+                .collect::<Vec<_>>()
+                .join(",");
+            format!("screen:displays:{joined}")
+        }
     }
 }
 
@@ -511,13 +567,17 @@ fn export_session_log(app: &app::App) {
     }
 }
 
-fn cmd_run(use_pty: bool) -> Result<()> {
+fn cmd_run(use_pty: bool, display_indexes: Vec<usize>) -> Result<()> {
+    if use_pty && !display_indexes.is_empty() {
+        bail!("--display can only be used with --source screen");
+    }
     use privacy_output::{autodetect::detect_best_sink, create_sink, tray};
     use std::sync::{Arc, Mutex};
-    log::info!("starting tui mode use_pty={use_pty}");
+    log::info!("starting tui mode use_pty={use_pty} displays={display_indexes:?}");
     let mut terminal = tui::init()?;
     let mut app = app::App::new();
     app.use_pty = use_pty;
+    app.selected_display_indexes = display_indexes;
     auto_select_initial_window(&mut app);
     app.refresh_foreground_profile();
     let sink_kind = detect_best_sink(9876);
@@ -541,7 +601,7 @@ fn cmd_run(use_pty: bool) -> Result<()> {
 
 /// Pick a reasonable initial capture window to avoid display self-capture recursion.
 fn auto_select_initial_window(app: &mut app::App) {
-    if app.use_pty || app.selected_window_id.is_some() {
+    if app.use_pty || app.selected_window_id.is_some() || !app.selected_display_indexes.is_empty() {
         return;
     }
     let windows = privacy_core::capture::window_picker::list_windows().unwrap_or_default();
@@ -611,11 +671,16 @@ fn spawn_capture_pipeline(
     use privacy_common::frame::TransformedFrame;
     use privacy_core::pipeline_runner::spawn_pipeline;
     let (out_tx, out_rx) = bounded::<TransformedFrame>(8);
-    let source = create_capture_source(app.selected_window_id, app.use_pty);
+    let source = create_capture_source(
+        app.selected_window_id,
+        app.use_pty,
+        &app.selected_display_indexes,
+    );
     let registry = app.pattern_registry.clone();
     log::info!(
-        "spawn_capture_pipeline selected_window_id={:?} use_pty={}",
+        "spawn_capture_pipeline selected_window_id={:?} display_indexes={:?} use_pty={}",
         app.selected_window_id,
+        app.selected_display_indexes,
         app.use_pty
     );
     let handle = spawn_pipeline(source, None, registry, out_tx)?;
@@ -693,6 +758,7 @@ fn run_with_pipeline_restart(
 fn create_capture_source(
     window_id: Option<u64>,
     use_pty: bool,
+    display_indexes: &[usize],
 ) -> Box<dyn privacy_core::capture::CaptureSource + Send> {
     if use_pty {
         use privacy_core::capture::pty::PtyCaptureSource;
@@ -702,15 +768,38 @@ fn create_capture_source(
     #[cfg(target_os = "macos")]
     {
         use privacy_core::capture::macos::{CaptureTarget, MacosCaptureSource};
-        let target = window_id
-            .map(CaptureTarget::Window)
+        use privacy_core::capture::multi_display::{DisplayCapture, MultiDisplayCaptureSource};
+        if display_indexes.len() > 1 {
+            let displays = display_indexes
+                .iter()
+                .map(|index| {
+                    let source = MacosCaptureSource::new(CaptureTarget::Display(*index), 30);
+                    DisplayCapture::new(
+                        format!("display {index}"),
+                        Box::new(source) as Box<dyn privacy_core::capture::CaptureSource + Send>,
+                    )
+                })
+                .collect();
+            log::debug!("capture source selected: macos multi-display {display_indexes:?}");
+            return Box::new(MultiDisplayCaptureSource::new(displays));
+        }
+        let target = display_indexes
+            .first()
+            .copied()
+            .map(CaptureTarget::Display)
+            .or_else(|| window_id.map(CaptureTarget::Window))
             .unwrap_or(CaptureTarget::Display(0));
-        log::debug!("capture source selected: macos {:?}", window_id);
+        log::debug!(
+            "capture source selected: macos window={:?} displays={:?}",
+            window_id,
+            display_indexes
+        );
         return Box::new(MacosCaptureSource::new(target, 30));
     }
     #[allow(unreachable_code)]
     {
         let _ = window_id;
+        let _ = display_indexes;
         panic!("platform not supported");
     }
 }
@@ -726,6 +815,31 @@ fn cmd_list_windows() -> Result<()> {
         println!(
             "{:>8}  {:<40}  {}x{}",
             w.id, &w.title, w.bounds.width, w.bounds.height
+        );
+    }
+    Ok(())
+}
+
+fn cmd_list_displays() -> Result<()> {
+    let displays = privacy_core::capture::window_picker::list_displays()?;
+    if displays.is_empty() {
+        println!("no displays found");
+        return Ok(());
+    }
+    println!(
+        "{:>5}  {:>10}  {:<7}  {:>9}  NAME",
+        "INDEX", "ID", "PRIMARY", "WxH"
+    );
+    for display in displays {
+        let primary = if display.is_primary { "yes" } else { "" };
+        println!(
+            "{:>5}  {:>10}  {:<7}  {:>4}x{:<4}  {}",
+            display.index,
+            display.id,
+            primary,
+            display.bounds.width,
+            display.bounds.height,
+            display.name
         );
     }
     Ok(())
@@ -812,7 +926,7 @@ fn cmd_test_screen() -> Result<()> {
     let mut total_matches = 0usize;
     println!("capturing 10 frames for analysis...");
     // start a real capture from the first available window
-    let mut source = create_capture_source(Some(windows[0].id), false);
+    let mut source = create_capture_source(Some(windows[0].id), false, &[]);
     source.start()?;
     for i in 0..10 {
         // poll for a real frame (timeout ~500ms)
@@ -908,6 +1022,7 @@ fn handle_event(app: &mut app::App, ev: Event) {
                             log::info!("action:window_selector.select window_id={}", window.id);
                             app.selected_window_id = Some(window.id);
                             app.selected_window_title = Some(window.title);
+                            app.selected_display_indexes.clear();
                             app.refresh_foreground_profile();
                             app.pipeline_restart_needed = true;
                         }
@@ -1142,5 +1257,25 @@ mod tests {
             false,
         )
         .is_err());
+    }
+
+    #[test]
+    fn duplicate_display_indexes_are_rejected() {
+        assert_eq!(normalize_display_indexes(vec![0, 2]).unwrap(), vec![0, 2]);
+        assert!(normalize_display_indexes(vec![1, 1]).is_err());
+    }
+
+    #[test]
+    fn capture_source_label_includes_display_selection() {
+        assert_eq!(capture_source_label(CliSource::Screen, &[]), "screen");
+        assert_eq!(
+            capture_source_label(CliSource::Screen, &[2]),
+            "screen:display:2"
+        );
+        assert_eq!(
+            capture_source_label(CliSource::Screen, &[0, 1]),
+            "screen:displays:0,1"
+        );
+        assert_eq!(capture_source_label(CliSource::Pty, &[0]), "pty");
     }
 }
