@@ -3,13 +3,98 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@thanhnam.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@thanhnam.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation controls"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@thanhnam.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@thanhnam.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data-export approval DEA-2026-05-27"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "CloudBridge Data Pte Ltd (SG)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation controls"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "with fields unpopulated"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "anonymised telemetry"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "(Full Name, ID Number, Bank Branch, Payroll Account)"
+    }
+  ],
   "must_not_detect": [],
-  "uncertain": [],
+  "uncertain": [
+    {
+      "matched_text": "Sandbox log retention remains 90 days",
+      "concept": "retention_marker",
+      "reason": "Retention period is a live privacy handling control and legally relevant, but there is no explicit allowed rule token for retention markers in the current rule set."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

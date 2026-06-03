@@ -3,13 +3,147 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "finance@bluerivertextiles.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ap@bluerivertextiles.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "itservicedesk@bluerivertextiles.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-555-018"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB: 1992-11"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "BR-EMP-2703"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "finance@bluerivertextiles.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ap@bluerivertextiles.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "itservicedesk@bluerivertextiles.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-555-018"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB: 1992-11"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "BR-EMP-2703"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "BR-LT-0932"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "BR-MOB-414"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "payroll account suffix: 8841"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "role: warehouse supervisor at Blue River Textiles JSC, DOB: 1992-11, residence: Ph\u01b0\u1eddng 7, Qu\u1eadn B\u00ecnh Th\u1ea1nh, TP.HCM, device asset tags: BR-LT-0932 and BR-MOB-414, payroll account suffix: 8841 at Mekong Prosperity Bank, internal staff code: BR-EMP-2703"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "removing EXIF data, redacting DOB and address from the legacy scan, and masking account suffixes"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ISIN: VN000-PLACE-001",
+      "reason": "Placeholder/training value; not PII or MNPI"
+    },
+    {
+      "matched_text": "Ticker: BRX?",
+      "reason": "Placeholder; not PII or MNPI"
+    },
+    {
+      "matched_text": "Client Ref: 0000-XX-123",
+      "reason": "Placeholder/training value; not PII or MNPI"
+    },
+    {
+      "matched_text": "AIMEI-79X-004",
+      "reason": "Invalid IMEI-like string; not covered PII"
+    },
+    {
+      "matched_text": "Case Ref: BRX-IR-2026-06",
+      "reason": "Internal case reference; not personal data or MNPI"
+    },
+    {
+      "matched_text": "Full Name, ID No., Tax Code, Account No",
+      "reason": "Template field labels only; no actual personal data"
+    },
+    {
+      "matched_text": "Draft Order No. 12345-A",
+      "reason": "Internal routine document number; not MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "cyber/operational incident",
+      "concept": "cyber incident sensitivity",
+      "reason": "Could be market-sensitive if nonpublic; here stated as publicly updated"
+    },
+    {
+      "matched_text": "residence: Ph\u01b0\u1eddng 7, Qu\u1eadn B\u00ecnh Th\u1ea1nh, TP.HCM",
+      "concept": "address (VN locality)",
+      "reason": "Residence is personal data but no specific address rule provided; captured via quasi-identifiers"
+    },
+    {
+      "matched_text": "role: warehouse supervisor at Blue River Textiles JSC",
+      "concept": "employment role/employer",
+      "reason": "Employment role and employer can help identify an individual; not a standalone rule in strict set"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

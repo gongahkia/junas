@@ -3,13 +3,226 @@
   "document_type": "generic",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@gianninh-agrotech.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@gianninh-agrotech.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Tr\u1ea7n Quang B\u00ecnh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "B\u00e0 L\u00fd Ng\u1ecdc Anh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Ph\u1ea1m Qu\u1ed1c Duy"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout dates"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Issuer Wall"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@gianninh-agrotech.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@gianninh-agrotech.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Tr\u1ea7n Quang B\u00ecnh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "B\u00e0 L\u00fd Ng\u1ecdc Anh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Ph\u1ea1m Qu\u1ed1c Duy"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data-export approval"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "archival payroll extracts and investor relations contact lists are exported to Lan Phong nodes in Singapore and H\u00e0n Th\u00e0nh"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only legal name, phone, email, residence status, and bank branch code"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only the minimal identifiers needed for payroll set-up are retained in the HRIS"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "until consent withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "draft earnings"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "draft prospectus"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout dates"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Issuer Wall"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role noun defined term; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention",
+      "concept": "retention marker",
+      "reason": "Retention events are relevant but not included in allowed rules list."
+    },
+    {
+      "matched_text": "retained 5 years from termination",
+      "concept": "retention period",
+      "reason": "Duration of holding personal data is legally relevant but no specific rule provided."
+    },
+    {
+      "matched_text": "retained 18 months or until consent withdrawal",
+      "concept": "retention period",
+      "reason": "Duration/condition of retention is relevant but not an allowed rule."
+    },
+    {
+      "matched_text": "DSAR",
+      "concept": "dsar marker",
+      "reason": "Data subject access request event is relevant but rule not provided."
+    },
+    {
+      "matched_text": "Erasure",
+      "concept": "erasure marker",
+      "reason": "Erasure event marker is relevant but not in allowed rules."
+    },
+    {
+      "matched_text": "marketing tracking logs tied to B\u00e0 L\u00fd\u2019s email were erased",
+      "concept": "erasure action on personal data",
+      "reason": "Erasure of personal data is relevant but lacks an allowed rule."
+    },
+    {
+      "matched_text": "transfer impact assessment ref TIA-LV-7421",
+      "concept": "internal reference ID",
+      "reason": "Identifier may be sensitive operational data but not covered by allowed rules."
+    },
+    {
+      "matched_text": "bank branch code",
+      "concept": "financial routing data",
+      "reason": "Potentially identifying financial data point but not listed as an allowed rule."
+    },
+    {
+      "matched_text": "dependent names",
+      "concept": "family/minor data",
+      "reason": "May involve minors\u2019 data; relevant but not clearly within allowed rules."
+    },
+    {
+      "matched_text": "emergency export route has been disabled and audit-closed",
+      "concept": "negated cross-border route",
+      "reason": "Cross-border context but explicitly disabled; not a live marker under allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

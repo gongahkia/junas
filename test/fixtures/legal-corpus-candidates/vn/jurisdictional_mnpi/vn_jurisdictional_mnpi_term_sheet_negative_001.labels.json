@@ -3,13 +3,152 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@gmh.invalid"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-555-000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not yet been announced on SGDCK S\u00e0i G\u00f2n or filed with UBCK Mekong"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "an internal trading blackout for designated insiders applies from 10-10-2026 to 24-10-2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been posted on the exchange bulletin"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure is prohibited"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@gmh.invalid"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-555-000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not yet been announced on SGDCK S\u00e0i G\u00f2n or filed with UBCK Mekong"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "an internal trading blackout for designated insiders applies from 10-10-2026 to 24-10-2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been posted on the exchange bulletin"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "the Board has approved an internal preliminary price range for the private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\u201cth\u00f4ng tin n\u1ed9i b\u1ed9\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no one-on-one analyst briefings during blackout per issuer policy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "insider trading is prohibited during this window"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role/section header, not PII or MNPI"
+    },
+    {
+      "matched_text": "GMH.VX-001",
+      "reason": "Ticker placeholder; not an allowed PII/MNPI rule target"
+    },
+    {
+      "matched_text": "012345-XX",
+      "reason": "Placeholder enterprise code; not covered by allowed PII rules"
+    },
+    {
+      "matched_text": "Annex A",
+      "reason": "Generic label placeholder; not PII/MNPI"
+    },
+    {
+      "matched_text": "Schedule 1",
+      "reason": "Generic label placeholder; not PII/MNPI"
+    },
+    {
+      "matched_text": "Form-SSX-00",
+      "reason": "Placeholder filing/form code; not PII/MNPI"
+    },
+    {
+      "matched_text": "F-096/VT",
+      "reason": "Placeholder filing code; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "issuer will make public disclosure within 24 hours of a formal decision",
+      "concept": "disclosure timing",
+      "reason": "VN disclosure-timing commitment is compliance-relevant but not mapped to an allowed MNPI rule"
+    },
+    {
+      "matched_text": "designated insiders",
+      "concept": "insider_list_scope",
+      "reason": "Indicates scope of insiders for a blackout but not an explicit insider list marker per allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

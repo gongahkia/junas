@@ -3,13 +3,194 @@
   "document_type": "generic",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tran My Duyen"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lanphong.ag"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Pham Quang Huy"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "LP-EMP 12 0 09"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen Thi Bao"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lanphong.ag"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tran My Duyen"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lanphong.ag"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Pham Quang Huy"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "LP-EMP 12 0 09"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen Thi Bao"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lanphong.ag"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84-0-xxx- 8899 (masked)"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "acct pattern 3x-****-**77"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "acct: 88-xx- 9012"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "Q\u2014VN\u201408 7"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "Q\u2014VN\u201408%207"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "LP-TOK-88 x9"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "withheld from any export"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SGM",
+      "reason": "Defined-term abbreviation in parentheses; not PII/MNPI itself"
+    },
+    {
+      "matched_text": "MAC address",
+      "reason": "Explicit negation; false-positive bait should not be treated as live PII"
+    },
+    {
+      "matched_text": "MNPI",
+      "reason": "Explicit negation context; not a live MNPI disclosure"
+    },
+    {
+      "matched_text": "IMEI",
+      "reason": "Explicit negation; false-positive bait should not be treated as collected PII"
+    },
+    {
+      "matched_text": "LedgerLite",
+      "reason": "Product name; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR received",
+      "concept": "DSAR marker",
+      "reason": "DSAR is a privacy event relevant to compliance but not in the allowed rules list"
+    },
+    {
+      "matched_text": "Erasure",
+      "concept": "erasure_marker",
+      "reason": "Erasure is a privacy event relevant to compliance but not in the allowed rules list"
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "retention_marker",
+      "reason": "Retention is a privacy event relevant to compliance but not in the allowed rules list"
+    },
+    {
+      "matched_text": "DSAR queue id",
+      "concept": "DSAR marker",
+      "reason": "Queue identifier indicates DSAR processing but DSAR markers are not explicitly covered by allowed rules"
+    },
+    {
+      "matched_text": "legal hold applied",
+      "concept": "legal_hold_marker",
+      "reason": "Indicates preservation/retention control; relevant to privacy handling but not in allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

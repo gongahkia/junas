@@ -3,13 +3,315 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@auroragrowthcapital.asia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 1,250,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 85,000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "export of onboarding forms to a Singapore cloud region"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@vietnexa.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ms.quynh.nguyen@vietnexa.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "linhtb@saigonmeridian.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpsec@vietnexa.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 28 9900 4411"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "0039281-77"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tran Bao Linh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen Thi Quynh"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation requires collection of business email, role, and corporate phone only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no public announcement has been made"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "if any price-sensitive draft is produced"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Le Thi Mai"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Do Van Kiet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@auroragrowthcapital.asia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 1,250,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 85,000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "export of onboarding forms to a Singapore cloud region"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@vietnexa.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ms.quynh.nguyen@vietnexa.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "linhtb@saigonmeridian.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpsec@vietnexa.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 28 9900 4411"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "0039281-77"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tran Bao Linh"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen Thi Quynh"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation requires collection of business email, role, and corporate phone only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no public announcement has been made"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "if any price-sensitive draft is produced"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Le Thi Mai"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Do Van Kiet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "intends to seek a Vietnamese exchange listing in Q4 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "MNPI Register"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Skylark Cloud Pte. Ltd. (Singapore)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "onboarding form captures name, role, and business email"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no government ID copies retained beyond salted hash"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Role noun used as a defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "investor",
+      "reason": "Role noun used as a defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "we always encrypt at rest and never transfer abroad",
+      "reason": "Policy-only template statement; not a live cross-border event."
+    },
+    {
+      "matched_text": "Offshore log shipping to non-Vietnam regions was disabled in June 2024",
+      "reason": "Completed control; not an active cross-border transfer."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR #VNX-DS-119",
+      "concept": "DSAR marker",
+      "reason": "DSAR events are in scope but no explicit allowed rule name provided."
+    },
+    {
+      "matched_text": "erasure completed 20 May 2026",
+      "concept": "erasure marker",
+      "reason": "Erasure events are in scope but not listed among allowed rules."
+    },
+    {
+      "matched_text": "retention tag RET-12M applies to investor relations datasets",
+      "concept": "retention marker",
+      "reason": "Retention controls are relevant but no explicit allowed rule name provided."
+    },
+    {
+      "matched_text": "DEA-26-041",
+      "concept": "data-export approval ID",
+      "reason": "Cross-border governance identifier; not covered by existing allowed rules."
+    },
+    {
+      "matched_text": "DSAR portal for all data subjects",
+      "concept": "DSAR portal marker",
+      "reason": "Indicates data subject request mechanism; no explicit allowed rule for DSAR portals."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

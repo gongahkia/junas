@@ -3,13 +3,252 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 180,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 900,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tr\u1ea7n Lan H\u00f2a"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "staff-ID e3- VN -  991"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation tag: \u201cstaff-ID only; no biometric\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@anphuc-capital.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84  28 3  19  007"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 180,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 900,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tr\u1ea7n Lan H\u00f2a"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "staff-ID e3- VN -  991"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation tag: \u201cstaff-ID only; no biometric\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@anphuc-capital.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84  28 3  19  007"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "data-export approval ref: DE- 2026 /05 -SG"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "internal circulation limited to deal team and legal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "contingent option"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Strategic Investment Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "price-sensitive information"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal fields minimised per Decree 13"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "ES- 09   BV- 22"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Role noun/defined party label, not a person\u2019s name or PII"
+    },
+    {
+      "matched_text": "investor",
+      "reason": "Role noun/defined party label, not a person\u2019s name or PII"
+    },
+    {
+      "matched_text": "material adverse change (MAC)",
+      "reason": "Negated/informational clause; not a live MAC trigger per instruction"
+    },
+    {
+      "matched_text": "no biometric",
+      "reason": "Negated collection; not sensitive data present"
+    },
+    {
+      "matched_text": "closing target",
+      "reason": "Not a supported embargo marker like Closing Date/Signing Date"
+    },
+    {
+      "matched_text": "last cross-border data transfer batch completed on 31 May 2026",
+      "reason": "Completed control; not a live cross-border transfer marker"
+    },
+    {
+      "matched_text": "non-MNPI",
+      "reason": "Explicitly stated non-MNPI; should not be flagged as MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "retention marker: 24 months",
+      "concept": "retention_marker",
+      "reason": "Privacy retention indicator but no explicit retention_marker rule in allowed list"
+    },
+    {
+      "matched_text": "retention clock starts at contract signing for 12 months for applicants",
+      "concept": "retention_marker",
+      "reason": "Specifies retention duration; category not in allowed rules"
+    },
+    {
+      "matched_text": "DS- 26  -041",
+      "concept": "dsar_marker",
+      "reason": "DSAR reference suggests data subject request; no DSAR rule provided"
+    },
+    {
+      "matched_text": "erasure event logged at 13:42 ICT",
+      "concept": "erasure_marker",
+      "reason": "Erasure event timing; no erasure_marker rule provided"
+    },
+    {
+      "matched_text": "acc: 00 7 9\u2014Z",
+      "concept": "bank_account_placeholder",
+      "reason": "Bank field placeholder, may resemble account data but not actual PII"
+    },
+    {
+      "matched_text": "Access link (internal): https://portal.vn/issuer/HoanThinh/terms?ref=TS- 2026 _VN &seq=0 9",
+      "concept": "internal_session_id",
+      "reason": "Internal link with query refs could embed internal identifiers; not clearly covered"
+    },
+    {
+      "matched_text": "hashed employee codes",
+      "concept": "hashed_identifier",
+      "reason": "Pseudonymous identifiers referenced but not specific values; category not explicit"
+    },
+    {
+      "matched_text": "log retention set to 180 days",
+      "concept": "retention_marker",
+      "reason": "Indicates system log retention period; retention marker not in allowed rule list"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

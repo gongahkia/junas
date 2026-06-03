@@ -3,13 +3,195 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "treasury@northriverfoods.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1900-000-000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "treasury@northriverfoods.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1900-000-000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation policy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "effective date 2026-07-01"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "anticipated signing Q3 2026"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "account reference 99-AB-123456"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Role noun/defined term, not PII or MNPI."
+    },
+    {
+      "matched_text": "investor",
+      "reason": "Role noun/defined term, not PII or MNPI."
+    },
+    {
+      "matched_text": "no active DSARs",
+      "reason": "Negated; not a live DSAR event."
+    },
+    {
+      "matched_text": "consent withdrawals recorded in 2024 were implemented",
+      "reason": "Completed control; not a live consent withdrawal event."
+    },
+    {
+      "matched_text": "prior employee erasure concluded on 2025-11-03",
+      "reason": "Concluded action; not a live erasure event."
+    },
+    {
+      "matched_text": "retention review completed under Policy RP-VN/36",
+      "reason": "Completed review; not an active retention risk."
+    },
+    {
+      "matched_text": "no employee consent withdrawals pending",
+      "reason": "Negated; no live consent withdrawal."
+    },
+    {
+      "matched_text": "no DSAR backlog",
+      "reason": "Negated; no live DSAR issue."
+    },
+    {
+      "matched_text": "no MNPI is provided herein",
+      "reason": "Explicit negation of MNPI."
+    },
+    {
+      "matched_text": "no undisclosed price-sensitive inputs",
+      "reason": "Explicit negation; indicates absence of undisclosed MNPI."
+    },
+    {
+      "matched_text": "no new non-public project details are included in this term sheet",
+      "reason": "Explicit negation of non-public information."
+    },
+    {
+      "matched_text": "no non-public price-sensitive information is shared in this document",
+      "reason": "Explicit negation of non-public price-sensitive info."
+    },
+    {
+      "matched_text": "nothing in this clause creates a right to immediate erasure",
+      "reason": "Negated entitlement; not an erasure instruction."
+    },
+    {
+      "matched_text": "this term sheet does not instruct any live cross-border transmission other than the approved payroll metadata in the Data Export Approval above",
+      "reason": "Negated instruction; not a live cross-border event beyond the approved scope."
+    },
+    {
+      "matched_text": "no national ID numbers, home addresses, or personal phone numbers collected",
+      "reason": "Explicit negation; indicates data minimisation rather than collection."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Approval Ref: EXP-VN-00X0",
+      "concept": "internal approval reference",
+      "reason": "Potentially sensitive internal control ID; not covered by allowed PII/MNPI rules."
+    },
+    {
+      "matched_text": "VN-XYZ-000",
+      "concept": "bank branch code",
+      "reason": "Bank branch identifier; no explicit rule for branch codes."
+    },
+    {
+      "matched_text": "NRV-TS-2026",
+      "concept": "temporary securities code",
+      "reason": "Pre-listing code relevant to securities; not covered by allowed MNPI rules."
+    },
+    {
+      "matched_text": "VN00NRV000X0",
+      "concept": "ISIN-like placeholder",
+      "reason": "Security identifier (invalid/placeholder); no generic ISIN rule provided."
+    },
+    {
+      "matched_text": "HN-000X",
+      "concept": "exchange notice reference",
+      "reason": "Disclosure reference number; not mapped to an allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'retention' text='retention'",
+    "drop ideal_must_detect: invalid rule 'retention' text='retention'",
+    "drop ideal_must_detect: invalid rule 'retention' text='data retained for 36 months'",
+    "drop ideal_must_detect: invalid rule 'retention' text='deletion schedule enforced'",
+    "drop ideal_must_detect: invalid rule 'retention' text='next review 2027-01'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
