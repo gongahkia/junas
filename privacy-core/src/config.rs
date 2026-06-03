@@ -180,6 +180,29 @@ impl Default for ProfileConfig {
     }
 }
 
+/// Automatic detector profile selection based on the foreground app.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(default)]
+pub struct ForegroundProfileConfig {
+    /// Enable automatic detector profile selection.
+    pub enabled: bool,
+    /// Force a detector profile by name: broad | secrets | pii | browser.
+    /// Empty or "auto" keeps foreground-app selection active.
+    pub override_profile: String,
+    /// Minimum interval between foreground app checks.
+    pub update_interval_ms: u64,
+}
+
+impl Default for ForegroundProfileConfig {
+    fn default() -> Self {
+        Self {
+            enabled: true,
+            override_profile: String::new(),
+            update_interval_ms: 1000,
+        }
+    }
+}
+
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(default)]
 pub struct AppConfig {
@@ -187,6 +210,7 @@ pub struct AppConfig {
     pub detection: DetectionConfig,
     pub transform: TransformConfig,
     pub output: OutputConfig,
+    pub foreground_profiles: ForegroundProfileConfig,
     /// Named profiles: [profiles.streaming], [profiles.pairing], etc.
     pub profiles: std::collections::HashMap<String, ProfileConfig>,
 }
@@ -235,5 +259,6 @@ mod tests {
         assert_eq!(back.detection.min_confidence, cfg.detection.min_confidence);
         assert!((back.transform.intensity - cfg.transform.intensity).abs() < 1e-6);
         assert_eq!(back.output.http_port, cfg.output.http_port);
+        assert!(back.foreground_profiles.enabled);
     }
 }

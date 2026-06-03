@@ -40,7 +40,7 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
         Span::raw("│ "),
         Span::styled(pipeline_icon, Style::default().fg(pipeline_color)),
         Span::raw(format!(
-            " {:.1}fps  │  cap:{:.0}ms ocr:{:.0}ms tx:{:.0}ms out:{:.0}ms tot:{:.0}ms  │  {:?} {:.0}%",
+            " {:.1}fps  │  cap:{:.0}ms ocr:{:.0}ms tx:{:.0}ms out:{:.0}ms tot:{:.0}ms  │  {:?} {:.0}%  │  profile:{}:{}",
             s.actual_fps,
             s.capture_latency_ms,
             s.ocr_latency_ms,
@@ -49,6 +49,8 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
             total_lat,
             app.transform_mode,
             app.transform_intensity * 100.0,
+            app.detector_profile_label(),
+            app.detector_profile_source,
         )),
         {
             let neural_status = if app.transform_mode == TransformMode::Neural {

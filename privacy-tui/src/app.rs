@@ -1,10 +1,17 @@
 //! Application state shared across all TUI components.
 
-use crate::control_server::ControlState;
+use crate::{control_server::ControlState, foreground};
 use privacy_common::{frame::Rect, transform::TransformMode};
 use privacy_core::{
     config::AppConfig,
-    detection::{patterns::PatternRegistry, registry::runtime_registry},
+    detection::{
+        patterns::PatternRegistry,
+        profiles::{
+            apply_detector_profile, detector_profile_from_name, select_detector_profile,
+            DetectorProfileKind,
+        },
+        registry::runtime_registry,
+    },
 };
 use std::{
     collections::{HashMap, VecDeque},
@@ -193,6 +200,8 @@ pub struct App {
     pub preview_height: u32,
     /// Currently selected capture window id (None = full screen).
     pub selected_window_id: Option<u64>,
+    /// Title for the selected capture window, used as a fallback when foreground app detection is unavailable.
+    pub selected_window_title: Option<String>,
     pub window_selector: crate::ui::window_selector::WindowSelectorState,
     pub pattern_manager: crate::ui::pattern_manager::PatternManagerState,
     pub pattern_registry: PatternRegistry,
@@ -208,6 +217,22 @@ pub struct App {
     pub active_profile: Option<String>,
     /// Available profile names (loaded from config)
     pub profile_names: Vec<String>,
+    /// Active detector profile selected from foreground app, override, or disabled state.
+    pub detector_profile: DetectorProfileKind,
+    /// Source for active detector profile: auto, override, or disabled.
+    pub detector_profile_source: String,
+    /// Foreground app name observed during the most recent auto-profile check.
+    pub detector_profile_app: String,
+    /// Foreground window title observed during the most recent auto-profile check.
+    pub detector_profile_window: String,
+    /// Automatic detector profile selection enabled by config.
+    pub auto_detector_profiles_enabled: bool,
+    /// Optional config override for detector profile selection.
+    pub detector_profile_override: Option<DetectorProfileKind>,
+    /// Minimum interval between foreground app checks.
+    pub foreground_profile_interval: Duration,
+    /// Last foreground app profile check.
+    pub last_foreground_profile_check: Instant,
     /// Shared state with the WebSocket control server.
     pub control_state: Arc<ControlState>,
     /// Receives preview frame updates from the pipeline background thread.
@@ -251,6 +276,16 @@ impl App {
         };
         let transform_intensity = cfg.transform.intensity.clamp(0.0, 1.0);
         let profile_names: Vec<String> = cfg.profiles.keys().cloned().collect();
+        let mut pattern_registry = runtime_registry(&cfg);
+        let detector_profile_override =
+            detector_profile_from_name(&cfg.foreground_profiles.override_profile);
+        let detector_profile = detector_profile_override.unwrap_or(DetectorProfileKind::Broad);
+        apply_detector_profile(&mut pattern_registry, detector_profile);
+        let foreground_profile_interval = Duration::from_millis(
+            cfg.foreground_profiles
+                .update_interval_ms
+                .clamp(250, 10_000),
+        );
         Self {
             running: true,
             pipeline_state: PipelineState::Running,
@@ -266,9 +301,10 @@ impl App {
             preview_width: 0,
             preview_height: 0,
             selected_window_id: None,
+            selected_window_title: None,
             window_selector: crate::ui::window_selector::WindowSelectorState::new(),
             pattern_manager: crate::ui::pattern_manager::PatternManagerState::new(),
-            pattern_registry: runtime_registry(&cfg),
+            pattern_registry,
             heatmap: HeatmapState::new(),
             stats_overlay: StatsOverlayState::new(),
             latency_history: VecDeque::with_capacity(LATENCY_HISTORY_LEN),
@@ -276,6 +312,20 @@ impl App {
             recording_started_at: None,
             active_profile: None,
             profile_names,
+            detector_profile,
+            detector_profile_source: if detector_profile_override.is_some() {
+                "override".to_string()
+            } else if cfg.foreground_profiles.enabled {
+                "auto".to_string()
+            } else {
+                "disabled".to_string()
+            },
+            detector_profile_app: String::new(),
+            detector_profile_window: String::new(),
+            auto_detector_profiles_enabled: cfg.foreground_profiles.enabled,
+            detector_profile_override,
+            foreground_profile_interval,
+            last_foreground_profile_check: Instant::now(),
             control_state: ControlState::new(transform_mode, transform_intensity),
             preview_rx: None,
             pipeline_restart_needed: false,
@@ -346,6 +396,79 @@ impl App {
             );
             *ps.registry.lock().unwrap() = self.pattern_registry.clone();
         }
+    }
+
+    pub fn detector_profile_label(&self) -> &'static str {
+        self.detector_profile.name()
+    }
+
+    pub fn refresh_foreground_profile(&mut self) {
+        let selected_title = self.selected_window_title.as_deref();
+        let (profile, source, context) = if !self.auto_detector_profiles_enabled {
+            (
+                DetectorProfileKind::Broad,
+                "disabled",
+                foreground::ForegroundContext::fallback(selected_title),
+            )
+        } else if let Some(profile) = self.detector_profile_override {
+            (
+                profile,
+                "override",
+                foreground::ForegroundContext::fallback(selected_title),
+            )
+        } else if self.use_pty {
+            let context = foreground::ForegroundContext::terminal_pty();
+            (
+                select_detector_profile(&context.app_name, &context.window_title),
+                "auto",
+                context,
+            )
+        } else {
+            let context = foreground::detect(selected_title);
+            (
+                select_detector_profile(&context.app_name, &context.window_title),
+                "auto",
+                context,
+            )
+        };
+        self.apply_detector_profile_selection(profile, source, context);
+    }
+
+    pub fn tick_foreground_profile(&mut self) {
+        if self.last_foreground_profile_check.elapsed() < self.foreground_profile_interval {
+            return;
+        }
+        self.last_foreground_profile_check = Instant::now();
+        self.refresh_foreground_profile();
+    }
+
+    fn apply_detector_profile_selection(
+        &mut self,
+        profile: DetectorProfileKind,
+        source: &'static str,
+        context: foreground::ForegroundContext,
+    ) {
+        let unchanged = self.detector_profile == profile
+            && self.detector_profile_source == source
+            && self.detector_profile_app == context.app_name
+            && self.detector_profile_window == context.window_title;
+        if unchanged {
+            return;
+        }
+        log::info!(
+            "detector profile selected profile={} source={} app='{}' window='{}' description='{}'",
+            profile.name(),
+            source,
+            context.app_name,
+            context.window_title,
+            profile.description()
+        );
+        apply_detector_profile(&mut self.pattern_registry, profile);
+        self.detector_profile = profile;
+        self.detector_profile_source = source.to_string();
+        self.detector_profile_app = context.app_name;
+        self.detector_profile_window = context.window_title;
+        self.sync_pattern_registry_to_pipeline();
     }
 
     /// Advance crossfade counter by one tick; call once per Event::Tick.
@@ -437,6 +560,7 @@ impl App {
         if total_latency > 0.0 {
             self.record_latency(total_latency as u64);
         }
+        self.tick_foreground_profile();
         // apply pending pause/resume from control server
         if let Ok(mut g) = self.control_state.pending_pause.try_lock() {
             if let Some(paused) = g.take() {
