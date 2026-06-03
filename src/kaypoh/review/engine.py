@@ -1398,6 +1398,8 @@ def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
         )
         if strong_public_context:
             return True
+    if local_part == "info" and re.search(r"\bpublic\s+channels?\b", context, re.IGNORECASE):
+        return True
     if (
         local_part in _ALWAYS_ROLE_MAILBOX_LOCAL_PARTS
         or bool(_ROLE_MAILBOX_LOCAL_RE.fullmatch(local_part))
@@ -1599,6 +1601,7 @@ def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> 
         r"Sha[’'‘ʻʿ]?ban|"
         r"does\s+not\s+vary\s+any\s+SPA\s+MAC\s+clause|"
         r"not\s+a\s+definitive\s+agreement|"
+        r"(?:does\s+not\s+concern|excludes?)[^\n.;]{0,120}definitive\s+agreement|"
         r"no\s+executed[^\n.;]{0,60}term\s+sheet\s+exists|"
         r"no\s+annexes[^\n.;]{0,80}\bSPA\b|"
         r"term\s+sheet\s+sample[^\n.;]{0,120}training[^\n.;]{0,120}public[- ]source|"
@@ -1694,6 +1697,12 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
         r"\b(?:"
         r"training\s+materials?\s+only|policy\s+training\s+examples?|"
         r"training\s+(?:weeks|decks|drills)|tabletop\s+drills|"
+        r"definitions?\s+training|generic\s+compliance\s+education|"
+        r"hanya\s+sebagai\s+definisi\s+pelatihan|"
+        r"e[- ]?learning[^\n.;]{0,120}(?:insider\s+lists?|information\s+barriers?)|"
+        r"(?:marketing|education|educational)\s+only[^\n.;]{0,120}do\s+not\s+announce|"
+        r"(?:information\s+barriers?|insider\s+lists?)[^\n.;]{0,120}generic\s+compliance\s+education|"
+        r"(?:information\s+barriers?|insider\s+lists?)[^\n.;]{0,120}only\s+as\s+definitions?\s+training|"
         r"educational\s+and\s+not\s+transaction[- ]related|training\s+rosters?|"
         r"training[^\n.;]{0,120}generic\s+examples?|"
         r"terms?\s+[\"“]?insider\s+list[\"”]?[^\n.;]{0,120}generic|"

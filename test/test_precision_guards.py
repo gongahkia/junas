@@ -316,6 +316,10 @@ class MacMaePrecisionGuards(unittest.TestCase):
         text = "The definitive agreement is public; the mae clause has not been triggered."
         self.assertNotIn("material_adverse_change", {r for r, _ in _rules_matched(text, jurisdiction="EU")})
 
+    def test_does_not_concern_definitive_agreement_does_not_fire(self):
+        text = "This notice does not concern the execution of any definitive agreement."
+        self.assertNotIn("definitive_agreement", {r for r, _ in _rules_matched(text, jurisdiction="TH")})
+
     def test_no_event_expected_to_result_in_mac_does_not_fire_contingent(self):
         text = (
             "No event has occurred that would reasonably be expected to result in "
@@ -1042,6 +1046,49 @@ class EducationalMnpiMarkerGuards(unittest.TestCase):
         text = "Policy training example: information barrier and blackout are not market-moving events."
         rules = [r for r, _ in _rules_matched(text, jurisdiction="ID")]
         self.assertNotIn("information_barrier_marker", rules)
+
+    def test_generic_compliance_education_markers_do_not_fire(self):
+        text = (
+            "References to information barriers, tipping prohibitions, insider lists, or blackout "
+            "windows in handbooks are generic compliance education for staff and not deal signals."
+        )
+        rules = [r for r, _ in _rules_matched(text, jurisdiction="ID")]
+        self.assertNotIn("information_barrier_marker", rules)
+        self.assertNotIn("insider_list_marker", rules)
+
+    def test_definitions_training_markers_do_not_fire(self):
+        text = (
+            "Training terms mention insider list, information barrier, blackout, and tipping "
+            "only as definitions training, without any live deal."
+        )
+        rules = [r for r, _ in _rules_matched(text, jurisdiction="ID")]
+        self.assertNotIn("information_barrier_marker", rules)
+        self.assertNotIn("insider_list_marker", rules)
+
+    def test_indonesian_definition_training_markers_do_not_fire(self):
+        text = (
+            "Materi edukasi menyebutkan istilah insider list dan information barrier "
+            "hanya sebagai definisi pelatihan, tanpa daftar yang aktual."
+        )
+        rules = [r for r, _ in _rules_matched(text, jurisdiction="ID")]
+        self.assertNotIn("information_barrier_marker", rules)
+        self.assertNotIn("insider_list_marker", rules)
+
+    def test_e_learning_marker_list_does_not_fire(self):
+        text = "E-learning covers insider lists, information barriers, blackout windows, and anti-tipping obligations."
+        rules = [r for r, _ in _rules_matched(text, jurisdiction="TH")]
+        self.assertNotIn("information_barrier_marker", rules)
+        self.assertNotIn("insider_list_marker", rules)
+
+
+class FunctionalMailboxGuards(unittest.TestCase):
+    def test_public_channel_info_mailbox_does_not_fire(self):
+        text = "Authorized Signatory accounts must not use public channels such as info@help.com for filings."
+        self.assertNotIn(("email_address", "info@help.com"), _rules_matched(text, jurisdiction="TH"))
+
+    def test_transaction_legal_notice_mailbox_still_fires(self):
+        text = "Email for notices: legal@serunai-utilities.my; Fax: +60 3-2712 4000."
+        self.assertIn(("email_address", "legal@serunai-utilities.my"), _rules_matched(text, jurisdiction="MY"))
 
 
 class PrivacyGuardAmountGuards(unittest.TestCase):

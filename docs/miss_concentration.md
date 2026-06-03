@@ -6,11 +6,11 @@ Raw jurisdiction counts reflect fixture volume; compare jurisdictions only at li
 ## Summary
 
 - Review profile: strict
-- Miss count: 9743
-- Buckets: coverage_gap: 7063, conjunction_miss: 2374, singling_out_miss: 225, needs_review: 52, true_inference_miss: 29
-- Detector families: mnpi_context: 2375, mnpi_lexicon: 1931, direct_identifier: 1857, privacy_event: 1552, pseudonymised_linkable: 499, special_category: 476, sector_mnpi: 425, online_device: 351, quasi_identifier: 225, unknown: 52
-- Jurisdictions by raw misses: MY: 1317, HK: 1282, AU: 1265, SG: 1079, IN: 487, CN: 442, EU: 425, JP: 369, PH: 368, SA: 365
-- Jurisdictions by misses per 100 docs: IN: 2319.05 per 100 docs (487 raw), CN: 2104.76 per 100 docs (442 raw), EU: 2023.81 per 100 docs (425 raw), JP: 1757.14 per 100 docs (369 raw), PH: 1752.38 per 100 docs (368 raw), SA: 1738.1 per 100 docs (365 raw), KR: 1661.9 per 100 docs (349 raw), VN: 1657.14 per 100 docs (348 raw), AE: 1619.05 per 100 docs (340 raw), ID: 1604.76 per 100 docs (337 raw)
+- Miss count: 11617
+- Buckets: coverage_gap: 8520, conjunction_miss: 2730, singling_out_miss: 271, needs_review: 67, true_inference_miss: 29
+- Detector families: mnpi_context: 2731, mnpi_lexicon: 2363, direct_identifier: 2225, privacy_event: 1851, pseudonymised_linkable: 602, special_category: 549, sector_mnpi: 536, online_device: 422, quasi_identifier: 271, unknown: 67
+- Jurisdictions by raw misses: MY: 1317, ID: 1310, HK: 1282, AU: 1265, TH: 1215, SG: 1079, IN: 487, CN: 442, EU: 425, JP: 369
+- Jurisdictions by misses per 100 docs: IN: 2319.05 per 100 docs (487 raw), CN: 2104.76 per 100 docs (442 raw), EU: 2023.81 per 100 docs (425 raw), JP: 1757.14 per 100 docs (369 raw), PH: 1752.38 per 100 docs (368 raw), SA: 1738.1 per 100 docs (365 raw), KR: 1661.9 per 100 docs (349 raw), VN: 1657.14 per 100 docs (348 raw), AE: 1619.05 per 100 docs (340 raw), UK: 1604.76 per 100 docs (337 raw)
 
 ## Top Cells
 
@@ -27,8 +27,8 @@ Raw jurisdiction counts reflect fixture volume; compare jurisdictions only at li
 | direct_identifier | KR | coverage_gap | 105 | 21 | 500.0 | named_person: 34, email_address: 33, kr_rrn: 19, bank_account: 8 | test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_memo_adversarial_001.txt: `123-45-67890` |
 | mnpi_context | IN | conjunction_miss | 102 | 21 | 485.71 | blackout_period_reference: 31, selective_disclosure_risk: 20, information_barrier_marker: 17, insider_list_marker: 17 | test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_adversarial_001.txt: `trading window to close` |
 | direct_identifier | PH | coverage_gap | 95 | 21 | 452.38 | named_person: 33, email_address: 30, bank_account: 16, ph_tin: 10 | test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt: `TIN 482-319-574-000` |
-| mnpi_lexicon | ID | coverage_gap | 92 | 21 | 438.1 | nonpublic_marker: 31, material_event: 23, embargo_marker: 15, financial_percentage: 6 | test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_memo_adversarial_001.txt: `Rencana akuisisi PT Lintas Dana Selaras` |
 | mnpi_lexicon | JP | coverage_gap | 92 | 21 | 438.1 | material_event: 47, nonpublic_marker: 21, embargo_marker: 9, definitive_agreement: 6 | test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_memo_adversarial_001.txt: `proposed acquisition of Hikari Robotics KK via tender offer` |
+| mnpi_lexicon | ID | coverage_gap | 344 | 84 | 409.52 | nonpublic_marker: 114, material_event: 87, embargo_marker: 49, definitive_agreement: 28 | test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_incident_report_adversarial_001.txt: `belum diumumkan ke publik` |
 | mnpi_context | JP | conjunction_miss | 85 | 21 | 404.76 | information_barrier_marker: 24, blackout_period_reference: 22, selective_disclosure_risk: 19, insider_list_marker: 12 | test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_memo_adversarial_001.txt: `do not circulate enumerated facts or tender-offer facts until official disclo...` |
 | mnpi_lexicon | UK | coverage_gap | 85 | 21 | 404.76 | nonpublic_marker: 35, material_event: 24, embargo_marker: 11, financial_percentage: 4 | test/fixtures/legal-corpus-candidates/uk/direct_identifiers/uk_direct_identifiers_memo_adversarial_001.txt: `6–8%` |
 | mnpi_lexicon | IN | coverage_gap | 83 | 21 | 395.24 | nonpublic_marker: 47, material_event: 23, definitive_agreement: 6, embargo_marker: 4 | test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_adversarial_001.txt: `unpublished order book` |
