@@ -79,6 +79,7 @@ $ aki doctor
 $ aki test-patterns "SECRET_KEY=abc123"
 $ aki demo --frames 1 --no-clear
 $ aki redact ./recording.mov --output ./recording.redacted.mov
+$ aki --headless --source screen --record-output ./recording.redacted.mp4
 $ aki check-output
 $ aki --headless --source screen
 ```
@@ -119,6 +120,19 @@ The command decodes the first video stream with `ffmpeg`, runs the same local OC
 When `--output` is omitted, `Aki` writes next to the input as `<name>.redacted.<ext>`. Existing output files are refused unless `--overwrite` is passed, and the input file is never used as the output path.
 
 The recording-only time-machine buffer prototype is documented in [`docs/time-machine-buffer.md`](./docs/time-machine-buffer.md). It can re-render buffered local-recording frames before finalization, but it cannot unsend live-stream or screen-share pixels.
+
+### Direct MP4 Recording
+
+Use direct MP4 output when you want a local redacted screen recording without OBS, a virtual camera, or a separate screen-recording app:
+
+```console
+$ aki --headless --source screen --record-output ./recording.redacted.mp4
+$ aki --headless --source screen --output mp4 --record-output ./recording.redacted.mp4 --transform ascii
+```
+
+Recording starts when the first transformed frame is produced. Press `Ctrl-C` to stop capture, flush ffmpeg, and finalize the MP4. The output path must be explicit and end in `.mp4`; existing files are refused unless `--record-overwrite` is passed.
+
+Use the virtual camera, OBS, or MJPEG outputs for live streams and screen-share calls. Use direct MP4 when the final deliverable is a local recording file.
 
 ## Power-User / Developer Commands
 

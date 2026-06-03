@@ -79,6 +79,7 @@ pub fn render(frame: &mut Frame, app: &App, area: Rect) {
                 Some(SinkKind::HttpMjpeg(port)) => format!("  │  sink:mjpeg:{}", port),
                 Some(SinkKind::Obs(port)) => format!("  │  sink:obs:{}", port),
                 Some(SinkKind::Twitch) => "  │  sink:twitch(planned)".to_string(),
+                Some(SinkKind::Mp4 { path, .. }) => format!("  │  sink:mp4:{}", path.display()),
                 None => String::new(),
             };
             Span::styled(sink_str, Style::default().fg(Color::DarkGray))

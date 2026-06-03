@@ -1,5 +1,6 @@
 use anyhow::Result;
 use privacy_common::frame::TransformedFrame;
+use std::path::PathBuf;
 
 pub trait OutputSink: Send {
     fn write_frame(&mut self, frame: &TransformedFrame) -> Result<()>;
@@ -33,6 +34,12 @@ pub enum SinkKind {
     Obs(u16),
     /// Twitch RTMP output (planned): stream filtered output to rtmp://live.twitch.tv/app/<key>
     Twitch,
+    /// Direct local MP4 recording through ffmpeg.
+    Mp4 {
+        path: PathBuf,
+        fps: u32,
+        overwrite: bool,
+    },
 }
 
 /// Create the appropriate `OutputSink` boxed trait object from a `SinkKind`.
@@ -61,6 +68,12 @@ pub fn create_sink(kind: SinkKind) -> Result<Box<dyn OutputSink>> {
             // planned: RTMP output via ffmpeg/gstreamer to rtmp://live.twitch.tv/app/<key>
             anyhow::bail!("Twitch RTMP output is not yet implemented; planned feature")
         }
+
+        SinkKind::Mp4 {
+            path,
+            fps,
+            overwrite,
+        } => Ok(Box::new(recorder::Mp4Sink::new(path, fps, overwrite)?)),
 
         // Fall through for unsupported platform/kind combos
         #[allow(unreachable_patterns)]
