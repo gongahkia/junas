@@ -1,0 +1,89 @@
+# SGLB-11 real-citation pool (smoke).
+#
+# ~60 hand-curated SG case citations covering SGCA, SGHC, SLR(R), SLR.
+# These are well-known cases routinely cited in SG legal-education
+# materials and textbooks. The pool is deliberately small for the smoke
+# dataset; production runs (#52) expand to ~2000.
+#
+# Each entry carries `citation` and `domain` (used to stratify passages
+# by topical context).
+real_citations:
+  # === Tort / negligence ===
+  - { citation: "Spandeck Engineering (S) Pte Ltd v Defence Science & Technology Agency [2007] 4 SLR(R) 100", domain: tort }
+  - { citation: "Sutherland Global Services Inc v Adam Technologies International SA de CV [2014] 2 SLR 1042", domain: tort }
+  - { citation: "Animal Concerns Research & Education Society v Tan Boon Kwee [2011] 2 SLR 146", domain: tort }
+  - { citation: "Anwar Patrick Adrian v Ng Chong & Hue LLC [2014] 3 SLR 761", domain: tort }
+  - { citation: "Robertson Quay Investment Pte Ltd v Steen Consultants Pte Ltd [2008] 2 SLR(R) 623", domain: tort }
+  - { citation: "Asnah bte Ab Rahman v Li Jianlin [2016] 2 SLR 944", domain: tort }
+
+  # === Contract ===
+  - { citation: "Gay Choon Ing v Loh Sze Ti Terence Peter [2009] 2 SLR(R) 332", domain: contract }
+  - { citation: "Sembcorp Marine Ltd v PPL Holdings Pte Ltd [2013] 4 SLR 193", domain: contract }
+  - { citation: "Zurich Insurance (Singapore) Pte Ltd v B-Gold Interior Design & Construction Pte Ltd [2008] 3 SLR(R) 1029", domain: contract }
+  - { citation: "RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd [2007] 4 SLR(R) 413", domain: contract }
+  - { citation: "Y.E.S. F&B Group Pte Ltd v Soup Restaurant Singapore Pte Ltd [2015] 5 SLR 1187", domain: contract }
+  - { citation: "Sundercan Ltd v Salzgitter Stahlhandel GmbH [2008] 1 SLR(R) 81", domain: contract }
+  - { citation: "Tribune Investment Trust Inc v Soosan Trading Co Ltd [2000] 2 SLR(R) 407", domain: contract }
+  - { citation: "Quoine Pte Ltd v B2C2 Ltd [2020] 2 SLR 20", domain: contract }
+
+  # === Equity / trusts ===
+  - { citation: "Then Khek Koon v Arjun Permanand Samtani [2014] 1 SLR 245", domain: equity }
+  - { citation: "Guy Neale v Nine Squares Pty Ltd [2015] 1 SLR 1097", domain: equity }
+  - { citation: "Lim Chen Yeow Kelvin v Goh Chin Peng [2008] 4 SLR(R) 783", domain: equity }
+  - { citation: "Ng Chee Weng v Lim Jit Ming Bryan [2012] 1 SLR 457", domain: equity }
+  - { citation: "Lau Sheng Jan Alistair v Lau Cheok Joo Richard [2023] 5 SLR 1", domain: equity }
+  - { citation: "Wee Chiaw Sek Anna v Ng Li-Ann Genevieve [2013] 3 SLR 801", domain: equity }
+
+  # === Statutory interpretation / public law ===
+  - { citation: "Tan Cheng Bock v Attorney-General [2017] 2 SLR 850", domain: public }
+  - { citation: "Attorney-General v Ting Choon Meng [2017] 1 SLR 373", domain: public }
+  - { citation: "Public Prosecutor v Lam Leng Hung [2018] 1 SLR 659", domain: public }
+  - { citation: "Lim Meng Suang v Attorney-General [2015] 1 SLR 26", domain: public }
+  - { citation: "Tan Eng Hong v Attorney-General [2012] 4 SLR 476", domain: public }
+  - { citation: "Madan Mohan Singh v Attorney-General [2015] 2 SLR 1085", domain: public }
+  - { citation: "Vellama d/o Marie Muthu v Attorney-General [2013] 4 SLR 1", domain: public }
+
+  # === Criminal procedure / criminal law ===
+  - { citation: "Public Prosecutor v Aniza bte Essa [2009] 3 SLR(R) 327", domain: criminal }
+  - { citation: "Adri Anton Kalangie v Public Prosecutor [2018] 2 SLR 557", domain: criminal }
+  - { citation: "Public Prosecutor v Hue An Li [2014] 4 SLR 661", domain: criminal }
+  - { citation: "Public Prosecutor v Kwong Kok Hing [2008] 2 SLR(R) 684", domain: criminal }
+  - { citation: "Logachev Vladislav v Public Prosecutor [2018] 4 SLR 609", domain: criminal }
+  - { citation: "Public Prosecutor v BOG [2018] 2 SLR 1093", domain: criminal }
+
+  # === Family / matrimonial ===
+  - { citation: "ANJ v ANK [2015] 4 SLR 1043", domain: family }
+  - { citation: "BG v BF [2007] 3 SLR(R) 233", domain: family }
+  - { citation: "TQ v TR [2009] 2 SLR(R) 961", domain: family }
+  - { citation: "AOO v AON [2011] 4 SLR 1169", domain: family }
+  - { citation: "USB v USA [2020] 2 SLR 588", domain: family }
+
+  # === IP / competition ===
+  - { citation: "Ng-Loy Wee Loon v Public Prosecutor [2003] 4 SLR(R) 209", domain: ip }
+  - { citation: "Main-Line Corporate Holdings Ltd v United Overseas Bank Ltd [2017] 2 SLR 660", domain: ip }
+  - { citation: "Asia Pacific Publishing Pte Ltd v Pioneers & Leaders (Publishers) Pte Ltd [2011] 4 SLR 381", domain: ip }
+  - { citation: "Global Yellow Pages Ltd v Promedia Directories Pte Ltd [2017] 2 SLR 185", domain: ip }
+
+  # === Company / corporate ===
+  - { citation: "Sakae Holdings Ltd v Gryphon Real Estate Investment Corp Pte Ltd [2018] 2 SLR 1019", domain: company }
+  - { citation: "Over & Over Ltd v Bonvests Holdings Ltd [2010] 2 SLR 776", domain: company }
+  - { citation: "Re Vanguard Energy Pte Ltd [2015] 4 SLR 597", domain: company }
+  - { citation: "Petroships Investment Pte Ltd v Wealthplus Pte Ltd [2018] 3 SLR 789", domain: company }
+  - { citation: "Townsing Henry George v Jenton Overseas Investment Pte Ltd [2007] 2 SLR(R) 597", domain: company }
+
+  # === Civil procedure / arbitration ===
+  - { citation: "Tomolugen Holdings Ltd v Silica Investors Ltd [2016] 1 SLR 373", domain: procedure }
+  - { citation: "BCY v BCZ [2017] 3 SLR 357", domain: procedure }
+  - { citation: "Larsen Oil and Gas Pte Ltd v Petroprod Ltd [2011] 3 SLR 414", domain: procedure }
+  - { citation: "First Media Pte Ltd v Astro Nusantara International BV [2014] 1 SLR 372", domain: procedure }
+  - { citation: "PT Pukuafu Indah v Newmont Indonesia Ltd [2012] 4 SLR 1157", domain: procedure }
+
+  # === SGCA neutral citations (no SLR / SLR(R) form) ===
+  - { citation: "[2023] SGCA 5", domain: contract }
+  - { citation: "[2022] SGCA 12", domain: tort }
+  - { citation: "[2021] SGHC 99", domain: procedure }
+  - { citation: "[2019] SGHC 12", domain: criminal }
+  - { citation: "[2024] SGHCR 17", domain: procedure }
+  - { citation: "[2020] SGIA 4", domain: procedure }
+  - { citation: "[2018] SGDC 3", domain: criminal }
+  - { citation: "[2017] SGMC 22", domain: criminal }

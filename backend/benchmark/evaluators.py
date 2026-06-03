@@ -250,6 +250,125 @@ class CompliancePresent(Evaluator):
         )
 
 
+class CitationHallucinationF1(Evaluator):
+    """SGLB-11 scorer.
+
+    Inputs:
+    - ``case.expected_output["fakes"]``: list of citation strings that
+      are the gold fabricated set.
+    - ``case.metadata["citation_index"]``: per-citation provenance
+      (used to stratify F1 by perturbation type when present).
+    - Model output: JSON list of citation strings the model believes
+      are fabricated.
+
+    Score (primary): F1 over the citation set (predicted-fake vs
+    gold-fake). Detail includes per-perturbation-class P/R/F1 when
+    provenance is available.
+    """
+
+    name = "citation_hallucination_f1"
+    strength = EvaluatorStrength.STRONG
+
+    @staticmethod
+    def _parse_predictions(output: str) -> set[str]:
+        import json
+
+        text = (output or "").strip()
+        if not text:
+            return set()
+        try:
+            parsed = json.loads(text)
+            if isinstance(parsed, list):
+                return {str(item).strip() for item in parsed if str(item).strip()}
+        except json.JSONDecodeError:
+            pass
+        return {part.strip() for part in text.split(",") if part.strip()}
+
+    @staticmethod
+    def _normalise(s: str) -> str:
+        return " ".join(s.split()).rstrip(".").lower()
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        expected_fakes_raw = (ctx.expected_output or {}).get("fakes", []) or []
+        expected_fakes: set[str] = {self._normalise(s) for s in expected_fakes_raw}
+        predicted_fakes_raw = self._parse_predictions(ctx.output)
+        predicted_fakes: set[str] = {self._normalise(s) for s in predicted_fakes_raw}
+
+        tp = len(expected_fakes & predicted_fakes)
+        precision = tp / len(predicted_fakes) if predicted_fakes else 0.0
+        recall = tp / len(expected_fakes) if expected_fakes else 0.0
+        if not expected_fakes and not predicted_fakes:
+            f1 = 1.0
+        elif precision + recall == 0:
+            f1 = 0.0
+        else:
+            f1 = 2 * precision * recall / (precision + recall)
+
+        # Per-perturbation breakdown via citation_index provenance.
+        per_perturbation: dict[str, dict[str, float]] = {}
+        index = ctx.metadata.get("citation_index") or []
+        if index:
+            buckets: dict[str, dict[str, set[str]]] = {}
+            for entry in index:
+                if not entry.get("is_fake"):
+                    continue
+                ptype = entry.get("perturbation") or "unknown"
+                buckets.setdefault(ptype, {"gold": set(), "predicted": set()})
+                buckets[ptype]["gold"].add(self._normalise(entry["citation"]))
+
+            citation_to_ptype = {
+                self._normalise(entry["citation"]): (entry.get("perturbation") or "unknown")
+                for entry in index
+                if entry.get("is_fake")
+            }
+            real_in_passage = {
+                self._normalise(entry["citation"])
+                for entry in index
+                if not entry.get("is_fake")
+            }
+            for pred in predicted_fakes:
+                if pred in citation_to_ptype:
+                    ptype = citation_to_ptype[pred]
+                    buckets.setdefault(ptype, {"gold": set(), "predicted": set()})
+                    buckets[ptype]["predicted"].add(pred)
+                elif pred in real_in_passage:
+                    buckets.setdefault("false_positive_on_real", {"gold": set(), "predicted": set()})
+                    buckets["false_positive_on_real"]["predicted"].add(pred)
+
+            for ptype, sets in buckets.items():
+                gold = sets["gold"]
+                pred = sets["predicted"]
+                tp_p = len(gold & pred)
+                p_p = tp_p / len(pred) if pred else 0.0
+                r_p = tp_p / len(gold) if gold else 0.0
+                if not gold and not pred:
+                    f1_p = 1.0
+                elif p_p + r_p == 0:
+                    f1_p = 0.0
+                else:
+                    f1_p = 2 * p_p * r_p / (p_p + r_p)
+                per_perturbation[ptype] = {
+                    "precision": p_p,
+                    "recall": r_p,
+                    "f1": f1_p,
+                    "tp": float(tp_p),
+                    "gold": float(len(gold)),
+                    "predicted": float(len(pred)),
+                }
+
+        return EvaluationResult(
+            score=f1,
+            detail={
+                "precision": precision,
+                "recall": recall,
+                "tp": tp,
+                "gold_count": len(expected_fakes),
+                "predicted_count": len(predicted_fakes),
+                "per_perturbation": per_perturbation,
+            },
+        )
+
+
 class ConstraintSatisfaction(Evaluator):
     """Runs a list of constraint functions (IFEval-style).
 
@@ -344,6 +463,7 @@ EVALUATORS: dict[str, Evaluator] = {
     CitesSgStatute.name: CitesSgStatute(),
     UsesSalStyle.name: UsesSalStyle(),
     CompliancePresent.name: CompliancePresent(),
+    CitationHallucinationF1.name: CitationHallucinationF1(),
     ConstraintSatisfaction.name: ConstraintSatisfaction(),
     # weak (back-compat)
     ContainsKeyword.name: ContainsKeyword(),

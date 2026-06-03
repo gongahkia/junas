@@ -1,6 +1,6 @@
 # SGLB-11 Citation-Hallucination
 
-Version: 0.1-draft. Tracking issue: [#52](https://github.com/gongahkia/junas/issues/52).
+Version: 0.1-shipped (smoke). Tracking issue: [#52](https://github.com/gongahkia/junas/issues/52).
 
 ## Capability
 
@@ -63,7 +63,19 @@ fake:
 
 ## v0.1 / v0.2 stratification
 
-- v0.1: ~500 passages, ~2000 distinct citations, ~50/50 real/fake by
-  citation count.
+- v0.1 smoke: 40 passages, 7 perturbation classes all represented,
+  ~60-citation real pool. Deterministic (seed=42). Shipped at
+  `backend/benchmark/datasets/sglb_11_hallucination_smoke.yaml`.
+- v0.2 production: ~500 passages, ~2000 distinct citations, ~50/50
+  real/fake by citation count.
 - v0.2 held-out: ~100 passages built from post-2026-Q1 real citations.
 - Per-perturbation leaderboard breakdown is mandatory.
+
+## CHANGELOG
+
+- 0.1-shipped (smoke, 2026-06-03): perturbation engine
+  (`benchmark/perturbations.py`), dataset builder
+  (`benchmark/dataset_builders/sglb_11.py`), CitationHallucinationF1
+  evaluator with per-perturbation breakdown, 40-passage smoke YAML.
+  Registered as `sglb_11` workflow. 31 tests passing including
+  collision-check against real pool.

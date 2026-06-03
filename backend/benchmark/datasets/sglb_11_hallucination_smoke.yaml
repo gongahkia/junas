@@ -1,0 +1,1240 @@
+cases:
+- name: passage_yea_3664
+  inputs:
+    passage: The Court of Appeal's reasoning in Tomolugen Holdings Ltd v Silica Investors Ltd [2016] 1 SLR 373 is consistent
+      with the framework set out in Then Khek Koon v Arjun Permanand Samtani [2016] 1 SLR 245. Earlier authorities such as
+      Ng Chee Weng v Lim Jit Ming Bryan [2012] 1 SLR 457 had foreshadowed this approach. Compare the contrary view in Guy
+      Neale v Nine Squares Pty Ltd [2015] 1 SLR 1097.
+  expected_output:
+    fakes:
+    - Then Khek Koon v Arjun Permanand Samtani [2016] 1 SLR 245
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Tomolugen Holdings Ltd v Silica Investors Ltd [2016] 1 SLR 373
+      is_fake: false
+      perturbation: null
+      source: procedure
+    - citation: Then Khek Koon v Arjun Permanand Samtani [2016] 1 SLR 245
+      is_fake: true
+      perturbation: year_off
+      source: synthesised
+    - citation: Ng Chee Weng v Lim Jit Ming Bryan [2012] 1 SLR 457
+      is_fake: false
+      perturbation: null
+      source: equity
+    - citation: Guy Neale v Nine Squares Pty Ltd [2015] 1 SLR 1097
+      is_fake: false
+      perturbation: null
+      source: equity
+    split: dev
+- name: passage_pag+vol_8177
+  inputs:
+    passage: The applicable principles are summarised in Quoine Pte Ltd v B2C2 Ltd [2020] 2 SLR 20 and refined in Ng-Loy Wee
+      Loon v Public Prosecutor [2003] 3 SLR(R) 209. Townsing Henry George v Jenton Overseas Investment Pte Ltd [2007] 2 SLR(R)
+      697 clarified the operative test, and Ng Chee Weng v Lim Jit Ming Bryan [2012] 1 SLR 457 applied it to a multi-party
+      scenario. Sakae Holdings Ltd v Gryphon Real Estate Investment Corp Pte Ltd [2018] 2 SLR 1019 subsequently extended this
+      to corporate context.
+  expected_output:
+    fakes:
+    - Ng-Loy Wee Loon v Public Prosecutor [2003] 3 SLR(R) 209
+    - Townsing Henry George v Jenton Overseas Investment Pte Ltd [2007] 2 SLR(R) 697
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Quoine Pte Ltd v B2C2 Ltd [2020] 2 SLR 20
+      is_fake: false
+      perturbation: null
+      source: contract
+    - citation: Ng-Loy Wee Loon v Public Prosecutor [2003] 3 SLR(R) 209
+      is_fake: true
+      perturbation: volume_off
+      source: synthesised
+    - citation: Townsing Henry George v Jenton Overseas Investment Pte Ltd [2007] 2 SLR(R) 697
+      is_fake: true
+      perturbation: page_off
+      source: synthesised
+    - citation: Ng Chee Weng v Lim Jit Ming Bryan [2012] 1 SLR 457
+      is_fake: false
+      perturbation: null
+      source: equity
+    - citation: Sakae Holdings Ltd v Gryphon Real Estate Investment Corp Pte Ltd [2018] 2 SLR 1019
+      is_fake: false
+      perturbation: null
+      source: company
+    split: dev
+- name: passage_cas+cou_8491
+  inputs:
+    passage: Ali Goh v Meridian Pte Ltd [2014] 2 SLR 1042 remains the locus classicus in Singapore. Cases like Guy Neale v
+      Nine Squares Pty Ltd [2015] 1 SLR 1097 and Sembcorp Marine Ltd v PPL Holdings Pte Ltd [2013] 4 SLR 193 have applied
+      its framework, while [2019] SGDC 12 qualifies its reach in arbitral contexts.
+  expected_output:
+    fakes:
+    - Ali Goh v Meridian Pte Ltd [2014] 2 SLR 1042
+    - '[2019] SGDC 12'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Ali Goh v Meridian Pte Ltd [2014] 2 SLR 1042
+      is_fake: true
+      perturbation: case_name_swap
+      source: synthesised
+    - citation: Guy Neale v Nine Squares Pty Ltd [2015] 1 SLR 1097
+      is_fake: false
+      perturbation: null
+      source: equity
+    - citation: Sembcorp Marine Ltd v PPL Holdings Pte Ltd [2013] 4 SLR 193
+      is_fake: false
+      perturbation: null
+      source: contract
+    - citation: '[2019] SGDC 12'
+      is_fake: true
+      perturbation: court_swap
+      source: synthesised
+    split: dev
+- name: passage_who_9900
+  inputs:
+    passage: The applicable principles are summarised in AOO v AON [2011] 4 SLR 1169 and refined in Public Prosecutor v Hue
+      An Li [2014] 4 SLR 661. Spandeck Engineering (S) Pte Ltd v Defence Science & Technology Agency [2007] 4 SLR(R) 100 clarified
+      the operative test, and Quek Teo v Chua Khoo [1996] SGHC 276 applied it to a multi-party scenario. Main-Line Corporate
+      Holdings Ltd v United Overseas Bank Ltd [2017] 2 SLR 660 subsequently extended this to corporate context.
+  expected_output:
+    fakes:
+    - Quek Teo v Chua Khoo [1996] SGHC 276
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: AOO v AON [2011] 4 SLR 1169
+      is_fake: false
+      perturbation: null
+      source: family
+    - citation: Public Prosecutor v Hue An Li [2014] 4 SLR 661
+      is_fake: false
+      perturbation: null
+      source: criminal
+    - citation: Spandeck Engineering (S) Pte Ltd v Defence Science & Technology Agency [2007] 4 SLR(R) 100
+      is_fake: false
+      perturbation: null
+      source: tort
+    - citation: Quek Teo v Chua Khoo [1996] SGHC 276
+      is_fake: true
+      perturbation: wholesale_fabrication
+      source: synthesised
+    - citation: Main-Line Corporate Holdings Ltd v United Overseas Bank Ltd [2017] 2 SLR 660
+      is_fake: false
+      perturbation: null
+      source: ip
+    split: dev
+- name: passage_com+yea_1027
+  inputs:
+    passage: The applicable principles are summarised in Spandeck Engineering (S) Pte Ltd v Defence Science & Technology Agency
+      [2008] 6 SLR(R) 100 and refined in Global Yellow Pages Ltd v Promedia Directories Pte Ltd [2017] 2 SLR 185. Tomolugen
+      Holdings Ltd v Silica Investors Ltd [2014] 1 SLR 373 clarified the operative test, and PT Pukuafu Indah v Newmont Indonesia
+      Ltd [2012] 4 SLR 1157 applied it to a multi-party scenario. ANJ v ANK [2015] 4 SLR 1043 subsequently extended this to
+      corporate context.
+  expected_output:
+    fakes:
+    - Spandeck Engineering (S) Pte Ltd v Defence Science & Technology Agency [2008] 6 SLR(R) 100
+    - Tomolugen Holdings Ltd v Silica Investors Ltd [2014] 1 SLR 373
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Spandeck Engineering (S) Pte Ltd v Defence Science & Technology Agency [2008] 6 SLR(R) 100
+      is_fake: true
+      perturbation: composite
+      source: synthesised
+    - citation: Global Yellow Pages Ltd v Promedia Directories Pte Ltd [2017] 2 SLR 185
+      is_fake: false
+      perturbation: null
+      source: ip
+    - citation: Tomolugen Holdings Ltd v Silica Investors Ltd [2014] 1 SLR 373
+      is_fake: true
+      perturbation: year_off
+      source: synthesised
+    - citation: PT Pukuafu Indah v Newmont Indonesia Ltd [2012] 4 SLR 1157
+      is_fake: false
+      perturbation: null
+      source: procedure
+    - citation: ANJ v ANK [2015] 4 SLR 1043
+      is_fake: false
+      perturbation: null
+      source: family
+    split: dev
+- name: passage_pag+vol_3267
+  inputs:
+    passage: Townsing Henry George v Jenton Overseas Investment Pte Ltd [2007] 2 SLR(R) 597 remains the locus classicus in
+      Singapore. Cases like Over & Over Ltd v Bonvests Holdings Ltd [2010] 2 SLR 776 and [2021] SGHC 89 have applied its framework,
+      while Tomolugen Holdings Ltd v Silica Investors Ltd [2016] 2 SLR 373 qualifies its reach in arbitral contexts.
+  expected_output:
+    fakes:
+    - Tomolugen Holdings Ltd v Silica Investors Ltd [2016] 2 SLR 373
+    - '[2021] SGHC 89'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Townsing Henry George v Jenton Overseas Investment Pte Ltd [2007] 2 SLR(R) 597
+      is_fake: false
+      perturbation: null
+      source: company
+    - citation: Over & Over Ltd v Bonvests Holdings Ltd [2010] 2 SLR 776
+      is_fake: false
+      perturbation: null
+      source: company
+    - citation: '[2021] SGHC 89'
+      is_fake: true
+      perturbation: page_off
+      source: synthesised
+    - citation: Tomolugen Holdings Ltd v Silica Investors Ltd [2016] 2 SLR 373
+      is_fake: true
+      perturbation: volume_off
+      source: synthesised
+    split: dev
+- name: passage_cas_6733
+  inputs:
+    passage: In addressing the question of duty of care, the court relied on Re Vanguard Energy Pte Ltd [2015] 4 SLR 597,
+      citing Tan Eng Hong v Attorney-General [2012] 4 SLR 476 for the proposition that control mechanisms operate at the pleading
+      stage. The court also distinguished Huang Quek v Singh Lim [2020] 2 SLR 20 on the facts.
+  expected_output:
+    fakes:
+    - Huang Quek v Singh Lim [2020] 2 SLR 20
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Re Vanguard Energy Pte Ltd [2015] 4 SLR 597
+      is_fake: false
+      perturbation: null
+      source: company
+    - citation: Tan Eng Hong v Attorney-General [2012] 4 SLR 476
+      is_fake: false
+      perturbation: null
+      source: public
+    - citation: Huang Quek v Singh Lim [2020] 2 SLR 20
+      is_fake: true
+      perturbation: case_name_swap
+      source: synthesised
+    split: dev
+- name: passage_com+cou+who_6764
+  inputs:
+    passage: In addressing the question of duty of care, the court relied on [2024] SGHC 17, citing Public Prosecutor v Aniza
+      bte Essa [2013] 2 SLR(R) 327 for the proposition that control mechanisms operate at the pleading stage. The court also
+      distinguished [2023] SGMC 316 on the facts.
+  expected_output:
+    fakes:
+    - Public Prosecutor v Aniza bte Essa [2013] 2 SLR(R) 327
+    - '[2023] SGMC 316'
+    - '[2024] SGHC 17'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: '[2024] SGHC 17'
+      is_fake: true
+      perturbation: court_swap
+      source: synthesised
+    - citation: Public Prosecutor v Aniza bte Essa [2013] 2 SLR(R) 327
+      is_fake: true
+      perturbation: composite
+      source: synthesised
+    - citation: '[2023] SGMC 316'
+      is_fake: true
+      perturbation: wholesale_fabrication
+      source: synthesised
+    split: dev
+- name: passage_vol+yea_8679
+  inputs:
+    passage: Counsel cited BCY v BCZ [2017] 2 SLR 357, Wee Chiaw Sek Anna v Ng Li-Ann Genevieve [2013] 3 SLR 801, and Lim
+      Chen Yeow Kelvin v Goh Chin Peng [2008] 4 SLR(R) 783 in support. The respondent relied on Sembcorp Marine Ltd v PPL
+      Holdings Pte Ltd [2009] 4 SLR 193, which the court accepted as authoritative.
+  expected_output:
+    fakes:
+    - BCY v BCZ [2017] 2 SLR 357
+    - Sembcorp Marine Ltd v PPL Holdings Pte Ltd [2009] 4 SLR 193
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: BCY v BCZ [2017] 2 SLR 357
+      is_fake: true
+      perturbation: volume_off
+      source: synthesised
+    - citation: Wee Chiaw Sek Anna v Ng Li-Ann Genevieve [2013] 3 SLR 801
+      is_fake: false
+      perturbation: null
+      source: equity
+    - citation: Lim Chen Yeow Kelvin v Goh Chin Peng [2008] 4 SLR(R) 783
+      is_fake: false
+      perturbation: null
+      source: equity
+    - citation: Sembcorp Marine Ltd v PPL Holdings Pte Ltd [2009] 4 SLR 193
+      is_fake: true
+      perturbation: year_off
+      source: synthesised
+    split: dev
+- name: passage_cas+cou+pag_8269
+  inputs:
+    passage: The applicable principles are summarised in Ng Chee Weng v Lim Jit Ming Bryan [2012] 1 SLR 457 and refined in
+      Adri Anton Kalangie v Public Prosecutor [2018] 2 SLR 457. [2019] SGHCR 12 clarified the operative test, and Loh Aziz
+      v Iyer Chia [2015] 1 SLR 26 applied it to a multi-party scenario. Madan Mohan Singh v Attorney-General [2015] 2 SLR
+      1085 subsequently extended this to corporate context.
+  expected_output:
+    fakes:
+    - Adri Anton Kalangie v Public Prosecutor [2018] 2 SLR 457
+    - Loh Aziz v Iyer Chia [2015] 1 SLR 26
+    - '[2019] SGHCR 12'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Ng Chee Weng v Lim Jit Ming Bryan [2012] 1 SLR 457
+      is_fake: false
+      perturbation: null
+      source: equity
+    - citation: Adri Anton Kalangie v Public Prosecutor [2018] 2 SLR 457
+      is_fake: true
+      perturbation: page_off
+      source: synthesised
+    - citation: '[2019] SGHCR 12'
+      is_fake: true
+      perturbation: court_swap
+      source: synthesised
+    - citation: Loh Aziz v Iyer Chia [2015] 1 SLR 26
+      is_fake: true
+      perturbation: case_name_swap
+      source: synthesised
+    - citation: Madan Mohan Singh v Attorney-General [2015] 2 SLR 1085
+      is_fake: false
+      perturbation: null
+      source: public
+    split: dev
+- name: passage_com+who+yea_4626
+  inputs:
+    passage: In addressing the question of duty of care, the court relied on Over & Over Ltd v Bonvests Holdings Ltd [2013]
+      2 SLR 776, citing ANJ v ANK [2013] 6 SLR 1043 for the proposition that control mechanisms operate at the pleading stage.
+      The court also distinguished Wong Sim v Sentinel International Pte Ltd [2009] SGCA 24 on the facts.
+  expected_output:
+    fakes:
+    - ANJ v ANK [2013] 6 SLR 1043
+    - Over & Over Ltd v Bonvests Holdings Ltd [2013] 2 SLR 776
+    - Wong Sim v Sentinel International Pte Ltd [2009] SGCA 24
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Over & Over Ltd v Bonvests Holdings Ltd [2013] 2 SLR 776
+      is_fake: true
+      perturbation: year_off
+      source: synthesised
+    - citation: ANJ v ANK [2013] 6 SLR 1043
+      is_fake: true
+      perturbation: composite
+      source: synthesised
+    - citation: Wong Sim v Sentinel International Pte Ltd [2009] SGCA 24
+      is_fake: true
+      perturbation: wholesale_fabrication
+      source: synthesised
+    split: dev
+- name: passage_cas+pag+vol_3535
+  inputs:
+    passage: The Court of Appeal's reasoning in Vellama d/o Marie Muthu v Attorney-General [2013] 2 SLR 1 is consistent with
+      the framework set out in Zhao Wong v Pillai Loh [2008] 2 SLR(R) 623. Earlier authorities such as [2023] SGCA 5 had foreshadowed
+      this approach. Compare the contrary view in USB v USA [2020] 2 SLR 578.
+  expected_output:
+    fakes:
+    - USB v USA [2020] 2 SLR 578
+    - Vellama d/o Marie Muthu v Attorney-General [2013] 2 SLR 1
+    - Zhao Wong v Pillai Loh [2008] 2 SLR(R) 623
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Vellama d/o Marie Muthu v Attorney-General [2013] 2 SLR 1
+      is_fake: true
+      perturbation: volume_off
+      source: synthesised
+    - citation: Zhao Wong v Pillai Loh [2008] 2 SLR(R) 623
+      is_fake: true
+      perturbation: case_name_swap
+      source: synthesised
+    - citation: '[2023] SGCA 5'
+      is_fake: false
+      perturbation: null
+      source: contract
+    - citation: USB v USA [2020] 2 SLR 578
+      is_fake: true
+      perturbation: page_off
+      source: synthesised
+    split: dev
+- name: passage_cou_4531
+  inputs:
+    passage: Counsel cited [2021] SGHC 99, Public Prosecutor v Lam Leng Hung [2018] 1 SLR 659, and Gay Choon Ing v Loh Sze
+      Ti Terence Peter [2009] 2 SLR(R) 332 in support. The respondent relied on [2017] SGFC 22, which the court accepted as
+      authoritative.
+  expected_output:
+    fakes:
+    - '[2017] SGFC 22'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: '[2021] SGHC 99'
+      is_fake: false
+      perturbation: null
+      source: procedure
+    - citation: Public Prosecutor v Lam Leng Hung [2018] 1 SLR 659
+      is_fake: false
+      perturbation: null
+      source: public
+    - citation: Gay Choon Ing v Loh Sze Ti Terence Peter [2009] 2 SLR(R) 332
+      is_fake: false
+      perturbation: null
+      source: contract
+    - citation: '[2017] SGFC 22'
+      is_fake: true
+      perturbation: court_swap
+      source: synthesised
+    split: dev
+- name: passage_who_1897
+  inputs:
+    passage: Sembcorp Marine Ltd v PPL Holdings Pte Ltd [2013] 4 SLR 193 remains the locus classicus in Singapore. Cases like
+      Public Prosecutor v Aniza bte Essa [2009] 3 SLR(R) 327 and [2008] SGHCF 270 have applied its framework, while Public
+      Prosecutor v Lam Leng Hung [2018] 1 SLR 659 qualifies its reach in arbitral contexts.
+  expected_output:
+    fakes:
+    - '[2008] SGHCF 270'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Sembcorp Marine Ltd v PPL Holdings Pte Ltd [2013] 4 SLR 193
+      is_fake: false
+      perturbation: null
+      source: contract
+    - citation: Public Prosecutor v Aniza bte Essa [2009] 3 SLR(R) 327
+      is_fake: false
+      perturbation: null
+      source: criminal
+    - citation: '[2008] SGHCF 270'
+      is_fake: true
+      perturbation: wholesale_fabrication
+      source: synthesised
+    - citation: Public Prosecutor v Lam Leng Hung [2018] 1 SLR 659
+      is_fake: false
+      perturbation: null
+      source: public
+    split: dev
+- name: passage_com_3399
+  inputs:
+    passage: The Court of Appeal's reasoning in Lim Chen Yeow Kelvin v Goh Chin Peng [2009] 7 SLR(R) 783 is consistent with
+      the framework set out in Larsen Oil and Gas Pte Ltd v Petroprod Ltd [2011] 3 SLR 414. Earlier authorities such as Wee
+      Chiaw Sek Anna v Ng Li-Ann Genevieve [2013] 3 SLR 801 had foreshadowed this approach. Compare the contrary view in Quoine
+      Pte Ltd v B2C2 Ltd [2020] 2 SLR 20.
+  expected_output:
+    fakes:
+    - Lim Chen Yeow Kelvin v Goh Chin Peng [2009] 7 SLR(R) 783
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Lim Chen Yeow Kelvin v Goh Chin Peng [2009] 7 SLR(R) 783
+      is_fake: true
+      perturbation: composite
+      source: synthesised
+    - citation: Larsen Oil and Gas Pte Ltd v Petroprod Ltd [2011] 3 SLR 414
+      is_fake: false
+      perturbation: null
+      source: procedure
+    - citation: Wee Chiaw Sek Anna v Ng Li-Ann Genevieve [2013] 3 SLR 801
+      is_fake: false
+      perturbation: null
+      source: equity
+    - citation: Quoine Pte Ltd v B2C2 Ltd [2020] 2 SLR 20
+      is_fake: false
+      perturbation: null
+      source: contract
+    split: dev
+- name: passage_yea_6962
+  inputs:
+    passage: The applicable principles are summarised in Ng-Loy Wee Loon v Public Prosecutor [2003] 4 SLR(R) 209 and refined
+      in Sundercan Ltd v Salzgitter Stahlhandel GmbH [2008] 1 SLR(R) 81. RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd [2007]
+      4 SLR(R) 413 clarified the operative test, and BCY v BCZ [2015] 3 SLR 357 applied it to a multi-party scenario. BCY
+      v BCZ [2017] 3 SLR 357 subsequently extended this to corporate context.
+  expected_output:
+    fakes:
+    - BCY v BCZ [2015] 3 SLR 357
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Ng-Loy Wee Loon v Public Prosecutor [2003] 4 SLR(R) 209
+      is_fake: false
+      perturbation: null
+      source: ip
+    - citation: Sundercan Ltd v Salzgitter Stahlhandel GmbH [2008] 1 SLR(R) 81
+      is_fake: false
+      perturbation: null
+      source: contract
+    - citation: RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd [2007] 4 SLR(R) 413
+      is_fake: false
+      perturbation: null
+      source: contract
+    - citation: BCY v BCZ [2015] 3 SLR 357
+      is_fake: true
+      perturbation: year_off
+      source: synthesised
+    - citation: BCY v BCZ [2017] 3 SLR 357
+      is_fake: false
+      perturbation: null
+      source: procedure
+    split: dev
+- name: passage_pag+vol_9224
+  inputs:
+    passage: The applicable principles are summarised in Larsen Oil and Gas Pte Ltd v Petroprod Ltd [2011] 3 SLR 414 and refined
+      in Vellama d/o Marie Muthu v Attorney-General [2013] 4 SLR 1. Y.E.S. F&B Group Pte Ltd v Soup Restaurant Singapore Pte
+      Ltd [2015] 5 SLR 1177 clarified the operative test, and First Media Pte Ltd v Astro Nusantara International BV [2014]
+      2 SLR 372 applied it to a multi-party scenario. Tan Eng Hong v Attorney-General [2012] 4 SLR 476 subsequently extended
+      this to corporate context.
+  expected_output:
+    fakes:
+    - First Media Pte Ltd v Astro Nusantara International BV [2014] 2 SLR 372
+    - Y.E.S. F&B Group Pte Ltd v Soup Restaurant Singapore Pte Ltd [2015] 5 SLR 1177
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Larsen Oil and Gas Pte Ltd v Petroprod Ltd [2011] 3 SLR 414
+      is_fake: false
+      perturbation: null
+      source: procedure
+    - citation: Vellama d/o Marie Muthu v Attorney-General [2013] 4 SLR 1
+      is_fake: false
+      perturbation: null
+      source: public
+    - citation: Y.E.S. F&B Group Pte Ltd v Soup Restaurant Singapore Pte Ltd [2015] 5 SLR 1177
+      is_fake: true
+      perturbation: page_off
+      source: synthesised
+    - citation: First Media Pte Ltd v Astro Nusantara International BV [2014] 2 SLR 372
+      is_fake: true
+      perturbation: volume_off
+      source: synthesised
+    - citation: Tan Eng Hong v Attorney-General [2012] 4 SLR 476
+      is_fake: false
+      perturbation: null
+      source: public
+    split: dev
+- name: passage_cas_7338
+  inputs:
+    passage: The applicable principles are summarised in Lim Meng Suang v Attorney-General [2015] 1 SLR 26 and refined in
+      Ibrahim Mohamed v Mohamed Ali [2018] 3 SLR 789. Asnah bte Ab Rahman v Li Jianlin [2016] 2 SLR 944 clarified the operative
+      test, and Then Khek Koon v Arjun Permanand Samtani [2014] 1 SLR 245 applied it to a multi-party scenario. Tan Eng Hong
+      v Attorney-General [2012] 4 SLR 476 subsequently extended this to corporate context.
+  expected_output:
+    fakes:
+    - Ibrahim Mohamed v Mohamed Ali [2018] 3 SLR 789
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Lim Meng Suang v Attorney-General [2015] 1 SLR 26
+      is_fake: false
+      perturbation: null
+      source: public
+    - citation: Ibrahim Mohamed v Mohamed Ali [2018] 3 SLR 789
+      is_fake: true
+      perturbation: case_name_swap
+      source: synthesised
+    - citation: Asnah bte Ab Rahman v Li Jianlin [2016] 2 SLR 944
+      is_fake: false
+      perturbation: null
+      source: tort
+    - citation: Then Khek Koon v Arjun Permanand Samtani [2014] 1 SLR 245
+      is_fake: false
+      perturbation: null
+      source: equity
+    - citation: Tan Eng Hong v Attorney-General [2012] 4 SLR 476
+      is_fake: false
+      perturbation: null
+      source: public
+    split: dev
+- name: passage_cou+who_9937
+  inputs:
+    passage: The applicable principles are summarised in Sutherland Global Services Inc v Adam Technologies International
+      SA de CV [2014] 2 SLR 1042 and refined in [2023] SGMC 43. Public Prosecutor v Lam Leng Hung [2018] 1 SLR 659 clarified
+      the operative test, and [2019] SGHCF 12 applied it to a multi-party scenario. Tomolugen Holdings Ltd v Silica Investors
+      Ltd [2016] 1 SLR 373 subsequently extended this to corporate context.
+  expected_output:
+    fakes:
+    - '[2019] SGHCF 12'
+    - '[2023] SGMC 43'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Sutherland Global Services Inc v Adam Technologies International SA de CV [2014] 2 SLR 1042
+      is_fake: false
+      perturbation: null
+      source: tort
+    - citation: '[2023] SGMC 43'
+      is_fake: true
+      perturbation: wholesale_fabrication
+      source: synthesised
+    - citation: Public Prosecutor v Lam Leng Hung [2018] 1 SLR 659
+      is_fake: false
+      perturbation: null
+      source: public
+    - citation: '[2019] SGHCF 12'
+      is_fake: true
+      perturbation: court_swap
+      source: synthesised
+    - citation: Tomolugen Holdings Ltd v Silica Investors Ltd [2016] 1 SLR 373
+      is_fake: false
+      perturbation: null
+      source: procedure
+    split: dev
+- name: passage_com+yea_3114
+  inputs:
+    passage: The applicable principles are summarised in Ng-Loy Wee Loon v Public Prosecutor [2005] 6 SLR(R) 209 and refined
+      in Gay Choon Ing v Loh Sze Ti Terence Peter [2009] 2 SLR(R) 332. [2022] SGDC 3 clarified the operative test, and Asnah
+      bte Ab Rahman v Li Jianlin [2016] 2 SLR 944 applied it to a multi-party scenario. Tan Cheng Bock v Attorney-General
+      [2017] 2 SLR 850 subsequently extended this to corporate context.
+  expected_output:
+    fakes:
+    - Ng-Loy Wee Loon v Public Prosecutor [2005] 6 SLR(R) 209
+    - '[2022] SGDC 3'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Ng-Loy Wee Loon v Public Prosecutor [2005] 6 SLR(R) 209
+      is_fake: true
+      perturbation: composite
+      source: synthesised
+    - citation: Gay Choon Ing v Loh Sze Ti Terence Peter [2009] 2 SLR(R) 332
+      is_fake: false
+      perturbation: null
+      source: contract
+    - citation: '[2022] SGDC 3'
+      is_fake: true
+      perturbation: year_off
+      source: synthesised
+    - citation: Asnah bte Ab Rahman v Li Jianlin [2016] 2 SLR 944
+      is_fake: false
+      perturbation: null
+      source: tort
+    - citation: Tan Cheng Bock v Attorney-General [2017] 2 SLR 850
+      is_fake: false
+      perturbation: null
+      source: public
+    split: dev
+- name: passage_pag+vol_2761
+  inputs:
+    passage: Counsel cited Sembcorp Marine Ltd v PPL Holdings Pte Ltd [2013] 5 SLR 193, [2018] SGDC 3, and [2019] SGHC 12
+      in support. The respondent relied on Quoine Pte Ltd v B2C2 Ltd [2020] 2 SLR 70, which the court accepted as authoritative.
+  expected_output:
+    fakes:
+    - Quoine Pte Ltd v B2C2 Ltd [2020] 2 SLR 70
+    - Sembcorp Marine Ltd v PPL Holdings Pte Ltd [2013] 5 SLR 193
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Sembcorp Marine Ltd v PPL Holdings Pte Ltd [2013] 5 SLR 193
+      is_fake: true
+      perturbation: volume_off
+      source: synthesised
+    - citation: '[2018] SGDC 3'
+      is_fake: false
+      perturbation: null
+      source: criminal
+    - citation: '[2019] SGHC 12'
+      is_fake: false
+      perturbation: null
+      source: criminal
+    - citation: Quoine Pte Ltd v B2C2 Ltd [2020] 2 SLR 70
+      is_fake: true
+      perturbation: page_off
+      source: synthesised
+    split: dev
+- name: passage_cas_8775
+  inputs:
+    passage: Counsel cited Lim Chen Yeow Kelvin v Goh Chin Peng [2008] 4 SLR(R) 783, [2024] SGHCR 17, and Wu Lau v Huang Aziz
+      [2015] 1 SLR 26 in support. The respondent relied on Townsing Henry George v Jenton Overseas Investment Pte Ltd [2007]
+      2 SLR(R) 597, which the court accepted as authoritative.
+  expected_output:
+    fakes:
+    - Wu Lau v Huang Aziz [2015] 1 SLR 26
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Lim Chen Yeow Kelvin v Goh Chin Peng [2008] 4 SLR(R) 783
+      is_fake: false
+      perturbation: null
+      source: equity
+    - citation: '[2024] SGHCR 17'
+      is_fake: false
+      perturbation: null
+      source: procedure
+    - citation: Wu Lau v Huang Aziz [2015] 1 SLR 26
+      is_fake: true
+      perturbation: case_name_swap
+      source: synthesised
+    - citation: Townsing Henry George v Jenton Overseas Investment Pte Ltd [2007] 2 SLR(R) 597
+      is_fake: false
+      perturbation: null
+      source: company
+    split: dev
+- name: passage_com+cou+who_1613
+  inputs:
+    passage: The applicable principles are summarised in First Media Pte Ltd v Astro Nusantara International BV [2014] 1 SLR
+      372 and refined in [2022] SGHCF 4. [2024] SGIA 17 clarified the operative test, and Larsen Oil and Gas Pte Ltd v Petroprod
+      Ltd [2011] 3 SLR 414 applied it to a multi-party scenario. Phua Sim v Meridian Marine Pte Ltd [2021] SGFC 246 subsequently
+      extended this to corporate context.
+  expected_output:
+    fakes:
+    - Phua Sim v Meridian Marine Pte Ltd [2021] SGFC 246
+    - '[2022] SGHCF 4'
+    - '[2024] SGIA 17'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: First Media Pte Ltd v Astro Nusantara International BV [2014] 1 SLR 372
+      is_fake: false
+      perturbation: null
+      source: procedure
+    - citation: '[2022] SGHCF 4'
+      is_fake: true
+      perturbation: composite
+      source: synthesised
+    - citation: '[2024] SGIA 17'
+      is_fake: true
+      perturbation: court_swap
+      source: synthesised
+    - citation: Larsen Oil and Gas Pte Ltd v Petroprod Ltd [2011] 3 SLR 414
+      is_fake: false
+      perturbation: null
+      source: procedure
+    - citation: Phua Sim v Meridian Marine Pte Ltd [2021] SGFC 246
+      is_fake: true
+      perturbation: wholesale_fabrication
+      source: synthesised
+    split: dev
+- name: passage_vol+yea_2196
+  inputs:
+    passage: The Court of Appeal's reasoning in Ng-Loy Wee Loon v Public Prosecutor [2003] 4 SLR(R) 209 is consistent with
+      the framework set out in Lau Sheng Jan Alistair v Lau Cheok Joo Richard [2023] 4 SLR 1. Earlier authorities such as
+      Global Yellow Pages Ltd v Promedia Directories Pte Ltd [2016] 2 SLR 185 had foreshadowed this approach. Compare the
+      contrary view in AOO v AON [2011] 4 SLR 1169.
+  expected_output:
+    fakes:
+    - Global Yellow Pages Ltd v Promedia Directories Pte Ltd [2016] 2 SLR 185
+    - Lau Sheng Jan Alistair v Lau Cheok Joo Richard [2023] 4 SLR 1
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Ng-Loy Wee Loon v Public Prosecutor [2003] 4 SLR(R) 209
+      is_fake: false
+      perturbation: null
+      source: ip
+    - citation: Lau Sheng Jan Alistair v Lau Cheok Joo Richard [2023] 4 SLR 1
+      is_fake: true
+      perturbation: volume_off
+      source: synthesised
+    - citation: Global Yellow Pages Ltd v Promedia Directories Pte Ltd [2016] 2 SLR 185
+      is_fake: true
+      perturbation: year_off
+      source: synthesised
+    - citation: AOO v AON [2011] 4 SLR 1169
+      is_fake: false
+      perturbation: null
+      source: family
+    split: dev
+- name: passage_cas+pag_8369
+  inputs:
+    passage: The Court of Appeal's reasoning in Public Prosecutor v Kwong Kok Hing [2008] 2 SLR(R) 784 is consistent with
+      the framework set out in Public Prosecutor v Lam Leng Hung [2018] 1 SLR 659. Earlier authorities such as Ali Rahman
+      v Lim Brothers Investments Pte Ltd [2015] 1 SLR 1097 had foreshadowed this approach. Compare the contrary view in Re
+      Vanguard Energy Pte Ltd [2015] 4 SLR 597.
+  expected_output:
+    fakes:
+    - Ali Rahman v Lim Brothers Investments Pte Ltd [2015] 1 SLR 1097
+    - Public Prosecutor v Kwong Kok Hing [2008] 2 SLR(R) 784
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Public Prosecutor v Kwong Kok Hing [2008] 2 SLR(R) 784
+      is_fake: true
+      perturbation: page_off
+      source: synthesised
+    - citation: Public Prosecutor v Lam Leng Hung [2018] 1 SLR 659
+      is_fake: false
+      perturbation: null
+      source: public
+    - citation: Ali Rahman v Lim Brothers Investments Pte Ltd [2015] 1 SLR 1097
+      is_fake: true
+      perturbation: case_name_swap
+      source: synthesised
+    - citation: Re Vanguard Energy Pte Ltd [2015] 4 SLR 597
+      is_fake: false
+      perturbation: null
+      source: company
+    split: dev
+- name: passage_cou_5216
+  inputs:
+    passage: The applicable principles are summarised in BG v BF [2007] 3 SLR(R) 233 and refined in [2022] SGCA 12. [2020]
+      SGHC 4 clarified the operative test, and Townsing Henry George v Jenton Overseas Investment Pte Ltd [2007] 2 SLR(R)
+      597 applied it to a multi-party scenario. Tribune Investment Trust Inc v Soosan Trading Co Ltd [2000] 2 SLR(R) 407 subsequently
+      extended this to corporate context.
+  expected_output:
+    fakes:
+    - '[2020] SGHC 4'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: BG v BF [2007] 3 SLR(R) 233
+      is_fake: false
+      perturbation: null
+      source: family
+    - citation: '[2022] SGCA 12'
+      is_fake: false
+      perturbation: null
+      source: tort
+    - citation: '[2020] SGHC 4'
+      is_fake: true
+      perturbation: court_swap
+      source: synthesised
+    - citation: Townsing Henry George v Jenton Overseas Investment Pte Ltd [2007] 2 SLR(R) 597
+      is_fake: false
+      perturbation: null
+      source: company
+    - citation: Tribune Investment Trust Inc v Soosan Trading Co Ltd [2000] 2 SLR(R) 407
+      is_fake: false
+      perturbation: null
+      source: contract
+    split: dev
+- name: passage_com+who+yea_8161
+  inputs:
+    passage: Counsel cited [2021] SGHCF 87, Guy Neale v Nine Squares Pty Ltd [2011] 1 SLR 1097, and Global Yellow Pages Ltd
+      v Promedia Directories Pte Ltd [2017] 2 SLR 185 in support. The respondent relied on Zurich Insurance (Singapore) Pte
+      Ltd v B-Gold Interior Design & Construction Pte Ltd [2010] 4 SLR(R) 1029, which the court accepted as authoritative.
+  expected_output:
+    fakes:
+    - Guy Neale v Nine Squares Pty Ltd [2011] 1 SLR 1097
+    - Zurich Insurance (Singapore) Pte Ltd v B-Gold Interior Design & Construction Pte Ltd [2010] 4 SLR(R) 1029
+    - '[2021] SGHCF 87'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: '[2021] SGHCF 87'
+      is_fake: true
+      perturbation: wholesale_fabrication
+      source: synthesised
+    - citation: Guy Neale v Nine Squares Pty Ltd [2011] 1 SLR 1097
+      is_fake: true
+      perturbation: year_off
+      source: synthesised
+    - citation: Global Yellow Pages Ltd v Promedia Directories Pte Ltd [2017] 2 SLR 185
+      is_fake: false
+      perturbation: null
+      source: ip
+    - citation: Zurich Insurance (Singapore) Pte Ltd v B-Gold Interior Design & Construction Pte Ltd [2010] 4 SLR(R) 1029
+      is_fake: true
+      perturbation: composite
+      source: synthesised
+    split: dev
+- name: passage_vol_9537
+  inputs:
+    passage: In addressing the question of duty of care, the court relied on Ng-Loy Wee Loon v Public Prosecutor [2003] 4
+      SLR(R) 209, citing Madan Mohan Singh v Attorney-General [2015] 3 SLR 1085 for the proposition that control mechanisms
+      operate at the pleading stage. The court also distinguished Attorney-General v Ting Choon Meng [2017] 1 SLR 373 on the
+      facts.
+  expected_output:
+    fakes:
+    - Madan Mohan Singh v Attorney-General [2015] 3 SLR 1085
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Ng-Loy Wee Loon v Public Prosecutor [2003] 4 SLR(R) 209
+      is_fake: false
+      perturbation: null
+      source: ip
+    - citation: Madan Mohan Singh v Attorney-General [2015] 3 SLR 1085
+      is_fake: true
+      perturbation: volume_off
+      source: synthesised
+    - citation: Attorney-General v Ting Choon Meng [2017] 1 SLR 373
+      is_fake: false
+      perturbation: null
+      source: public
+    split: dev
+- name: passage_cas+cou+pag_9646
+  inputs:
+    passage: In addressing the question of duty of care, the court relied on Wee Chiaw Sek Anna v Ng Li-Ann Genevieve [2013]
+      3 SLR 701, citing [2021] SGCA 99 for the proposition that control mechanisms operate at the pleading stage. The court
+      also distinguished Singh Goh v Globex Holdings Pte Ltd [2007] 2 SLR(R) 597 on the facts.
+  expected_output:
+    fakes:
+    - Singh Goh v Globex Holdings Pte Ltd [2007] 2 SLR(R) 597
+    - Wee Chiaw Sek Anna v Ng Li-Ann Genevieve [2013] 3 SLR 701
+    - '[2021] SGCA 99'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Wee Chiaw Sek Anna v Ng Li-Ann Genevieve [2013] 3 SLR 701
+      is_fake: true
+      perturbation: page_off
+      source: synthesised
+    - citation: '[2021] SGCA 99'
+      is_fake: true
+      perturbation: court_swap
+      source: synthesised
+    - citation: Singh Goh v Globex Holdings Pte Ltd [2007] 2 SLR(R) 597
+      is_fake: true
+      perturbation: case_name_swap
+      source: synthesised
+    split: dev
+- name: passage_com+who_9369
+  inputs:
+    passage: The applicable principles are summarised in Tan Eng Hong v Attorney-General [2012] 4 SLR 476 and refined in [2021]
+      SGFC 5. [1997] SGFC 181 clarified the operative test, and Main-Line Corporate Holdings Ltd v United Overseas Bank Ltd
+      [2017] 2 SLR 660 applied it to a multi-party scenario. Madan Mohan Singh v Attorney-General [2015] 2 SLR 1085 subsequently
+      extended this to corporate context.
+  expected_output:
+    fakes:
+    - '[1997] SGFC 181'
+    - '[2021] SGFC 5'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Tan Eng Hong v Attorney-General [2012] 4 SLR 476
+      is_fake: false
+      perturbation: null
+      source: public
+    - citation: '[2021] SGFC 5'
+      is_fake: true
+      perturbation: composite
+      source: synthesised
+    - citation: '[1997] SGFC 181'
+      is_fake: true
+      perturbation: wholesale_fabrication
+      source: synthesised
+    - citation: Main-Line Corporate Holdings Ltd v United Overseas Bank Ltd [2017] 2 SLR 660
+      is_fake: false
+      perturbation: null
+      source: ip
+    - citation: Madan Mohan Singh v Attorney-General [2015] 2 SLR 1085
+      is_fake: false
+      perturbation: null
+      source: public
+    split: dev
+- name: passage_vol+yea_7092
+  inputs:
+    passage: The Court of Appeal's reasoning in AOO v AON [2011] 1 SLR 1169 is consistent with the framework set out in Sembcorp
+      Marine Ltd v PPL Holdings Pte Ltd [2013] 4 SLR 193. Earlier authorities such as Ng Chee Weng v Lim Jit Ming Bryan [2012]
+      1 SLR 457 had foreshadowed this approach. Compare the contrary view in BG v BF [2009] 3 SLR(R) 233.
+  expected_output:
+    fakes:
+    - AOO v AON [2011] 1 SLR 1169
+    - BG v BF [2009] 3 SLR(R) 233
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: AOO v AON [2011] 1 SLR 1169
+      is_fake: true
+      perturbation: volume_off
+      source: synthesised
+    - citation: Sembcorp Marine Ltd v PPL Holdings Pte Ltd [2013] 4 SLR 193
+      is_fake: false
+      perturbation: null
+      source: contract
+    - citation: Ng Chee Weng v Lim Jit Ming Bryan [2012] 1 SLR 457
+      is_fake: false
+      perturbation: null
+      source: equity
+    - citation: BG v BF [2009] 3 SLR(R) 233
+      is_fake: true
+      perturbation: year_off
+      source: synthesised
+    split: dev
+- name: passage_pag_5059
+  inputs:
+    passage: In addressing the question of duty of care, the court relied on Re Vanguard Energy Pte Ltd [2015] 4 SLR 607,
+      citing Madan Mohan Singh v Attorney-General [2015] 2 SLR 1085 for the proposition that control mechanisms operate at
+      the pleading stage. The court also distinguished Asia Pacific Publishing Pte Ltd v Pioneers & Leaders (Publishers) Pte
+      Ltd [2011] 4 SLR 381 on the facts.
+  expected_output:
+    fakes:
+    - Re Vanguard Energy Pte Ltd [2015] 4 SLR 607
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Re Vanguard Energy Pte Ltd [2015] 4 SLR 607
+      is_fake: true
+      perturbation: page_off
+      source: synthesised
+    - citation: Madan Mohan Singh v Attorney-General [2015] 2 SLR 1085
+      is_fake: false
+      perturbation: null
+      source: public
+    - citation: Asia Pacific Publishing Pte Ltd v Pioneers & Leaders (Publishers) Pte Ltd [2011] 4 SLR 381
+      is_fake: false
+      perturbation: null
+      source: ip
+    split: dev
+- name: passage_cas+cou+who_1753
+  inputs:
+    passage: The applicable principles are summarised in Guy Neale v Nine Squares Pty Ltd [2015] 1 SLR 1097 and refined in
+      Loh Ong v Cheong Chia [2009] 2 SLR(R) 961. [2023] SGDC 5 clarified the operative test, and [1996] SGHC 117 applied it
+      to a multi-party scenario. Asnah bte Ab Rahman v Li Jianlin [2016] 2 SLR 944 subsequently extended this to corporate
+      context.
+  expected_output:
+    fakes:
+    - Loh Ong v Cheong Chia [2009] 2 SLR(R) 961
+    - '[1996] SGHC 117'
+    - '[2023] SGDC 5'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Guy Neale v Nine Squares Pty Ltd [2015] 1 SLR 1097
+      is_fake: false
+      perturbation: null
+      source: equity
+    - citation: Loh Ong v Cheong Chia [2009] 2 SLR(R) 961
+      is_fake: true
+      perturbation: case_name_swap
+      source: synthesised
+    - citation: '[2023] SGDC 5'
+      is_fake: true
+      perturbation: court_swap
+      source: synthesised
+    - citation: '[1996] SGHC 117'
+      is_fake: true
+      perturbation: wholesale_fabrication
+      source: synthesised
+    - citation: Asnah bte Ab Rahman v Li Jianlin [2016] 2 SLR 944
+      is_fake: false
+      perturbation: null
+      source: tort
+    split: dev
+- name: passage_com+yea_2481
+  inputs:
+    passage: Counsel cited RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd [2009] 7 SLR(R) 413, Tan Eng Hong v Attorney-General
+      [2012] 4 SLR 476, and [2018] SGDC 3 in support. The respondent relied on Quoine Pte Ltd v B2C2 Ltd [2019] 2 SLR 20,
+      which the court accepted as authoritative.
+  expected_output:
+    fakes:
+    - Quoine Pte Ltd v B2C2 Ltd [2019] 2 SLR 20
+    - RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd [2009] 7 SLR(R) 413
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd [2009] 7 SLR(R) 413
+      is_fake: true
+      perturbation: composite
+      source: synthesised
+    - citation: Tan Eng Hong v Attorney-General [2012] 4 SLR 476
+      is_fake: false
+      perturbation: null
+      source: public
+    - citation: '[2018] SGDC 3'
+      is_fake: false
+      perturbation: null
+      source: criminal
+    - citation: Quoine Pte Ltd v B2C2 Ltd [2019] 2 SLR 20
+      is_fake: true
+      perturbation: year_off
+      source: synthesised
+    split: dev
+- name: passage_cas+pag+vol_6198
+  inputs:
+    passage: In addressing the question of duty of care, the court relied on Ng-Loy Wee Loon v Public Prosecutor [2003] 1
+      SLR(R) 209, citing Over & Over Ltd v Bonvests Holdings Ltd [2010] 2 SLR 676 for the proposition that control mechanisms
+      operate at the pleading stage. The court also distinguished Loh Yap v Tan & Sons Marine Pte Ltd [2017] SGMC 22 on the
+      facts.
+  expected_output:
+    fakes:
+    - Loh Yap v Tan & Sons Marine Pte Ltd [2017] SGMC 22
+    - Ng-Loy Wee Loon v Public Prosecutor [2003] 1 SLR(R) 209
+    - Over & Over Ltd v Bonvests Holdings Ltd [2010] 2 SLR 676
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Ng-Loy Wee Loon v Public Prosecutor [2003] 1 SLR(R) 209
+      is_fake: true
+      perturbation: volume_off
+      source: synthesised
+    - citation: Over & Over Ltd v Bonvests Holdings Ltd [2010] 2 SLR 676
+      is_fake: true
+      perturbation: page_off
+      source: synthesised
+    - citation: Loh Yap v Tan & Sons Marine Pte Ltd [2017] SGMC 22
+      is_fake: true
+      perturbation: case_name_swap
+      source: synthesised
+    split: dev
+- name: passage_com+cou+who_8758
+  inputs:
+    passage: In addressing the question of duty of care, the court relied on Global Yellow Pages Ltd v Promedia Directories
+      Pte Ltd [2014] 5 SLR 185, citing [2019] SGFC 12 for the proposition that control mechanisms operate at the pleading
+      stage. The court also distinguished [2014] SGHC 246 on the facts.
+  expected_output:
+    fakes:
+    - Global Yellow Pages Ltd v Promedia Directories Pte Ltd [2014] 5 SLR 185
+    - '[2014] SGHC 246'
+    - '[2019] SGFC 12'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Global Yellow Pages Ltd v Promedia Directories Pte Ltd [2014] 5 SLR 185
+      is_fake: true
+      perturbation: composite
+      source: synthesised
+    - citation: '[2019] SGFC 12'
+      is_fake: true
+      perturbation: court_swap
+      source: synthesised
+    - citation: '[2014] SGHC 246'
+      is_fake: true
+      perturbation: wholesale_fabrication
+      source: synthesised
+    split: dev
+- name: passage_vol+yea_5593
+  inputs:
+    passage: The Court of Appeal's reasoning in First Media Pte Ltd v Astro Nusantara International BV [2014] 1 SLR 372 is
+      consistent with the framework set out in Public Prosecutor v Aniza bte Essa [2009] 1 SLR(R) 327. Earlier authorities
+      such as Madan Mohan Singh v Attorney-General [2015] 2 SLR 1085 had foreshadowed this approach. Compare the contrary
+      view in Public Prosecutor v Kwong Kok Hing [2010] 2 SLR(R) 684.
+  expected_output:
+    fakes:
+    - Public Prosecutor v Aniza bte Essa [2009] 1 SLR(R) 327
+    - Public Prosecutor v Kwong Kok Hing [2010] 2 SLR(R) 684
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: First Media Pte Ltd v Astro Nusantara International BV [2014] 1 SLR 372
+      is_fake: false
+      perturbation: null
+      source: procedure
+    - citation: Public Prosecutor v Aniza bte Essa [2009] 1 SLR(R) 327
+      is_fake: true
+      perturbation: volume_off
+      source: synthesised
+    - citation: Madan Mohan Singh v Attorney-General [2015] 2 SLR 1085
+      is_fake: false
+      perturbation: null
+      source: public
+    - citation: Public Prosecutor v Kwong Kok Hing [2010] 2 SLR(R) 684
+      is_fake: true
+      perturbation: year_off
+      source: synthesised
+    split: dev
+- name: passage_cas+cou+pag_9199
+  inputs:
+    passage: Counsel cited Phua Quek v Loh Chong [2008] 4 SLR(R) 783, [2021] SGHCF 99, and Then Khek Koon v Arjun Permanand
+      Samtani [2014] 1 SLR 195 in support. The respondent relied on Over & Over Ltd v Bonvests Holdings Ltd [2010] 2 SLR 776,
+      which the court accepted as authoritative.
+  expected_output:
+    fakes:
+    - Phua Quek v Loh Chong [2008] 4 SLR(R) 783
+    - Then Khek Koon v Arjun Permanand Samtani [2014] 1 SLR 195
+    - '[2021] SGHCF 99'
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Phua Quek v Loh Chong [2008] 4 SLR(R) 783
+      is_fake: true
+      perturbation: case_name_swap
+      source: synthesised
+    - citation: '[2021] SGHCF 99'
+      is_fake: true
+      perturbation: court_swap
+      source: synthesised
+    - citation: Then Khek Koon v Arjun Permanand Samtani [2014] 1 SLR 195
+      is_fake: true
+      perturbation: page_off
+      source: synthesised
+    - citation: Over & Over Ltd v Bonvests Holdings Ltd [2010] 2 SLR 776
+      is_fake: false
+      perturbation: null
+      source: company
+    split: dev
+- name: passage_com+who+yea_5839
+  inputs:
+    passage: The Court of Appeal's reasoning in Tan Eng Hong v Attorney-General [2012] 4 SLR 476 is consistent with the framework
+      set out in Chia Teo v Lau Huang [2023] SGMC 212. Earlier authorities such as Tribune Investment Trust Inc v Soosan Trading
+      Co Ltd [1998] 2 SLR(R) 407 had foreshadowed this approach. Compare the contrary view in RDC Concrete Pte Ltd v Sato
+      Kogyo (S) Pte Ltd [2004] 3 SLR(R) 413.
+  expected_output:
+    fakes:
+    - Chia Teo v Lau Huang [2023] SGMC 212
+    - RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd [2004] 3 SLR(R) 413
+    - Tribune Investment Trust Inc v Soosan Trading Co Ltd [1998] 2 SLR(R) 407
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Tan Eng Hong v Attorney-General [2012] 4 SLR 476
+      is_fake: false
+      perturbation: null
+      source: public
+    - citation: Chia Teo v Lau Huang [2023] SGMC 212
+      is_fake: true
+      perturbation: wholesale_fabrication
+      source: synthesised
+    - citation: Tribune Investment Trust Inc v Soosan Trading Co Ltd [1998] 2 SLR(R) 407
+      is_fake: true
+      perturbation: year_off
+      source: synthesised
+    - citation: RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd [2004] 3 SLR(R) 413
+      is_fake: true
+      perturbation: composite
+      source: synthesised
+    split: dev
+- name: passage_vol_3171
+  inputs:
+    passage: In addressing the question of duty of care, the court relied on Logachev Vladislav v Public Prosecutor [2018]
+      4 SLR 609, citing Attorney-General v Ting Choon Meng [2017] 4 SLR 373 for the proposition that control mechanisms operate
+      at the pleading stage. The court also distinguished TQ v TR [2009] 2 SLR(R) 961 on the facts.
+  expected_output:
+    fakes:
+    - Attorney-General v Ting Choon Meng [2017] 4 SLR 373
+  metadata:
+    jurisdiction: SG
+    task: SGLB-11
+    citation_index:
+    - citation: Logachev Vladislav v Public Prosecutor [2018] 4 SLR 609
+      is_fake: false
+      perturbation: null
+      source: criminal
+    - citation: Attorney-General v Ting Choon Meng [2017] 4 SLR 373
+      is_fake: true
+      perturbation: volume_off
+      source: synthesised
+    - citation: TQ v TR [2009] 2 SLR(R) 961
+      is_fake: false
+      perturbation: null
+      source: family
+    split: dev
