@@ -8,6 +8,7 @@ use privacy_common::frame::{Rect, WindowInfo};
 #[derive(Debug, Clone)]
 pub struct DisplayInfo {
     pub index: usize,
+    pub id: u32,
     pub name: String,
     pub bounds: Rect,
     pub is_primary: bool,
@@ -62,21 +63,24 @@ pub fn list_displays() -> Result<Vec<DisplayInfo>> {
     #[cfg(target_os = "macos")]
     {
         use core_graphics::display::CGDisplay;
-        let ids = CGDisplay::active_displays()
-            .map_err(|e| anyhow::anyhow!("CGDisplay::active_displays: {:?}", e))?;
+        use screencapturekit::shareable_content::SCShareableContent;
+        let content = SCShareableContent::get()
+            .map_err(|e| anyhow::anyhow!("SCShareableContent::get: {:?}", e))?;
         let primary = CGDisplay::main().id;
-        let displays = ids
+        let displays = content
+            .displays()
             .into_iter()
             .enumerate()
-            .map(|(idx, id)| {
-                let d = CGDisplay::new(id);
-                let b = d.bounds();
+            .map(|(idx, display)| {
+                let id = display.display_id();
+                let b = display.frame();
                 DisplayInfo {
                     index: idx,
+                    id,
                     name: format!("Display {} (id={})", idx + 1, id),
                     bounds: Rect {
-                        x: b.origin.x as u32,
-                        y: b.origin.y as u32,
+                        x: b.origin.x.max(0.0) as u32,
+                        y: b.origin.y.max(0.0) as u32,
                         width: b.size.width as u32,
                         height: b.size.height as u32,
                     },
@@ -92,6 +96,7 @@ pub fn list_displays() -> Result<Vec<DisplayInfo>> {
         // X11: use XineramaQueryScreens or RandR for display info
         Ok(vec![DisplayInfo {
             index: 0,
+            id: 0,
             name: "Display 0 (X11)".into(),
             bounds: Rect {
                 x: 0,

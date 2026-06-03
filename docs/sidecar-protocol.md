@@ -15,10 +15,11 @@ This keeps the shipped Rust pipeline as the single implementation, avoids ABI an
 The menu-bar app starts the sidecar with:
 
 ```console
-aki --headless --source screen|pty --transform blur|pixelate|cartoon|ascii|neural --output auto|coremedia|mjpeg|obs --http-port 9876
+aki --headless --source screen|pty --display 0 --transform blur|pixelate|cartoon|ascii|neural --output auto|coremedia|mjpeg|obs|mp4 --http-port 9876
 ```
 
 `--pty` remains as a compatibility alias for `--source pty`, but the menu-bar app uses `--source` so source selection is explicit.
+`--display` is optional, can be repeated for multi-display capture, and is only valid with `--source screen`. `--output mp4` requires an explicit `--record-output <PATH>`.
 
 Start and stop are process lifecycle operations:
 

@@ -75,6 +75,7 @@ macOS DMG release packaging is documented in [`docs/macos-release.md`](./docs/ma
 
 ```console
 $ aki list-windows
+$ aki list-displays
 $ aki doctor
 $ aki test-patterns "SECRET_KEY=abc123"
 $ aki demo --frames 1 --no-clear
@@ -133,6 +134,18 @@ $ aki --headless --source screen --output mp4 --record-output ./recording.redact
 Recording starts when the first transformed frame is produced. Press `Ctrl-C` to stop capture, flush ffmpeg, and finalize the MP4. The output path must be explicit and end in `.mp4`; existing files are refused unless `--record-overwrite` is passed.
 
 Use the virtual camera, OBS, or MJPEG outputs for live streams and screen-share calls. Use direct MP4 when the final deliverable is a local recording file.
+
+### Multi-Display Capture
+
+Use `aki list-displays` to find display indexes, then pass `--display` once for a specific display or more than once for side-by-side multi-display capture:
+
+```console
+$ aki list-displays
+$ aki --headless --source screen --display 1
+$ aki --headless --source screen --display 0 --display 1 --record-output ./multi-display.redacted.mp4
+```
+
+The behavior, hot-plug expectations, and performance costs are documented in [`docs/multi-display-capture.md`](./docs/multi-display-capture.md).
 
 ## Power-User / Developer Commands
 
