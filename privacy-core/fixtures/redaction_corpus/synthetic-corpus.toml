@@ -1,0 +1,69 @@
+# Synthetic held-out redaction corpus.
+#
+# Values are deliberately fake and use AKI_FIXTURE / DO_NOT_USE markers.
+
+grid_cols = 8
+grid_rows = 6
+
+[[frames]]
+id = "terminal_1080p_env_and_secret"
+resolution = [1920, 1080]
+description = "Terminal-like frame with an environment assignment and secret keyword."
+
+[[frames.regions]]
+text = "AKI_FIXTURE_SECRET=DO_NOT_USE_TERMINAL_VALUE_001"
+bounds = [96, 120, 760, 36]
+confidence = 96.0
+expected_patterns = ["env_var_assignment", "secret_keyword"]
+
+[[frames.regions]]
+text = "cargo run --example demo"
+bounds = [96, 180, 360, 36]
+confidence = 94.0
+expected_patterns = []
+
+[[frames]]
+id = "editor_1440p_pii_and_password"
+resolution = [2560, 1440]
+description = "Editor-like frame with PII and a password-shaped assignment."
+
+[[frames.regions]]
+text = "contact: demo.user@example.invalid"
+bounds = [160, 220, 540, 42]
+confidence = 91.0
+expected_patterns = ["email"]
+
+[[frames.regions]]
+text = "password=DO_NOT_USE_EDITOR_PASSWORD_002"
+bounds = [160, 290, 700, 42]
+confidence = 93.0
+expected_patterns = ["secret_keyword"]
+
+[[frames.regions]]
+text = "let status = \"ready\";"
+bounds = [160, 360, 360, 42]
+confidence = 95.0
+expected_patterns = []
+
+[[frames]]
+id = "dashboard_4k_network_and_key_header"
+resolution = [3840, 2160]
+description = "Dashboard-like frame with IP PII and a private-key header."
+
+[[frames.regions]]
+text = "server: 192.168.1.100"
+bounds = [240, 320, 520, 54]
+confidence = 89.0
+expected_patterns = ["ipv4"]
+
+[[frames.regions]]
+text = "-----BEGIN OPENSSH PRIVATE KEY-----"
+bounds = [240, 410, 820, 54]
+confidence = 88.0
+expected_patterns = ["ssh_private_key"]
+
+[[frames.regions]]
+text = "mode: fixture-only"
+bounds = [240, 500, 360, 54]
+confidence = 92.0
+expected_patterns = []

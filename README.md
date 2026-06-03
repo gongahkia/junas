@@ -71,6 +71,8 @@ The menu-bar shell can start and stop the headless redaction pipeline, pause or 
 
 macOS DMG release packaging is documented in [`docs/macos-release.md`](./docs/macos-release.md), and the cask path is documented in [`docs/homebrew-cask.md`](./docs/homebrew-cask.md). The Show HN launch gate is tracked in [`docs/show-hn-readiness.md`](./docs/show-hn-readiness.md); do not advertise a Show HN launch until that checklist is complete.
 
+Performance baselines and the synthetic redaction fixture corpus are tracked in [`BENCHMARKS.md`](./BENCHMARKS.md).
+
 ## Quick Commands
 
 ```console
