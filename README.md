@@ -253,6 +253,9 @@ grid_cells_x = 8
 grid_cells_y = 6
 safe_zones = ["0,0,200,50"] # regions never redacted
 always_redact_zones = []    # regions always redacted
+external_rules_path = ""    # optional local gitleaks TOML path
+external_rules_format = "gitleaks"
+max_external_patterns = 128 # startup cap for imported regex rules
 
 [transform]
 mode = "blur"               # blur | pixelate | cartoon | ascii | neural
@@ -265,6 +268,19 @@ http_port = 9876
 ```
 
 Named profiles (e.g. `[profiles.streaming]`) can override transform mode and intensity for different contexts.
+
+### Optional external detector rules
+
+`Aki` can import gitleaks-style TOML rules from a local file. This is opt-in and local-only; `Aki` does not fetch rule packs or depend on a cloud scanner.
+
+```toml
+[detection]
+external_rules_path = "/path/to/gitleaks.toml"
+external_rules_format = "gitleaks"
+max_external_patterns = 128
+```
+
+Imported gitleaks rules are compiled once at startup and appended to the default detector registry. The import is bounded to `max_external_patterns`, capped at 128, to keep scan cost predictable. Trufflehog's detectors are not imported in v1 because they are code/entropy based rather than a simple regex rule file.
 
 ## Reference
 

@@ -20,13 +20,22 @@ impl SensitivityPattern {
         severity: Severity,
         category: PatternCategory,
     ) -> Self {
-        Self {
+        Self::try_new(name, pattern, severity, category).expect("invalid sensitivity pattern regex")
+    }
+
+    pub fn try_new(
+        name: impl Into<String>,
+        pattern: &str,
+        severity: Severity,
+        category: PatternCategory,
+    ) -> Result<Self, regex::Error> {
+        Ok(Self {
             name: name.into(),
-            regex: Regex::new(pattern).expect("invalid sensitivity pattern regex"),
+            regex: Regex::new(pattern)?,
             severity,
             category,
             enabled: true,
-        }
+        })
     }
 
     /// Returns true if the pattern matches anywhere in `text`.

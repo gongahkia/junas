@@ -4,10 +4,7 @@ use crate::control_server::ControlState;
 use privacy_common::{frame::Rect, transform::TransformMode};
 use privacy_core::{
     config::AppConfig,
-    detection::{
-        default_patterns::default_registry, patterns::PatternRegistry, pii_patterns::pii_patterns,
-        user_patterns::load_user_patterns,
-    },
+    detection::{patterns::PatternRegistry, registry::runtime_registry},
 };
 use std::{
     collections::{HashMap, VecDeque},
@@ -271,14 +268,7 @@ impl App {
             selected_window_id: None,
             window_selector: crate::ui::window_selector::WindowSelectorState::new(),
             pattern_manager: crate::ui::pattern_manager::PatternManagerState::new(),
-            pattern_registry: {
-                let mut r = default_registry();
-                r.patterns.extend(pii_patterns());
-                if let Ok(user) = load_user_patterns() {
-                    r.patterns.extend(user);
-                }
-                r
-            },
+            pattern_registry: runtime_registry(&cfg),
             heatmap: HeatmapState::new(),
             stats_overlay: StatsOverlayState::new(),
             latency_history: VecDeque::with_capacity(LATENCY_HISTORY_LEN),

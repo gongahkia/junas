@@ -1,0 +1,13 @@
+title = "aki gitleaks fixture"
+
+[[rules]]
+id = "fixture-github-pat"
+description = "Fixture GitHub personal access token"
+regex = '''ghp_[A-Za-z0-9]{36}'''
+keywords = ["ghp_"]
+
+[[rules]]
+id = "fixture-private-key"
+description = "Fixture private key marker"
+regex = '''-----BEGIN (RSA|OPENSSH) PRIVATE KEY-----'''
+keywords = ["PRIVATE KEY"]

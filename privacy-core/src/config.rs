@@ -69,6 +69,12 @@ pub struct DetectionConfig {
     pub safe_zones: Vec<String>,
     /// Screen regions (as "x,y,w,h") that are ALWAYS transformed regardless of pattern matches.
     pub always_redact_zones: Vec<String>,
+    /// Optional local external detector rule-pack path.
+    pub external_rules_path: String,
+    /// External detector rule-pack format. Currently supports "gitleaks".
+    pub external_rules_format: String,
+    /// Upper bound for imported external regex patterns.
+    pub max_external_patterns: usize,
 }
 
 impl Default for DetectionConfig {
@@ -80,6 +86,9 @@ impl Default for DetectionConfig {
             grid_cells_y: 6,
             safe_zones: Vec::new(),
             always_redact_zones: Vec::new(),
+            external_rules_path: String::new(),
+            external_rules_format: "gitleaks".into(),
+            max_external_patterns: crate::detection::external_rules::DEFAULT_MAX_IMPORTED_PATTERNS,
         }
     }
 }

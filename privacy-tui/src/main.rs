@@ -149,9 +149,7 @@ fn cmd_headless(
     use crossbeam_channel::bounded;
     use privacy_common::frame::TransformedFrame;
     use privacy_core::{
-        config::AppConfig,
-        detection::{default_patterns::default_registry, pii_patterns::pii_patterns},
-        pipeline_runner::spawn_pipeline,
+        config::AppConfig, detection::registry::runtime_registry, pipeline_runner::spawn_pipeline,
     };
     use privacy_output::{autodetect::detect_best_sink, create_sink, SinkKind};
     use std::sync::{
@@ -191,8 +189,7 @@ fn cmd_headless(
         Arc::clone(&control_state),
         control_server::DEFAULT_CONTROL_PORT,
     );
-    let mut registry = default_registry();
-    registry.patterns.extend(pii_patterns());
+    let registry = runtime_registry(&cfg);
     let source = create_capture_source(None, source_choice.uses_pty());
     let (out_tx, out_rx) = bounded::<TransformedFrame>(8);
     let handle = spawn_pipeline(source, None, registry, out_tx)?;
@@ -284,6 +281,11 @@ fn transform_mode_from_config(mode: &str) -> TransformMode {
         "neural" => TransformMode::Neural,
         _ => TransformMode::Blur,
     }
+}
+
+fn runtime_registry_from_disk() -> privacy_core::detection::patterns::PatternRegistry {
+    let cfg = privacy_core::config::AppConfig::load().unwrap_or_default();
+    privacy_core::detection::registry::runtime_registry(&cfg)
 }
 
 fn apply_headless_control(
@@ -567,9 +569,7 @@ fn cmd_list_windows() -> Result<()> {
 }
 
 fn cmd_test_patterns(text: &str) -> Result<()> {
-    use privacy_core::detection::{default_patterns::default_registry, pii_patterns::pii_patterns};
-    let mut registry = default_registry();
-    registry.patterns.extend(pii_patterns());
+    let registry = runtime_registry_from_disk();
     let mut hits = 0usize;
     for p in registry.patterns.iter().filter(|p| p.enabled) {
         if let Some(m) = p.find(text) {
@@ -586,10 +586,7 @@ fn cmd_test_patterns(text: &str) -> Result<()> {
 }
 
 fn cmd_self_test() -> Result<()> {
-    use privacy_core::detection::{
-        default_patterns::default_registry, pii_patterns::pii_patterns, scanner::scan,
-        whitelist::Whitelist,
-    };
+    use privacy_core::detection::{scanner::scan, whitelist::Whitelist};
     println!("aki self-test: verifying detection pipeline against synthetic data");
     let test_cases = [
         ("AWS key", "AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE"),
@@ -601,8 +598,7 @@ fn cmd_self_test() -> Result<()> {
         ("Email", "contact: user@example.com"),
         ("SSH private key", "-----BEGIN RSA PRIVATE KEY-----"),
     ];
-    let mut registry = default_registry();
-    registry.patterns.extend(pii_patterns());
+    let registry = runtime_registry_from_disk();
     let mut passed = 0;
     let total = test_cases.len();
     for (label, input) in &test_cases {
@@ -634,11 +630,9 @@ fn cmd_self_test() -> Result<()> {
 fn cmd_test_screen() -> Result<()> {
     use privacy_core::capture::window_picker::list_windows;
     use privacy_core::detection::{
-        default_patterns::default_registry,
         expand::expand_and_merge,
         incremental::{IncrementalOcr, GRID_COLS, GRID_ROWS},
         ocr::OcrEngine,
-        pii_patterns::pii_patterns,
         scanner::scan,
         whitelist::Whitelist,
     };
@@ -651,8 +645,7 @@ fn cmd_test_screen() -> Result<()> {
     println!("using first available window: {:?}", windows[0].title);
     let ocr = OcrEngine::new(None)?;
     let mut incremental = IncrementalOcr::new(ocr, GRID_COLS, GRID_ROWS);
-    let mut registry = default_registry();
-    registry.patterns.extend(pii_patterns());
+    let registry = runtime_registry_from_disk();
     let mut total_matches = 0usize;
     println!("capturing 10 frames for analysis...");
     // start a real capture from the first available window
