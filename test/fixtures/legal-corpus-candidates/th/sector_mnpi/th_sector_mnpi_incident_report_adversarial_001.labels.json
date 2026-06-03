@@ -3,13 +3,304 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Waraporn Suthi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Devin Channasit"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jarinee Watan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@luminarasystems.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-2-314-0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware-driven intrusion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "exfiltrated approx. 18,200 data rows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 650m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "99.7%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers are now active"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Waraporn Suthi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Devin Channasit"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jarinee Watan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@luminarasystems.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-2-314-0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware-driven intrusion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "exfiltrated approx. 18,200 data rows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 650m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "99.7%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers are now active"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced JV term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "di gi tal token wallet pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "pricing grid linked to ESG KPIs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2 emissions data uploads"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "ESG impact is currently assessed as moderate"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Designated Insiders"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "outside counsel at Lotus & Banyan (HK)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "non-production API keys"
+    },
+    {
+      "category": "PII",
+      "rule": "crypto_wallet_address",
+      "matched_text": "0x8f3a..7d1e"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window 03\u201317 June"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not discuss with analysts or investors outside approved Q&A"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider list etiquette",
+      "reason": "Educational/training reference; not a live insider list signal."
+    },
+    {
+      "matched_text": "webinar",
+      "reason": "Educational event; not market-sensitive MNPI."
+    },
+    {
+      "matched_text": "training-only",
+      "reason": "Explicitly non-market educational context."
+    },
+    {
+      "matched_text": "crypto custody vocabulary",
+      "reason": "Educational content; not MNPI."
+    },
+    {
+      "matched_text": "national ID scans",
+      "reason": "Negated/no actual identifiers provided."
+    },
+    {
+      "matched_text": "bank account numbers",
+      "reason": "Negated/no actual numbers provided."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC context; excluded per rule 8."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "s3://lmn-pr0d-fi1e-arch-02",
+      "concept": "internal system identifier",
+      "reason": "May be sensitive infrastructure/path info but not covered by allowed rules."
+    },
+    {
+      "matched_text": "svc_acct: bk-op$-A1-**9",
+      "concept": "service account ID",
+      "reason": "Could be an internal or employee identifier; not clearly mapped to allowed PII rules."
+    },
+    {
+      "matched_text": "https://ir.luminarasystems.co.th/notice?id=REF-2026-06-03&sig=aF%2FzZ",
+      "concept": "access/trace token in URL",
+      "reason": "URL contains a signature parameter that may act as an internal session or access token; not explicitly covered."
+    },
+    {
+      "matched_text": "03/06/2569 BE, 09:15 ICT",
+      "concept": "timestamp/embargo timing",
+      "reason": "Temporal marker that could imply timing sensitivity but lacks explicit embargo keywords."
+    },
+    {
+      "matched_text": "DPT JV",
+      "concept": "crypto joint venture marker",
+      "reason": "Crypto-sector sensitivity implied but does not clearly match pre-listing or protocol-event markers."
+    },
+    {
+      "matched_text": "read access to a sealed vault segment",
+      "concept": "cyber incident detail",
+      "reason": "Security-breach detail; sensitive but not a standard lexicon trigger on its own."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

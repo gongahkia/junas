@@ -3,13 +3,267 @@
   "document_type": "generic",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@prabaankaset-energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@prabaankaset-energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nalinee Rattanakul"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Preecha Boonchan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Suriya Chansamran"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "right-index fingerprint scan (biometric)"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "a hemoglobin disorder result from her annual checkup (health)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "declared membership in the Prabaankaset Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Theravada Buddhist religion"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdraw consent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "analyst quiet period"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@prabaankaset-energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@prabaankaset-energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nalinee Rattanakul"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Preecha Boonchan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Suriya Chansamran"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "right-index fingerprint scan (biometric)"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "a hemoglobin disorder result from her annual checkup (health)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "declared membership in the Prabaankaset Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Theravada Buddhist religion"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdraw consent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "analyst quiet period"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprints"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "his son, Nonthawat Boonchan, age 12, for medical insurance enrollment"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "may materially affect price"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "NamChai Green Bond term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-00-123-4567"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "mirrored in the Maranta Federation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Binding Rules for Data Transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no marketing will target minors"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Defined contract role-noun, not PII/MNPI."
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Generic role reference, not a named person under rule 5."
+    },
+    {
+      "matched_text": "biometric lock icon",
+      "reason": "Decorative UI element; not actual biometric data."
+    },
+    {
+      "matched_text": "Health tab",
+      "reason": "Generic UI/menu text; not health data."
+    },
+    {
+      "matched_text": "Equality in Growth Policy",
+      "reason": "Policy name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Kaset Tigers",
+      "reason": "Sports team name; not PII/MNPI."
+    },
+    {
+      "matched_text": "MangoPay Wallet",
+      "reason": "Product nickname; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "health screening results for 5 years",
+      "concept": "retention_marker",
+      "reason": "Data retention duration is a PDPA control but 'retention_marker' is not an allowed rule label."
+    },
+    {
+      "matched_text": "union-consent forms for 2 years",
+      "concept": "retention_marker",
+      "reason": "Data retention duration is a PDPA control but 'retention_marker' is not an allowed rule label."
+    },
+    {
+      "matched_text": "financing due-diligence materials for 7 years or until the applicable prescription periods lapse",
+      "concept": "retention_marker",
+      "reason": "Data retention duration is a PDPA control but 'retention_marker' is not an allowed rule label."
+    },
+    {
+      "matched_text": "pre-employment health checks",
+      "concept": "health_data_processing",
+      "reason": "Health data processing mention is relevant but not clearly a 'health_condition' or 'medical_treatment' rule."
+    },
+    {
+      "matched_text": "unaudited cash-flow forecasts",
+      "concept": "MNPI_financial_forecasts",
+      "reason": "Nonpublic financial forecasts are MNPI contextually but not directly covered by an explicit allowed rule string."
+    },
+    {
+      "matched_text": "with safeguards per PDPA secondary regulations and internal Binding Rules for Data Transfers",
+      "concept": "cross_border_transfer_controls",
+      "reason": "Refers to cross-border transfer safeguards; relevant but not a discrete marker in allowed rules."
+    },
+    {
+      "matched_text": "do not authorize trading on MNPI",
+      "concept": "tipping/insider_trading_policy",
+      "reason": "Compliance statement is relevant to MNPI handling but not an allowed MNPI rule marker."
+    },
+    {
+      "matched_text": "BGX submission",
+      "concept": "listing_pre-disclosure",
+      "reason": "Potentially material capital markets event, but no explicit allowed rule phrase to tag."
+    },
+    {
+      "matched_text": "DSAR workflow",
+      "concept": "dsar_process_marker",
+      "reason": "DSAR process reference is privacy-relevant, but there is no allowed DSAR-specific rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

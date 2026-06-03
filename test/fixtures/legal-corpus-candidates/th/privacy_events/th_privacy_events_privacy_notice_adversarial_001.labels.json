@@ -3,13 +3,183 @@
   "document_type": "generic",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@kgt\u2011fict.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "r.phromthai@user\u2011mail.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66\u20112\u201139 1\u20110 33x"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Narit Vongsopha"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rattana Phromthai"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID E/TH\u20110 0 7 9 a"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew marketing consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer approved 2026\u201105\u201102"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applies"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@kgt\u2011fict.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "r.phromthai@user\u2011mail.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66\u20112\u201139 1\u20110 33x"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Narit Vongsopha"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rattana Phromthai"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID E/TH\u20110 0 7 9 a"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew marketing consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer approved 2026\u201105\u201102"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applies"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "last\u20114 account only"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "emp_ref E / T H \u2011 0 0 7 9 a"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "cust_ref th\u2011\u0394\u201100291"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "analytics\u2011only export to BrightLeaf (SG)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "payroll tooling to Nimbus HR K.K. (JP)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "No cross\u2011border transfer is currently pending for payroll",
+      "reason": "negated/completed control; not a live cross\u2011border transfer"
+    },
+    {
+      "matched_text": "no MAC trigger occurred",
+      "reason": "negated Material Adverse Change; per rule 8 do not label negated MAC references"
+    },
+    {
+      "matched_text": "device MAC addresses",
+      "reason": "negated collection; not a live PII datum"
+    },
+    {
+      "matched_text": "biometric templates",
+      "reason": "negated collection; not a live PII datum"
+    },
+    {
+      "matched_text": "no undisclosed price\u2011sensitive information is included or transmitted prior to public release",
+      "reason": "negated MNPI; control statement not MNPI content"
+    },
+    {
+      "matched_text": "@KGTprivacy",
+      "reason": "social handle not in allowed PII rules"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR ref th\u2011\u0394\u201100291",
+      "concept": "DSAR marker",
+      "reason": "DSAR events are in scope but there is no explicit dsar_marker rule in the allowed list"
+    },
+    {
+      "matched_text": "Erasure executed for EmpID E/TH\u20110 0 7 9 a on 2026\u201105\u201110",
+      "concept": "erasure marker",
+      "reason": "Erasure/deletion events are in scope but there is no explicit erasure_marker rule"
+    },
+    {
+      "matched_text": "Retention schedule: HR files 5 years post\u2011termination, financing facility docs 10 years, IR queries 2 years; automated review flags items > 1,825 days",
+      "concept": "retention marker",
+      "reason": "Retention/minimisation are in scope but there is no explicit retention_marker rule; contains concrete periods and automation signal"
+    },
+    {
+      "matched_text": "https://portal.kgt\u2011fict.example/dsar?rid=TH%2F%CE%94%2F00291",
+      "concept": "DSAR portal URL with request id",
+      "reason": "Contains a request identifier parameter that may be an internal ID but URLs/tokens are not explicitly covered by allowed rules"
+    },
+    {
+      "matched_text": "URL https://exp.kgt\u2011fict.example/xfer?id=Z9\u2011\u03b1&step=appr o v e d",
+      "concept": "internal URL/token",
+      "reason": "May include an internal transfer or session identifier but not clearly mapped to an allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

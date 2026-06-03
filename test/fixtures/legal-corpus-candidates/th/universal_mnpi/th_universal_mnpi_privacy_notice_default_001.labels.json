@@ -3,13 +3,274 @@
   "document_type": "generic",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargoed until 2026-07-15 09:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lotus"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "personal data may be transferred to processors CloudMango Pte. Ltd. (SG) and NikkoByte KK (JP)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@siamfutura.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@siamfutura.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-2100-9944"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pranee Vongchai"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Krit Chaisuwan"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "backups deleted 90 days post-embargo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "counsel@nikkomerchant.law"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargoed until 2026-07-15 09:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lotus"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "personal data may be transferred to processors CloudMango Pte. Ltd. (SG) and NikkoByte KK (JP)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@siamfutura.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@siamfutura.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-2100-9944"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pranee Vongchai"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Krit Chaisuwan"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "backups deleted 90 days post-embargo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "counsel@nikkomerchant.law"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement (SSA)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Investor Rights Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet disclosed under the Securities and Exchange Act (SEA)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "does not authorize trading"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "is not an immediate disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "documents marked MNPI are restricted until public filing on the Thai exchange is completed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "If closing is delayed, the parties agree to extend long-stop date to 2026-08-31"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "processed in Bangkok and mirrored in Singapore"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "consent collected for cross-border HR analytics"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "480,000,000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the parties",
+      "reason": "role noun defined term"
+    },
+    {
+      "matched_text": "SSA",
+      "reason": "defined-term abbreviation"
+    },
+    {
+      "matched_text": "MAE",
+      "reason": "defined-term abbreviation in negated MAC/MAE context"
+    },
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "false-positive bait (not Share Purchase Agreement)"
+    },
+    {
+      "matched_text": "ssa",
+      "reason": "lowercase project-management prose, not a definitive agreement"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "submit DSARs to dsar@siamfutura.co.th",
+      "concept": "dsar_contact",
+      "reason": "DSAR submission is a privacy-event marker but not clearly covered by the allowed rules"
+    },
+    {
+      "matched_text": "retained 10 years from closing",
+      "concept": "retention_marker",
+      "reason": "Retention terms are relevant under PDPA but no explicit allowed rule name exists"
+    },
+    {
+      "matched_text": "HR files 7 years from termination",
+      "concept": "retention_marker",
+      "reason": "Retention period is legally relevant but not clearly mapped to an allowed rule"
+    },
+    {
+      "matched_text": "research notes 3 years",
+      "concept": "retention_marker",
+      "reason": "Retention duration is privacy-relevant but no named rule provided"
+    },
+    {
+      "matched_text": "erasure",
+      "concept": "erasure_right",
+      "reason": "Right to erasure is a privacy-event marker but not explicitly listed as an allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

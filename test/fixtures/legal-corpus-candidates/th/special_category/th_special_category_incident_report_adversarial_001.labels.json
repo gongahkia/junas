@@ -3,13 +3,324 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Chanita Worapol"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee No. EMP\u20110\u039e\u20119142"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "chanita.w@siamtrident.example"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric fi ngerprint templates"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "religion: Sikh"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "medical leave code MED\u2011H2"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "oncology consult 18/05/2569"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Korn Phetchai"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 16"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor status"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mrs. Naree Phetchai"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "tel +66\u201120\u2011555\u20117x7x"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "carrier\u2011screening flag \u201cY\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union_member: \u201cN\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@siamtrident.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@siamtrident.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "help@siamtrident.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 2 123 0044"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may materially affect the price of our securities"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Chanita Worapol"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee No. EMP\u20110\u039e\u20119142"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "chanita.w@siamtrident.example"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric fi ngerprint templates"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "religion: Sikh"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "medical leave code MED\u2011H2"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "oncology consult 18/05/2569"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Korn Phetchai"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 16"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor status"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mrs. Naree Phetchai"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "tel +66\u201120\u2011555\u20117x7x"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "carrier\u2011screening flag \u201cY\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union_member: \u201cN\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@siamtrident.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@siamtrident.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "help@siamtrident.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 2 123 0044"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may materially affect the price of our securities"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project mango"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change clause"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "mat erial adverse change"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "student ID ST\u2011KRN\u201121\u2022\u2022"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LotuSphere",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Blue Lantern Firewall",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "SilverKite SIEM",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Prachaya Tech Solutions Co., Ltd",
+      "reason": "Company/vendor name; not personal data"
+    },
+    {
+      "matched_text": "Respectful Workplace & DEI Statement",
+      "reason": "Policy/document title; not PII/MNPI"
+    },
+    {
+      "matched_text": "Supplier Diversity Guideline",
+      "reason": "Policy/document title; not PII/MNPI"
+    },
+    {
+      "matched_text": "Krung Phet Elephants",
+      "reason": "Sports team; false-positive bait"
+    },
+    {
+      "matched_text": "play defense",
+      "reason": "Metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "Ratchawan District",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Issuer Disclosure Notification Form 24\u2011IT",
+      "reason": "Form/policy reference; not PII/MNPI"
+    },
+    {
+      "matched_text": "no DNA file present",
+      "reason": "Negated sensitive data; not actually processed"
+    },
+    {
+      "matched_text": "BGX ticker: STRI",
+      "reason": "Public ticker symbol; not PII/MNPI"
+    },
+    {
+      "matched_text": "Thai PDPA",
+      "reason": "Law/policy reference; not PII/MNPI"
+    },
+    {
+      "matched_text": "political opinions",
+      "reason": "Negated policy reference; not actual sensitive data"
+    },
+    {
+      "matched_text": "Office of Capital Markets Oversight (OCMO\u2011TH)",
+      "reason": "Regulatory body name; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "student ID ST\u2011KRN\u201121\u2022\u2022",
+      "concept": "student_id",
+      "reason": "Direct identifier for a person but not covered by an explicit allowed PII rule; treated as quasi-identifier."
+    },
+    {
+      "matched_text": "internal ext. 4 4 5",
+      "concept": "phone_extension",
+      "reason": "May be a contact identifier tied to an individual but not clearly covered by the allowed rules."
+    },
+    {
+      "matched_text": "103.77.19.\u00d7\u00d7",
+      "concept": "ip_address_masked",
+      "reason": "IP-like value but partially redacted and not linked to a person; unclear if it should be labeled under ip_address."
+    },
+    {
+      "matched_text": "Facility PRJ\u2011Mango\u201112",
+      "concept": "facility_code/transaction_reference",
+      "reason": "Could reference a financing facility potentially tied to MNPI but not an allowed rule like definitive_agreement or transaction_codename."
+    },
+    {
+      "matched_text": "trading halt",
+      "concept": "market_halt_reference",
+      "reason": "Market microstructure term; may relate to disclosure/blackout concepts but not clearly within allowed MNPI markers."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,265 @@
   "document_type": "generic",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@suphannika-di.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Arnon Buarak"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee No. E-1182"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "health data related to chemotherapy scheduling"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template (ft- 09:ab:77:\u2022\u2022)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in the Lakeside Tech Workers\u2019 Union (dues deduction)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Buddhist religious belief"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers to processors in Singapore and Japan occur"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Tamarind"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-filing silent period"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@suphannika-di.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Arnon Buarak"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee No. E-1182"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "health data related to chemotherapy scheduling"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template (ft- 09:ab:77:\u2022\u2022)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in the Lakeside Tech Workers\u2019 Union (dues deduction)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Buddhist religious belief"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers to processors in Singapore and Japan occur"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Tamarind"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-filing silent period"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 02-772"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Arnon"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We do not collect sexual orientation in financing files"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "political opinions in WhispChat channels are auto-redacted before cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "political opinions"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "ticket id: dsar-TH_2 9 x y"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@ suphan nika-di.co.th"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not circulate beyond named counsel"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "does not by itself create MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic policy/DEI mention, not linked to any identifiable person"
+    },
+    {
+      "matched_text": "religion",
+      "reason": "Generic policy/DEI mention, not linked to any identifiable person"
+    },
+    {
+      "matched_text": "ThunderMango routers",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "RiverGlass laptops",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "BluePine CloudTap",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "SilverLantern CRM",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "WhispChat",
+      "reason": "Product/service name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Khlong Tigers FC",
+      "reason": "Sports team name used illustratively, not PII/MNPI"
+    },
+    {
+      "matched_text": "Arnon Bu a rak",
+      "reason": "OCR artifact example; not a reliable named-person reference"
+    },
+    {
+      "matched_text": "visa medical",
+      "reason": "OCR artifact example; not real data"
+    },
+    {
+      "matched_text": "S G secondment",
+      "reason": "OCR artifact example; not real data"
+    },
+    {
+      "matched_text": "the Company",
+      "reason": "Role noun/defined term, not a natural person identifier"
+    },
+    {
+      "matched_text": "Open Water Fair Disclosure Policy",
+      "reason": "Policy title/product-style name, not PII/MNPI"
+    },
+    {
+      "matched_text": "not a material adverse change",
+      "reason": "Negated MAC reference; excluded by rule"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: health records (5 years from last treatment), biometric templates (90 days rolling), union/disciplinary records (2 years post-employment), and MNPI-bound drafts (until TGE/NSC-TH clearance or 180 days, whichever is later)",
+      "concept": "retention marker",
+      "reason": "Retention schedule is legally relevant, but there is no explicit 'retention_marker' rule in the allowed list."
+    },
+    {
+      "matched_text": "Data subjects may request deletion via dpo@ suphan nika-di.co.th",
+      "concept": "erasure/DSAR pathway",
+      "reason": "Indicates deletion/erasure request process; the ruleset lacks a dedicated DSAR/erasure marker rule."
+    },
+    {
+      "matched_text": "ticket id: dsar-TH_2 9 x y",
+      "concept": "internal ticket identifier",
+      "reason": "Potential internal_session_id relevant to identification workflows, but spacing/format may fall outside strict regex coverage."
+    },
+    {
+      "matched_text": "hash=4f:2b:9d:xx",
+      "concept": "pseudonymous hash",
+      "reason": "Hash-like pseudonymous data tied to DSAR flow; not mapped to a specific allowed rule."
+    },
+    {
+      "matched_text": "each based on explicit consent",
+      "concept": "consent basis",
+      "reason": "Describes legal basis of processing; only 'consent_withdrawal_marker' is explicitly listed in allowed rules."
+    },
+    {
+      "matched_text": "portal: https://ir.suphannika-di.co.th/dsar?ref=9Z- 1a%2Fth&u=emp",
+      "concept": "DSAR portal with reference parameter",
+      "reason": "URL includes a reference parameter that may be an identifier; no specific rule for portal/ref IDs and spacing complicates detection."
+    },
+    {
+      "matched_text": "MNPI-bound drafts (until TGE/NSC-TH clearance or 180 days, whichever is later)",
+      "concept": "MNPI retention/clearance window",
+      "reason": "MNPI handling and clearance window are material but not covered by a specific MNPI rule token."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

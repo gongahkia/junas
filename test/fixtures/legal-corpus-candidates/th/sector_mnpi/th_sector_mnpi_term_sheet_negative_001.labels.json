@@ -3,13 +3,143 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been publicly announced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Shareholders\u2019 Agreement"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal data will be redacted"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been publicly announced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Shareholders\u2019 Agreement"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal data will be redacted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "This draft is for internal review"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "NakhonNexus\u2019s Board has resolved to authorize exclusive negotiations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "pending definitive documents and SET disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "information-barrier training materials",
+      "reason": "Educational/training context; not a live information barrier event per document."
+    },
+    {
+      "matched_text": "insider-list templates",
+      "reason": "Training templates referenced; not a live insider list event."
+    },
+    {
+      "matched_text": "blackout periods",
+      "reason": "Extracted from policy for e-learning; not a live trading halt or blackout."
+    },
+    {
+      "matched_text": "anti-tipping rules",
+      "reason": "Policy excerpt; not a live selective disclosure/tipping risk."
+    },
+    {
+      "matched_text": "crypto wallets",
+      "reason": "Educational sandbox reference; not a live DPT event or wallet address."
+    },
+    {
+      "matched_text": "tokenized carbon credits",
+      "reason": "Sandbox/training context; not a live DPT protocol or listing event."
+    },
+    {
+      "matched_text": "Cyber incident playbook",
+      "reason": "Operational training reference; not a live undisclosed cyber incident."
+    },
+    {
+      "matched_text": "breach drill",
+      "reason": "Training reference; not an actual incident disclosure."
+    },
+    {
+      "matched_text": "ESG scorecard",
+      "reason": "Marketing brochure reference; not a pre-disclosure of ESG targets or revisions."
+    },
+    {
+      "matched_text": "climate-transition roadmap",
+      "reason": "Marketing reference; not a market-sensitive ESG pre-disclosure."
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Generic role noun/defined-term; not PII or MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "role-based access only",
+      "concept": "data_minimisation_marker",
+      "reason": "Indicates least-privilege access control; relevant to PDPA minimisation though not explicitly framed as minimisation."
+    },
+    {
+      "matched_text": "Target signing window",
+      "concept": "embargo_marker",
+      "reason": "Suggests timing gate but not using canonical embargo terms like Signing Date/Closing Date."
+    },
+    {
+      "matched_text": "cross-border ancillary service agreements",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Cross-border operations may involve data transfers, but no explicit personal data transfer stated."
+    },
+    {
+      "matched_text": "no wall-cross of public-side personnel",
+      "concept": "information_barrier_marker",
+      "reason": "References wall-crossing in the negative; relevant to information barriers but not a live wall-cross event."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

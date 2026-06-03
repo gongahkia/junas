@@ -3,13 +3,362 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Pramote Sirikorn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Atchara Phoom"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Nalinee Tawan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pramote.sirikorn@chanthra-holdings.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr.pdpa@chanthra-holdings.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incidentdesk@chanthra-holdings.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 60 000 1234"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border DPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "A cyber incident involving credential-stuffing and attempted API token misuse"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List \u2014 Project Yaang"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "enforce a ring-fence between Treasury and Wallet Operations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "a blackout window applies to all designated insiders from 03\u201324 June 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "without selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not forward this report outside the Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "designated information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 2,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Yaang"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lotus"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may affect the schedule and budget of the non-public digital token platform launch"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "could be material under the Securities and Exchange Act (Thailand) if delays exceed one quarter"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "draft Scope 1\u20133 emissions tables"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Pramote Sirikorn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Atchara Phoom"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Nalinee Tawan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pramote.sirikorn@chanthra-holdings.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr.pdpa@chanthra-holdings.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incidentdesk@chanthra-holdings.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 60 000 1234"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border DPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "A cyber incident involving credential-stuffing and attempted API token misuse"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List \u2014 Project Yaang"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "enforce a ring-fence between Treasury and Wallet Operations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "designated information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "a blackout window applies to all designated insiders from 03\u201324 June 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "without selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not forward this report outside the Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 2,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Yaang"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lotus"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may affect the schedule and budget of the non-public digital token platform launch"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "could be material under the Securities and Exchange Act (Thailand) if delays exceed one quarter"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "draft Scope 1\u20133 emissions tables"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_pre_listing_marker",
+      "matched_text": "DPT wallet pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_pre_listing_marker",
+      "matched_text": "digital token platform launch"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not reference these terms externally until finalized"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring-fence"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "ESG carbon data repository"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "informal updates outside the named team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "to avoid deal-stage leakage"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "third-party cloud zone in SG"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "BEX: CHN",
+      "reason": "stock ticker; not in SGX counter allowlist and not PII/MNPI"
+    },
+    {
+      "matched_text": "CISO",
+      "reason": "role noun; not a named person per rule 5"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "role noun; not a named person per rule 5"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "role noun; not a named person per rule 5"
+    },
+    {
+      "matched_text": "Reporting Officer",
+      "reason": "role noun; not a named person per rule 5"
+    },
+    {
+      "matched_text": "Education/Marketing (benign)",
+      "reason": "benign educational section; not market-sensitive MNPI"
+    },
+    {
+      "matched_text": "Operations-Only (benign)",
+      "reason": "routine operations section; not MNPI"
+    },
+    {
+      "matched_text": "crypto wallets and ESG audit trails",
+      "reason": "educational topic; not MNPI in this context"
+    },
+    {
+      "matched_text": "Sabai Cloud MSA",
+      "reason": "contract type not in definitive agreement allowlist"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "third-party cloud zone in SG",
+      "concept": "cross_border_transfer",
+      "reason": "indicates cross-border data processing but lacks explicit transfer/adequacy language beyond DPA"
+    },
+    {
+      "matched_text": "salted wallet-hash references",
+      "concept": "pseudonymous_identifier",
+      "reason": "may be sensitive technical identifiers but not in current PII allowlist"
+    },
+    {
+      "matched_text": "pre-clearance is suspended",
+      "concept": "trading_restriction_policy",
+      "reason": "relevant to insider trading controls but not an explicit allowed marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop uncertain: text not verbatim text='do not store it outside ComplianceVault'"
+  ],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

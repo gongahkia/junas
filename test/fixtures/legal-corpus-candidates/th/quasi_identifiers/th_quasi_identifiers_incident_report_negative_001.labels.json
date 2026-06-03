@@ -3,13 +3,148 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@siamevergreen.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@siamevergreen.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "192.0.2.14"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1992-07"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border processing occurred during a scheduled migration to a Singapore cloud region with backup in Tokyo"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@siamevergreen.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@siamevergreen.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "192.0.2.14"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1992-07"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border processing occurred during a scheduled migration to a Singapore cloud region with backup in Tokyo"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "a temporary line supervisor (DOB 1992-07; Pathum Thani site; contracted via Lotus Bridge Services Co., Ltd.) used handset model Jintaka A5 with IMEI suffix 8891 and VPN account suffix -4421 from IP 192.0.2.14"
+    },
+    {
+      "category": "PII",
+      "rule": "imei",
+      "matched_text": "IMEI suffix 8891"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "operational cyber incident report"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Name",
+      "reason": "Field label placeholder without actual personal data"
+    },
+    {
+      "matched_text": "Citizen ID",
+      "reason": "Field label placeholder; values stated invalid"
+    },
+    {
+      "matched_text": "Bank Account",
+      "reason": "Field label placeholder; no real account data"
+    },
+    {
+      "matched_text": "9999999999999",
+      "reason": "Explicit placeholder noted invalid; not linked to any person"
+    },
+    {
+      "matched_text": "00-000-0000",
+      "reason": "Explicit placeholder noted invalid; not a valid identifier"
+    },
+    {
+      "matched_text": "account number",
+      "reason": "Generic phrase in templates; no actual data provided"
+    },
+    {
+      "matched_text": "XXXX-XXXX-XXXX",
+      "reason": "Masked demo string; not a real account number"
+    },
+    {
+      "matched_text": "temporary line supervisor",
+      "reason": "Role descriptor; not an identifiable person"
+    },
+    {
+      "matched_text": "Pathum Thani site",
+      "reason": "Generic location alone; insufficient to identify a person"
+    },
+    {
+      "matched_text": "Lotus Bridge Services Co., Ltd",
+      "reason": "Company name; not personal data"
+    },
+    {
+      "matched_text": "Jintaka A5",
+      "reason": "Device model reference; not personal data by itself"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "VPN account suffix -4421",
+      "concept": "account identifier",
+      "reason": "Truncated account reference may constitute an account ID but lacks full value or clear category"
+    },
+    {
+      "matched_text": "SCCs/DPA and PDPA-compliant consent terms are in place",
+      "concept": "consent marker",
+      "reason": "Indicates consent mechanism, but rule set only lists consent_withdrawal_marker specifically"
+    },
+    {
+      "matched_text": "only log metadata and form headers were visible to the intruder",
+      "concept": "data minimisation marker",
+      "reason": "Suggests limited data exposure; may reflect minimisation but not a clear control-marker per allowed rules"
+    },
+    {
+      "matched_text": "one site badge for a contractor account was suspended for 24 hours",
+      "concept": "employee identifier implication",
+      "reason": "Implies presence of a badge/account identifier without providing a specific ID value"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

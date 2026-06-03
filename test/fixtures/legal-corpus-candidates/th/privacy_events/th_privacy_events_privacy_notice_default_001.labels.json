@@ -3,13 +3,186 @@
   "document_type": "generic",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@duangchaiagro.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jintana Prasoet (Data Protection Officer)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border processors"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent may be withdrawn"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "a minimisation review runs every 12 months"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider lists are maintained by Compliance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "this note is not a market disclosure"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@duangchaiagro.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jintana Prasoet (Data Protection Officer)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border processors"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent may be withdrawn"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "a minimisation review runs every 12 months"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider lists are maintained by Compliance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "this note is not a market disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collect only name, work email, job title, and business phone"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfers occur under controller\u2013processor clauses"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "only hashed employee IDs are used for SSO in the Singapore environment"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restricted to need-to-know staff"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be exported to processors unless strictly necessary, access-controlled, and logged"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "No trading by insiders is permitted until disclosure is completed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "draft term sheets already redacted"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "No live payroll personal data is transferred outside Thailand",
+      "reason": "negated cross-border transfer; not a live privacy event"
+    },
+    {
+      "matched_text": "the China region endpoint was decommissioned in 2025 and is not in scope",
+      "reason": "decommissioned endpoint; not an active cross-border scope"
+    },
+    {
+      "matched_text": "DAGRO",
+      "reason": "company abbreviation defined in text; not PII/MNPI"
+    },
+    {
+      "matched_text": "KXT",
+      "reason": "exchange abbreviation defined in text; not PII/MNPI"
+    },
+    {
+      "matched_text": "Schedule 2",
+      "reason": "document section label; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Data Export Approval TH-KXT-2026-042",
+      "concept": "internal approval reference",
+      "reason": "operational identifier potentially sensitive but not covered by allowed rules"
+    },
+    {
+      "matched_text": "privacy.duangchaiagro.example",
+      "concept": "DSAR/consent withdrawal portal URL",
+      "reason": "privacy-relevant access point; URLs not in allowed PII rules"
+    },
+    {
+      "matched_text": "Kingset Exchange of Thailand (KXT)",
+      "concept": "exchange/market designation",
+      "reason": "relevant to MNPI context but not an allowed MNPI rule"
+    },
+    {
+      "matched_text": "time-stamped",
+      "concept": "disclosure timestamp control",
+      "reason": "embargo markers require specific terms (Signing/Closing/Effective); timestamp mention is adjacent but not covered"
+    },
+    {
+      "matched_text": "pseudonymised",
+      "concept": "pseudonymisation control",
+      "reason": "privacy control mention; not listed among privacy event markers"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'DSAR' text='Data subject requests'",
+    "drop must_detect: invalid rule 'erasure' text='Erasure will be effected without undue delay'",
+    "drop must_detect: invalid rule 'retention' text='Retention:'",
+    "drop ideal_must_detect: invalid rule 'DSAR' text='Data subject requests'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='Erasure will be effected without undue delay'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Retention:'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

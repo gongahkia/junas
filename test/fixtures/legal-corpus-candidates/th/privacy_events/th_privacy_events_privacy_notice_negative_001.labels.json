@@ -3,13 +3,159 @@
   "document_type": "generic",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@aurorasiam.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer approval"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation policy"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@aurorasiam.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer approval"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation policy"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "BayLink Analytics Pte. Ltd. (Singapore)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "BayLink Analytics Pte. Ltd. (SG)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "a limited transfer of IR role contacts to BayLink Analytics Pte. Ltd. (Singapore) was approved"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal may be requested"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collection is limited to necessity"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Data Controller",
+      "reason": "Role noun; not PII/MNPI"
+    },
+    {
+      "matched_text": "processors",
+      "reason": "Role noun; not PII/MNPI"
+    },
+    {
+      "matched_text": "no undisclosed price-sensitive data",
+      "reason": "Negated MNPI; not a live risk"
+    },
+    {
+      "matched_text": "no open incidents",
+      "reason": "Negated incident reference; not a live cyber MNPI"
+    },
+    {
+      "matched_text": "government-issued identifiers are not requested in these forms",
+      "reason": "Negated sensitive PII; not present"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR and erasure",
+      "concept": "DSAR/erasure marker",
+      "reason": "Data-subject request and erasure referenced but no explicit allowed rule for DSAR/erasure markers"
+    },
+    {
+      "matched_text": "DSAR-TH-2026-004",
+      "concept": "DSAR ticket reference",
+      "reason": "Ticket ID potentially identifying an individual request; no specific allowed rule for such IDs"
+    },
+    {
+      "matched_text": "was fulfilled on 2026-05-01",
+      "concept": "erasure completion timestamp",
+      "reason": "Indicates completion of a DSAR erasure; not covered by an allowed rule"
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "retention marker",
+      "reason": "Retention policy heading; no allowed retention-marker rule provided"
+    },
+    {
+      "matched_text": "retained for 3 years",
+      "concept": "retention duration",
+      "reason": "Specifies retention period; not covered by an allowed rule"
+    },
+    {
+      "matched_text": "archived for 7 years",
+      "concept": "retention duration",
+      "reason": "Specifies retention period; not covered by an allowed rule"
+    },
+    {
+      "matched_text": "earlier deletion occurs where not legally required",
+      "concept": "erasure condition",
+      "reason": "Early deletion condition is an erasure/retention control; not mapped to an allowed rule"
+    },
+    {
+      "matched_text": "Data export log",
+      "concept": "export governance marker",
+      "reason": "Indicates cross-border/export logging; governance signal not explicitly mapped to an allowed rule"
+    },
+    {
+      "matched_text": "exports are logged by date, category, destination, and legal basis",
+      "concept": "transfer logging practice",
+      "reason": "Describes transfer/export logging; no specific allowed rule"
+    },
+    {
+      "matched_text": "annual DPIA completed",
+      "concept": "DPIA completion marker",
+      "reason": "Privacy assessment control; not mapped to an allowed rule"
+    },
+    {
+      "matched_text": "pseudonymisation for analytics",
+      "concept": "privacy-enhancing technique",
+      "reason": "Technique relevant to data protection but not mapped to an allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

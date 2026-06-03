@@ -3,13 +3,252 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Prakasit Wannarong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jariya Phaibun"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "prakasit.w@siam-monsoon.energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "treasury@siam-monsoon.energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@siam-monsoon.energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-00-1234-5678"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean-team access only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "may materially affect securities price"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "THB 14.25/share"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Prakasit Wannarong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Jariya Phaibun"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "prakasit.w@siam-monsoon.energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "treasury@siam-monsoon.energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@siam-monsoon.energy.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-00-1234-5678"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data processors in Singapore and Japan engaged under DPA Schedule 3"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data-Export Approval Memo DEA-TH-9921"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation of payroll bank details to last 2 digits"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean-team access only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "may materially affect securities price"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Non-Binding Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cLotusWave\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "volume_commitment",
+      "matched_text": "Subscription for 120,000,000 newly issued ordinary shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "THB 14.25/share"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Material Adverse Change",
+      "reason": "Negated context; do not tag per rule 8"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated context; do not tag per rule 8"
+    },
+    {
+      "matched_text": "data breach notification",
+      "reason": "Negated statement; not an incident"
+    },
+    {
+      "matched_text": "No active cross-border transfer of legacy HR files occurs under this Term Sheet",
+      "reason": "Negated/completed control; not a live privacy-event marker"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "TH-ACC 9X**-**77-B",
+      "concept": "bank_account or bank_customer_reference",
+      "reason": "Masked account-like token; appears corporate and not clearly personal"
+    },
+    {
+      "matched_text": "SEA-TH-X1lI-0O0",
+      "concept": "internal_session_id",
+      "reason": "Internal reference code; not clearly linked to an identifiable person"
+    },
+    {
+      "matched_text": "ticket=INV-TH/0OQ-7lI",
+      "concept": "internal_session_id",
+      "reason": "Support ticket identifier; may not be personal data"
+    },
+    {
+      "matched_text": "user=khun.pw%40monsoon",
+      "concept": "email_address",
+      "reason": "Percent-encoded handle suggests an email but lacks a full domain; ambiguous PII"
+    },
+    {
+      "matched_text": "completion long-stop 2026-09-30",
+      "concept": "embargo/milestone date",
+      "reason": "Important timeline control but not in current embargo marker list"
+    },
+    {
+      "matched_text": "MON9",
+      "concept": "securities ticker",
+      "reason": "Thai SET ticker; no current rule for Thai exchange codes"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

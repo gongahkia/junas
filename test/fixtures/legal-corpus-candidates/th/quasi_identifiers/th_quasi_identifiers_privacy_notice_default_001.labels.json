@@ -3,13 +3,246 @@
   "document_type": "generic",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@siamnova.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "niran.phasuk@siamnova.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "seccompliance@siamnova.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Niran Phasuk"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "12 Jan 1987"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 39"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "SN-TH-0087"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "IR-LXTH-2025-012"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "We transfer limited datasets to OrchidCloud Pte. Ltd. (Singapore) and NinePalm Analytics K.K. (Japan)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list entries"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list timestamps"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@siamnova.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "niran.phasuk@siamnova.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "seccompliance@siamnova.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Niran Phasuk"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "12 Jan 1987"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 39"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "SN-TH-0087"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "IR-LXTH-2025-012"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "We transfer limited datasets to OrchidCloud Pte. Ltd. (Singapore) and NinePalm Analytics K.K. (Japan)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "IR-BKK-ZC13"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "payroll account ending 4421"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Senior Investor Relations Manager at Siam Nova PCL, Bangkok office (East Garden Building, Zone C)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We do not collect biometrics for office entry and we do not track personal social media accounts; personal contact lists are excluded unless voluntarily provided for onboarding"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Banyan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list entries"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list timestamps"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Data Controller",
+      "reason": "Role-noun term; avoid treating as PII/MNPI"
+    },
+    {
+      "matched_text": "Processors",
+      "reason": "Role-noun term; avoid treating as PII/MNPI"
+    },
+    {
+      "matched_text": "Data Subject Requests",
+      "reason": "Defined process label; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: CCTV access logs 30 days; HR device telemetry 180 days; insider lists and director dealing notices 5 years; DSAR records and responses 3 years; failed recruitment applications 12 months unless consent is renewed",
+      "concept": "retention_schedule_marker",
+      "reason": "Retention schedules are privacy-event markers but no explicit allowed rule name for retention in the list."
+    },
+    {
+      "matched_text": "DSAR timelines: acknowledge within 72 hours, substantively respond within 30 days (extendable once by 30 days), with exemptions where disclosure would reveal MNPI, legal privilege, or impair regulatory investigations by the fictional Capital Markets Committee of Thailand",
+      "concept": "dsar_timeline_marker",
+      "reason": "DSAR timeline/handling is a privacy-event marker not explicitly listed among allowed rules."
+    },
+    {
+      "matched_text": "meeting link code 991-744-208",
+      "concept": "meeting_code_quasi_identifier",
+      "reason": "Unique meeting code is a subtle identifier; not clearly mapped to an allowed rule like internal_session_id."
+    },
+    {
+      "matched_text": "DOB 03/1990",
+      "concept": "partial_date_of_birth",
+      "reason": "Partial DOB may be a weak identifier but ambiguous under strict rules."
+    },
+    {
+      "matched_text": "tablet code TB-CNX-221",
+      "concept": "device_identifier_weak",
+      "reason": "Device code is a subtle identifier; not clearly covered by listed device_serial_number in strict rules without context."
+    },
+    {
+      "matched_text": "account suffix 0931",
+      "concept": "partial_bank_account",
+      "reason": "Partial account number is a weak identifier; bank_account rule may expect a full number."
+    },
+    {
+      "matched_text": "shift window 22:00\u201306:00",
+      "concept": "schedule_quasi_identifier",
+      "reason": "Work schedule may contribute to identifiability when combined but not a listed rule by itself."
+    },
+    {
+      "matched_text": "Northern logistics hub",
+      "concept": "location_quasi_identifier",
+      "reason": "Generic location reference is a weak identifier without direct mapping to a rule."
+    },
+    {
+      "matched_text": "warehouse shift supervisor",
+      "concept": "job_title_quasi_identifier",
+      "reason": "Generic role title is a weak identifier and not directly covered by a specific rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

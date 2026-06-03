@@ -3,13 +3,268 @@
   "document_type": "generic",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@prachalight.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ethics@prachalight.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID E-8842Z"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "medical certificates"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "medical certificate of Employee ID E-8842Z"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout periods"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "price-sensitive"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer impact assessment"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "then anonymized"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@prachalight.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ethics@prachalight.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID E-8842Z"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "medical certificates"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "medical certificate of Employee ID E-8842Z"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout periods"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "price-sensitive"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer impact assessment"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "then anonymized"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "work email alias"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "travel itineraries to Saphan Kinnaree District in Mueang Phailin Province"
+    },
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "National ID (optional)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "stored with BluePalm Cloud Pte. Ltd. in Singapura Park"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list role fields"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list entries"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "unless disclosed via SET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Lantern Wallet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "River Lotus"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Kaeng Star Tigers",
+      "reason": "Sports team name; not PII or MNPI."
+    },
+    {
+      "matched_text": "elephant trail",
+      "reason": "Metaphor; generic DEI prose, not personal data."
+    },
+    {
+      "matched_text": "lotus pond",
+      "reason": "Metaphor; generic DEI prose, not personal data."
+    },
+    {
+      "matched_text": "rights offering timetable",
+      "reason": "Public/announced event; outside MNPI scope."
+    },
+    {
+      "matched_text": "Saphan Kinnaree District",
+      "reason": "Place name; not personal data by itself."
+    },
+    {
+      "matched_text": "Mueang Phailin Province",
+      "reason": "Place name; not personal data by itself."
+    },
+    {
+      "matched_text": "Insider Dealing and Disclosure Policy",
+      "reason": "Policy name; not a PII/MNPI data point."
+    },
+    {
+      "matched_text": "BluePalm Cloud Pte. Ltd",
+      "reason": "Company name; not PII."
+    },
+    {
+      "matched_text": "Nawa Data Services Ltd",
+      "reason": "Company name; not PII."
+    },
+    {
+      "matched_text": "Prachalight Public Company Limited",
+      "reason": "Company name; not PII."
+    },
+    {
+      "matched_text": "Prachalight PCL",
+      "reason": "Company name; not PII."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "stored with BluePalm Cloud Pte. Ltd. in Singapura Park",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Implies cross-border storage outside Thailand but not explicitly labeled as such."
+    },
+    {
+      "matched_text": "National ID (optional)",
+      "concept": "th_national_id",
+      "reason": "Field label indicates collection of Thai national ID but no actual ID number present."
+    },
+    {
+      "matched_text": "work email alias",
+      "concept": "email_address",
+      "reason": "Indicates an email identifier field without a specific address."
+    },
+    {
+      "matched_text": "Lantern Wallet",
+      "concept": "transaction_codename",
+      "reason": "Project label may act as a codename but lacks the 'Project <Name>' pattern required by rule."
+    },
+    {
+      "matched_text": "River Lotus",
+      "concept": "transaction_codename",
+      "reason": "Project label may act as a codename but lacks the 'Project <Name>' pattern required by rule."
+    },
+    {
+      "matched_text": "MNPI handling",
+      "concept": "nonpublic_marker",
+      "reason": "Compliance heading referencing MNPI but not a specific undisclosed price-sensitive item."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,169 @@
   "document_type": "generic",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lamphairenewables.example"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 04/1992"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lamphairenewables.example"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 04/1992"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers: HR and investor-relations data may be processed in Singapore and Japan under adequacy assessments and intra-group rules; standard contractual clauses equivalent are appended"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we will not request full ID numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "fields left blank or masked (e.g., TH-0000-XYZ, 123-456-XXXX, 1992-**-**) are not sufficient to identify an individual"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Intentional cluster for safety investigation only: a temporary turbine technician recorded DOB 04/1992, worksite Mae Narin Province, role \"Field Tech B\", device asset tag WT-CM-07 and VPN alias ftb-07, payroll account suffix 8842, linked under incident log REF-SAF-19"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "WT-CM-07"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "IP addresses"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "payroll account suffix 8842"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "standard contractual clauses equivalent"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "role noun defined term; not a person or PII/MNPI"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "role noun defined term; not a person or PII/MNPI"
+    },
+    {
+      "matched_text": "employees",
+      "reason": "generic role noun; not identifiable PII"
+    },
+    {
+      "matched_text": "contractors",
+      "reason": "generic role noun; not identifiable PII"
+    },
+    {
+      "matched_text": "vendors",
+      "reason": "generic role noun; not identifiable PII"
+    },
+    {
+      "matched_text": "\"insider\"",
+      "reason": "role/access term, explicitly negated for MNPI"
+    },
+    {
+      "matched_text": "lenders",
+      "reason": "generic role noun; not identifiable PII"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "generic role title; not a named person"
+    },
+    {
+      "matched_text": "HR",
+      "reason": "department/role noun; not identifiable PII"
+    },
+    {
+      "matched_text": "investor-relations",
+      "reason": "department/role noun; not identifiable PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: candidate CVs 12 months; payroll ledgers per tax law; device logs 180 days; securities filing archives retained per SSC-TH rules and the CPX issuer manual",
+      "concept": "retention_marker",
+      "reason": "Retention periods are privacy-event markers but no explicit allowed rule for retention is enumerated."
+    },
+    {
+      "matched_text": "VPN alias ftb-07",
+      "concept": "internal identifier",
+      "reason": "Could be a username or internal session/ID; not clearly covered by allowed rules."
+    },
+    {
+      "matched_text": "incident log REF-SAF-19",
+      "concept": "internal reference ID",
+      "reason": "Linkable internal incident identifier; not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "worksite Mae Narin Province",
+      "concept": "location quasi-identifier",
+      "reason": "Location contributes to re-identification when combined but no specific rule for location alone."
+    },
+    {
+      "matched_text": "role \"Field Tech B\"",
+      "concept": "role quasi-identifier",
+      "reason": "Job title can help identify a person when combined; not a listed PII rule on its own."
+    },
+    {
+      "matched_text": "device type",
+      "concept": "device metadata",
+      "reason": "Device characteristics may be linkable but no explicit allowed rule for general device type."
+    },
+    {
+      "matched_text": "shift roster",
+      "concept": "schedule metadata",
+      "reason": "Work schedules can identify individuals contextually; not covered by an allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

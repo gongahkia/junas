@@ -3,13 +3,292 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kanya Boonprasert"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kanya.boonprasert@thaloma.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@thaloma.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealdesk@anurak-meridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-Border Transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent/Withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation applies"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5.25%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 22,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "MNPI blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kanya Boonprasert"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kanya.boonprasert@thaloma.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@thaloma.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealdesk@anurak-meridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-Border Transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent/Withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation applies"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5.25%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 22,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "MNPI blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Pravit Suksan"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal link"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opt-in consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data-Export Approval Ref DE-TH-2026-011"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border logs"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation checks"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "would reasonably be expected to materially affect the price"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role/section label treated as a defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Defined role noun, not PII/MNPI"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Defined role noun, not PII/MNPI"
+    },
+    {
+      "matched_text": "Thai counsel",
+      "reason": "Defined role noun, not PII/MNPI"
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role noun label, not PII/MNPI"
+    },
+    {
+      "matched_text": "Lead contact",
+      "reason": "Role/label, not PII/MNPI"
+    },
+    {
+      "matched_text": "Investor contact",
+      "reason": "Role/label, not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR/Erasure/Retention",
+      "concept": "DSAR/erasure/retention markers",
+      "reason": "Privacy event markers are relevant but DSAR/erasure/retention are not enumerated as allowed rules in the list"
+    },
+    {
+      "matched_text": "respond to DSARs within 30 days",
+      "concept": "DSAR SLA",
+      "reason": "DSAR handling is relevant but no explicit allowed rule for DSAR marker"
+    },
+    {
+      "matched_text": "retained 90 days",
+      "concept": "Retention period",
+      "reason": "Retention markers are relevant but not included in the allowed rules list"
+    },
+    {
+      "matched_text": "investor KYC records 7 years, followed by erasure",
+      "concept": "Retention and erasure schedule",
+      "reason": "Legally relevant retention/erasure detail but no explicit allowed rule for retention/erasure markers"
+    },
+    {
+      "matched_text": "no biometric templates or national ID numbers will be collected under this term sheet",
+      "concept": "Negated sensitive PII collection",
+      "reason": "Mentions special-category and national ID data but negated; not to be flagged as live PII under strict rules"
+    },
+    {
+      "matched_text": "ad-hoc exports to non-adequate locations were discontinued on 1 May 2026",
+      "concept": "Negated cross-border transfer",
+      "reason": "Cross-border transfers are relevant but this indicates discontinuation; excluded from strict markers"
+    },
+    {
+      "matched_text": "historic spreadsheets containing candidate phone numbers were purged on 2 April 2026",
+      "concept": "Erasure/purge action",
+      "reason": "Erasure control is relevant but there is no explicit allowed rule for erasure marker and it is a completed action"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

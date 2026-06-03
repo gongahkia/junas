@@ -3,13 +3,334 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lemongrass"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed until 2026-07-15 17:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 145,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Prasert Kittinan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "prasert.k@banyanthai.co.th"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 900,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout applies"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "comms@banyanthai.co.th"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 2,300,000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Oranuch Sorasri"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lemongrass"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed until 2026-07-15 17:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 145,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Prasert Kittinan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "prasert.k@banyanthai.co.th"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 900,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout applies"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "comms@banyanthai.co.th"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 2,300,000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Oranuch Sorasri"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 2026-07-15 17:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Convertible Debenture Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet filed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber/operational event"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data transfers to Singapore and Laos"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked identifiers"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "emp: PR-**79"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "id: BT-0O1-TH"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not upload to SET SMART"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "pre-brief only"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "Ext 4421"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "acct xx-4321-TH"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "material change"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "wellness bait; not special-category data"
+    },
+    {
+      "matched_text": "does not constitute a MAC/MAE",
+      "reason": "negated material adverse change"
+    },
+    {
+      "matched_text": "publicly available",
+      "reason": "explicit public-source reference"
+    },
+    {
+      "matched_text": "hold/lem0n",
+      "reason": "not a 'Project <Name>' codename pattern"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "role noun / label, not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Ext 4421",
+      "concept": "phone_number",
+      "reason": "Extension only; may not meet phone pattern for strict detection"
+    },
+    {
+      "matched_text": "acct xx-4321-TH",
+      "concept": "bank_account",
+      "reason": "Partially masked account-like string; format is nonstandard"
+    },
+    {
+      "matched_text": "emp: PR-**79",
+      "concept": "employee_id",
+      "reason": "Masked internal identifier; may not be reliably classified by rules"
+    },
+    {
+      "matched_text": "id: BT-0O1-TH",
+      "concept": "employee_id",
+      "reason": "Internal masked ID; unclear if employee or general identifier"
+    },
+    {
+      "matched_text": "INV-00-7L|",
+      "concept": "customer_account_number",
+      "reason": "Invoice reference may be a transaction ID, not a customer account; rule coverage unclear"
+    },
+    {
+      "matched_text": "supplier code 0xA3-TH",
+      "concept": "customer_account_number",
+      "reason": "Supplier identifier may not be in allowed PII categories"
+    },
+    {
+      "matched_text": "Embargo until 2026-07-15 17:00 ICT",
+      "concept": "embargo_marker",
+      "reason": "'Embargo until' may not match strict embargo token 'Embargoed' in current detectors"
+    },
+    {
+      "matched_text": "confidential",
+      "concept": "nonpublic_marker",
+      "reason": "Generic 'confidential' may not be recognized by strict detectors without header context"
+    },
+    {
+      "matched_text": "Convertible Debenture Subscription Agreement",
+      "concept": "definitive_agreement",
+      "reason": "Definitive agreement type outside enumerated SPA/SHA/APA/MOU/LOI/Term Sheet list"
+    },
+    {
+      "matched_text": "do not upload to SET SMART",
+      "concept": "information_barrier_marker",
+      "reason": "Instruction suggests information control but not a canonical 'wall' phrase"
+    },
+    {
+      "matched_text": "pre-brief only",
+      "concept": "selective_disclosure_risk",
+      "reason": "Phrase implies selective sharing but may be ambiguous for automated rules"
+    },
+    {
+      "matched_text": "cyber/operational event",
+      "concept": "cyber_incident_pre_disclosure",
+      "reason": "Incident language is contextual; may not trigger cyber incident rules without explicit 'breach' wording"
+    },
+    {
+      "matched_text": "material change",
+      "concept": "contingent_mnpi_language",
+      "reason": "Common phrase; detectors may avoid due to high false positive risk"
+    },
+    {
+      "matched_text": "Data transfers to Singapore and Laos",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Cross-border indicator phrasing varies; may not be codified in rules"
+    },
+    {
+      "matched_text": "masked identifiers",
+      "concept": "data_minimisation_marker",
+      "reason": "Minimisation concept may not be explicitly mapped in current extractors"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

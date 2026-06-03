@@ -3,13 +3,288 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert Krailomphon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Darin Krailomphon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Orasa Phraewthin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pimlada Chatri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Orasa"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID SBL-10422"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "stored fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Type 1 diabetes treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Islam as religion"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "active membership in the SBL Drivers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor daughter"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@sblpcl.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@sblpcl.co.th"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cybersecurity incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may constitute MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer safeguards under PDPA Section 28 are being validated"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert Krailomphon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Darin Krailomphon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Orasa Phraewthin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pimlada Chatri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Prasert"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Orasa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Warunee Methanont"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID SBL-10422"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "stored fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Type 1 diabetes treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "peanut allergy notation"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Islam as religion"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "active membership in the SBL Drivers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor daughter"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@sblpcl.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@sblpcl.co.th"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cybersecurity incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may constitute MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer safeguards under PDPA Section 28 are being validated"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "hosted by BlueMangosteen Cloud Pte. Ltd. in a Singapore region"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "preliminary Q2 margin guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "draft loan covenants with SilverCart Bank Ltd"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SkyTiger Firewall",
+      "reason": "Product name; not PII or MNPI"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic DEI phrase without identifying an individual"
+    },
+    {
+      "matched_text": "Nakhon Kiri Noi Tigers",
+      "reason": "Sports team name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Song Rattanakorn Market",
+      "reason": "Place/market name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Data Fortress Policy",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "LotusShield IDS",
+      "reason": "System/product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Inclusive Workplace Charter",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "BlueMangosteen Cloud Pte. Ltd",
+      "reason": "Company name; not PII/MNPI"
+    },
+    {
+      "matched_text": "SilverCart Bank Ltd",
+      "reason": "Company name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Lotus Exchange Main Board",
+      "reason": "Exchange/venue name; not PII/MNPI"
+    }
+  ],
   "uncertain": [],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule '\u5065\u5eb7\u72b6\u6cc1|health_condition' text='peanut allergy notation'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

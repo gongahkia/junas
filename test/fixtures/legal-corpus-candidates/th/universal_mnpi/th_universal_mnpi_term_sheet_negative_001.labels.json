@@ -3,13 +3,184 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Shareholders\u2019 Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@siamgreengrid.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@siamgreengrid.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no employee PII will be exchanged; only anonymised headcount and wage bands as disclosed in the 2024 sustainability report (public)"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Shareholders\u2019 Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@siamgreengrid.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@siamgreengrid.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no employee PII will be exchanged; only anonymised headcount and wage bands as disclosed in the 2024 sustainability report (public)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed subscription for newly issued shares of Lanna Digital Infrastructure by Siam Green Grid PCL to establish a strategic partnership in data center build-out"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "[\u25cf]%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "hold for release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "2026-07-01 08:45 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal circulation only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "prior internal circulation only to ir@siamgreengrid.co.th and legal@siamgreengrid.co.th"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cproject clay pot\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Project notes (internal, non-substantive)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "ancillary NDA uses anonymised data only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "draft ir note"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day",
+      "reason": "False-positive bait; not a Share Purchase Agreement (SPA)."
+    },
+    {
+      "matched_text": "no MAC condition",
+      "reason": "Negated MAC reference; excluded by rule."
+    },
+    {
+      "matched_text": "Project notes",
+      "reason": "Generic section heading, not a transaction codename."
+    },
+    {
+      "matched_text": "NDA",
+      "reason": "Not an enumerated definitive agreement under the rule."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "iban: XX00-XXXX-XXXX",
+      "concept": "bank account placeholder",
+      "reason": "Appears to be a masked corporate IBAN; unclear if PII and pattern is non-numeric placeholder."
+    },
+    {
+      "matched_text": "target reg. no. XX-XXX-XXXXX",
+      "concept": "company registration number placeholder",
+      "reason": "Looks like a Thai company registration format but masked; no explicit rule for Thai company reg numbers."
+    },
+    {
+      "matched_text": "draft isin XX0000000000",
+      "concept": "ISIN (security identifier) draft",
+      "reason": "Potentially market-sensitive pre-issuance identifier but not covered by allowed MNPI rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='THB [\u25cf]'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='aggregate consideration THB [\u25cf]'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='price per share THB [\u25cf]'"
+  ],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

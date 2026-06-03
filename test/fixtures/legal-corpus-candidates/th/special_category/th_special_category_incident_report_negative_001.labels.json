@@ -3,13 +3,131 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID ECN-HR-0142"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "declared Buddhist religion preference"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@ecn-public.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@ecn-public.co.th"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID ECN-HR-0142"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "declared Buddhist religion preference"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@ecn-public.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@ecn-public.co.th"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "is not material to operations or financial statements"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SiamShield Firewall",
+      "reason": "Product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "MekhongVault SIEM",
+      "reason": "Product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "RiverLotus ERP",
+      "reason": "Product/platform name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Health & Wellness",
+      "reason": "Generic form label with blank value; not actual special-category data."
+    },
+    {
+      "matched_text": "Union Status",
+      "reason": "Generic form label with blank value; not actual special-category data."
+    },
+    {
+      "matched_text": "Political Affiliation",
+      "reason": "Generic form label with blank value; not actual special-category data."
+    },
+    {
+      "matched_text": "Go Emerald Tigers!",
+      "reason": "Sports-team/cheer phrase; not PII or MNPI."
+    },
+    {
+      "matched_text": "Cyber Resilience Playbook v3.2",
+      "reason": "Policy/control name; not PII or MNPI."
+    },
+    {
+      "matched_text": "PDPA Handling Standard TH-02",
+      "reason": "Policy/control name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Intra-Group Data Transfer Rules",
+      "reason": "Policy name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Public Cyber Bulletin PCB-2026-05",
+      "reason": "Public document reference; not PII or MNPI."
+    },
+    {
+      "matched_text": "GoldenPalm QA Ltd",
+      "reason": "Company name; not personal data."
+    },
+    {
+      "matched_text": "Securities and Exchange Act",
+      "reason": "Statute name; not PII or MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ECN-SOC-7731",
+      "concept": "internal_ticket_id",
+      "reason": "Internal incident/ticket identifier may be sensitive but not covered by allowed PII rules."
+    },
+    {
+      "matched_text": "XX-999-TH-000",
+      "concept": "placeholder_identifier",
+      "reason": "Identifier-shaped example in test payload; not clearly tied to a person or covered by a specific rule."
+    },
+    {
+      "matched_text": "Cross-border impact assessment confirmed no transfers to our Lao or Singapore processing locations",
+      "concept": "cross_border_transfer_marker (negated)",
+      "reason": "Cross-border transfer context is relevant to privacy compliance but explicitly negated and excluded by rule 17."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

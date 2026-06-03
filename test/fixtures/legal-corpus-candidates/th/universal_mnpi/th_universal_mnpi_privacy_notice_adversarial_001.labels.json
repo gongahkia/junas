@@ -3,13 +3,253 @@
   "document_type": "generic",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 2026-07-15 09:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,850,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Bridge Facility Term Sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nicha Prakorn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Parin Khemsai"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@siammeridian.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "secdisclosure@siammeridian.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 2026-07-15 09:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,850,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Bridge Facility Term Sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nicha Prakorn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Parin Khemsai"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@siammeridian.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "secdisclosure@siammeridian.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation for employees, lenders, and shareholders"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Processor may transfer limited datasets to Changmai Cloud Pte. Ltd. (SG) and Alder Vault S.A. (LU) under PDPA s.28 safeguards with SCC-style undertakings"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "P r o j e c t   T a m a r i n d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "MNPI segregation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "not for ELC filing prior to embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no public announcement to be made before board sign-off and SET notification"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not alter MNPI status of the draft"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Bridge Facility Agreement (draft v5)"
+    },
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "ID: x-x-5809-12-xx-x"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "Account Ref ACCT##SMP/IR-2026"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Data Controller",
+      "reason": "role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Data Processor",
+      "reason": "role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "false-positive bait unrelated to PII/MNPI"
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "negated MAC language should not be tagged as material_adverse_change"
+    },
+    {
+      "matched_text": "public reference",
+      "reason": "explicitly public/generic; not MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention workflow: KYC/AML records 10 years post-closing; HR onboarding copies 7 years post-termination; IR drafts purged T+30 days after public filing; access logs retained rolling 24 months with quarterly purge",
+      "concept": "retention_marker",
+      "reason": "Data retention details are PDPA-relevant but no explicit allowed rule label provided for retention markers."
+    },
+    {
+      "matched_text": "Data subject rights (DSAR)",
+      "concept": "dsar_marker",
+      "reason": "DSAR handling is a privacy rights marker but there is no specific DSAR rule label in the allowed set."
+    },
+    {
+      "matched_text": "Vendor Code VND-0O1-TH/\u0e59\u0e57",
+      "concept": "vendor_identifier",
+      "reason": "Internal vendor code may indirectly identify a counterparty but not covered by specific PII rule."
+    },
+    {
+      "matched_text": "internal file key S-MP/ELC/22a",
+      "concept": "internal_file_key",
+      "reason": "Internal tracking key could be sensitive but not mapped to an allowed PII rule."
+    },
+    {
+      "matched_text": "audit trail hash 7f:9c:\u2014b3",
+      "concept": "hash_identifier",
+      "reason": "Operational hash could be sensitive but does not fit allowed identifiers like MAC/cookie/device."
+    },
+    {
+      "matched_text": "https://siammeridian.co.th/pdpa?dsar=REQ-9x1a",
+      "concept": "dsar_request_id",
+      "reason": "URL contains a DSAR request code that may reference a specific case; not covered by allowed PII rules."
+    },
+    {
+      "matched_text": "Account Ref ACCT##SMP/IR-2026",
+      "concept": "bank_customer_reference",
+      "reason": "Looks like an account reference; unclear if it is a bank/customer identifier within the allowed PII rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
