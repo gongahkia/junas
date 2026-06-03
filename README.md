@@ -30,6 +30,17 @@ If you do not want to install the binary yet, run the TUI directly from the work
 $ cargo run -p privacy-tui -- run
 ```
 
+### macOS Menu-Bar Shell
+
+`Aki` also includes a SwiftUI menu-bar shell that controls the Rust binary as a sidecar. Build the Rust sidecar first, then launch the menu-bar app:
+
+```console
+$ cargo build -p privacy-tui
+$ AKI_BINARY="$PWD/target/debug/aki" swift run --package-path macos/AkiMenuBar
+```
+
+The menu-bar shell can start and stop the headless redaction pipeline, pause or resume it, switch transforms, choose the capture/output mode used on restart, show redaction/FPS/CPU stats, and open the TUI in Terminal.
+
 ## Quick Commands
 
 ```console
