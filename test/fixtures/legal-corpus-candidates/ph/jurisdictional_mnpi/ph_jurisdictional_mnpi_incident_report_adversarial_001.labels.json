@@ -3,13 +3,241 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "i.balagtas@bayansteel.test"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@bayansteel.test"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "l.osorio@bayansteel.test"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "soc@bayansteel.test"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. I\u00f1igo V. Balagtas"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lira Mae F. Osorio"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. A. Quimada"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "this is non\u2011pub lic information under PH SRC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "strictly no selective disclosure to analysts, lenders, or suppliers (including Lakbay Savings Bank) before public fil ing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "in blackout from 01\u201315 Jul 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 12"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.8%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "i.balagtas@bayansteel.test"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@bayansteel.test"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "l.osorio@bayansteel.test"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "soc@bayansteel.test"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. I\u00f1igo V. Balagtas"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lira Mae F. Osorio"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. A. Quimada"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 920\u2011555\u20110x21"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Lakbay Savings Bank acct 45 \u2022 \u2022 \u2022 91"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN 1xx\u20113x4\u2011xx9"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpNo E\u20110 9 1 3\u20117 3"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked payroll data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redact=on"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "this is non\u2011pub lic information under PH SRC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "strictly no selective disclosure to analysts, lenders, or suppliers (including Lakbay Savings Bank) before public fil ing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "in blackout from 01\u201315 Jul 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 12"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Internal Incident Report \u2014 Cybersecurity (PH issuer)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "an unauthorized login via a compromised vendor VPN token accessed hr\u2011stg\u201102 (HR payroll staging); no e\u2011payments were executed and prod finance remained isolated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "this internal note includes non\u2011public detail not in that posting"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "please avoid forwarding this memo outside authorized channels"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not brief vendors until after the public EDGE update"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "this is not expected to result in a material adverse change (no MAC)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC reference; per rule 8 negated MAC should not be labeled"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Abbreviation of Material Adverse Change used in negated context; exclude from detection"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun/descriptor, not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "VND\u2011L4\u20119x2",
+      "concept": "security token identifier",
+      "reason": "Potentially sensitive internal token ID but not clearly covered by available PII rules"
+    },
+    {
+      "matched_text": "ops\u2011cy\u20111142",
+      "concept": "internal ticket identifier",
+      "reason": "Internal operational ID; may be sensitive but no explicit rule category applies"
+    },
+    {
+      "matched_text": "IR-2026-07A",
+      "concept": "incident case identifier",
+      "reason": "Internal incident reference in URL; sensitive operational metadata but not mapped to a listed rule"
+    },
+    {
+      "matched_text": "hr\u2011stg\u201102",
+      "concept": "system hostname",
+      "reason": "Could function like a device identifier but not clearly covered by device_serial_number or other PII rules"
+    },
+    {
+      "matched_text": "up to 412 employees",
+      "concept": "breach magnitude",
+      "reason": "Number of impacted data subjects is sensitive context but not directly covered by a listed rule category"
+    },
+    {
+      "matched_text": "Ref C Y B \u2011 2 0 2 6 \u2011 0 7",
+      "concept": "internal memo reference",
+      "reason": "Internal reference code may be sensitive metadata but not clearly mapped to allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

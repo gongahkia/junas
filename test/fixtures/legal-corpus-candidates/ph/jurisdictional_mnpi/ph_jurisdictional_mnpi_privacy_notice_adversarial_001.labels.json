@@ -3,13 +3,272 @@
   "document_type": "generic",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lakanharbor.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63-28-777-0044"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Acct No: 23\u2011xx\u2011**98"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E m p \u2011 0 7 3 1 \u2011 9 X"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacydesk@lakanharbor.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Isagani R. Velasco"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pilar J. Tiamzon"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Subscription Term Sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lakanharbor.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63-28-777-0044"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Acct No: 23\u2011xx\u2011**98"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E m p \u2011 0 7 3 1 \u2011 9 X"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacydesk@lakanharbor.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Isagani R. Velasco"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pilar J. Tiamzon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Celina R. Ocampo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet available"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "draft Q2 results"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "follow\u2011on offering"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "credit line"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list entries"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Balangay MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Subscription Term Sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC reference; rule prohibits labeling negated MAC/MAE."
+    },
+    {
+      "matched_text": "Project Balangay MOU",
+      "reason": "Explicitly stated as already public; not MNPI."
+    },
+    {
+      "matched_text": "HarborPay Lite",
+      "reason": "Public-source marketing reference; non-MNPI per text."
+    },
+    {
+      "matched_text": "2024\u2011Q4 investor day deck",
+      "reason": "Public-source and stale per text; non-MNPI."
+    },
+    {
+      "matched_text": "move baybayin app launch to q4; update icons",
+      "reason": "Operational sprint notes; not issuer-level material per text."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: payroll and benefits records 5 years from separation; treasury KYC files 7 years from account close; insider-list entries 7 years from last update; secure deletion certificates logged in VaultTrack",
+      "concept": "retention marker",
+      "reason": "Retention/erasure policy is a privacy-event marker but no explicit retention rule is listed in allowed rules."
+    },
+    {
+      "matched_text": "Data subject rights (access/correct/erase/port/complain)",
+      "concept": "DSAR rights marker",
+      "reason": "Data subject rights language signals DSAR/erasure/portability; not directly mapped to an allowed rule name."
+    },
+    {
+      "matched_text": "N P D / P H / 2 0 2 6 \u2011 0 0 9",
+      "concept": "regulatory reference number",
+      "reason": "Regulatory reference ID may be sensitive operationally but is not covered by a listed PII/MNPI rule."
+    },
+    {
+      "matched_text": "Clearing ID: I R B \u2011 0 4 2",
+      "concept": "bank clearing code",
+      "reason": "Bank clearing identifier may be sensitive operational detail but no matching allowed rule."
+    },
+    {
+      "matched_text": "J O B S \u2011 2 0 2 6 \u2011 P R",
+      "concept": "internal system/audit trail id",
+      "reason": "Internal system/audit identifier could be sensitive but no explicit rule for internal system IDs."
+    },
+    {
+      "matched_text": "ITRF\u20114X7\u201122Z",
+      "concept": "internal tax reference identifier",
+      "reason": "Looks like a personal/internal identifier but not clearly mapped to any specific allowed PII rule."
+    },
+    {
+      "matched_text": "suspected incidents are reported within 72 hours to NPD",
+      "concept": "breach notification timeline",
+      "reason": "Incident notification policy is privacy-relevant, but there is no specific allowed rule for this marker."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
