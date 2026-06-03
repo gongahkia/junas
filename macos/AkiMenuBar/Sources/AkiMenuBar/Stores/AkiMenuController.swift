@@ -2,6 +2,8 @@ import Foundation
 
 @MainActor
 final class AkiMenuController: ObservableObject {
+    static let shared = AkiMenuController()
+
     @Published var source: CaptureSource = .screen
     @Published var transform: TransformChoice = .ascii
     @Published var output: OutputChoice = .auto

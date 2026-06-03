@@ -2,7 +2,7 @@ import SwiftUI
 
 @main
 struct AkiMenuBarApp: App {
-    @StateObject private var controller = AkiMenuController()
+    @StateObject private var controller = AkiMenuController.shared
 
     var body: some Scene {
         MenuBarExtra {
