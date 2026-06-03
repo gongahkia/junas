@@ -1,6 +1,6 @@
 # External Rule Packs
 
-`Aki` can optionally import established secret-detection regex rules from a local gitleaks TOML file.
+`Aki` can optionally import established secret-detection regex rules from a local gitleaks TOML file. Community rule-pack contribution and versioning conventions are documented in [`docs/community-rule-packs.md`](./community-rule-packs.md).
 
 ## Decision
 
@@ -46,4 +46,4 @@ Use `aki test-patterns` with a temporary config to verify imported rules:
 $ XDG_CONFIG_HOME=/tmp/aki-config aki test-patterns "token=example-redacted-value"
 ```
 
-The test fixture in `privacy-core/fixtures/gitleaks_rules.toml` covers gitleaks import behavior in `cargo test --all`.
+The test fixture in `privacy-core/fixtures/gitleaks_rules.toml` covers gitleaks import behavior in `cargo test --all`. The community sample pack in `rule-packs/aki-rules-sample.toml` proves the planned `gongahkia/aki-rules` format can be consumed locally.

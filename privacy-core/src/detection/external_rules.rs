@@ -119,4 +119,18 @@ mod tests {
         let patterns = load_gitleaks_from_str(fixture, 1).unwrap();
         assert_eq!(patterns.len(), 1);
     }
+
+    #[test]
+    fn imports_community_rule_pack_sample() {
+        let pack = include_str!("../../../rule-packs/aki-rules-sample.toml");
+        let fixture = include_str!("../../../rule-packs/fixtures/sample-aki-demo-service-key.txt");
+        let patterns = load_gitleaks_from_str(pack, DEFAULT_MAX_IMPORTED_PATTERNS).unwrap();
+        let sample = patterns
+            .iter()
+            .find(|p| p.name == "gitleaks:aki-demo-service-key")
+            .unwrap();
+
+        assert!(sample.is_match(fixture.trim()));
+        assert!(!sample.is_match("aki_demo_service_key=not_a_fixture"));
+    }
 }
