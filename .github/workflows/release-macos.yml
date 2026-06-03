@@ -19,6 +19,9 @@ jobs:
   release-macos:
     runs-on: macos-latest
     environment: release
+    env:
+      VERSION: ${{ inputs.version }}
+      TAG: ${{ inputs.tag }}
     steps:
       - uses: actions/checkout@v4
 
@@ -26,6 +29,9 @@ jobs:
 
       - name: Install native dependencies
         run: brew install tesseract libarchive
+
+      - name: Validate release metadata
+        run: scripts/check_release_metadata.sh --version "$VERSION" --tag "$TAG"
 
       - name: Import Developer ID certificate
         env:
@@ -52,7 +58,7 @@ jobs:
 
       - name: Build signed notarized DMG
         env:
-          AKI_VERSION: ${{ inputs.version }}
+          AKI_VERSION: ${{ env.VERSION }}
           AKI_SIGN_IDENTITY: ${{ secrets.MACOS_DEVELOPER_ID_APPLICATION_IDENTITY }}
           AKI_NOTARY_APPLE_ID: ${{ secrets.AKI_NOTARY_APPLE_ID }}
           AKI_NOTARY_TEAM_ID: ${{ secrets.AKI_NOTARY_TEAM_ID }}
@@ -62,17 +68,22 @@ jobs:
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ inputs.tag }}
-          VERSION: ${{ inputs.version }}
         run: |
           DMG="dist/macos/Aki-${VERSION}-macos.dmg"
           SHA="${DMG}.sha256"
+          NOTES="$(mktemp)"
+          scripts/release_notes_from_changelog.sh --version "$VERSION" --tag "$TAG" > "$NOTES"
+
           if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" \
+              --title "Aki ${VERSION}" \
+              --notes-file "$NOTES"
             gh release upload "$TAG" "$DMG" "$SHA" --clobber
           else
             gh release create "$TAG" "$DMG" "$SHA" \
               --title "Aki ${VERSION}" \
-              --generate-notes
+              --target "$GITHUB_SHA" \
+              --notes-file "$NOTES"
           fi
 
       - name: Delete signing keychain

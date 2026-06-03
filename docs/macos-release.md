@@ -55,6 +55,22 @@ The script writes:
 - `dist/macos/Aki-<version>-macos.dmg`
 - `dist/macos/Aki-<version>-macos.dmg.sha256`
 
+## Tags And Changelog
+
+Use SemVer tags with a leading `v`, for example `v0.1.0` for version `0.1.0`.
+
+Before publishing a release:
+
+- `Cargo.toml` workspace version, README badge, `Casks/aki.rb` version, release tag, and DMG filename must refer to the same version.
+- `CHANGELOG.md` must contain a matching `## v<version>` section.
+- The changelog section must link the DMG and `.sha256` install artifacts that the GitHub Release will publish.
+
+Validate this locally before dispatching the workflow:
+
+```console
+$ scripts/check_release_metadata.sh --version 0.1.0 --tag v0.1.0
+```
+
 ## What The Script Verifies
 
 The release script:
@@ -79,7 +95,7 @@ The manual workflow at `.github/workflows/release-macos.yml` packages and upload
 - `AKI_NOTARY_TEAM_ID`
 - `AKI_NOTARY_PASSWORD`
 
-The workflow creates or updates the requested GitHub Release and uploads the DMG plus SHA-256 file, so the release notes link directly to the artifact.
+The workflow creates or updates the requested GitHub Release, publishes release notes from the matching `CHANGELOG.md` section, and uploads the DMG plus SHA-256 file. The generated release notes include direct links to both install artifacts.
 
 Contributors without release credentials should use `scripts/release_macos_dmg.sh --unsigned` instead of the signed workflow.
 

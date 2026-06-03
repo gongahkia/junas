@@ -30,6 +30,7 @@ Run these before marking the gate complete:
 
 ```console
 $ rg -n "Version [0-9]|version-[0-9]|version \"|version = \"" README.md Cargo.toml Casks/aki.rb
+$ scripts/check_release_metadata.sh --version 0.1.0 --tag v0.1.0
 $ test -f asset/demo/hero-ascii-redaction.gif
 $ gh release view v0.1.0 --json tagName,name,assets
 $ xcrun stapler validate /Volumes/Aki/Aki.app

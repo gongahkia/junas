@@ -75,6 +75,8 @@ The engineering architecture is documented in [`ARCHITECTURE.md`](./ARCHITECTURE
 
 Performance baselines and the synthetic redaction fixture corpus are tracked in [`BENCHMARKS.md`](./BENCHMARKS.md).
 
+Release history and the next release notes are tracked in [`CHANGELOG.md`](./CHANGELOG.md).
+
 The public roadmap is tracked in [`docs/roadmap.md`](./docs/roadmap.md).
 
 Contributor setup and pull request expectations are documented in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
