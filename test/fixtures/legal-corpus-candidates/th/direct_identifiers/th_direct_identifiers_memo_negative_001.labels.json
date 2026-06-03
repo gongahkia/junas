@@ -46,11 +46,7 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "TH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Post-PH precision realignment removed strict labels now suppressed by narrow precision guards; the broader spans remain in ideal_must_detect when useful for gap tracking.",
   "_label_source": "azure:gpt-5-2-auto",
-  "_label_warnings": [
-    "drop ideal_must_detect: drop invalid Thai national ID rule='th_national_id' text='1-2345-67890-12-3'",
-    "drop ideal_must_detect: drop invalid Thai national ID rule='th_national_id' text='Thai National ID 1-2345-67890-12-3'",
-    "drop must_detect: drop invalid Thai national ID rule='th_national_id' text='1-2345-67890-12-3'"
-  ],
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-30T01:36:04Z",
     "accepted_by": "gongahkia",
@@ -255,6 +251,18 @@
       "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    }
+  ],
+  "_resolved_label_warnings": [
+    {
+      "resolved_at": "2026-06-03T03:31:09Z",
+      "reviewer": "Codex GPT-5.5",
+      "basis": "Stale Azure auto-label normalization warnings remained on owner-approved Stage A labels. The current strict evaluation is clean; warnings are retained here as provenance while the active _label_warnings field is cleared for Stage B QA reporting.",
+      "warnings": [
+        "drop ideal_must_detect: drop invalid Thai national ID rule='th_national_id' text='1-2345-67890-12-3'",
+        "drop ideal_must_detect: drop invalid Thai national ID rule='th_national_id' text='Thai National ID 1-2345-67890-12-3'",
+        "drop must_detect: drop invalid Thai national ID rule='th_national_id' text='1-2345-67890-12-3'"
+      ]
     }
   ]
 }
