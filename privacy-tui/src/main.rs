@@ -1,6 +1,7 @@
 mod app;
 mod control_server;
 mod demo;
+mod doctor;
 mod event;
 mod logging;
 mod offline_redact;
@@ -103,6 +104,12 @@ enum Command {
     },
     /// Verify virtual camera output availability.
     CheckOutput,
+    /// Run local diagnostics for capture, OCR, virtual camera, and OBS setup.
+    Doctor {
+        /// Force a local OBS WebSocket reachability check even if OBS output is not configured.
+        #[arg(long)]
+        obs: bool,
+    },
     /// Capture 10 frames, run detection, print summary of found sensitive regions.
     TestScreen,
     /// Run detection pipeline self-test against synthetic sensitive data.
@@ -157,6 +164,7 @@ fn main() -> Result<()> {
         Command::ListWindows => cmd_list_windows(),
         Command::TestPatterns { text } => cmd_test_patterns(&text),
         Command::CheckOutput => cmd_check_output(),
+        Command::Doctor { obs } => doctor::run_doctor(doctor::DoctorOptions { check_obs: obs }),
         Command::TestScreen => cmd_test_screen(),
         Command::SelfTest => cmd_self_test(),
         Command::Demo {

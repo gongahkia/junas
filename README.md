@@ -28,7 +28,7 @@ Screen pixels, OCR text, detections, config, and runtime logs stay on your machi
 
 Network activity is limited to actions you request: Homebrew or GitHub release downloads during install/update, the optional neural model download when the Neural transform is used without a cached model, optional Twitch chat integration if configured, and local OBS/MJPEG endpoints. These paths are not telemetry.
 
-Future counters or diagnostics are out of scope for v1 unless they are explicit opt-in before any data leaves the machine.
+Future uploaded counters or diagnostics are out of scope for v1 unless they are explicit opt-in before any data leaves the machine. The local `aki doctor` command prints setup checks without uploading anything.
 
 The TUI includes a local in-memory redaction log, with explicit export only. Its retention and privacy tradeoffs are documented in [`docs/redaction-log.md`](./docs/redaction-log.md).
 
@@ -75,12 +75,24 @@ macOS DMG release packaging is documented in [`docs/macos-release.md`](./docs/ma
 
 ```console
 $ aki list-windows
+$ aki doctor
 $ aki test-patterns "SECRET_KEY=abc123"
 $ aki demo --frames 1 --no-clear
 $ aki redact ./recording.mov --output ./recording.redacted.mov
 $ aki check-output
 $ aki --headless --source screen
 ```
+
+### Troubleshooting
+
+Run `aki doctor` before filing setup bugs or debugging a failed install:
+
+```console
+$ aki doctor
+$ aki doctor --obs
+```
+
+The command reports local `PASS`, `WARN`, or `FAIL` statuses for Tesseract data, screen-capture permission, CoreMediaIO DAL state, virtual-camera installation, and OBS WebSocket reachability when requested or configured. It includes remediation text for each warning or failure and does not collect or transmit telemetry, screenshots, OCR text, or logs.
 
 ### Fake-Secret Demo
 
