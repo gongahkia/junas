@@ -41,6 +41,8 @@ $ AKI_BINARY="$PWD/target/debug/aki" swift run --package-path macos/AkiMenuBar
 
 The menu-bar shell can start and stop the headless redaction pipeline, pause or resume it, switch transforms, choose the capture/output mode used on restart, show redaction/FPS/CPU stats, and open the TUI in Terminal. The v1 sidecar protocol is documented in [`docs/sidecar-protocol.md`](./docs/sidecar-protocol.md).
 
+macOS DMG release packaging is documented in [`docs/macos-release.md`](./docs/macos-release.md).
+
 ## Quick Commands
 
 ```console
