@@ -43,7 +43,7 @@ If the configured rule file cannot be parsed or a rule regex cannot compile with
 Use `aki test-patterns` with a temporary config to verify imported rules:
 
 ```console
-$ XDG_CONFIG_HOME=/tmp/aki-config aki test-patterns "token=ghp_abcdefghijklmnopqrstuvwxyzABCDEFGH12"
+$ XDG_CONFIG_HOME=/tmp/aki-config aki test-patterns "token=example-redacted-value"
 ```
 
 The test fixture in `privacy-core/fixtures/gitleaks_rules.toml` covers gitleaks import behavior in `cargo test --all`.
