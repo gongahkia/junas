@@ -57,8 +57,9 @@ fn make_snippet(text: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::detection::default_patterns::default_registry;
+    use crate::{config::AppConfig, detection::registry::runtime_registry};
     use privacy_common::frame::Rect;
+    use serde::Deserialize;
 
     fn make_region(text: &str) -> TextRegion {
         TextRegion {
@@ -75,7 +76,7 @@ mod tests {
 
     #[test]
     fn detects_env_var() {
-        let reg = default_registry();
+        let reg = runtime_registry(&AppConfig::default());
         let regions = vec![make_region("SECRET_KEY=abc123def456")];
         let matches = scan(
             &regions,
@@ -89,5 +90,72 @@ mod tests {
     fn snippet_format() {
         assert_eq!(make_snippet("hello_world"), "hell***");
         assert_eq!(make_snippet("abc"), "***");
+    }
+
+    #[test]
+    fn synthetic_fixture_corpus_recall_is_tracked() {
+        let corpus: FixtureCorpus = toml::from_str(include_str!(
+            "../../fixtures/redaction_corpus/synthetic-corpus.toml"
+        ))
+        .unwrap();
+        let registry = runtime_registry(&AppConfig::default());
+        let whitelist = crate::detection::whitelist::Whitelist::empty();
+        let mut expected = 0usize;
+        let mut detected = 0usize;
+
+        for frame in &corpus.frames {
+            let regions = frame
+                .regions
+                .iter()
+                .map(|region| TextRegion {
+                    text: region.text.clone(),
+                    bounds: Rect {
+                        x: region.bounds[0],
+                        y: region.bounds[1],
+                        width: region.bounds[2],
+                        height: region.bounds[3],
+                    },
+                    confidence: region.confidence,
+                })
+                .collect::<Vec<_>>();
+            let matches = scan(&regions, &registry, &whitelist);
+
+            for region in &frame.regions {
+                for pattern in &region.expected_patterns {
+                    expected += 1;
+                    if matches
+                        .iter()
+                        .any(|candidate| candidate.pattern_name == *pattern)
+                    {
+                        detected += 1;
+                    } else {
+                        panic!("{} missed expected pattern {pattern}", frame.id);
+                    }
+                }
+            }
+        }
+
+        assert_eq!(expected, 6);
+        assert_eq!(detected, expected);
+    }
+
+    #[derive(Debug, Deserialize)]
+    struct FixtureCorpus {
+        frames: Vec<FixtureFrame>,
+    }
+
+    #[derive(Debug, Deserialize)]
+    struct FixtureFrame {
+        id: String,
+        regions: Vec<FixtureRegion>,
+    }
+
+    #[derive(Debug, Deserialize)]
+    struct FixtureRegion {
+        text: String,
+        bounds: [u32; 4],
+        confidence: f32,
+        #[serde(default)]
+        expected_patterns: Vec<String>,
     }
 }
