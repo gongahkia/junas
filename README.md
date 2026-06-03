@@ -39,7 +39,7 @@ $ cargo build -p privacy-tui
 $ AKI_BINARY="$PWD/target/debug/aki" swift run --package-path macos/AkiMenuBar
 ```
 
-The menu-bar shell can start and stop the headless redaction pipeline, pause or resume it, switch transforms, choose the capture/output mode used on restart, show redaction/FPS/CPU stats, and open the TUI in Terminal.
+The menu-bar shell can start and stop the headless redaction pipeline, pause or resume it, switch transforms, choose the capture/output mode used on restart, show redaction/FPS/CPU stats, and open the TUI in Terminal. The v1 sidecar protocol is documented in [`docs/sidecar-protocol.md`](./docs/sidecar-protocol.md).
 
 ## Quick Commands
 
@@ -47,7 +47,7 @@ The menu-bar shell can start and stop the headless redaction pipeline, pause or 
 $ aki list-windows
 $ aki test-patterns "SECRET_KEY=abc123"
 $ aki check-output
-$ aki --headless
+$ aki --headless --source screen
 ```
 
 ## Power-User / Developer Commands

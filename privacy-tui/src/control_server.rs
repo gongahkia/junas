@@ -1,11 +1,11 @@
-//! Localhost WebSocket control server — exposes pipeline commands for Stream Deck etc.
+//! Localhost WebSocket control server — exposes pipeline commands for the macOS sidecar shell.
 //!
 //! Listens on ws://127.0.0.1:9877 (default).
 //! JSON protocol:
 //!   → {"cmd":"pause"}
 //!   → {"cmd":"resume"}
-//!   → {"cmd":"switch_mode","mode":"blur|pixelate|cartoon|ascii|neural"}
-//!   → {"cmd":"get_stats"}
+//!   → {"cmd":"set_transform","mode":"blur|pixelate|cartoon|ascii|neural"}
+//!   → {"cmd":"stats"}
 //! Responses are JSON with {"ok":bool,...}.
 
 use privacy_common::transform::TransformMode;
@@ -33,6 +33,10 @@ pub struct ControlState {
     pub redaction_count: AtomicU64,
     /// Latest dropped-frame count from the active pipeline.
     pub dropped_frames: AtomicU64,
+    /// Capture source selected when the active sidecar process was launched.
+    source: Mutex<String>,
+    /// Output sink selected when the active sidecar process was launched.
+    output: Mutex<String>,
 }
 
 impl ControlState {
@@ -46,7 +50,17 @@ impl ControlState {
             actual_fps_milli: AtomicU32::new(0),
             redaction_count: AtomicU64::new(0),
             dropped_frames: AtomicU64::new(0),
+            source: Mutex::new("screen".to_string()),
+            output: Mutex::new("auto".to_string()),
         })
+    }
+
+    pub fn set_source(&self, source: &str) {
+        *self.source.lock().unwrap() = source.to_string();
+    }
+
+    pub fn set_output(&self, output: &str) {
+        *self.output.lock().unwrap() = output.to_string();
     }
 }
 
@@ -139,32 +153,42 @@ fn dispatch(text: &str, state: &ControlState) -> String {
             *state.pending_pause.lock().unwrap() = Some(false);
             json!({"ok":true,"cmd":"resume"}).to_string()
         }
-        Some("switch_mode") => {
+        Some("switch_mode") | Some("set_transform") => {
+            let cmd = v
+                .get("cmd")
+                .and_then(|c| c.as_str())
+                .unwrap_or("set_transform");
             let mode_str = v.get("mode").and_then(|m| m.as_str()).unwrap_or("");
             match parse_mode(mode_str) {
                 Some(mode) => {
-                    log::info!("control server: cmd=switch_mode mode={mode_str}");
+                    log::info!("control server: cmd={cmd} mode={mode_str}");
                     *state.transform_mode.lock().unwrap() = mode;
                     *state.pending_mode.lock().unwrap() = Some(mode);
-                    json!({"ok":true,"cmd":"switch_mode","mode":mode_str}).to_string()
+                    json!({"ok":true,"cmd":cmd,"mode":mode_label(mode)}).to_string()
                 }
                 None => json!({"ok":false,"error":format!("unknown mode: {mode_str}")}).to_string(),
             }
         }
-        Some("get_stats") => {
-            log::debug!("control server: cmd=get_stats");
+        Some("get_stats") | Some("stats") => {
+            let cmd = v.get("cmd").and_then(|c| c.as_str()).unwrap_or("stats");
+            log::debug!("control server: cmd={cmd}");
             let mode = *state.transform_mode.lock().unwrap();
             let intensity = *state.intensity.lock().unwrap();
             let paused = state.paused.load(Ordering::SeqCst);
             let fps = state.actual_fps_milli.load(Ordering::Relaxed) as f32 / 1000.0;
             let redactions = state.redaction_count.load(Ordering::Relaxed);
             let dropped_frames = state.dropped_frames.load(Ordering::Relaxed);
+            let source = state.source.lock().unwrap().clone();
+            let output = state.output.lock().unwrap().clone();
             json!({
                 "ok": true,
-                "cmd": "get_stats",
-                "mode": format!("{mode:?}").to_lowercase(),
+                "cmd": cmd,
+                "protocol_version": 1,
+                "mode": mode_label(mode),
                 "intensity": intensity,
                 "paused": paused,
+                "source": source,
+                "output": output,
                 "fps": fps,
                 "redactions": redactions,
                 "dropped_frames": dropped_frames,
@@ -190,5 +214,15 @@ fn parse_mode(s: &str) -> Option<TransformMode> {
         "ascii" => Some(TransformMode::Ascii),
         "neural" => Some(TransformMode::Neural),
         _ => None,
+    }
+}
+
+fn mode_label(mode: TransformMode) -> &'static str {
+    match mode {
+        TransformMode::Blur => "blur",
+        TransformMode::Pixelate => "pixelate",
+        TransformMode::Cartoon => "cartoon",
+        TransformMode::Ascii => "ascii",
+        TransformMode::Neural => "neural",
     }
 }

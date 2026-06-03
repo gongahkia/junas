@@ -5,13 +5,18 @@ enum CaptureSource: String, CaseIterable, Identifiable {
     case pty = "PTY terminal"
 
     var id: String { rawValue }
-    var sidecarArguments: [String] {
+
+    var sidecarValue: String {
         switch self {
         case .screen:
-            []
+            "screen"
         case .pty:
-            ["--pty"]
+            "pty"
         }
+    }
+
+    var sidecarArguments: [String] {
+        ["--source", sidecarValue]
     }
 }
 
@@ -61,16 +66,22 @@ struct AkiStats: Equatable {
 
 struct ControlStatsResponse: Decodable {
     let ok: Bool
+    let protocolVersion: Int?
     let mode: String?
     let paused: Bool?
+    let source: String?
+    let output: String?
     let fps: Double?
     let redactions: UInt64?
     let droppedFrames: UInt64?
 
     enum CodingKeys: String, CodingKey {
         case ok
+        case protocolVersion = "protocol_version"
         case mode
         case paused
+        case source
+        case output
         case fps
         case redactions
         case droppedFrames = "dropped_frames"
