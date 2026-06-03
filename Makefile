@@ -1,4 +1,4 @@
-.PHONY: up down dev api frontend test lint migrate ingest-all download-data setup
+.PHONY: up down dev api frontend test lint migrate ingest-all download-data setup eval eval-list
 
 # === primary ===
 up:
@@ -29,6 +29,20 @@ test:
 
 lint:
 	cd backend && ruff check . && mypy api ml data
+
+# === benchmarks (SG-LegalBench) ===
+eval-list:
+	cd backend && python3 -m benchmark.cli list
+
+# Usage: make eval WORKFLOW=echo DATASET=benchmark/datasets/example_echo.yaml EVALUATORS="citation_format_valid cites_sg_statute"
+WORKFLOW ?= echo
+DATASET ?= benchmark/datasets/example_echo.yaml
+EVALUATORS ?= citation_format_valid
+eval:
+	cd backend && python3 -m benchmark.cli run \
+	  --workflow $(WORKFLOW) \
+	  --dataset $(DATASET) \
+	  $(addprefix --evaluator ,$(EVALUATORS))
 
 # === data ===
 ingest-all:

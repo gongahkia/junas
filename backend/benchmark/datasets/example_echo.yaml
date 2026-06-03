@@ -1,0 +1,38 @@
+# Smoke-test dataset for the "echo" task.
+# Workflow: echo (returns the query verbatim).
+# Useful for confirming the harness wiring without a real model.
+cases:
+  - name: pdpa_simple
+    inputs:
+      query: "The Employment Act (Cap. 91) applies in Singapore."
+    expected_output:
+      contains:
+        - Employment Act
+        - Cap. 91
+      span: "The Employment Act (Cap. 91) applies in Singapore."
+    metadata:
+      jurisdiction: SG
+      category: employment
+      split: dev
+
+  - name: case_citation_neutral
+    inputs:
+      query: "[2023] SGCA 5 is a recent decision."
+    expected_output:
+      contains:
+        - SGCA
+      span: "[2023] SGCA 5 is a recent decision."
+    metadata:
+      jurisdiction: SG
+      category: case_law
+      split: dev
+
+  - name: pdpa_compliance_review
+    inputs:
+      query: "The Personal Data Protection Act requires consent. Under O. 9, r. 1 of the Rules of Court 2021 the originating claim is served on the defendant."
+    expected_output:
+      required_regimes: ["pdpa", "roc_2021"]
+    metadata:
+      jurisdiction: SG
+      category: compliance
+      split: dev
