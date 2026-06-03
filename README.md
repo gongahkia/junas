@@ -268,6 +268,8 @@ Currently `Aki` supports the following 4 outputs.
 | HTTP MJPEG stream | All | Available *(default fallback)* |
 | OBS WebSocket v5 *(Browser Source → MJPEG)* | All | Available *(falls back to MJPEG if OBS unreachable)* |
 
+The native OBS source/filter plugin design is documented in [`docs/obs-source-plugin.md`](./docs/obs-source-plugin.md). The current implementation keeps the virtual-camera and MJPEG paths intact while the OBS plugin remains a tested prototype adapter plus packaging plan.
+
 ### Architecture
 
 ![](./asset/reference/architecture.png)
