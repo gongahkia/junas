@@ -11,6 +11,15 @@ Because `Aki` works on pixels instead of browser DOM nodes, it can cover termina
 
 ![Aki hero demo showing a fake AWS key in a terminal and an ASCII-redacted virtual camera preview](./asset/demo/hero-ascii-redaction.gif)
 
+## Known limitations
+
+`Aki` reduces accidental leak risk; it does not prevent every leak.
+
+* **OCR race window**: detection happens after pixels are captured. Newly appearing sensitive text can be visible for one or more frames before OCR and redaction catch up.
+* **Small or low-contrast text**: Tesseract can miss tiny, blurry, animated, partially occluded, or low-contrast text. Use larger high-contrast text for demos where redaction matters.
+* **Pattern coverage**: the default rules favor recognizable secret and PII shapes. Random high-entropy strings without known prefixes may be missed, while broader entropy rules can create noisy false positives.
+* **Operational fallback**: treat `Aki` as a last-mile privacy filter, not as a replacement for closing sensitive windows, using demo credentials, rotating exposed secrets, or limiting what appears on screen.
+
 ## Install
 
 The primary macOS release install path is the Homebrew cask:
