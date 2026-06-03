@@ -1,0 +1,16 @@
+Lakeside Pacific Holdings, Inc. — Cyber Incident Report for SEC Rule 17-C and NPC compliance
+Company details: SEC Reg. No. CS2021-0098765; primary listing on the PSE Main Board; disclosures via EDGE
+Incident date/time: 28 May 2026 10:14–10:25 PHT; current report posted on 30 May 2026 (public)
+Summary: phishing led to brief access to a role mailbox (it.support@lakesidepacific.ph); no core systems or trading platforms were affected
+Impacted content: vendor and HR intake forms with labels (“Name: ____”, “Address: ____”), placeholder TIN 000-000-000-000, and empty BIR Form fields
+One file contained a valid-looking individual TIN 123-456-789-000 associated with an “Affected Employee – Payroll Specialist”; the entry was immediately redacted and the individual notified
+No bank account numbers, credit cards, or customer balances were found; any strings like “Acct No.: 0000-0000-0000” were test data without valid checksums
+Affected mailbox hosted at EastCloud-Quezon Node; access duration 11 minutes; logs show previews only and no attachments exfiltrated
+Actions taken: password resets, MFA enforced, mailbox quarantine, and review of BSP-aligned cyber controls; no service outage occurred
+Regulator references: NPC breach notice NPC-BN-2026-09-XY acknowledged; SEC filing ref 17-C-LPH-2026-006; PSE EDGE entry available
+False-positive artifacts observed: “Passport No.: P0000000”, “SSS No.: 00-0000000-0”, “PhilHealth: 00-000000000-0” — all placeholders
+Local government identifiers on scanned permits were generic, e.g., Mayor’s/Business Permit No. 2026-00-000123 (template only)
+Public helplines for inquiries: (02) 8123-4567 Corporate Hotline; 1-800-10-555-1458 Investor Relations (do not transmit personal data)
+Role mailbox for data subject requests: dataprivacy@lakesidepacific.ph; internal security channel: csirt@lakesidepacific.ph
+Registered office: 18/F Aurora Plaza, KM 8 Commonwealth Hwy., Barangay Mabitu, San Pilar City 4521, Province of Nueva Esperanza, Philippines
+Log references to “Peso Account 1234-5678-9012” and “SWIFT PHF1ZZZZ” were test strings; no material non-public information was accessed or transmitted

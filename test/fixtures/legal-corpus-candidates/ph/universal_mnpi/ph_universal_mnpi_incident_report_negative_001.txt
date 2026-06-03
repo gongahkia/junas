@@ -1,0 +1,17 @@
+internal incident note — operations & cybersecurity, for board and ir drafting
+issuer: Maharlika Logistics & Retail, Inc. (MLRI), listed on the Metro Philippine Exchange (MPEX)
+date: 30 May 2026; incident window: 27–29 May 2026; prepared by risk & compliance (role inbox: risk@mlri.ph)
+summary: intermittent outage in warehouse scanning app due to third‑party api throttling; no evidence of data exfiltration under the Data Privacy Act
+regulatory context: SRC and Data Privacy Act reporting considered; a preliminary current report was already posted on 28 May via the issuer website and MPEX bulletin, so this note repeats public, stale facts
+systems affected: north hub dc wms node‑03; users experienced 7–12 minute delays; approx. 0.6% of orders delayed same day; recovery complete
+pii assessment: only employee codes and hashed customer references observed in logs; no names, addresses, or government ids processed; ticket ids (e.g., INC‑0000, REF‑XYZ123) are placeholders
+banking interfaces: read‑only gateway to BaryoBank TestNet paused; no accounts, balances, or payments touched; hr payroll cycle unaffected
+mnpi screen: this draft is intended to exclude material non‑public information; there is no forecast change and no material adverse change is expected from the outage
+ir handling: embargoed until 09:00 PHT 03 Jun 2026 for alignment with routine website maintenance; after that, post faq and link to the already‑announced bulletin
+contracts: no termination rights triggered; the definitive service addendum with Qwerty Cloud Services, Ltd. was executed in 2024 and remains in good standing (no mae)
+board note: no dividend or guidance update proposed; any percentage impacts in internal dashboards are immaterial and within tolerance bands
+ops actions: raise api quota with vendor, add circuit breakers, and run a tabletop drill; pm will track in sprint board; draft checklist attached
+hr/wellness: field teams get meal stipends; the spa day raffle proceeds next week as planned; staff hotline: 1800‑000‑0000 (ivr)
+contact points: it‑ops@mlri.ph; compliance@mlri.ph; do not send customer pii to these role mailboxes
+public references: see MLRI newsroom archive post dated 28 May 2026 and MPEX ticker notice MLRI‑2026‑05‑28 for the same content; press mentions picked up by Metro Business Daily yesterday
+disclaimer: nothing herein is a solicitation; terms like “material non‑public information”, “definitive agreement”, or “embargo” appear in a general compliance sense
