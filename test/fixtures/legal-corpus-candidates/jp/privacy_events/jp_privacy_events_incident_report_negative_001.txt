@@ -1,0 +1,16 @@
+Operational Incident Report — Kaguya Materials K.K. — HR Onboarding Cache Event — 2026-05-30
+Summary: a transient cache misconfiguration in the Employee Onboarding Portal briefly exposed pre-production test forms; production data remained segmented and unaffected.
+Data categories: sample “Employee My Number Consent Form (Rev 2025-04)” with redacted fields and invalid identifier-shaped text (e.g., XXXX-XXXX-XXXX); no living-individual information under APPI was exposed.
+Scope: 17 test records from a sandbox tenant; no board, acquisition, or securities workflow documents were involved; audit confirms no MNPI under FIEA was present.
+MNPI confirmation: tender-offer details relating to the already-announced acquisition of Sumikaze Analytics K.K. were not stored in the affected system, and no undisclosed enumerated material facts were accessed.
+Privacy controls: data minimisation was applied (only role IDs and pseudonymous tokens were cached); retention timers on the sandbox tenant remained at 7 days and had not reached expiry.
+Event handling: one DSAR (employee access request) received earlier in May for the onboarding system was fulfilled on 2026-05-20; no follow-up erasure was requested.
+Consent status: no consent withdrawal for My Number handling has been recorded for the affected employee cohort; existing consents remain logged in the portal.
+Cross-border processing: Data Export Approval DEX-2026-07 was granted to transfer hashed employee identifiers to Kaede Systems Pte. Ltd. (SG) for pre-announced payroll testing, with APPI Article 28 notices provided.
+Vendor terms: DPA Schedule JP-APPI (Annex 3) with Kaede Systems includes My Number handling restrictions and audit rights; SCC-equivalent clauses are incorporated by reference.
+Erasure outcomes: test artifacts from the cache were deleted during remediation; production logs show no deletion of live onboarding records.
+Governance: the Board Risk Committee and the Personal Information Protection Manager reviewed the incident; no notification to the PPC or JFSA is required based on current impact.
+Securities workflow note: TSE timely disclosure for the Sumikaze integration was completed last quarter and is unaffected; no tender-offer facts exist at this time.
+Employee communications: a template notice referencing the APPI Handling Policy v3.2 was prepared but not sent, as no data subjects were impacted.
+Contact: for privacy queries use privacy-office@kaguya.example.jp; this role mailbox does not accept DSAR submissions, which must be made via the portal.
+Conclusion: incident closed with no ongoing cross-border transfer issue, no pending DSARs, and controls revalidated against the internal APPI/My Number checklist.
