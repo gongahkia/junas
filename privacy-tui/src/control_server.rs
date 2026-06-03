@@ -11,7 +11,7 @@
 use privacy_common::transform::TransformMode;
 use serde_json::json;
 use std::sync::{
-    atomic::{AtomicBool, AtomicUsize, Ordering},
+    atomic::{AtomicBool, AtomicU32, AtomicU64, AtomicUsize, Ordering},
     Arc, Mutex,
 };
 use tungstenite::{accept, Message};
@@ -27,6 +27,12 @@ pub struct ControlState {
     pub pending_mode: Mutex<Option<TransformMode>>,
     /// Pending pause/resume change (None = no change, Some(bool) = new paused value).
     pub pending_pause: Mutex<Option<bool>>,
+    /// Latest observed pipeline FPS multiplied by 1000.
+    pub actual_fps_milli: AtomicU32,
+    /// Total redaction events observed by the active process.
+    pub redaction_count: AtomicU64,
+    /// Latest dropped-frame count from the active pipeline.
+    pub dropped_frames: AtomicU64,
 }
 
 impl ControlState {
@@ -37,6 +43,9 @@ impl ControlState {
             intensity: Mutex::new(intensity),
             pending_mode: Mutex::new(None),
             pending_pause: Mutex::new(None),
+            actual_fps_milli: AtomicU32::new(0),
+            redaction_count: AtomicU64::new(0),
+            dropped_frames: AtomicU64::new(0),
         })
     }
 }
@@ -147,12 +156,18 @@ fn dispatch(text: &str, state: &ControlState) -> String {
             let mode = *state.transform_mode.lock().unwrap();
             let intensity = *state.intensity.lock().unwrap();
             let paused = state.paused.load(Ordering::SeqCst);
+            let fps = state.actual_fps_milli.load(Ordering::Relaxed) as f32 / 1000.0;
+            let redactions = state.redaction_count.load(Ordering::Relaxed);
+            let dropped_frames = state.dropped_frames.load(Ordering::Relaxed);
             json!({
                 "ok": true,
                 "cmd": "get_stats",
                 "mode": format!("{mode:?}").to_lowercase(),
                 "intensity": intensity,
                 "paused": paused,
+                "fps": fps,
+                "redactions": redactions,
+                "dropped_frames": dropped_frames,
             })
             .to_string()
         }

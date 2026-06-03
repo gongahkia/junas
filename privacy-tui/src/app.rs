@@ -410,6 +410,11 @@ impl App {
             if let Ok(mut queue) = ps.detection_events.try_lock() {
                 let events: Vec<_> = queue.drain(..).collect();
                 drop(queue);
+                if !events.is_empty() {
+                    self.control_state
+                        .redaction_count
+                        .fetch_add(events.len() as u64, std::sync::atomic::Ordering::Relaxed);
+                }
                 for event in events {
                     self.heatmap
                         .record_hit(&event.bounds, self.preview_width, self.preview_height);
@@ -422,6 +427,13 @@ impl App {
                     });
                 }
             }
+            self.control_state.actual_fps_milli.store(
+                (self.stats.actual_fps.max(0.0) * 1000.0) as u32,
+                Ordering::Relaxed,
+            );
+            self.control_state
+                .dropped_frames
+                .store(self.stats.dropped_frames, Ordering::Relaxed);
             if let Ok(mut err) = ps.capture_error.try_lock() {
                 if err.is_some() {
                     self.capture_error = err.take();

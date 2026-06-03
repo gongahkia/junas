@@ -7,8 +7,9 @@ mod tui;
 mod ui;
 
 use anyhow::Result;
-use clap::{Parser, Subcommand};
+use clap::{Parser, Subcommand, ValueEnum};
 use event::{is_quit, next_event, Event};
+use privacy_common::transform::TransformMode;
 use std::time::{Duration, Instant};
 
 const TICK_RATE: Duration = Duration::from_millis(100); // 10 Hz
@@ -22,8 +23,46 @@ struct Cli {
     /// Use PTY capture (intercept shell output) instead of screen capture.
     #[arg(long)]
     pty: bool,
+    /// Initial transform mode for sidecar/headless runs.
+    #[arg(long, value_enum)]
+    transform: Option<CliTransform>,
+    /// Output sink preference for sidecar/headless runs.
+    #[arg(long, value_enum)]
+    output: Option<CliOutput>,
+    /// HTTP MJPEG port used when the output sink needs one.
+    #[arg(long, default_value_t = 9876)]
+    http_port: u16,
     #[command(subcommand)]
     command: Option<Command>,
+}
+
+#[derive(Debug, Clone, Copy, ValueEnum)]
+enum CliTransform {
+    Blur,
+    Pixelate,
+    Cartoon,
+    Ascii,
+    Neural,
+}
+
+impl From<CliTransform> for TransformMode {
+    fn from(value: CliTransform) -> Self {
+        match value {
+            CliTransform::Blur => TransformMode::Blur,
+            CliTransform::Pixelate => TransformMode::Pixelate,
+            CliTransform::Cartoon => TransformMode::Cartoon,
+            CliTransform::Ascii => TransformMode::Ascii,
+            CliTransform::Neural => TransformMode::Neural,
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, ValueEnum)]
+enum CliOutput {
+    Auto,
+    Coremedia,
+    Mjpeg,
+    Obs,
 }
 
 #[derive(Debug, Subcommand)]
@@ -56,7 +95,7 @@ fn main() -> Result<()> {
         cli.command
     );
     if cli.headless {
-        return cmd_headless(cli.pty);
+        return cmd_headless(cli.pty, cli.transform, cli.output, cli.http_port);
     }
     match cli.command.unwrap_or(Command::Run) {
         Command::Run => cmd_run(cli.pty),
@@ -69,14 +108,20 @@ fn main() -> Result<()> {
 }
 
 /// Headless mode: full pipeline without TUI; logs stats to XDG config dir; Ctrl-C to stop.
-fn cmd_headless(use_pty: bool) -> Result<()> {
+fn cmd_headless(
+    use_pty: bool,
+    transform: Option<CliTransform>,
+    output: Option<CliOutput>,
+    http_port: u16,
+) -> Result<()> {
     use crossbeam_channel::bounded;
     use privacy_common::frame::TransformedFrame;
     use privacy_core::{
+        config::AppConfig,
         detection::{default_patterns::default_registry, pii_patterns::pii_patterns},
         pipeline_runner::spawn_pipeline,
     };
-    use privacy_output::{autodetect::detect_best_sink, create_sink};
+    use privacy_output::{autodetect::detect_best_sink, create_sink, SinkKind};
     use std::sync::{
         atomic::{AtomicBool, Ordering},
         Arc, Mutex,
@@ -90,13 +135,30 @@ fn cmd_headless(use_pty: bool) -> Result<()> {
     })
     .unwrap_or_else(|_| log::warn!("failed to set Ctrl-C handler"));
 
-    let sink_kind = detect_best_sink(9876);
+    let sink_kind = match output.unwrap_or(CliOutput::Auto) {
+        CliOutput::Auto => detect_best_sink(http_port),
+        CliOutput::Coremedia => SinkKind::CoreMedia,
+        CliOutput::Mjpeg => SinkKind::HttpMjpeg(http_port),
+        CliOutput::Obs => SinkKind::Obs(http_port),
+    };
     let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
+    let cfg = AppConfig::load().unwrap_or_default();
+    let initial_mode = transform
+        .map(TransformMode::from)
+        .unwrap_or_else(|| transform_mode_from_config(&cfg.transform.mode));
+    let initial_intensity = cfg.transform.intensity.clamp(0.0, 1.0);
+    let control_state = control_server::ControlState::new(initial_mode, initial_intensity);
+    control_server::spawn(
+        Arc::clone(&control_state),
+        control_server::DEFAULT_CONTROL_PORT,
+    );
     let mut registry = default_registry();
     registry.patterns.extend(pii_patterns());
     let source = create_capture_source(None, use_pty);
     let (out_tx, out_rx) = bounded::<TransformedFrame>(8);
     let handle = spawn_pipeline(source, None, registry, out_tx)?;
+    *handle.state.transform_mode.lock().unwrap() = initial_mode;
+    *handle.state.transform_intensity.lock().unwrap() = initial_intensity;
 
     // stats log path
     let stats_path = {
@@ -117,6 +179,7 @@ fn cmd_headless(use_pty: bool) -> Result<()> {
     let mut last_log = Instant::now();
 
     while running.load(Ordering::SeqCst) {
+        apply_headless_control(&control_state, &handle.state);
         if let Ok(frame) = out_rx.recv_timeout(Duration::from_millis(200)) {
             if let Ok(mut s) = sink.lock() {
                 let _ = s.write_frame(&frame);
@@ -132,6 +195,13 @@ fn cmd_headless(use_pty: bool) -> Result<()> {
                 0.0
             };
             let dropped = handle.state.dropped_frames.load(Ordering::Relaxed);
+            control_state
+                .actual_fps_milli
+                .store((fps.max(0.0) * 1000.0) as u32, Ordering::Relaxed);
+            control_state
+                .dropped_frames
+                .store(dropped, Ordering::Relaxed);
+            drain_headless_detection_events(&control_state, &handle.state);
             let line = format!(
                 "[{}] fps={:.1} frames={} dropped={}\n",
                 chrono::Utc::now().to_rfc3339(),
@@ -155,6 +225,49 @@ fn cmd_headless(use_pty: bool) -> Result<()> {
     handle.shutdown();
     log::info!("headless mode stopped");
     Ok(())
+}
+
+fn transform_mode_from_config(mode: &str) -> TransformMode {
+    match mode {
+        "cartoon" => TransformMode::Cartoon,
+        "ascii" => TransformMode::Ascii,
+        "pixelate" => TransformMode::Pixelate,
+        "neural" => TransformMode::Neural,
+        _ => TransformMode::Blur,
+    }
+}
+
+fn apply_headless_control(
+    control: &control_server::ControlState,
+    state: &privacy_core::pipeline_runner::SharedState,
+) {
+    if let Ok(mut pending) = control.pending_pause.try_lock() {
+        if let Some(paused) = pending.take() {
+            state
+                .paused
+                .store(paused, std::sync::atomic::Ordering::SeqCst);
+        }
+    }
+    if let Ok(mut pending) = control.pending_mode.try_lock() {
+        if let Some(mode) = pending.take() {
+            state.begin_mode_transition(mode);
+        }
+    }
+}
+
+fn drain_headless_detection_events(
+    control: &control_server::ControlState,
+    state: &privacy_core::pipeline_runner::SharedState,
+) {
+    if let Ok(mut events) = state.detection_events.try_lock() {
+        let count = events.len() as u64;
+        events.clear();
+        if count > 0 {
+            control
+                .redaction_count
+                .fetch_add(count, std::sync::atomic::Ordering::Relaxed);
+        }
+    }
 }
 
 fn export_session_log(app: &app::App) {
