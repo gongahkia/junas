@@ -3,13 +3,216 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Althea Dizon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Dizon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Paolo J. Santos"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Santos"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Lira V. Mendoza"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@luneta-holdings.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@luneta-holdings.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border processing"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer to Bayangan Pay Pte. Ltd. (outside the Philippines)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011Border Data Transfer Policy"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation was applied"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Althea Dizon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Dizon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Paolo J. Santos"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Santos"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Lira V. Mendoza"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@luneta-holdings.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@luneta-holdings.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border processing"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer to Bayangan Pay Pte. Ltd. (outside the Philippines)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011Border Data Transfer Policy"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation was applied"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "dates of birth"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public financing terms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Operational/Cyber Incident Compliance Memo"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "PIC",
+      "reason": "Role noun/acronym; not PII/MNPI."
+    },
+    {
+      "matched_text": "Data Processing Agreement",
+      "reason": "Contract/policy label; not one of the definitive_agreement types in scope."
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "Role title; not PII/MNPI on its own."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "processed a DSAR",
+      "concept": "DSAR marker",
+      "reason": "Data subject access request is a privacy-handling event but no explicit DSAR rule exists in allowed taxonomy."
+    },
+    {
+      "matched_text": "Erasure for Mr. Santos and restriction for Ms. Dizon were completed",
+      "concept": "erasure/restriction markers",
+      "reason": "Erasure and restriction are privacy-handling events but not enumerated as allowed rules."
+    },
+    {
+      "matched_text": "retention for onboarding forms remains 24 months",
+      "concept": "retention marker",
+      "reason": "Retention is a privacy-handling event but no explicit retention rule is provided."
+    },
+    {
+      "matched_text": "data\u2011export approval (Approval ID LHI\u2011XB\u20112026\u201104) permits encrypted SFTP payroll updates weekly for active employees only",
+      "concept": "cross-border transfer approval",
+      "reason": "Indicates an export/transfer control but the cross-border nature is not explicit in this sentence."
+    },
+    {
+      "matched_text": "employee tax number placeholders",
+      "concept": "PH TIN reference (placeholder)",
+      "reason": "Refers to tax identifiers but does not include 'TIN' string or any actual identifier value."
+    },
+    {
+      "matched_text": "names, dates of birth, barangay/city and contact details",
+      "concept": "quasi-identifier combination",
+      "reason": "Describes a combination of identifying attributes without providing specific values; useful for risk assessment but not covered by a specific rule."
+    },
+    {
+      "matched_text": "A current report will be lodged with the Manila Boards Exchange and the Corporate Registries Authority\u2013PH within two business days",
+      "concept": "pre-disclosure filing plan",
+      "reason": "Regulatory filing plan is compliance-relevant but not mapped to a specific MNPI rule (no 'Embargoed'/'Press Hold' keywords)."
+    },
+    {
+      "matched_text": "No evidence of exfiltration exists; the attempted export job was blocked by our DLP rule set and audit trails confirm zero bytes left the enclave\u2014this completed control does not indicate an ongoing privacy risk",
+      "concept": "completed-control/negation",
+      "reason": "Negated risk statement relevant for context; not a live privacy event per allowed markers."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,103 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E-004512"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Retention and minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E-004512"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Retention and minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only fields strictly necessary for payroll routing (Employee No., bank code, masked account suffix) are retained"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer: no new export was initiated during the incident, and existing approval DEX-2025-04 remains in effect with standard contractual clauses annexed"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "no consent withdrawals were logged this period"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No: XX-XXXX-1234"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Vendor",
+      "reason": "Role noun/section label, not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Data subject request",
+      "concept": "DSAR_marker",
+      "reason": "Section header indicates DSAR but no explicit allowed rule for DSAR markers"
+    },
+    {
+      "matched_text": "one HR deletion request was COMPLETED on 16 July 2026",
+      "concept": "erasure_marker",
+      "reason": "Erasure completion is a privacy-handling event but no explicit erasure/retention rule in allowed set"
+    },
+    {
+      "matched_text": "Erasure Ticket ER-26-0716",
+      "concept": "erasure_ticket_id",
+      "reason": "Operational erasure ticket identifier relevant to deletion but not covered by allowed rules"
+    },
+    {
+      "matched_text": "TIN: N/A",
+      "concept": "ph_tin_field_placeholder",
+      "reason": "PH TIN field referenced but contains a placeholder rather than an actual identifier"
+    },
+    {
+      "matched_text": "DR node: Jurong, SG",
+      "concept": "cross-border_storage_location",
+      "reason": "Indicates data/DR location outside PH but not an explicit transfer event phrase"
+    },
+    {
+      "matched_text": "no retention expiry was breached",
+      "concept": "retention_marker",
+      "reason": "Retention control status is relevant but there is no explicit retention marker rule"
+    },
+    {
+      "matched_text": "brief outage of third-party SFTP gateway",
+      "concept": "cyber_incident_pre_disclosure",
+      "reason": "Security incident mention that could be market-relevant in some contexts but not captured by a specific MNPI rule here"
+    },
+    {
+      "matched_text": "NPC breach thresholds were not triggered",
+      "concept": "breach_threshold_reference",
+      "reason": "References regulatory breach threshold but no explicit rule for such markers"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,156 @@
   "document_type": "generic",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Dario F. Quimada"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lumendelta.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-Border Transfer Memo"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Approved cross-border export"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal workflow"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal-only"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Dario F. Quimada"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lumendelta.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-Border Transfer Memo"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Approved cross-border export"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal workflow"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal-only"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Lira Manansang"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "PH-EMP-0O1l3"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "acct tail: PalarisBank \u20269 4 2 1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "board resolutions on Series R-2027 Notes"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAC has occurred",
+      "reason": "Negated MAC; do not label material_adverse_change per rule 8."
+    },
+    {
+      "matched_text": "there is no live incident",
+      "reason": "Negated incident; not a cyber_incident_pre_disclosure."
+    },
+    {
+      "matched_text": "the transfer window is now closed and no new exports are scheduled for Q3",
+      "reason": "Completed-control language; not an active cross-border transfer."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR intake",
+      "concept": "dsar_marker",
+      "reason": "DSAR handling event is legally relevant but there is no explicit allowed rule for DSAR markers."
+    },
+    {
+      "matched_text": "Ref DSAR-2026-077",
+      "concept": "dsar_case_reference",
+      "reason": "DSAR case ID is relevant to privacy handling but not covered by allowed rules."
+    },
+    {
+      "matched_text": "https://privacy.lumendelta.ph/dsar?case=R7&emp=J D-2048",
+      "concept": "dsar_link_with_employee_identifier",
+      "reason": "URL includes a DSAR link with a possible employee identifier; not clearly mapped to an allowed rule."
+    },
+    {
+      "matched_text": "Erasure outcome",
+      "concept": "erasure_marker",
+      "reason": "Erasure handling is relevant but no explicit allowed erasure_marker rule exists."
+    },
+    {
+      "matched_text": "statutory tax records retained under R-10y",
+      "concept": "retention_marker",
+      "reason": "Retention statements are relevant but no explicit allowed retention_marker rule exists."
+    },
+    {
+      "matched_text": "retention tagged R-10y for tax and R-5y for AML",
+      "concept": "retention_marker",
+      "reason": "Retention schedule reference is relevant but not covered by allowed rules."
+    },
+    {
+      "matched_text": "J D-2048",
+      "concept": "employee_id",
+      "reason": "Looks like an employee identifier in a DSAR URL parameter, but lacks clear anchoring for the employee_id rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
