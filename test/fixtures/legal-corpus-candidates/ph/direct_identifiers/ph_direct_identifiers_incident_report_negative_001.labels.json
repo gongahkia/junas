@@ -3,13 +3,127 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "123-456-789-000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it.support@lakesidepacific.ph"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "123-456-789-000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it.support@lakesidepacific.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dataprivacy@lakesidepacific.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "csirt@lakesidepacific.ph"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "SEC Rule 17-C"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Name: ____",
+      "reason": "Generic form label bait; not actual PII"
+    },
+    {
+      "matched_text": "Address: ____",
+      "reason": "Generic form label bait; not actual PII"
+    },
+    {
+      "matched_text": "000-000-000-000",
+      "reason": "Placeholder/invalid TIN; false-positive bait"
+    },
+    {
+      "matched_text": "Acct No.: 0000-0000-0000",
+      "reason": "Test data without valid checksum; not a real bank account"
+    },
+    {
+      "matched_text": "Passport No.: P0000000",
+      "reason": "Placeholder passport number; false-positive bait"
+    },
+    {
+      "matched_text": "SSS No.: 00-0000000-0",
+      "reason": "Placeholder government ID; false-positive bait"
+    },
+    {
+      "matched_text": "PhilHealth: 00-000000000-0",
+      "reason": "Placeholder government ID; false-positive bait"
+    },
+    {
+      "matched_text": "Mayor\u2019s/Business Permit No. 2026-00-000123",
+      "reason": "Template-only local permit number; false-positive bait"
+    },
+    {
+      "matched_text": "(02) 8123-4567",
+      "reason": "Public helpline number; excluded per negative target"
+    },
+    {
+      "matched_text": "1-800-10-555-1458",
+      "reason": "Public helpline number; excluded per negative target"
+    },
+    {
+      "matched_text": "Peso Account 1234-5678-9012",
+      "reason": "Test string; not an actual bank account"
+    },
+    {
+      "matched_text": "SWIFT PHF1ZZZZ",
+      "reason": "Test string; not a real SWIFT/BIC"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Cyber Incident Report",
+      "concept": "cyber incident marker",
+      "reason": "Cyber incident is disclosed; allowed MNPI rule expects pre-disclosure marker only"
+    },
+    {
+      "matched_text": "NPC-BN-2026-09-XY",
+      "concept": "regulatory breach notice reference",
+      "reason": "Legally significant regulator reference but no corresponding allowed rule"
+    },
+    {
+      "matched_text": "17-C-LPH-2026-006",
+      "concept": "SEC filing reference",
+      "reason": "Specific SEC current report reference; not covered by allowed MNPI rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

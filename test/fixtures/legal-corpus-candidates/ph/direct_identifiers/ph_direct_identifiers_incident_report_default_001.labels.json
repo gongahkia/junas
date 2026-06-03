@@ -3,13 +3,270 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "296-123-456-000"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "345-987-123-000"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "458-321-765-000"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "P1234567F"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "P7654321B"
+    },
+    {
+      "category": "PII",
+      "rule": "insurance_member_id",
+      "matched_text": "SSS 34-1234567-9"
+    },
+    {
+      "category": "PII",
+      "rule": "insurance_member_id",
+      "matched_text": "SSS 45-7654321-8"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "012345678901"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 917 802 3344"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 2 8123 4001"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ramon.ilagan@kawayanrenewables.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@kawayanrenewables.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@kawayanrenewables.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ramon J. Ilagan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Liza R. Bautista"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Paulo D. Alonzo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window has been closed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "296-123-456-000"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "345-987-123-000"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "458-321-765-000"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "P1234567F"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "P7654321B"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "Passport No. P1234567F"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "Passport No. P7654321B"
+    },
+    {
+      "category": "PII",
+      "rule": "insurance_member_id",
+      "matched_text": "SSS 34-1234567-9"
+    },
+    {
+      "category": "PII",
+      "rule": "insurance_member_id",
+      "matched_text": "SSS 45-7654321-8"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "012345678901"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 917 802 3344"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 2 8123 4001"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ramon.ilagan@kawayanrenewables.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@kawayanrenewables.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@kawayanrenewables.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ramon J. Ilagan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Liza R. Bautista"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Paulo D. Alonzo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window has been closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "preliminary Q2 EBITDA guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "insider-trading controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Business Email Compromise"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "This disclosure excludes granular projections and counterparty names"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SSS No.: __________",
+      "reason": "Template placeholder, not live data"
+    },
+    {
+      "matched_text": "TIN 000-000-000-000",
+      "reason": "Invalid/placeholder identifier"
+    },
+    {
+      "matched_text": "SSS 11-1111111-1",
+      "reason": "Test record with invalid checksum"
+    },
+    {
+      "matched_text": "000-000-000",
+      "reason": "Placeholder routing code, not a real identifier"
+    },
+    {
+      "matched_text": "1800-000-0000",
+      "reason": "Public helpline number"
+    },
+    {
+      "matched_text": "HR Manager",
+      "reason": "Role-only name, not a person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "SEC Reg. No. CS2021-091234",
+      "concept": "company_registration_number",
+      "reason": "Philippine SEC company registration number is identifiable but no specific allowed rule exists for PH company IDs"
+    },
+    {
+      "matched_text": "Unit 1203, Luntian Tower, 88 Makisig St., Barangay Malikhain, San Palito City 0999",
+      "concept": "company_address",
+      "reason": "Branch office address is identifiable location data but not tied to a natural person and no PH postal-address rule is listed"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='data_minimisation_marker'"
+  ],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

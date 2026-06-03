@@ -3,13 +3,189 @@
   "document_type": "generic",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "PX7345129"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "payroll-inbox@harborpacific.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harborpacific.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we use redaction for ID scans"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers occur only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list entries"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout attestations"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "PX7345129"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "payroll-inbox@harborpacific.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@harborpacific.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we use redaction for ID scans"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers occur only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list entries"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout attestations"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "Philippine Passport No. PX7345129"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "suppress invalid ID formats"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no card PANs are stored"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "Corporate Account Ref: 88-000000-01"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "vendor ID: AUD-0000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "TIN 123-456-789-999",
+      "reason": "invalid PH TIN example"
+    },
+    {
+      "matched_text": "SSS 12-3456789-0",
+      "reason": "invalid checksum example"
+    },
+    {
+      "matched_text": "Payroll Account 0000-0000-0000",
+      "reason": "masked/non-live placeholder"
+    },
+    {
+      "matched_text": "TIN [___-___-___-___]",
+      "reason": "form label placeholder"
+    },
+    {
+      "matched_text": "SSS [__-_______-__]",
+      "reason": "form label placeholder"
+    },
+    {
+      "matched_text": "PhilHealth [____-_________-_]",
+      "reason": "form label placeholder"
+    },
+    {
+      "matched_text": "UMID [____-______-__]",
+      "reason": "form label placeholder"
+    },
+    {
+      "matched_text": "Passport No. [_________]",
+      "reason": "form label placeholder"
+    },
+    {
+      "matched_text": "15550",
+      "reason": "public helpline short code; not personal PII"
+    },
+    {
+      "matched_text": "ICX Symbol: HPRI",
+      "reason": "placeholder ticker; not MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR process",
+      "concept": "DSAR marker",
+      "reason": "Data-subject request process is privacy-relevant but no explicit DSAR rule name provided"
+    },
+    {
+      "matched_text": "Form-DSAR-01",
+      "concept": "DSAR form identifier",
+      "reason": "DSAR-related identifier without a dedicated allowed rule"
+    },
+    {
+      "matched_text": "kept for 1 year post-onboarding, then deleted",
+      "concept": "retention/erasure marker",
+      "reason": "Retention and deletion control not mapped to a specific allowed rule"
+    },
+    {
+      "matched_text": "recruitment files 1 year",
+      "concept": "retention schedule",
+      "reason": "Retention duration is privacy-relevant but no explicit retention rule listed"
+    },
+    {
+      "matched_text": "payroll and tax vouchers 5 years",
+      "concept": "retention schedule",
+      "reason": "Retention duration is privacy-relevant but not covered by an allowed rule"
+    },
+    {
+      "matched_text": "disclosed only as required after public announcements",
+      "concept": "selective disclosure control",
+      "reason": "Implies control against selective disclosure but lacks explicit keyword trigger"
+    },
+    {
+      "matched_text": "BSC Reg. No. CS2099-7654321",
+      "concept": "company registration number (PH)",
+      "reason": "Corporate identifier relevant to company data but no specific allowed rule for PH company IDs"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,220 @@
   "document_type": "generic",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Elias D. Soriano"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN 123-456-789-000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "elias.soriano@maligaya.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 917 555 0134"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "BayanBank Account No. 00-456-123456-7"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "PH Passport No. P1234567Q"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retained only for travel facilitation"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pilar A. Velasco"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@maligaya.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 2 8723 0043"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "access, correction, or deletion requests"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border processing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data is deleted or anonymized per policy"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_philsys",
+      "matched_text": "PhilID 0000-0000-0000-0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout periods"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Elias D. Soriano"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN 123-456-789-000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "elias.soriano@maligaya.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 917 555 0134"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "BayanBank Account No. 00-456-123456-7"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "PH Passport No. P1234567Q"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "retained only for travel facilitation"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pilar A. Velasco"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@maligaya.com.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 2 8723 0043"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "access, correction, or deletion requests"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border processing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data is deleted or anonymized per policy"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_philsys",
+      "matched_text": "PhilID 0000-0000-0000-0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout periods"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "need-to-know"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Applicant Name",
+      "reason": "Generic form label without a value; not PII."
+    },
+    {
+      "matched_text": "Position",
+      "reason": "Generic form label without a value; not PII."
+    },
+    {
+      "matched_text": "8888",
+      "reason": "Public helpline short code; not a private phone number for PII detection."
+    },
+    {
+      "matched_text": "HR Officer",
+      "reason": "Role title only; not a personal identifier."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Unit 12B Lakbay Tower, 88 Ilaya Ext., Brgy. Luntian, San Palay City, Rizalia 1901",
+      "concept": "PH postal address",
+      "reason": "Direct address is legally identifying but no generic postal address rule is listed for PH."
+    },
+    {
+      "matched_text": "5F Allegra Center, Camino Verde Rd., Brgy. Malig, San Palay City, Rizalia 1901",
+      "concept": "PH postal address",
+      "reason": "Direct address is legally identifying but not covered by an allowed address rule."
+    },
+    {
+      "matched_text": "SSS No. 01-2345678-9X",
+      "concept": "PH SSS number",
+      "reason": "PH Social Security number is sensitive but there is no allowed rule for PH SSS; also marked invalid."
+    },
+    {
+      "matched_text": "SEC Reg. No. CS2024-987654",
+      "concept": "PH SEC company registration number",
+      "reason": "Corporate identifier is relevant but no allowed rule covers PH SEC registration numbers."
+    },
+    {
+      "matched_text": "Form 17-C",
+      "concept": "PH SEC current report form",
+      "reason": "Trading restriction gating is MNPI-relevant but not clearly covered by a listed MNPI rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
