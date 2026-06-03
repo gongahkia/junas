@@ -76,10 +76,22 @@ macOS DMG release packaging is documented in [`docs/macos-release.md`](./docs/ma
 ```console
 $ aki list-windows
 $ aki test-patterns "SECRET_KEY=abc123"
+$ aki demo --frames 1 --no-clear
 $ aki redact ./recording.mov --output ./recording.redacted.mov
 $ aki check-output
 $ aki --headless --source screen
 ```
+
+### Fake-Secret Demo
+
+Use `aki demo` when you need a safe screen-share source, screenshot, tweet, or issue reproduction without exposing real secrets:
+
+```console
+$ aki demo
+$ aki demo --frames 1 --no-clear
+```
+
+The demo prints deterministic rolling examples marked with `DEMO_`, `AKI_FAKE_`, and `DO_NOT_USE`, plus reserved documentation email and IP-shaped values. It is designed to be captured by the live pipeline and to be pasted into bug reports without containing real credentials.
 
 ### Offline Video Redaction
 
