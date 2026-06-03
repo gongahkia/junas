@@ -11,6 +11,7 @@ from fastapi.responses import JSONResponse
 from api.celery_app import celery  # noqa: F401  (kept for worker discovery)
 from api.config import get_settings
 from api.routers import (
+    benchmarks_router,
     chat_router,
     clauses_router,
     compliance_router,
@@ -67,6 +68,7 @@ tags_metadata = [
     {"name": "legal-sources", "description": "Legal source scraping (SSO, CommonLII)"},
     {"name": "jurisdictions", "description": "Singapore jurisdiction registry"},
     {"name": "ner", "description": "Legal named entity extraction"},
+    {"name": "benchmarks", "description": "SG-LegalBench evaluation runs and leaderboard"},
 ]
 
 
@@ -223,6 +225,7 @@ def create_app() -> FastAPI:
     app.include_router(documents_router, prefix="/api/v1", tags=["documents"])
     app.include_router(legal_sources_router, prefix="/api/v1", tags=["legal-sources"])
     app.include_router(jurisdictions_router, prefix="/api/v1", tags=["jurisdictions"])
+    app.include_router(benchmarks_router, prefix="/api/v1", tags=["benchmarks"])
     return app
 
 

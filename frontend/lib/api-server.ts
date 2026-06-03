@@ -24,6 +24,20 @@ async function post(path: string, body: any) {
 export async function getReady() { return (await get("/ready")) ?? { services: {} }; }
 export async function getMetrics() { return await get("/metrics"); }
 
+// benchmarks (SG-LegalBench)
+export async function listBenchmarkTasks() {
+  return (await get("/benchmarks/tasks")) ?? [];
+}
+export async function listBenchmarkEvaluators() {
+  return (await get("/benchmarks/evaluators")) ?? [];
+}
+export async function getBenchmarkLeaderboard() {
+  return (await get("/benchmarks/leaderboard")) ?? { entries: [], aggregated_per_workflow: {} };
+}
+export async function runBenchmark(payload: { workflow: string; dataset: string; evaluators: string[]; max_concurrency?: number; strict?: boolean }) {
+  return await post("/benchmarks/run", payload);
+}
+
 // glossary
 export async function searchGlossary(q: string, jurisdiction = "", domain = "", page = 1, perPage = 20) {
   const params = new URLSearchParams({ q, page: String(page), per_page: String(perPage) });

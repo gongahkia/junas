@@ -27,6 +27,7 @@ from benchmark.evaluators import (
 from benchmark.registry import TASKS, register_task
 from benchmark.runner import RunSummary, run
 from benchmark.schema import Case, Dataset, EvalCaseResult
+from benchmark import tasks as _tasks  # noqa: F401  (registration side-effect)
 
 __all__ = [
     "Case",

@@ -1,3 +1,4 @@
+from api.routers.benchmarks import router as benchmarks_router
 from api.routers.chat import router as chat_router
 from api.routers.clauses import router as clauses_router
 from api.routers.compliance import router as compliance_router
@@ -16,6 +17,7 @@ from api.routers.templates import router as templates_router
 __all__ = [
     "health_router",
     "chat_router",
+    "benchmarks_router",
     "glossary_router",
     "statutes_router",
     "ner_router",
