@@ -3,13 +3,333 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lan.nguyen@silverlotus.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 981 001 112"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen Thi Lan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Transaction summary: 15.5% primary subscription and up to 34.5% secondary purchase from existing shareholders, targeting 50.0% post-closing ownership."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "IR draft: preliminary investor-relations release (internal) contemplates FY2027 revenue guidance of VND 2,400bn and target EBITDA margin of 12%; not for distribution prior to SEE filing."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Wellness perk: signing week includes spa-day vouchers for staff; this has no bearing on pricing or closing conditions."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-Public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Bamboo Lantern Term"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 1,200,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "15.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "34.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,200,000,000,000"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Bamboo Lantern"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-Public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "15.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "34.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "none of the information herein is public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 1,200,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC/MAE"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen Thi Lan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "lan.nguyen@silverlotus.example.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 981 001 112"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 2,400b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for distribution prior to SEE filing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unauthorized disclosure prior to SEE submission is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed strategic investment"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "No public communication or external diligence discussions before 27 July 2026, 17:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "absent written IR clearance from the Issuer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "intends to pursue a 2027 listing on the Saigon Equity Exchange (SEE)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "SEE pre-listing review"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "price collar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "earn-out tied to audited EBITDA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "this document is for internal use by Midori Capital VN LLC and Silver Lotus Retail JSC only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "preliminary investor-relations release (internal)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "27 July 2026, 17:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Transaction summary: 15.5% primary subscription and up to 34.5% secondary purchase from existing shareholders, targeting 50.0% post-closing ownership."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "IR draft: preliminary investor-relations release (internal) contemplates FY2027 revenue guidance of VND 2,400bn and target EBITDA margin of 12%; not for distribution prior to SEE filing."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Wellness perk: signing week includes spa-day vouchers for staff; this has no bearing on pricing or closing conditions."
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Bamboo Lantern Term"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "VND 2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,200,000,000,000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "Defined-term abbreviation; do not label as standalone MNPI."
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not a person or MNPI by itself."
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role-noun defined term, not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "spa-day",
+      "reason": "False-positive bait resembling SPA; not a definitive agreement."
+    },
+    {
+      "matched_text": "project-management",
+      "reason": "Generic PM prose; not a transaction codename."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Escrow Account A ending 7715",
+      "concept": "bank_account (partial/corporate)",
+      "reason": "Appears to be a corporate escrow account tail and not a natural person’s account; partial digits may not meet bank_account rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  }
 }

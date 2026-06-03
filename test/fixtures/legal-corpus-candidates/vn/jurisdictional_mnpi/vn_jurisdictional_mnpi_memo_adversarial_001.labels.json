@@ -39,12 +39,7 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "VN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered Vietnam MST/VAT/TIN and public-hotline numeric bait, grouped CCCD recognition, Vietnamese placeholder CCCD context, negated MAC/MAE prose, and wellness spa bait.",
   "_label_source": "azure:gpt-5-2-auto",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='~1.180 tỷ VND'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='700 tỷ VND'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='~1.180 tỷ VND'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='700 tỷ VND'"
-  ],
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-30T03:12:44Z",
     "accepted_by": "gongahkia",
@@ -389,6 +384,19 @@
       "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    }
+  ],
+  "_resolved_label_warnings": [
+    {
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='~1.180 tỷ VND'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='700 tỷ VND'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='~1.180 tỷ VND'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='700 tỷ VND'"
+      ],
+      "resolved_at_utc": "2026-06-03T13:05:43Z",
+      "reviewer": "Codex GPT-5.5",
+      "disposition": "Resolved during VN Stage B QA cleanup. These were label-cleaner drops or category normalizations on already approved Stage A labels; the dropped spans were not active strict labels after prior deterministic reconciliation, and Stage A owner approval remains unchanged."
     }
   ]
 }

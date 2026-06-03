@@ -6,18 +6,8 @@
   "must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Le Thi Minh Chau"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DOB 12/07/1985"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 40"
+      "rule": "email_address",
+      "matched_text": "escrow@pacificmeridianbank.vn"
     },
     {
       "category": "PII",
@@ -27,12 +17,27 @@
     {
       "category": "PII",
       "rule": "email_address",
-      "matched_text": "escrow@pacificmeridianbank.vn"
+      "matched_text": "kien.tran@mekonghorizoncapital.com"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "kien.tran@mekonghorizoncapital.com"
+      "rule": "phone_number",
+      "matched_text": "+84 28 3777 4433"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "12/07/1985"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "35"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Le Thi Minh Chau"
     },
     {
       "category": "PII",
@@ -40,24 +45,24 @@
       "matched_text": "Mr. Tran Bao Kien"
     },
     {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "serial VN\u2011LRF\u20112019\u2011IR"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Consideration and funding: VND 225,000,000,000 payable at Closing into escrow at Pacific Meridian Bank JSC, Escrow Account 101‑882‑VN‑LRF; deposit of VND 50,000,000,000 due upon signing; escrow contact: escrow@pacificmeridianbank.vn."
     },
     {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "internal session ref SEE\u2011IR\u20112026\u20110815"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Governing law and dispute resolution: governed by Vietnamese law; disputes resolved by arbitration at the Saigon Commercial Arbitration Forum (SCAF‑VN), Ho Chi Minh City; Closing targeted for 30 August 2026 subject to customary conditions precedent."
     },
     {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "session ID AN\u2011DA\u20112026\u201107\u201103\u20111400"
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
     },
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+84 28 3777 4433"
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
     },
     {
       "category": "MNPI",
@@ -66,8 +71,8 @@
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "18%"
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
     },
     {
       "category": "MNPI",
@@ -91,33 +96,28 @@
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public issuer financial and governance information"
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,250,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "225,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "3,000,000,000"
     },
     {
       "category": "MNPI",
       "rule": "insider_list_marker",
       "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "no trading in LRF shares or related instruments until official disclosure by the issuer via SEE\u2011VN and VSSA channels"
     }
   ],
   "ideal_must_detect": [
@@ -159,37 +159,22 @@
     {
       "category": "PII",
       "rule": "device_serial_number",
-      "matched_text": "serial VN\u2011LRF\u20112019\u2011IR"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "laptop LRF\u2011IR\u2011001"
+      "matched_text": "serial VN‑LRF‑2019‑IR"
     },
     {
       "category": "PII",
       "rule": "internal_session_id",
-      "matched_text": "internal session ref SEE\u2011IR\u20112026\u20110815"
+      "matched_text": "internal session ref SEE‑IR‑2026‑0815"
     },
     {
       "category": "PII",
       "rule": "internal_session_id",
-      "matched_text": "session ID AN\u2011DA\u20112026\u201107\u201103\u20111400"
+      "matched_text": "session ID AN‑DA‑2026‑07‑03‑1400"
     },
     {
       "category": "PII",
       "rule": "phone_number",
       "matched_text": "+84 28 3777 4433"
-    },
-    {
-      "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "VSDC sub\u2011account LRF\u2011EM\u20119981"
-    },
-    {
-      "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Issuer representative identifiers: Ms. Le Thi Minh Chau (DOB 12/07/1985; age 40), Investor Relations Manager at Lotus River Foods JSC; office: Lotus Park Campus, Block C, Techno Ward, Thu Duc City; work email: chau.le@lotusriverfoods.vn; device: laptop LRF\u2011IR\u2011001, serial VN\u2011LRF\u20112019\u2011IR; VSDC sub\u2011account LRF\u2011EM\u20119981; internal session ref SEE\u2011IR\u20112026\u20110815; extension 2205"
     },
     {
       "category": "MNPI",
@@ -223,13 +208,18 @@
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "contemplated listing on Southern Equities Exchange (SEE\u2011VN) in 2026"
+      "rule": "nonpublic_marker",
+      "matched_text": "non‑public issuer financial and governance information"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure"
     },
     {
       "category": "MNPI",
@@ -238,18 +228,38 @@
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no selective disclosure prior to formal public announcement via the issuer CBTT portal and SEE\u2011VN"
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
     },
     {
       "category": "MNPI",
       "rule": "blackout_period_reference",
-      "matched_text": "no trading in LRF shares or related instruments until official disclosure by the issuer via SEE\u2011VN and VSSA channels"
+      "matched_text": "no trading in LRF shares or related instruments until official disclosure by the issuer via SEE‑VN and VSSA channels"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "laptop LRF‑IR‑001"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "VSDC sub‑account LRF‑EM‑9981"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Issuer representative identifiers: Ms. Le Thi Minh Chau (DOB 12/07/1985; age 40), Investor Relations Manager at Lotus River Foods JSC; office: Lotus Park Campus, Block C, Techno Ward, Thu Duc City; work email: chau.le@lotusriverfoods.vn; device: laptop LRF‑IR‑001, serial VN‑LRF‑2019‑IR; VSDC sub‑account LRF‑EM‑9981; internal session ref SEE‑IR‑2026‑0815; extension 2205"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "rule": "material_event",
+      "matched_text": "contemplated listing on Southern Equities Exchange (SEE‑VN) in 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure prior to formal public announcement via the issuer CBTT portal and SEE‑VN"
     },
     {
       "category": "MNPI",
@@ -265,6 +275,46 @@
       "category": "MNPI",
       "rule": "embargo_marker",
       "matched_text": "Closing targeted for 30 August 2026"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "12/07/1985"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "35"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Consideration and funding: VND 225,000,000,000 payable at Closing into escrow at Pacific Meridian Bank JSC, Escrow Account 101‑882‑VN‑LRF; deposit of VND 50,000,000,000 due upon signing; escrow contact: escrow@pacificmeridianbank.vn."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Governing law and dispute resolution: governed by Vietnamese law; disputes resolved by arbitration at the Saigon Commercial Arbitration Forum (SCAF‑VN), Ho Chi Minh City; Closing targeted for 30 August 2026 subject to customary conditions precedent."
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,250,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "225,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "3,000,000,000"
     }
   ],
   "must_not_detect": [
@@ -295,44 +345,44 @@
   ],
   "uncertain": [
     {
-      "matched_text": "Escrow Account 101\u2011882\u2011VN\u2011LRF",
+      "matched_text": "Escrow Account 101‑882‑VN‑LRF",
       "concept": "bank_account",
       "reason": "Operational escrow account identifier may be sensitive but is corporate rather than personal per VN PII scope"
     },
     {
-      "matched_text": "client code TR\u20115578",
+      "matched_text": "client code TR‑5578",
       "concept": "customer_account_number",
       "reason": "Client code is an account identifier but appears to be organizational and not tied to a natural person"
     },
     {
-      "matched_text": "payroll sub\u2011account PR\u20114427",
+      "matched_text": "payroll sub‑account PR‑4427",
       "concept": "bank_account",
       "reason": "Payroll sub-account reference may be sensitive but not clearly linked to an identifiable individual"
     },
     {
-      "matched_text": "VSDC sub\u2011account LRF\u2011EM\u20119981",
+      "matched_text": "VSDC sub‑account LRF‑EM‑9981",
       "concept": "customer_account_number",
       "reason": "Securities depository sub-account likely identifies the issuer representative but mapping to a personal account ID category is ambiguous"
     },
     {
-      "matched_text": "laptop LRF\u2011IR\u2011001",
+      "matched_text": "laptop LRF‑IR‑001",
       "concept": "device_serial_number",
       "reason": "Device identifier not explicitly labeled as a serial; may or may not fall under device-specific identifiers"
     },
     {
-      "matched_text": "vn\u2011hmx\u2011vpn\u201104",
+      "matched_text": "vn‑hmx‑vpn‑04",
       "concept": "ip_address",
       "reason": "Network endpoint/hostname is logged but is not an IP address; coverage under network identifiers is unclear"
     },
     {
       "matched_text": "Closing targeted for 30 August 2026",
       "concept": "embargo_marker",
-      "reason": "Refers to Closing timing but does not use the explicit term \u201cClosing Date\u201d required by strict rule"
+      "reason": "Refers to Closing timing but does not use the explicit term “Closing Date” required by strict rule"
     },
     {
       "matched_text": "information in this term sheet may constitute MNPI under Vietnamese Securities Law",
       "concept": "nonpublic_marker",
-      "reason": "States potential MNPI status but without explicit \u2018non\u2011public\u2019 or embargo wording; borderline for strict detection"
+      "reason": "States potential MNPI status but without explicit ‘non‑public’ or embargo wording; borderline for strict detection"
     }
   ],
   "_label_source": "azure:gpt-5-2-auto",
@@ -341,5 +391,14 @@
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  }
 }

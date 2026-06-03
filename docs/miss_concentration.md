@@ -6,11 +6,11 @@ Raw jurisdiction counts reflect fixture volume; compare jurisdictions only at li
 ## Summary
 
 - Review profile: strict
-- Miss count: 11617
-- Buckets: coverage_gap: 8520, conjunction_miss: 2730, singling_out_miss: 271, needs_review: 67, true_inference_miss: 29
-- Detector families: mnpi_context: 2731, mnpi_lexicon: 2363, direct_identifier: 2225, privacy_event: 1851, pseudonymised_linkable: 602, special_category: 549, sector_mnpi: 536, online_device: 422, quasi_identifier: 271, unknown: 67
-- Jurisdictions by raw misses: MY: 1317, ID: 1310, HK: 1282, AU: 1265, TH: 1215, SG: 1079, IN: 487, CN: 442, EU: 425, JP: 369
-- Jurisdictions by misses per 100 docs: IN: 2319.05 per 100 docs (487 raw), CN: 2104.76 per 100 docs (442 raw), EU: 2023.81 per 100 docs (425 raw), JP: 1757.14 per 100 docs (369 raw), PH: 1752.38 per 100 docs (368 raw), SA: 1738.1 per 100 docs (365 raw), KR: 1661.9 per 100 docs (349 raw), VN: 1657.14 per 100 docs (348 raw), AE: 1619.05 per 100 docs (340 raw), UK: 1604.76 per 100 docs (337 raw)
+- Miss count: 13503
+- Buckets: coverage_gap: 9998, conjunction_miss: 3064, singling_out_miss: 320, needs_review: 92, true_inference_miss: 29
+- Detector families: mnpi_context: 3065, mnpi_lexicon: 2773, direct_identifier: 2662, privacy_event: 2087, pseudonymised_linkable: 746, sector_mnpi: 649, special_category: 628, online_device: 481, quasi_identifier: 320, unknown: 92
+- Jurisdictions by raw misses: MY: 1317, ID: 1310, PH: 1308, VN: 1294, HK: 1282, AU: 1265, TH: 1215, SG: 1079, IN: 487, CN: 442
+- Jurisdictions by misses per 100 docs: IN: 2319.05 per 100 docs (487 raw), CN: 2104.76 per 100 docs (442 raw), EU: 2023.81 per 100 docs (425 raw), JP: 1757.14 per 100 docs (369 raw), SA: 1738.1 per 100 docs (365 raw), KR: 1661.9 per 100 docs (349 raw), AE: 1619.05 per 100 docs (340 raw), UK: 1604.76 per 100 docs (337 raw), MY: 1567.86 per 100 docs (1317 raw), ID: 1559.52 per 100 docs (1310 raw)
 
 ## Top Cells
 
@@ -26,11 +26,11 @@ Raw jurisdiction counts reflect fixture volume; compare jurisdictions only at li
 | direct_identifier | CN | coverage_gap | 105 | 21 | 500.0 | cn_uscc: 26, cn_resident_id: 25, email_address: 19, bank_account: 13 | test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_memo_adversarial_001.txt: `92310000MA0X1Y2Z3A` |
 | direct_identifier | KR | coverage_gap | 105 | 21 | 500.0 | named_person: 34, email_address: 33, kr_rrn: 19, bank_account: 8 | test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_memo_adversarial_001.txt: `123-45-67890` |
 | mnpi_context | IN | conjunction_miss | 102 | 21 | 485.71 | blackout_period_reference: 31, selective_disclosure_risk: 20, information_barrier_marker: 17, insider_list_marker: 17 | test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_adversarial_001.txt: `trading window to close` |
-| direct_identifier | PH | coverage_gap | 95 | 21 | 452.38 | named_person: 33, email_address: 30, bank_account: 16, ph_tin: 10 | test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt: `TIN 482-319-574-000` |
 | mnpi_lexicon | JP | coverage_gap | 92 | 21 | 438.1 | material_event: 47, nonpublic_marker: 21, embargo_marker: 9, definitive_agreement: 6 | test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_memo_adversarial_001.txt: `proposed acquisition of Hikari Robotics KK via tender offer` |
 | mnpi_lexicon | ID | coverage_gap | 344 | 84 | 409.52 | nonpublic_marker: 114, material_event: 87, embargo_marker: 49, definitive_agreement: 28 | test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_incident_report_adversarial_001.txt: `belum diumumkan ke publik` |
 | mnpi_context | JP | conjunction_miss | 85 | 21 | 404.76 | information_barrier_marker: 24, blackout_period_reference: 22, selective_disclosure_risk: 19, insider_list_marker: 12 | test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_memo_adversarial_001.txt: `do not circulate enumerated facts or tender-offer facts until official disclo...` |
 | mnpi_lexicon | UK | coverage_gap | 85 | 21 | 404.76 | nonpublic_marker: 35, material_event: 24, embargo_marker: 11, financial_percentage: 4 | test/fixtures/legal-corpus-candidates/uk/direct_identifiers/uk_direct_identifiers_memo_adversarial_001.txt: `6–8%` |
+| direct_identifier | PH | coverage_gap | 338 | 84 | 402.38 | named_person: 124, email_address: 98, bank_account: 53, ph_tin: 30 | test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_adversarial_001.txt: `PA1234567` |
 | mnpi_lexicon | IN | coverage_gap | 83 | 21 | 395.24 | nonpublic_marker: 47, material_event: 23, definitive_agreement: 6, embargo_marker: 4 | test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_adversarial_001.txt: `unpublished order book` |
 | privacy_event | EU | coverage_gap | 83 | 21 | 395.24 | cross_border_transfer_marker: 49, data_minimisation_marker: 28, consent_withdrawal_marker: 4, minor_data_reference: 2 | test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_adversarial_001.txt: `cross-border transfer` |
 | mnpi_context | SA | conjunction_miss | 82 | 21 | 390.48 | blackout_period_reference: 22, selective_disclosure_risk: 20, insider_list_marker: 15, information_barrier_marker: 12 | test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_memo_adversarial_001.txt: `restrict to need‑to‑know` |

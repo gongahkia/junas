@@ -16,18 +16,8 @@
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@aurorarobotics.vn"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "Account No. 98765432100"
-    },
-    {
-      "category": "PII",
       "rule": "named_person",
-      "matched_text": "Ms. Nguyen Thi Lan (CFO)"
+      "matched_text": "Ms. Nguyen Thi Lan"
     },
     {
       "category": "PII",
@@ -36,78 +26,53 @@
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "is a member of the Tech Workers Union of Thu Duc"
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "is under ongoing treatment for Type 1 diabetes"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "is under ongoing treatment for Type 1 diabetes"
+      "rule": "named_person",
+      "matched_text": "Nguyen"
     },
     {
       "category": "PII",
       "rule": "biometric_identifier",
-      "matched_text": "her facial-recognition biometric template is registered for treasury sign-off"
+      "matched_text": "biometric template"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic data"
     },
     {
       "category": "PII",
       "rule": "minor_data_reference",
-      "matched_text": "her minor child Nguyen Thien Vy (age 12) is a beneficiary under the company\u2019s medical plan"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "(age 12)"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "his declared Buddhist faith is noted"
-    },
-    {
-      "category": "PII",
-      "rule": "political_opinion",
-      "matched_text": "prior membership in the fictional Green Growth Party"
+      "matched_text": "age 12"
     },
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "the acquisition of LotusPay Systems Co., Ltd"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "30,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "VND 22,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "VND 22,000 per share"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
+      "matched_text": "Aurora Robotics Joint Stock Company (Aurora Robotics JSC), headquartered at Thu Duc Innovation Park, Ho Chi Minh City, proposes a VND-denominated strategic equity financing and the acquisition of LotusPay Systems Co., Ltd."
     },
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "call option for 51% of LotusPay Systems"
+      "matched_text": "This term sheet contains MNPI under the Securities Law of Vietnam; non-public revenue forecasts and the unannounced Q4 margin guidance may have a significant price impact and must not be shared before HOSE disclosure."
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "rule": "material_event",
+      "matched_text": "For clarity, references to genetic models in device QA are algorithmic and do not constitute personal genetic data; sexual-orientation content rules in marketing are outside the scope of this financing."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Closing mechanics: T+2 settlement through VSD, cash funded from Blue Bamboo Capital escrow at Mekong Trust Bank; signatory verification includes biometric gate at the issuer’s treasury office."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Termination: either party may terminate if SSC approval is denied or if the issuer’s audited earnings deviate materially from MNPI forecasts; governing law: Socialist Republic of Vietnam."
     },
     {
       "category": "MNPI",
@@ -121,28 +86,13 @@
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unannounced Q4 margin guidance"
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "may have a significant price impact"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "must not be shared before HOSE disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no public statements will be made until disclosure via HOSE Portal"
+      "rule": "financial_amount",
+      "matched_text": "VND 22,000"
     },
     {
       "category": "MNPI",
@@ -151,13 +101,23 @@
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "such forecasts are price-sensitive"
+      "rule": "financial_percentage",
+      "matched_text": "51%"
     },
     {
       "category": "MNPI",
-      "rule": "volume_commitment",
-      "matched_text": "30,000,000 ordinary shares"
+      "rule": "large_number",
+      "matched_text": "30,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "22,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
     }
   ],
   "ideal_must_detect": [
@@ -214,7 +174,7 @@
     {
       "category": "PII",
       "rule": "minor_data_reference",
-      "matched_text": "her minor child Nguyen Thien Vy (age 12) is a beneficiary under the company\u2019s medical plan"
+      "matched_text": "her minor child Nguyen Thien Vy (age 12) is a beneficiary under the company’s medical plan"
     },
     {
       "category": "PII",
@@ -325,6 +285,66 @@
       "category": "MNPI",
       "rule": "nonpublic_marker",
       "matched_text": "draft board risk register"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen Thi Lan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nguyen"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Nguyen"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric template"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic data"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Aurora Robotics Joint Stock Company (Aurora Robotics JSC), headquartered at Thu Duc Innovation Park, Ho Chi Minh City, proposes a VND-denominated strategic equity financing and the acquisition of LotusPay Systems Co., Ltd."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "This term sheet contains MNPI under the Securities Law of Vietnam; non-public revenue forecasts and the unannounced Q4 margin guidance may have a significant price impact and must not be shared before HOSE disclosure."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "For clarity, references to genetic models in device QA are algorithmic and do not constitute personal genetic data; sexual-orientation content rules in marketing are outside the scope of this financing."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Closing mechanics: T+2 settlement through VSD, cash funded from Blue Bamboo Capital escrow at Mekong Trust Bank; signatory verification includes biometric gate at the issuer’s treasury office."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Termination: either party may terminate if SSC approval is denied or if the issuer’s audited earnings deviate materially from MNPI forecasts; governing law: Socialist Republic of Vietnam."
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "22,000"
     }
   ],
   "must_not_detect": [
@@ -380,7 +400,7 @@
       "reason": "Postal addresses are PII under VN law but no explicit generic postal_address rule is provided"
     },
     {
-      "matched_text": "biometric gate at the issuer\u2019s treasury office",
+      "matched_text": "biometric gate at the issuer’s treasury office",
       "concept": "biometric_control_reference",
       "reason": "Biometric processing mentioned but not linked to an identified person"
     },
@@ -396,5 +416,14 @@
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_note": "VN Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_tiers_version": "vn-stage-b-strict-realign-2026-06-03",
+  "_strict_reconciliation": {
+    "basis": "VN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at": "2026-06-03T13:05:14Z",
+    "source_report": "/tmp/kaypoh-vn-stage-b-eval-raw.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after VN Stage B raw QA"
+  }
 }

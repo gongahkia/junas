@@ -18,6 +18,13 @@
           "matched_text": "we must file a security assessment before exporting",
           "path": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_memo_adversarial_001.txt",
           "rule": "cross_border_transfer_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "cn_direct_identifiers_memo_adversarial_001",
+          "matched_text": "do not treat the phrase Name: __________ as data",
+          "path": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "data_minimisation_marker"
         }
       ],
       "jurisdiction": "CN",
@@ -49,6 +56,13 @@
           "matched_text": "AAZCN5932Q",
           "path": "test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_adversarial_001.txt",
           "rule": "in_pan"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "in_direct_identifiers_memo_adversarial_001",
+          "matched_text": "Z7654321",
+          "path": "test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "passport_number"
         }
       ],
       "jurisdiction": "IN",
@@ -84,6 +98,13 @@
           "matched_text": "selective briefings (e.g., Mr. Dorian Pike at Lumidrift Research) are prohibited",
           "path": "test/fixtures/legal-corpus-candidates/us/direct_identifiers/us_direct_identifiers_memo_adversarial_001.txt",
           "rule": "selective_disclosure_risk"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "us_direct_identifiers_memo_adversarial_001",
+          "matched_text": "must not be forwarded",
+          "path": "test/fixtures/legal-corpus-candidates/us/direct_identifiers/us_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "information_barrier_marker"
         }
       ],
       "jurisdiction": "US",
@@ -117,6 +138,13 @@
           "matched_text": "closed period",
           "path": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_default_001.txt",
           "rule": "blackout_period_reference"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "eu_direct_identifiers_memo_default_001",
+          "matched_text": "would likely move the market",
+          "path": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_default_001.txt",
+          "rule": "contingent_mnpi_language"
         }
       ],
       "jurisdiction": "EU",
@@ -150,6 +178,13 @@
           "matched_text": "draft insider list",
           "path": "test/fixtures/legal-corpus-candidates/uk/direct_identifiers/uk_direct_identifiers_memo_adversarial_001.txt",
           "rule": "insider_list_marker"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "uk_direct_identifiers_memo_adversarial_001",
+          "matched_text": "lock data room",
+          "path": "test/fixtures/legal-corpus-candidates/uk/direct_identifiers/uk_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "information_barrier_marker"
         }
       ],
       "jurisdiction": "UK",
@@ -183,6 +218,13 @@
           "matched_text": "collect email/mobile only",
           "path": "test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_adversarial_001.txt",
           "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "in_direct_identifiers_memo_adversarial_001",
+          "matched_text": "not via geolocation",
+          "path": "test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "data_minimisation_marker"
         }
       ],
       "jurisdiction": "IN",
@@ -214,6 +256,13 @@
           "matched_text": "IBAN SA94 8000 0123 4567 8901 2345",
           "path": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_memo_adversarial_001.txt",
           "rule": "bank_account"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "sa_direct_identifiers_memo_adversarial_001",
+          "matched_text": "101-77-009876",
+          "path": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "sa_commercial_registration"
         }
       ],
       "jurisdiction": "SA",
@@ -248,6 +297,13 @@
           "matched_text": "+86-21-6600-4398",
           "path": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_memo_adversarial_001.txt",
           "rule": "phone_number"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "cn_direct_identifiers_memo_adversarial_001",
+          "matched_text": "6222-1379-0043-2107",
+          "path": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "bank_account"
         }
       ],
       "jurisdiction": "CN",
@@ -284,6 +340,13 @@
           "matched_text": "Ms. Han Eun-ji",
           "path": "test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_memo_adversarial_001.txt",
           "rule": "named_person"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "kr_direct_identifiers_memo_adversarial_001",
+          "matched_text": "032-441-998877-03",
+          "path": "test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "bank_account"
         }
       ],
       "jurisdiction": "KR",
@@ -318,6 +381,13 @@
           "matched_text": "no WhatsApp forwarding",
           "path": "test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_adversarial_001.txt",
           "rule": "tipping_language"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "in_direct_identifiers_memo_default_001",
+          "matched_text": "trading window remains closed 20\u201330 Jun",
+          "path": "test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_default_001.txt",
+          "rule": "blackout_period_reference"
         }
       ],
       "jurisdiction": "IN",
@@ -331,39 +401,6 @@
         "insider_list_marker": 17,
         "selective_disclosure_risk": 20,
         "tipping_language": 5
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "direct_identifier",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "direct_identifier detector did not cover the ideal span",
-          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
-          "matched_text": "TIN 482-319-574-000",
-          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "ph_tin"
-        },
-        {
-          "bucket_reason": "direct_identifier detector did not cover the ideal span",
-          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
-          "matched_text": "PH Passport No. PZ9 820 13Q",
-          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "passport_number"
-        }
-      ],
-      "jurisdiction": "PH",
-      "miss_count": 95,
-      "misses_per_100_docs": 452.38,
-      "misses_per_doc": 4.5238,
-      "rules": {
-        "bank_account": 16,
-        "email_address": 30,
-        "named_person": 33,
-        "passport_number": 2,
-        "ph_tin": 10,
-        "phone_number": 4
       }
     },
     {
@@ -382,6 +419,13 @@
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
           "doc_id": "jp_direct_identifiers_memo_default_001",
           "matched_text": "proposed friendly acquisition of Kumori Systems K.K",
+          "path": "test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_memo_default_001.txt",
+          "rule": "material_event"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "jp_direct_identifiers_memo_default_001",
+          "matched_text": "cash tender offer",
           "path": "test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_memo_default_001.txt",
           "rule": "material_event"
         }
@@ -419,6 +463,13 @@
           "matched_text": "sampai siaran pers diterbitkan",
           "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "embargo_marker"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "id_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "rencana akuisisi PT Arunika Investama Digital",
+          "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "material_event"
         }
       ],
       "jurisdiction": "ID",
@@ -455,6 +506,13 @@
           "matched_text": "payroll-related personal data must be ring-fenced",
           "path": "test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_memo_adversarial_001.txt",
           "rule": "information_barrier_marker"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "jp_direct_identifiers_memo_default_001",
+          "matched_text": "subject to valuation deliverables and special committee approval",
+          "path": "test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_memo_default_001.txt",
+          "rule": "contingent_mnpi_language"
         }
       ],
       "jurisdiction": "JP",
@@ -488,6 +546,13 @@
           "matched_text": "proposed placing of 6\u20138% new ordinary shares",
           "path": "test/fixtures/legal-corpus-candidates/uk/direct_identifiers/uk_direct_identifiers_memo_adversarial_001.txt",
           "rule": "material_event"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "uk_direct_identifiers_memo_default_001",
+          "matched_text": "12.4m",
+          "path": "test/fixtures/legal-corpus-candidates/uk/direct_identifiers/uk_direct_identifiers_memo_default_001.txt",
+          "rule": "large_number"
         }
       ],
       "jurisdiction": "UK",
@@ -508,6 +573,47 @@
     },
     {
       "bucket": "coverage_gap",
+      "detector_family": "direct_identifier",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "PA1234567",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "passport_number"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "0012-3456-7890",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "bank_account"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "Mr. Julio P. Manahan",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "named_person"
+        }
+      ],
+      "jurisdiction": "PH",
+      "miss_count": 338,
+      "misses_per_100_docs": 402.38,
+      "misses_per_doc": 4.0238,
+      "rules": {
+        "bank_account": 53,
+        "email_address": 98,
+        "named_person": 124,
+        "passport_number": 11,
+        "ph_philsys": 1,
+        "ph_tin": 30,
+        "phone_number": 21
+      }
+    },
+    {
+      "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
       "doc_count": 21,
       "examples": [
@@ -523,6 +629,13 @@
           "doc_id": "in_direct_identifiers_memo_adversarial_001",
           "matched_text": "plant utilisation projections",
           "path": "test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "nonpublic_marker"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "in_direct_identifiers_memo_default_001",
+          "matched_text": "unpublished price-sensitive information (UPSI)",
+          "path": "test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_default_001.txt",
           "rule": "nonpublic_marker"
         }
       ],
@@ -557,6 +670,13 @@
           "matched_text": "must not be stored",
           "path": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_adversarial_001.txt",
           "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "eu_direct_identifiers_memo_adversarial_001",
+          "matched_text": "do not record",
+          "path": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "data_minimisation_marker"
         }
       ],
       "jurisdiction": "EU",
@@ -588,6 +708,13 @@
           "matched_text": "black\u2011out dates",
           "path": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_memo_adversarial_001.txt",
           "rule": "blackout_period_reference"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "sa_direct_identifiers_memo_default_001",
+          "matched_text": "insiders list",
+          "path": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_memo_default_001.txt",
+          "rule": "insider_list_marker"
         }
       ],
       "jurisdiction": "SA",
@@ -621,6 +748,13 @@
           "matched_text": "access is restricted to need-to-know",
           "path": "test/fixtures/legal-corpus-candidates/my/direct_identifiers/my_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "information_barrier_marker"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "my_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "To prevent information asymmetry contrary to CMSA principles",
+          "path": "test/fixtures/legal-corpus-candidates/my/direct_identifiers/my_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "selective_disclosure_risk"
         }
       ],
       "jurisdiction": "MY",
@@ -652,6 +786,13 @@
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
           "doc_id": "sg_direct_identifiers_incident_report_default_001",
           "matched_text": "trading blackout",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_default_001.txt",
+          "rule": "blackout_period_reference"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "sg_direct_identifiers_incident_report_default_001",
+          "matched_text": "trading blackout remains in force",
           "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_default_001.txt",
           "rule": "blackout_period_reference"
         }
@@ -687,6 +828,13 @@
           "matched_text": "do not circulate",
           "path": "test/fixtures/legal-corpus-candidates/ae/direct_identifiers/ae_direct_identifiers_memo_adversarial_001.txt",
           "rule": "selective_disclosure_risk"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "ae_direct_identifiers_memo_default_001",
+          "matched_text": "trading windows remain closed for insiders",
+          "path": "test/fixtures/legal-corpus-candidates/ae/direct_identifiers/ae_direct_identifiers_memo_default_001.txt",
+          "rule": "blackout_period_reference"
         }
       ],
       "jurisdiction": "AE",
@@ -720,6 +868,13 @@
           "matched_text": "offshore payroll vendor",
           "path": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_memo_default_001.txt",
           "rule": "cross_border_transfer_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "sa_direct_identifiers_memo_default_001",
+          "matched_text": "SDAIA permit",
+          "path": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_memo_default_001.txt",
+          "rule": "cross_border_transfer_marker"
         }
       ],
       "jurisdiction": "SA",
@@ -749,6 +904,13 @@
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
           "doc_id": "hk_direct_identifiers_incident_report_default_001",
           "matched_text": "Temporary access to the data room for Orchid Bay Capital SPC is suspended",
+          "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_incident_report_default_001.txt",
+          "rule": "information_barrier_marker"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "hk_direct_identifiers_incident_report_default_001",
+          "matched_text": "This notice is confidential and intended for board and SFC compliance review",
           "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_incident_report_default_001.txt",
           "rule": "information_barrier_marker"
         }
@@ -784,6 +946,13 @@
           "matched_text": "AE U1234567",
           "path": "test/fixtures/legal-corpus-candidates/ae/direct_identifiers/ae_direct_identifiers_memo_adversarial_001.txt",
           "rule": "ae_passport"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "ae_direct_identifiers_memo_adversarial_001",
+          "matched_text": "IBAN AE42 9910 0000 1234 5678 9012",
+          "path": "test/fixtures/legal-corpus-candidates/ae/direct_identifiers/ae_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "bank_account"
         }
       ],
       "jurisdiction": "AE",
@@ -801,72 +970,46 @@
       }
     },
     {
-      "bucket": "conjunction_miss",
-      "detector_family": "mnpi_context",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
-          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
-          "matched_text": "do not circulate routing data outside Treasury",
-          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "information_barrier_marker"
-        },
-        {
-          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
-          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
-          "matched_text": "Board blackout commences 7 days before pricing",
-          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "blackout_period_reference"
-        }
-      ],
-      "jurisdiction": "PH",
-      "miss_count": 79,
-      "misses_per_100_docs": 376.19,
-      "misses_per_doc": 3.7619,
-      "rules": {
-        "blackout_period_reference": 24,
-        "contingent_mnpi_language": 9,
-        "information_barrier_marker": 12,
-        "insider_list_marker": 9,
-        "selective_disclosure_risk": 18,
-        "tipping_language": 7
-      }
-    },
-    {
       "bucket": "coverage_gap",
       "detector_family": "mnpi_lexicon",
-      "doc_count": 21,
+      "doc_count": 84,
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
-          "doc_id": "vn_direct_identifiers_memo_adversarial_001",
-          "matched_text": "~12%",
-          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "financial_percentage"
+          "doc_id": "vn_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "not for public release",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "nonpublic_marker"
         },
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
-          "doc_id": "vn_direct_identifiers_memo_adversarial_001",
-          "matched_text": "must not be circulated externally until BMX notice is posted",
-          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "embargo_marker"
+          "doc_id": "vn_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "not yet filed",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "nonpublic_marker"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "vn_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "deferral of Long Giang plant capex",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "material_event"
         }
       ],
       "jurisdiction": "VN",
-      "miss_count": 78,
-      "misses_per_100_docs": 371.43,
-      "misses_per_doc": 3.7143,
+      "miss_count": 308,
+      "misses_per_100_docs": 366.67,
+      "misses_per_doc": 3.6667,
       "rules": {
-        "definitive_agreement": 7,
-        "embargo_marker": 8,
-        "financial_amount": 3,
-        "financial_percentage": 8,
-        "large_number": 2,
-        "material_adverse_change": 1,
-        "material_event": 17,
-        "nonpublic_marker": 30,
-        "transaction_codename": 2
+        "definitive_agreement": 26,
+        "embargo_marker": 40,
+        "financial_amount": 6,
+        "financial_percentage": 22,
+        "large_number": 6,
+        "material_adverse_change": 9,
+        "material_event": 76,
+        "nonpublic_marker": 118,
+        "transaction_codename": 5
       }
     },
     {
@@ -887,6 +1030,13 @@
           "matched_text": "do not forward to generic mailers like info@ or service@",
           "path": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_memo_adversarial_001.txt",
           "rule": "selective_disclosure_risk"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "cn_direct_identifiers_memo_default_001",
+          "matched_text": "trading window remains closed",
+          "path": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_memo_default_001.txt",
+          "rule": "blackout_period_reference"
         }
       ],
       "jurisdiction": "CN",
@@ -900,41 +1050,6 @@
         "insider_list_marker": 12,
         "selective_disclosure_risk": 19,
         "tipping_language": 4
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "mnpi_lexicon",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
-          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
-          "matched_text": "not yet on mgx.ph/announcements",
-          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "nonpublic_marker"
-        },
-        {
-          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
-          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
-          "matched_text": "preliminary price range and timetable for the follow-on",
-          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "material_event"
-        }
-      ],
-      "jurisdiction": "PH",
-      "miss_count": 75,
-      "misses_per_100_docs": 357.14,
-      "misses_per_doc": 3.5714,
-      "rules": {
-        "definitive_agreement": 6,
-        "embargo_marker": 6,
-        "financial_amount": 4,
-        "financial_percentage": 5,
-        "material_adverse_change": 1,
-        "material_event": 23,
-        "nonpublic_marker": 29,
-        "transaction_codename": 1
       }
     },
     {
@@ -955,6 +1070,13 @@
           "matched_text": "potential acquisition of Pearl Orion Holdings Limited",
           "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_incident_report_default_001.txt",
           "rule": "material_event"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "hk_direct_identifiers_incident_report_default_001",
+          "matched_text": "inside information under Part XIVA of the SFO",
+          "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_incident_report_default_001.txt",
+          "rule": "nonpublic_marker"
         }
       ],
       "jurisdiction": "HK",
@@ -971,39 +1093,6 @@
         "material_event": 69,
         "nonpublic_marker": 111,
         "transaction_codename": 9
-      }
-    },
-    {
-      "bucket": "conjunction_miss",
-      "detector_family": "mnpi_context",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
-          "doc_id": "vn_direct_identifiers_memo_default_001",
-          "matched_text": "subject to SSC clearance and VSDC settlement procedures",
-          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_default_001.txt",
-          "rule": "contingent_mnpi_language"
-        },
-        {
-          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
-          "doc_id": "vn_direct_identifiers_memo_negative_001",
-          "matched_text": "tr\u01b0\u1edbc khi g\u1eedi nh\u00e0 \u0111\u1ea7u t\u01b0",
-          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_negative_001.txt",
-          "rule": "selective_disclosure_risk"
-        }
-      ],
-      "jurisdiction": "VN",
-      "miss_count": 72,
-      "misses_per_100_docs": 342.86,
-      "misses_per_doc": 3.4286,
-      "rules": {
-        "blackout_period_reference": 18,
-        "contingent_mnpi_language": 9,
-        "information_barrier_marker": 18,
-        "insider_list_marker": 4,
-        "selective_disclosure_risk": 20,
-        "tipping_language": 3
       }
     },
     {
@@ -1024,6 +1113,13 @@
           "matched_text": "FZ821234",
           "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "passport_number"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "id_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "221-009991-004",
+          "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "bank_account"
         }
       ],
       "jurisdiction": "ID",
@@ -1055,6 +1151,13 @@
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
           "doc_id": "my_direct_identifiers_incident_report_adversarial_001",
           "matched_text": "Encik Farhan Idris",
+          "path": "test/fixtures/legal-corpus-candidates/my/direct_identifiers/my_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "named_person"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "my_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "Puan Nabila Roslan",
           "path": "test/fixtures/legal-corpus-candidates/my/direct_identifiers/my_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "named_person"
         }
@@ -1090,6 +1193,13 @@
           "matched_text": "minimized",
           "path": "test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_memo_default_001.txt",
           "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "jp_direct_identifiers_memo_default_001",
+          "matched_text": "do not store in board materials",
+          "path": "test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_memo_default_001.txt",
+          "rule": "data_minimisation_marker"
         }
       ],
       "jurisdiction": "JP",
@@ -1121,6 +1231,13 @@
           "matched_text": "Ms. Priya D. Narayan",
           "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "named_person"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "au_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "Level 12, 88 Banksia Street, Eucalypt Downs NSW 2199",
+          "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "au_postal_address"
         }
       ],
       "jurisdiction": "AU",
@@ -1157,6 +1274,13 @@
           "matched_text": "until fair disclosure is posted on KOR-DISCL portal, treat as MNPI",
           "path": "test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_memo_default_001.txt",
           "rule": "selective_disclosure_risk"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "kr_direct_identifiers_memo_default_001",
+          "matched_text": "do not circulate externally",
+          "path": "test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_memo_default_001.txt",
+          "rule": "selective_disclosure_risk"
         }
       ],
       "jurisdiction": "KR",
@@ -1190,6 +1314,13 @@
           "matched_text": "trading blackout",
           "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_default_001.txt",
           "rule": "blackout_period_reference"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "th_direct_identifiers_incident_report_default_001",
+          "matched_text": "restricted access to the MD&A draft and Form 56-1 One Report schedules",
+          "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_default_001.txt",
+          "rule": "information_barrier_marker"
         }
       ],
       "jurisdiction": "TH",
@@ -1223,6 +1354,13 @@
           "matched_text": "do not circulate externally until the Continuous Disclosure Committee completes its LR 3.1 assessment",
           "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "selective_disclosure_risk"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "au_direct_identifiers_memo_adversarial_001",
+          "matched_text": "do not circulate beyond Legal",
+          "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "information_barrier_marker"
         }
       ],
       "jurisdiction": "AU",
@@ -1241,34 +1379,41 @@
     {
       "bucket": "coverage_gap",
       "detector_family": "direct_identifier",
-      "doc_count": 21,
+      "doc_count": 84,
       "examples": [
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
-          "doc_id": "vn_direct_identifiers_memo_adversarial_001",
-          "matched_text": "\u00d4ng L\u00ea H\u1eefu Kh\u00e1nh",
-          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "named_person"
+          "doc_id": "vn_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "treasury@lacvietmaterials.vn",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "email_address"
         },
         {
           "bucket_reason": "direct_identifier detector did not cover the ideal span",
-          "doc_id": "vn_direct_identifiers_memo_adversarial_001",
-          "matched_text": "B\u00e0 Tr\u1ea7n H\u1ed3ng Mai",
-          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "named_person"
+          "doc_id": "vn_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "PN123456",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "passport_number"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "vn_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "258-998734-01",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "bank_account"
         }
       ],
       "jurisdiction": "VN",
-      "miss_count": 65,
-      "misses_per_100_docs": 309.52,
-      "misses_per_doc": 3.0952,
+      "miss_count": 259,
+      "misses_per_100_docs": 308.33,
+      "misses_per_doc": 3.0833,
       "rules": {
-        "bank_account": 17,
-        "email_address": 18,
-        "named_person": 25,
-        "passport_number": 2,
-        "phone_number": 2,
-        "vn_cccd": 1
+        "bank_account": 54,
+        "email_address": 80,
+        "named_person": 94,
+        "passport_number": 10,
+        "phone_number": 14,
+        "vn_cccd": 7
       }
     },
     {
@@ -1289,6 +1434,13 @@
           "matched_text": "~6%",
           "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "financial_percentage"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "au_direct_identifiers_incident_report_default_001",
+          "matched_text": "not generally available",
+          "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_incident_report_default_001.txt",
+          "rule": "nonpublic_marker"
         }
       ],
       "jurisdiction": "AU",
@@ -1313,6 +1465,49 @@
       "examples": [
         {
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "material non-public information",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "nonpublic_marker"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_incident_report_default_001",
+          "matched_text": "preliminary Q2 EBITDA guidance",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_default_001.txt",
+          "rule": "material_event"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_incident_report_negative_001",
+          "matched_text": "material non-public information",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_negative_001.txt",
+          "rule": "nonpublic_marker"
+        }
+      ],
+      "jurisdiction": "PH",
+      "miss_count": 255,
+      "misses_per_100_docs": 303.57,
+      "misses_per_doc": 3.0357,
+      "rules": {
+        "definitive_agreement": 25,
+        "embargo_marker": 32,
+        "financial_amount": 8,
+        "financial_percentage": 7,
+        "large_number": 2,
+        "material_adverse_change": 9,
+        "material_event": 76,
+        "nonpublic_marker": 91,
+        "transaction_codename": 5
+      }
+    },
+    {
+      "bucket": "coverage_gap",
+      "detector_family": "mnpi_lexicon",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
           "doc_id": "th_direct_identifiers_incident_report_adversarial_001",
           "matched_text": "was not publicly disclosed",
           "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_adversarial_001.txt",
@@ -1323,6 +1518,13 @@
           "doc_id": "th_direct_identifiers_incident_report_adversarial_001",
           "matched_text": "secured debenture issuance planned for July",
           "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "material_event"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "th_direct_identifiers_incident_report_negative_001",
+          "matched_text": "materially affect the price of Mekkhala Energy shares",
+          "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_negative_001.txt",
           "rule": "material_event"
         }
       ],
@@ -1349,6 +1551,86 @@
       "examples": [
         {
           "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "vn_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "price-sensitive if disclosed prior to SCE announcement",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "selective_disclosure_risk"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "vn_direct_identifiers_incident_report_default_001",
+          "matched_text": "c\u00f3 kh\u1ea3 n\u0103ng \u1ea3nh h\u01b0\u1edfng gi\u00e1 c\u1ed5 phi\u1ebfu",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_default_001.txt",
+          "rule": "contingent_mnpi_language"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "vn_direct_identifiers_memo_default_001",
+          "matched_text": "subject to SSC clearance and VSDC settlement procedures",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_default_001.txt",
+          "rule": "contingent_mnpi_language"
+        }
+      ],
+      "jurisdiction": "VN",
+      "miss_count": 243,
+      "misses_per_100_docs": 289.29,
+      "misses_per_doc": 2.8929,
+      "rules": {
+        "blackout_period_reference": 54,
+        "contingent_mnpi_language": 45,
+        "information_barrier_marker": 45,
+        "insider_list_marker": 17,
+        "selective_disclosure_risk": 64,
+        "tipping_language": 18
+      }
+    },
+    {
+      "bucket": "conjunction_miss",
+      "detector_family": "mnpi_context",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "ph_direct_identifiers_incident_report_default_001",
+          "matched_text": "trading window has been closed",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_default_001.txt",
+          "rule": "blackout_period_reference"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "ph_direct_identifiers_incident_report_default_001",
+          "matched_text": "insider-trading controls",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_default_001.txt",
+          "rule": "information_barrier_marker"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
+          "matched_text": "do not circulate routing data outside Treasury",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "information_barrier_marker"
+        }
+      ],
+      "jurisdiction": "PH",
+      "miss_count": 242,
+      "misses_per_100_docs": 288.1,
+      "misses_per_doc": 2.881,
+      "rules": {
+        "blackout_period_reference": 64,
+        "contingent_mnpi_language": 34,
+        "information_barrier_marker": 53,
+        "insider_list_marker": 21,
+        "selective_disclosure_risk": 52,
+        "tipping_language": 18
+      }
+    },
+    {
+      "bucket": "conjunction_miss",
+      "detector_family": "mnpi_context",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
           "doc_id": "id_direct_identifiers_incident_report_default_001",
           "matched_text": "insiden ini dapat memengaruhi valuasi dan timeline",
           "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_incident_report_default_001.txt",
@@ -1360,6 +1642,13 @@
           "matched_text": "blackout trading",
           "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_memo_adversarial_001.txt",
           "rule": "blackout_period_reference"
+        },
+        {
+          "bucket_reason": "contextual MNPI marker likely belongs to Layer-2 element scoring",
+          "doc_id": "id_direct_identifiers_memo_adversarial_001",
+          "matched_text": "akses internal, jangan dibagikan eksternal",
+          "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "information_barrier_marker"
         }
       ],
       "jurisdiction": "ID",
@@ -1393,6 +1682,13 @@
           "matched_text": "transfers to SG nodes paused pending PDPA notifications to data subjects",
           "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "cross_border_transfer_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "th_direct_identifiers_incident_report_default_001",
+          "matched_text": "a log relay to a Singapore SOC was active",
+          "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_default_001.txt",
+          "rule": "cross_border_transfer_marker"
         }
       ],
       "jurisdiction": "TH",
@@ -1424,6 +1720,13 @@
           "matched_text": "Subscription Agreement",
           "path": "test/fixtures/legal-corpus-candidates/my/direct_identifiers/my_direct_identifiers_memo_adversarial_001.txt",
           "rule": "definitive_agreement"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "my_direct_identifiers_memo_adversarial_001",
+          "matched_text": "Proposed Private Placement and Revolving Credit Facility",
+          "path": "test/fixtures/legal-corpus-candidates/my/direct_identifiers/my_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "material_event"
         }
       ],
       "jurisdiction": "MY",
@@ -1460,6 +1763,13 @@
           "matched_text": "ir@nmi-kk.jp",
           "path": "test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_memo_adversarial_001.txt",
           "rule": "email_address"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "jp_direct_identifiers_memo_adversarial_001",
+          "matched_text": "\u3012160-0022",
+          "path": "test/fixtures/legal-corpus-candidates/jp/direct_identifiers/jp_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "jp_postal_code"
         }
       ],
       "jurisdiction": "JP",
@@ -1491,6 +1801,13 @@
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
           "doc_id": "eu_direct_identifiers_memo_adversarial_001",
           "matched_text": "secondary offering",
+          "path": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "material_event"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "eu_direct_identifiers_memo_adversarial_001",
+          "matched_text": "acquire Solvane Grid S.A",
           "path": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_adversarial_001.txt",
           "rule": "material_event"
         }
@@ -1527,6 +1844,13 @@
           "matched_text": "Ms. K\u00e1ras",
           "path": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_adversarial_001.txt",
           "rule": "named_person"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "eu_direct_identifiers_memo_adversarial_001",
+          "matched_text": "+372 601 7780",
+          "path": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "phone_number"
         }
       ],
       "jurisdiction": "EU",
@@ -1559,6 +1883,13 @@
           "matched_text": "dual\u2011listing application",
           "path": "test/fixtures/legal-corpus-candidates/ae/direct_identifiers/ae_direct_identifiers_memo_adversarial_001.txt",
           "rule": "material_event"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "ae_direct_identifiers_memo_adversarial_001",
+          "matched_text": "(not public)",
+          "path": "test/fixtures/legal-corpus-candidates/ae/direct_identifiers/ae_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "nonpublic_marker"
         }
       ],
       "jurisdiction": "AE",
@@ -1593,6 +1924,13 @@
           "matched_text": "MNPI",
           "path": "test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_memo_adversarial_001.txt",
           "rule": "nonpublic_marker"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "kr_direct_identifiers_memo_adversarial_001",
+          "matched_text": "until KRX notice on 2026-07-15",
+          "path": "test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "embargo_marker"
         }
       ],
       "jurisdiction": "KR",
@@ -1628,6 +1966,13 @@
           "matched_text": "redact under PIPA",
           "path": "test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_memo_default_001.txt",
           "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "kr_direct_identifiers_memo_default_001",
+          "matched_text": "never include RRN or passport digits in investor materials",
+          "path": "test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_memo_default_001.txt",
+          "rule": "data_minimisation_marker"
         }
       ],
       "jurisdiction": "KR",
@@ -1659,6 +2004,13 @@
           "matched_text": "potential Shanghai Stock Exchange STAR Market listing",
           "path": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_memo_adversarial_001.txt",
           "rule": "material_event"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "cn_direct_identifiers_memo_default_001",
+          "matched_text": "inside information",
+          "path": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_memo_default_001.txt",
+          "rule": "nonpublic_marker"
         }
       ],
       "jurisdiction": "CN",
@@ -1693,6 +2045,13 @@
           "matched_text": "proposed acquisition of CoralStack Ltd",
           "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "material_event"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_incident_report_default_001",
+          "matched_text": "not generally available",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_default_001.txt",
+          "rule": "nonpublic_marker"
         }
       ],
       "jurisdiction": "SG",
@@ -1728,6 +2087,13 @@
           "matched_text": "pseudonymise Emirates ID and passport numbers",
           "path": "test/fixtures/legal-corpus-candidates/ae/direct_identifiers/ae_direct_identifiers_memo_default_001.txt",
           "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "ae_direct_identifiers_memo_default_001",
+          "matched_text": "redact home addresses",
+          "path": "test/fixtures/legal-corpus-candidates/ae/direct_identifiers/ae_direct_identifiers_memo_default_001.txt",
+          "rule": "data_minimisation_marker"
         }
       ],
       "jurisdiction": "AE",
@@ -1739,37 +2105,6 @@
         "cross_border_transfer_marker": 8,
         "data_minimisation_marker": 40,
         "minor_data_reference": 2
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "privacy_event",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "privacy_event detector did not cover the ideal span",
-          "doc_id": "vn_direct_identifiers_memo_adversarial_001",
-          "matched_text": "do not transmit staff phone numbers or passport numbers beyond the deal team",
-          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "data_minimisation_marker"
-        },
-        {
-          "bucket_reason": "privacy_event detector did not cover the ideal span",
-          "doc_id": "vn_direct_identifiers_memo_adversarial_001",
-          "matched_text": "We do not collect device MAC addresses (e.g., 00:11:22:33:44:55) or geolocation in the investor portal; analytics are anonymized and aggregated",
-          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "data_minimisation_marker"
-        }
-      ],
-      "jurisdiction": "VN",
-      "miss_count": 52,
-      "misses_per_100_docs": 247.62,
-      "misses_per_doc": 2.4762,
-      "rules": {
-        "consent_withdrawal_marker": 2,
-        "cross_border_transfer_marker": 5,
-        "data_minimisation_marker": 44,
-        "minor_data_reference": 1
       }
     },
     {
@@ -1790,6 +2125,13 @@
           "matched_text": "710238945",
           "path": "test/fixtures/legal-corpus-candidates/us/direct_identifiers/us_direct_identifiers_memo_adversarial_001.txt",
           "rule": "passport_number"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "us_direct_identifiers_memo_adversarial_001",
+          "matched_text": "1 2 - 3 4 5 6 7 8 9",
+          "path": "test/fixtures/legal-corpus-candidates/us/direct_identifiers/us_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "us_ein"
         }
       ],
       "jurisdiction": "US",
@@ -1824,6 +2166,13 @@
           "matched_text": "support@zentaracloud.sg",
           "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "email_address"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "th_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "987-6-12345-0",
+          "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "bank_account"
         }
       ],
       "jurisdiction": "TH",
@@ -1858,6 +2207,13 @@
           "matched_text": "should not be treated as collected data",
           "path": "test/fixtures/legal-corpus-candidates/my/direct_identifiers/my_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "my_direct_identifiers_memo_default_001",
+          "matched_text": "external releases to mask passport digits",
+          "path": "test/fixtures/legal-corpus-candidates/my/direct_identifiers/my_direct_identifiers_memo_default_001.txt",
+          "rule": "data_minimisation_marker"
         }
       ],
       "jurisdiction": "MY",
@@ -1869,37 +2225,6 @@
         "cross_border_transfer_marker": 50,
         "data_minimisation_marker": 124,
         "minor_data_reference": 4
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "privacy_event",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "privacy_event detector did not cover the ideal span",
-          "doc_id": "ph_direct_identifiers_memo_negative_001",
-          "matched_text": "TIN masking (xxx-xxx-xx0-000 acceptable)",
-          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_negative_001.txt",
-          "rule": "data_minimisation_marker"
-        },
-        {
-          "bucket_reason": "privacy_event detector did not cover the ideal span",
-          "doc_id": "ph_direct_identifiers_memo_negative_001",
-          "matched_text": "avoid storing scans in shared folders beyond 30 days per retention policy",
-          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_negative_001.txt",
-          "rule": "data_minimisation_marker"
-        }
-      ],
-      "jurisdiction": "PH",
-      "miss_count": 49,
-      "misses_per_100_docs": 233.33,
-      "misses_per_doc": 2.3333,
-      "rules": {
-        "consent_withdrawal_marker": 4,
-        "cross_border_transfer_marker": 2,
-        "data_minimisation_marker": 41,
-        "minor_data_reference": 2
       }
     },
     {
@@ -1920,6 +2245,13 @@
           "matched_text": "012-456-987654-003",
           "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "bank_account"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "hk_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "+852 5298 4401",
+          "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "phone_number"
         }
       ],
       "jurisdiction": "HK",
@@ -1952,6 +2284,13 @@
           "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
           "doc_id": "sa_direct_identifiers_memo_adversarial_001",
           "matched_text": "internal Nomu pricing corridor",
+          "path": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "nonpublic_marker"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "sa_direct_identifiers_memo_adversarial_001",
+          "matched_text": "internal access only",
           "path": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_memo_adversarial_001.txt",
           "rule": "nonpublic_marker"
         }
@@ -1988,6 +2327,13 @@
           "matched_text": "not yet furnished on an 8-K",
           "path": "test/fixtures/legal-corpus-candidates/us/direct_identifiers/us_direct_identifiers_memo_default_001.txt",
           "rule": "nonpublic_marker"
+        },
+        {
+          "bucket_reason": "mnpi_lexicon detector did not cover the ideal span",
+          "doc_id": "us_direct_identifiers_memo_default_001",
+          "matched_text": "has not been announced",
+          "path": "test/fixtures/legal-corpus-candidates/us/direct_identifiers/us_direct_identifiers_memo_default_001.txt",
+          "rule": "nonpublic_marker"
         }
       ],
       "jurisdiction": "US",
@@ -2021,6 +2367,13 @@
           "matched_text": "HR data minimisation",
           "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_memo_negative_001.txt",
           "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "hk_direct_identifiers_memo_negative_001",
+          "matched_text": "Do not circulate personal files",
+          "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_memo_negative_001.txt",
+          "rule": "data_minimisation_marker"
         }
       ],
       "jurisdiction": "HK",
@@ -2052,6 +2405,13 @@
           "matched_text": "trade union subscription",
           "path": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_adversarial_001.txt",
           "rule": "trade_union_membership"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "eu_direct_identifiers_memo_default_001",
+          "matched_text": "trade union membership flags",
+          "path": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_default_001.txt",
+          "rule": "trade_union_membership"
         }
       ],
       "jurisdiction": "EU",
@@ -2076,6 +2436,44 @@
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_incident_report_default_001",
+          "matched_text": "This disclosure excludes granular projections and counterparty names",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_default_001.txt",
+          "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_memo_negative_001",
+          "matched_text": "TIN masking (xxx-xxx-xx0-000 acceptable)",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_negative_001.txt",
+          "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_memo_negative_001",
+          "matched_text": "avoid storing scans in shared folders beyond 30 days per retention policy",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_negative_001.txt",
+          "rule": "data_minimisation_marker"
+        }
+      ],
+      "jurisdiction": "PH",
+      "miss_count": 171,
+      "misses_per_100_docs": 203.57,
+      "misses_per_doc": 2.0357,
+      "rules": {
+        "consent_withdrawal_marker": 18,
+        "cross_border_transfer_marker": 32,
+        "data_minimisation_marker": 116,
+        "minor_data_reference": 5
+      }
+    },
+    {
+      "bucket": "coverage_gap",
+      "detector_family": "privacy_event",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
           "doc_id": "sg_direct_identifiers_memo_adversarial_001",
           "matched_text": "minimised",
           "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_memo_adversarial_001.txt",
@@ -2087,6 +2485,13 @@
           "matched_text": "collected with consent",
           "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_memo_adversarial_001.txt",
           "rule": "consent_withdrawal_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_memo_negative_001",
+          "matched_text": "Do not collect copies of physical NRICs except as permitted by PDPC Advisory",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_memo_negative_001.txt",
+          "rule": "data_minimisation_marker"
         }
       ],
       "jurisdiction": "SG",
@@ -2118,6 +2523,13 @@
           "matched_text": "use de-identified aggregates only",
           "path": "test/fixtures/legal-corpus-candidates/us/direct_identifiers/us_direct_identifiers_memo_default_001.txt",
           "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "us_direct_identifiers_memo_default_001",
+          "matched_text": "avoid including any direct identifiers unless necessary for a regulated filing",
+          "path": "test/fixtures/legal-corpus-candidates/us/direct_identifiers/us_direct_identifiers_memo_default_001.txt",
+          "rule": "data_minimisation_marker"
         }
       ],
       "jurisdiction": "US",
@@ -2138,6 +2550,44 @@
       "examples": [
         {
           "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "vn_direct_identifiers_incident_report_default_001",
+          "matched_text": "s\u1ed1 \u0111i\u1ec7n tho\u1ea1i c\u00f4ng vi\u1ec7c c\u00f3 \u0111u\u00f4i -4476, -5582",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_default_001.txt",
+          "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "vn_direct_identifiers_memo_adversarial_001",
+          "matched_text": "do not transmit staff phone numbers or passport numbers beyond the deal team",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "vn_direct_identifiers_memo_adversarial_001",
+          "matched_text": "We do not collect device MAC addresses (e.g., 00:11:22:33:44:55) or geolocation in the investor portal; analytics are anonymized and aggregated",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "data_minimisation_marker"
+        }
+      ],
+      "jurisdiction": "VN",
+      "miss_count": 166,
+      "misses_per_100_docs": 197.62,
+      "misses_per_doc": 1.9762,
+      "rules": {
+        "consent_withdrawal_marker": 18,
+        "cross_border_transfer_marker": 41,
+        "data_minimisation_marker": 101,
+        "minor_data_reference": 6
+      }
+    },
+    {
+      "bucket": "coverage_gap",
+      "detector_family": "privacy_event",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
           "doc_id": "id_direct_identifiers_incident_report_adversarial_001",
           "matched_text": "data lokasi GPS disimpan dalam bentuk agregat saja",
           "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_incident_report_adversarial_001.txt",
@@ -2148,6 +2598,13 @@
           "doc_id": "id_direct_identifiers_memo_default_001",
           "matched_text": "dibatasi tujuan",
           "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_memo_default_001.txt",
+          "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "id_direct_identifiers_memo_negative_001",
+          "matched_text": "tanpa memuat nilai transaksi atau proyeksi sensitif",
+          "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_memo_negative_001.txt",
           "rule": "data_minimisation_marker"
         }
       ],
@@ -2180,6 +2637,13 @@
           "matched_text": "A B 12 34 56 C",
           "path": "test/fixtures/legal-corpus-candidates/uk/direct_identifiers/uk_direct_identifiers_memo_adversarial_001.txt",
           "rule": "uk_nin"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "uk_direct_identifiers_memo_adversarial_001",
+          "matched_text": "12-34-56",
+          "path": "test/fixtures/legal-corpus-candidates/uk/direct_identifiers/uk_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "bank_account"
         }
       ],
       "jurisdiction": "UK",
@@ -2213,6 +2677,13 @@
           "matched_text": "purge raw scans within 7 days",
           "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_memo_default_001.txt",
           "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "au_direct_identifiers_memo_negative_001",
+          "matched_text": "in scope for redaction",
+          "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_memo_negative_001.txt",
+          "rule": "data_minimisation_marker"
         }
       ],
       "jurisdiction": "AU",
@@ -2244,6 +2715,13 @@
           "matched_text": "necessity principle under UK GDPR",
           "path": "test/fixtures/legal-corpus-candidates/uk/direct_identifiers/uk_direct_identifiers_memo_default_001.txt",
           "rule": "data_minimisation_marker"
+        },
+        {
+          "bucket_reason": "privacy_event detector did not cover the ideal span",
+          "doc_id": "uk_direct_identifiers_memo_negative_001",
+          "matched_text": "recorded solely for legal checks under UK GDPR",
+          "path": "test/fixtures/legal-corpus-candidates/uk/direct_identifiers/uk_direct_identifiers_memo_negative_001.txt",
+          "rule": "data_minimisation_marker"
         }
       ],
       "jurisdiction": "UK",
@@ -2273,6 +2751,13 @@
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
           "doc_id": "eu_direct_identifiers_memo_default_001",
           "matched_text": "SFDR Art. 8 pre-contractual templates",
+          "path": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_default_001.txt",
+          "rule": "esg_climate_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "eu_direct_identifiers_memo_default_001",
+          "matched_text": "Scope 3 recalculation",
           "path": "test/fixtures/legal-corpus-candidates/eu/direct_identifiers/eu_direct_identifiers_memo_default_001.txt",
           "rule": "esg_climate_pre_disclosure"
         }
@@ -2306,6 +2791,13 @@
           "matched_text": "021-443-992-1",
           "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_default_001.txt",
           "rule": "bank_account"
+        },
+        {
+          "bucket_reason": "direct_identifier detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_incident_report_negative_001",
+          "matched_text": "dpo@lumisands.com.sg",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_negative_001.txt",
+          "rule": "email_address"
         }
       ],
       "jurisdiction": "SG",
@@ -2341,6 +2833,13 @@
           "matched_text": "NE-00 4 7",
           "path": "test/fixtures/legal-corpus-candidates/us/privacy_events/us_privacy_events_memo_adversarial_001.txt",
           "rule": "internal_session_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "us_privacy_events_memo_adversarial_001",
+          "matched_text": "NE0047",
+          "path": "test/fixtures/legal-corpus-candidates/us/privacy_events/us_privacy_events_memo_adversarial_001.txt",
+          "rule": "internal_session_id"
         }
       ],
       "jurisdiction": "US",
@@ -2353,37 +2852,6 @@
         "employee_id": 6,
         "internal_session_id": 12,
         "medical_record_number": 3
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "pseudonymised_linkable",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
-          "doc_id": "vn_direct_identifiers_memo_default_001",
-          "matched_text": "HB-2026-004",
-          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_default_001.txt",
-          "rule": "employee_id"
-        },
-        {
-          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
-          "doc_id": "vn_jurisdictional_mnpi_memo_adversarial_001",
-          "matched_text": "C-0-12 7/ b",
-          "path": "test/fixtures/legal-corpus-candidates/vn/jurisdictional_mnpi/vn_jurisdictional_mnpi_memo_adversarial_001.txt",
-          "rule": "customer_account_number"
-        }
-      ],
-      "jurisdiction": "VN",
-      "miss_count": 25,
-      "misses_per_100_docs": 119.05,
-      "misses_per_doc": 1.1905,
-      "rules": {
-        "bank_customer_reference": 4,
-        "customer_account_number": 3,
-        "employee_id": 14,
-        "internal_session_id": 4
       }
     },
     {
@@ -2403,6 +2871,13 @@
           "doc_id": "in_direct_identifiers_memo_default_001",
           "matched_text": "under 18",
           "path": "test/fixtures/legal-corpus-candidates/in/direct_identifiers/in_direct_identifiers_memo_default_001.txt",
+          "rule": "age_reference"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "in_jurisdictional_mnpi_memo_adversarial_001",
+          "matched_text": "13 years",
+          "path": "test/fixtures/legal-corpus-candidates/in/jurisdictional_mnpi/in_jurisdictional_mnpi_memo_adversarial_001.txt",
           "rule": "age_reference"
         }
       ],
@@ -2436,6 +2911,13 @@
           "matched_text": "Medicare: 1234 56789-1 (sample/invalid)",
           "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_incident_report_negative_001.txt",
           "rule": "insurance_member_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "au_direct_identifiers_memo_adversarial_001",
+          "matched_text": "SCREN-03777",
+          "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "bank_customer_reference"
         }
       ],
       "jurisdiction": "AU",
@@ -2448,6 +2930,83 @@
         "employee_id": 37,
         "insurance_member_id": 7,
         "internal_session_id": 23
+      }
+    },
+    {
+      "bucket": "coverage_gap",
+      "detector_family": "pseudonymised_linkable",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "vn_direct_identifiers_memo_default_001",
+          "matched_text": "HB-2026-004",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_default_001.txt",
+          "rule": "employee_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "vn_direct_identifiers_privacy_notice_adversarial_001",
+          "matched_text": "99-88-77-6600",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_privacy_notice_adversarial_001.txt",
+          "rule": "customer_account_number"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "vn_direct_identifiers_term_sheet_adversarial_001",
+          "matched_text": "SWIFT TPCBVN22",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_term_sheet_adversarial_001.txt",
+          "rule": "bank_customer_reference"
+        }
+      ],
+      "jurisdiction": "VN",
+      "miss_count": 94,
+      "misses_per_100_docs": 111.9,
+      "misses_per_doc": 1.119,
+      "rules": {
+        "bank_customer_reference": 18,
+        "customer_account_number": 10,
+        "employee_id": 45,
+        "internal_session_id": 21
+      }
+    },
+    {
+      "bucket": "coverage_gap",
+      "detector_family": "pseudonymised_linkable",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_incident_report_default_001",
+          "matched_text": "SSS 34-1234567-9",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_default_001.txt",
+          "rule": "insurance_member_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_incident_report_default_001",
+          "matched_text": "SSS 45-7654321-8",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_default_001.txt",
+          "rule": "insurance_member_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
+          "matched_text": "employee ID LFV-0193",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "employee_id"
+        }
+      ],
+      "jurisdiction": "PH",
+      "miss_count": 93,
+      "misses_per_100_docs": 110.71,
+      "misses_per_doc": 1.1071,
+      "rules": {
+        "bank_customer_reference": 9,
+        "customer_account_number": 9,
+        "employee_id": 34,
+        "insurance_member_id": 5,
+        "internal_session_id": 36
       }
     },
     {
@@ -2467,6 +3026,13 @@
           "doc_id": "cn_direct_identifiers_memo_default_001",
           "matched_text": "health check data",
           "path": "test/fixtures/legal-corpus-candidates/cn/direct_identifiers/cn_direct_identifiers_memo_default_001.txt",
+          "rule": "health_condition"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "cn_jurisdictional_mnpi_memo_default_001",
+          "matched_text": "health exam results",
+          "path": "test/fixtures/legal-corpus-candidates/cn/jurisdictional_mnpi/cn_jurisdictional_mnpi_memo_default_001.txt",
           "rule": "health_condition"
         }
       ],
@@ -2503,6 +3069,13 @@
           "matched_text": "employee-ID E-0093-7F",
           "path": "test/fixtures/legal-corpus-candidates/eu/jurisdictional_mnpi/eu_jurisdictional_mnpi_memo_adversarial_001.txt",
           "rule": "employee_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "eu_jurisdictional_mnpi_memo_adversarial_001",
+          "matched_text": "acct ref EE-44**-9911**-A",
+          "path": "test/fixtures/legal-corpus-candidates/eu/jurisdictional_mnpi/eu_jurisdictional_mnpi_memo_adversarial_001.txt",
+          "rule": "customer_account_number"
         }
       ],
       "jurisdiction": "EU",
@@ -2533,6 +3106,13 @@
           "matched_text": "is on paid personal leave following a minor outpatient procedure",
           "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_memo_default_001.txt",
           "rule": "medical_treatment"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "au_jurisdictional_mnpi_memo_adversarial_001",
+          "matched_text": "Mr. Jaxon Hui\u2019s temporary medical leave details (private health information under the Privacy Act)",
+          "path": "test/fixtures/legal-corpus-candidates/au/jurisdictional_mnpi/au_jurisdictional_mnpi_memo_adversarial_001.txt",
+          "rule": "health_condition"
         }
       ],
       "jurisdiction": "AU",
@@ -2568,6 +3148,13 @@
           "matched_text": "employee code KZ\u20114421",
           "path": "test/fixtures/legal-corpus-candidates/jp/jurisdictional_mnpi/jp_jurisdictional_mnpi_memo_default_001.txt",
           "rule": "employee_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "jp_privacy_events_memo_negative_001",
+          "matched_text": "employee IDs",
+          "path": "test/fixtures/legal-corpus-candidates/jp/privacy_events/jp_privacy_events_memo_negative_001.txt",
+          "rule": "employee_id"
         }
       ],
       "jurisdiction": "JP",
@@ -2598,6 +3185,13 @@
           "matched_text": "E-1 2 9 7 4",
           "path": "test/fixtures/legal-corpus-candidates/uk/jurisdictional_mnpi/uk_jurisdictional_mnpi_memo_adversarial_001.txt",
           "rule": "employee_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "uk_jurisdictional_mnpi_memo_adversarial_001",
+          "matched_text": "E-1 3 0 0 5",
+          "path": "test/fixtures/legal-corpus-candidates/uk/jurisdictional_mnpi/uk_jurisdictional_mnpi_memo_adversarial_001.txt",
+          "rule": "employee_id"
         }
       ],
       "jurisdiction": "UK",
@@ -2612,33 +3206,40 @@
     },
     {
       "bucket": "coverage_gap",
-      "detector_family": "pseudonymised_linkable",
-      "doc_count": 21,
+      "detector_family": "sector_mnpi",
+      "doc_count": 84,
       "examples": [
         {
-          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
-          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
-          "matched_text": "employee ID LFV-0193",
-          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "employee_id"
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "ph_direct_identifiers_incident_report_default_001",
+          "matched_text": "Business Email Compromise",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_incident_report_default_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
         },
         {
-          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
-          "doc_id": "ph_direct_identifiers_memo_default_001",
-          "matched_text": "PhilHealth No.: 17-123456789-3",
-          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_default_001.txt",
-          "rule": "insurance_member_id"
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "ph_jurisdictional_mnpi_incident_report_adversarial_001",
+          "matched_text": "Internal Incident Report \u2014 Cybersecurity (PH issuer)",
+          "path": "test/fixtures/legal-corpus-candidates/ph/jurisdictional_mnpi/ph_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "ph_jurisdictional_mnpi_incident_report_adversarial_001",
+          "matched_text": "an unauthorized login via a compromised vendor VPN token accessed hr\u2011stg\u201102 (HR payroll staging); no e\u2011payments were executed and prod finance remained isolated",
+          "path": "test/fixtures/legal-corpus-candidates/ph/jurisdictional_mnpi/ph_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
         }
       ],
       "jurisdiction": "PH",
-      "miss_count": 18,
-      "misses_per_100_docs": 85.71,
-      "misses_per_doc": 0.8571,
+      "miss_count": 74,
+      "misses_per_100_docs": 88.1,
+      "misses_per_doc": 0.881,
       "rules": {
-        "customer_account_number": 3,
-        "employee_id": 10,
-        "insurance_member_id": 3,
-        "internal_session_id": 2
+        "cyber_incident_pre_disclosure": 32,
+        "dpt_pre_listing_marker": 10,
+        "dpt_protocol_event_marker": 12,
+        "esg_climate_pre_disclosure": 20
       }
     },
     {
@@ -2658,6 +3259,13 @@
           "doc_id": "ae_privacy_events_memo_adversarial_001",
           "matched_text": "biometric verification",
           "path": "test/fixtures/legal-corpus-candidates/ae/privacy_events/ae_privacy_events_memo_adversarial_001.txt",
+          "rule": "biometric_identifier"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "ae_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "do not retain biometrics",
+          "path": "test/fixtures/legal-corpus-candidates/ae/quasi_identifiers/ae_quasi_identifiers_memo_adversarial_001.txt",
           "rule": "biometric_identifier"
         }
       ],
@@ -2693,6 +3301,13 @@
           "matched_text": "fingerprint template hash fp: a9c3: 00\u2014  17 z",
           "path": "test/fixtures/legal-corpus-candidates/jp/special_category/jp_special_category_memo_adversarial_001.txt",
           "rule": "biometric_identifier"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "jp_special_category_memo_adversarial_001",
+          "matched_text": "Genetic screening: Ms. Fujikawa\u2019s voluntary BRCA panel result recorded as \u201cnegative\u201d",
+          "path": "test/fixtures/legal-corpus-candidates/jp/special_category/jp_special_category_memo_adversarial_001.txt",
+          "rule": "genetic_data"
         }
       ],
       "jurisdiction": "JP",
@@ -2728,6 +3343,13 @@
           "matched_text": "draft scope 2 reconciliation",
           "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_incident_report_default_001.txt",
           "rule": "esg_climate_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "au_direct_identifiers_incident_report_default_001",
+          "matched_text": "Incident Report \u2014 Cybersecurity and Operational Impact relating to ASX disclosure obligations",
+          "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_incident_report_default_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
         }
       ],
       "jurisdiction": "AU",
@@ -2758,6 +3380,13 @@
           "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
           "doc_id": "hk_jurisdictional_mnpi_incident_report_adversarial_001",
           "matched_text": "OPH\u2011E***",
+          "path": "test/fixtures/legal-corpus-candidates/hk/jurisdictional_mnpi/hk_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+          "rule": "employee_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "hk_jurisdictional_mnpi_incident_report_adversarial_001",
+          "matched_text": "E\u20114 1 9 *",
           "path": "test/fixtures/legal-corpus-candidates/hk/jurisdictional_mnpi/hk_jurisdictional_mnpi_incident_report_adversarial_001.txt",
           "rule": "employee_id"
         }
@@ -2791,6 +3420,13 @@
           "matched_text": "ID pelanggan internal",
           "path": "test/fixtures/legal-corpus-candidates/id/jurisdictional_mnpi/id_jurisdictional_mnpi_incident_report_default_001.txt",
           "rule": "customer_account_number"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "id_jurisdictional_mnpi_incident_report_default_001",
+          "matched_text": "token sesi",
+          "path": "test/fixtures/legal-corpus-candidates/id/jurisdictional_mnpi/id_jurisdictional_mnpi_incident_report_default_001.txt",
+          "rule": "internal_session_id"
         }
       ],
       "jurisdiction": "ID",
@@ -2821,6 +3457,13 @@
           "doc_id": "id_direct_identifiers_incident_report_default_001",
           "matched_text": "siber/operasional (ransomware)",
           "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_incident_report_default_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "id_jurisdictional_mnpi_incident_report_adversarial_001",
+          "matched_text": "deteksi akses tidak sah",
+          "path": "test/fixtures/legal-corpus-candidates/id/jurisdictional_mnpi/id_jurisdictional_mnpi_incident_report_adversarial_001.txt",
           "rule": "cyber_incident_pre_disclosure"
         }
       ],
@@ -2853,6 +3496,13 @@
           "matched_text": "Incident Report \u2014 Cybersecurity Event (Internal Draft; not for external circulation)",
           "path": "test/fixtures/legal-corpus-candidates/my/direct_identifiers/my_direct_identifiers_incident_report_default_001.txt",
           "rule": "cyber_incident_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "my_jurisdictional_mnpi_incident_report_adversarial_001",
+          "matched_text": "ransomware event",
+          "path": "test/fixtures/legal-corpus-candidates/my/jurisdictional_mnpi/my_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
         }
       ],
       "jurisdiction": "MY",
@@ -2883,6 +3533,13 @@
           "doc_id": "my_direct_identifiers_memo_adversarial_001",
           "matched_text": "EID-840102145019",
           "path": "test/fixtures/legal-corpus-candidates/my/direct_identifiers/my_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "employee_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "my_jurisdictional_mnpi_incident_report_adversarial_001",
+          "matched_text": "EMP\u20114X9\u2011***",
+          "path": "test/fixtures/legal-corpus-candidates/my/jurisdictional_mnpi/my_jurisdictional_mnpi_incident_report_adversarial_001.txt",
           "rule": "employee_id"
         }
       ],
@@ -2915,6 +3572,13 @@
           "matched_text": "EMP-  045-TH",
           "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_adversarial_001.txt",
           "rule": "employee_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "th_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "9876123450",
+          "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "customer_account_number"
         }
       ],
       "jurisdiction": "TH",
@@ -2930,36 +3594,40 @@
     },
     {
       "bucket": "coverage_gap",
-      "detector_family": "online_device",
-      "doc_count": 21,
+      "detector_family": "sector_mnpi",
+      "doc_count": 84,
       "examples": [
         {
-          "bucket_reason": "online_device detector did not cover the ideal span",
-          "doc_id": "vn_direct_identifiers_memo_adversarial_001",
-          "matched_text": "00:11:22:33:44:55",
-          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "mac_address"
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "vn_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "unauthorized auto-forward",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
         },
         {
-          "bucket_reason": "online_device detector did not cover the ideal span",
-          "doc_id": "vn_quasi_identifiers_memo_adversarial_001",
-          "matched_text": "10.4.8.21",
-          "path": "test/fixtures/legal-corpus-candidates/vn/quasi_identifiers/vn_quasi_identifiers_memo_adversarial_001.txt",
-          "rule": "ip_address"
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "vn_direct_identifiers_incident_report_default_001",
+          "matched_text": "h\u1ec7 th\u1ed1ng l\u01b0u tr\u1eef \u201cIR-Share\u201d b\u1ecb truy c\u1eadp tr\u00e1i ph\u00e9p",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_default_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "vn_jurisdictional_mnpi_incident_report_adversarial_001",
+          "matched_text": "Operational/Cyber Incident Report",
+          "path": "test/fixtures/legal-corpus-candidates/vn/jurisdictional_mnpi/vn_jurisdictional_mnpi_incident_report_adversarial_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
         }
       ],
       "jurisdiction": "VN",
-      "miss_count": 16,
-      "misses_per_100_docs": 76.19,
-      "misses_per_doc": 0.7619,
+      "miss_count": 66,
+      "misses_per_100_docs": 78.57,
+      "misses_per_doc": 0.7857,
       "rules": {
-        "age_reference": 2,
-        "cookie_id": 2,
-        "date_of_birth": 2,
-        "device_serial_number": 3,
-        "imei": 3,
-        "ip_address": 2,
-        "mac_address": 2
+        "cyber_incident_pre_disclosure": 33,
+        "dpt_pre_listing_marker": 4,
+        "dpt_protocol_event_marker": 10,
+        "esg_climate_pre_disclosure": 19
       }
     },
     {
@@ -2980,6 +3648,13 @@
           "matched_text": "Proposed ESG restatement",
           "path": "test/fixtures/legal-corpus-candidates/ae/sector_mnpi/ae_sector_mnpi_memo_adversarial_001.txt",
           "rule": "esg_climate_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "ae_sector_mnpi_memo_adversarial_001",
+          "matched_text": "Scope 2 down 18% due to revised REC allocation",
+          "path": "test/fixtures/legal-corpus-candidates/ae/sector_mnpi/ae_sector_mnpi_memo_adversarial_001.txt",
+          "rule": "esg_target_revision"
         }
       ],
       "jurisdiction": "AE",
@@ -3012,6 +3687,13 @@
           "matched_text": "biometrics",
           "path": "test/fixtures/legal-corpus-candidates/in/privacy_events/in_privacy_events_memo_default_001.txt",
           "rule": "biometric_identifier"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "in_special_category_memo_adversarial_001",
+          "matched_text": "Mr. Aarav Mehta\u2019s declared health status (Type\u20111 diabetes)",
+          "path": "test/fixtures/legal-corpus-candidates/in/special_category/in_special_category_memo_adversarial_001.txt",
+          "rule": "health_condition"
         }
       ],
       "jurisdiction": "IN",
@@ -3047,6 +3729,13 @@
           "matched_text": "Cyber Incident Report",
           "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_default_001.txt",
           "rule": "cyber_incident_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "th_direct_identifiers_incident_report_negative_001",
+          "matched_text": "Immediate Cybersecurity Incident Report",
+          "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_incident_report_negative_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
         }
       ],
       "jurisdiction": "TH",
@@ -3077,6 +3766,13 @@
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
           "doc_id": "hk_direct_identifiers_incident_report_default_001",
           "matched_text": "operational cyber incident",
+          "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_incident_report_default_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "hk_direct_identifiers_incident_report_default_001",
+          "matched_text": "phishing-led credential compromise",
           "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_incident_report_default_001.txt",
           "rule": "cyber_incident_pre_disclosure"
         }
@@ -3110,6 +3806,13 @@
           "matched_text": "Mr. Adrian Ko Wai\u2011Ho (Senior Analyst) with a diabetes treatment letter dated 2026\u201104\u201111 and clinic booking notes",
           "path": "test/fixtures/legal-corpus-candidates/hk/special_category/hk_special_category_incident_report_adversarial_001.txt",
           "rule": "medical_treatment"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "hk_special_category_incident_report_adversarial_001",
+          "matched_text": "biometric access logs for Mr. Ko (door CAM\u201112 face template hash: f9:0b:7d:\u2014corrupted, badge AW\u2011HK\u201109\u20117gF)",
+          "path": "test/fixtures/legal-corpus-candidates/hk/special_category/hk_special_category_incident_report_adversarial_001.txt",
+          "rule": "biometric_identifier"
         }
       ],
       "jurisdiction": "HK",
@@ -3145,6 +3848,13 @@
           "matched_text": "biometric",
           "path": "test/fixtures/legal-corpus-candidates/my/privacy_events/my_privacy_events_memo_negative_001.txt",
           "rule": "biometric_identifier"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "my_privacy_events_privacy_notice_default_001",
+          "matched_text": "health declaration for insurance enrolment",
+          "path": "test/fixtures/legal-corpus-candidates/my/privacy_events/my_privacy_events_privacy_notice_default_001.txt",
+          "rule": "health_condition"
         }
       ],
       "jurisdiction": "MY",
@@ -3180,6 +3890,13 @@
           "matched_text": "MAC addresses",
           "path": "test/fixtures/legal-corpus-candidates/cn/privacy_events/cn_privacy_events_memo_adversarial_001.txt",
           "rule": "mac_address"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "cn_privacy_events_memo_adversarial_001",
+          "matched_text": "device IMEIs",
+          "path": "test/fixtures/legal-corpus-candidates/cn/privacy_events/cn_privacy_events_memo_adversarial_001.txt",
+          "rule": "imei"
         }
       ],
       "jurisdiction": "CN",
@@ -3213,6 +3930,13 @@
           "matched_text": "his union membership at Metal Workers Unity Union #M\u201107 remains active",
           "path": "test/fixtures/legal-corpus-candidates/kr/special_category/kr_special_category_memo_adversarial_001.txt",
           "rule": "trade_union_membership"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "kr_special_category_memo_adversarial_001",
+          "matched_text": "Type 2 diabetes",
+          "path": "test/fixtures/legal-corpus-candidates/kr/special_category/kr_special_category_memo_adversarial_001.txt",
+          "rule": "health_condition"
         }
       ],
       "jurisdiction": "KR",
@@ -3247,6 +3971,13 @@
           "matched_text": "phishing attempt",
           "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_negative_001.txt",
           "rule": "cyber_incident_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "sg_direct_identifiers_incident_report_negative_001",
+          "matched_text": "unauthorised access",
+          "path": "test/fixtures/legal-corpus-candidates/sg/direct_identifiers/sg_direct_identifiers_incident_report_negative_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
         }
       ],
       "jurisdiction": "SG",
@@ -3278,6 +4009,13 @@
           "matched_text": "had a medical claim revealing Type 1 diabetes",
           "path": "test/fixtures/legal-corpus-candidates/sg/special_category/sg_special_category_incident_report_adversarial_001.txt",
           "rule": "health_condition"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "sg_special_category_incident_report_adversarial_001",
+          "matched_text": "a prenatal claim referencing gestational hypertension",
+          "path": "test/fixtures/legal-corpus-candidates/sg/special_category/sg_special_category_incident_report_adversarial_001.txt",
+          "rule": "health_condition"
         }
       ],
       "jurisdiction": "SG",
@@ -3293,6 +4031,47 @@
         "religious_belief": 8,
         "sexual_orientation": 4,
         "trade_union_membership": 12
+      }
+    },
+    {
+      "bucket": "coverage_gap",
+      "detector_family": "special_category",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "vn_special_category_incident_report_adversarial_001",
+          "matched_text": "b\u1ec7nh ti\u1ec3u \u0111\u01b0\u1eddng type 2",
+          "path": "test/fixtures/legal-corpus-candidates/vn/special_category/vn_special_category_incident_report_adversarial_001.txt",
+          "rule": "health_condition"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "vn_special_category_incident_report_adversarial_001",
+          "matched_text": "d\u1eef li\u1ec7u sinh tr\u1eafc h\u1ecdc v\u00e2n tay",
+          "path": "test/fixtures/legal-corpus-candidates/vn/special_category/vn_special_category_incident_report_adversarial_001.txt",
+          "rule": "biometric_identifier"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "vn_special_category_incident_report_adversarial_001",
+          "matched_text": "t\u00f4n gi\u00e1o: Ph\u1eadt gi\u00e1o",
+          "path": "test/fixtures/legal-corpus-candidates/vn/special_category/vn_special_category_incident_report_adversarial_001.txt",
+          "rule": "religious_belief"
+        }
+      ],
+      "jurisdiction": "VN",
+      "miss_count": 59,
+      "misses_per_100_docs": 70.24,
+      "misses_per_doc": 0.7024,
+      "rules": {
+        "biometric_identifier": 13,
+        "health_condition": 10,
+        "medical_treatment": 10,
+        "political_opinion": 4,
+        "religious_belief": 8,
+        "sexual_orientation": 4,
+        "trade_union_membership": 10
       }
     },
     {
@@ -3313,6 +4092,13 @@
           "matched_text": "BE-T14-0 0 9 7",
           "path": "test/fixtures/legal-corpus-candidates/ae/quasi_identifiers/ae_quasi_identifiers_memo_adversarial_001.txt",
           "rule": "device_serial_number"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "ae_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "age ~34",
+          "path": "test/fixtures/legal-corpus-candidates/ae/quasi_identifiers/ae_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "age_reference"
         }
       ],
       "jurisdiction": "AE",
@@ -3325,38 +4111,6 @@
         "device_serial_number": 4,
         "imei": 1,
         "ip_address": 1
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "online_device",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "online_device detector did not cover the ideal span",
-          "doc_id": "ph_quasi_identifiers_memo_adversarial_001",
-          "matched_text": "10.18.34.77",
-          "path": "test/fixtures/legal-corpus-candidates/ph/quasi_identifiers/ph_quasi_identifiers_memo_adversarial_001.txt",
-          "rule": "ip_address"
-        },
-        {
-          "bucket_reason": "online_device detector did not cover the ideal span",
-          "doc_id": "ph_quasi_identifiers_memo_adversarial_001",
-          "matched_text": "s/n TP49B3",
-          "path": "test/fixtures/legal-corpus-candidates/ph/quasi_identifiers/ph_quasi_identifiers_memo_adversarial_001.txt",
-          "rule": "device_serial_number"
-        }
-      ],
-      "jurisdiction": "PH",
-      "miss_count": 14,
-      "misses_per_100_docs": 66.67,
-      "misses_per_doc": 0.6667,
-      "rules": {
-        "age_reference": 5,
-        "date_of_birth": 1,
-        "device_serial_number": 4,
-        "imei": 1,
-        "ip_address": 3
       }
     },
     {
@@ -3377,6 +4131,13 @@
           "matched_text": "v\u2011rahul\u2011t\u2011\u2026",
           "path": "test/fixtures/legal-corpus-candidates/in/privacy_events/in_privacy_events_memo_adversarial_001.txt",
           "rule": "internal_session_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "in_privacy_events_memo_adversarial_001",
+          "matched_text": "token=a9c%2F2f\u2011sig",
+          "path": "test/fixtures/legal-corpus-candidates/in/privacy_events/in_privacy_events_memo_adversarial_001.txt",
+          "rule": "internal_session_id"
         }
       ],
       "jurisdiction": "IN",
@@ -3388,71 +4149,6 @@
         "customer_account_number": 1,
         "employee_id": 6,
         "internal_session_id": 6
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "sector_mnpi",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
-          "doc_id": "ph_sector_mnpi_memo_adversarial_001",
-          "matched_text": "cyber incident",
-          "path": "test/fixtures/legal-corpus-candidates/ph/sector_mnpi/ph_sector_mnpi_memo_adversarial_001.txt",
-          "rule": "cyber_incident_pre_disclosure"
-        },
-        {
-          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
-          "doc_id": "ph_sector_mnpi_memo_adversarial_001",
-          "matched_text": "anomalous API calls",
-          "path": "test/fixtures/legal-corpus-candidates/ph/sector_mnpi/ph_sector_mnpi_memo_adversarial_001.txt",
-          "rule": "cyber_incident_pre_disclosure"
-        }
-      ],
-      "jurisdiction": "PH",
-      "miss_count": 14,
-      "misses_per_100_docs": 66.67,
-      "misses_per_doc": 0.6667,
-      "rules": {
-        "cyber_incident_pre_disclosure": 5,
-        "dpt_pre_listing_marker": 2,
-        "dpt_protocol_event_marker": 3,
-        "esg_climate_pre_disclosure": 4
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "special_category",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "special_category detector did not cover the ideal span",
-          "doc_id": "ph_privacy_events_memo_adversarial_001",
-          "matched_text": "facial-scan template",
-          "path": "test/fixtures/legal-corpus-candidates/ph/privacy_events/ph_privacy_events_memo_adversarial_001.txt",
-          "rule": "biometric_identifier"
-        },
-        {
-          "bucket_reason": "special_category detector did not cover the ideal span",
-          "doc_id": "ph_special_category_memo_adversarial_001",
-          "matched_text": "medical condition (Type 1 diabetes)",
-          "path": "test/fixtures/legal-corpus-candidates/ph/special_category/ph_special_category_memo_adversarial_001.txt",
-          "rule": "health_condition"
-        }
-      ],
-      "jurisdiction": "PH",
-      "miss_count": 14,
-      "misses_per_100_docs": 66.67,
-      "misses_per_doc": 0.6667,
-      "rules": {
-        "biometric_identifier": 4,
-        "genetic_data": 1,
-        "health_condition": 2,
-        "medical_treatment": 2,
-        "political_opinion": 1,
-        "religious_belief": 2,
-        "trade_union_membership": 2
       }
     },
     {
@@ -3473,6 +4169,13 @@
           "matched_text": "biometric access logs",
           "path": "test/fixtures/legal-corpus-candidates/id/privacy_events/id_privacy_events_privacy_notice_negative_001.txt",
           "rule": "biometric_identifier"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "id_special_category_incident_report_adversarial_001",
+          "matched_text": "riwayat terapi depresi",
+          "path": "test/fixtures/legal-corpus-candidates/id/special_category/id_special_category_incident_report_adversarial_001.txt",
+          "rule": "health_condition"
         }
       ],
       "jurisdiction": "ID",
@@ -3508,6 +4211,13 @@
           "matched_text": "carbon-offset token",
           "path": "test/fixtures/legal-corpus-candidates/cn/sector_mnpi/cn_sector_mnpi_memo_adversarial_001.txt",
           "rule": "dpt_protocol_event_marker"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "cn_sector_mnpi_memo_adversarial_001",
+          "matched_text": "LanternChain",
+          "path": "test/fixtures/legal-corpus-candidates/cn/sector_mnpi/cn_sector_mnpi_memo_adversarial_001.txt",
+          "rule": "dpt_protocol_event_marker"
         }
       ],
       "jurisdiction": "CN",
@@ -3539,6 +4249,13 @@
           "matched_text": "Cyber: preliminary forensics indicate exfiltration of 2,113 client email hashes and two staff payroll files",
           "path": "test/fixtures/legal-corpus-candidates/uk/sector_mnpi/uk_sector_mnpi_memo_adversarial_001.txt",
           "rule": "cyber_incident_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "uk_sector_mnpi_memo_adversarial_001",
+          "matched_text": "climate KPI ratchet",
+          "path": "test/fixtures/legal-corpus-candidates/uk/sector_mnpi/uk_sector_mnpi_memo_adversarial_001.txt",
+          "rule": "esg_climate_pre_disclosure"
         }
       ],
       "jurisdiction": "UK",
@@ -3550,37 +4267,6 @@
         "dpt_protocol_event_marker": 3,
         "esg_climate_pre_disclosure": 7,
         "esg_target_revision": 1
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "sector_mnpi",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
-          "doc_id": "vn_sector_mnpi_memo_adversarial_001",
-          "matched_text": "ransomware event",
-          "path": "test/fixtures/legal-corpus-candidates/vn/sector_mnpi/vn_sector_mnpi_memo_adversarial_001.txt",
-          "rule": "cyber_incident_pre_disclosure"
-        },
-        {
-          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
-          "doc_id": "vn_sector_mnpi_memo_adversarial_001",
-          "matched_text": "THA\u2011Token",
-          "path": "test/fixtures/legal-corpus-candidates/vn/sector_mnpi/vn_sector_mnpi_memo_adversarial_001.txt",
-          "rule": "dpt_protocol_event_marker"
-        }
-      ],
-      "jurisdiction": "VN",
-      "miss_count": 13,
-      "misses_per_100_docs": 61.9,
-      "misses_per_doc": 0.619,
-      "rules": {
-        "cyber_incident_pre_disclosure": 4,
-        "dpt_pre_listing_marker": 2,
-        "dpt_protocol_event_marker": 2,
-        "esg_climate_pre_disclosure": 5
       }
     },
     {
@@ -3601,6 +4287,13 @@
           "matched_text": "biometric data",
           "path": "test/fixtures/legal-corpus-candidates/uk/privacy_events/uk_privacy_events_memo_default_001.txt",
           "rule": "biometric_identifier"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "uk_special_category_memo_adversarial_001",
+          "matched_text": "Ms. Isla Greystoke (Head of Treasury) has Type 1 diabetes",
+          "path": "test/fixtures/legal-corpus-candidates/uk/special_category/uk_special_category_memo_adversarial_001.txt",
+          "rule": "health_condition"
         }
       ],
       "jurisdiction": "UK",
@@ -3634,6 +4327,13 @@
           "matched_text": "member of CareTech Workers Union Local 942",
           "path": "test/fixtures/legal-corpus-candidates/us/special_category/us_special_category_memo_adversarial_001.txt",
           "rule": "trade_union_membership"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "us_special_category_memo_adversarial_001",
+          "matched_text": "practices the Sikh religion",
+          "path": "test/fixtures/legal-corpus-candidates/us/special_category/us_special_category_memo_adversarial_001.txt",
+          "rule": "religious_belief"
         }
       ],
       "jurisdiction": "US",
@@ -3648,39 +4348,6 @@
         "religious_belief": 2,
         "sexual_orientation": 1,
         "trade_union_membership": 2
-      }
-    },
-    {
-      "bucket": "coverage_gap",
-      "detector_family": "special_category",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "special_category detector did not cover the ideal span",
-          "doc_id": "vn_special_category_memo_adversarial_001",
-          "matched_text": "has Type\u20112 diabetes",
-          "path": "test/fixtures/legal-corpus-candidates/vn/special_category/vn_special_category_memo_adversarial_001.txt",
-          "rule": "health_condition"
-        },
-        {
-          "bucket_reason": "special_category detector did not cover the ideal span",
-          "doc_id": "vn_special_category_memo_adversarial_001",
-          "matched_text": "requiring daily metformin",
-          "path": "test/fixtures/legal-corpus-candidates/vn/special_category/vn_special_category_memo_adversarial_001.txt",
-          "rule": "medical_treatment"
-        }
-      ],
-      "jurisdiction": "VN",
-      "miss_count": 13,
-      "misses_per_100_docs": 61.9,
-      "misses_per_doc": 0.619,
-      "rules": {
-        "biometric_identifier": 2,
-        "health_condition": 2,
-        "medical_treatment": 3,
-        "religious_belief": 1,
-        "sexual_orientation": 2,
-        "trade_union_membership": 3
       }
     },
     {
@@ -3701,6 +4368,13 @@
           "matched_text": "P S L - 2 3 - 7 7",
           "path": "test/fixtures/legal-corpus-candidates/sg/jurisdictional_mnpi/sg_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
           "rule": "employee_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "sg_jurisdictional_mnpi_privacy_notice_negative_001",
+          "matched_text": "Account: 1234-XYZ-567",
+          "path": "test/fixtures/legal-corpus-candidates/sg/jurisdictional_mnpi/sg_jurisdictional_mnpi_privacy_notice_negative_001.txt",
+          "rule": "customer_account_number"
         }
       ],
       "jurisdiction": "SG",
@@ -3732,6 +4406,13 @@
           "matched_text": "h-9f3b***",
           "path": "test/fixtures/legal-corpus-candidates/sg/jurisdictional_mnpi/sg_jurisdictional_mnpi_incident_report_negative_001.txt",
           "rule": "device_serial_number"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "sg_privacy_events_memo_negative_001",
+          "matched_text": "203.0.113.0/25",
+          "path": "test/fixtures/legal-corpus-candidates/sg/privacy_events/sg_privacy_events_memo_negative_001.txt",
+          "rule": "ip_address"
         }
       ],
       "jurisdiction": "SG",
@@ -3765,6 +4446,13 @@
           "matched_text": "\u201cdevice_ad_id\u201d",
           "path": "test/fixtures/legal-corpus-candidates/id/privacy_events/id_privacy_events_memo_negative_001.txt",
           "rule": "advertising_id"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "id_privacy_events_privacy_notice_default_001",
+          "matched_text": "tanggal lahir",
+          "path": "test/fixtures/legal-corpus-candidates/id/privacy_events/id_privacy_events_privacy_notice_default_001.txt",
+          "rule": "date_of_birth"
         }
       ],
       "jurisdiction": "ID",
@@ -3779,6 +4467,47 @@
         "imei": 4,
         "ip_address": 9,
         "mac_address": 1
+      }
+    },
+    {
+      "bucket": "coverage_gap",
+      "detector_family": "online_device",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "vn_direct_identifiers_memo_adversarial_001",
+          "matched_text": "00:11:22:33:44:55",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "mac_address"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "vn_jurisdictional_mnpi_privacy_notice_adversarial_001",
+          "matched_text": "device id d-    5f23a9",
+          "path": "test/fixtures/legal-corpus-candidates/vn/jurisdictional_mnpi/vn_jurisdictional_mnpi_privacy_notice_adversarial_001.txt",
+          "rule": "device_serial_number"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "vn_privacy_events_incident_report_adversarial_001",
+          "matched_text": "mac address",
+          "path": "test/fixtures/legal-corpus-candidates/vn/privacy_events/vn_privacy_events_incident_report_adversarial_001.txt",
+          "rule": "mac_address"
+        }
+      ],
+      "jurisdiction": "VN",
+      "miss_count": 48,
+      "misses_per_100_docs": 57.14,
+      "misses_per_doc": 0.5714,
+      "rules": {
+        "age_reference": 8,
+        "cookie_id": 3,
+        "date_of_birth": 9,
+        "device_serial_number": 17,
+        "imei": 5,
+        "ip_address": 3,
+        "mac_address": 3
       }
     },
     {
@@ -3799,6 +4528,13 @@
           "matched_text": "DoB 1 9 8 5-11-02",
           "path": "test/fixtures/legal-corpus-candidates/eu/quasi_identifiers/eu_quasi_identifiers_memo_adversarial_001.txt",
           "rule": "date_of_birth"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "eu_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "AV- LT09-0 1 3",
+          "path": "test/fixtures/legal-corpus-candidates/eu/quasi_identifiers/eu_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "device_serial_number"
         }
       ],
       "jurisdiction": "EU",
@@ -3831,6 +4567,13 @@
           "matched_text": "203.77.55.9",
           "path": "test/fixtures/legal-corpus-candidates/kr/quasi_identifiers/kr_quasi_identifiers_memo_adversarial_001.txt",
           "rule": "ip_address"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "kr_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "G S 2 3 - 4 4 - A 9",
+          "path": "test/fixtures/legal-corpus-candidates/kr/quasi_identifiers/kr_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "device_serial_number"
         }
       ],
       "jurisdiction": "KR",
@@ -3864,6 +4607,13 @@
           "matched_text": "IR- 9 2 8 7",
           "path": "test/fixtures/legal-corpus-candidates/kr/privacy_events/kr_privacy_events_memo_adversarial_001.txt",
           "rule": "internal_session_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "kr_privacy_events_memo_adversarial_001",
+          "matched_text": "H R - B3 1 7",
+          "path": "test/fixtures/legal-corpus-candidates/kr/privacy_events/kr_privacy_events_memo_adversarial_001.txt",
+          "rule": "internal_session_id"
         }
       ],
       "jurisdiction": "KR",
@@ -3894,6 +4644,13 @@
           "matched_text": "name, organisation, purpose, and time of sharing",
           "path": "test/fixtures/legal-corpus-candidates/in/jurisdictional_mnpi/in_jurisdictional_mnpi_memo_default_001.txt",
           "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "in_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "URL artifact retained for audit: https://compliance.abtl.example.in/consent?sid=SESS-4f2b-77ac-013&dob=1991-07-04&loc=Navapeta&device=ABT-MBB-PN-193",
+          "path": "test/fixtures/legal-corpus-candidates/in/quasi_identifiers/in_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
         }
       ],
       "jurisdiction": "IN",
@@ -3922,6 +4679,13 @@
           "matched_text": "1987-11-03",
           "path": "test/fixtures/legal-corpus-candidates/my/quasi_identifiers/my_quasi_identifiers_incident_report_adversarial_001.txt",
           "rule": "date_of_birth"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "my_quasi_identifiers_incident_report_adversarial_001",
+          "matched_text": "age 38",
+          "path": "test/fixtures/legal-corpus-candidates/my/quasi_identifiers/my_quasi_identifiers_incident_report_adversarial_001.txt",
+          "rule": "age_reference"
         }
       ],
       "jurisdiction": "MY",
@@ -3934,6 +4698,48 @@
         "device_serial_number": 17,
         "ip_address": 3,
         "mac_address": 1
+      }
+    },
+    {
+      "bucket": "coverage_gap",
+      "detector_family": "special_category",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "ph_privacy_events_memo_adversarial_001",
+          "matched_text": "facial-scan template",
+          "path": "test/fixtures/legal-corpus-candidates/ph/privacy_events/ph_privacy_events_memo_adversarial_001.txt",
+          "rule": "biometric_identifier"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "ph_special_category_incident_report_adversarial_001",
+          "matched_text": "health data (insulin therapy schedules and HMO claim codes)",
+          "path": "test/fixtures/legal-corpus-candidates/ph/special_category/ph_special_category_incident_report_adversarial_001.txt",
+          "rule": "medical_treatment"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "ph_special_category_incident_report_default_001",
+          "matched_text": "fingerprint template AFX-77",
+          "path": "test/fixtures/legal-corpus-candidates/ph/special_category/ph_special_category_incident_report_default_001.txt",
+          "rule": "biometric_identifier"
+        }
+      ],
+      "jurisdiction": "PH",
+      "miss_count": 47,
+      "misses_per_100_docs": 55.95,
+      "misses_per_doc": 0.5595,
+      "rules": {
+        "biometric_identifier": 12,
+        "genetic_data": 2,
+        "health_condition": 6,
+        "medical_treatment": 9,
+        "political_opinion": 1,
+        "religious_belief": 6,
+        "sexual_orientation": 3,
+        "trade_union_membership": 8
       }
     },
     {
@@ -3954,6 +4760,13 @@
           "matched_text": "DOB 11/1992",
           "path": "test/fixtures/legal-corpus-candidates/th/quasi_identifiers/th_quasi_identifiers_incident_report_adversarial_001.txt",
           "rule": "date_of_birth"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "th_quasi_identifiers_incident_report_adversarial_001",
+          "matched_text": "203.0.113.77",
+          "path": "test/fixtures/legal-corpus-candidates/th/quasi_identifiers/th_quasi_identifiers_incident_report_adversarial_001.txt",
+          "rule": "ip_address"
         }
       ],
       "jurisdiction": "TH",
@@ -3987,6 +4800,13 @@
           "matched_text": "1996-07-03",
           "path": "test/fixtures/legal-corpus-candidates/hk/quasi_identifiers/hk_quasi_identifiers_incident_report_adversarial_001.txt",
           "rule": "date_of_birth"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "hk_quasi_identifiers_incident_report_adversarial_001",
+          "matched_text": "age 29",
+          "path": "test/fixtures/legal-corpus-candidates/hk/quasi_identifiers/hk_quasi_identifiers_incident_report_adversarial_001.txt",
+          "rule": "age_reference"
         }
       ],
       "jurisdiction": "HK",
@@ -4021,6 +4841,13 @@
           "matched_text": "IMEI 35\u20112090\u2011****\u2011778",
           "path": "test/fixtures/legal-corpus-candidates/sa/quasi_identifiers/sa_quasi_identifiers_memo_adversarial_001.txt",
           "rule": "imei"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "sa_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "Najd\u2011MBPro\u2011FAH\u201114",
+          "path": "test/fixtures/legal-corpus-candidates/sa/quasi_identifiers/sa_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "device_serial_number"
         }
       ],
       "jurisdiction": "SA",
@@ -4053,6 +4880,13 @@
           "matched_text": "sid=Rydh-FAH-202405",
           "path": "test/fixtures/legal-corpus-candidates/sa/quasi_identifiers/sa_quasi_identifiers_memo_adversarial_001.txt",
           "rule": "internal_session_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "sa_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "FAH_0 3 7",
+          "path": "test/fixtures/legal-corpus-candidates/sa/quasi_identifiers/sa_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "employee_id"
         }
       ],
       "jurisdiction": "SA",
@@ -4082,6 +4916,13 @@
           "matched_text": "\u201cR. K\u2013Tenley\u201d",
           "path": "test/fixtures/legal-corpus-candidates/us/privacy_events/us_privacy_events_memo_adversarial_001.txt",
           "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "us_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "On 2026-05-28, Ms. Mira Velas (age 42, DOB 1983-11-02), Senior Director, Clinical Billing, West Carillon, CA office, user \"mvelas\", device NS\u2011TB\u2011IMAC\u2011042, IP 10.18.7.43, badge NS\u201109477, joined call sess:c2\u20117b via https://meet.nstb.local/r/earnings?mtg=Q3a-19%2F",
+          "path": "test/fixtures/legal-corpus-candidates/us/quasi_identifiers/us_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
         }
       ],
       "jurisdiction": "US",
@@ -4108,6 +4949,13 @@
           "bucket_reason": "sector_mnpi detector did not cover the ideal span",
           "doc_id": "jp_sector_mnpi_memo_adversarial_001",
           "matched_text": "ESG/climate diligence",
+          "path": "test/fixtures/legal-corpus-candidates/jp/sector_mnpi/jp_sector_mnpi_memo_adversarial_001.txt",
+          "rule": "esg_climate_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "jp_sector_mnpi_memo_adversarial_001",
+          "matched_text": "Scope 2 reduction plan",
           "path": "test/fixtures/legal-corpus-candidates/jp/sector_mnpi/jp_sector_mnpi_memo_adversarial_001.txt",
           "rule": "esg_climate_pre_disclosure"
         }
@@ -4140,6 +4988,13 @@
           "matched_text": "FSS incident notification is being prepared and not public",
           "path": "test/fixtures/legal-corpus-candidates/kr/sector_mnpi/kr_sector_mnpi_memo_adversarial_001.txt",
           "rule": "cyber_incident_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "kr_sector_mnpi_memo_adversarial_001",
+          "matched_text": "DPT issuance",
+          "path": "test/fixtures/legal-corpus-candidates/kr/sector_mnpi/kr_sector_mnpi_memo_adversarial_001.txt",
+          "rule": "dpt_pre_listing_marker"
         }
       ],
       "jurisdiction": "KR",
@@ -4172,6 +5027,13 @@
           "matched_text": "medical leave code MED\u2011H2",
           "path": "test/fixtures/legal-corpus-candidates/th/special_category/th_special_category_incident_report_adversarial_001.txt",
           "rule": "health_condition"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "th_special_category_incident_report_adversarial_001",
+          "matched_text": "oncology consult 18/05/2569",
+          "path": "test/fixtures/legal-corpus-candidates/th/special_category/th_special_category_incident_report_adversarial_001.txt",
+          "rule": "medical_treatment"
         }
       ],
       "jurisdiction": "TH",
@@ -4207,6 +5069,13 @@
           "matched_text": "RG-LAP-yd-019",
           "path": "test/fixtures/legal-corpus-candidates/au/quasi_identifiers/au_quasi_identifiers_incident_report_adversarial_001.txt",
           "rule": "device_serial_number"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "au_quasi_identifiers_incident_report_adversarial_001",
+          "matched_text": "203.41.78.*",
+          "path": "test/fixtures/legal-corpus-candidates/au/quasi_identifiers/au_quasi_identifiers_incident_report_adversarial_001.txt",
+          "rule": "ip_address"
         }
       ],
       "jurisdiction": "AU",
@@ -4219,6 +5088,47 @@
         "date_of_birth": 13,
         "device_serial_number": 17,
         "ip_address": 2,
+        "mac_address": 1
+      }
+    },
+    {
+      "bucket": "coverage_gap",
+      "detector_family": "online_device",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "ph_privacy_events_incident_report_default_001",
+          "matched_text": "dates of birth",
+          "path": "test/fixtures/legal-corpus-candidates/ph/privacy_events/ph_privacy_events_incident_report_default_001.txt",
+          "rule": "date_of_birth"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "ph_quasi_identifiers_incident_report_adversarial_001",
+          "matched_text": "age 24\u201326",
+          "path": "test/fixtures/legal-corpus-candidates/ph/quasi_identifiers/ph_quasi_identifiers_incident_report_adversarial_001.txt",
+          "rule": "age_reference"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "ph_quasi_identifiers_incident_report_adversarial_001",
+          "matched_text": "LPRI-LPT-0A2",
+          "path": "test/fixtures/legal-corpus-candidates/ph/quasi_identifiers/ph_quasi_identifiers_incident_report_adversarial_001.txt",
+          "rule": "device_serial_number"
+        }
+      ],
+      "jurisdiction": "PH",
+      "miss_count": 41,
+      "misses_per_100_docs": 48.81,
+      "misses_per_doc": 0.4881,
+      "rules": {
+        "age_reference": 11,
+        "cookie_id": 1,
+        "date_of_birth": 7,
+        "device_serial_number": 14,
+        "imei": 2,
+        "ip_address": 5,
         "mac_address": 1
       }
     },
@@ -4240,6 +5150,13 @@
           "matched_text": "DOB 12/09/1982",
           "path": "test/fixtures/legal-corpus-candidates/uk/quasi_identifiers/uk_quasi_identifiers_memo_adversarial_001.txt",
           "rule": "date_of_birth"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "uk_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "BRB-LT-0397",
+          "path": "test/fixtures/legal-corpus-candidates/uk/quasi_identifiers/uk_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "device_serial_number"
         }
       ],
       "jurisdiction": "UK",
@@ -4270,6 +5187,13 @@
           "matched_text": "age 42",
           "path": "test/fixtures/legal-corpus-candidates/us/quasi_identifiers/us_quasi_identifiers_memo_adversarial_001.txt",
           "rule": "age_reference"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "us_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "10.18.7.43",
+          "path": "test/fixtures/legal-corpus-candidates/us/quasi_identifiers/us_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "ip_address"
         }
       ],
       "jurisdiction": "US",
@@ -4301,6 +5225,13 @@
           "matched_text": "GNFC-DR-11",
           "path": "test/fixtures/legal-corpus-candidates/ae/direct_identifiers/ae_direct_identifiers_memo_default_001.txt",
           "rule": "internal_session_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "ae_jurisdictional_mnpi_memo_adversarial_001",
+          "matched_text": "inv=7a\u20113f\u2011x9",
+          "path": "test/fixtures/legal-corpus-candidates/ae/jurisdictional_mnpi/ae_jurisdictional_mnpi_memo_adversarial_001.txt",
+          "rule": "internal_session_id"
         }
       ],
       "jurisdiction": "AE",
@@ -4331,6 +5262,13 @@
           "matched_text": "residential address: Apt 19B, Al Bahar Residences, Marina Corniche, Al Saruq Emirate",
           "path": "test/fixtures/legal-corpus-candidates/ae/direct_identifiers/ae_direct_identifiers_memo_adversarial_001.txt",
           "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "ae_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "quasi-identifier cluster",
+          "path": "test/fixtures/legal-corpus-candidates/ae/quasi_identifiers/ae_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
         }
       ],
       "jurisdiction": "AE",
@@ -4359,6 +5297,13 @@
           "matched_text": "names, mobile numbers, and Resident ID No",
           "path": "test/fixtures/legal-corpus-candidates/cn/jurisdictional_mnpi/cn_jurisdictional_mnpi_memo_adversarial_001.txt",
           "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "cn_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "Ms. Lin Xiaomei (\u6797\u6653\u7f8e), Sr. IR Manager (Pudong, Shanghai), lin.xm@haiyuan-microgrid.cn; internal account lxm-ir; device MateBook 14 SN HB-MB14-LXM-7f2a; VPN sso line 21-48 from 10.23.6.77 at 19:12; WeCom ext 8821",
+          "path": "test/fixtures/legal-corpus-candidates/cn/quasi_identifiers/cn_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
         }
       ],
       "jurisdiction": "CN",
@@ -4386,6 +5331,13 @@
           "doc_id": "cn_privacy_events_memo_negative_001",
           "matched_text": "Employee ID: E-00-0000",
           "path": "test/fixtures/legal-corpus-candidates/cn/privacy_events/cn_privacy_events_memo_negative_001.txt",
+          "rule": "employee_id"
+        },
+        {
+          "bucket_reason": "pseudonymised_linkable detector did not cover the ideal span",
+          "doc_id": "cn_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "HY-IR-031",
+          "path": "test/fixtures/legal-corpus-candidates/cn/quasi_identifiers/cn_quasi_identifiers_memo_adversarial_001.txt",
           "rule": "employee_id"
         }
       ],
@@ -4417,65 +5369,16 @@
           "matched_text": "legal-name, role, and masked resident-number",
           "path": "test/fixtures/legal-corpus-candidates/kr/privacy_events/kr_privacy_events_memo_default_001.txt",
           "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "kr_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "DOB 1986-11-24, Pangyo campus 5F-IR desk, device Galaxy S23 serial G S 2 3 - 4 4 - A 9, laptop asset tag DL-IR-2219",
+          "path": "test/fixtures/legal-corpus-candidates/kr/quasi_identifiers/kr_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
         }
       ],
       "jurisdiction": "KR",
-      "miss_count": 9,
-      "misses_per_100_docs": 42.86,
-      "misses_per_doc": 0.4286,
-      "rules": {
-        "quasi_identifier_combination": 9
-      }
-    },
-    {
-      "bucket": "singling_out_miss",
-      "detector_family": "quasi_identifier",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
-          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
-          "matched_text": "9/F Kudyapi Center, 18 Lira East Rd., Brgy. Hiyas, Eastport City 1123, PH",
-          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "quasi_identifier_combination"
-        },
-        {
-          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
-          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
-          "matched_text": "Unit 1203, Lakan Hub, 77 Mabaya St., Barangay Sinagtala, Southport 4401, PH",
-          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "quasi_identifier_combination"
-        }
-      ],
-      "jurisdiction": "PH",
-      "miss_count": 9,
-      "misses_per_100_docs": 42.86,
-      "misses_per_doc": 0.4286,
-      "rules": {
-        "quasi_identifier_combination": 9
-      }
-    },
-    {
-      "bucket": "singling_out_miss",
-      "detector_family": "quasi_identifier",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
-          "doc_id": "vn_direct_identifiers_memo_adversarial_001",
-          "matched_text": "T10, T\u00f2a Th\u00e1p Gi\u00f3",
-          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
-          "rule": "quasi_identifier_combination"
-        },
-        {
-          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
-          "doc_id": "vn_direct_identifiers_memo_default_001",
-          "matched_text": "12/5 Alley 63, Truong Chinh Street, Tan Binh District, Ho Chi Minh City",
-          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_default_001.txt",
-          "rule": "quasi_identifier_combination"
-        }
-      ],
-      "jurisdiction": "VN",
       "miss_count": 9,
       "misses_per_100_docs": 42.86,
       "misses_per_doc": 0.4286,
@@ -4501,6 +5404,13 @@
           "matched_text": "ransomware intrusion",
           "path": "test/fixtures/legal-corpus-candidates/in/sector_mnpi/in_sector_mnpi_memo_default_001.txt",
           "rule": "cyber_incident_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "in_sector_mnpi_memo_default_001",
+          "matched_text": "ESG-linked rupee bond term sheet",
+          "path": "test/fixtures/legal-corpus-candidates/in/sector_mnpi/in_sector_mnpi_memo_default_001.txt",
+          "rule": "esg_climate_pre_disclosure"
         }
       ],
       "jurisdiction": "IN",
@@ -4511,6 +5421,76 @@
         "cyber_incident_pre_disclosure": 3,
         "dpt_protocol_event_marker": 3,
         "esg_climate_pre_disclosure": 3
+      }
+    },
+    {
+      "bucket": "singling_out_miss",
+      "detector_family": "quasi_identifier",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
+          "matched_text": "9/F Kudyapi Center, 18 Lira East Rd., Brgy. Hiyas, Eastport City 1123, PH",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "ph_direct_identifiers_memo_adversarial_001",
+          "matched_text": "Unit 1203, Lakan Hub, 77 Mabaya St., Barangay Sinagtala, Southport 4401, PH",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "ph_direct_identifiers_privacy_notice_adversarial_001",
+          "matched_text": "Barangay ID No. QCY-2026-004321",
+          "path": "test/fixtures/legal-corpus-candidates/ph/direct_identifiers/ph_direct_identifiers_privacy_notice_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
+        }
+      ],
+      "jurisdiction": "PH",
+      "miss_count": 34,
+      "misses_per_100_docs": 40.48,
+      "misses_per_doc": 0.4048,
+      "rules": {
+        "quasi_identifier_combination": 34
+      }
+    },
+    {
+      "bucket": "singling_out_miss",
+      "detector_family": "quasi_identifier",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "vn_direct_identifiers_incident_report_adversarial_001",
+          "matched_text": "Ms. Nguyen Thi Lan, Deputy Finance; personal email lan.nguyen@lacvietmail.vn; mobile +84 93 456 7801",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "vn_direct_identifiers_incident_report_default_001",
+          "matched_text": "\u0111\u1ecba ch\u1ec9 l\u00e0m vi\u1ec7c: S\u1ed1 12 \u0110\u01b0\u1eddng Hoa C\u00fac, Ph\u01b0\u1eddng Hi\u1ec7p B\u00ecnh, TP. Th\u1ecbnh Ph\u00fa",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_incident_report_default_001.txt",
+          "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "vn_direct_identifiers_memo_adversarial_001",
+          "matched_text": "T10, T\u00f2a Th\u00e1p Gi\u00f3",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
+        }
+      ],
+      "jurisdiction": "VN",
+      "miss_count": 33,
+      "misses_per_100_docs": 39.29,
+      "misses_per_doc": 0.3929,
+      "rules": {
+        "quasi_identifier_combination": 33
       }
     },
     {
@@ -4530,6 +5510,13 @@
           "doc_id": "uk_quasi_identifiers_memo_adversarial_001",
           "matched_text": "DOB 07/05/1979, city Bristol, employer \u2018insurer\u2019, device tag LT-004",
           "path": "test/fixtures/legal-corpus-candidates/uk/quasi_identifiers/uk_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "uk_quasi_identifiers_memo_default_001",
+          "matched_text": "Ms. Eliza Marris (DOB 14/02/1984), Associate Director, Equity Origination at Northbridge Capital plc, based at Canary Wharf E14, accessed draft term sheet v3.1 via device NB-ARX-17 and VPN session ORCHID-12 at 06:42 BST, tied to workmail emarris@northbridgecapital.co.uk and treasury account suffix 7713",
+          "path": "test/fixtures/legal-corpus-candidates/uk/quasi_identifiers/uk_quasi_identifiers_memo_default_001.txt",
           "rule": "quasi_identifier_combination"
         }
       ],
@@ -4559,6 +5546,13 @@
           "matched_text": "crypto custody",
           "path": "test/fixtures/legal-corpus-candidates/sa/sector_mnpi/sa_sector_mnpi_memo_adversarial_001.txt",
           "rule": "dpt_protocol_event_marker"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "sa_sector_mnpi_memo_default_001",
+          "matched_text": "reported a cyber incident",
+          "path": "test/fixtures/legal-corpus-candidates/sa/sector_mnpi/sa_sector_mnpi_memo_default_001.txt",
+          "rule": "cyber_incident_pre_disclosure"
         }
       ],
       "jurisdiction": "SA",
@@ -4589,6 +5583,13 @@
           "matched_text": "stores an iris\u2011scan template",
           "path": "test/fixtures/legal-corpus-candidates/sa/special_category/sa_special_category_memo_adversarial_001.txt",
           "rule": "biometric_identifier"
+        },
+        {
+          "bucket_reason": "special_category detector did not cover the ideal span",
+          "doc_id": "sa_special_category_memo_adversarial_001",
+          "matched_text": "declared religion as Catholic",
+          "path": "test/fixtures/legal-corpus-candidates/sa/special_category/sa_special_category_memo_adversarial_001.txt",
+          "rule": "religious_belief"
         }
       ],
       "jurisdiction": "SA",
@@ -4620,6 +5621,13 @@
           "matched_text": "Identitas target: PT Lintas Dana Selaras, NPWP 12 . 345 . 678 . 9 - 012 . 345, NIB 0198765432109, alamat kantor: Jl. Kenanga No. 88, Kebayoran Baru, Jakarta 12190",
           "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_memo_adversarial_001.txt",
           "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "id_direct_identifiers_term_sheet_adversarial_001",
+          "matched_text": "Jl. Matoa Raya No. 88, Kecamatan Setiajaya, Kota Samudra 40123",
+          "path": "test/fixtures/legal-corpus-candidates/id/direct_identifiers/id_direct_identifiers_term_sheet_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
         }
       ],
       "jurisdiction": "ID",
@@ -4648,6 +5656,13 @@
           "matched_text": "Ms. Tamsin O\u2019Rourke (CFO, Aurora MinTech) \u2014 t.orourke@aurora-mintech.com.au; tel. +61 2 9005 1212",
           "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_term_sheet_adversarial_001.txt",
           "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "au_direct_identifiers_term_sheet_default_001",
+          "matched_text": "Ms. Elara Quinn, CFO, elara.quinn@murrawinminerals.com.au, +61 2 8123 4567",
+          "path": "test/fixtures/legal-corpus-candidates/au/direct_identifiers/au_direct_identifiers_term_sheet_default_001.txt",
+          "rule": "quasi_identifier_combination"
         }
       ],
       "jurisdiction": "AU",
@@ -4674,6 +5689,13 @@
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
           "doc_id": "my_privacy_events_privacy_notice_adversarial_001",
           "matched_text": "SRB//E\u20141I\u20147",
+          "path": "test/fixtures/legal-corpus-candidates/my/privacy_events/my_privacy_events_privacy_notice_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "my_privacy_events_privacy_notice_adversarial_001",
+          "matched_text": "SRB\u20141I\u20147.csv",
           "path": "test/fixtures/legal-corpus-candidates/my/privacy_events/my_privacy_events_privacy_notice_adversarial_001.txt",
           "rule": "quasi_identifier_combination"
         }
@@ -4704,6 +5726,13 @@
           "matched_text": "88/42 Soi Prangchai 9, Khet Tanom, Bangkok 10177, Thailand",
           "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_privacy_notice_default_001.txt",
           "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "th_direct_identifiers_privacy_notice_default_001",
+          "matched_text": "299 Moo 4, Tambon Khamnoi, Amphoe Palita, Nakhon Rattanai 34110, Thailand",
+          "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_privacy_notice_default_001.txt",
+          "rule": "quasi_identifier_combination"
         }
       ],
       "jurisdiction": "TH",
@@ -4732,6 +5761,13 @@
           "matched_text": "Ms. Clara Poon (HKSAR Passport No. T9382715), MPF Scheme ID APB-77-4521, and address Unit 2307, 23/F, Harbour Apex, 88 Connaught Road Central, Hong Kong",
           "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_incident_report_default_001.txt",
           "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "hk_direct_identifiers_term_sheet_adversarial_001",
+          "matched_text": "Flat C, 8/F, Harbor Gardens, 22 Starcrest Lane, Tsing Wai South, Hong Kong",
+          "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_term_sheet_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
         }
       ],
       "jurisdiction": "HK",
@@ -4758,6 +5794,13 @@
           "bucket_reason": "online_device detector did not cover the ideal span",
           "doc_id": "jp_quasi_identifiers_memo_adversarial_001",
           "matched_text": "W-TAKAGI-07",
+          "path": "test/fixtures/legal-corpus-candidates/jp/quasi_identifiers/jp_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "device_serial_number"
+        },
+        {
+          "bucket_reason": "online_device detector did not cover the ideal span",
+          "doc_id": "jp_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "A X 7 9 - 3 1 1",
           "path": "test/fixtures/legal-corpus-candidates/jp/quasi_identifiers/jp_quasi_identifiers_memo_adversarial_001.txt",
           "rule": "device_serial_number"
         }
@@ -4790,6 +5833,13 @@
           "matched_text": "Ms. Rei Takagi (Procurement Lead, Hinoiwa Systems K.K., dob 1993-12-14, Kawade-ku office) accessed device \u201cAmberLeaf X2\u201d IMEI 35-009190-443321-7 and VPN session https://intra.hinoiwa.local/sessions/8d7e-1f, linking to brokerage sub-account UmeShare-4462",
           "path": "test/fixtures/legal-corpus-candidates/jp/quasi_identifiers/jp_quasi_identifiers_memo_adversarial_001.txt",
           "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "jp_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "1988-08-08, Kansei Belt, \u201canalytics lead,\u201d and handset \u201cMizuGo S1\u201d",
+          "path": "test/fixtures/legal-corpus-candidates/jp/quasi_identifiers/jp_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
         }
       ],
       "jurisdiction": "JP",
@@ -4817,6 +5867,13 @@
           "doc_id": "sa_direct_identifiers_memo_default_001",
           "matched_text": "National Address: Bldg 4211, Unit 18, Al-Muhammadiyah Dist., Riyadh 13322-4411, KSA",
           "path": "test/fixtures/legal-corpus-candidates/sa/direct_identifiers/sa_direct_identifiers_memo_default_001.txt",
+          "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "sa_jurisdictional_mnpi_memo_adversarial_001",
+          "matched_text": "F.A.H",
+          "path": "test/fixtures/legal-corpus-candidates/sa/jurisdictional_mnpi/sa_jurisdictional_mnpi_memo_adversarial_001.txt",
           "rule": "quasi_identifier_combination"
         }
       ],
@@ -4846,6 +5903,13 @@
           "matched_text": "ransomware intrusion",
           "path": "test/fixtures/legal-corpus-candidates/us/sector_mnpi/us_sector_mnpi_memo_default_001.txt",
           "rule": "cyber_incident_pre_disclosure"
+        },
+        {
+          "bucket_reason": "sector_mnpi detector did not cover the ideal span",
+          "doc_id": "us_sector_mnpi_memo_default_001",
+          "matched_text": "crypto-settlement pilot",
+          "path": "test/fixtures/legal-corpus-candidates/us/sector_mnpi/us_sector_mnpi_memo_default_001.txt",
+          "rule": "dpt_protocol_event_marker"
         }
       ],
       "jurisdiction": "US",
@@ -4876,6 +5940,13 @@
           "matched_text": "not generally known to persons accustomed to dealing in securities",
           "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_incident_report_default_001.txt",
           "rule": "nonpublic_marker"
+        },
+        {
+          "bucket_reason": "label rationale requires domain/public-status inference",
+          "doc_id": "hk_direct_identifiers_memo_negative_001",
+          "matched_text": "specific corporate information not generally known to likely dealers and price\u2011material",
+          "path": "test/fixtures/legal-corpus-candidates/hk/direct_identifiers/hk_direct_identifiers_memo_negative_001.txt",
+          "rule": "nonpublic_marker"
         }
       ],
       "jurisdiction": "HK",
@@ -4902,6 +5973,13 @@
           "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
           "doc_id": "sg_quasi_identifiers_incident_report_adversarial_001",
           "matched_text": "Mr. Daniel Teo Wei Jian (b. 1987-05-03, approx. 39), contract systems analyst seconded from NexPillar Services Pte Ltd to Alto Meridian, accessed internal share \u201c/CorpFin/Capital Projects\u201d from AMH Bugis site during change window",
+          "path": "test/fixtures/legal-corpus-candidates/sg/quasi_identifiers/sg_quasi_identifiers_incident_report_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "sg_quasi_identifiers_incident_report_adversarial_001",
+          "matched_text": "Cluster identifiers: AD user amhl\\dteowj, mailbox daniel.teo@nexpillar.example, Le n o v o T14 asset ALM-T14-0 5 9, temp VPN profile vp n-contr-117, one-time session \u201cSE SS-9a3d4f1\u201d (see https://sec.alto-meridian.example/audit?sid=SESS-9a3d4f1&user=amhl%5Cdteowj), HR contractor ID C0837",
           "path": "test/fixtures/legal-corpus-candidates/sg/quasi_identifiers/sg_quasi_identifiers_incident_report_adversarial_001.txt",
           "rule": "quasi_identifier_combination"
         }
@@ -4932,6 +6010,13 @@
           "matched_text": "Ms. Elina Voren, Head of Sustainability, DoB 1 9 8 5-11-02 (age 40), office Rhein\u2011Mitte Campus, uses device av-lt09 (s erial AV- LT09-0 1 3), session ref 8e-77-19, user handle evoren@auroraventis.eu, and extension 044\u201188\u2011 1 1, for CSRD ESRS E1 data consolidation",
           "path": "test/fixtures/legal-corpus-candidates/eu/quasi_identifiers/eu_quasi_identifiers_memo_adversarial_001.txt",
           "rule": "quasi_identifier_combination"
+        },
+        {
+          "bucket_reason": "quasi-identifier miss belongs to Layer-2 singling-out",
+          "doc_id": "eu_quasi_identifiers_memo_adversarial_001",
+          "matched_text": "Device log shows sess 8e\u201177\u201119 ended 17:42 CET, building Rhein\u2011Mitte floor 3, badge UID XX\u2011X\u2011 1 1Z5; retention for raw logs is 30 days, keys k0\u2011k2 reside on EU HSM node fr\u2011heli os\u20113, and names are intentionally excluded from working tabs",
+          "path": "test/fixtures/legal-corpus-candidates/eu/quasi_identifiers/eu_quasi_identifiers_memo_adversarial_001.txt",
+          "rule": "quasi_identifier_combination"
         }
       ],
       "jurisdiction": "EU",
@@ -4945,13 +6030,20 @@
     {
       "bucket": "needs_review",
       "detector_family": "unknown",
-      "doc_count": 21,
+      "doc_count": 84,
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
           "doc_id": "vn_direct_identifiers_memo_adversarial_001",
           "matched_text": "VND 21,800/share",
           "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_memo_adversarial_001.txt",
+          "rule": "contract_unit_price"
+        },
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "vn_direct_identifiers_term_sheet_adversarial_001",
+          "matched_text": "VND 72,500 per share",
+          "path": "test/fixtures/legal-corpus-candidates/vn/direct_identifiers/vn_direct_identifiers_term_sheet_adversarial_001.txt",
           "rule": "contract_unit_price"
         },
         {
@@ -4963,13 +6055,15 @@
         }
       ],
       "jurisdiction": "VN",
-      "miss_count": 5,
-      "misses_per_100_docs": 23.81,
-      "misses_per_doc": 0.2381,
+      "miss_count": 18,
+      "misses_per_100_docs": 21.43,
+      "misses_per_doc": 0.2143,
       "rules": {
-        "contract_unit_price": 3,
-        "crypto_wallet_address": 1,
-        "total_contract_value": 1
+        "contract_discount_rate": 1,
+        "contract_unit_price": 10,
+        "crypto_wallet_address": 3,
+        "total_contract_value": 2,
+        "volume_commitment": 2
       }
     },
     {
@@ -4990,6 +6084,13 @@
           "matched_text": "volume rebate",
           "path": "test/fixtures/legal-corpus-candidates/uk/sector_mnpi/uk_sector_mnpi_memo_adversarial_001.txt",
           "rule": "contract_discount_rate"
+        },
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "uk_universal_mnpi_memo_default_001",
+          "matched_text": "245p",
+          "path": "test/fixtures/legal-corpus-candidates/uk/universal_mnpi/uk_universal_mnpi_memo_default_001.txt",
+          "rule": "contract_unit_price"
         }
       ],
       "jurisdiction": "UK",
@@ -5000,6 +6101,45 @@
         "contract_discount_rate": 2,
         "contract_unit_price": 1,
         "crypto_wallet_address": 1
+      }
+    },
+    {
+      "bucket": "needs_review",
+      "detector_family": "unknown",
+      "doc_count": 84,
+      "examples": [
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "ph_jurisdictional_mnpi_term_sheet_adversarial_001",
+          "matched_text": "PHP 3.65/share",
+          "path": "test/fixtures/legal-corpus-candidates/ph/jurisdictional_mnpi/ph_jurisdictional_mnpi_term_sheet_adversarial_001.txt",
+          "rule": "contract_unit_price"
+        },
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "ph_jurisdictional_mnpi_term_sheet_adversarial_001",
+          "matched_text": "320,000,000 primary common shares",
+          "path": "test/fixtures/legal-corpus-candidates/ph/jurisdictional_mnpi/ph_jurisdictional_mnpi_term_sheet_adversarial_001.txt",
+          "rule": "volume_commitment"
+        },
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "ph_jurisdictional_mnpi_term_sheet_adversarial_001",
+          "matched_text": "30,000,000 secondary shares",
+          "path": "test/fixtures/legal-corpus-candidates/ph/jurisdictional_mnpi/ph_jurisdictional_mnpi_term_sheet_adversarial_001.txt",
+          "rule": "volume_commitment"
+        }
+      ],
+      "jurisdiction": "PH",
+      "miss_count": 13,
+      "misses_per_100_docs": 15.48,
+      "misses_per_doc": 0.1548,
+      "rules": {
+        "contract_discount_rate": 1,
+        "contract_unit_price": 5,
+        "crypto_wallet_address": 1,
+        "total_contract_value": 2,
+        "volume_commitment": 4
       }
     },
     {
@@ -5019,6 +6159,13 @@
           "doc_id": "kr_direct_identifiers_memo_default_001",
           "matched_text": "1,200,000 common shares",
           "path": "test/fixtures/legal-corpus-candidates/kr/direct_identifiers/kr_direct_identifiers_memo_default_001.txt",
+          "rule": "volume_commitment"
+        },
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "kr_sector_mnpi_memo_default_001",
+          "matched_text": "client cap 50 wallets",
+          "path": "test/fixtures/legal-corpus-candidates/kr/sector_mnpi/kr_sector_mnpi_memo_default_001.txt",
           "rule": "volume_commitment"
         }
       ],
@@ -5049,6 +6196,13 @@
           "matched_text": "THB 6.75 per share",
           "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_term_sheet_default_001.txt",
           "rule": "contract_unit_price"
+        },
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "th_direct_identifiers_term_sheet_default_001",
+          "matched_text": "THB 3,042,000,000",
+          "path": "test/fixtures/legal-corpus-candidates/th/direct_identifiers/th_direct_identifiers_term_sheet_default_001.txt",
+          "rule": "total_contract_value"
         }
       ],
       "jurisdiction": "TH",
@@ -5081,6 +6235,13 @@
           "matched_text": "option strike A$3.80",
           "path": "test/fixtures/legal-corpus-candidates/au/quasi_identifiers/au_quasi_identifiers_term_sheet_adversarial_001.txt",
           "rule": "contract_unit_price"
+        },
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "au_sector_mnpi_incident_report_adversarial_001",
+          "matched_text": "$62/MWh",
+          "path": "test/fixtures/legal-corpus-candidates/au/sector_mnpi/au_sector_mnpi_incident_report_adversarial_001.txt",
+          "rule": "contract_unit_price"
         }
       ],
       "jurisdiction": "AU",
@@ -5111,6 +6272,13 @@
           "matched_text": "HKD 2.45 per share",
           "path": "test/fixtures/legal-corpus-candidates/hk/quasi_identifiers/hk_quasi_identifiers_term_sheet_default_001.txt",
           "rule": "contract_unit_price"
+        },
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "hk_sector_mnpi_incident_report_adversarial_001",
+          "matched_text": "0x9a**...**1c",
+          "path": "test/fixtures/legal-corpus-candidates/hk/sector_mnpi/hk_sector_mnpi_incident_report_adversarial_001.txt",
+          "rule": "crypto_wallet_address"
         }
       ],
       "jurisdiction": "HK",
@@ -5226,6 +6394,13 @@
           "matched_text": "RM148,000,000 for 70%",
           "path": "test/fixtures/legal-corpus-candidates/my/jurisdictional_mnpi/my_jurisdictional_mnpi_term_sheet_adversarial_001.txt",
           "rule": "total_contract_value"
+        },
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "my_jurisdictional_mnpi_term_sheet_adversarial_001",
+          "matched_text": "VWAP-3%",
+          "path": "test/fixtures/legal-corpus-candidates/my/jurisdictional_mnpi/my_jurisdictional_mnpi_term_sheet_adversarial_001.txt",
+          "rule": "contract_discount_rate"
         }
       ],
       "jurisdiction": "MY",
@@ -5258,6 +6433,13 @@
           "matched_text": "S$4.20 per share",
           "path": "test/fixtures/legal-corpus-candidates/sg/privacy_events/sg_privacy_events_term_sheet_adversarial_001.txt",
           "rule": "contract_unit_price"
+        },
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "sg_quasi_identifiers_term_sheet_adversarial_001",
+          "matched_text": "S$1.84",
+          "path": "test/fixtures/legal-corpus-candidates/sg/quasi_identifiers/sg_quasi_identifiers_term_sheet_adversarial_001.txt",
+          "rule": "contract_unit_price"
         }
       ],
       "jurisdiction": "SG",
@@ -5287,6 +6469,13 @@
           "matched_text": "WLT-3861",
           "path": "test/fixtures/legal-corpus-candidates/id/quasi_identifiers/id_quasi_identifiers_memo_negative_001.txt",
           "rule": "crypto_wallet_address"
+        },
+        {
+          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
+          "doc_id": "id_quasi_identifiers_term_sheet_adversarial_001",
+          "matched_text": "Rp1.250 per saham",
+          "path": "test/fixtures/legal-corpus-candidates/id/quasi_identifiers/id_quasi_identifiers_term_sheet_adversarial_001.txt",
+          "rule": "contract_unit_price"
         }
       ],
       "jurisdiction": "ID",
@@ -5368,27 +6557,6 @@
       "examples": [
         {
           "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
-          "doc_id": "ph_quasi_identifiers_memo_default_001",
-          "matched_text": "12% discount",
-          "path": "test/fixtures/legal-corpus-candidates/ph/quasi_identifiers/ph_quasi_identifiers_memo_default_001.txt",
-          "rule": "contract_discount_rate"
-        }
-      ],
-      "jurisdiction": "PH",
-      "miss_count": 1,
-      "misses_per_100_docs": 4.76,
-      "misses_per_doc": 0.0476,
-      "rules": {
-        "contract_discount_rate": 1
-      }
-    },
-    {
-      "bucket": "needs_review",
-      "detector_family": "unknown",
-      "doc_count": 21,
-      "examples": [
-        {
-          "bucket_reason": "no deterministic bucket heuristic matched; manual review required",
           "doc_id": "sa_sector_mnpi_memo_adversarial_001",
           "matched_text": "SAR 182/ton",
           "path": "test/fixtures/legal-corpus-candidates/sa/sector_mnpi/sa_sector_mnpi_memo_adversarial_001.txt",
@@ -5404,28 +6572,28 @@
       }
     }
   ],
-  "generated_at_unix": 1780457490,
+  "generated_at_unix": 1780492013,
   "note": "concentration report over item-124 heuristic buckets; inspect examples before prioritising detector work.",
   "source_review_profile": "strict",
   "summary": {
     "by_bucket": {
-      "conjunction_miss": 2730,
-      "coverage_gap": 8520,
-      "needs_review": 67,
-      "singling_out_miss": 271,
+      "conjunction_miss": 3064,
+      "coverage_gap": 9998,
+      "needs_review": 92,
+      "singling_out_miss": 320,
       "true_inference_miss": 29
     },
     "by_detector_family": {
-      "direct_identifier": 2225,
-      "mnpi_context": 2731,
-      "mnpi_lexicon": 2363,
-      "online_device": 422,
-      "privacy_event": 1851,
-      "pseudonymised_linkable": 602,
-      "quasi_identifier": 271,
-      "sector_mnpi": 536,
-      "special_category": 549,
-      "unknown": 67
+      "direct_identifier": 2662,
+      "mnpi_context": 3065,
+      "mnpi_lexicon": 2773,
+      "online_device": 481,
+      "privacy_event": 2087,
+      "pseudonymised_linkable": 746,
+      "quasi_identifier": 320,
+      "sector_mnpi": 649,
+      "special_category": 628,
+      "unknown": 92
     },
     "by_jurisdiction": {
       "AE": 340,
@@ -5438,13 +6606,13 @@
       "JP": 369,
       "KR": 349,
       "MY": 1317,
-      "PH": 368,
+      "PH": 1308,
       "SA": 365,
       "SG": 1079,
       "TH": 1215,
       "UK": 337,
       "US": 319,
-      "VN": 348
+      "VN": 1294
     },
     "by_jurisdiction_normalized": {
       "AE": {
@@ -5508,10 +6676,10 @@
         "misses_per_doc": 15.6786
       },
       "PH": {
-        "doc_count": 21,
-        "miss_count": 368,
-        "misses_per_100_docs": 1752.38,
-        "misses_per_doc": 17.5238
+        "doc_count": 84,
+        "miss_count": 1308,
+        "misses_per_100_docs": 1557.14,
+        "misses_per_doc": 15.5714
       },
       "SA": {
         "doc_count": 21,
@@ -5544,10 +6712,10 @@
         "misses_per_doc": 15.1905
       },
       "VN": {
-        "doc_count": 21,
-        "miss_count": 348,
-        "misses_per_100_docs": 1657.14,
-        "misses_per_doc": 16.5714
+        "doc_count": 84,
+        "miss_count": 1294,
+        "misses_per_100_docs": 1540.48,
+        "misses_per_doc": 15.4048
       }
     },
     "doc_count_by_jurisdiction": {
@@ -5561,14 +6729,14 @@
       "JP": 21,
       "KR": 21,
       "MY": 84,
-      "PH": 21,
+      "PH": 84,
       "SA": 21,
       "SG": 84,
       "TH": 84,
       "UK": 21,
       "US": 21,
-      "VN": 21
+      "VN": 84
     },
-    "miss_count": 11617
+    "miss_count": 13503
   }
 }
