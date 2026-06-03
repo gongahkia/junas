@@ -10,6 +10,7 @@ use crate::{
         expand::expand_and_merge,
         incremental::{IncrementalOcr, GRID_COLS, GRID_ROWS},
         line_expand::expand_to_end_of_line,
+        local_llm::{LocalLlmConfig, LocalLlmDetector},
         ocr::OcrEngine,
         patterns::PatternRegistry,
         scanner::scan,
@@ -311,16 +312,18 @@ pub fn spawn_pipeline(
     let raw_rx = channels.raw_rx;
     let detection_tx = channels.detection_tx.clone();
     let state_d = Arc::clone(&state);
-    let min_conf = crate::config::AppConfig::load()
+    let detection_config = crate::config::AppConfig::load()
         .unwrap_or_default()
-        .detection
-        .min_confidence as f32;
+        .detection;
+    let min_conf = detection_config.min_confidence as f32;
+    let local_llm_config = LocalLlmConfig::from_detection_config(&detection_config);
+    let ocr_min_conf = local_llm_config.ocr_min_confidence(min_conf);
     let det_thread = thread::Builder::new()
         .name("aki-detect".into())
         .spawn(move || {
             log::info!("pipeline thread started: aki-detect");
             let ocr_engine =
-                match OcrEngine::new_with_confidence(ocr_data_path.as_deref(), min_conf) {
+                match OcrEngine::new_with_confidence(ocr_data_path.as_deref(), ocr_min_conf) {
                     Ok(o) => o,
                     Err(e) => {
                         log::error!("ocr engine init failed: {e}");
@@ -328,6 +331,9 @@ pub fn spawn_pipeline(
                     }
                 };
             let mut ocr = IncrementalOcr::new(ocr_engine, GRID_COLS, GRID_ROWS);
+            let local_llm_detector = local_llm_config
+                .enabled
+                .then(|| LocalLlmDetector::new(local_llm_config.clone()));
             let mut dedupe_cache: HashMap<DetectionDedupeKey, Instant> = HashMap::new();
             while state_d.running.load(Ordering::Relaxed) {
                 // apply adaptive grid if it changed
@@ -341,10 +347,23 @@ pub fn spawn_pipeline(
                         let t0 = Instant::now();
                         let regions = match ocr.extract(&frame) {
                             Ok(text_regions) => {
-                                let reg = state_d.registry.lock().unwrap();
-                                let wl = state_d.whitelist.lock().unwrap();
-                                let matches = scan(&text_regions, &reg, &wl);
-                                drop(wl);
+                                let high_confidence_regions = text_regions
+                                    .iter()
+                                    .filter(|region| region.confidence >= min_conf)
+                                    .cloned()
+                                    .collect::<Vec<_>>();
+                                let whitelist = state_d.whitelist.lock().unwrap().clone();
+                                let mut matches = {
+                                    let reg = state_d.registry.lock().unwrap();
+                                    scan(&high_confidence_regions, &reg, &whitelist)
+                                };
+                                if let Some(detector) = &local_llm_detector {
+                                    matches.extend(detector.classify_regions(
+                                        &text_regions,
+                                        &whitelist,
+                                        min_conf,
+                                    ));
+                                }
                                 let merged =
                                     expand_and_merge(matches, frame.width, frame.height, 0.10);
                                 let merged = expand_to_end_of_line(merged, frame.width);

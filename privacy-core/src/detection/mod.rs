@@ -12,6 +12,7 @@ pub mod frame_diff;
 pub use frame_diff::FrameDiff;
 pub mod incremental;
 pub mod line_expand;
+pub mod local_llm;
 pub mod ocr;
 pub mod patterns;
 pub mod pii_patterns;
