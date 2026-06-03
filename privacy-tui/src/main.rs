@@ -6,7 +6,7 @@ mod shutdown;
 mod tui;
 mod ui;
 
-use anyhow::Result;
+use anyhow::{bail, Result};
 use clap::{Parser, Subcommand, ValueEnum};
 use event::{is_quit, next_event, Event};
 use privacy_common::transform::TransformMode;
@@ -20,7 +20,10 @@ struct Cli {
     /// Run without TUI (headless mode) — log stats to file, output to virtual camera only.
     #[arg(long)]
     headless: bool,
-    /// Use PTY capture (intercept shell output) instead of screen capture.
+    /// Capture source for sidecar/headless runs.
+    #[arg(long, value_enum)]
+    source: Option<CliSource>,
+    /// Use PTY capture (compatibility alias for --source pty).
     #[arg(long)]
     pty: bool,
     /// Initial transform mode for sidecar/headless runs.
@@ -43,6 +46,25 @@ enum CliTransform {
     Cartoon,
     Ascii,
     Neural,
+}
+
+#[derive(Debug, Clone, Copy, ValueEnum)]
+enum CliSource {
+    Screen,
+    Pty,
+}
+
+impl CliSource {
+    fn uses_pty(self) -> bool {
+        matches!(self, CliSource::Pty)
+    }
+
+    fn protocol_value(self) -> &'static str {
+        match self {
+            CliSource::Screen => "screen",
+            CliSource::Pty => "pty",
+        }
+    }
 }
 
 impl From<CliTransform> for TransformMode {
@@ -88,17 +110,18 @@ fn main() -> Result<()> {
     let log_path = logging::init()?;
     log::info!("log file ready at {}", log_path.display());
     let cli = Cli::parse();
+    let source = resolve_source(cli.source, cli.pty)?;
     log::info!(
-        "cli parsed headless={} pty={} command={:?}",
+        "cli parsed headless={} source={} command={:?}",
         cli.headless,
-        cli.pty,
+        source.protocol_value(),
         cli.command
     );
     if cli.headless {
-        return cmd_headless(cli.pty, cli.transform, cli.output, cli.http_port);
+        return cmd_headless(source, cli.transform, cli.output, cli.http_port);
     }
     match cli.command.unwrap_or(Command::Run) {
-        Command::Run => cmd_run(cli.pty),
+        Command::Run => cmd_run(source.uses_pty()),
         Command::ListWindows => cmd_list_windows(),
         Command::TestPatterns { text } => cmd_test_patterns(&text),
         Command::CheckOutput => cmd_check_output(),
@@ -107,9 +130,18 @@ fn main() -> Result<()> {
     }
 }
 
+fn resolve_source(source: Option<CliSource>, pty: bool) -> Result<CliSource> {
+    match (source, pty) {
+        (Some(CliSource::Screen), true) => bail!("--source screen cannot be combined with --pty"),
+        (Some(source), _) => Ok(source),
+        (None, true) => Ok(CliSource::Pty),
+        (None, false) => Ok(CliSource::Screen),
+    }
+}
+
 /// Headless mode: full pipeline without TUI; logs stats to XDG config dir; Ctrl-C to stop.
 fn cmd_headless(
-    use_pty: bool,
+    source_choice: CliSource,
     transform: Option<CliTransform>,
     output: Option<CliOutput>,
     http_port: u16,
@@ -127,7 +159,10 @@ fn cmd_headless(
         Arc, Mutex,
     };
 
-    log::info!("starting headless mode use_pty={use_pty}");
+    log::info!(
+        "starting headless mode source={}",
+        source_choice.protocol_value()
+    );
     let running = Arc::new(AtomicBool::new(true));
     let r = running.clone();
     ctrlc::set_handler(move || {
@@ -135,12 +170,14 @@ fn cmd_headless(
     })
     .unwrap_or_else(|_| log::warn!("failed to set Ctrl-C handler"));
 
-    let sink_kind = match output.unwrap_or(CliOutput::Auto) {
+    let output_choice = output.unwrap_or(CliOutput::Auto);
+    let sink_kind = match output_choice {
         CliOutput::Auto => detect_best_sink(http_port),
         CliOutput::Coremedia => SinkKind::CoreMedia,
         CliOutput::Mjpeg => SinkKind::HttpMjpeg(http_port),
         CliOutput::Obs => SinkKind::Obs(http_port),
     };
+    let output_label = sink_kind_label(&sink_kind);
     let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
     let cfg = AppConfig::load().unwrap_or_default();
     let initial_mode = transform
@@ -148,13 +185,15 @@ fn cmd_headless(
         .unwrap_or_else(|| transform_mode_from_config(&cfg.transform.mode));
     let initial_intensity = cfg.transform.intensity.clamp(0.0, 1.0);
     let control_state = control_server::ControlState::new(initial_mode, initial_intensity);
+    control_state.set_source(source_choice.protocol_value());
+    control_state.set_output(&output_label);
     control_server::spawn(
         Arc::clone(&control_state),
         control_server::DEFAULT_CONTROL_PORT,
     );
     let mut registry = default_registry();
     registry.patterns.extend(pii_patterns());
-    let source = create_capture_source(None, use_pty);
+    let source = create_capture_source(None, source_choice.uses_pty());
     let (out_tx, out_rx) = bounded::<TransformedFrame>(8);
     let handle = spawn_pipeline(source, None, registry, out_tx)?;
     *handle.state.transform_mode.lock().unwrap() = initial_mode;
@@ -225,6 +264,16 @@ fn cmd_headless(
     handle.shutdown();
     log::info!("headless mode stopped");
     Ok(())
+}
+
+fn sink_kind_label(sink_kind: &privacy_output::SinkKind) -> String {
+    match sink_kind {
+        privacy_output::SinkKind::V4l2(path) => format!("v4l2:{path}"),
+        privacy_output::SinkKind::CoreMedia => "coremedia".to_string(),
+        privacy_output::SinkKind::HttpMjpeg(port) => format!("mjpeg:{port}"),
+        privacy_output::SinkKind::Obs(port) => format!("obs:{port}"),
+        privacy_output::SinkKind::Twitch => "twitch".to_string(),
+    }
 }
 
 fn transform_mode_from_config(mode: &str) -> TransformMode {

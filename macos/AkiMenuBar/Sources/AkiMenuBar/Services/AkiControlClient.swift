@@ -13,11 +13,11 @@ actor AkiControlClient {
     }
 
     func switchMode(_ mode: TransformChoice) async throws {
-        _ = try await send(["cmd": "switch_mode", "mode": mode.sidecarValue])
+        _ = try await send(["cmd": "set_transform", "mode": mode.sidecarValue])
     }
 
     func stats() async throws -> ControlStatsResponse {
-        let data = try await send(["cmd": "get_stats"])
+        let data = try await send(["cmd": "stats"])
         return try decoder.decode(ControlStatsResponse.self, from: data)
     }
 
