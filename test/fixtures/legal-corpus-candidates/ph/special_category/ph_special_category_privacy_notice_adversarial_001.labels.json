@@ -3,13 +3,304 @@
   "document_type": "generic",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ramon U. Talavera"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EE-0O3-1l"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "BBCH\u2011PAY\u2011\u201429x"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint templates"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "facial geometry"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "declared membership in Isla Workers Guild"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "cardiology treatment records"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "cardiology treatment records"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aira P. de la Vega"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "aira.delavega@bayanbridge.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "declared religion (Iglesiang Malayang Liwanag)"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "self-identified bisexual orientation"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@bayanbridge.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@bayanbridge.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EE\u20110O3\u20111l"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "nonpublic"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ramon U. Talavera"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EE-0O3-1l"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "BBCH\u2011PAY\u2011\u201429x"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint templates"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "facial geometry"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "declared membership in Isla Workers Guild"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "cardiology treatment records"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "cardiology treatment records"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aira P. de la Vega"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR\u2011\n2O25\u201100l"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "aira.delavega@bayanbridge.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "declared religion (Iglesiang Malayang Liwanag)"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "self-identified bisexual orientation"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor dependent Milo"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "DOB masked: 20xx\u201105\u20111\u2014"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@bayanbridge.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@bayanbridge.example.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EE\u20110O3\u20111l"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "you may refuse optional disclosures"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "declining biometrics triggers badge issuance instead"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "choosing no union dues instruction simply disables that payroll setting"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "secure wipe per BayanBridge Data Lifecycle Policy 2.1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "nonpublic"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "draft Form 17\u2011A sections"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unaudited Q4 results"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "pre-close term sheets"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean data rooms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "retained only until public filing or loss of materiality"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "17\u2011A\u2011draft"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MangosteenOS",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "BambooCRM",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "diversity, equity, and inclusion",
+      "reason": "Generic DEI prose; not PII/MNPI"
+    },
+    {
+      "matched_text": "Lakan City Carabaos",
+      "reason": "Sports team; negative/adversarial target"
+    },
+    {
+      "matched_text": "Lakan City",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Barangay Maligaya",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "MAC clause",
+      "reason": "Negated MAC mention; rule excludes negated MAC/MAE"
+    },
+    {
+      "matched_text": "BayanBridge Data Lifecycle Policy 2.1",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "cross\u2011border transfer",
+      "reason": "Disabled/negated cross-border transfer; do not label per rule 17"
+    },
+    {
+      "matched_text": "Isla Renewables Holdings, Corp",
+      "reason": "Company name; not personal data"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ramon.u.talavera%2Fbbch",
+      "concept": "internal_session_id",
+      "reason": "Appears in a ticket parameter; could be a user-derived token or session identifier but not clearly covered by an allowed rule."
+    },
+    {
+      "matched_text": "Client Code BBCH\u2011TR N S\u20112O25\u201100l",
+      "concept": "customer_account_number",
+      "reason": "Looks like a system client code; may be an account reference but not clearly personal and no explicit rule for such system codes."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,114 @@
   "document_type": "generic",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@islanova.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@islanova.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information-barrier program"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@islanova.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@islanova.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information-barrier program"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_pre_listing_marker",
+      "matched_text": "pre-announcement green token issuance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not to be shared until public disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked payroll/account tokens"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "anonymization follows deletion where feasible"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "crypto",
+      "reason": "Educational/marketing context; not market-sensitive"
+    },
+    {
+      "matched_text": "ESG/climate",
+      "reason": "Educational glossary mention; not market-sensitive"
+    },
+    {
+      "matched_text": "blackout",
+      "reason": "Educational mention; no active blackout period referenced"
+    },
+    {
+      "matched_text": "information barrier",
+      "reason": "Educational mention; not a compliance-sensitive context here"
+    },
+    {
+      "matched_text": "tipping",
+      "reason": "Educational mention; not an actual tipping risk statement"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: HR files 5 years post-separation, tax workpapers 10 years, trading system logs 7 years, and crypto operations training materials 2 years",
+      "concept": "retention_marker",
+      "reason": "Retention is a privacy-event marker but no explicit allowed rule name for retention in the list"
+    },
+    {
+      "matched_text": "DSARs may be lodged via dpo@islanova.example or the Service Desk form; we verify identity through role-based checks and respond within RA 10173 and its IRR timelines",
+      "concept": "DSAR marker",
+      "reason": "DSAR handling is a privacy-event marker but there is no explicit DSAR rule name in the allowed list"
+    },
+    {
+      "matched_text": "MDX-PH preparatory filing",
+      "concept": "dpt_pre_listing_marker",
+      "reason": "Suggests a token pre-filing context but not explicitly mapped to a DPT pre-listing rule by string pattern"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

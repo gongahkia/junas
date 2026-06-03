@@ -3,13 +3,350 @@
   "document_type": "generic",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@mrhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@mrhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@mrhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Reina S. Cruz"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lira P. Santos"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Roberto V. Ilagan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Mateo G. Uy"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers proceed with consent and adequate safeguards per NPC circulars"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Identifiers are minimized and masked in internal systems"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "token=9f%2A3c%2D%2A1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProject ALON\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List (restricted)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout: 2026\u201107\u201101 to 2026\u201107\u201115"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Research/IB information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non\u2011public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 3.5b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.125%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "PHP 4.15\u20134.65/token"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProject TANAWIN\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information\u2011barrier controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Restricted List"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@mrhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@mrhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@mrhi.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Reina S. Cruz"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lira P. Santos"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Roberto V. Ilagan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Mateo G. Uy"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. J a i m e C. Llorente"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers proceed with consent and adequate safeguards per NPC circulars"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Identifiers are minimized and masked in internal systems"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "token=9f%2A3c%2D%2A1"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN 5 9 9\u2011**\u2011**1\u2011000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "11\u2011**\u2011**37\u20110*2"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "44 5\u201100\u201118**7\u201122"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID: MRHI\u2011**\u20112O26"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProject ALON\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProject TANAWIN\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List (restricted)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Restricted List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Research/IB information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information\u2011barrier controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout: 2026\u201107\u201101 to 2026\u201107\u201115"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non\u2011public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "PHP 4.15\u20134.65/token"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 3.5b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "6.125%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_pre_listing_marker",
+      "matched_text": "pending BSP VASP registration"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "ISLA utility token allocation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "not yet in PSE\u2011L i s t i n g materials"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "breach notification is still being assessed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to SEC\u2011PH clearance and final documentation"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated context (negative assurance); rule excludes labeling 'no MAC' statements"
+    },
+    {
+      "matched_text": "insider lists",
+      "reason": "Educational/marketing example only; not live MNPI"
+    },
+    {
+      "matched_text": "blackout windows",
+      "reason": "Educational/marketing example only; not live MNPI"
+    },
+    {
+      "matched_text": "cyber hygiene",
+      "reason": "Educational/marketing example only; not a cyber incident disclosure"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: HR/tax files up to 10 years (BIR rules), treasury and trading communications 7 years (SRC, SEC\u2011PH), cybersecurity logs 180 days (or longer if incident review persists), and vendor due diligence files 5 years",
+      "concept": "retention_marker",
+      "reason": "Live retention policy is a privacy-event marker per guidance but no explicit 'retention_marker' rule is listed."
+    },
+    {
+      "matched_text": "To file a DSAR",
+      "concept": "dsar_request",
+      "reason": "DSAR is a privacy right; guidance mentions DSAR markers but no explicit rule name is provided."
+    },
+    {
+      "matched_text": "PayrollRef: PR\u2011**\u20119A",
+      "concept": "internal_reference_number",
+      "reason": "Likely an internal payroll identifier; not clearly covered by listed identifier rules."
+    },
+    {
+      "matched_text": "do not discuss with non\u2011wall\u2011crossed persons",
+      "concept": "wall\u2011cross restriction",
+      "reason": "Compliance restriction related to information barriers/selective disclosure; not a direct match to a listed rule phrase."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

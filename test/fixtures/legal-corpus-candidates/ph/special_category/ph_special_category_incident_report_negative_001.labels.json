@@ -3,13 +3,131 @@
   "document_type": "memo",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "HR Case Ref HR-04421 indicates the employee is a member of a labor union"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@tambuli.example.ph"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "minor cyber incident"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "HR Case Ref HR-04421 indicates the employee is a member of a labor union"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@tambuli.example.ph"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "minor cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "anomalous access to a staging node of the Isarog Core Banking Suite"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "spilled over to an internal Mayumi Payroll Cloud share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "Materiality: The Board confirms this does not constitute MNPI under the SRC as there is no impact on earnings, cash flows, or ongoing capital-markets activities; a press statement was posted on 15 April 2026"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "HR Case Ref HR-04421"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "TIN 000-000-000-XYZ",
+      "reason": "Placeholder/invalid test string; not actual PII"
+    },
+    {
+      "matched_text": "ACCT-0000-XXXX-9999",
+      "reason": "Placeholder/masked account string; not actual PII"
+    },
+    {
+      "matched_text": "Bayanihan Data Shield Policy v2.3",
+      "reason": "Policy/document name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Isarog Core Banking Suite",
+      "reason": "Product/system name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Mayumi Payroll Cloud",
+      "reason": "Product/system name, not PII or MNPI"
+    },
+    {
+      "matched_text": "BayanPay Link v1",
+      "reason": "Product/system name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Makabayan Inclusion Charter",
+      "reason": "Policy/charter name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Laguna Lake Sailors",
+      "reason": "Nickname/metaphor, not a transaction codename or PII/MNPI"
+    },
+    {
+      "matched_text": "Sampaguita IR Portal",
+      "reason": "System name, not PII or MNPI"
+    },
+    {
+      "matched_text": "BIR eFPS batch ref 2026-TEST-0001",
+      "reason": "Internal batch reference; not covered PII/MNPI category"
+    },
+    {
+      "matched_text": "Makati",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Davao",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "TMBL",
+      "reason": "Stock ticker; not PII/MNPI per allowed rules"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "BIR eFPS batch ref 2026-TEST-0001",
+      "concept": "internal reference ID",
+      "reason": "Could be sensitive internal identifier but not clearly mapped to an allowed PII rule"
+    },
+    {
+      "matched_text": "Project teams nicknamed Laguna Lake Sailors",
+      "concept": "transaction-codename-like nickname",
+      "reason": "Nickname may resemble a codename but does not match the required 'Project <Name>' pattern"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
