@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 from benchmark.synthetic.generator import SyntheticGenerator, case_from_body, plan_json, write_candidate_case
+from benchmark.synthetic.ops import show_fixture, status_for_task, validate_task
 from benchmark.synthetic.planner import build_plan, estimate_cost_usd
 from benchmark.synthetic.promoter import promote_task
 from benchmark.synthetic.reviewer import record_decision, resolve_fixture, summary_json
@@ -55,6 +56,19 @@ def build_parser() -> argparse.ArgumentParser:
     promote_p = sub.add_parser("promote", help="Promote approved candidates to reviewed")
     promote_p.add_argument("--task", required=True, choices=supported_tasks())
     promote_p.add_argument("--base-dir", default="", help=argparse.SUPPRESS)
+
+    status_p = sub.add_parser("status", help="Summarise candidate and reviewed fixture counts")
+    status_p.add_argument("--task", required=True, choices=supported_tasks())
+    status_p.add_argument("--base-dir", default="", help=argparse.SUPPRESS)
+
+    show_p = sub.add_parser("show", help="Show one synthetic fixture")
+    show_p.add_argument("--fixture", required=True)
+    show_p.add_argument("--task", choices=supported_tasks())
+    show_p.add_argument("--base-dir", default="", help=argparse.SUPPRESS)
+
+    validate_p = sub.add_parser("validate", help="Validate synthetic candidate/reviewed datasets")
+    validate_p.add_argument("--task", required=True, choices=supported_tasks())
+    validate_p.add_argument("--base-dir", default="", help=argparse.SUPPRESS)
     return parser
 
 
@@ -120,6 +134,28 @@ def _cmd_promote(args: argparse.Namespace) -> int:
     return 1 if result["errors"] else 0
 
 
+def _cmd_status(args: argparse.Namespace) -> int:
+    print(json.dumps(status_for_task(task=args.task, base_dir=_base_dir(args.base_dir)), indent=2, sort_keys=True))
+    return 0
+
+
+def _cmd_show(args: argparse.Namespace) -> int:
+    print(
+        json.dumps(
+            show_fixture(fixture=args.fixture, task=args.task, base_dir=_base_dir(args.base_dir)),
+            indent=2,
+            sort_keys=True,
+        )
+    )
+    return 0
+
+
+def _cmd_validate(args: argparse.Namespace) -> int:
+    result = validate_task(task=args.task, base_dir=_base_dir(args.base_dir))
+    print(json.dumps(result, indent=2, sort_keys=True))
+    return 0 if result["ok"] else 1
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -132,6 +168,12 @@ def main(argv: list[str] | None = None) -> int:
             return _cmd_review(args)
         if args.cmd == "promote":
             return _cmd_promote(args)
+        if args.cmd == "status":
+            return _cmd_status(args)
+        if args.cmd == "show":
+            return _cmd_show(args)
+        if args.cmd == "validate":
+            return _cmd_validate(args)
     except (FileNotFoundError, ValueError, RuntimeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
