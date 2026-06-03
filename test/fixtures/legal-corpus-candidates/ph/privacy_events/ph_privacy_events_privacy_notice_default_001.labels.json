@@ -3,13 +3,200 @@
   "document_type": "generic",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ramon I. Querubin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Teresa D. Llorente"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Liza M. Cabral"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pilar S. Nogales"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lumayo-holdings.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 28 555 0199"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Kapiz"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout enforced"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ramon I. Querubin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Teresa D. Llorente"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Atty. Liza M. Cabral"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Pilar S. Nogales"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lumayo-holdings.ph"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+63 28 555 0199"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Kapiz"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout enforced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring-fenced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "access restricted to Capital Markets and Legal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Effective 03 June 2026"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-Border Transfer Memo (PH)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "There is currently no cross-border transfer of trading desk chat transcripts or MNPI to any third party",
+      "reason": "Negated control statement; do not flag as live cross-border transfer"
+    },
+    {
+      "matched_text": "no privacy incidents or reportable MNPI leaks were recorded in Q2 to date",
+      "reason": "Negated incident; do not flag as cyber/MNPI incident"
+    },
+    {
+      "matched_text": "biometric capture is disabled and not in use",
+      "reason": "Negated special-category data; not collected/processed"
+    },
+    {
+      "matched_text": "no passports are collected for project-based consultants",
+      "reason": "Negated PII category; not collected"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR log",
+      "concept": "dsar_marker",
+      "reason": "Data subject access/correction request log is a privacy-handling event not explicitly enumerated in allowed rules"
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "retention_marker",
+      "reason": "Indicates data retention policy but no explicit retention_marker rule is listed"
+    },
+    {
+      "matched_text": "queued for erasure within 90 days",
+      "concept": "erasure_marker",
+      "reason": "Erasure scheduling is a privacy-handling event not in allowed rule list"
+    },
+    {
+      "matched_text": "Transfer impact assessment",
+      "concept": "transfer_impact_assessment",
+      "reason": "TIA is a cross-border compliance control but not an explicitly allowed marker"
+    },
+    {
+      "matched_text": "XXXX-4472",
+      "concept": "masked_financial_identifier",
+      "reason": "Masked last-4 of bank account may be quasi-identifier PII under PH DPA though no specific rule for masked identifiers"
+    },
+    {
+      "matched_text": "outdated mailing address deleted",
+      "concept": "erasure_marker",
+      "reason": "Deletion of personal data is an erasure event not explicitly covered by allowed rules"
+    },
+    {
+      "matched_text": "marketing consents are reviewed annually",
+      "concept": "retention_review_marker",
+      "reason": "Indicates periodic review/retention of consent records; not explicitly in allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

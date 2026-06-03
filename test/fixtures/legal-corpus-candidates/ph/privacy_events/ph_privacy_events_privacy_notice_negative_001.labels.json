@@ -3,13 +3,151 @@
   "document_type": "generic",
   "source_jurisdiction": "PH",
   "destination_jurisdiction": "PH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@talaora.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID E-000412"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Collection/minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@talaora.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID E-000412"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Collection/minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "optional fields are disabled"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collect only job-related fields"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "company ID"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN label"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "uses hashed employee identifiers"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Cross-border transfers",
+      "reason": "Header mentions transfers but explicitly states no active cross-border data flow."
+    },
+    {
+      "matched_text": "no cross-border data flow is currently active",
+      "reason": "Negated; not a live cross-border transfer event."
+    },
+    {
+      "matched_text": "marketing consent withdrawal is available",
+      "reason": "Availability statement; not an actual consent withdrawal."
+    },
+    {
+      "matched_text": "there are no pending consent withdrawals for HR datasets",
+      "reason": "Negated; no live consent withdrawal to flag."
+    },
+    {
+      "matched_text": "\u201cinsider list\u201d",
+      "reason": "Template-only reference; not an MNPI insider list."
+    },
+    {
+      "matched_text": "no trading blackout is declared",
+      "reason": "Negated; no blackout period in effect."
+    },
+    {
+      "matched_text": "no material non-public information is contained",
+      "reason": "Explicit disclaimer; not MNPI content."
+    },
+    {
+      "matched_text": "\u201cpurge\u201d",
+      "reason": "Routine log term; not an incident or erasure event."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "data subject access request",
+      "concept": "DSAR marker",
+      "reason": "DSAR is a privacy handling event but not in the current allowed rules list."
+    },
+    {
+      "matched_text": "erasure request",
+      "concept": "Erasure request marker",
+      "reason": "Erasure handling event is legally relevant but not in the allowed rules list."
+    },
+    {
+      "matched_text": "retained for up to ten (10) years",
+      "concept": "Retention marker",
+      "reason": "Retention period is governance-relevant but no explicit retention rule exists."
+    },
+    {
+      "matched_text": "retained for two (2) years",
+      "concept": "Retention marker",
+      "reason": "Retention period is governance-relevant but no explicit retention rule exists."
+    },
+    {
+      "matched_text": "retention matrix",
+      "concept": "Retention governance",
+      "reason": "Indicates structured retention controls; not covered by allowed rules."
+    },
+    {
+      "matched_text": "bank account alias",
+      "concept": "Bank account category mention",
+      "reason": "References bank account data type without an actual account number."
+    },
+    {
+      "matched_text": "SSS label",
+      "concept": "PH SSS number category",
+      "reason": "SSS identifiers are sensitive but not included in the allowed rules list."
+    },
+    {
+      "matched_text": "Transfer Impact Assessment",
+      "concept": "Cross-border assessment",
+      "reason": "TIA is privacy-relevant but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "NPC-compliant DSA",
+      "concept": "Data sharing agreement safeguard",
+      "reason": "Contractual safeguard is relevant to transfers but not an allowed detection rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
