@@ -3,13 +3,287 @@
   "document_type": "generic",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Rafi Wirawan"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EIP-77F0"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "template sidik jari presensi"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "catatan pengobatan diabetes dari Klinik Prabawa"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "keanggotaan Serikat Pekerja Aurora"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "preferensi keagamaan sebagai penganut Hindu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Citra Lestari"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "orientasi seksual (lesbian)"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "afiliasi politik non-eksekutif pada Partai Rimba Sejahtera"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "usia 15"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aurorafintech.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-21-555-0123"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Pemindahan lintas batas ke pusat data ap-sea-9"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project NusaMesh"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Rafi Wirawan"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EIP-77F0"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "template sidik jari presensi"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "catatan pengobatan diabetes dari Klinik Prabawa"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "keanggotaan Serikat Pekerja Aurora"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "preferensi keagamaan sebagai penganut Hindu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Citra Lestari"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "orientasi seksual (lesbian)"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "afiliasi politik non-eksekutif pada Partai Rimba Sejahtera"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "usia 15"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aurorafintech.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-21-555-0123"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Pemindahan lintas batas ke pusat data ap-sea-9"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project NusaMesh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "u s e r \u2014 r a f i @ aurorafintech.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ananda Dimas Wirawan"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Data anak\u2014Ananda Dimas Wirawan (usia 15, DepRef: min-15\u2014d w \u2014 x)"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EIP%2D77F0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "rencana akuisisi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wajib dibatasi aksesnya sampai pengumuman resmi melalui BEG/OJK-A"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "pelanggaran kebijakan kebocoran MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "penundaan keterbukaan OJK-A"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Pengendali Data",
+      "reason": "Defined-role term; not PII/MNPI"
+    },
+    {
+      "matched_text": "Emiten BEG",
+      "reason": "Defined-role/exchange descriptor; not PII/MNPI"
+    },
+    {
+      "matched_text": "Prosesor",
+      "reason": "Defined-role term; not PII/MNPI"
+    },
+    {
+      "matched_text": "LayarPay",
+      "reason": "Product name; negative/adversarial target"
+    },
+    {
+      "matched_text": "SingaCard",
+      "reason": "Product name; negative/adversarial target"
+    },
+    {
+      "matched_text": "GarudaVault",
+      "reason": "Product/tool name; not PII/MNPI"
+    },
+    {
+      "matched_text": "genetic algorithm",
+      "reason": "False-positive bait; not genetic data"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated Material Adverse Change; rule excludes negated MAC"
+    },
+    {
+      "matched_text": "Kebijakan Keterbukaan Informasi Emiten",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "DEI",
+      "reason": "Generic DEI prose; not PII/MNPI"
+    },
+    {
+      "matched_text": "Bandung Komodos",
+      "reason": "Sports team; negative/adversarial target"
+    },
+    {
+      "matched_text": "tanpa meminta nomor identitas pemerintah",
+      "reason": "Negated minimisation control; rule says do not label negated controls"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Permintaan Akses Subjek (DSAR) dapat diajukan",
+      "concept": "DSAR marker",
+      "reason": "Indicates data subject rights request process; no explicit allowed DSAR rule name provided"
+    },
+    {
+      "matched_text": "https://privacy.aurorafintech.co.id/dsar?id=EIP%2D77F0&loc=id_jkt",
+      "concept": "DSAR portal URL",
+      "reason": "Contains query identifiers linked to a specific user; URL-based identifiers not explicitly covered"
+    },
+    {
+      "matched_text": "Retensi: data gaji 7 tahun, catatan kesehatan pegawai 5 tahun pasca-terminasi, log MNPI sampai publikasi BEG + 2 tahun, dan email terkait due diligence 4 tahun",
+      "concept": "retention_marker",
+      "reason": "Specifies retention periods; retention marker not in allowed rules list"
+    },
+    {
+      "matched_text": "hanya dapat diakses oleh Tim DPO",
+      "concept": "information_barrier_marker",
+      "reason": "Access restriction implies information barrier but phrasing may be too contextual for current detectors"
+    },
+    {
+      "matched_text": "UserRef: afn\u2014EIP-77F0\u20140x0a",
+      "concept": "internal_session_id",
+      "reason": "Looks like an internal user/session reference; not clearly mapped to a specific allowed identifier"
+    },
+    {
+      "matched_text": "EIP%2D77F0",
+      "concept": "employee_id (URL-encoded)",
+      "reason": "URL-encoded employee identifier may not be detected by standard ID regexes"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

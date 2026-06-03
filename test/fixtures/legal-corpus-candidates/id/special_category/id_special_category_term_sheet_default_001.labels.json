@@ -3,13 +3,327 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "Rp1.250 per saham"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "informasi material non\u2011publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "daftar orang dalam"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "masa blackout diberlakukan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "tidak ada komunikasi eksternal hingga rilis resmi BEG"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "15%"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpsec@arunikafintek.example.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@harindracapital.example.id"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Aditya Ramelan"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "mengelola diabetes tipe 1"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "menggunakan pompa insulin"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "data biometrik (template sidik jari)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "persetujuan eksplisit yang dapat ditarik kapan saja"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Saudara Rian Hasa"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Ketua Serikat Karyawan Arunika"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "keanggotaan serikatnya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Naya Putri"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Arya (16 tahun)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "16 tahun"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Pembeli akan mengakuisisi 55% saham beredar PT Arunika Fintek Tbk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "Rp1.250 per saham"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Perubahan Material Merugikan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "informasi material non\u2011publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "daftar orang dalam"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "masa blackout diberlakukan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "tidak ada komunikasi eksternal hingga rilis resmi BEG"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Target penutupan T+90 Hari Bursa"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "pasca\u2011penandatanganan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "tunduk pada penyesuaian kas bersih dan liabilitas kontinjensi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "15%"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpsec@arunikafintek.example.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@harindracapital.example.id"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Aditya Ramelan"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "mengelola diabetes tipe 1"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "menggunakan pompa insulin"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "data biometrik (template sidik jari)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "persetujuan eksplisit yang dapat ditarik kapan saja"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Saudara Rian Hasa"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Ketua Serikat Karyawan Arunika"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "keanggotaan serikatnya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Naya Putri"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Arya (16 tahun)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "16 tahun"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "data minor"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SakuKilau",
+      "reason": "Product name, not PII/MNPI."
+    },
+    {
+      "matched_text": "Kebijakan Pelangi",
+      "reason": "Policy/DEI reference, not PII/MNPI."
+    },
+    {
+      "matched_text": "Garuda Tigers FC",
+      "reason": "Sports team name, not PII/MNPI."
+    },
+    {
+      "matched_text": "Kota Parahyangan",
+      "reason": "Place name, not PII/MNPI."
+    },
+    {
+      "matched_text": "Pulau Seruni",
+      "reason": "Place name, not PII/MNPI."
+    },
+    {
+      "matched_text": "Pembeli",
+      "reason": "Role noun defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "Manajemen senior",
+      "reason": "Role noun, not PII/MNPI."
+    },
+    {
+      "matched_text": "Bursa Efek Garuda/BEG",
+      "reason": "Exchange/market name, not PII/MNPI."
+    },
+    {
+      "matched_text": "tidak ada penggunaan rekening escrow dengan identitas pemegang rekening individual",
+      "reason": "Negated privacy control; per rule 17 do not label."
+    },
+    {
+      "matched_text": "tidak terjadi Perubahan Material Merugikan",
+      "reason": "Negated MAC clause; per rule 8 do not label."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "kebijakan retensi yang ketat",
+      "concept": "retention marker",
+      "reason": "Privacy retention control is relevant but there is no explicit allowed rule name for retention in the provided list."
+    },
+    {
+      "matched_text": "Periode eksklusivitas 60 hari",
+      "concept": "exclusivity period",
+      "reason": "Material deal term but not covered by the allowed MNPI rule set."
+    },
+    {
+      "matched_text": "perjanjian kerja 24 bulan",
+      "concept": "employment contract term",
+      "reason": "Personal employment details about a named individual are PII under UU PDP but not mapped to a specific allowed PII rule."
+    },
+    {
+      "matched_text": "putranya",
+      "concept": "family relationship data",
+      "reason": "Indicates a specific family relationship tied to an identifiable person, PII-relevant but not covered by an allowed rule code."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1.250 per saham'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1.250 per saham'"
+  ],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

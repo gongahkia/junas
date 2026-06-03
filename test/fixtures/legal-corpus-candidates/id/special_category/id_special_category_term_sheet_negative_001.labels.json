@@ -3,13 +3,251 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "~60%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "informasi material non-publik"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID-4772"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Karyawan-ID EID-4772 pada entitas target tercatat sebagai anggota serikat pekerja internal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "hanya dibagikan dalam bentuk teragregasi dan teranonymisasi"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@nusantarafintek.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpsec@selarasdata.example"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-0000000"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "~60%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "informasi material non-publik"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID-4772"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Karyawan-ID EID-4772 pada entitas target tercatat sebagai anggota serikat pekerja internal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "hanya dibagikan dalam bentuk teragregasi dan teranonymisasi"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@nusantarafintek.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpsec@selarasdata.example"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-0000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "RUPS Luar Biasa"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "RUPSLB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "transaksi material"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "perubahan kegiatan usaha"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Perseroan",
+      "reason": "Role/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "calon pembeli",
+      "reason": "Role/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "calon target",
+      "reason": "Role/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "target",
+      "reason": "Role/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Kebijakan Keberagaman & Inklusi 2024",
+      "reason": "Policy name; generic DEI reference"
+    },
+    {
+      "matched_text": "Garuda Tigers",
+      "reason": "Sports team example; not PII/MNPI"
+    },
+    {
+      "matched_text": "strategi full-court press",
+      "reason": "Metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "ArunikaPay",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Arunika Prism",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Selaras MicroLend Lite",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Selaras MicroLend",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Kota Pusaka",
+      "reason": "Place name; not PII/MNPI"
+    },
+    {
+      "matched_text": "BANI Jakarta",
+      "reason": "Venue/forum name; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "UU PDP",
+      "concept": "privacy_law_reference",
+      "reason": "Data protection law reference is relevant to privacy but not covered by an allowed rule."
+    },
+    {
+      "matched_text": "NDA",
+      "concept": "confidentiality_agreement_reference",
+      "reason": "Confidentiality agreement mentioned but no specific allowed rule covers it."
+    },
+    {
+      "matched_text": "ID-FAKE-000-TEST",
+      "concept": "security_identifier",
+      "reason": "ISIN-like identifier is relevant in securities context but not in allowed MNPI rules."
+    },
+    {
+      "matched_text": "NFAA",
+      "concept": "security_ticker",
+      "reason": "Ticker symbol may be sensitive contextually but not an allowed rule."
+    },
+    {
+      "matched_text": "SDM1",
+      "concept": "security_ticker",
+      "reason": "Ticker symbol may be sensitive contextually but not an allowed rule."
+    },
+    {
+      "matched_text": "TS-NFAA-SDM-2026-01",
+      "concept": "internal_reference",
+      "reason": "Internal transaction reference may be sensitive but not covered by allowed rules."
+    },
+    {
+      "matched_text": "2 Hari Bursa",
+      "concept": "disclosure_timeline",
+      "reason": "Disclosure deadline is compliance-relevant but not among specified embargo markers."
+    },
+    {
+      "matched_text": "penutupan transaksi",
+      "concept": "closing_event",
+      "reason": "Refers to closing but does not use explicit 'Closing Date' marker."
+    },
+    {
+      "matched_text": "Keterbukaan Informasi",
+      "concept": "disclosure_compliance",
+      "reason": "Disclosure section title is MNPI-related context but not mapped to a specific allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

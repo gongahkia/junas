@@ -3,13 +3,166 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "clearance kesehatan kerja milik karyawan bernama Raka Hartanto (catatan pemantauan hipertensi)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@serayafintek.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@serayafintek.co.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "informasi material non-publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Laporan Insiden Operasional (Siber)"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "clearance kesehatan kerja milik karyawan bernama Raka Hartanto (catatan pemantauan hipertensi)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@serayafintek.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@serayafintek.co.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "informasi material non-publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Laporan Insiden Operasional (Siber)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "rencana akuisisi PT Bima Sakti Digital"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "NIK"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "NPWP"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Nomor Rekening"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "placeholder kosong"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Password"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Nama Lengkap"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u201cSakuBiru\u201d",
+      "reason": "Product name, not PII or MNPI"
+    },
+    {
+      "matched_text": "\u201cTim Rajawali,\u201d",
+      "reason": "Internal project metaphor, not PII"
+    },
+    {
+      "matched_text": "\u201cSprint Maraton Compliance,\u201d",
+      "reason": "Internal project metaphor, not PII"
+    },
+    {
+      "matched_text": "\u201cPantai Selatan\u201d",
+      "reason": "Project codename/metaphor, not PII"
+    },
+    {
+      "matched_text": "\u201cKebijakan Keamanan Data 2025\u201d",
+      "reason": "Policy name, not PII"
+    },
+    {
+      "matched_text": "\u201cPedoman DEI Harmoni,\u201d",
+      "reason": "Policy/guide name, not PII"
+    },
+    {
+      "matched_text": "\u201cSakuBiru Insight\u201d",
+      "reason": "Product/module name, not PII"
+    },
+    {
+      "matched_text": "\u201cROLE_REPORT_VIEWER\u201d",
+      "reason": "Permission/role string, not PII"
+    },
+    {
+      "matched_text": "\u201cPOJK Keterbukaan Insiden TI\u201d",
+      "reason": "Regulatory/policy reference, not PII"
+    },
+    {
+      "matched_text": "IDXNet",
+      "reason": "Platform name, not PII or MNPI"
+    },
+    {
+      "matched_text": "1500-XY9",
+      "reason": "Public hotline; does not identify a natural person"
+    },
+    {
+      "matched_text": "PT Seraya Fintek Tbk",
+      "reason": "Company name (entity), not personal data"
+    },
+    {
+      "matched_text": "trading halt",
+      "reason": "Market mechanism mention, not an allowed MNPI marker"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Raka Hartanto",
+      "concept": "person_name",
+      "reason": "Identifies a natural person but lacks honorific/signature context required by named_person rule"
+    },
+    {
+      "matched_text": "00AA11BB22CC",
+      "concept": "hash_value",
+      "reason": "Looks like an identifier (hash) but not covered by allowed PII categories"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

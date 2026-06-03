@@ -3,13 +3,304 @@
   "document_type": "generic",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nirwanafintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@nirwanafintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "boardsec@nirwanafintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-21-555-9100"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Dr. Ratri Sasmita"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bpk. Hendra Wijaya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Alvin Pratomo"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer: encrypted transit to PT Lumbung Awan Teknologi\u2019s Singapore node under SCC-equivalent addendum"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "aligned with UU PDP (minimisasi, transparansi, akuntabilitas)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "RAHASIA DAGANG"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Merpati"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 2026-08-15 09:00 WIB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 475,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "35%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nirwanafintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@nirwanafintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "boardsec@nirwanafintek.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-21-555-9100"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Dr. Ratri Sasmita"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bpk. Hendra Wijaya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Alvin Pratomo"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer: encrypted transit to PT Lumbung Awan Teknologi\u2019s Singapore node under SCC-equivalent addendum"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "aligned with UU PDP (minimisasi, transparansi, akuntabilitas)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR responses within 5 hari kerja"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "RAHASIA DAGANG"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Merpati"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "PROJECT MERPATI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition by PT Galaksi Mitra Data of 35% of PT Nirwana Fintek Nusantara Tbk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC/MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 2026-08-15 09:00 WIB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo lift"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 475,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "35%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider & MNPI handling"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "access restricted to \u201cProject Merpati\u201d room"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "controller",
+      "reason": "role noun / defined term, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "processor",
+      "reason": "role noun / defined term, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "job title/role, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "GC",
+      "reason": "job title/role, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "spa-day voucher",
+      "reason": "false-positive bait; not a Share Purchase Agreement"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Data Processing Agreement (Perjanjian Pemrosesan Data)",
+      "concept": "definitive_agreement coverage",
+      "reason": "Binding agreement relevant to privacy compliance but not in the enumerated list of definitive M&A agreements"
+    },
+    {
+      "matched_text": "breach notification to OJKN within 3x24 jam",
+      "concept": "cyber_incident_pre_disclosure",
+      "reason": "Discusses incident notification timing which could be market-sensitive if tied to an actual breach, but here is policy language not clearly covered"
+    },
+    {
+      "matched_text": "HR files 5 years; transaction logs 24 months",
+      "concept": "retention_marker",
+      "reason": "Specifies retention periods, a privacy marker suggested by guidance but not present as a distinct allowed rule"
+    },
+    {
+      "matched_text": "payment credential data localized in Nusantara region",
+      "concept": "data_localization_marker",
+      "reason": "Indicates data localization which is privacy-relevant but not covered by an explicit allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

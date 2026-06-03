@@ -3,13 +3,216 @@
   "document_type": "generic",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo: 15 July 2026, 09:00 WIB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "67.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Definitive Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 480.000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Effect"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@ptnkd.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collection is minimized"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "need-to-know"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo: 15 July 2026, 09:00 WIB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "67.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Definitive Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 480.000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Effect"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@ptnkd.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collection is minimized"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "need-to-know"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cRangga\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not circulate externally"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "not for publication"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Sari Anindya"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62 21 5555 12"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-8xx-12xx-34xx"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "EID: 7A3-9X-**-0042"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "Acct: 9X-2-77-\u2022\u202234"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "defined-term abbreviation; avoid conflating with wellness 'spa' text"
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "false-positive bait; not a Share Purchase Agreement"
+    },
+    {
+      "matched_text": "spa schedule",
+      "reason": "false-positive bait; not a Share Purchase Agreement"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Acct: 9X-2-77-\u2022\u202234",
+      "concept": "customer_account_number",
+      "reason": "masked/ambiguous account reference; not clearly a bank/customer account under strict rules"
+    },
+    {
+      "matched_text": "EID: 7A3-9X-**-0042",
+      "concept": "internal_session_id",
+      "reason": "ticket-style identifier; format not standardised for strict detection"
+    },
+    {
+      "matched_text": "IR-7a3f-%2A%2A-991",
+      "concept": "internal_case_id",
+      "reason": "case identifier embedded in DSAR URL; no explicit rule for case IDs"
+    },
+    {
+      "matched_text": "delete/anonymize upon expiry",
+      "concept": "retention/erasure marker",
+      "reason": "legally relevant erasure/retention control but not mapped to an explicit allowed rule name"
+    },
+    {
+      "matched_text": "+62 21 5555 12xx",
+      "concept": "phone_number (masked)",
+      "reason": "partially masked; may not meet strict phone pattern"
+    },
+    {
+      "matched_text": "+62-8xx-12xx-34xx",
+      "concept": "phone_number (masked)",
+      "reason": "example with masking; likely excluded by strict regex"
+    },
+    {
+      "matched_text": "Embargo: 15 July 2026, 09:00 WIB; do not circulate externally until OJKN clearance and BES notice are prepared",
+      "concept": "tipping/selective disclosure instruction",
+      "reason": "composite embargo and handling instruction; portions beyond the simple marker may not be covered by strict rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

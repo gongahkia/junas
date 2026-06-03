@@ -3,13 +3,165 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "layanan@cakrawalafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@cakrawalafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@cakrawalafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "17-07-1988"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "ID karyawan CFN-OPS-88"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.20.0.0/24"
+    },
+    {
+      "category": "PII",
+      "rule": "id_nik",
+      "matched_text": "0000000000000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "LOI"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "layanan@cakrawalafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@cakrawalafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@cakrawalafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "17-07-1988"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "ID karyawan CFN-OPS-88"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.20.0.0/24"
+    },
+    {
+      "category": "PII",
+      "rule": "id_nik",
+      "matched_text": "0000000000000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "LOI"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Dalam satu tiket, seorang petugas lapangan (tanpa nama) di Kecamatan Kencana Raya, Kota Surajaya, tanggal lahir 17-07-1988, menggunakan perangkat iOS 15 milik Perseroan, ID karyawan CFN-OPS-88, akun kerja \u201cops-kencana-17\u201d, dan ID perangkat internal \u201cios-15-KCN-0000\u201d saat terjadi kesalahan sinkronisasi"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "ops-kencana-17"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "ios-15-KCN-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "APP-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123-456-ABC"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "DEMO-999"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "pseudonimisasi"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Perseroan",
+      "reason": "Role noun referring to the company, not PII or MNPI"
+    },
+    {
+      "matched_text": "petugas lapangan",
+      "reason": "Generic role title without identification"
+    },
+    {
+      "matched_text": "mayoritas berusia 25\u201334",
+      "reason": "Aggregate demographic statement not identifying individuals"
+    },
+    {
+      "matched_text": "provinsi fiktif Nusa Darma",
+      "reason": "Fictional aggregate location reference, not identifying"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "00.000.000.0-000.000",
+      "concept": "id_npwp",
+      "reason": "Indonesian tax ID (NPWP) example; sensitive identifier but not enumerated in allowed rules"
+    },
+    {
+      "matched_text": "retensi log 90 hari",
+      "concept": "data_retention_marker",
+      "reason": "Live data retention policy reference; retention marker not explicitly listed among allowed PII rule keys"
+    },
+    {
+      "matched_text": "TX-TEST-0000",
+      "concept": "transaction_id",
+      "reason": "Transaction identifier may be linkable to activity but no explicit allowed rule for transaction IDs"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

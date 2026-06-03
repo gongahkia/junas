@@ -3,13 +3,159 @@
   "document_type": "generic",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@samudrakoneksi.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "please mask legacy identifiers with [REDACTED]"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "a named insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition by PT Bumi Niaga Digital Tbk of a regional e\u2011money unit"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@samudrakoneksi.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "please mask legacy identifiers with [REDACTED]"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "a named insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition by PT Bumi Niaga Digital Tbk of a regional e\u2011money unit"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Until keterbukaan informasi is filed with Otoritas Jasa Keuangan Khayalan (OJKh) and Bursa Efek Nusantara (BEN)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "restricted to a named insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "badge IDs with prefix SKT\u2011"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "ignored and not stored"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "information barriers",
+      "reason": "Generic compliance education reference; not a deal signal"
+    },
+    {
+      "matched_text": "tipping prohibitions",
+      "reason": "Generic compliance education reference; not a deal signal"
+    },
+    {
+      "matched_text": "insider lists",
+      "reason": "Generic compliance education reference; not a deal signal"
+    },
+    {
+      "matched_text": "blackout windows",
+      "reason": "Generic compliance education reference; not a deal signal"
+    },
+    {
+      "matched_text": "Crypto Dasar",
+      "reason": "Marketing/education module; not market-sensitive event"
+    },
+    {
+      "matched_text": "ESG & Iklim untuk Produk",
+      "reason": "Marketing/education module; not market-sensitive event"
+    },
+    {
+      "matched_text": "downtime blackout",
+      "reason": "Operational status terminology; not capital-markets MNPI"
+    },
+    {
+      "matched_text": "Pemroses",
+      "reason": "Defined role term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Pengendali",
+      "reason": "Defined role term, not PII/MNPI"
+    },
+    {
+      "matched_text": "biometric data",
+      "reason": "Explicitly negated control; avoid false positive"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "KTP/NPWP numbers",
+      "concept": "Local ID types reference",
+      "reason": "References Indonesian KTP (NIK) and tax ID types without actual numbers; relevant identifiers but not covered by a specific allowed rule span"
+    },
+    {
+      "matched_text": "Retention: records retained minimum 5 years after service termination or per OJKh recordkeeping guidance, whichever is longer",
+      "concept": "Retention marker",
+      "reason": "Retention periods are privacy-event markers but no explicit allowed rule name provided"
+    },
+    {
+      "matched_text": "DSAR: submit via privacy@samudrakoneksi.example or portal privacy.skt.example/dsar; we respond within 30 calendar days and may extend with notice consistent with UU PDP",
+      "concept": "DSAR workflow",
+      "reason": "DSAR handling is a privacy-event marker but not explicitly listed among allowed rules"
+    },
+    {
+      "matched_text": "deletions are certified via chain\u2011of\u2011custody reports",
+      "concept": "Erasure/certification marker",
+      "reason": "Deletion/erasure handling is legally relevant but not clearly mapped to an allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

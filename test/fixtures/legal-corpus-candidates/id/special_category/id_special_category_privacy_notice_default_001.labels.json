@@ -3,13 +3,293 @@
   "document_type": "generic",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bpk. Jaya Destrawan"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "FNS-7712"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "data kehadiran biometrik (sidik jari)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "catatan perawatan diabetes dari klinik rekanan"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "afiliasi keagamaannya (Hindu)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "status keanggotaan serikat pekerja \u201cSerikat Kerja Layar Timur\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@semarakfintek.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@semarakfintek.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "log autentikasi biometrik"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bpk. Jaya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Ibu Sasmita Kencana"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "permintaan akses, koreksi, penghapusan, keberatan, portabilitas"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "menunda pemenuhan DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "permintaan akses pihak ketiga memerlukan persetujuan tertulis dari Bpk. Jaya dan Komite Privasi"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "register DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfer lintas batas ke pemroses PT Awan Pelita Global di Pusat Data Kota Andalas dilakukan berdasar Perjanjian Pemrosesan Data, klausul standar, dan penilaian dampak transfer sesuai UU PDP"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Prinsip minimisasi dan need-to-know berlaku"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Rahasia Emiten"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "rencana akuisisi PT Pinang Kredit Digital oleh PT Semarak Fintek Nusantara Tbk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "rencana merger dengan PT Lentera Bayar Digital"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bpk. Jaya Destrawan"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "FNS-7712"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "data kehadiran biometrik (sidik jari)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "catatan perawatan diabetes dari klinik rekanan"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "catatan perawatan diabetes dari klinik rekanan"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "afiliasi keagamaannya (Hindu)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "status keanggotaan serikat pekerja \u201cSerikat Kerja Layar Timur\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@semarakfintek.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@semarakfintek.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "log autentikasi biometrik"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bpk. Jaya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Ibu Sasmita Kencana"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "permintaan akses, koreksi, penghapusan, keberatan, portabilitas"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "menunda pemenuhan DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "permintaan akses pihak ketiga memerlukan persetujuan tertulis dari Bpk. Jaya dan Komite Privasi"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "register DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfer lintas batas ke pemroses PT Awan Pelita Global di Pusat Data Kota Andalas dilakukan berdasar Perjanjian Pemrosesan Data, klausul standar, dan penilaian dampak transfer sesuai UU PDP"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Prinsip minimisasi dan need-to-know berlaku"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "kami tidak menyimpan data genetika kecuali jika diwajibkan program kesehatan kerja"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "orientasi seksual sebagai kategori yang dilindungi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Rahasia Emiten"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "rencana akuisisi PT Pinang Kredit Digital oleh PT Semarak Fintek Nusantara Tbk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "rencana merger dengan PT Lentera Bayar Digital"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "hanya Komite Audit & Sekretaris Perusahaan yang berhak mengakses sampai kewajiban keterbukaan terpenuhi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProyek Ombak Hijau\u201d"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "RimbaPay",
+      "reason": "Product name, not PII or MNPI"
+    },
+    {
+      "matched_text": "CerahWallet",
+      "reason": "Product name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Garuda Tigers akan terbang tinggi di Kota Senja",
+      "reason": "Metaphorical advertising phrase, explicitly stated not PII/MNPI"
+    },
+    {
+      "matched_text": "Kota Senja",
+      "reason": "Place/metaphor name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Kebijakan Privasi & Keamanan Data 2026",
+      "reason": "Policy/product title, not PII or MNPI"
+    },
+    {
+      "matched_text": "SOP Keterbukaan Emiten 12.3",
+      "reason": "Policy/procedure title, not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "data ketenagakerjaan disimpan 5 tahun pasca pemutusan hubungan kerja",
+      "concept": "retention_marker",
+      "reason": "Data retention period is legally relevant but there is no explicit retention rule in the allowed list"
+    },
+    {
+      "matched_text": "data MNPI akuisisi disimpan minimum hingga 2 tahun setelah keterbukaan ke publik",
+      "concept": "retention_marker",
+      "reason": "Retention schedule for MNPI data; allowed rules do not include a specific retention marker"
+    },
+    {
+      "matched_text": "log autentikasi biometrik dipangkas setiap 90 hari",
+      "concept": "retention_marker",
+      "reason": "Retention/minimisation schedule for biometric logs without a dedicated retention rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

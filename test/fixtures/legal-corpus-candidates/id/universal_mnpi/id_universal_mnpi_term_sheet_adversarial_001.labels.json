@@ -3,13 +3,231 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "TERM SHEET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project BATIK"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo sampai 15-07-2026 17:00 WIB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SHA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 750.000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 150.000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Dian Paramesti"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor@nusantarapay-prima.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Arman Suryadinata"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sekretariat@nusantarapay-prima.co.id"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "TERM SHEET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project BATIK"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "N O N - P U B L I C"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo sampai 15-07-2026 17:00 WIB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SHA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "CSPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 750.000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 150.000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 9,5 t"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "penandatanganan CSPA 30-06-2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "long-stop date 30-09-2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "publikasi keterbukaan ke OJK/BEI tidak sebelum tanggal embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "earn-out hingga IDR 150.000.000.000 jika GMV 12 bulan > IDR 9,5 triliun"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "penutupan bergantung pada persetujuan OJK/BEI dan RUPS"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "akses data room https://dataroom.sandaracap.co.id/p/btk?tok=en=pr0j-b4 t1k dibatasi sampai keterbukaan ke O J K dan BEI"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Dian Paramesti"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor@nusantarapay-prima.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Arman Suryadinata"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sekretariat@nusantarapay-prima.co.id"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Perseroan",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "spa-jumat",
+      "reason": "False-positive bait (spa-day)"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "penandatanganan CSPA 30-06-2026",
+      "concept": "Signing date marker",
+      "reason": "Signing milestone in Indonesian; not explicitly in enumerated embargo markers"
+    },
+    {
+      "matched_text": "long-stop date 30-09-2026",
+      "concept": "Long-stop date marker",
+      "reason": "Key deal timeline event; not explicitly listed in embargo markers"
+    },
+    {
+      "matched_text": "Doc ID: TS-0JK-2O26-BTK-\u03b17",
+      "concept": "internal_document_id",
+      "reason": "Internal document identifier could be sensitive but not covered by allowed rules"
+    },
+    {
+      "matched_text": "INV-IDN-20l9-OJk3",
+      "concept": "internal_reference_id",
+      "reason": "Internal archive reference; potentially sensitive but no matching allowed rule"
+    },
+    {
+      "matched_text": "akses data room https://dataroom.sandaracap.co.id/p/btk?tok=en=pr0j-b4 t1k dibatasi sampai keterbukaan ke O J K dan BEI",
+      "concept": "information_barrier_marker",
+      "reason": "Indicates restricted data room access until disclosure; conceptually an info barrier but not a standard keyword"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

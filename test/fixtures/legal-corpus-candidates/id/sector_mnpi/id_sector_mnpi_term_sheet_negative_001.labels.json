@@ -3,13 +3,142 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal.compliance@lintasnusa.co.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been disclosed to Bursa Efek Indonesia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "until public announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed majority acquisition and strategic partnership"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal.compliance@lintasnusa.co.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not been disclosed to Bursa Efek Indonesia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "until public announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed majority acquisition and strategic partnership"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "this term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "option to merge the payments business post-closing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "remains subject to RUPS approval and definitive documentation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "upon signing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "post-closing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "until public announcement, external queries are routed to the role mailbox legal.compliance@lintasnusa.co.id"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "insider-list",
+      "reason": "Training example reference; not a live compliance designation (negative bait)."
+    },
+    {
+      "matched_text": "information-barrier",
+      "reason": "Policy/training mention only; not a live barrier designation (negative bait)."
+    },
+    {
+      "matched_text": "blackout",
+      "reason": "Reference guide/training context; not a new blackout trigger (negative bait)."
+    },
+    {
+      "matched_text": "tipping",
+      "reason": "Training example reference; not a live tipping risk (negative bait)."
+    },
+    {
+      "matched_text": "cyber incident",
+      "reason": "Drill/no reportable incident; not a live cyber incident disclosure (negative bait)."
+    },
+    {
+      "matched_text": "CryptoSafe",
+      "reason": "Marketing/sandbox brand; not a DPT/crypto market event (negative bait)."
+    },
+    {
+      "matched_text": "climate KPI",
+      "reason": "Educational brochure reference; not a live ESG/climate disclosure (negative bait)."
+    },
+    {
+      "matched_text": "ESG ratchet",
+      "reason": "Explicitly not proposed; not a live ESG term (negative bait)."
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role noun/heading used as a defined-term style; exclude from detection."
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun/heading; not PII or MNPI by itself."
+    },
+    {
+      "matched_text": "Material Transactions",
+      "reason": "Regulation title in citation, not an actual deal event."
+    }
+  ],
   "uncertain": [],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

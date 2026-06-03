@@ -3,13 +3,179 @@
   "document_type": "generic",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nusafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "imei",
+      "matched_text": "IMEI 99000-123-TEST"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimization"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "a contractor in Kota Semarang with birth month 08-1991, role \u201cQA contractor,\u201d device IMEI 99000-123-TEST, corporate wallet WAL-88ZZ, and payroll sub-account SUB-445-XX were linked for troubleshooting"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nusafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "imei",
+      "matched_text": "IMEI 99000-123-TEST"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimization"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "a contractor in Kota Semarang with birth month 08-1991, role \u201cQA contractor,\u201d device IMEI 99000-123-TEST, corporate wallet WAL-88ZZ, and payroll sub-account SUB-445-XX were linked for troubleshooting"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "CUST-00XX"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "SUB-445-XX"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age band 25\u201334"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "birth month 08-1991"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list entries"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer impact assessment"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "ad IDs are reset"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "controller",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "processor",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "sub-processor",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "Corporate Secretary",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "insider",
+      "reason": "Generic phrase; not MNPI by itself."
+    },
+    {
+      "matched_text": "price sensitive",
+      "reason": "Generic phrase; not MNPI by itself."
+    },
+    {
+      "matched_text": "price-sensitive",
+      "reason": "Generic phrase; not MNPI by itself."
+    },
+    {
+      "matched_text": "analyst",
+      "reason": "Generic job title; not PII alone."
+    },
+    {
+      "matched_text": "city of residence",
+      "reason": "Generic descriptor; not identifying alone."
+    },
+    {
+      "matched_text": "\u20261234",
+      "reason": "Masked tail example; not identifying alone."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "WAL-88ZZ",
+      "concept": "wallet identifier",
+      "reason": "May be a corporate or crypto wallet ID; not clearly covered by an allowed rule for detection."
+    },
+    {
+      "matched_text": "NIK",
+      "concept": "Indonesian national ID mention",
+      "reason": "Reference to national ID without any numeric value; unclear if to tag absent a number."
+    },
+    {
+      "matched_text": "NPWP",
+      "concept": "tax identification number",
+      "reason": "Indonesian tax ID reference; no explicit rule provided in the allowed list."
+    },
+    {
+      "matched_text": "retained 5 years",
+      "concept": "retention period",
+      "reason": "Retention markers are relevant but there is no explicit retention_marker rule in the allowed list."
+    },
+    {
+      "matched_text": "marked internal",
+      "concept": "information barrier/internal classification",
+      "reason": "May indicate internal-only handling; not clearly covered by information_barrier_marker in this context."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

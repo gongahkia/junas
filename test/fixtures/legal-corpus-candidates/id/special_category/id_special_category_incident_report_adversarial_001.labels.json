@@ -3,13 +3,301 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Rafi Dirgantara"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID: RISK-00 7"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "riwayat terapi depresi"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "obat sertraline"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "template biometrik sidik jari (hash: af3d-2c0b- 19a)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "agama Bapak Rafi (agama Hindu)"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "3 7 2 9 9"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@arunika-fintek.example"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "user_id=CU-3 9 4-55-1 2"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Seorang pengguna minor, Sdri. Dita Anindya (usia 16)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "usia 16"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Sdri. Dita Anindya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Sari Widyaningrum (HR)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Laporan Insiden Operasional/Cyber"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Rafi Dirgantara"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID: RISK-00 7"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "riwayat terapi depresi"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "obat sertraline"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "template biometrik sidik jari (hash: af3d-2c0b- 19a)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "agama Bapak Rafi (agama Hindu)"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "3 7 2 9 9"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@arunika-fintek.example"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "user_id=CU-3 9 4-55-1 2"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Seorang pengguna minor, Sdri. Dita Anindya (usia 16)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "usia 16"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Sdri. Dita Anindya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Sari Widyaningrum (HR)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Laporan Insiden Operasional/Cyber"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Rafi"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "bukan anggota serikat pekerja"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "tidak ada catatan orientasi seksual"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "melarang penyimpanan gambar mentah"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Seorang pengguna minor"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "penandatanganan Heads of Agreement akuisisi PT SeroPay Nusantara oleh Arunika Fintek Tbk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Heads of Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "akses tidak sah"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "potensi exfiltration"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "diakses tanpa otorisasi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "SOC mendeteksi akses tidak sah"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "TenunOS",
+      "reason": "Product/technology name, not PII/MNPI by rule."
+    },
+    {
+      "matched_text": "Pelangi 2025",
+      "reason": "Generic DEI program name; negative/adversarial bait."
+    },
+    {
+      "matched_text": "Aurora Wallet",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Pelabuhan Selatan Mariners",
+      "reason": "Sports team name; not PII/MNPI."
+    },
+    {
+      "matched_text": "NusaTech Journal",
+      "reason": "Publication name; not PII/MNPI."
+    },
+    {
+      "matched_text": "ARF",
+      "reason": "Ticker code; not PII/MNPI."
+    },
+    {
+      "matched_text": "a9:1f::6b:77",
+      "reason": "Alert hash; not an IP/PII."
+    },
+    {
+      "matched_text": "af3d-2c0b- 19a",
+      "reason": "Hash fragment; not PII."
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Acronym in negated MAC context; rule says do not label."
+    },
+    {
+      "matched_text": "BES",
+      "reason": "Exchange acronym; not PII/MNPI on its own."
+    },
+    {
+      "matched_text": "Kota Laksana",
+      "reason": "Place name; not PII."
+    },
+    {
+      "matched_text": "HR",
+      "reason": "Role acronym; not PII."
+    },
+    {
+      "matched_text": "Bursa Efek Samudra",
+      "reason": "Institution name; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "address_id \u201cJLN-PA- 3\u201d",
+      "concept": "internal identifier",
+      "reason": "Likely a personal internal address identifier, but not clearly mapped to an allowed PII rule."
+    },
+    {
+      "matched_text": "ref=ins-0x12e7",
+      "concept": "internal incident reference",
+      "reason": "May identify an incident record or session, but not an allowed PII category explicitly."
+    },
+    {
+      "matched_text": "R AFI%20D I RG AN TAR A",
+      "concept": "URL-encoded personal name",
+      "reason": "Appears to encode a person\u2019s name without honorific; unclear fit for named_person rule."
+    },
+    {
+      "matched_text": "T+2",
+      "concept": "disclosure timing marker",
+      "reason": "Relates to disclosure deadline; not an allowed embargo/blackout marker string."
+    },
+    {
+      "matched_text": "02/06/2026 03:41 WIB",
+      "concept": "event timestamp",
+      "reason": "Could be sensitive operational timing but not covered by allowed PII/MNPI rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

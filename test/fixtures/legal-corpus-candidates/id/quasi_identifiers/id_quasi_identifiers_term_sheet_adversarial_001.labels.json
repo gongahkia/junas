@@ -3,13 +3,329 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Ardi Prakoso"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NFS-0481"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "12-03-1984"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ardi.prakoso@nusafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@garudapurnama.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ratna.dewi@gp-cap.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@nusafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.14.6.23"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-21-575757"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Dr. Ratna Dewi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Maya Lestari"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "TERM SHEET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum diumumkan di Bursa Efek Indonesia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "bukan siaran pers publik sampai keterbukaan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Catatan internal non-pengumuman"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "materi ini tidak boleh dibagikan di grup publik atau media sosial"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "mohon hindari unggah ke folder umum"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "Rp1.250 per saham"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Ardi Prakoso"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NFS-0481"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "12-03-1984"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ardi.prakoso@nusafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@garudapurnama.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ratna.dewi@gp-cap.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@nusafin.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.14.6.23"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-21-575757"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Dr. Ratna Dewi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Maya Lestari"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "TERM SHEET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum diumumkan di Bursa Efek Indonesia"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "bukan siaran pers publik sampai keterbukaan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Catatan internal non-pengumuman"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "materi ini tidak boleh dibagikan di grup publik atau media sosial"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "mohon hindari unggah ke folder umum"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "Rp1.250 per saham"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Koordinasi keuangan oleh Bapak Ardi Prakoso (CFO Perseroan, NFS-0481), lahir 12-03-1984, domisili Jakarta Selatan (Ged. Menara Sentral Lt 19), email ardi.prakoso@nusafin.co.id, perangkat kerja Seruni X1"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "Sesi-p8 7 6 3"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "R e k : ** 4 3 2 1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "sampai keterbukaan ke OJK/BEI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "pembelian 60% saham baru (PMTHMETD) dan pinjaman konversi Rp240.000.000.000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Tanggal Penutupan"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "tidak meminta atau menyimpan NIK/NPWP"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Defined term/role label, not PII or MNPI"
+    },
+    {
+      "matched_text": "Perseroan/Emiten",
+      "reason": "Defined term/role label, not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "klausul MAC",
+      "concept": "material_adverse_change",
+      "reason": "Mentioned with explicit negation; borderline whether to tag per rule excluding 'no MAC' contexts"
+    },
+    {
+      "matched_text": "Tanggal Penutupan",
+      "concept": "closing_date_marker_localized",
+      "reason": "Indonesian equivalent of 'Closing Date' may be considered an embargo marker but not a listed English anchor"
+    },
+    {
+      "matched_text": "R e k : ** 4 3 2 1",
+      "concept": "bank_account_masked",
+      "reason": "Masked/partial account reference with spacing may not meet strict detection but indicates a bank account"
+    },
+    {
+      "matched_text": "Sesi-p8 7 6 3",
+      "concept": "internal_session_id_format",
+      "reason": "Session identifier with spaces; format irregular for deterministic detection"
+    },
+    {
+      "matched_text": "https://meet.nusafin.co.id/s/ardi?p=84f&ts=2026-06-12",
+      "concept": "meeting_link_with_identifier",
+      "reason": "URL may embed personal identifier ('ardi'); URLs not covered by allowed rules"
+    },
+    {
+      "matched_text": "WLAN NUSA-5G-14",
+      "concept": "ssid_identifier",
+      "reason": "Internal network SSID may be sensitive operational detail; no direct rule"
+    },
+    {
+      "matched_text": "perangkat kerja Seruni X1",
+      "concept": "device_model",
+      "reason": "Device model linked to an individual\u2019s work setup; not mapped to a specific PII rule"
+    },
+    {
+      "matched_text": "NFSX",
+      "concept": "internal_issuer_code",
+      "reason": "Internal issuer code could be nonpublic operational identifier; not mapped to a current MNPI rule"
+    },
+    {
+      "matched_text": "DOB 1992-07-11",
+      "concept": "placeholder_dob",
+      "reason": "Example DOB explicitly stated as non-personal placeholder; legally sensitive pattern but not about an identifiable person"
+    },
+    {
+      "matched_text": "akun: uji_user07",
+      "concept": "placeholder_account_id",
+      "reason": "Sample account ID given as non-personal placeholder; ambiguous PII relevance"
+    },
+    {
+      "matched_text": "sesi: s-1a",
+      "concept": "placeholder_session_id",
+      "reason": "Sample session ID as placeholder; ambiguous coverage under internal session ID rule"
+    },
+    {
+      "matched_text": "lokasi: Surabaya",
+      "concept": "placeholder_location",
+      "reason": "Generic location in a placeholder block; alone not identifying and marked non-personal"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp240.000.000.000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp400.000.000.000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1.200.000.000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp240.000.000.000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp400.000.000.000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp1.200.000.000'"
+  ],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

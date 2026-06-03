@@ -3,13 +3,250 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Dir. Hasan Prakoso"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu N. Kartikasari (CFO)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "nkartika@sagarakinetik.invalid"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@bnf.invalid"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 2026-07-15 18:00 WIB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project LONTAR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 72,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "17.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "4,212"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "credential stuffing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "API key leak"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Dir. Hasan Prakoso"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu N. Kartikasari (CFO)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "nkartika@sagarakinetik.invalid"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@bnf.invalid"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "u-9f2a3c"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "u-7b1_ 4-zz"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 2026-07-15 18:00 WIB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project LONTAR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Perjanjian Pembelian Saham"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Project LONTAR acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 72,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "17.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "4,212"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "credential stuffing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "API key leak"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not publish"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "not for distribution"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo aligns with SPA signature date"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "after embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.8pp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1.2pp"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day voucher",
+      "reason": "False-positive bait; not a Share Purchase Agreement or MNPI"
+    },
+    {
+      "matched_text": "no MAE/MAC",
+      "reason": "Negated MAC/MAE language should not be labeled"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Appears only in a negated context per clause; exclude per rule"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Role/label, not PII or MNPI signal"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "incident id: IN C-D-20 26/0711",
+      "concept": "internal incident identifier",
+      "reason": "Potentially sensitive internal reference but not covered by allowed PII/MNPI rules"
+    },
+    {
+      "matched_text": "R3L-471C-3",
+      "concept": "internal session/token",
+      "reason": "Looks like a session/chat token; could fit internal_session_id but unclear"
+    },
+    {
+      "matched_text": "SPA signature date",
+      "concept": "signing/embargo milestone",
+      "reason": "Related to timing of agreement but not the exact 'Signing Date' token"
+    },
+    {
+      "matched_text": "SG-02",
+      "concept": "infrastructure node identifier",
+      "reason": "Could indicate system location tied to incident; not clearly mapped to any allowed rule"
+    },
+    {
+      "matched_text": "BEA trading halt",
+      "concept": "trading suspension risk",
+      "reason": "Market operations language relevant to disclosure but not in allowed MNPI marker list"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
