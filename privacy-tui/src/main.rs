@@ -22,7 +22,7 @@ const TICK_RATE: Duration = Duration::from_millis(100); // 10 Hz
 #[derive(Parser)]
 #[command(name = "aki", about = "Real-time privacy filter for screen capture")]
 struct Cli {
-    /// Run without TUI (headless mode) — log stats to file, output to virtual camera only.
+    /// Run without TUI (headless mode) — log stats to file and write to the selected output sink.
     #[arg(long)]
     headless: bool,
     /// Capture source for sidecar/headless runs.
@@ -40,6 +40,15 @@ struct Cli {
     /// HTTP MJPEG port used when the output sink needs one.
     #[arg(long, default_value_t = 9876)]
     http_port: u16,
+    /// Explicit MP4 path for direct local recording. Implies --output mp4 when --output is omitted.
+    #[arg(long, value_name = "PATH")]
+    record_output: Option<PathBuf>,
+    /// MP4 recording frame rate for --output mp4.
+    #[arg(long, default_value_t = 30)]
+    record_fps: u32,
+    /// Allow --output mp4 to replace an existing --record-output file.
+    #[arg(long)]
+    record_overwrite: bool,
     #[command(subcommand)]
     command: Option<Command>,
 }
@@ -90,6 +99,7 @@ enum CliOutput {
     Coremedia,
     Mjpeg,
     Obs,
+    Mp4,
 }
 
 #[derive(Debug, Subcommand)]
@@ -158,7 +168,15 @@ fn main() -> Result<()> {
         cli.command
     );
     if cli.headless {
-        return cmd_headless(source, cli.transform, cli.output, cli.http_port);
+        return cmd_headless(
+            source,
+            cli.transform,
+            cli.output,
+            cli.http_port,
+            cli.record_output,
+            cli.record_fps,
+            cli.record_overwrite,
+        );
     }
     match cli.command.unwrap_or(Command::Run) {
         Command::Run => cmd_run(source.uses_pty()),
@@ -202,13 +220,16 @@ fn cmd_headless(
     transform: Option<CliTransform>,
     output: Option<CliOutput>,
     http_port: u16,
+    record_output: Option<PathBuf>,
+    record_fps: u32,
+    record_overwrite: bool,
 ) -> Result<()> {
     use crossbeam_channel::bounded;
     use privacy_common::frame::TransformedFrame;
     use privacy_core::{
         config::AppConfig, detection::registry::runtime_registry, pipeline_runner::spawn_pipeline,
     };
-    use privacy_output::{autodetect::detect_best_sink, create_sink, SinkKind};
+    use privacy_output::create_sink;
     use std::sync::{
         atomic::{AtomicBool, Ordering},
         Arc, Mutex,
@@ -225,13 +246,13 @@ fn cmd_headless(
     })
     .unwrap_or_else(|_| log::warn!("failed to set Ctrl-C handler"));
 
-    let output_choice = output.unwrap_or(CliOutput::Auto);
-    let sink_kind = match output_choice {
-        CliOutput::Auto => detect_best_sink(http_port),
-        CliOutput::Coremedia => SinkKind::CoreMedia,
-        CliOutput::Mjpeg => SinkKind::HttpMjpeg(http_port),
-        CliOutput::Obs => SinkKind::Obs(http_port),
-    };
+    let sink_kind = resolve_headless_sink(
+        output,
+        http_port,
+        record_output,
+        record_fps,
+        record_overwrite,
+    )?;
     let output_label = sink_kind_label(&sink_kind);
     let sink = Arc::new(Mutex::new(create_sink(sink_kind)?));
     let cfg = AppConfig::load().unwrap_or_default();
@@ -275,7 +296,12 @@ fn cmd_headless(
         apply_headless_control(&control_state, &handle.state);
         if let Ok(frame) = out_rx.recv_timeout(Duration::from_millis(200)) {
             if let Ok(mut s) = sink.lock() {
-                let _ = s.write_frame(&frame);
+                if let Err(e) = s.write_frame(&frame) {
+                    log::error!("headless output write failed: {e}");
+                    eprintln!("output write failed: {e}");
+                    running.store(false, Ordering::SeqCst);
+                    break;
+                }
             }
             frame_count += 1;
         }
@@ -316,6 +342,12 @@ fn cmd_headless(
     }
 
     handle.shutdown();
+    {
+        let mut sink = sink
+            .lock()
+            .map_err(|_| anyhow::anyhow!("output sink lock poisoned during shutdown"))?;
+        sink.close()?;
+    }
     log::info!("headless mode stopped");
     Ok(())
 }
@@ -327,7 +359,46 @@ fn sink_kind_label(sink_kind: &privacy_output::SinkKind) -> String {
         privacy_output::SinkKind::HttpMjpeg(port) => format!("mjpeg:{port}"),
         privacy_output::SinkKind::Obs(port) => format!("obs:{port}"),
         privacy_output::SinkKind::Twitch => "twitch".to_string(),
+        privacy_output::SinkKind::Mp4 { path, .. } => format!("mp4:{}", path.display()),
     }
+}
+
+fn resolve_headless_sink(
+    output: Option<CliOutput>,
+    http_port: u16,
+    record_output: Option<PathBuf>,
+    record_fps: u32,
+    record_overwrite: bool,
+) -> Result<privacy_output::SinkKind> {
+    use privacy_output::{autodetect::detect_best_sink, SinkKind};
+
+    if !(1..=240).contains(&record_fps) {
+        bail!("--record-fps must be between 1 and 240");
+    }
+
+    let output_choice = match (output, record_output.is_some()) {
+        (Some(choice), _) => choice,
+        (None, true) => CliOutput::Mp4,
+        (None, false) => CliOutput::Auto,
+    };
+
+    if record_output.is_some() && !matches!(output_choice, CliOutput::Mp4) {
+        bail!("--record-output can only be used with --output mp4");
+    }
+
+    let sink = match output_choice {
+        CliOutput::Auto => detect_best_sink(http_port),
+        CliOutput::Coremedia => SinkKind::CoreMedia,
+        CliOutput::Mjpeg => SinkKind::HttpMjpeg(http_port),
+        CliOutput::Obs => SinkKind::Obs(http_port),
+        CliOutput::Mp4 => SinkKind::Mp4 {
+            path: record_output
+                .ok_or_else(|| anyhow::anyhow!("--output mp4 requires --record-output <PATH>"))?,
+            fps: record_fps,
+            overwrite: record_overwrite,
+        },
+    };
+    Ok(sink)
 }
 
 fn transform_mode_from_config(mode: &str) -> TransformMode {
@@ -792,6 +863,7 @@ fn cmd_check_output() -> Result<()> {
         SinkKind::HttpMjpeg(port) => println!("fallback: MJPEG HTTP on port {}", port),
         SinkKind::Obs(port) => println!("OBS WebSocket + MJPEG on port {}", port),
         SinkKind::Twitch => println!("Twitch RTMP (planned — not yet wired)"),
+        SinkKind::Mp4 { path, .. } => println!("MP4 recording output: {}", path.display()),
     }
     Ok(())
 }
@@ -1002,5 +1074,73 @@ fn handle_event(app: &mut app::App, ev: Event) {
             }
         }
         Event::Tick => app.tick_transition(),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use privacy_output::SinkKind;
+
+    #[test]
+    fn record_output_infers_mp4_sink() {
+        let sink = resolve_headless_sink(
+            None,
+            9876,
+            Some(PathBuf::from("recording.redacted.mp4")),
+            24,
+            false,
+        )
+        .unwrap();
+
+        match sink {
+            SinkKind::Mp4 {
+                path,
+                fps,
+                overwrite,
+            } => {
+                assert_eq!(path, PathBuf::from("recording.redacted.mp4"));
+                assert_eq!(fps, 24);
+                assert!(!overwrite);
+            }
+            other => panic!("expected mp4 sink, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn mp4_sink_requires_record_output_path() {
+        assert!(resolve_headless_sink(Some(CliOutput::Mp4), 9876, None, 30, false).is_err());
+    }
+
+    #[test]
+    fn record_output_rejects_non_mp4_sink_choice() {
+        assert!(resolve_headless_sink(
+            Some(CliOutput::Mjpeg),
+            9876,
+            Some(PathBuf::from("recording.redacted.mp4")),
+            30,
+            false,
+        )
+        .is_err());
+    }
+
+    #[test]
+    fn record_fps_must_be_reasonable() {
+        assert!(resolve_headless_sink(
+            Some(CliOutput::Mp4),
+            9876,
+            Some(PathBuf::from("recording.redacted.mp4")),
+            0,
+            false,
+        )
+        .is_err());
+        assert!(resolve_headless_sink(
+            Some(CliOutput::Mp4),
+            9876,
+            Some(PathBuf::from("recording.redacted.mp4")),
+            241,
+            false,
+        )
+        .is_err());
     }
 }
