@@ -271,7 +271,7 @@ Named profiles (e.g. `[profiles.streaming]`) can override transform mode and int
 
 ### Optional external detector rules
 
-`Aki` can import gitleaks-style TOML rules from a local file. This is opt-in and local-only; `Aki` does not fetch rule packs or depend on a cloud scanner.
+`Aki` can import gitleaks-style TOML rules from a local file. This is opt-in and local-only; `Aki` does not fetch rule packs or depend on a cloud scanner. Details are documented in [`docs/external-rule-packs.md`](./docs/external-rule-packs.md).
 
 ```toml
 [detection]
