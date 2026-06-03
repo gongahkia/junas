@@ -33,6 +33,13 @@ python -m benchmark.synthetic validate --task sglb_08
 `status` reports pending/approved/rejected/needs_edit counts, `show` prints the
 body, label, and audit metadata for one fixture, and `validate` checks schema,
 required audit metadata, reviewed-only state, and aggregate dataset consistency.
+It also runs task-specific quality gates:
+
+- prompt leakage / markdown-fence / refusal text is a hard error;
+- SGLB-12 machine-readable issue-label leakage is a hard error;
+- SGLB-15 input-vs-expected constraint mismatch is a hard error;
+- length drift and SGLB-08 tone words appearing verbatim are warnings for human
+  review, not automatic rejection.
 
 4. Record human review:
 
