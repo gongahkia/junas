@@ -71,6 +71,8 @@ The menu-bar shell can start and stop the headless redaction pipeline, pause or 
 
 macOS DMG release packaging is documented in [`docs/macos-release.md`](./docs/macos-release.md), and the cask path is documented in [`docs/homebrew-cask.md`](./docs/homebrew-cask.md). The Show HN launch gate is tracked in [`docs/show-hn-readiness.md`](./docs/show-hn-readiness.md); do not advertise a Show HN launch until that checklist is complete.
 
+The engineering architecture is documented in [`ARCHITECTURE.md`](./ARCHITECTURE.md).
+
 Performance baselines and the synthetic redaction fixture corpus are tracked in [`BENCHMARKS.md`](./BENCHMARKS.md).
 
 ## Quick Commands
@@ -233,7 +235,7 @@ Currently `Aki` looks for the patterns below by default and redacts matched regi
 
 ### Pipeline
 
-Four threads communicate via bounded `crossbeam` channels (capacity 3). Full channels drop the oldest frame rather than block — backpressure is shed, not accumulated.
+Four threads communicate via bounded `crossbeam` channels (capacity 3). Full channels drop incoming frames rather than block — backpressure is shed, not accumulated.
 
 | Thread | Responsibility |
 |--------|---------------|
