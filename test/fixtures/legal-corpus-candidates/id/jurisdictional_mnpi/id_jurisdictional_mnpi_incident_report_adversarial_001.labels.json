@@ -3,13 +3,239 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bpk. Arman Sutoyo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "arman.sutoyo@nexadana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "08 12-***-**31"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Maya Lestari"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "maya.lestari@nexadana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec-ops@nexadana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-21-77xx-4x21"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "deteksi akses tidak sah"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "penundaan rilis PayFlex 2.3 selama 2\u20133 minggu"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum diumumkan ke publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "informasi insiden ini bersifat tidak untuk dikonsumsi publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "ini bukan pengumuman ke publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selektif disclosure: informasi insiden ini bersifat tidak untuk dikonsumsi publik; penyampaian terbatas kepada calon kreditur sindikasi PT Bank Nusaprima Sentosa (di bawah NDA) diperbolehkan untuk tujuan covenant monitoring saja"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "periode blackout pra-publikasi informasi (T\u201310 hingga H+2 Hari Kerja keterbukaan)"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bpk. Arman Sutoyo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "arman.sutoyo@nexadana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "08 12-***-**31"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Maya Lestari"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "maya.lestari@nexadana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec-ops@nexadana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-21-77xx-4x21"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "deteksi akses tidak sah"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Draf Laporan Insiden Keamanan Siber & Operasional"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "penundaan rilis PayFlex 2.3 selama 2\u20133 minggu"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "dapat mempengaruhi negosiasi akuisisi PT Sagara Pay Nusantara (SPN) (uji tuntas tahap 2, belum diumumkan ke publik)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum diumumkan ke publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "informasi insiden ini bersifat tidak untuk dikonsumsi publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "ini bukan pengumuman ke publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selektif disclosure: informasi insiden ini bersifat tidak untuk dikonsumsi publik; penyampaian terbatas kepada calon kreditur sindikasi PT Bank Nusaprima Sentosa (di bawah NDA) diperbolehkan untuk tujuan covenant monitoring saja"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "periode blackout pra-publikasi informasi (T\u201310 hingga H+2 Hari Kerja keterbukaan)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Larangan Perdagangan Orang Dalam"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "draft CSPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "ketentuan MAC"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Perseroan",
+      "reason": "Defined role-noun term, not PII/MNPI."
+    },
+    {
+      "matched_text": "BEA",
+      "reason": "Defined acronym for an exchange, not PII/MNPI."
+    },
+    {
+      "matched_text": "SPN",
+      "reason": "Defined company acronym, not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ext. 7719",
+      "concept": "phone_extension",
+      "reason": "May be considered contact information but not clearly covered as phone_number by current rules."
+    },
+    {
+      "matched_text": "tiket IT-INC-00I7",
+      "concept": "internal_ticket_id",
+      "reason": "Internal operational identifier; could be treated as internal_session_id-like but not clearly within allowed rules."
+    },
+    {
+      "matched_text": "hxxps://git.nexadana.co.id/sec/fi1es/INC00I7",
+      "concept": "internal_url",
+      "reason": "Internal repository URL; operationally sensitive but not mapped to existing MNPI/PII rules."
+    },
+    {
+      "matched_text": "C:\\for3ns1c\\NX D\\2026-05\\api_sandbox\\",
+      "concept": "internal_file_path",
+      "reason": "Could be sensitive infrastructure detail but not covered by current rules."
+    },
+    {
+      "matched_text": "CloudSouth-SEA",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Third-party regional cloud reference may imply cross-border processing, but no explicit transfer stated."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp4,2 miliar'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp4,2 miliar'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

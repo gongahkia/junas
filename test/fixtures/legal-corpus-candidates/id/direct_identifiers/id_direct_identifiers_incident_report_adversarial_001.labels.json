@@ -3,13 +3,214 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "id_nik",
+      "matched_text": "3201 99 88 7766 55 44"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "FZ821234"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "r.handayani@sagaradana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal.ops@pt-sagaradana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62 811-3300-4421"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62 21 7700 990"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "221-009991-004"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "VA 8899-01-00012345"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Dr. Ratri Handayani"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "id_nik",
+      "matched_text": "3201 99 88 7766 55 44"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "FZ821234"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "r.handayani@sagaradana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal.ops@pt-sagaradana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62 811-3300-4421"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62 21 7700 990"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "221-009991-004"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "VA 8899-01-00012345"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Dr. Ratri Handayani"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum diumumkan ke publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "sampai siaran pers diterbitkan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "gagal memproses settlement harian"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "rencana akuisisi PT Arunika Investama Digital"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "VA88990100012345"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ratri.h%40sagaradana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Jl. Kenanga Raya No. 77, Kel. Sindarupa, Kec. Purnawijaya, Kota Bhuana 12999, Prov. Lestari"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data lokasi GPS disimpan dalam bentuk agregat saja"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC address",
+      "reason": "Generic negated mention; no actual identifier value and not MNPI MAC"
+    },
+    {
+      "matched_text": "Nama Lengkap: _____________",
+      "reason": "Placeholder blanks; no personal data present"
+    },
+    {
+      "matched_text": "Tempat/Tgl Lahir: ___________",
+      "reason": "Placeholder blanks; no personal data present"
+    },
+    {
+      "matched_text": "1500-007",
+      "reason": "Public helpline; excluded by negative/adversarial target"
+    },
+    {
+      "matched_text": "0000000000000000",
+      "reason": "Invalid NIK example; intentionally non-PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "NPWP 31.555.666.7-021.333",
+      "concept": "Indonesian tax ID (NPWP)",
+      "reason": "Personal tax identifier is PII under UU PDP but NPWP not in current allowed rules"
+    },
+    {
+      "matched_text": "NPWP Badan: 01.432.987.6-005.210",
+      "concept": "Corporate tax ID (NPWP Badan)",
+      "reason": "Corporate identifier not covered by allowed rules but may be sensitive"
+    },
+    {
+      "matched_text": "Nomor Induk Berusaha (NIB) Perseroan: 1050 1234 567 890",
+      "concept": "Company registration number (NIB)",
+      "reason": "Indonesian company ID not in allowed rules"
+    },
+    {
+      "matched_text": "NIB 1077 0001 222 333",
+      "concept": "Company registration number (NIB)",
+      "reason": "Indonesian company ID not in allowed rules"
+    },
+    {
+      "matched_text": "https://portal.sagaradana.co.id/case?id=VA88990100012345&user=ratri.h%40sagaradana.co.id",
+      "concept": "Internal URL with identifiers",
+      "reason": "Contains internal case ID and encoded email; composite identifier not directly covered by one rule"
+    },
+    {
+      "matched_text": "Alamat korespondensi: Jl. Kenanga Raya No. 77, Kel. Sindarupa, Kec. Purnawijaya, Kota Bhuana 12999, Prov. Lestari",
+      "concept": "Postal address",
+      "reason": "Full non-SG postal address is PII but no generic address rule available"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

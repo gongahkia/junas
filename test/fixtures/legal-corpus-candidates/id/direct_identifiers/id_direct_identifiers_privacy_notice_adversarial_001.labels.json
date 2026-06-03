@@ -3,13 +3,209 @@
   "document_type": "generic",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "id_nik",
+      "matched_text": "3172 09 62 00 00 0003"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "XK12 90384"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "888\u201100\u20111234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@pt-sagara.invalid"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62 812\u20114400\u20111987"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpa@pt-sagara.invalid"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@pt-sagara.invalid"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62 21 555 4321"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bpk. Ir. Ahmad Baskara"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfer internasional ke pemroses awan di Singapura"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "id_nik",
+      "matched_text": "3172 09 62 00 00 0003"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "XK12 90384"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "888\u201100\u20111234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@pt-sagara.invalid"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62 812\u20114400\u20111987"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpa@pt-sagara.invalid"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@pt-sagara.invalid"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62 21 555 4321"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bpk. Ir. Ahmad Baskara"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfer internasional ke pemroses awan di Singapura"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "project merpati"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "disegel aksesnya"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "jendela tutup BEG"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "'Direktur Kepatuhan' dan 'Sekretaris Perusahaan'"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "hanya peran 'Direktur Kepatuhan' dan 'Sekretaris Perusahaan' yang dapat mengakses"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "draf yang bersifat MNPI tidak dibagikan ke vendor non\u2011terikat"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Kami tidak mengumpulkan alamat MAC, IMEI, atau konten pesan pribadi untuk tujuan akuisisi ini"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Hotline Publik 1500\u2011000",
+      "reason": "Public helpline number explicitly stated for general info only"
+    },
+    {
+      "matched_text": "Nama Lengkap: ______",
+      "reason": "Form label placeholder, not actual data"
+    },
+    {
+      "matched_text": "Jabatan: ______",
+      "reason": "Form label placeholder, not actual data"
+    },
+    {
+      "matched_text": "000000000000000",
+      "reason": "Explicit placeholder value, not a real identifier"
+    },
+    {
+      "matched_text": "03.456.789.2\u2011012.00X",
+      "reason": "Invalid NPWP example flagged as not valid"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "03 . 456 . 789 . 2-012 . 000",
+      "concept": "Indonesian tax ID (NPWP)",
+      "reason": "Legally significant identifier but NPWP is not in the allowed rules list"
+    },
+    {
+      "matched_text": "2300.0123.45678",
+      "concept": "Indonesian business ID (NIB)",
+      "reason": "Relevant company identifier but no corresponding allowed rule"
+    },
+    {
+      "matched_text": "Jalan Mawar No. 88, Jakarta 12999",
+      "concept": "Postal address",
+      "reason": "Address is PII contextually but there is no generic postal address rule for ID"
+    },
+    {
+      "matched_text": "Jalan Mawar No. 88, Setiabudi, Jakarta",
+      "concept": "Postal address",
+      "reason": "Address is PII contextually but there is no generic postal address rule for ID"
+    },
+    {
+      "matched_text": "Permintaan akses subjek data (DSAR) wajib diajukan melalui https://portal.sagara.invalid/dsar?nik=3172xxxx0003&ch=email",
+      "concept": "DSAR/rights request marker",
+      "reason": "Privacy rights workflow is legally relevant but no specific DSAR rule exists; NIK is masked"
+    },
+    {
+      "matched_text": "Retensi: data karyawan 7 tahun; data transaksi fintech 10 tahun; dokumen MNPI sampai keterbukaan publik; token API dan log akses diputar setiap 90 hari",
+      "concept": "Data retention schedule",
+      "reason": "Retention is a privacy-event marker but not listed among allowed rules"
+    },
+    {
+      "matched_text": "T\u201124Q3\u2011009",
+      "concept": "Internal log/reference ID",
+      "reason": "May be an internal session/log identifier but does not clearly map to an allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

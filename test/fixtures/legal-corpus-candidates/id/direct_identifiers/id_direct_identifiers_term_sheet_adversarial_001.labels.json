@@ -3,13 +3,250 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "TERM SHEET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Dimas Arwanda"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "R1234 5678"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpsec@sirkuitdana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-812-3456-7891"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "9988776655"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "TERM SHEET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "pembelian 80% saham Target"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "target closing Triwulan III 2026"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak Dimas Arwanda"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "R1234 5678"
+    },
+    {
+      "category": "PII",
+      "rule": "id_nik",
+      "matched_text": "3 2 7 5 0 1 0 1 2 3 4 5 6 7 8 9 0 1 2"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpsec@sirkuitdana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62-812-3456-7891"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "9988776655"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "No. Rekening 9988776655"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Jl. Matoa Raya No. 88, Kecamatan Setiajaya, Kota Samudra 40123"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Jl. Kapuk Hijau No. 5, Kab. Purnajaya 40321"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "No. KTP 0000000000000000",
+      "reason": "Explicitly flagged as invalid bait in the document"
+    },
+    {
+      "matched_text": "0800-123-456",
+      "reason": "Public hotline example, not a transaction contact"
+    },
+    {
+      "matched_text": "112",
+      "reason": "Public emergency number, not PII for this context"
+    },
+    {
+      "matched_text": "1500-000",
+      "reason": "Public call center number, not a private contact"
+    },
+    {
+      "matched_text": "NPWP: __________",
+      "reason": "Blank placeholder, not actual PII"
+    },
+    {
+      "matched_text": "Nama: __________",
+      "reason": "Blank placeholder, not actual PII"
+    },
+    {
+      "matched_text": "Alamat: __________",
+      "reason": "Blank placeholder, not actual PII"
+    },
+    {
+      "matched_text": "Direktur Keuangan",
+      "reason": "Role-only label without a personal name"
+    },
+    {
+      "matched_text": "Kepala SDM",
+      "reason": "Role-only label without a personal name"
+    },
+    {
+      "matched_text": "Perseroan",
+      "reason": "Defined role term in the contract"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined role term in the contract"
+    },
+    {
+      "matched_text": "OJK-N",
+      "reason": "Defined abbreviation in the contract"
+    },
+    {
+      "matched_text": "BES",
+      "reason": "Defined abbreviation in the contract"
+    },
+    {
+      "matched_text": "Sekretaris Perusahaan",
+      "reason": "Role-only term without personal identity"
+    },
+    {
+      "matched_text": "Direktur Utama Perseroan",
+      "reason": "Role-only term without personal identity"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "NIB 8412398754123",
+      "concept": "Indonesian corporate business ID",
+      "reason": "Local company identifier (non-personal) not covered by allowed rules but often treated as sensitive corporate identifier"
+    },
+    {
+      "matched_text": "NPWP Badan 55.777.888.9-012.345",
+      "concept": "Indonesian corporate tax number",
+      "reason": "Corporate tax identifier not in allowed rules but sensitive in Indonesian context"
+    },
+    {
+      "matched_text": "No. AHU-1234567.AH.01.01.Tahun 2024",
+      "concept": "Corporate registry number (AHU)",
+      "reason": "Local corporate registration reference not mapped to a current rule"
+    },
+    {
+      "matched_text": "NIB 9123456789012",
+      "concept": "Indonesian corporate business ID",
+      "reason": "Local company identifier not covered by allowed rules"
+    },
+    {
+      "matched_text": "N I B : 9 1 2 3 4 5 6 7 8 9 0 1 2",
+      "concept": "Indonesian corporate business ID (spaced formatting)",
+      "reason": "Alternate formatting of NIB not mapped to a rule"
+    },
+    {
+      "matched_text": "NPWP Badan 66.999.111.2-345.678",
+      "concept": "Indonesian corporate tax number",
+      "reason": "Corporate tax identifier not in allowed rules"
+    },
+    {
+      "matched_text": "AHU-1234567",
+      "concept": "Corporate registry number (AHU)",
+      "reason": "Corporate registry substring embedded in URL not covered by allowed rules"
+    },
+    {
+      "matched_text": "55.777.888.9-012.345",
+      "concept": "Indonesian corporate tax number",
+      "reason": "Corporate tax number appears in URL; not covered by allowed rules"
+    },
+    {
+      "matched_text": "BNFIXID1",
+      "concept": "Bank SWIFT/BIC code",
+      "reason": "Bank identifier code not included in current PII/MNPI rules but may be sensitive operational detail"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp420.000.000.000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp3.000.000.000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp420.000.000.000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp3.000.000.000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='retention bonus Rp3.000.000.000'"
+  ],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

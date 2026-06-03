@@ -3,13 +3,262 @@
   "document_type": "generic",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nk-fintech.id"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Rani Putri"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Peristiwa consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Pak Agus Santoso"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "77  88  991"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "emp_id n k//20_26\u2011pR\u20117"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "panduan minimisasi aktif di HRIS"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Peristiwa transfer lintas negara"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "ekspor data ke Singapura"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "akuisisi PT RimbaPay Nusantara"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Memorandum Kepatuhan internal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "hanya untuk Board"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "akses terbatas"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Bayu Hartanto"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nk-fintech.id"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Rani Putri"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Peristiwa consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Pak Agus Santoso"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "77  88  991"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "emp_id n k//20_26\u2011pR\u20117"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "panduan minimisasi aktif di HRIS"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Peristiwa transfer lintas negara"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "ekspor data ke Singapura"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "DPIA lintas batas"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "asas tujuan terbatas & minimisasi"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "tidak termasuk nomor identitas pemerintah"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "tidak termasuk nomor rekening pribadi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "akuisisi PT RimbaPay Nusantara"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Memorandum Kepatuhan internal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "akses terbatas"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum dipublikasikan"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Jl. Meru Raya No. 18, Jakarta 11 0  2  0"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Bayu Hartanto"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MNPI\u2011SHIELD",
+      "reason": "Not a valid transaction codename pattern"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Role noun/label, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role noun/label, not PII"
+    },
+    {
+      "matched_text": "Komite Audit",
+      "reason": "Role noun/label, not PII or MNPI"
+    },
+    {
+      "matched_text": "Dewan Komisaris",
+      "reason": "Role noun/label, not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "SUPP\u2011ID: s\u2011  991\u2011  r",
+      "concept": "suppression identifier",
+      "reason": "Looks like a marketing suppression reference; could map to customer_account_number or internal_session_id but ambiguous"
+    },
+    {
+      "matched_text": "ticket DSAR\u2011A S\u20112026\u201104\u201130",
+      "concept": "internal ticket id",
+      "reason": "Internal request/ticket identifier; unclear mapping to allowed PII rules"
+    },
+    {
+      "matched_text": "Data Export Approval ID: EXP\u2011SIN\u201120 26/NK/x7",
+      "concept": "export approval id",
+      "reason": "Compliance record id for cross-border transfer; not clearly an allowed marker/value type"
+    },
+    {
+      "matched_text": "export\u2011check: 0x9bF\u2026fA",
+      "concept": "crypto-like hash",
+      "reason": "Truncated 0x-hex string; could be a crypto wallet address or checksum but not definitive"
+    },
+    {
+      "matched_text": "https://exports.nk-fin.id/dsar/req?id=8f2c\u2011 1Z9#au",
+      "concept": "dsar export link/token",
+      "reason": "Contains an id-like token; may be an internal session or request id but category unclear"
+    },
+    {
+      "matched_text": "KD lokasi: LOC\u2011JKT\u2011  M18",
+      "concept": "location code",
+      "reason": "Internal location code; no direct mapping to allowed PII rules"
+    },
+    {
+      "matched_text": "EMP\u2011X7  1A",
+      "concept": "employee reference code",
+      "reason": "Could be an employee code; unclear if it should be treated as employee_id"
+    },
+    {
+      "matched_text": "PAY\u2011Z9\u2011  004",
+      "concept": "payroll reference code",
+      "reason": "Internal payroll/reference id; mapping to allowed PII categories unclear"
+    },
+    {
+      "matched_text": "CN\u2011  9902",
+      "concept": "consent record id",
+      "reason": "Appears to be a consent note identifier; not clearly covered by allowed PII rules"
+    },
+    {
+      "matched_text": "http://nk\u2011ops.id/audit?ref=erasure%2Flog%2F24\u201105\u201101",
+      "concept": "audit log link",
+      "reason": "Internal audit reference link; may embed internal ids but no clear allowed category"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'dsar' text='Peristiwa DSAR'",
+    "drop must_detect: invalid rule 'erasure' text='Erasure Run \u201cER A\u201124\u201105\u201101\u201d'",
+    "drop must_detect: invalid rule 'retention' text='Retensi: 3 tahun pasca terminasi'",
+    "drop ideal_must_detect: invalid rule 'dsar' text='Peristiwa DSAR'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='Erasure Run \u201cER A\u201124\u201105\u201101\u201d'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Retensi: 3 tahun pasca terminasi'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='penghapusan terjadwal'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

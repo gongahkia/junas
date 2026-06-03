@@ -3,13 +3,168 @@
   "document_type": "generic",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "id_nik",
+      "matched_text": "3275121201010003"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@orionpay.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cs@orionpay.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "R1234567Z"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "0812-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transmisi lintas batas dilakukan melalui penyedia cloud"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "informasi material non-publik"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "tanpa melampirkan bukti identitas yang berlebihan"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Bukti identitas boleh berupa maskiran"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "id_nik",
+      "matched_text": "3275121201010003"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@orionpay.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cs@orionpay.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "R1234567Z"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "0812-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transmisi lintas batas dilakukan melalui penyedia cloud"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transmisi lintas batas dilakukan melalui penyedia cloud dengan pengikatan kontraktual"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "informasi material non-publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "yang belum dipublikasikan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "memo dewan tidak boleh memuat rincian transaksi yang belum dipublikasikan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Akses internal dibatasi pada peran (mis. \"Legal\", \"HR\")"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "informasi akuisisi yang berdampak pada harga saham"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "tanpa melampirkan bukti identitas yang berlebihan"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Bukti identitas boleh berupa maskiran"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "kami tidak menyediakan nomor pribadi staf"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Hak subjek data: akses, perbaikan, penghapusan, keberatan, batas pemrosesan"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "ajukan DSAR melalui formulir \"Permohonan Hak Subjek Data\""
+    }
+  ],
   "must_not_detect": [],
-  "uncertain": [],
+  "uncertain": [
+    {
+      "matched_text": "NPWP: 12.345.678.9-012.000",
+      "concept": "Indonesian tax ID (NPWP)",
+      "reason": "Jurisdiction-local tax identifier not present in allowed rules list."
+    },
+    {
+      "matched_text": "0000000000000",
+      "concept": "Indonesian Business Identification Number (NIB)",
+      "reason": "Jurisdiction-local company ID not present in allowed rules list; also marked as dummy."
+    },
+    {
+      "matched_text": "0000-000-000000-0",
+      "concept": "Bank account number (placeholder)",
+      "reason": "Fake/example account format; could match bank_account pattern but not real PII."
+    },
+    {
+      "matched_text": "No. KTP: 0000000000000000",
+      "concept": "Indonesian NIK placeholder",
+      "reason": "Presented as placeholder/invalid; may fit id_nik pattern but not actual personal data."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

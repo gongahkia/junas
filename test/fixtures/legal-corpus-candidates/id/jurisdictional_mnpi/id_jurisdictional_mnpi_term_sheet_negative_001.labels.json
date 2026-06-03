@@ -3,13 +3,161 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Perjanjian Jual Beli Saham"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Belum dipublikasikan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@bintangtech.tld"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62\u2011000\u20110000"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Perjanjian Jual Beli Saham"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Belum dipublikasikan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@bintangtech.tld"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62\u2011000\u20110000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Transaksi material"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "keterbukaan informasi akan diajukan paling lambat 2 Hari Bursa sejak penandatanganan Perjanjian Jual Beli Saham"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "penerbitan obligasi konversi tanpa jaminan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "rencana pengumuman T+2 Hari Bursa melalui e\u2011Report OJN"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "PSA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "tunduk pada dokumen definitif"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "tunduk pada persetujuan pemegang saham"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "jika jadwal berubah, Perseroan akan melakukan keterbukaan informasi sesuai ketentuan BEP/OJN"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "jangan cantumkan NIK, NPWP, nomor rekening, atau data nasabah dalam korespondensi"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data pribadi nasabah tidak dipertukarkan sebelum closing"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Perseroan",
+      "reason": "Defined-role term"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined-role term"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Defined-role term"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "closing",
+      "concept": "embargo_marker",
+      "reason": "Mentions closing stage but not 'Closing Date'; timing reference may be sensitive but not a listed explicit marker"
+    },
+    {
+      "matched_text": "2 Hari Bursa",
+      "concept": "disclosure timing",
+      "reason": "Local disclosure window reference; timing semantics may be MNPI-relevant but not an explicit embargo keyword"
+    },
+    {
+      "matched_text": "T+2 Hari Bursa",
+      "concept": "planned announcement timing",
+      "reason": "Relative timing for public release; may signal embargo-like timing but not a listed marker"
+    },
+    {
+      "matched_text": "BINT0",
+      "concept": "internal security code",
+      "reason": "Internal identifier could be sensitive in context but not covered by current PII/MNPI rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

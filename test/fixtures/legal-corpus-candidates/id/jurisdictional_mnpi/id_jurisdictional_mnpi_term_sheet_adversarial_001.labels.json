@@ -3,13 +3,263 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak R a d e n  A g u s  S a n t a r a"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Ratri Anindya"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sekper@sgdt.example.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62\u201121\u20117700\u20110026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1,0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "<35%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "<2,1%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "S P A"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MoU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "materi ini bersifat non\u2011publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum diumumkan ke publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "data non\u2011publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Periode blackout internal SGDT berlaku 15\u201330 Juni 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "tidak ada selective disclosure di luar Sekretaris Perusahaan"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bapak R a d e n  A g u s  S a n t a r a"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Ratri Anindya"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sekper@sgdt.example.id"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62\u201121\u20117700\u20110026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1,0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "<35%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "<2,1%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "S P A"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MoU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "materi ini bersifat non\u2011publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum diumumkan ke publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "data non\u2011publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Periode blackout internal SGDT berlaku 15\u201330 Juni 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "tidak ada selective disclosure di luar Sekretaris Perusahaan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project L a u t  T e n a n g"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "SGDT bermaksud mengakuisisi 80% saham PT Andalas MicroFin Teknologi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "target penutupan: 31 Juli 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "penandatanganan SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ruang data virtual ber\u2011NDA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "segala komunikasi media menunggu publikasi di kanal BEI/OJK"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Perubahan Material Merugikan (MAC)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Insiders",
+      "reason": "Role noun; not itself PII or MNPI defined term"
+    },
+    {
+      "matched_text": "Sekretaris Perusahaan",
+      "reason": "Role noun; avoid mislabeling as PII/MNPI"
+    },
+    {
+      "matched_text": "Komite Investasi",
+      "reason": "Role noun; organizational body not PII/MNPI"
+    },
+    {
+      "matched_text": "Dewan Direksi",
+      "reason": "Role noun; organizational body not PII/MNPI"
+    },
+    {
+      "matched_text": "No Material Adverse Change",
+      "reason": "Negated MAC phrase should not be labeled per rule"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ESC\u2011SGDT\u2011AMT\u201126",
+      "concept": "bank_account or bank_customer_reference",
+      "reason": "Escrow account identifier labeled as akun fiktif; corporate placeholder not clearly a personal bank account/PII"
+    },
+    {
+      "matched_text": "PRJ.LT/20 26/06",
+      "concept": "internal_session_id / access code",
+      "reason": "VDR access code is sensitive operational control but not tied to a natural person and not covered by current rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp145.000.000.000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp95 miliar'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp50 miliar'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp10 miliar'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp145.000.000.000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp95 miliar'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp50 miliar'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp10 miliar'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,145 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cs@arunafinansia.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@arunafinansia.co.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "masa blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "pengungkapan selektif"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "masih bersifat internal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum disertakan dalam keterbukaan BEI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "menunggu verifikasi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "akan dirilis minggu depan"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cs@arunafinansia.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@arunafinansia.co.id"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "masa blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "pengungkapan selektif"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "larangan pengungkapan selektif"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "masih bersifat internal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "belum disertakan dalam keterbukaan BEI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "menunggu verifikasi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "akan dirilis minggu depan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "ambang materialitas"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "ID transaksi internal"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Perseroan",
+      "reason": "Role noun referring to the Company, not PII/MNPI."
+    },
+    {
+      "matched_text": "private placement",
+      "reason": "Generic concept mentioned in public governance context; not a definitive agreement or MNPI."
+    },
+    {
+      "matched_text": "akuisisi",
+      "reason": "Generic concept referenced as public governance; not a definitive agreement or MNPI by itself."
+    },
+    {
+      "matched_text": "lock-up",
+      "reason": "Generic term in governance materials; not MNPI in this context."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "TX-ARF-0000X",
+      "concept": "transaction_id (internal ID)",
+      "reason": "Potential pseudonymous internal identifier that could link to a person in context, but no explicit allowed rule category for transaction IDs."
+    },
+    {
+      "matched_text": "token anonim",
+      "concept": "pseudonymous token",
+      "reason": "May function as a pseudonymous identifier; not clearly covered by allowed PII rules like cookie_id/advertising_id."
+    },
+    {
+      "matched_text": "Tidak ada pengumpulan KTP, NPWP, data biometrik, atau kredensial pengguna",
+      "concept": "data minimisation marker",
+      "reason": "Indicates minimisation/no collection, but phrased as a negation; labeling may conflict with rule caution on negated controls."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

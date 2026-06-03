@@ -3,13 +3,224 @@
   "document_type": "generic",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lintasdana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lintasdana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Putri Sembiring"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfer lintas batas"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisasi data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Periode blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selektif disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Kamboja"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "bersifat non\u2011publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011publik"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lintasdana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lintasdana.co.id"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Putri Sembiring"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfer lintas batas"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisasi data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Periode blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selektif disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Kamboja"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "bersifat non\u2011publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011publik"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "IDN\u2011**45\u201177**\u2011AB"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "VA: 88  \u00b7 13 \u00b7 004"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "USR\u20117X3_0A1"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Bpk. Raditya Sasmita"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Maya Pranindita"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Informasi Material Non\u2011Publik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Akses MNPI terbatas"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "restricted list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "rencana akuisisi PT MudaPay Digital"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Material Adverse Change",
+      "reason": "Negated context: \"Tidak ada Material Adverse Change\" so do not flag as MNPI"
+    },
+    {
+      "matched_text": "PT Lintas Dana Nusantara Tbk",
+      "reason": "Organization name is not PII"
+    },
+    {
+      "matched_text": "PT MudaPay Digital",
+      "reason": "Organization name is not PII"
+    },
+    {
+      "matched_text": "PT Awan Arunika Teknologi",
+      "reason": "Organization name is not PII"
+    },
+    {
+      "matched_text": "Nusantara Data LLP",
+      "reason": "Organization name is not PII"
+    },
+    {
+      "matched_text": "BEN: LDNT",
+      "reason": "Issuer ticker/public identifier, not PII"
+    },
+    {
+      "matched_text": "LDNT\u2011001/III/2025",
+      "reason": "Public filing/reference number, not PII"
+    },
+    {
+      "matched_text": "Insiders",
+      "reason": "Generic role noun; not PII/MNPI on its own"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retensi: log transaksi & KYC disimpan min. 5 tahun; email HR 3 tahun; memo Direksi terkait aksi korporasi 10 tahun, kecuali diwajibkan lebih lama oleh otoritas pasar modal",
+      "concept": "retention_marker",
+      "reason": "Data retention policy is a privacy marker but no explicit retention rule in allowed list"
+    },
+    {
+      "matched_text": "Hak subjek data: ajukan permintaan akses/perbaikan",
+      "concept": "dsar_rights",
+      "reason": "DSAR/rights-to-access wording is relevant but not mapped to a specific allowed rule"
+    },
+    {
+      "matched_text": "DSA\u2011R3Q/29 .2",
+      "concept": "internal_reference_id",
+      "reason": "Looks like a file/request reference; relevant identifier but not clearly covered by existing PII rules"
+    },
+    {
+      "matched_text": "14 hari sebelum publikasi Laporan Keuangan Tengah Tahunan",
+      "concept": "blackout_window_timing",
+      "reason": "Blackout timing detail is MNPI-relevant but only generic blackout marker is in allowed rules"
+    },
+    {
+      "matched_text": "memverifikasi identitas minimal dua faktor (email kerja + panggilan balik)",
+      "concept": "identity_verification_requirement",
+      "reason": "Security/verification requirement is privacy-relevant but not covered by a specific rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp 410\u2013470/saham'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp 410\u2013470/saham'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

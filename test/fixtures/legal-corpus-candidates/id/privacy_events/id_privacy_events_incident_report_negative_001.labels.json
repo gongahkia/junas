@@ -3,13 +3,107 @@
   "document_type": "memo",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@cqntbk.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@cqntbk.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation: DPA Schedule 2 prohibits collection of date of birth and ID scans in this flow; onboarding form fields for these attributes are disabled"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@cqntbk.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@cqntbk.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation: DPA Schedule 2 prohibits collection of date of birth and ID scans in this flow; onboarding form fields for these attributes are disabled"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Approved cross-border transfer of hashed telemetry to our Singapore processor under Data Export Approval DEX-26-0112 completed per UU PDP and internal SOP DP-07"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "No consent withdrawals were triggered by this incident; the withdrawal channel remains available and is monitored by the DPO office"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "vendor",
+      "reason": "Role noun; not PII or MNPI"
+    },
+    {
+      "matched_text": "Sub-processor",
+      "reason": "Role noun; not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: Log retention is governed by Schedule RS-08 (30 days) and is applied automatically; no legal hold is in place",
+      "concept": "retention_marker",
+      "reason": "Retention handling is privacy-relevant but there is no explicit retention rule in the allowed taxonomy."
+    },
+    {
+      "matched_text": "DSAR: As of report close, there are zero open DSAR tickets tied to this incident; any future requests will be fulfilled per SOP DSAR-02 without disclosing excessive data",
+      "concept": "dsar_marker",
+      "reason": "DSAR handling is privacy-relevant but DSAR is not an explicit rule in the allowed taxonomy and current status indicates no live requests."
+    },
+    {
+      "matched_text": "Data scope: Limited to system metadata and anonymised telemetry; no full name, KTP, NPWP, or bank account fields were ingested",
+      "concept": "negated_pii_reference",
+      "reason": "Mentions sensitive identifiers but expressly states none were processed; no specific PII values present."
+    },
+    {
+      "matched_text": "Incident ID IR-IDX-26-041",
+      "concept": "internal_incident_id",
+      "reason": "Internal tracking identifier may be sensitive operational metadata but not mapped to an allowed PII rule."
+    },
+    {
+      "matched_text": "Data Export Approval DEX-26-0112",
+      "concept": "compliance_approval_id",
+      "reason": "Compliance artifact relevant to cross-border transfers; not a defined rule in the taxonomy."
+    },
+    {
+      "matched_text": "board memo BM-26-17",
+      "concept": "board_document_id",
+      "reason": "Internal document identifier potentially relevant to MNPI workflows but not covered by a specific rule."
+    },
+    {
+      "matched_text": "VDR-ROOM-FAKE27",
+      "concept": "vdr_room_id",
+      "reason": "Virtual data room code is operational/M&A metadata that could be sensitive but is not covered by an explicit rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

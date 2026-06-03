@@ -3,13 +3,217 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may constitute MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout rules"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Sari Maheswari"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@cakrawala-investama.test"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@azura-fintek.test"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "exclude personal data except where strictly necessary and pseudonymised"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Acquirer to purchase 70% of issued shares of the Target"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may constitute MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout rules"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "abstain from trading on BES"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ibu Sari Maheswari"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@cakrawala-investama.test"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@azura-fintek.test"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "exclude personal data except where strictly necessary and pseudonymised"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation controls have already been implemented group-wide as of 1 Jan 2025"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer: Post-Closing, limited transfer of customer support tickets and hashed contact emails to processors in Singapura and Batavia Cloud (Malaysia) is permitted under internal Data Export Approval DEA-XN/2026/014 dated 15 May 2026"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Target",
+      "reason": "defined term"
+    },
+    {
+      "matched_text": "Acquirer",
+      "reason": "defined term"
+    },
+    {
+      "matched_text": "OPKN",
+      "reason": "defined-term abbreviation"
+    },
+    {
+      "matched_text": "BES",
+      "reason": "defined-term abbreviation"
+    },
+    {
+      "matched_text": "There are no live cross-border transfers of production datasets prior to Closing",
+      "reason": "negated control; not a live cross-border transfer marker"
+    },
+    {
+      "matched_text": "does not contain unpublished quarterly financial results",
+      "reason": "negated nonpublic content; not MNPI"
+    },
+    {
+      "matched_text": "legacy staging copies created for vendor testing were purged on 31 March 2026",
+      "reason": "completed-control; not a live privacy risk"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "DSAR events are relevant privacy handling markers but DSAR is not an allowed rule in the provided taxonomy."
+    },
+    {
+      "matched_text": "erasure confirmations",
+      "concept": "erasure marker",
+      "reason": "Erasure events are relevant but there is no explicit allowed rule for erasure in the provided taxonomy."
+    },
+    {
+      "matched_text": "Retention Schedule RS-09",
+      "concept": "retention schedule marker",
+      "reason": "Retention is legally relevant but not included as an allowed rule name in the provided taxonomy."
+    },
+    {
+      "matched_text": "auto-deleted after 90 days",
+      "concept": "retention auto-delete window",
+      "reason": "Retention/auto-deletion is relevant but not mapped to an allowed rule type."
+    },
+    {
+      "matched_text": "DEA-XN/2026/014",
+      "concept": "data export approval ID",
+      "reason": "Data export approvals are compliance-relevant but not covered by an allowed rule."
+    },
+    {
+      "matched_text": "Pengadilan Niaga Cakra Jakarta",
+      "concept": "court venue",
+      "reason": "Court venue is jurisdictionally relevant but only SG court citation is defined in the allowed rules."
+    },
+    {
+      "matched_text": "DPA Schedule 1 (Processing of HR and fintech customer data) is attached by reference",
+      "concept": "DPA schedule reference",
+      "reason": "Privacy compliance schedule is relevant context but not mapped to an allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp 420,000,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Rp 5,000,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp 420,000,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Rp 5,000,000,000'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,306 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "ID",
   "destination_jurisdiction": "ID",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 420,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "effective date"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non\u2011public information"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "raka.suryana@aurifin.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nusantarapaydata.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62\u201121\u2011555\u20118899"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Dini Karunia"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Raka Suryana"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "IDR 420,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Non\u2011Binding Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "effective date"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "effective date 02\u2011Jun\u20112026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non\u2011public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of PT Nusantara PayData by Aurifin Teknologi Tbk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "until public announcement, board memo circulation is restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "any analyst deck sent to board uses redacted metrics"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "raka.suryana@aurifin.id"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nusantarapaydata.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+62\u201121\u2011555\u20118899"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Dini Karunia"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Raka Suryana"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer of limited PII"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "prior cross\u2011border transfers to sg dc were limited to pseudonymised analytics"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "KYC will collect full name and email only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "national ID number is hashed (no image)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "test data must be synthetic"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no real\u2011time customer telemetry will be ingested"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no salary account numbers will be migrated"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC",
+      "reason": "Negated/waived; do not label as material_adverse_change per rule 8"
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC; exclude from material_adverse_change detection"
+    },
+    {
+      "matched_text": "MNPI",
+      "reason": "Negated carve\u2011out context; acronym alone should not trigger nonpublic_marker"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSARs",
+      "concept": "DSAR marker",
+      "reason": "DSAR handling event is relevant to privacy but not listed as a valid rule name"
+    },
+    {
+      "matched_text": "erasure completed",
+      "concept": "erasure marker",
+      "reason": "Erasure handling event is relevant to privacy but not listed as a valid rule name"
+    },
+    {
+      "matched_text": "Erasure Log ER\u201177\u2011ID",
+      "concept": "erasure record reference",
+      "reason": "Erasure evidence is relevant but no explicit erasure rule in the allowed set"
+    },
+    {
+      "matched_text": "retention is 2 years post\u2011termination",
+      "concept": "retention marker",
+      "reason": "Retention period is privacy\u2011relevant but no explicit retention rule in the allowed set"
+    },
+    {
+      "matched_text": "anonymised after 180 days",
+      "concept": "retention/minimisation",
+      "reason": "Anonymisation timeline is privacy\u2011relevant but not mapped to a specific allowed rule"
+    },
+    {
+      "matched_text": "retained 12 months",
+      "concept": "retention marker",
+      "reason": "Log retention is privacy\u2011relevant but no explicit retention rule in the allowed set"
+    },
+    {
+      "matched_text": "Data\u2011Export Approval Ref DEX\u2011ID\u2011SG\u2011092",
+      "concept": "data\u2011export approval reference",
+      "reason": "Compliance artifact for cross\u2011border transfers; not an explicit allowed rule type"
+    },
+    {
+      "matched_text": "CM\u20112026\u201145",
+      "concept": "compliance memo reference",
+      "reason": "Internal control reference; relevant but not covered by allowed rules"
+    },
+    {
+      "matched_text": "BEM\u2011AFI0\u201124Z",
+      "concept": "security identifier (nonstandard)",
+      "reason": "Issuer/security code reference; not mapped to a specific allowed MNPI rule"
+    },
+    {
+      "matched_text": "id\u2011s3://afr\u2011dev\u2011minimised/",
+      "concept": "storage location",
+      "reason": "Data storage path indicates handling controls; not covered by allowed rules"
+    },
+    {
+      "matched_text": "sg dc",
+      "concept": "cross\u2011border location",
+      "reason": "Indicates Singapore data center; relevant to transfers but not a standalone allowed marker"
+    },
+    {
+      "matched_text": "h t t p s : / / portal.aurifin.id/dsar?req=DS\u20110x12",
+      "concept": "DSAR portal and request token",
+      "reason": "DSAR portal URL and possible internal request ID are privacy\u2011relevant but not covered by allowed rule names"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
