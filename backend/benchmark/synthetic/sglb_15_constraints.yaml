@@ -1,0 +1,69 @@
+version: sglb-15-synthetic-constraints-v1
+description: >
+  Synthetic-tier constraint-set taxonomy for SGLB-15. Each set defines
+  verifiable Python constraints and the SG template types it can be paired
+  with during generation.
+constraint_sets:
+  - id: core_execution_formalities
+    description: Parties, Singapore governing law, and ISO date appear in the drafted output.
+    applicable_templates: ["*"]
+    constraints:
+      - id: party
+        kind: named_party_present
+        params:
+          party_names: ["Acme Pte Ltd", "Beacon Pte Ltd"]
+      - id: law
+        kind: governing_law_singapore
+        params: {}
+      - id: date
+        kind: iso_date_present
+        params: {}
+  - id: confidentiality_value_controls
+    description: A confidentiality section, SGD amount, and forbidden-phrase guard.
+    applicable_templates: ["nda-sg", "employment-sg", "mou-sg"]
+    constraints:
+      - id: section
+        kind: required_section_present
+        params:
+          heading: Confidentiality
+          min_words: 40
+      - id: amount
+        kind: sgd_amount_present
+        params: {}
+      - id: forbidden
+        kind: no_forbidden_phrase
+        params:
+          phrases: ["best efforts"]
+  - id: long_form_value_and_law
+    description: Longer output, named party, Singapore law, and SGD amount.
+    applicable_templates: ["nda-sg", "employment-sg", "tenancy-sg", "share-transfer-sg"]
+    constraints:
+      - id: party
+        kind: named_party_present
+        params:
+          party_names: ["Delta Pte Ltd"]
+      - id: words
+        kind: min_word_count
+        params:
+          min_words: 120
+      - id: law
+        kind: governing_law_singapore
+        params: {}
+      - id: amount
+        kind: sgd_amount_present
+        params: {}
+  - id: citation_and_schedule_form
+    description: Citation format check plus required schedule section.
+    applicable_templates: ["board-resolution-sg", "share-transfer-sg", "mou-sg"]
+    constraints:
+      - id: citation
+        kind: citation_format_valid
+        params: {}
+      - id: section
+        kind: required_section_present
+        params:
+          heading: Schedule A
+          min_words: 30
+      - id: law
+        kind: governing_law_singapore
+        params: {}

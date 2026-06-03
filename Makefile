@@ -44,17 +44,36 @@ eval:
 	  --dataset $(DATASET) \
 	  $(addprefix --evaluator ,$(EVALUATORS))
 
-# Usage: make synth-gen TASK=sglb_08 N=50 PROVIDERS="anthropic,openai,google"
+# Usage: make synth-gen TASK=sglb_08 N=50 PROVIDERS="anthropic,openai,google" MAX_COST_USD=5
+# Dry run: make synth-gen TASK=sglb_08 N=20 DRY_RUN=1
 TASK ?= sglb_08
 N ?= 50
 PROVIDERS ?= anthropic,openai,google
 SEED ?= 0
+DRY_RUN ?=
+MAX_COST_USD ?=
+ENV_FILE ?=
+NO_ENV_FILE ?=
+SYNTH_EXTRA_ARGS :=
+ifneq ($(strip $(DRY_RUN)),)
+SYNTH_EXTRA_ARGS += --dry-run
+endif
+ifneq ($(strip $(MAX_COST_USD)),)
+SYNTH_EXTRA_ARGS += --max-cost-usd $(MAX_COST_USD)
+endif
+ifneq ($(strip $(ENV_FILE)),)
+SYNTH_EXTRA_ARGS += --env-file $(ENV_FILE)
+endif
+ifneq ($(strip $(NO_ENV_FILE)),)
+SYNTH_EXTRA_ARGS += --no-env-file
+endif
 synth-gen:
 	cd backend && python3 -m benchmark.synthetic generate \
 	  --task $(TASK) \
 	  --n $(N) \
 	  --providers $(PROVIDERS) \
-	  --seed $(SEED)
+	  --seed $(SEED) \
+	  $(SYNTH_EXTRA_ARGS)
 
 # === data ===
 ingest-all:

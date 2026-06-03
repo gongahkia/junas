@@ -1,0 +1,25 @@
+version: sglb-08-synthetic-tones-v1
+description: >
+  Synthetic-tier tone taxonomy for SGLB-08. The selected tone is the gold
+  label by construction and is validated before candidate promotion.
+tones:
+  - id: standard
+    description: Neutral market-standard drafting with ordinary risk allocation.
+    generation_guidance: >
+      Use conventional Singapore contract language, moderate obligations, and
+      no unusual leverage for either party.
+  - id: aggressive
+    description: One-sided drafting that strongly favours the protected party.
+    generation_guidance: >
+      Increase obligations, remedies, exclusions, discretion, or control for
+      one side while remaining facially plausible as a contract clause.
+  - id: balanced
+    description: Reciprocal drafting with visible compromise between the parties.
+    generation_guidance: >
+      Include mutual obligations, carve-outs, cure periods, proportional caps,
+      or shared process controls where appropriate.
+  - id: protective
+    description: Risk-averse drafting that narrows exposure for the beneficiary.
+    generation_guidance: >
+      Emphasise safeguards, exceptions, limitations, notice requirements, or
+      defensive rights that reduce downside risk.
