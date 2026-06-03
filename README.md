@@ -79,6 +79,8 @@ The public roadmap is tracked in [`docs/roadmap.md`](./docs/roadmap.md).
 
 Contributor setup and pull request expectations are documented in [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 
+Security reporting scope and contact details are documented in [`SECURITY.md`](./SECURITY.md).
+
 ## Quick Commands
 
 ```console
