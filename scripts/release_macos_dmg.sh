@@ -4,6 +4,7 @@ set -euo pipefail
 usage() {
   cat <<'EOF'
 Build, package, sign, notarize, staple, and verify the macOS Aki DMG.
+Credential policy: docs/signing-credentials.md
 
 Usage:
   scripts/release_macos_dmg.sh [--version VERSION] [--skip-notarize] [--unsigned]

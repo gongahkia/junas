@@ -2,6 +2,8 @@
 
 This process builds the SwiftUI menu-bar app, embeds the Rust `aki` sidecar, vendors non-system dylib dependencies, signs the bundle, notarizes it with Apple, staples tickets, and creates a DMG.
 
+Signing identity ownership and credential storage are defined in [`docs/signing-credentials.md`](./signing-credentials.md).
+
 ## Prerequisites
 
 Install local build dependencies:
@@ -68,7 +70,7 @@ The release script:
 
 ## GitHub Release Workflow
 
-The manual workflow at `.github/workflows/release-macos.yml` packages and uploads the DMG to a GitHub Release. Required secrets:
+The manual workflow at `.github/workflows/release-macos.yml` packages and uploads the DMG to a GitHub Release. It runs in the protected `release` GitHub Environment. Required environment secrets:
 
 - `MACOS_DEVELOPER_ID_APPLICATION_CERT_P12_BASE64`
 - `MACOS_DEVELOPER_ID_APPLICATION_CERT_PASSWORD`
@@ -78,6 +80,8 @@ The manual workflow at `.github/workflows/release-macos.yml` packages and upload
 - `AKI_NOTARY_PASSWORD`
 
 The workflow creates or updates the requested GitHub Release and uploads the DMG plus SHA-256 file, so the release notes link directly to the artifact.
+
+Contributors without release credentials should use `scripts/release_macos_dmg.sh --unsigned` instead of the signed workflow.
 
 ## Failure Modes
 
