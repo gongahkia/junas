@@ -1,5 +1,5 @@
 [![Version 0.1.0](https://img.shields.io/badge/version-0.1.0-blue)](./Cargo.toml)
-[![CI](https://github.com/gongahkia/aki/actions/workflows/ci.yml/badge.svg)](https://github.com/gongahkia/aki/actions/workflows/ci.yml)
+[![Aki validation](https://github.com/gongahkia/aki/actions/workflows/ci.yml/badge.svg)](https://github.com/gongahkia/aki/actions/workflows/ci.yml)
 
 # `Aki`
 

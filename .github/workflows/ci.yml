@@ -1,15 +1,19 @@
-name: Aki CI/CD on push
+name: Aki validation
 on:
   push:
     branches: [main, master]
   pull_request:
     branches: [main, master]
 jobs:
-  build-test:
+  rust-validation:
+    name: Rust validation
     runs-on: ubuntu-latest
+    env:
+      CARGO_TERM_COLOR: always
+      RUST_BACKTRACE: 1
     steps:
       - uses: actions/checkout@v4
-      - name: install system deps
+      - name: Install system dependencies
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends \
@@ -18,15 +22,19 @@ jobs:
             ffmpeg \
             libxcb1-dev \
             libpipewire-0.3-dev libspa-0.2-dev
-      - uses: dtolnay/rust-toolchain@stable
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy, rustfmt
-      - uses: Swatinem/rust-cache@v2
-      - name: fmt
+      - name: Restore Rust cache
+        uses: Swatinem/rust-cache@v2
+      - name: Check formatting
         run: cargo fmt --all -- --check
-      - name: clippy
+      - name: Lint with warnings denied
         run: cargo clippy --all-targets -- -D warnings
-      - name: build
+      - name: Build all workspace crates
         run: cargo build --all
-      - name: test
+      - name: Run redaction fixture smoke test
+        run: cargo test -p privacy-core detection::scanner::tests::synthetic_fixture_corpus_recall_is_tracked -- --exact
+      - name: Run full test suite
         run: cargo test --all
