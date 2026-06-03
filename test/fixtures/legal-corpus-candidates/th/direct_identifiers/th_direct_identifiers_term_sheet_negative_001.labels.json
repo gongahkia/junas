@@ -3,13 +3,164 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "1-2345-67890-12-3"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "UZ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@siamdelta.example"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Strategic Acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Acquisition of a controlling stake in Nakhon Sky Logistics"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Signing and completion targeted within standard OCMAT review cycles"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "long-stop date"
+    },
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "1-2345-67890-12-3"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "UZ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@siamdelta.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "physical addresses and direct personal numbers are intentionally omitted in this draft"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "02-000-0000",
+      "reason": "Public helpdesk number; not personal PII"
+    },
+    {
+      "matched_text": "Name: _______",
+      "reason": "Generic form label placeholder; no actual PII value"
+    },
+    {
+      "matched_text": "Department: _______",
+      "reason": "Generic form label placeholder; no actual PII value"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role noun/party label, not a person or identifier"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role noun/party label, not a person or identifier"
+    },
+    {
+      "matched_text": "Authorized Signatory",
+      "reason": "Role-only identifier; not a named person"
+    },
+    {
+      "matched_text": "Independent Director",
+      "reason": "Role-only identifier; not a named person"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role-only identifier; not a named person"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role-only identifier; not a named person"
+    },
+    {
+      "matched_text": "escrow account",
+      "reason": "Generic account label/placeholder; not a bank account number"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Signing and completion targeted within standard OCMAT review cycles",
+      "concept": "embargo timing",
+      "reason": "References deal timing but lacks explicit terms like Signing Date/Closing Date listed in allowed markers"
+    },
+    {
+      "matched_text": "long-stop date",
+      "concept": "embargo timing",
+      "reason": "Indicates an outside date but not explicitly listed among allowed embargo markers"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

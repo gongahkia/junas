@@ -3,13 +3,148 @@
   "document_type": "memo",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "1-2345-67890-12-3"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@mekkhalaenergy.co.th"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "1-2345-67890-12-3"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@mekkhalaenergy.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "987-6-54321-0"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "template and non-operational"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "placeholder for filing format only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "example only, invalid"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "specimen"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not relate to any identifiable person or live transaction"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "for reference only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Immediate Cybersecurity Incident Report"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "materially affect the price of Mekkhala Energy shares"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "intra-group data processing in Singapore remains subject to existing transfer addenda and is unaffected"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "[Employee A]",
+      "reason": "Template placeholder; not an actual named person"
+    },
+    {
+      "matched_text": "Name",
+      "reason": "Generic form label; not a PII value"
+    },
+    {
+      "matched_text": "National ID",
+      "reason": "Generic form label; not a PII value"
+    },
+    {
+      "matched_text": "Account No",
+      "reason": "Generic form label; not a PII value"
+    },
+    {
+      "matched_text": "\u201cpassport\u201d",
+      "reason": "Generic term reference; no actual identifier"
+    },
+    {
+      "matched_text": "\u201cbank account\u201d",
+      "reason": "Generic term reference; no actual identifier"
+    },
+    {
+      "matched_text": "(02) 120-0000",
+      "reason": "Public helpline number; excluded by negative target"
+    },
+    {
+      "matched_text": "Investor Relations Desk",
+      "reason": "Role-only name; not a natural person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "0105556789123",
+      "concept": "Thai company tax ID (TH 13 digits)",
+      "reason": "Jurisdiction-local identifier but no explicit allowed rule for Thai tax ID; also marked invalid placeholder"
+    },
+    {
+      "matched_text": "399/19 Soi Arun 5, Khet Sathatai, Bangkok 10998, Thailand",
+      "concept": "Registered office address (TH)",
+      "reason": "Address may be PII-relevant in some contexts; no TH-specific postal address rule provided and this is a corporate address"
+    },
+    {
+      "matched_text": "REF-SAW-2026-0519",
+      "concept": "Internal ticket/reference ID",
+      "reason": "Could be treated as an internal session or customer reference; format not covered by allowed rules"
+    },
+    {
+      "matched_text": "MEK-TH-BKK-VPN02",
+      "concept": "Device/host identifier",
+      "reason": "May function like a device serial or asset ID; not clearly covered by allowed rules"
+    },
+    {
+      "matched_text": "10998",
+      "concept": "Thai postal code",
+      "reason": "Postal code component of address; no TH postal address rule in allowed list"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

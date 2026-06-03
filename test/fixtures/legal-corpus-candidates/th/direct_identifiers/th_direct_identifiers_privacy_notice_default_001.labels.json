@@ -3,13 +3,331 @@
   "document_type": "generic",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@bluelotusharvest.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-2-000-4545"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nakhondataservices.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "k.rattanai@bluelotusharvest.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-89-456-7721"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "TQ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "BLH-EMP-00721"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123-4-56789-0"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nakhondata.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "559999"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@bluelotusharvest.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "last four digits only displayed"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@bluelotusharvest.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-2-000-9898"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kittipong Rattanai"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Siriporn Veeraya"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Indigo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Material Non\u2011Public Information"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@bluelotusharvest.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-2-000-4545"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nakhondataservices.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "k.rattanai@bluelotusharvest.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-89-456-7721"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "TQ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "BLH-EMP-00721"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123-4-56789-0"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nakhondata.sg"
+    },
+    {
+      "category": "PII",
+      "rule": "sg_postal_address",
+      "matched_text": "559999"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal of consent"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@bluelotusharvest.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "last four digits only displayed"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@bluelotusharvest.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66-2-000-9898"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kittipong Rattanai"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Siriporn Veeraya"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Indigo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Material Non\u2011Public Information"
+    },
+    {
+      "category": "PII",
+      "rule": "th_national_id",
+      "matched_text": "1-2345-67890-12-9"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Kittipong"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "deleted or anonymized within 30 days after public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be disclosed until formal filing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "debt refinancing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "draft earnings guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "unannounced board resolutions"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer to Nakhon Data Services Pte. Ltd"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "88/42 Soi Prangchai 9, Khet Tanom, Bangkok 10177, Thailand"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "299 Moo 4, Tambon Khamnoi, Amphoe Palita, Nakhon Rattanai 34110, Thailand"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "8 Serangoon Avenue 9, Singapore 559999"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role defined term, not a person"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role defined term, not a person"
+    },
+    {
+      "matched_text": "Authorized Signatory",
+      "reason": "Role noun, not an identifiable person"
+    },
+    {
+      "matched_text": "Operator",
+      "reason": "Role-only example, not a person"
+    },
+    {
+      "matched_text": "000-111-1111",
+      "reason": "Public helpline number, not personal PII"
+    },
+    {
+      "matched_text": "info@help.com",
+      "reason": "Generic public email channel example, not personal PII"
+    },
+    {
+      "matched_text": "Name: ______",
+      "reason": "Generic form label, not PII"
+    },
+    {
+      "matched_text": "ID No.: ______",
+      "reason": "Generic form label, not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Juristic Company ID 0105567890123",
+      "concept": "Thai company registration identifier",
+      "reason": "Company identifier; not personal data and no specific allowed rule for TH company IDs"
+    },
+    {
+      "matched_text": "Revenue Dept. Tax ID 0993000123457",
+      "concept": "Thai tax ID (company)",
+      "reason": "Company tax identifier; may be sensitive but not covered by allowed rules and not personal data"
+    },
+    {
+      "matched_text": "HR files retained 7 years post-termination",
+      "concept": "retention period marker",
+      "reason": "Retention policy is a privacy-event signal but there is no explicit retention_marker rule"
+    },
+    {
+      "matched_text": "SEC/SET disclosure records 10 years from filing",
+      "concept": "retention period marker",
+      "reason": "Retention policy is a privacy-event signal but there is no explicit retention_marker rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

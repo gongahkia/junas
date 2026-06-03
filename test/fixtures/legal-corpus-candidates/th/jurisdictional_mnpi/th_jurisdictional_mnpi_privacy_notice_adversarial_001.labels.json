@@ -3,13 +3,246 @@
   "document_type": "generic",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Siriporn Lertchai"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@bluemekong.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@auroraledger.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@bluemekong.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Varun Chaiyasit"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@bluemekong.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer: permitted to Processor\u2019s regional node in Raintree Isle under encryption and contractual safeguards; transfer log at https://auroraledger.example/xfer?id=th%2Fmk-459&st=pe n d i n g; PDPA Section 28 derogations may apply"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimization: Processor shall not transmit national ID images; bank details captured are masked (last four digits only); no GPS traces are stored for employees or directors"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public facts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure to analysts or lenders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout/silent windows: trading by relevant persons is prohibited T\u201114 to T+2 around quarterly results and during the silent period; any pre\u2011briefs must use only information already posted, and \u201cimmediate disclosure\u201d applies to material agreements per listing rules"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trades in the Controller\u2019s securities by Processor staff are prohibited during blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lotus"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure remains prohibited"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Siriporn Lertchai"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@bluemekong.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@auroraledger.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@bluemekong.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Varun Chaiyasit"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@bluemekong.co.th"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer: permitted to Processor\u2019s regional node in Raintree Isle under encryption and contractual safeguards; transfer log at https://auroraledger.example/xfer?id=th%2Fmk-459&st=pe n d i n g; PDPA Section 28 derogations may apply"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimization: Processor shall not transmit national ID images; bank details captured are masked (last four digits only); no GPS traces are stored for employees or directors"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public facts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure to analysts or lenders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout/silent windows: trading by relevant persons is prohibited T\u201114 to T+2 around quarterly results and during the silent period; any pre\u2011briefs must use only information already posted, and \u201cimmediate disclosure\u201d applies to material agreements per listing rules"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trades in the Controller\u2019s securities by Processor staff are prohibited during blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Lotus"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure remains prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "MNPI: debt T+0 embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "likely to affect the price of the Controller\u2019s listed shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "T\u201114 to T+2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet submitted on the issuer portal is non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "any pre\u2011briefs must use only information already posted"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "anonymized within 30 days"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Contract role defined term"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Contract role defined term"
+    },
+    {
+      "matched_text": "Personal Data",
+      "reason": "Defined term in the agreement"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR channel: dsar@bluemekong.co.th with Ref: DSAR-TH/2025/00 7 1",
+      "concept": "DSAR marker",
+      "reason": "DSAR/rights-exercise channel is a privacy-event marker but not mapped to an allowed rule token."
+    },
+    {
+      "matched_text": "Ref: DSAR-TH/2025/00 7 1",
+      "concept": "case reference identifier",
+      "reason": "Looks like an internal request/reference ID; no specific allowed rule for such IDs."
+    },
+    {
+      "matched_text": "Retention workflow: HR payroll records 7 years; financing KYC records 10 years; MNPI\u2011tagged datasets retained only until public posting or transaction withdrawal, then anonymized within 30 days",
+      "concept": "retention marker",
+      "reason": "Records retention and anonymisation timelines are privacy-event controls not covered by an explicit allowed rule token."
+    },
+    {
+      "matched_text": "UserID: EM\u2011TH\u20110 1 2 3 x x",
+      "concept": "internal identifier",
+      "reason": "Example user identifier could be personal/system ID but no matching allowed rule token (e.g., no generic user_id)."
+    },
+    {
+      "matched_text": "acknowledgments of insider\u2011information training",
+      "concept": "insider-information controls",
+      "reason": "Training/controls may relate to information barriers/insider lists but not clearly covered by allowed MNPI markers."
+    },
+    {
+      "matched_text": "\u201cimmediate disclosure\u201d applies to material agreements per listing rules",
+      "concept": "disclosure timing/material event control",
+      "reason": "Relates to MNPI disclosure obligations but not an explicit allowed MNPI rule token."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,315 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "TH",
   "destination_jurisdiction": "TH",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@pumara-example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ratanapong@pumara-example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@ksh-example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "finance@ksh-example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 81 234 5678"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 2 880 1122"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "NQ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No. 123-456789-0"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No. 987-654321-7"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Ratanapong Siriwong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Anong Preedaporn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "THB 6.75 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "total_contract_value",
+      "matched_text": "THB 3,042,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,800,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 8,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 182m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading in the Target\u2019s securities is prohibited until public disclosure on SET"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@pumara-example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ratanapong@pumara-example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@ksh-example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "finance@ksh-example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 81 234 5678"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+66 2 880 1122"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "NQ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No. 123-456789-0"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No. 987-654321-7"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Khun Ratanapong Siriwong"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Anong Preedaporn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "THB 6.75 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "total_contract_value",
+      "matched_text": "THB 3,042,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 1,800,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 8,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "THB 182m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading in the Target\u2019s securities is prohibited until public disclosure on SET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Acquisition of 51% of Pumara Energy Public Company Limited (SET-listed) and related financing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "post-closing mandatory tender offer in accordance with the Securities and Exchange Act and SEC/SET regulations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "project codename \u201cLantern\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "parties acknowledge receipt of preliminary unaudited Q2 EBITDA indication of approx. THB 182m not yet publicly disclosed in the 56-1 One Report"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Name of Director",
+      "reason": "Generic form label bait; not an identifier"
+    },
+    {
+      "matched_text": "Authorized Signatory",
+      "reason": "Generic role label; not PII"
+    },
+    {
+      "matched_text": "0105550000000",
+      "reason": "Invalid placeholder Tax ID per document"
+    },
+    {
+      "matched_text": "1155",
+      "reason": "Public emergency helpline; not PII"
+    },
+    {
+      "matched_text": "1669",
+      "reason": "Public emergency helpline; not PII"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role/defined term heading, not PII"
+    },
+    {
+      "matched_text": "Acquirer",
+      "reason": "Role noun/defined term, not PII"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role noun/defined term, not PII"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role title only; not a personal identifier"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "SPBKTHB1",
+      "concept": "swift_bic",
+      "reason": "Bank identifier code present; not covered by allowed rules and not necessarily personal data"
+    },
+    {
+      "matched_text": "Company Reg. No. 0105567890123",
+      "concept": "thai_company_registration_number",
+      "reason": "Juristic-person identifier relevant for compliance; not covered by allowed rules and not personal data"
+    },
+    {
+      "matched_text": "Company Reg. No. 0105559999123",
+      "concept": "thai_company_registration_number",
+      "reason": "Juristic-person identifier relevant for compliance; not covered by allowed rules and not personal data"
+    },
+    {
+      "matched_text": "TIN 0105567890123",
+      "concept": "thai_tax_id",
+      "reason": "Corporate tax identifier; not personal data under PDPA and no specific rule provided"
+    },
+    {
+      "matched_text": "VAT Reg. 0105559999123",
+      "concept": "thai_vat_registration",
+      "reason": "Corporate VAT identifier; not personal data and no specific rule provided"
+    },
+    {
+      "matched_text": "88/9 Rama 4 Road, Khwaeng Khlong Toei, Khet Khlong Toei, Bangkok 10110",
+      "concept": "postal_address_thailand",
+      "reason": "Full Thai address; no explicit Thai address rule in allowed set"
+    },
+    {
+      "matched_text": "199/3 Sukhumvit 66, Khwaeng Bang Na, Khet Bang Na, Bangkok 10260",
+      "concept": "postal_address_thailand",
+      "reason": "Full Thai address; no explicit Thai address rule in allowed set"
+    },
+    {
+      "matched_text": "cross-border remittances",
+      "concept": "cross_border_funds_transfer",
+      "reason": "Indicates cross-border flows but refers to funds, not personal data transfer; outside allowed privacy-marker scope"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
