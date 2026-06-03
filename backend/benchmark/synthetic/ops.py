@@ -10,6 +10,7 @@ from pydantic import ValidationError
 
 from benchmark.schema import Dataset
 from benchmark.synthetic.promoter import AGGREGATE_DATASET
+from benchmark.synthetic.quality import check_case_quality
 from benchmark.synthetic.reviewer import load_dataset_file, resolve_fixture
 from benchmark.synthetic.taxonomy import DATASET_ROOT, GENERATOR_VERSION, PROMPT_VERSION, task_spec
 
@@ -81,6 +82,7 @@ def show_fixture(*, fixture: str, task: str | None = None, base_dir: Path | None
         "inputs": case.get("inputs"),
         "expected_output": case.get("expected_output"),
         "metadata": metadata,
+        "quality": check_case_quality(case).as_dict(),
         "body": _body_for_case(case),
     }
 
@@ -160,8 +162,11 @@ def _validate_case_file(
         warnings.append({"path": str(path), "message": "generator_version differs from current generator"})
     if metadata.get("prompt_version") != PROMPT_VERSION:
         warnings.append({"path": str(path), "message": "prompt_version differs from current prompt set"})
-    if not _body_for_case(case.model_dump()):
-        errors.append({"path": str(path), "message": "case body is empty"})
+    quality = check_case_quality(case.model_dump())
+    for message in quality.errors:
+        errors.append({"path": str(path), "message": f"quality error: {message}"})
+    for message in quality.warnings:
+        warnings.append({"path": str(path), "message": f"quality warning: {message}"})
 
 
 def _validate_aggregate(

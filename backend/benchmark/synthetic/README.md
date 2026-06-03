@@ -22,7 +22,19 @@ python -m benchmark.synthetic generate --task sglb_08 --n 2 --providers mock --n
 The label comes directly from the taxonomy cell embedded in the generation
 prompt. There is no LLM autolabel step.
 
-3. Record human review:
+3. Inspect and validate candidates before review:
+
+```sh
+python -m benchmark.synthetic status --task sglb_08
+python -m benchmark.synthetic show --task sglb_08 --fixture <slug>
+python -m benchmark.synthetic validate --task sglb_08
+```
+
+`status` reports pending/approved/rejected/needs_edit counts, `show` prints the
+body, label, and audit metadata for one fixture, and `validate` checks schema,
+required audit metadata, reviewed-only state, and aggregate dataset consistency.
+
+4. Record human review:
 
 ```sh
 python -m benchmark.synthetic review --fixture <slug> --decision approve --reviewer <name>
@@ -31,7 +43,7 @@ python -m benchmark.synthetic review --fixture <slug> --decision approve --revie
 Valid decisions are `approve`, `reject`, and `needs_edit`. Candidates remain in
 `*_candidates/` until explicitly approved.
 
-4. Promote approved candidates:
+5. Promote approved candidates:
 
 ```sh
 python -m benchmark.synthetic promote --task sglb_08
@@ -51,6 +63,15 @@ cost exceeds the cap:
 python -m benchmark.synthetic generate --task sglb_12 --n 100 \
   --providers anthropic,openai,google --max-cost-usd 5
 ```
+
+Generation loads `.env` by default and only fills missing environment variables.
+Use `--env-file path/to/.env` to select a file or `--no-env-file` to require the
+current shell environment. Real providers fail a preflight check before any LLM
+client is constructed when required keys are missing:
+
+- `ANTHROPIC_API_KEY`
+- `OPENAI_API_KEY`
+- `GEMINI_API_KEY`
 
 All randomness goes through one `random.Random(seed)` in the planner, so the
 same `(task, n, providers, seed, generator_version, prompt_version)` yields the

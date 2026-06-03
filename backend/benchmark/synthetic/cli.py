@@ -7,7 +7,14 @@ import json
 import sys
 from pathlib import Path
 
-from benchmark.synthetic.generator import SyntheticGenerator, case_from_body, plan_json, write_candidate_case
+from benchmark.synthetic.generator import (
+    SyntheticGenerator,
+    case_from_body,
+    load_env_file,
+    plan_json,
+    preflight_providers,
+    write_candidate_case,
+)
 from benchmark.synthetic.ops import show_fixture, status_for_task, validate_task
 from benchmark.synthetic.planner import build_plan, estimate_cost_usd
 from benchmark.synthetic.promoter import promote_task
@@ -17,6 +24,10 @@ from benchmark.synthetic.taxonomy import DATASET_ROOT, supported_tasks
 
 def _base_dir(raw: str | None) -> Path | None:
     return Path(raw) if raw else None
+
+
+def _env_path(raw: str) -> Path:
+    return Path(raw) if raw else Path.cwd() / ".env"
 
 
 def _common_plan_args(parser: argparse.ArgumentParser) -> None:
@@ -39,6 +50,8 @@ def build_parser() -> argparse.ArgumentParser:
     _common_plan_args(gen_p)
     gen_p.add_argument("--dry-run", action="store_true")
     gen_p.add_argument("--max-cost-usd", type=float, default=None)
+    gen_p.add_argument("--env-file", default=".env", help="load provider keys from this file before generation")
+    gen_p.add_argument("--no-env-file", action="store_true", help="do not load an env file before generation")
     gen_p.add_argument(
         "--no-review-gate",
         action="store_true",
@@ -90,6 +103,8 @@ def _cmd_plan(args: argparse.Namespace) -> int:
 
 
 async def _generate_async(args: argparse.Namespace) -> int:
+    if not args.no_env_file:
+        load_env_file(_env_path(args.env_file))
     plan, cost = _plan_payload(args)
     if args.max_cost_usd is not None and cost > args.max_cost_usd:
         print(
@@ -100,6 +115,13 @@ async def _generate_async(args: argparse.Namespace) -> int:
     if args.dry_run:
         print(plan_json(plan, estimated_cost_usd=cost))
         return 0
+    preflight = preflight_providers(args.providers)
+    if not preflight["ok"]:
+        print(
+            json.dumps({"error": "provider preflight failed", **preflight}, indent=2, sort_keys=True),
+            file=sys.stderr,
+        )
+        return 2
 
     generator = SyntheticGenerator()
     written: list[str] = []

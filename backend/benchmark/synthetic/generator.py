@@ -12,8 +12,10 @@ from typing import Any, Protocol
 import yaml
 
 from api.services.llm_client import get_llm_client
+from benchmark.synthetic.planner import parse_providers
 from benchmark.synthetic.planner import PlanItem
 from benchmark.synthetic.prompts import render_prompt
+from benchmark.synthetic.quality import check_case_quality
 from benchmark.synthetic.taxonomy import GENERATOR_VERSION, PROMPT_VERSION
 
 
@@ -28,10 +30,14 @@ class MockLLM:
     calls: int = 0
 
     async def generate(self, messages: list[dict[str, str]], max_tokens: int = 1024) -> str:
-        del max_tokens
+        del messages, max_tokens
         self.calls += 1
-        prompt = "\n".join(message.get("content", "") for message in messages)
-        return f"Mock synthetic body generated for {self.provider}. Prompt digest: {prompt[:180]}"
+        return (
+            f"Mock synthetic body generated for {self.provider}. "
+            "This fictional Singapore legal scenario concerns Acme Pte Ltd and Beacon Pte Ltd. "
+            "The parties exchange operational facts, contract terms, dates, and compliance context in neutral prose. "
+            "The example is intentionally plain so tests can exercise the pipeline without external providers."
+        )
 
 
 class SyntheticGenerator:
@@ -57,6 +63,65 @@ class SyntheticGenerator:
         client = self._client_for(item.provider)
         self.call_counts[item.provider] = self.call_counts.get(item.provider, 0) + 1
         return await client.generate(rendered.messages, max_tokens=rendered.max_tokens)
+
+
+def load_env_file(path: Path) -> int:
+    if not path.exists():
+        return 0
+    loaded = 0
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("export "):
+            line = line.removeprefix("export ").strip()
+        if "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        if not key or not (key[0].isalpha() or key[0] == "_"):
+            continue
+        if not all(char.isalnum() or char == "_" for char in key):
+            continue
+        value = value.strip()
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+            value = value[1:-1]
+        if key not in os.environ:
+            os.environ[key] = value
+            loaded += 1
+    return loaded
+
+
+def preflight_providers(providers: str | tuple[str, ...] | list[str]) -> dict[str, Any]:
+    provider_list = parse_providers(providers)
+    missing: list[str] = []
+    configured: dict[str, str] = {}
+    for provider in provider_list:
+        if provider == "mock":
+            configured[provider] = "mock-synthetic-v1"
+            continue
+        settings = _settings_for_provider(provider)
+        if provider == "openai":
+            if not getattr(settings, "openai_api_key", ""):
+                missing.append("OPENAI_API_KEY")
+            configured[provider] = getattr(settings, "openai_model", "")
+        elif provider == "anthropic":
+            if not getattr(settings, "anthropic_api_key", ""):
+                missing.append("ANTHROPIC_API_KEY")
+            configured[provider] = getattr(settings, "anthropic_model", "")
+        elif provider in {"google", "gemini"}:
+            if not getattr(settings, "gemini_api_key", ""):
+                missing.append("GEMINI_API_KEY")
+            configured[provider] = getattr(settings, "gemini_model", "")
+    blank_models = [provider for provider, model in configured.items() if not str(model).strip()]
+    if blank_models:
+        missing.extend(f"{provider.upper()} model name" for provider in blank_models)
+    return {
+        "ok": not missing,
+        "providers": list(provider_list),
+        "configured_models": configured,
+        "missing": sorted(set(missing)),
+    }
 
 
 def _settings_for_provider(provider: str) -> SimpleNamespace:
@@ -134,12 +199,14 @@ def case_from_body(*, item: PlanItem, body: str, seed: int) -> dict[str, Any]:
     else:
         raise ValueError(f"unsupported synthetic task: {item.task}")
 
-    return {
+    case = {
         "name": item.slug,
         "inputs": inputs,
         "expected_output": dict(item.cell.label),
         "metadata": metadata,
     }
+    metadata["quality"] = check_case_quality(case).as_dict()
+    return case
 
 
 def dataset_for_case(case: dict[str, Any]) -> dict[str, Any]:
