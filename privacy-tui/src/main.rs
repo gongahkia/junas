@@ -1,5 +1,6 @@
 mod app;
 mod control_server;
+mod demo;
 mod event;
 mod logging;
 mod offline_redact;
@@ -106,6 +107,18 @@ enum Command {
     TestScreen,
     /// Run detection pipeline self-test against synthetic sensitive data.
     SelfTest,
+    /// Print a rolling screen of deterministic fake secrets and PII-shaped fixtures.
+    Demo {
+        /// Number of frames to render. Use 0 to keep rolling until interrupted.
+        #[arg(long, default_value_t = 0)]
+        frames: u32,
+        /// Delay between rolling frames.
+        #[arg(long, default_value_t = 750)]
+        interval_ms: u64,
+        /// Do not clear the terminal before each frame.
+        #[arg(long)]
+        no_clear: bool,
+    },
     /// Redact an existing local video file and write a new redacted output.
     Redact {
         /// Input video file to redact.
@@ -146,6 +159,15 @@ fn main() -> Result<()> {
         Command::CheckOutput => cmd_check_output(),
         Command::TestScreen => cmd_test_screen(),
         Command::SelfTest => cmd_self_test(),
+        Command::Demo {
+            frames,
+            interval_ms,
+            no_clear,
+        } => demo::run_demo(demo::DemoOptions {
+            frames,
+            interval_ms,
+            no_clear,
+        }),
         Command::Redact {
             input,
             output,
