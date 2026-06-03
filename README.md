@@ -1,5 +1,5 @@
-[![](https://img.shields.io/badge/aki_1.0.0-passing-green)](https://github.com/gongahkia/aki/releases/tag/1.0.0)
-![](https://github.com/gongahkia/aki/actions/workflows/ci.yml/badge.svg)
+[![Version 0.1.0](https://img.shields.io/badge/version-0.1.0-blue)](./Cargo.toml)
+[![CI](https://github.com/gongahkia/aki/actions/workflows/ci.yml/badge.svg)](https://github.com/gongahkia/aki/actions/workflows/ci.yml)
 
 # `Aki`
 
