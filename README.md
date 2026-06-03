@@ -20,6 +20,16 @@ Because `Aki` works on pixels instead of browser DOM nodes, it can cover termina
 * **Pattern coverage**: the default rules favor recognizable secret and PII shapes. Random high-entropy strings without known prefixes may be missed, while broader entropy rules can create noisy false positives.
 * **Operational fallback**: treat `Aki` as a last-mile privacy filter, not as a replacement for closing sensitive windows, using demo credentials, rotating exposed secrets, or limiting what appears on screen.
 
+## We collect nothing
+
+`Aki` v1 has no cloud account, sync backend, telemetry endpoint, product analytics, crash reporting, upsell flow, or in-app Sponsor prompt.
+
+Screen pixels, OCR text, detections, config, and runtime logs stay on your machine. Local logs are written under `~/.config/ascii-privacy/logs/aki.log`; `Aki` does not upload them.
+
+Network activity is limited to actions you request: Homebrew or GitHub release downloads during install/update, the optional neural model download when the Neural transform is used without a cached model, optional Twitch chat integration if configured, and local OBS/MJPEG endpoints. These paths are not telemetry.
+
+Future counters or diagnostics are out of scope for v1 unless they are explicit opt-in before any data leaves the machine.
+
 ## Install
 
 The primary macOS release install path is the Homebrew cask:
