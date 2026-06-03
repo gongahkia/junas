@@ -30,6 +30,8 @@ Network activity is limited to actions you request: Homebrew or GitHub release d
 
 Future counters or diagnostics are out of scope for v1 unless they are explicit opt-in before any data leaves the machine.
 
+The TUI includes a local in-memory redaction log, with explicit export only. Its retention and privacy tradeoffs are documented in [`docs/redaction-log.md`](./docs/redaction-log.md).
+
 ## Install
 
 The primary macOS release install path is the Homebrew cask:
