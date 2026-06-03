@@ -18,6 +18,7 @@ permissions:
 jobs:
   release-macos:
     runs-on: macos-latest
+    environment: release
     steps:
       - uses: actions/checkout@v4
 
@@ -73,3 +74,7 @@ jobs:
               --title "Aki ${VERSION}" \
               --generate-notes
           fi
+
+      - name: Delete signing keychain
+        if: always()
+        run: security delete-keychain build-signing.keychain || true
