@@ -9,6 +9,8 @@ Because `Aki` works on pixels instead of browser DOM nodes, it can cover termina
 
 `Aki` reduces leak risk; it is not a guarantee that every sensitive value will be caught. OCR can miss tiny, low-contrast, or newly appeared text, and pattern rules only cover the secret shapes they know about.
 
+![Aki hero demo showing a fake AWS key in a terminal and an ASCII-redacted virtual camera preview](./asset/demo/hero-ascii-redaction.gif)
+
 ## Install
 
 The current primary path is a source install. A signed macOS app and Homebrew cask are planned, but not published yet.
