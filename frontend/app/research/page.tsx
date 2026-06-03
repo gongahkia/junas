@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { askResearch, getResearchConversation, getResearchConfig } from "../../lib/api-server";
 
-type SourceType = "statute" | "glossary" | "case_law" | "treaty";
+type SourceType = "statute" | "glossary" | "case_law";
 
 type CitationItem = {
   citation: string;
@@ -65,7 +65,7 @@ type ConfigResponse = {
 const defaultSources: SourceType[] = ["statute", "glossary"];
 
 function isSourceType(value: string): value is SourceType {
-  return value === "statute" || value === "glossary" || value === "case_law" || value === "treaty";
+  return value === "statute" || value === "glossary" || value === "case_law";
 }
 
 function normalizeSources(raw: string | string[] | undefined): SourceType[] {
@@ -88,11 +88,6 @@ function citationHref(citation: string): string | null {
   const glossaryMatch = citation.match(/: "([^"]+)"$/);
   if (glossaryMatch) {
     return `/glossary/${encodeURIComponent(glossaryMatch[1])}`;
-  }
-
-  const treatyMatch = citation.match(/^Rome Statute Art\.?\s+([0-9A-Za-z.\-]+)/i);
-  if (treatyMatch) {
-    return `/rome-statute/article/${encodeURIComponent(treatyMatch[1])}`;
   }
 
   return null;

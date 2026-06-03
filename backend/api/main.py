@@ -8,10 +8,9 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from api.celery_app import celery
+from api.celery_app import celery  # noqa: F401  (kept for worker discovery)
 from api.config import get_settings
 from api.routers import (
-    benchmarks_router,
     chat_router,
     clauses_router,
     compliance_router,
@@ -22,20 +21,15 @@ from api.routers import (
     jurisdictions_router,
     legal_sources_router,
     ner_router,
-    predictions_router,
     research_router,
-    rome_statute_router,
     search_router,
     statutes_router,
     templates_router,
 )
 from api.security import SimpleRateLimiter, authorize_request
-from api.services.benchmarks import BenchmarkService
 from api.services.contract_classifier import create_contract_classifier
-from api.services.court_predictor import create_court_predictor
 from api.services.entity_extractor import create_entity_extractor
 from api.services.readiness import collect_service_health
-from api.services.rome_statute import create_rome_statute_service
 from api.services.tos_scanner import create_tos_scanner
 
 
@@ -71,17 +65,13 @@ tags_metadata = [
     {"name": "compliance", "description": "Compliance checking engine"},
     {"name": "documents", "description": "PDF/DOCX document parsing"},
     {"name": "legal-sources", "description": "Legal source scraping (SSO, CommonLII)"},
-    {"name": "jurisdictions", "description": "Multi-jurisdiction registry"},
+    {"name": "jurisdictions", "description": "Singapore jurisdiction registry"},
     {"name": "ner", "description": "Legal named entity extraction"},
-    {"name": "predictions", "description": "Court decision prediction suite"},
-    {"name": "benchmarks", "description": "LexGLUE benchmark dashboard"},
-    {"name": "rome-statute", "description": "Rome Statute knowledge base"},
 ]
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    existing_rome_statute_service = getattr(app.state, "rome_statute_service", None)
     app.state.start_time = time.time()
     app.state.request_count = 0
     app.state.rate_limiter = SimpleRateLimiter(settings)
@@ -90,10 +80,7 @@ async def lifespan(app: FastAPI):
     app.state.case_retrieval_service = None
     app.state.contract_classifier = None
     app.state.tos_scanner = None
-    app.state.court_predictor = None
-    app.state.benchmark_service = None
     app.state.legal_qa_service = None
-    app.state.rome_statute_service = existing_rome_statute_service
     app.state.elasticsearch = (
         elasticsearch_client_cls(settings.elasticsearch_url) if elasticsearch_client_cls else None
     )
@@ -133,30 +120,6 @@ async def lifespan(app: FastAPI):
     except Exception as exc:  # pragma: no cover - depends on local model files
         logger.warning("tos scanner startup load failed: %s", exc)
 
-    try:
-        app.state.court_predictor = create_court_predictor(
-            scotus_model_path=settings.scotus_model_path,
-            ecthr_violation_model_path=settings.ecthr_violation_model_path,
-            ecthr_alleged_model_path=settings.ecthr_alleged_model_path,
-            casehold_model_path=settings.casehold_model_path,
-            eurlex_model_path=settings.eurlex_model_path,
-        )
-    except Exception as exc:  # pragma: no cover - depends on local model files
-        logger.warning("court predictor startup load failed: %s", exc)
-
-    if app.state.rome_statute_service is None:
-        try:
-            app.state.rome_statute_service = create_rome_statute_service(settings.rome_statute_data_path)
-        except Exception as exc:  # pragma: no cover - depends on local files
-            logger.warning("rome statute startup load failed: %s", exc)
-
-    app.state.benchmark_service = BenchmarkService(
-        database_url=settings.database_url,
-        pg_pool=app.state.pg_pool,
-        celery_app=celery,
-    )
-    await app.state.benchmark_service.seed_published_baselines()
-
     startup_status = await collect_service_health(app)
     app.state.startup_status = startup_status
     logger.info("startup readiness: %s", startup_status)
@@ -177,12 +140,12 @@ async def lifespan(app: FastAPI):
 def create_app() -> FastAPI:
     app = FastAPI(
         title="Junas API",
-        version="1.0.0",
+        version="2.0.0",
         lifespan=lifespan,
         description=(
-            "Legal AI platform providing multi-jurisdiction retrieval, legal NER, "
-            "contract analysis, BYOK AI chat, compliance checking, clause & template libraries, "
-            "benchmark evaluation, and court decision prediction."
+            "Singapore-focused legal AI platform powering SG-LegalBench and a reference copilot. "
+            "Includes SG retrieval, legal NER, contract analysis, BYOK chat, compliance, and "
+            "clause/template libraries."
         ),
         docs_url="/docs",
         redoc_url="/redoc",
@@ -248,12 +211,9 @@ def create_app() -> FastAPI:
     )
     app.include_router(health_router, prefix="/api/v1", tags=["health"])
     app.include_router(chat_router, prefix="/api/v1", tags=["chat"])
-    app.include_router(benchmarks_router, prefix="/api/v1", tags=["benchmarks"])
     app.include_router(glossary_router, prefix="/api/v1", tags=["glossary"])
     app.include_router(statutes_router, prefix="/api/v1", tags=["statutes"])
     app.include_router(research_router, prefix="/api/v1", tags=["research"])
-    app.include_router(predictions_router, prefix="/api/v1", tags=["predictions"])
-    app.include_router(rome_statute_router, prefix="/api/v1", tags=["rome-statute"])
     app.include_router(ner_router, prefix="/api/v1", tags=["ner"])
     app.include_router(search_router, prefix="/api/v1", tags=["search"])
     app.include_router(contracts_router, prefix="/api/v1", tags=["contracts"])

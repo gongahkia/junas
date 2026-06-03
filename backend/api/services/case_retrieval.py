@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -16,12 +17,67 @@ from data.parsers.lecard_parser import (
     load_queries,
     load_stopwords,
 )
-from ml.evaluation.lecard_eval import evaluate_predictions
 from ml.retrieval.case_retrieval import (
     DEFAULT_BIENCODER_MODEL,
     DEFAULT_CROSS_ENCODER_MODEL,
     CaseRetrievalPipeline,
 )
+
+
+def _ndcg_at_k(predicted_ids: list[str], label_map: dict[str, int], k: int) -> float:
+    ideal = sorted(label_map.values(), reverse=True)[:k]
+    if not ideal or sum(ideal) == 0:
+        return 0.0
+    gains = [label_map.get(str(case_id), 0) for case_id in predicted_ids[:k]]
+    if len(gains) < k:
+        gains.extend([0] * (k - len(gains)))
+    dcg = 0.0
+    idcg = 0.0
+    for idx in range(k):
+        discount = math.log2(idx + 2)
+        dcg += gains[idx] / discount
+        idcg += ideal[idx] / discount
+    return dcg / idcg if idcg > 0 else 0.0
+
+
+def _precision_at_k(predicted_ids: list[str], label_map: dict[str, int], k: int) -> float:
+    if k <= 0:
+        return 0.0
+    hits = sum(1 for case_id in predicted_ids[:k] if label_map.get(str(case_id), 0) == 3)
+    return hits / k
+
+
+def _mean_average_precision(predictions: dict[str, list[str]], labels: dict[str, dict[str, int]]) -> float:
+    ap_values: list[float] = []
+    for ridx, label_map in labels.items():
+        predicted = [case_id for case_id in predictions.get(ridx, []) if case_id in label_map]
+        relevant_total = sum(1 for score in label_map.values() if int(score) == 3)
+        if relevant_total == 0:
+            ap_values.append(0.0)
+            continue
+        score_sum = 0.0
+        hit_count = 0
+        for rank, case_id in enumerate(predicted, start=1):
+            if int(label_map.get(case_id, 0)) == 3:
+                hit_count += 1
+                score_sum += hit_count / rank
+        ap_values.append(score_sum / relevant_total if hit_count else 0.0)
+    return sum(ap_values) / len(ap_values) if ap_values else 0.0
+
+
+def evaluate_predictions(predictions: dict[str, list[str]], labels: dict[str, dict[str, int]]) -> dict[str, float]:
+    query_ids = [qid for qid in labels.keys() if qid in predictions]
+    if not query_ids:
+        return {"NDCG@10": 0.0, "NDCG@20": 0.0, "NDCG@30": 0.0, "P@5": 0.0, "P@10": 0.0, "MAP": 0.0}
+    n = len(query_ids)
+    return {
+        "NDCG@10": sum(_ndcg_at_k(predictions[qid], labels[qid], 10) for qid in query_ids) / n,
+        "NDCG@20": sum(_ndcg_at_k(predictions[qid], labels[qid], 20) for qid in query_ids) / n,
+        "NDCG@30": sum(_ndcg_at_k(predictions[qid], labels[qid], 30) for qid in query_ids) / n,
+        "P@5": sum(_precision_at_k(predictions[qid], labels[qid], 5) for qid in query_ids) / n,
+        "P@10": sum(_precision_at_k(predictions[qid], labels[qid], 10) for qid in query_ids) / n,
+        "MAP": _mean_average_precision(predictions, labels),
+    }
 
 DEFAULT_METRICS_PATH = "models/case-retrieval/eval_results.json"
 PUBLISHED_BASELINES = {

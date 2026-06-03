@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -26,8 +25,8 @@ class ResearchAskRequest(BaseModel):
         json_schema_extra={
             "examples": [
                 {
-                    "question": "What is genocide under the Rome Statute?",
-                    "sources": ["treaty", "statute", "glossary"],
+                    "question": "What obligations does PDPA impose on data intermediaries?",
+                    "sources": ["statute", "glossary"],
                     "top_k": 8,
                 }
             ]
@@ -71,10 +70,6 @@ def _parse_source_types(raw_sources: list[str] | None) -> list[SourceType] | Non
         "case": SourceType.CASE_LAW,
         "case_law": SourceType.CASE_LAW,
         "case-law": SourceType.CASE_LAW,
-        "treaty": SourceType.TREATY,
-        "treaties": SourceType.TREATY,
-        "rome-statute": SourceType.TREATY,
-        "rome_statute": SourceType.TREATY,
     }
 
     for raw in raw_sources:
@@ -171,21 +166,12 @@ async def delete_conversation(
     return {"conversation_id": conversation_id, "deleted": True}
 
 
-def _rome_statute_available(request: Request) -> bool:
-    if getattr(request.app.state, "rome_statute_service", None) is not None:
-        return True
-    settings = get_settings()
-    return Path(settings.rome_statute_data_path).exists()
-
-
 @router.get("/config")
 async def get_research_config(request: Request) -> dict[str, Any]:
     settings = get_settings()
     available_sources = [SourceType.STATUTE.value, SourceType.GLOSSARY.value]
     if getattr(request.app.state, "case_retrieval_service", None) is not None:
         available_sources.append(SourceType.CASE_LAW.value)
-    if _rome_statute_available(request):
-        available_sources.append(SourceType.TREATY.value)
 
     return {
         "provider": settings.llm_provider,

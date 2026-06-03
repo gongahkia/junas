@@ -25,13 +25,11 @@ def assemble_context(chunks: list[RetrievedChunk]) -> str:
     for index, chunk in enumerate(chunks, start=1):
         header = f"[Source {index}: {chunk.source_id}]"
         if chunk.source_type == SourceType.STATUTE:
-            header += f" (Oregon Statute, {chunk.metadata.get('name', '')})"
+            header += f" (Singapore Statute, {chunk.metadata.get('name', '')})"
         elif chunk.source_type == SourceType.GLOSSARY:
             header += f" ({chunk.metadata.get('jurisdiction', '')} Glossary)"
         elif chunk.source_type == SourceType.CASE_LAW:
             header += f" (Case: {chunk.metadata.get('case_name', '')})"
-        elif chunk.source_type == SourceType.TREATY:
-            header += f" (Rome Statute Article {chunk.metadata.get('article_number', '')})"
         parts.append(f"{header}\n{chunk.text}")
     return "\n\n---\n\n".join(parts)
 

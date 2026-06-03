@@ -85,27 +85,22 @@ async def metrics(request: Request) -> dict[str, Any]:
 
     models_loaded: list[str] = []
     if getattr(app.state, "entity_extractor", None) is not None:
-        models_loaded.append("ner-german-legal")
+        models_loaded.append("ner-legal")
     if getattr(app.state, "contract_classifier", None) is not None:
         models_loaded.append("ledgar-classifier")
     if getattr(app.state, "tos_scanner", None) is not None:
         models_loaded.append("unfair-tos-classifier")
-    if getattr(app.state, "court_predictor", None) is not None:
-        models_loaded.append("court-prediction-suite")
-    if getattr(app.state, "rome_statute_service", None) is not None:
-        models_loaded.append("rome-statute-service")
 
     indices = await _collect_indices(
         getattr(app.state, "elasticsearch", None),
-        ["junas_glossary", "junas_statutes", "junas_rome_statute"],
+        ["junas_glossary", "junas_statutes"],
     )
     qdrant_collections = await _collect_qdrant_collections(
         getattr(app.state, "qdrant", None),
-        ["junas_statutes", "lecard_cases", "junas_rome_statute"],
+        ["junas_statutes", "sg_cases"],
     )
 
     pg_pool = getattr(app.state, "pg_pool", None)
-    benchmark_runs = await _count_rows(pg_pool, "benchmark_runs")
     conversations = await _count_rows(pg_pool, "conversations")
 
     return {
@@ -113,6 +108,5 @@ async def metrics(request: Request) -> dict[str, Any]:
         "models_loaded": models_loaded,
         "indices": indices,
         "qdrant_collections": qdrant_collections,
-        "benchmark_runs": benchmark_runs,
         "conversations": conversations,
     }

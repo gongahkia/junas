@@ -8,6 +8,8 @@ import ThemeToggle from "./theme-toggle";
 import NotificationsPanel, { useUnreadCount } from "./notifications-panel";
 
 const TOOL_LINKS = [
+  { href: "/chat", label: "Copilot (Chat)" },
+  { href: "/benchmarks", label: "SG-LegalBench" },
   { href: "/glossary", label: "Glossary" },
   { href: "/statutes", label: "Statutes" },
   { href: "/search", label: "Case Search" },
@@ -19,10 +21,6 @@ const TOOL_LINKS = [
   { href: "/batch-analysis", label: "Batch Analysis" },
   { href: "/clauses", label: "Clauses" },
   { href: "/templates", label: "Templates" },
-  { href: "/predictions", label: "Predictions" },
-  { href: "/benchmarks", label: "Benchmarks" },
-  { href: "/rome-statute", label: "Rome Statute" },
-  { href: "/compare-jurisdictions", label: "Compare" },
   { href: "/documents", label: "Documents" },
 ];
 
@@ -61,20 +59,20 @@ export default function SideNav() {
   }, [pathname]);
 
   const handleNewChat = () => {
-    if (pathname === "/") {
+    if (pathname === "/chat") {
       window.dispatchEvent(new CustomEvent("junas:new-chat"));
     } else {
-      window.location.href = "/";
+      window.location.href = "/chat";
     }
     setActiveConvId("");
     setMobileOpen(false);
   };
 
   const handleLoadConversation = (id: string) => {
-    if (pathname === "/") {
+    if (pathname === "/chat") {
       window.dispatchEvent(new CustomEvent("junas:load-conversation", { detail: { id } }));
     } else {
-      window.location.href = `/?c=${id}`;
+      window.location.href = `/chat?c=${id}`;
     }
     setActiveConvId(id);
     setMobileOpen(false);

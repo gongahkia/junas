@@ -1,4 +1,4 @@
-"""Tests for jurisdiction router."""
+"""Tests for jurisdiction router (SG-only after pivot)."""
 from fastapi.testclient import TestClient
 from api.main import create_app
 
@@ -12,10 +12,6 @@ def test_list_jurisdictions():
     assert isinstance(data, list)
     ids = [j["id"] for j in data]
     assert "sg" in ids
-    assert "my" in ids
-    assert "us" in ids
-    assert "eu" in ids
-    assert "intl" in ids
 
 def test_get_singapore():
     resp = client.get("/api/v1/jurisdictions/sg")

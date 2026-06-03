@@ -10,7 +10,6 @@ class SourceType(str, Enum):
     STATUTE = "statute"
     GLOSSARY = "glossary"
     CASE_LAW = "case_law"
-    TREATY = "treaty"
 
 
 @dataclass(frozen=True)
@@ -62,9 +61,6 @@ class RetrievalOrchestrator:
 
         if SourceType.CASE_LAW in selected_sources:
             chunks.extend(await self._search_case_law(query, top_k))
-
-        if SourceType.TREATY in selected_sources:
-            chunks.extend(await self._search_treaty(query, top_k))
 
         unique_chunks = self._dedupe_keep_best(chunks)
         unique_chunks.sort(key=lambda item: item.score, reverse=True)
@@ -201,55 +197,6 @@ class RetrievalOrchestrator:
                         "jurisdiction": source.get("jurisdiction", ""),
                         "domain": source.get("domain", ""),
                         "source_title": source.get("source_title", ""),
-                    },
-                    score=float(hit.get("_score", 0.0)),
-                )
-            )
-
-        return chunks
-
-    async def _search_treaty(self, query: str, limit: int) -> list[RetrievedChunk]:
-        if self.es is None:
-            return []
-
-        body = {
-            "query": {
-                "multi_match": {
-                    "query": query,
-                    "fields": ["article_title^3", "text^2", "part_title"],
-                    "type": "best_fields",
-                }
-            },
-            "size": limit,
-        }
-
-        try:
-            response = await self.es.search(index="junas_rome_statute", body=body)
-        except Exception:
-            return []
-
-        hits = response.get("hits", {}).get("hits", [])
-        chunks: list[RetrievedChunk] = []
-        for hit in hits:
-            source = hit.get("_source", {})
-            article_number = str(source.get("article_number", "")).strip()
-            if not article_number:
-                continue
-
-            article_title = str(source.get("article_title", "")).strip()
-            text = str(source.get("text", "")).strip()
-            part_number = str(source.get("part_number", "")).strip()
-
-            chunks.append(
-                RetrievedChunk(
-                    text=text[:1600],
-                    source_type=SourceType.TREATY,
-                    source_id=f"Rome Statute Art. {article_number}",
-                    metadata={
-                        "article_number": article_number,
-                        "article_title": article_title,
-                        "part_number": part_number,
-                        "part_title": source.get("part_title", ""),
                     },
                     score=float(hit.get("_score", 0.0)),
                 )

@@ -9,12 +9,6 @@ from data.parsers.lecard_parser import (
     load_labels as load_lecard_labels,
     load_queries as load_lecard_queries,
 )
-from data.parsers.rome_statute_parser import (
-    RomeStatuteArticle,
-    discover_rome_statute_file,
-    parse_rome_statute,
-    parse_rome_statute_records,
-)
 from data.parsers.statute_parser import StatuteSection, parse_ors_line
 
 __all__ = [
@@ -29,10 +23,6 @@ __all__ = [
     "load_lecard_queries",
     "GlossaryEntry",
     "parse_glossary_file",
-    "RomeStatuteArticle",
-    "discover_rome_statute_file",
-    "parse_rome_statute",
-    "parse_rome_statute_records",
     "StatuteSection",
     "parse_ors_line",
 ]

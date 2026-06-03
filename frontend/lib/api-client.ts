@@ -263,36 +263,6 @@ export async function scanToS(text: string, threshold = 0.5) {
   return resp.json();
 }
 
-// predictions
-export async function predictScotus(text: string, topK = 5) {
-  const resp = await fetch(apiUrl("/predict/scotus"), {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text, top_k: topK }),
-  });
-  return resp.json();
-}
-export async function predictEcthr(text: string, task = "violation", threshold = 0.5) {
-  const resp = await fetch(apiUrl("/predict/ecthr"), {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text, task, threshold }),
-  });
-  return resp.json();
-}
-export async function predictCasehold(context: string, options: string[]) {
-  const resp = await fetch(apiUrl("/predict/casehold"), {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ context, options }),
-  });
-  return resp.json();
-}
-export async function predictEurlex(text: string, threshold = 0.5, maxLabels = 10) {
-  const resp = await fetch(apiUrl("/predict/eurlex"), {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text, threshold, max_labels: maxLabels }),
-  });
-  return resp.json();
-}
-
 // research (RAG)
 export async function askResearch(question: string, sources?: string[], topK = 8, conversationId?: string) {
   const resp = await fetch(apiUrl("/research/ask"), {
@@ -307,41 +277,6 @@ export async function getResearchConversation(conversationId: string) {
 }
 export async function getResearchConfig() {
   const resp = await fetch(apiUrl("/research/config"));
-  return resp.json();
-}
-
-// benchmarks
-export async function startBenchmarkRun(modelName: string, runName: string, tasks: string[], modelPath?: string) {
-  const resp = await fetch(apiUrl("/benchmarks/run"), {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ model_name: modelName, run_name: runName, tasks, model_path: modelPath }),
-  });
-  return resp.json();
-}
-export async function listBenchmarkRuns(limit = 20) {
-  const resp = await fetch(apiUrl(`/benchmarks/runs?limit=${limit}`));
-  return resp.json();
-}
-export async function getBenchmarkRun(runId: string) {
-  const resp = await fetch(apiUrl(`/benchmarks/runs/${runId}`));
-  return resp.json();
-}
-export async function getBenchmarkLeaderboard() {
-  const resp = await fetch(apiUrl("/benchmarks/leaderboard"));
-  return resp.json();
-}
-
-// rome statute
-export async function searchRomeStatute(q: string, topK = 10) {
-  const resp = await fetch(apiUrl(`/rome-statute/search?q=${encodeURIComponent(q)}&top_k=${topK}`));
-  return resp.json();
-}
-export async function getRomeStatuteArticle(number: number) {
-  const resp = await fetch(apiUrl(`/rome-statute/article/${number}`));
-  return resp.json();
-}
-export async function listRomeStatuteParts() {
-  const resp = await fetch(apiUrl("/rome-statute/parts"));
   return resp.json();
 }
 
@@ -364,18 +299,6 @@ export async function listCharges() {
 }
 export async function listEntityTypes() {
   const resp = await fetch(apiUrl("/ner/entity-types"));
-  return resp.json();
-}
-export async function listBenchmarkTasks() {
-  const resp = await fetch(apiUrl("/benchmarks/tasks"));
-  return resp.json();
-}
-export async function registerBenchmarkResult(payload: { model_name: string; run_name: string; task: string; micro_f1: number; macro_f1?: number }) {
-  const resp = await fetch(apiUrl("/benchmarks/register"), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-  return resp.json();
-}
-export async function getRomeStatutePart(number: number) {
-  const resp = await fetch(apiUrl(`/rome-statute/part/${number}`));
   return resp.json();
 }
 export async function deleteResearchConversation(conversationId: string) {

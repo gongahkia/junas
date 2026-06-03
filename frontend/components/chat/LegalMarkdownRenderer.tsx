@@ -7,10 +7,8 @@ import Link from "next/link";
 const MermaidDiagram = lazy(() => import("./MermaidDiagram"));
 const DIAGRAM_LANGS = new Set(["mermaid", "diagram", "plantuml", "d2", "graphviz", "dot"]);
 
-// citation patterns for auto-linking
+// citation patterns for auto-linking (SG-only)
 const CITATION_PATTERNS: { regex: RegExp; href: (m: RegExpMatchArray) => string }[] = [
-  { regex: /ORS\s+(\d{1,4}[A-Z]?\.\d{3,4})/g, href: (m) => `/statutes/section/${m[1]}` },
-  { regex: /(?:Rome\s+Statute|RS)\s+[Aa]rt(?:icle)?\.?\s*(\d+)/g, href: (m) => `/rome-statute/article/${m[1]}` },
   { regex: /\[(\d{4})\]\s+(?:SGCA|SGHC)\s+\d+/g, href: (m) => `/legal-sources?query=${encodeURIComponent(m[0])}` },
   { regex: /\[(\d{4})\]\s+\d+\s+SLR(?:\(R\))?\s+\d+/g, href: (m) => `/legal-sources?query=${encodeURIComponent(m[0])}` },
   { regex: /\b([A-Z][A-Za-z'/-]+(?:\s+[A-Z][A-Za-z'/-]+)*\s+Act)\s*\(Cap\.\s*\d+/g, href: (m) => `/legal-sources?query=${encodeURIComponent(m[1])}` },

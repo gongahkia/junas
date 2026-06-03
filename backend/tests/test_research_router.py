@@ -69,7 +69,7 @@ def test_research_ask_endpoint_returns_answer_payload() -> None:
                 "/api/v1/research/ask",
                 json={
                     "question": "What is a naturopathic physician in Oregon?",
-                    "sources": ["statute", "glossary", "treaty"],
+                    "sources": ["statute", "glossary"],
                     "top_k": 6,
                 },
             )
@@ -112,14 +112,3 @@ def test_research_config_endpoint_returns_provider_info() -> None:
     assert "available_sources" in body
 
 
-def test_research_config_includes_treaty_when_service_loaded() -> None:
-    previous = getattr(app.state, "rome_statute_service", None)
-    app.state.rome_statute_service = object()
-    with TestClient(app) as client:
-        try:
-            response = client.get("/api/v1/research/config")
-        finally:
-            app.state.rome_statute_service = previous
-
-    assert response.status_code == 200
-    assert "treaty" in response.json().get("available_sources", [])

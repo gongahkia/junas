@@ -17,7 +17,6 @@ import {
   Settings,
   ShieldCheck,
   Share2,
-  Sparkles,
   LayoutGrid,
 } from "lucide-react";
 
@@ -191,14 +190,6 @@ export const COMMAND_DEFINITIONS: readonly CommandDefinition[] = [
     category: "system",
     icon: FileSearch,
     action: { kind: "navigate", href: "/contracts" },
-  },
-  {
-    id: "predictions",
-    label: "Predictions",
-    description: "Open the court prediction tools",
-    category: "system",
-    icon: Sparkles,
-    action: { kind: "navigate", href: "/predictions" },
   },
   {
     id: "history",
