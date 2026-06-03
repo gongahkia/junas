@@ -33,6 +33,7 @@ struct WhitelistFile {
 }
 
 /// Compiled whitelist of safe-string patterns.
+#[derive(Clone)]
 pub struct Whitelist {
     regexes: Vec<Regex>,
 }

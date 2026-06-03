@@ -75,6 +75,20 @@ pub struct DetectionConfig {
     pub external_rules_format: String,
     /// Upper bound for imported external regex patterns.
     pub max_external_patterns: usize,
+    /// Enable the opt-in local LLM classifier for low-confidence OCR text.
+    pub local_llm_enabled: bool,
+    /// Local LLM provider. Currently supports "ollama".
+    pub local_llm_provider: String,
+    /// Local-only generation endpoint for the provider.
+    pub local_llm_endpoint: String,
+    /// Local model name to ask through the provider.
+    pub local_llm_model: String,
+    /// Lowest OCR confidence considered by the local classifier.
+    pub local_llm_min_confidence: u32,
+    /// Maximum low-confidence OCR regions classified per frame.
+    pub local_llm_max_regions_per_frame: usize,
+    /// Local classifier request timeout.
+    pub local_llm_timeout_ms: u64,
 }
 
 impl Default for DetectionConfig {
@@ -89,6 +103,13 @@ impl Default for DetectionConfig {
             external_rules_path: String::new(),
             external_rules_format: "gitleaks".into(),
             max_external_patterns: crate::detection::external_rules::DEFAULT_MAX_IMPORTED_PATTERNS,
+            local_llm_enabled: false,
+            local_llm_provider: "ollama".into(),
+            local_llm_endpoint: "http://127.0.0.1:11434/api/generate".into(),
+            local_llm_model: "phi3:mini".into(),
+            local_llm_min_confidence: 20,
+            local_llm_max_regions_per_frame: 2,
+            local_llm_timeout_ms: 750,
         }
     }
 }
@@ -260,5 +281,6 @@ mod tests {
         assert!((back.transform.intensity - cfg.transform.intensity).abs() < 1e-6);
         assert_eq!(back.output.http_port, cfg.output.http_port);
         assert!(back.foreground_profiles.enabled);
+        assert!(!back.detection.local_llm_enabled);
     }
 }

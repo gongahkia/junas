@@ -26,7 +26,7 @@ Because `Aki` works on pixels instead of browser DOM nodes, it can cover termina
 
 Screen pixels, OCR text, detections, config, and runtime logs stay on your machine. Local logs are written under `~/.config/ascii-privacy/logs/aki.log`; `Aki` does not upload them.
 
-Network activity is limited to actions you request: Homebrew or GitHub release downloads during install/update, the optional neural model download when the Neural transform is used without a cached model, optional Twitch chat integration if configured, and local OBS/MJPEG endpoints. These paths are not telemetry.
+Network activity is limited to actions you request: Homebrew or GitHub release downloads during install/update, the optional neural model download when the Neural transform is used without a cached model, optional Twitch chat integration if configured, the opt-in local LLM classifier endpoint if configured, and local OBS/MJPEG endpoints. These paths are not telemetry.
 
 Future uploaded counters or diagnostics are out of scope for v1 unless they are explicit opt-in before any data leaves the machine. The local `aki doctor` command prints setup checks without uploading anything.
 
@@ -146,6 +146,12 @@ $ aki --headless --source screen --display 0 --display 1 --record-output ./multi
 ```
 
 The behavior, hot-plug expectations, and performance costs are documented in [`docs/multi-display-capture.md`](./docs/multi-display-capture.md).
+
+### Opt-In Local Classifier
+
+The optional local LLM detector can ask a localhost Ollama model to classify ambiguous low-confidence OCR text as secret-shaped or safe. It is off by default, does not download models, and does not change the lightweight install path unless you enable it.
+
+Setup, privacy boundaries, and latency/accuracy tradeoffs are documented in [`docs/local-llm-detector.md`](./docs/local-llm-detector.md).
 
 ## Power-User / Developer Commands
 
