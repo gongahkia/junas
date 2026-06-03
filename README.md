@@ -69,7 +69,7 @@ $ AKI_BINARY="$PWD/target/debug/aki" swift run --package-path macos/AkiMenuBar
 
 The menu-bar shell can start and stop the headless redaction pipeline, pause or resume it, switch transforms, choose the capture/output mode used on restart, show redaction/FPS/CPU stats, and open the TUI in Terminal. The v1 sidecar protocol is documented in [`docs/sidecar-protocol.md`](./docs/sidecar-protocol.md).
 
-macOS DMG release packaging is documented in [`docs/macos-release.md`](./docs/macos-release.md), and the cask path is documented in [`docs/homebrew-cask.md`](./docs/homebrew-cask.md).
+macOS DMG release packaging is documented in [`docs/macos-release.md`](./docs/macos-release.md), and the cask path is documented in [`docs/homebrew-cask.md`](./docs/homebrew-cask.md). The Show HN launch gate is tracked in [`docs/show-hn-readiness.md`](./docs/show-hn-readiness.md); do not advertise a Show HN launch until that checklist is complete.
 
 ## Quick Commands
 
