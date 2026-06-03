@@ -75,6 +75,8 @@ The engineering architecture is documented in [`ARCHITECTURE.md`](./ARCHITECTURE
 
 Performance baselines and the synthetic redaction fixture corpus are tracked in [`BENCHMARKS.md`](./BENCHMARKS.md).
 
+The public roadmap is tracked in [`docs/roadmap.md`](./docs/roadmap.md).
+
 ## Quick Commands
 
 ```console
