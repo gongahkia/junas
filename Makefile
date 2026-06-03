@@ -1,4 +1,4 @@
-.PHONY: up down dev api frontend test lint migrate ingest-all download-data setup eval eval-list
+.PHONY: up down dev api frontend test lint migrate ingest-all download-data setup eval eval-list synth-gen
 
 # === primary ===
 up:
@@ -43,6 +43,18 @@ eval:
 	  --workflow $(WORKFLOW) \
 	  --dataset $(DATASET) \
 	  $(addprefix --evaluator ,$(EVALUATORS))
+
+# Usage: make synth-gen TASK=sglb_08 N=50 PROVIDERS="anthropic,openai,google"
+TASK ?= sglb_08
+N ?= 50
+PROVIDERS ?= anthropic,openai,google
+SEED ?= 0
+synth-gen:
+	cd backend && python3 -m benchmark.synthetic generate \
+	  --task $(TASK) \
+	  --n $(N) \
+	  --providers $(PROVIDERS) \
+	  --seed $(SEED)
 
 # === data ===
 ingest-all:

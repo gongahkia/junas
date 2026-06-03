@@ -57,3 +57,7 @@ frontend/.next/
 
 # vendor datasets (downloaded via make download-data)
 vendor-data/
+
+# synthetic benchmark candidates require explicit human review before promotion
+backend/benchmark/datasets/*_candidates/*
+!backend/benchmark/datasets/*_candidates/.gitkeep

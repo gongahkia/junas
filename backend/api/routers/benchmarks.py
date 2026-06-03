@@ -67,6 +67,7 @@ class RunResponse(BaseModel):
     finished_at: str
     strict: bool
     weak_evaluators_used: list[str]
+    data_tier: str = "regulator"
 
 
 class LeaderboardEntry(BaseModel):
@@ -77,6 +78,7 @@ class LeaderboardEntry(BaseModel):
     total_cases: int
     per_evaluator_mean: dict[str, float]
     strict: bool
+    data_tier: str = "regulator"
 
 
 class LeaderboardResponse(BaseModel):
@@ -170,6 +172,7 @@ async def run_benchmark(body: RunRequest) -> RunResponse:
         finished_at=summary.finished_at,
         strict=summary.strict,
         weak_evaluators_used=summary.weak_evaluators_used,
+        data_tier=summary.data_tier,
     )
 
 
@@ -194,6 +197,7 @@ async def leaderboard() -> LeaderboardResponse:
                         k: float(v) for k, v in (payload.get("per_evaluator_mean") or {}).items()
                     },
                     strict=bool(payload.get("strict", False)),
+                    data_tier=str(payload.get("data_tier") or "regulator"),
                 )
             )
 

@@ -1,6 +1,6 @@
 # SGLB-12 Multi-Issue-Spotting
 
-Version: 0.1-draft. Tracking issue: [#53](https://github.com/gongahkia/junas/issues/53).
+Version: 0.1-synthesis-ready. Tracking issue: [#53](https://github.com/gongahkia/junas/issues/53).
 
 ## Capability
 
@@ -66,3 +66,10 @@ Model output is a JSON list of issue labels:
 - v0.1: ~120 compound scenarios.
 - v0.2 held-out: ~30 scenarios from post-2026-Q1 source materials.
 - Per-issue and per-source breakdown.
+
+## Synthesis pipeline
+
+SGLB-12 may use `benchmark.synthetic` because the issue set is fixed by the
+compound-scenario generation instruction. The synthetic pipeline does not use a
+second LLM autolabel call; candidates must be human-reviewed before promotion
+and are reported under the `synthetic` tier.

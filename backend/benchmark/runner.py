@@ -29,6 +29,7 @@ class RunSummary:
     finished_at: str = ""
     strict: bool = False
     weak_evaluators_used: list[str] = field(default_factory=list)
+    data_tier: str = "regulator"
 
     def per_evaluator_mean(self) -> dict[str, float]:
         sums: dict[str, float] = {}
@@ -50,6 +51,7 @@ class RunSummary:
             "finished_at": self.finished_at,
             "strict": self.strict,
             "weak_evaluators_used": self.weak_evaluators_used,
+            "data_tier": self.data_tier,
             "per_evaluator_mean": self.per_evaluator_mean(),
             "results": [r.model_dump() for r in self.results],
         }
@@ -59,6 +61,19 @@ def load_dataset(path: str | Path) -> Dataset:
     raw = Path(path).read_text(encoding="utf-8")
     data = yaml.safe_load(raw)
     return Dataset.model_validate(data)
+
+
+def _infer_data_tier(dataset: Dataset) -> str:
+    tiers = {
+        str(case.metadata.get("data_tier"))
+        for case in dataset.cases
+        if case.metadata.get("data_tier")
+    }
+    if not tiers:
+        return "regulator"
+    if len(tiers) == 1:
+        return next(iter(tiers))
+    return "mixed"
 
 
 async def _run_case(
@@ -176,6 +191,7 @@ async def run(
         started_at=datetime.now(timezone.utc).isoformat(),
         strict=strict,
         weak_evaluators_used=weak_used,
+        data_tier=_infer_data_tier(dataset),
     )
 
     semaphore = asyncio.Semaphore(max_concurrency)

@@ -1,6 +1,6 @@
 # SGLB-15 Draft-Constraint-Sat
 
-Version: 0.1-draft. Tracking issue: [#56](https://github.com/gongahkia/junas/issues/56).
+Version: 0.1-synthesis-ready. Tracking issue: [#56](https://github.com/gongahkia/junas/issues/56).
 
 ## Capability
 
@@ -67,3 +67,9 @@ Model output is the drafted document as Markdown.
 - v0.1: ~200 briefs × ~5 constraints each.
 - v0.2 held-out: ~50 briefs built from new template variations.
 - Per-template-type and per-constraint-kind breakdown.
+
+## Synthesis pipeline
+
+SGLB-15 may use `benchmark.synthetic` because every hard constraint is fixed by
+the generation instruction and scored by Python functions. Candidates must be
+human-reviewed before promotion and are reported under the `synthetic` tier.

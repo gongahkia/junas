@@ -1,6 +1,6 @@
 # SGLB-08 Clause-Tone
 
-Version: 0.1-draft. Tracking issue: [#33](https://github.com/gongahkia/junas/issues/33).
+Version: 0.1-synthesis-ready. Tracking issue: [#33](https://github.com/gongahkia/junas/issues/33).
 
 ## Capability
 
@@ -62,3 +62,9 @@ Model output is a single-element JSON list with one of:
 - v0.1: ~300 clauses across 8 clause types.
 - v0.2 held-out: 100 clauses authored after the v0.1 release date.
 - κ reported per release; task retired if it falls below 0.4 sustained.
+
+## Synthesis pipeline
+
+SGLB-08 may use `benchmark.synthetic` because the target tone is fixed by the
+generation instruction. Candidates must be human-reviewed before promotion to
+the reviewed dataset, and receipts must be reported under the `synthetic` tier.
