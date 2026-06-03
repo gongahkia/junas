@@ -40,7 +40,7 @@ pub fn apply_ascii(pixels: &mut [u8], width: u32, height: u32, intensity: f32) {
                     count += 1;
                 }
             }
-            let avg_lum = if count > 0 { lum_sum / count } else { 0 };
+            let avg_lum = lum_sum.checked_div(count).unwrap_or(0);
 
             // map luminance → ramp index → grayscale fill value
             let ramp_idx = (avg_lum as usize * (RAMP_LEN - 1) / 255).min(RAMP_LEN - 1);

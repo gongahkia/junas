@@ -112,10 +112,13 @@ fn frame_to_braille_lines(
             }
 
             let ch = char::from_u32(BRAILLE_BASE + bits).unwrap_or('⠀');
-            let color = if count > 0 {
-                color_approx_256(avg_r / count, avg_g / count, avg_b / count)
-            } else {
-                Color::DarkGray
+            let color = match (
+                avg_r.checked_div(count),
+                avg_g.checked_div(count),
+                avg_b.checked_div(count),
+            ) {
+                (Some(r), Some(g), Some(b)) => color_approx_256(r, g, b),
+                _ => Color::DarkGray,
             };
             spans.push(Span::styled(ch.to_string(), Style::default().fg(color)));
         }

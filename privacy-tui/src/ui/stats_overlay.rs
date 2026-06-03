@@ -28,7 +28,7 @@ pub fn render(frame: &mut Frame, app: &App, _area: Rect) {
         .iter()
         .map(|(k, v)| (k, v.total_hits))
         .collect();
-    entries.sort_by(|a, b| b.1.cmp(&a.1));
+    entries.sort_by_key(|(_, hits)| std::cmp::Reverse(*hits));
 
     let items: Vec<ListItem> = entries
         .iter()

@@ -112,8 +112,9 @@ impl WaylandCaptureSource {
                     }
                     // width/height from spa_video_info requires format negotiation;
                     // using chunk stride as placeholder until proper SPA format parsing
-                    let w = if stride > 0 { stride / 4 } else { 0 };
-                    let h = if w > 0 { rgba.len() as u32 / 4 / w } else { 0 };
+                    let w = stride.checked_div(4).unwrap_or(0);
+                    let pixel_count = (rgba.len() as u32).checked_div(4).unwrap_or(0);
+                    let h = pixel_count.checked_div(w).unwrap_or(0);
                     if w == 0 || h == 0 {
                         return;
                     }

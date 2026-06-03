@@ -3,13 +3,46 @@
 
 # `Aki`
 
-Real-time [ASCII](https://en.wikipedia.org/wiki/ASCII) [privacy filter](https://www.reddit.com/r/buildapc/comments/wf46j0/privacy_filter_as_a_software/) for [screen capture](https://dictionary.cambridge.org/dictionary/english/screen-sharing) and [livestreaming](https://en.wikipedia.org/wiki/Live_streaming). 
+`Aki` is a local-first real-time privacy filter for screen sharing and livestreaming. It reads screen pixels, uses OCR and pattern matching to find secrets or PII, then redacts detected regions before the frame leaves through a virtual camera or MJPEG output.
 
-## How does `Aki` do it?
+Because `Aki` works on pixels instead of browser DOM nodes, it can cover terminals, editors, design tools, documents, and other app surfaces where DOM-based blur extensions cannot reliably inspect content.
 
-`Aki` [ingests](#architecture) a live video stream, detects [sensitive information](#block-list) in captured frames via OCR, [transforms](#transformations) sensitive regions using configurable effects, then [outputs](#architecture) the sanitized feed to a virtual camera for use with [OBS or other streaming software](#output-support).
+## Install
 
-For more details, see [here](#nerd-stuff).
+The current primary path is a source install. A signed macOS app and Homebrew cask are planned, but not published yet.
+
+```console
+$ brew install rust tesseract
+$ git clone https://github.com/gongahkia/aki
+$ cd aki
+$ cargo install --path privacy-tui
+$ aki self-test
+$ aki run
+```
+
+If you do not want to install the binary yet, run the TUI directly from the workspace:
+
+```console
+$ cargo run -p privacy-tui -- run
+```
+
+## Quick Commands
+
+```console
+$ aki list-windows
+$ aki test-patterns "SECRET_KEY=abc123"
+$ aki check-output
+$ aki --headless
+```
+
+## Power-User / Developer Commands
+
+```console
+$ cargo run -p privacy-tui -- run
+$ cargo run -p privacy-tui -- --pty
+$ cargo run -p privacy-tui -- test-screen
+$ cargo run -p privacy-tui -- self-test
+```
 
 ## Screenshots
 
@@ -27,25 +60,7 @@ For more details, see [here](#nerd-stuff).
 
 ## Usage
 
-The below instructions are for locally running `Aki`.
-
-1. First install `Aki` locally with the following commands.
-
-```console
-$ git clone https://github.com/gongahkia/aki && cd aki
-$ 
-```
-
-2. Then run the below commands to use `Aki`'s core functionality.
-
-```console
-$ cargo run -- run # run with TUI
-$ cargo run -- list-windows # list available windows
-$ cargo run -- test-patterns "SECRET_KEY=abc123" # test sensitivity patterns against text input
-$ cargo run -- check-output # verify virtual camera availability
-```
-
-3. Once inside `Aki`'s TUI, use the below keybinds.
+Once inside `Aki`'s TUI, use the below keybinds.
 
 | Key | Action |
 |-----|--------|
