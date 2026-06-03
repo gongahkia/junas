@@ -3,13 +3,257 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Nguy\u1ec5n V\u0103n Quang"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "quang.nguyen@tienthanhpack.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84-2 8-39"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "B\u00e0 L\u00ea Th\u1ecb Ph\u01b0\u01a1ng"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "phuong.le@tienthanhpack.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP-0 0 7 A"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incidentdesk@tienthanhpack.vn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Operational/Cyber Incident Report"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7\u20139%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "th\u00f4ng tin n\u1ed9i b\u1ed9"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet c\u00f4ng b\u1ed1 ra c\u00f4ng ch\u00fang"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "th\u1eddi gian c\u1ea5m giao d\u1ecbch (blackout window)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "ti\u1ebft l\u1ed9 ch\u1ecdn l\u1ecdc is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProject B\u00ecnh Minh\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "potentially affecting Q3 gross margin guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "any investor calls before c\u00f4ng b\u1ed1 th\u00f4ng tin would be ti\u1ebft l\u1ed9 ch\u1ecdn l\u1ecdc"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Nguy\u1ec5n V\u0103n Quang"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "quang.nguyen@tienthanhpack.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84-2 8-39"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "B\u00e0 L\u00ea Th\u1ecb Ph\u01b0\u01a1ng"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "phuong.le@tienthanhpack.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP-0 0 7 A"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incidentdesk@tienthanhpack.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "ACCT: 12**-34**-**89"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Operational/Cyber Incident Report"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Operational/Cyber Incident Report \u2014 02 Jun 2026, 23:40 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "malware activity detected on SCADA/ERP bridge"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7\u20139%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Preliminary internal estimate indicates 7\u20139% throughput reduction for June, potentially affecting Q3 gross margin guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "th\u00f4ng tin n\u1ed9i b\u1ed9"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet c\u00f4ng b\u1ed1 ra c\u00f4ng ch\u00fang"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "th\u1eddi gian c\u1ea5m giao d\u1ecbch (blackout window)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "from 28 May 2026 until Q2 report c\u00f4ng b\u1ed1 at SGCTD on 07 Jun 2026 09:00 ICT"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "ti\u1ebft l\u1ed9 ch\u1ecdn l\u1ecdc is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "any investor calls before c\u00f4ng b\u1ed1 th\u00f4ng tin would be ti\u1ebft l\u1ed9 ch\u1ecdn l\u1ecdc"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not share draft figures externally"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProject B\u00ecnh Minh\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "project minhchau"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "remains internal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "ch\u01b0a n\u1ed9p l\u00ean U B C P Q"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Section label, not PII/MNPI"
+    },
+    {
+      "matched_text": "Insiders",
+      "reason": "Generic role noun, not an individual or PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "material adverse change",
+      "concept": "material_adverse_change (negated)",
+      "reason": "Phrase appears in a negated context; rule excludes negated MAC/MAE but it is legally relevant language."
+    },
+    {
+      "matched_text": "inv\\noice-1387",
+      "concept": "transaction_reference",
+      "reason": "Invoice/transaction ID-like string; not covered by allowed rules but could be sensitive operational data."
+    },
+    {
+      "matched_text": "inv\\noice-1388",
+      "concept": "transaction_reference",
+      "reason": "Invoice/transaction ID-like string; not covered by allowed rules but could be sensitive operational data."
+    },
+    {
+      "matched_text": "INC-2 4 \\n BD",
+      "concept": "internal_incident_id",
+      "reason": "Internal incident identifier; not mapped to an allowed PII/MNPI rule but may be sensitive operational metadata."
+    },
+    {
+      "matched_text": "07 Jun 2026 09:00 ICT",
+      "concept": "scheduled_public_disclosure_time",
+      "reason": "Specific disclosure timing is market-relevant in VN context but not captured by the defined embargo markers."
+    },
+    {
+      "matched_text": "b\u00e1o c\u00e1o s\u1ef1 ki\u1ec7n b\u1ea5t th\u01b0\u1eddng",
+      "concept": "extraordinary_disclosure_marker",
+      "reason": "VN regulatory disclosure trigger is legally relevant but not directly covered by an allowed MNPI rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

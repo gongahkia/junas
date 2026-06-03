@@ -3,13 +3,264 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tr\u1ea7n Quang Huy"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. L\u00ea Thu Mai"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "0 4 2 8 3 9 6 1 2 7 4 8"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "B12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 90 123 4567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "huy.tran@nhonrivercapital.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "mai.le@nhonrivercapital.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "120-02-987654321"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "VND 72,500 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tr\u1ea7n Quang Huy"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. L\u00ea Thu Mai"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "0 4 2 8 3 9 6 1 2 7 4 8"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "B12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 90 123 4567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "huy.tran@nhonrivercapital.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "mai.le@nhonrivercapital.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "120-02-987654321"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "VND 72,500 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of 51% of Blue Delta Foods Joint Stock Company (CTCP Blue Delta) by Nhon River Capital Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "until HOSE filing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "SSC approval of the tender offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "after SSC clearance only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "plan to apply for HOSE mainboard in Q2 FY27"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "SWIFT TPCBVN22"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "S\u1ed1 28 \u0110\u01b0\u1eddng Hoa Sen, Ph\u01b0\u1eddng Th\u1ecbnh L\u1ed9c, Qu\u1eadn T\u00e2n \u0110\u00f4ng, TP.HCM"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "T\u1ea7ng 12, T\u00f2a nh\u00e0 Sen V\u00e0ng, 145-147 \u0110\u01b0\u1eddng Ng\u00e2n H\u00e0, Ph\u01b0\u1eddng An Ph\u00fac, Qu\u1eadn V\u0129nh Ph\u00e1t, TP.HCM"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "L\u00f4 B3, KCN Th\u00e1i S\u01a1n, Ph\u01b0\u1eddng H\u1ea3i Thu\u1eadn, TP.\u0110\u00e0 N\u1eb5ng"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "no-material adverse change",
+      "reason": "negated MAC phrase should not be labeled"
+    },
+    {
+      "matched_text": "not a MAC event",
+      "reason": "negated MAC phrase should not be labeled"
+    },
+    {
+      "matched_text": "1800 1111",
+      "reason": "public helpline number bait"
+    },
+    {
+      "matched_text": "1900-8080",
+      "reason": "public hotline number bait"
+    },
+    {
+      "matched_text": "Full Name: __________",
+      "reason": "generic form label placeholder"
+    },
+    {
+      "matched_text": "Phone: __________",
+      "reason": "generic form label placeholder"
+    },
+    {
+      "matched_text": "Tax code (invalid) 0000000000",
+      "reason": "invalid identifier bait"
+    },
+    {
+      "matched_text": "h u y . t @ b l u e d e l t a . c o . v n",
+      "reason": "obfuscated/spaced email bait"
+    },
+    {
+      "matched_text": "ac c t: 1 2 0 0 2 9 8 7",
+      "reason": "broken text bait not a real account identifier"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Enterprise Code 0318897723",
+      "concept": "vn_enterprise_code",
+      "reason": "Vietnam enterprise/company number is a corporate identifier; no explicit allowed rule provided for VN company code."
+    },
+    {
+      "matched_text": "MST: 1857364920",
+      "concept": "vn_company_tax_code",
+      "reason": "Vietnam corporate tax code (MST); corporate identifier not covered by provided PII rules."
+    },
+    {
+      "matched_text": "MST 1857364920",
+      "concept": "vn_company_tax_code",
+      "reason": "Vietnam corporate tax code repeated in parentheses; not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "id=VN-TS-0039",
+      "concept": "internal_session_id",
+      "reason": "Dealroom internal record identifier in URL may be sensitive but not clearly covered by allowed rules."
+    },
+    {
+      "matched_text": "SWIFT TPCBVN22",
+      "concept": "swift_code",
+      "reason": "Bank SWIFT/BIC identifier; not a personal identifier but often treated as sensitive banking reference."
+    },
+    {
+      "matched_text": "registered address: S\u1ed1 28 \u0110\u01b0\u1eddng Hoa Sen, Ph\u01b0\u1eddng Th\u1ecbnh L\u1ed9c, Qu\u1eadn T\u00e2n \u0110\u00f4ng, TP.HCM",
+      "concept": "postal_address_VN",
+      "reason": "Vietnamese address; no general postal_address rule provided for VN."
+    },
+    {
+      "matched_text": "shall not be transferred without consent",
+      "concept": "consent_requirement_marker",
+      "reason": "Consent requirement for data transfer is privacy-relevant but not clearly covered by the provided consent/DSAR rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

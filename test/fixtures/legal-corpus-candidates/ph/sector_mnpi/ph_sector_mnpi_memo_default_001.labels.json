@@ -30,10 +30,7 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "PH Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Manual direct-identifier tuning added one PhilSys PSN positive because generation produced PH TIN coverage but no PhilSys positive.",
   "_label_source": "azure:gpt-5-2-auto",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Php12.40–13.10 per share'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Php12.40–13.10 per share'"
-  ],
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-30T01:34:00Z",
     "accepted_by": "gongahkia",
@@ -375,6 +372,17 @@
       "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    }
+  ],
+  "_resolved_label_warnings": [
+    {
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='Php12.40–13.10 per share'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='Php12.40–13.10 per share'"
+      ],
+      "resolved_at_utc": "2026-06-03T07:09:57Z",
+      "reviewer": "Codex GPT-5.5",
+      "disposition": "Resolved during PH Stage B QA cleanup. Unsupported peso price-range label was already dropped by the label cleaner and PH Stage A owner approval remains unchanged."
     }
   ]
 }

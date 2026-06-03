@@ -7,37 +7,12 @@
     {
       "category": "PII",
       "rule": "email_address",
-      "matched_text": "dpo@mrhi.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
       "matched_text": "privacy.office@mrhi.ph"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@mrhi.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Reina S. Cruz"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lira P. Santos"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Atty. Roberto V. Ilagan"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Mateo G. Uy"
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
     },
     {
       "category": "PII",
@@ -46,58 +21,58 @@
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross\u2011border transfers proceed with consent and adequate safeguards per NPC circulars"
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "dsar"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Identifiers are minimized and masked in internal systems"
+      "rule": "named_person",
+      "matched_text": "Ms. Lira"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "token=9f%2A3c%2D%2A1"
+      "rule": "named_person",
+      "matched_text": "Mr. Mateo"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "\u201cProject ALON\u201d"
+      "rule": "material_event",
+      "matched_text": "Retention: HR/tax files up to 10 years (BIR rules), treasury and trading communications 7 years (SRC, SEC‑PH), cybersecurity logs 180 days (or longer if incident review persists), and vendor due diligence files 5 years; secure destruction follows documented SOPs."
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List (restricted)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout: 2026\u201107\u201101 to 2026\u201107\u201115"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Research/IB information barrier"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "tipping"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
+      "rule": "material_event",
+      "matched_text": "Cybersecurity (ongoing review): Forensic analysis of 0ct 2O2 6 access anomaly indicates hashed payroll fields for ~37 employees were touched; threshold for N a t i o n a l   P r i v a c y   C o m m i s s i o n breach notification is still being assessed; do not forward incident memos outside MRHI."
     },
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "material non\u2011public information"
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project ALON"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project TANAWIN"
     },
     {
       "category": "MNPI",
       "rule": "financial_amount",
-      "matched_text": "PHP 3.5b"
+      "matched_text": "PHP 4.15"
     },
     {
       "category": "MNPI",
@@ -106,23 +81,28 @@
     },
     {
       "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "PHP 4.15\u20134.65/token"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "\u201cProject TANAWIN\u201d"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information\u2011barrier controls"
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
     },
     {
       "category": "MNPI",
       "rule": "insider_list_marker",
       "matched_text": "Restricted List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 1"
     }
   ],
   "ideal_must_detect": [
@@ -163,18 +143,13 @@
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. J a i m e C. Llorente"
-    },
-    {
-      "category": "PII",
       "rule": "consent_withdrawal_marker",
       "matched_text": "withdrawal of consent"
     },
     {
       "category": "PII",
       "rule": "cross_border_transfer_marker",
-      "matched_text": "cross\u2011border transfers proceed with consent and adequate safeguards per NPC circulars"
+      "matched_text": "cross‑border transfers proceed with consent and adequate safeguards per NPC circulars"
     },
     {
       "category": "PII",
@@ -187,34 +162,9 @@
       "matched_text": "token=9f%2A3c%2D%2A1"
     },
     {
-      "category": "PII",
-      "rule": "ph_tin",
-      "matched_text": "TIN 5 9 9\u2011**\u2011**1\u2011000"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "11\u2011**\u2011**37\u20110*2"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "44 5\u201100\u201118**7\u201122"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EmpID: MRHI\u2011**\u20112O26"
-    },
-    {
       "category": "MNPI",
       "rule": "transaction_codename",
-      "matched_text": "\u201cProject ALON\u201d"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "\u201cProject TANAWIN\u201d"
+      "matched_text": "“Project ALON”"
     },
     {
       "category": "MNPI",
@@ -223,23 +173,13 @@
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Restricted List"
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout: 2026‑07‑01 to 2026‑07‑15"
     },
     {
       "category": "MNPI",
       "rule": "information_barrier_marker",
       "matched_text": "Research/IB information barrier"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information\u2011barrier controls"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout: 2026\u201107\u201101 to 2026\u201107\u201115"
     },
     {
       "category": "MNPI",
@@ -254,17 +194,7 @@
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "material non\u2011public information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "PHP 4.15\u20134.65/token"
+      "matched_text": "material non‑public information"
     },
     {
       "category": "MNPI",
@@ -275,6 +205,56 @@
       "category": "MNPI",
       "rule": "financial_percentage",
       "matched_text": "6.125%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "PHP 4.15–4.65/token"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "“Project TANAWIN”"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information‑barrier controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Restricted List"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. J a i m e C. Llorente"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "TIN 5 9 9‑**‑**1‑000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "11‑**‑**37‑0*2"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "44 5‑00‑18**7‑22"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID: MRHI‑**‑2O26"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non‑public"
     },
     {
       "category": "MNPI",
@@ -289,7 +269,7 @@
     {
       "category": "MNPI",
       "rule": "esg_climate_pre_disclosure",
-      "matched_text": "not yet in PSE\u2011L i s t i n g materials"
+      "matched_text": "not yet in PSE‑L i s t i n g materials"
     },
     {
       "category": "MNPI",
@@ -299,17 +279,93 @@
     {
       "category": "MNPI",
       "rule": "contingent_mnpi_language",
-      "matched_text": "subject to SEC\u2011PH clearance and final documentation"
+      "matched_text": "subject to SEC‑PH clearance and final documentation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "dsar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lira"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Mateo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Retention: HR/tax files up to 10 years (BIR rules), treasury and trading communications 7 years (SRC, SEC‑PH), cybersecurity logs 180 days (or longer if incident review persists), and vendor due diligence files 5 years; secure destruction follows documented SOPs."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Cybersecurity (ongoing review): Forensic analysis of 0ct 2O2 6 access anomaly indicates hashed payroll fields for ~37 employees were touched; threshold for N a t i o n a l   P r i v a c y   C o m m i s s i o n breach notification is still being assessed; do not forward incident memos outside MRHI."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project ALON"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project TANAWIN"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "PHP 4.15"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 1"
     }
   ],
   "must_not_detect": [
     {
       "matched_text": "material adverse change",
       "reason": "Negated context (negative assurance); rule excludes labeling 'no MAC' statements"
-    },
-    {
-      "matched_text": "insider lists",
-      "reason": "Educational/marketing example only; not live MNPI"
     },
     {
       "matched_text": "blackout windows",
@@ -322,7 +378,7 @@
   ],
   "uncertain": [
     {
-      "matched_text": "Retention: HR/tax files up to 10 years (BIR rules), treasury and trading communications 7 years (SRC, SEC\u2011PH), cybersecurity logs 180 days (or longer if incident review persists), and vendor due diligence files 5 years",
+      "matched_text": "Retention: HR/tax files up to 10 years (BIR rules), treasury and trading communications 7 years (SRC, SEC‑PH), cybersecurity logs 180 days (or longer if incident review persists), and vendor due diligence files 5 years",
       "concept": "retention_marker",
       "reason": "Live retention policy is a privacy-event marker per guidance but no explicit 'retention_marker' rule is listed."
     },
@@ -332,13 +388,13 @@
       "reason": "DSAR is a privacy right; guidance mentions DSAR markers but no explicit rule name is provided."
     },
     {
-      "matched_text": "PayrollRef: PR\u2011**\u20119A",
+      "matched_text": "PayrollRef: PR‑**‑9A",
       "concept": "internal_reference_number",
       "reason": "Likely an internal payroll identifier; not clearly covered by listed identifier rules."
     },
     {
-      "matched_text": "do not discuss with non\u2011wall\u2011crossed persons",
-      "concept": "wall\u2011cross restriction",
+      "matched_text": "do not discuss with non‑wall‑crossed persons",
+      "concept": "wall‑cross restriction",
       "reason": "Compliance restriction related to information barriers/selective disclosure; not a direct match to a listed rule phrase."
     }
   ],
@@ -348,5 +404,14 @@
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  }
 }

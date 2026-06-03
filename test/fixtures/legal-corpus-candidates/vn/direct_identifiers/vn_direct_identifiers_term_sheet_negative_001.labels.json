@@ -3,13 +3,88 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "PN0123456"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "PN0123456"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@nstech-fict.vn"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "NSTECH",
+      "reason": "Defined acronym for company; contract-style defined term, not PII/MNPI."
+    },
+    {
+      "matched_text": "HBX",
+      "reason": "Defined acronym for exchange; not PII/MNPI."
+    },
+    {
+      "matched_text": "UBCKHB",
+      "reason": "Defined acronym for regulator; not PII/MNPI."
+    },
+    {
+      "matched_text": "ir@nstech-fict.vn",
+      "reason": "Role mailbox (IR); not associated with a specific person under VN PD."
+    },
+    {
+      "matched_text": "1800 006 888",
+      "reason": "Public helpline number; not a personal phone number."
+    },
+    {
+      "matched_text": "1234567809",
+      "reason": "Company tax number with invalid checksum; not personal data and no matching allowed rule."
+    },
+    {
+      "matched_text": "[\u0111i\u1ec1n s\u1ed1 t\u00e0i kho\u1ea3n]",
+      "reason": "Placeholder/form label; no actual account number present."
+    },
+    {
+      "matched_text": "[T\u00ean bi\u1ec3u m\u1eabu]",
+      "reason": "Generic form label; no personal data."
+    },
+    {
+      "matched_text": "[M\u00e3 ph\u00f2ng ban]",
+      "reason": "Generic form label; no personal data."
+    },
+    {
+      "matched_text": "[Ng\u00e0y so\u1ea1n]",
+      "reason": "Generic form label; no personal data."
+    },
+    {
+      "matched_text": "LVX-000",
+      "reason": "Draft security code; not a valid listed identifier and not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "B\u1ea3n \u0111i\u1ec1u kho\u1ea3n giao d\u1ecbch \u0111\u1ec1 xu\u1ea5t",
+      "concept": "definitive_agreement",
+      "reason": "Vietnamese for 'Term Sheet'; may correspond to definitive agreement concept but rule expects the English phrase 'Term Sheet'."
+    },
+    {
+      "matched_text": "L\u00f4 B12, KCN H\u00f2a Th\u1ecbnh, Ph\u01b0\u1eddng Ph\u00fa L\u00e2m, TP H\u00f2a B\u1eafc, t\u1ec9nh H\u00f2a S\u01a1n, Vi\u1ec7t Nam",
+      "concept": "postal_address",
+      "reason": "Organizational address; potentially an address identifier but no generic VN address rule and not personal data."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

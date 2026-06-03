@@ -3,13 +3,195 @@
   "document_type": "generic",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Tr\u1ea7n Quang Huy"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "079123456789"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "VN-HZ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 90 555 0142"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "huy.huy@vietlumen.example"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "700123456789"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "ch\u01b0a c\u00f4ng b\u1ed1 ra c\u00f4ng ch\u00fang"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Chuy\u1ec3n d\u1eef li\u1ec7u ra n\u01b0\u1edbc ngo\u00e0i"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Y\u00eau c\u1ea7u DSAR"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Tr\u1ea7n Quang Huy"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "079123456789"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "VN-HZ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 90 555 0142"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "huy.huy@vietlumen.example"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "700123456789"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@vietlumen.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 28 3999 5577"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Chuy\u1ec3n d\u1eef li\u1ec7u ra n\u01b0\u1edbc ngo\u00e0i"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "PII l\u01b0u t\u1ed1i \u0111a 12 th\u00e1ng"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "MNPI l\u01b0u t\u1ed1i \u0111a 5 n\u0103m"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Y\u00eau c\u1ea7u DSAR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "ch\u01b0a c\u00f4ng b\u1ed1 ra c\u00f4ng ch\u00fang"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Truy c\u1eadp MNPI b\u1ecb h\u1ea1n ch\u1ebf"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "danh s\u00e1ch phong t\u1ecfa giao d\u1ecbch"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "ngh\u1ecb quy\u1ebft H\u0110QT v\u1ec1 c\u1ed5 t\u1ee9c"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "d\u1ef1 th\u1ea3o b\u00e1o c\u00e1o t\u00e0i ch\u00ednh qu\u00fd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "h\u1ed3 s\u01a1 ni\u00eam y\u1ebft EDSE"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Employee Name",
+      "reason": "Generic form field label, not actual PII"
+    },
+    {
+      "matched_text": "Chief Accountant",
+      "reason": "Role-only title, not a named person"
+    },
+    {
+      "matched_text": "1800 0000",
+      "reason": "Public helpline number explicitly marked non-PII"
+    },
+    {
+      "matched_text": "0000000000",
+      "reason": "Invalid MST example for checksum testing"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "M\u00e3 s\u1ed1 doanh nghi\u1ec7p: 5601234567",
+      "concept": "VN business registration number",
+      "reason": "Entity identifier is a direct company ID but no specific allowed VN company-ID rule; not PII for a person"
+    },
+    {
+      "matched_text": "MST: 5601234567",
+      "concept": "VN tax identification number",
+      "reason": "Company tax ID is a direct identifier but no allowed VN tax-ID rule; not PII for a person"
+    },
+    {
+      "matched_text": "k\u00fd hi\u1ec7u d\u1ef1 ki\u1ebfn: VLT",
+      "concept": "Proposed ticker symbol MNPI",
+      "reason": "Issuer symbol not yet public and could affect price, but no specific rule for VN ticker detection"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

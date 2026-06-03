@@ -7,27 +7,7 @@
     {
       "category": "PII",
       "rule": "email_address",
-      "matched_text": "dpo@lakanpacific.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
       "matched_text": "hr@lakanpacific.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@lakanpacific.ph"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+63 9 17-5 55-78 21"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "02 8123 4400"
     },
     {
       "category": "PII",
@@ -36,8 +16,8 @@
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "0132-445667-9"
+      "rule": "phone_number",
+      "matched_text": "4 5 6 7 8 9 1 2 3 0 0 0"
     },
     {
       "category": "PII",
@@ -46,13 +26,38 @@
     },
     {
       "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "dsar"
+    },
+    {
+      "category": "PII",
       "rule": "ph_tin",
-      "matched_text": "456789123000"
+      "matched_text": "789-123-000"
     },
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Mr. Ramon J. Villoria"
+      "matched_text": "Mr. Ramon"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Lawful bases: consent for marketing, contract for payroll/benefits, legal obligation for taxes, legitimate interests for fraud monitoring; no automated decisions with legal effects."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "This notice does not create securities disclosure rights; draft earnings, guidance, and internal forecasts are classified MNPI and not provided to data subjects."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
     },
     {
       "category": "MNPI",
@@ -98,23 +103,33 @@
     },
     {
       "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "RT1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "456789123000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ramon J. Villoria"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non-public information"
+    },
+    {
+      "category": "PII",
       "rule": "bank_account",
       "matched_text": "Peso Account No. 0132-445667-9"
     },
     {
       "category": "PII",
       "rule": "passport_number",
-      "matched_text": "RT1234567"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
       "matched_text": "PH Passport RT1234567"
-    },
-    {
-      "category": "PII",
-      "rule": "ph_tin",
-      "matched_text": "456789123000"
     },
     {
       "category": "PII",
@@ -125,11 +140,6 @@
       "category": "PII",
       "rule": "ph_tin",
       "matched_text": "T I N 4 5 6 7 8 9 1 2 3 0 0 0"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Ramon J. Villoria"
     },
     {
       "category": "PII",
@@ -159,12 +169,42 @@
     {
       "category": "MNPI",
       "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "4 5 6 7 8 9 1 2 3 0 0 0"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "dsar"
+    },
+    {
+      "category": "PII",
+      "rule": "ph_tin",
+      "matched_text": "789-123-000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ramon"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "rule": "material_event",
+      "matched_text": "Lawful bases: consent for marketing, contract for payroll/benefits, legal obligation for taxes, legitimate interests for fraud monitoring; no automated decisions with legal effects."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "This notice does not create securities disclosure rights; draft earnings, guidance, and internal forecasts are classified MNPI and not provided to data subjects."
     }
   ],
   "must_not_detect": [
@@ -221,5 +261,14 @@
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_note": "PH Stage B strict tier reconciled to deterministic strict-mode engine after Codex GPT-5.5 audit; broader LLM labels retained in ideal_must_detect for gap discovery. Pending project-owner review for internal benchmarking.",
+  "_label_tiers_version": "ph-stage-b-strict-realign-2026-06-03",
+  "_strict_reconciliation": {
+    "basis": "PH Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at": "2026-06-03T07:07:36Z",
+    "source_report": "/tmp/kaypoh-ph-stage-b-eval-raw.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after PH Stage B raw QA"
+  }
 }

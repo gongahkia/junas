@@ -3,13 +3,238 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Ph\u1ea1m \u0110\u1ee9c Linh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "linh.pham@sabien-energy.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84-90-123-4567"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "052793004812"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "N12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123456789012345"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@sabien-energy.com"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "TERM SHEET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Mekong"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Th\u00f4ng tin ch\u01b0a c\u00f4ng b\u1ed1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Ph\u1ea1m \u0110\u1ee9c Linh"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "linh.pham@sabien-energy.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84-90-123-4567"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "052793004812"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "N12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "123456789012345"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@sabien-energy.com"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "TERM SHEET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Mekong"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Th\u00f4ng tin ch\u01b0a c\u00f4ng b\u1ed1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Kh\u00f4ng c\u00f3 thay \u0111\u1ed5i b\u1ea5t l\u1ee3i tr\u1ecdng y\u1ebfu \u0111\u1ed1i v\u1edbi t\u00e0i s\u1ea3n \u0111i\u1ec7n gi\u00f3 T\u00e2n Ph\u00fa"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "th\u1eddi gian phong t\u1ecfa"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "ti\u1ebft l\u1ed9 tr\u01b0\u1edbc khi c\u00f4ng b\u1ed1 theo quy \u0111\u1ecbnh HOSE/UBCKNN c\u00f3 th\u1ec3 g\u00e2y \u1ea3nh h\u01b0\u1edfng \u0111\u00e1ng k\u1ec3 t\u1edbi gi\u00e1 c\u1ed5 phi\u1ebfu d\u1ef1 ki\u1ebfn SBNE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "(ch\u01b0a c\u00f4ng b\u1ed1)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "H\u0110MB c\u1ed5 ph\u1ea7n"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "t\u00e0i li\u1ec7u chia s\u1ebb theo quy\u1ec1n truy c\u1eadp \u0111\u01b0\u1ee3c ki\u1ec3m so\u00e1t"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SBNE",
+      "reason": "Defined-term abbreviation for company, not PII/MNPI span"
+    },
+    {
+      "matched_text": "B\u00ean B\u00e1n",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "B\u00ean Mua",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Tr\u01b0\u1edfng ph\u00f2ng ph\u00e1p ch\u1ebf",
+      "reason": "Role title only, not a person name"
+    },
+    {
+      "matched_text": "CMND/CCCD: ________",
+      "reason": "Placeholder form label, not actual PII"
+    },
+    {
+      "matched_text": "S\u1ed1 \u0110T: 0xxx-xxxx",
+      "reason": "Placeholder phone format, not actual PII"
+    },
+    {
+      "matched_text": "000000000000",
+      "reason": "Placeholder/invalid bank account number"
+    },
+    {
+      "matched_text": "VN00-SEASTAR-0000000000000",
+      "reason": "Invalid/placeholder IBAN, not a real account"
+    },
+    {
+      "matched_text": "1800-1111",
+      "reason": "Public hotline number excluded from PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DHEAVNVX",
+      "concept": "swift_bic",
+      "reason": "Bank identifier code present; may be sensitive operationally but not covered by allowed rules"
+    },
+    {
+      "matched_text": "https://dataroom.example.com/vn/mekong",
+      "concept": "dataroom_link",
+      "reason": "Nonpublic dataroom URL can indicate MNPI access, but no explicit rule category"
+    },
+    {
+      "matched_text": "\u0110\u1ecbnh h\u01b0\u1edbng ni\u00eam y\u1ebft HOSE trong 18 th\u00e1ng sau \u0111\u00f3ng",
+      "concept": "pre_listing_intent",
+      "reason": "Planned listing timeline can be MNPI; not mapped to an explicit allowed rule"
+    },
+    {
+      "matched_text": "MST: 0839457621",
+      "concept": "vn_company_tax_id",
+      "reason": "Vietnam company tax identifier; local identifier not in current allowed rules"
+    },
+    {
+      "matched_text": "MST: 0319876543",
+      "concept": "vn_company_tax_id",
+      "reason": "Vietnam company tax identifier; local identifier not in current allowed rules"
+    },
+    {
+      "matched_text": "\u0110KKD: 0839457621",
+      "concept": "vn_business_registration_number",
+      "reason": "Company registration number; identifier not covered by allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='1.250.000.000.000 VND'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='1.250.000.000.000 VND'"
+  ],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

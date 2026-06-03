@@ -3,13 +3,114 @@
   "document_type": "memo",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "C3184962"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "itsecurity@songdua-energy.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosure@songdua-energy.vn"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "C3184962"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "itsecurity@songdua-energy.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "disclosure@songdua-energy.vn"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "ch\u01b0a c\u00f4ng b\u1ed1"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "CCCD/H\u1ed9 chi\u1ebfu [\u0111i\u1ec1n sau]",
+      "reason": "Form label/placeholder, not actual data"
+    },
+    {
+      "matched_text": "M\u00e3 s\u1ed1 thu\u1ebf c\u00e1 nh\u00e2n [n/a]",
+      "reason": "Form label explicitly not available; not data"
+    },
+    {
+      "matched_text": "H\u1ecd t\u00ean nh\u00e2n s\u1ef1 [ch\u1ec9 ghi ch\u1ee9c danh]",
+      "reason": "Form label; no personal name provided"
+    },
+    {
+      "matched_text": "S\u1ed1 t\u00e0i kho\u1ea3n VND [ghi sau]",
+      "reason": "Placeholder; not a real bank account number"
+    },
+    {
+      "matched_text": "Swift [placeholder]",
+      "reason": "Placeholder; not an actual SWIFT code"
+    },
+    {
+      "matched_text": "chi nh\u00e1nh [template]",
+      "reason": "Template placeholder; not data"
+    },
+    {
+      "matched_text": "1900-0011",
+      "reason": "Public/general hotline number; not personal PII"
+    },
+    {
+      "matched_text": "1900-1111",
+      "reason": "Public exchange hotline; not personal PII"
+    },
+    {
+      "matched_text": "7777777777",
+      "reason": "Sample/invalid checksum enterprise tax ID; corporate identifier, not personal PII"
+    },
+    {
+      "matched_text": "0123456789",
+      "reason": "Sample business registration number; corporate identifier, not personal PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "MST doanh nghi\u1ec7p: 7777777777",
+      "concept": "Vietnam enterprise tax ID (corporate identifier)",
+      "reason": "Legally relevant company identifier but not covered by allowed rules and not personal data"
+    },
+    {
+      "matched_text": "s\u1ed1 GCN \u0110KKD: 0123456789",
+      "concept": "Vietnam business registration number",
+      "reason": "Corporate identifier; relevant in finance compliance but not in allowed rules and not PII"
+    },
+    {
+      "matched_text": "m\u00e1y ch\u1ee7 k\u1ebf to\u00e1n b\u1ecb nhi\u1ec5m m\u00e3 \u0111\u1ed9c",
+      "concept": "cyber incident reference",
+      "reason": "Security incident could be market-sensitive depending on disclosure timing; allowed MNPI rule only covers pre-disclosure"
+    },
+    {
+      "matched_text": "m\u1ee9c \u0111\u1ed9 r\u1ee7i ro ESG: th\u1ea5p",
+      "concept": "ESG risk assessment",
+      "reason": "ESG-related content may be material in some contexts but no specific allowed MNPI rule applies here"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

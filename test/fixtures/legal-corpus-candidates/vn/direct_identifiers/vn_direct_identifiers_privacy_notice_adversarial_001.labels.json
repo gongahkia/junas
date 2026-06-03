@@ -3,13 +3,215 @@
   "document_type": "generic",
   "source_jurisdiction": "VN",
   "destination_jurisdiction": "VN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@banviet-holdings.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 905 123 456"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Tr\u1ea7n \u0110\u1ee9c Kh\u1ea3i"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir.khai@banviet-holdings.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "VN_P12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "5600 1234 7890 55"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@banviet-holdings.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+84 905 123 456"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\u00d4ng Tr\u1ea7n \u0110\u1ee9c Kh\u1ea3i"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir.khai@banviet-holdings.vn"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "VN_P12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "5600 1234 7890 55"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "99-88-77-6600"
+    },
+    {
+      "category": "PII",
+      "rule": "vn_cccd",
+      "matched_text": "04 12 890 321"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Y\u00eau c\u1ea7u DSAR"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "x\u00f3a c\u00f3 ki\u1ec3m so\u00e1t n\u1ebfu kh\u00f4ng c\u00f2n m\u1ee5c \u0111\u00edch"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "th\u00f4ng tin ch\u01b0a c\u00f4ng b\u1ed1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "k\u1ebf ho\u1ea1ch ph\u00e1t h\u00e0nh ri\u00eang l\u1ebb"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "MNPI kh\u00f3a truy c\u1eadp theo ph\u00e2n quy\u1ec1n RDI-Soft SecureFlow"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "k\u00fd ng\u00e0y 03/06/2026"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1800 0000",
+      "reason": "public helpline number (explicitly public)"
+    },
+    {
+      "matched_text": "H\u1ecd t\u00ean",
+      "reason": "generic form label, not actual PII data"
+    },
+    {
+      "matched_text": "S\u1ed1 CMND",
+      "reason": "generic form label, not actual PII data"
+    },
+    {
+      "matched_text": "\u0110\u1ecba ch\u1ec9",
+      "reason": "generic form label, not actual PII data"
+    },
+    {
+      "matched_text": "Chuy\u00ean vi\u00ean ph\u00e1p ch\u1ebf",
+      "reason": "role-only title, not a named person"
+    },
+    {
+      "matched_text": "Qu\u1ea3n l\u00fd d\u1ef1 \u00e1n",
+      "reason": "role-only title, not a named person"
+    },
+    {
+      "matched_text": "123-45-678",
+      "reason": "invalid checksum/test MST per document"
+    },
+    {
+      "matched_text": "\u0111\u1ecba ch\u1ec9 MAC",
+      "reason": "negated control (not collected)"
+    },
+    {
+      "matched_text": "Ban Vi\u1ec7t",
+      "reason": "defined term for entity name, not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "S\u1ed1 CCCD 04 12 890 321",
+      "concept": "Vietnam CCCD national ID",
+      "reason": "PII but number formatting/length may not match strict vn_cccd detector expectations"
+    },
+    {
+      "matched_text": "MST 2501234567",
+      "concept": "Vietnam tax ID (MST)",
+      "reason": "Personal tax identifier under VN law but no explicit allowed rule for VN tax IDs"
+    },
+    {
+      "matched_text": "Gi\u1ea5y ch\u1ee9ng nh\u1eadn \u0111\u0103ng k\u00fd doanh nghi\u1ec7p: 0315588999",
+      "concept": "Vietnam enterprise registration number",
+      "reason": "Corporate identifier relevant in VN context but not covered by allowed rules"
+    },
+    {
+      "matched_text": "\u0110\u1ecba ch\u1ec9 tr\u1ee5 s\u1edf: T\u1ea7ng 15, T\u00f2a nh\u00e0 Ph\u00fa L\u00e2m Xanh, 9 \u0110\u01b0\u1eddng \u0110\u1ea1i Ph\u1ed1, Ph\u01b0\u1eddng L\u1ed9c Ph\u00fac, Qu\u1eadn \u0110\u00f4ng Ph\u1ed1, TP. Nam H\u1ea3i, VN",
+      "concept": "full postal address",
+      "reason": "Address can be PII but only SG postal code rule is provided"
+    },
+    {
+      "matched_text": "k\u00fd ng\u00e0y 03/06/2026",
+      "concept": "embargo/signing date",
+      "reason": "Embargo marker allowed but phrasing is Vietnamese rather than explicit 'Signing Date'"
+    },
+    {
+      "matched_text": "t\u00e0i kho\u1ea3n nh\u00e2n vi\u00ean tham chi\u1ebfu: 99-88-77-6600",
+      "concept": "account reference number",
+      "reason": "Potential customer/employee account number; mapping to specific rule may be ambiguous"
+    },
+    {
+      "matched_text": "Y\u00eau c\u1ea7u DSAR",
+      "concept": "DSAR marker",
+      "reason": "DSAR is a privacy-event marker but mapping to consent_withdrawal_marker is indirect"
+    },
+    {
+      "matched_text": "MNPI kh\u00f3a truy c\u1eadp theo ph\u00e2n quy\u1ec1n RDI-Soft SecureFlow",
+      "concept": "information barrier marker",
+      "reason": "Market-sensitive control phrase in Vietnamese; strict detectors may not catch"
+    },
+    {
+      "matched_text": "https://portal.banviet-holdings.vn/dsar?ref=acc%3A5600%201234%207890%2055&tag=cccd%3A04%2012%20890%20321",
+      "concept": "URL containing encoded PII",
+      "reason": "Carries encoded bank account and CCCD values; no dedicated URL-PII rule"
+    },
+    {
+      "matched_text": "https://compliance.banviet-holdings.vn/logs?id=PGX-BVA&user=ong.khai",
+      "concept": "username/user identifier in logs",
+      "reason": "Potential personal identifier but no explicit rule for usernames"
+    },
+    {
+      "matched_text": "m\u00e3 c\u1ed5 phi\u1ebfu BVA",
+      "concept": "ticker symbol",
+      "reason": "Securities identifier relevant to MNPI context but no specific allowed rule for VN tickers"
+    },
+    {
+      "matched_text": "S\u1edf GDCK Ph\u00fa Gia (PGX)",
+      "concept": "exchange identifier",
+      "reason": "Relevant to securities/MNPI context but not covered by allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
