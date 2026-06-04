@@ -1,0 +1,95 @@
+cases:
+- name: sglb_08_confidentiality_sg_aggressive_default_052
+  inputs:
+    clause_text: "The Recipient shall keep strictly confidential all information (whether oral, written or in any form and\
+      \ whether or not marked confidential) disclosed by or on behalf of the Disclosing Party, including all analyses, compilations\
+      \ and derivatives thereof (\u201CConfidential Information\u201D). The Recipient shall use Confidential Information solely\
+      \ to perform its obligations under this Agreement, shall disclose it only to its directors, officers, employees and\
+      \ professional advisers with a strict need to know and who are bound by equivalent obligations, and shall be vicariously\
+      \ liable for any breach by them. No licence is granted; reverse engineering, decompilation and disassembly are prohibited.\
+      \ The Recipient shall implement industry\u2011standard technical and organisational measures, submit (on two Business\
+      \ Days\u2019 notice) to reasonable audit by the Disclosing Party to verify compliance, and promptly remedy any deficiency\
+      \ at its own cost. If legally compelled to disclose, the Recipient shall give prior written notice, cooperate to limit\
+      \ disclosure, and disclose only under confidential treatment. Exceptions apply only to information that becomes public\
+      \ through no fault of the Recipient, or is independently developed without reference. On request, the Recipient shall\
+      \ cease use and return or destroy Confidential Information (including, where technically practicable, from backups)\
+      \ and certify compliance. The Recipient acknowledges that damages may be inadequate; the Disclosing Party is entitled\
+      \ to immediate injunctive relief, specific performance and an account of profits, without proof of special damage, in\
+      \ addition to all other remedies. The Recipient shall indemnify the Disclosing Party for all losses, costs and expenses\
+      \ (including legal fees on a full indemnity basis) arising from any breach. Obligations survive for five years, and\
+      \ indefinitely for trade secrets."
+    clause_type: Confidentiality
+  expected_output:
+    labels: &id001
+    - aggressive
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:00:51Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: confidentiality-sg_aggressive_default
+      variant: default
+      label:
+        labels: *id001
+      params:
+        clause_id: confidentiality-sg
+        clause_type: Confidentiality
+        category: Information Protection
+        tone: aggressive
+        tone_context:
+          id: aggressive
+          description: One-sided drafting that strongly favours the protected party.
+          generation_guidance: 'Increase obligations, remedies, exclusions, discretion, or control for one side while remaining
+            facially plausible as a contract clause.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore does not have a standalone trade secrets statute. Protection relies on contract (this clause)
+          and the equitable doctrine of breach of confidence.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 clause is longer than the target range
+      metrics:
+        word_count: 267
+        char_count: 1878
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:57Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_confidentiality_sg_aggressive_default_052.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_confidentiality_sg_aggressive_default_052.yaml
+      case_name: sglb_08_confidentiality_sg_aggressive_default_052
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:00:51Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:57Z'

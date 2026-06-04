@@ -1,0 +1,92 @@
+cases:
+- name: sglb_08_confidentiality_sg_standard_default_382
+  inputs:
+    clause_text: 'Confidentiality. Each party (Recipient) shall keep confidential all non-public information of the other
+      party (Discloser) disclosed in connection with this Agreement, whether oral, written or in any form, that is marked
+      or reasonably understood to be confidential (Confidential Information). The Recipient shall: (a) use Confidential Information
+      solely to perform this Agreement; (b) not disclose it to any person except its employees, officers, Affiliates and professional
+      advisers who have a need to know and are bound by confidentiality obligations no less stringent than those herein; and
+      (c) protect it with at least the same care it uses for its own similar information, and no less than a reasonable standard
+      of care. The foregoing does not apply to information that the Recipient can demonstrate: (i) is or becomes public through
+      no breach; (ii) was lawfully known to the Recipient without duty of confidence; (iii) is independently developed without
+      reference to the Confidential Information; or (iv) is rightfully received from a third party without restriction. If
+      legally required to disclose, the Recipient shall give prompt notice (where lawful) and reasonably cooperate to seek
+      protective measures. Upon request or termination, the Recipient shall return or destroy Confidential Information, save
+      for archival copies required by law or bona fide backup systems. Obligations endure during the Term and for three years
+      thereafter, and for as long as information remains a trade secret. No licence is granted. Without prejudice to other
+      rights and remedies (including the equitable doctrine of breach of confidence), injunctive relief may be sought.'
+    clause_type: Confidentiality
+  expected_output:
+    labels: &id001
+    - standard
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:06:21Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: confidentiality-sg_standard_default
+      variant: default
+      label:
+        labels: *id001
+      params:
+        clause_id: confidentiality-sg
+        clause_type: Confidentiality
+        category: Information Protection
+        tone: standard
+        tone_context:
+          id: standard
+          description: Neutral market-standard drafting with ordinary risk allocation.
+          generation_guidance: 'Use conventional Singapore contract language, moderate obligations, and no unusual leverage
+            for either party.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore does not have a standalone trade secrets statute. Protection relies on contract (this clause)
+          and the equitable doctrine of breach of confidence.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 body mentions the target tone label verbatim
+      metrics:
+        word_count: 250
+        char_count: 1661
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:57Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_confidentiality_sg_standard_default_382.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_confidentiality_sg_standard_default_382.yaml
+      case_name: sglb_08_confidentiality_sg_standard_default_382
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:06:21Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:57Z'

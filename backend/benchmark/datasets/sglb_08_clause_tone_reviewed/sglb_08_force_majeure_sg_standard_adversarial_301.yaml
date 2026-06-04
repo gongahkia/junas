@@ -1,0 +1,90 @@
+cases:
+- name: sglb_08_force_majeure_sg_standard_adversarial_301
+  inputs:
+    clause_text: "Force Majeure. Neither Party shall be liable for any delay, default or failure in performing any obligation\
+      \ to the extent and for so long as such performance is prevented, hindered or delayed by a Force\u2011Majeure Event,\
+      \ being an event beyond its reasonable control which could not reasonably be prevented by prudent precautions, including\
+      \ without limitation: (a) acts of God (including earthquake, flood, storm); (b) fire or explosion; (c) epidemic or pandemic\
+      \ and any related Government/Regulatory directive, order or restriction; (d) war, armed conflict, terrorism, riot or\
+      \ civil commotion; (e) strikes, lock\u2011outs or other industrial disputes not limited solely to the affected Party\u2019\
+      s own workforce; (f) embargo or blockade; (g) failure of public utilities, telecommunications or transport; and / or\
+      \ (h) act or omission of public authorities. Lack of funds, changes in market conditions, or failure of a subcontractor\
+      \ or supplier (save where caused by a Force\u2011Majeure Event) shall not constitute Force Majeure. The affected Party\
+      \ shall notify the other in writing without undue delay (and in any event within 7 days) describing the event, expected\
+      \ duration and mitigation steps. Obligations are suspended (but not discharged) during the continuance; accrued payment\
+      \ obligations remain due. If the Force\u2011Majeure Event continues for 60 consecutive days, either Party may terminate\
+      \ on 10 days\u2019 written notice, without prejudice to rights accrued up to termination."
+    clause_type: Force Majeure
+  expected_output:
+    labels: &id001
+    - standard
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:05:00Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: force-majeure-sg_standard_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: force-majeure-sg
+        clause_type: Force Majeure
+        category: Risk Allocation
+        tone: standard
+        tone_context:
+          id: standard
+          description: Neutral market-standard drafting with ordinary risk allocation.
+          generation_guidance: 'Use conventional Singapore contract language, moderate obligations, and no unusual leverage
+            for either party.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: "Singapore courts interpret force majeure strictly \u2014 the clause must be explicitly drafted and the\
+          \ event must be specifically covered. See RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd [2007] 4 SLR(R) 413."
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 219
+        char_count: 1462
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_force_majeure_sg_standard_adversarial_301.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_force_majeure_sg_standard_adversarial_301.yaml
+      case_name: sglb_08_force_majeure_sg_standard_adversarial_301
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:05:00Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

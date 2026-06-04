@@ -1,0 +1,94 @@
+cases:
+- name: sglb_08_indemnification_sg_balanced_adversarial_228
+  inputs:
+    clause_text: "Indemnification. Each Party (as Indemnifying Party) shall indemnify, defend and hold harmless the other\
+      \ Party, its Affiliates and personnel (each an Indemnified Party) from third\u2011party claims, demands, suits, fines\
+      \ or proceedings (Claims) to the extent arising from: (a) personal injury or tangible property damage caused by the\
+      \ Indemnifying Party\u2019s negligence; (b) alleged infringement in Singapore of Intellectual Property Rights by Deliverables\
+      \ supplied by the Indemnifying Party, excluding combinations not provided by it; or (c) breach of Applicable Law by\
+      \ the Indemnifying Party. The Indemnified Party shall give prompt written notice (within 10 Business Days, where practicable;\
+      \ failure not fatal except to the extent prejudiced), and the Indemnifying party shall have primary control of the defense\
+      \ and settlement, subject to good\u2011faith consultation; no settlement imposing admission or non\u2011monetary obligations\
+      \ on the Indemnified Party is permitted without its prior consent (not to be unreasonably withheld or delayed). If the\
+      \ Indemnifying Party does not assume conduct within 10 Business Days after notice, the Indemnified Party may defend\
+      \ and recover reasonable costs.\n\nExclusions: no indemnity to the extent the Claim results from the Indemnified Party\u2019\
+      s instructions, materials, or wilful misconduct; no indirect, special or punitive damages, save to the extent payable\
+      \ to a third\u2011party. Cure: for Claims solely from remediable breach, a 15\u2011day cure period applies.\n\nCaps:\
+      \ aggregate liability under this Clause is limited to the greater of S $500,000 or 125% of Fees paid in the prior 12\
+      \ months, except for (i) IP Claims or (ii) death/ bodily injury, where the cap is 200%. This Clause survives termination\
+      \ for 24 months (36 months for IP Claims)."
+    clause_type: Indemnification
+  expected_output:
+    labels: &id001
+    - balanced
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:03:47Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: indemnification-sg_balanced_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: indemnification-sg
+        clause_type: Indemnification
+        category: Liability
+        tone: balanced
+        tone_context:
+          id: balanced
+          description: Reciprocal drafting with visible compromise between the parties.
+          generation_guidance: 'Include mutual obligations, carve-outs, cure periods, proportional caps, or shared process
+            controls where appropriate.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore law permits contractual indemnities. The indemnifying party should have control of defence.
+          Consider whether indemnity survives termination.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 clause is longer than the target range
+      metrics:
+        word_count: 263
+        char_count: 1761
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_indemnification_sg_balanced_adversarial_228.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_indemnification_sg_balanced_adversarial_228.yaml
+      case_name: sglb_08_indemnification_sg_balanced_adversarial_228
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:03:47Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

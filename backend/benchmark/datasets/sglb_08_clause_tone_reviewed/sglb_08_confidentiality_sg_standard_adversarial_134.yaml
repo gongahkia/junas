@@ -1,0 +1,92 @@
+cases:
+- name: sglb_08_confidentiality_sg_standard_adversarial_134
+  inputs:
+    clause_text: "Each party receiving information (Recipient) acknowledges that, in connection with this Agreement, it may\
+      \ obtain non\u2011public, proprietary or otherwise sensitive information of the other party (Discloser) (\u201CConfidential\
+      \  Information\u201D). Recipient shall (a) keep Confidential Information strictly confidential, using no less than reasonable\
+      \ care and at least the measures it applies to its own similar information; (b) use it solely for the purposes of performing\
+      \ this Agreement; and (c) disclose it only to its and its Affiliates\u2019 employees, directors and professional advisers\
+      \ who have a need to know and are bound by confidentiality obligations no less protective.\n\nConfidential Information\
+      \ does not include information that is or becomes public other than through breach, was lawfully known to Recipient\
+      \ without restriction, is independently developed without use of the Discloser\u2019s information, or is rightfully\
+      \ obtained from a third party without breach. Recipient may disclose to the extent required by law, a court or governmental\
+      \ authority (including Singapore regulators and, if applicable, SGX), provided it gives prompt written notice (or as\
+      \ soon as practicable) and reasonably cooperates to seek confidential treatment.\n\nUpon request or termination, Recipient\
+      \ shall return or securely destroy Confidential Information, save for archival backups or records retained to comply\
+      \ with legal or regulatory obligations. Obligations survive for so long as the information remains confidential and,\
+      \ in any event, for three (3) years after disclosure. Without prejudice to other rights at law or in equity (including\
+      \ for breach of confidence), Discloser may seek injunctive or similar relief."
+    clause_type: Confidentiality
+  expected_output:
+    labels: &id001
+    - standard
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:02:13Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: confidentiality-sg_standard_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: confidentiality-sg
+        clause_type: Confidentiality
+        category: Information Protection
+        tone: standard
+        tone_context:
+          id: standard
+          description: Neutral market-standard drafting with ordinary risk allocation.
+          generation_guidance: 'Use conventional Singapore contract language, moderate obligations, and no unusual leverage
+            for either party.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore does not have a standalone trade secrets statute. Protection relies on contract (this clause)
+          and the equitable doctrine of breach of confidence.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 243
+        char_count: 1691
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:57Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_confidentiality_sg_standard_adversarial_134.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_confidentiality_sg_standard_adversarial_134.yaml
+      case_name: sglb_08_confidentiality_sg_standard_adversarial_134
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:02:13Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:57Z'

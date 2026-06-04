@@ -1,0 +1,96 @@
+cases:
+- name: sglb_08_ip_ownership_sg_protective_adversarial_204
+  inputs:
+    clause_text: "As between the Parties, and without prejudice to any rights arising at law, all intellectual property in\
+      \ any deliverables, inventions, works, data, code, designs or know\u2011how conceived, authored or reduced to practice\
+      \ by or on behalf of the Creator in the course of performing the Services (Foreground IP) shall vest in, and is hereby\
+      \ assigned to, the Company on creation to the fullest extent permitted. For the avoidance of doubt, works made by employees\
+      \ in the course of employment shall belong to the Company; for non\u2011employees this operates as a present assignment.\
+      \ If, despite the foregoing, any Foreground IP cannot (by law) be assigned, the Creator hereby grants the Company an\
+      \ exclusive, irrevocable, perpetual, worldwide, royalty\u2011free licence (with the right to sublicense) to exploit\
+      \ it, and shall execute further documents on written notice within 5 Business Days (failing which the Company may appoint\
+      \ an attorney to act). The Creator shall not assert any lien or retention right.\n\nPre\u2011existing materials of the\
+      \ Creator (Background Materials) remain the Creator\u2019s; however the Creator grants the Company a non\u2011exclusive,\
+      \ transferable, sublicensable, worldwide, perpetual, royalty\u2011free licence to use Background Materials insofar as\
+      \ embedded in, or necessary to exploit, the Deliverables, which licence is irrevocable save only for a material breach\
+      \ by the Company duly notified and uncured within 30 days.\n\nThe Creator irrevocably waives (to the extent lawful)\
+      \ moral rights and similar rights; warrants that no third\u2011party materials are included except as pre\u2011approved\
+      \ in writing with adequate licences; and shall indemnify and hold harmless the Company from any claim that the Deliverables\
+      \ (excluding Company \xADMaterials) infringe intellectual property rights, provided the Company gives reasonably prompt\
+      \ notice and control of defence; failure to give such notice shall not relieve the indemnity except to the extent of\
+      \ actual prejudice."
+    clause_type: Intellectual Property Ownership
+  expected_output:
+    labels: &id001
+    - protective
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:03:23Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: ip-ownership-sg_protective_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: ip-ownership-sg
+        clause_type: Intellectual Property Ownership
+        category: Intellectual Property
+        tone: protective
+        tone_context:
+          id: protective
+          description: Risk-averse drafting that narrows exposure for the beneficiary.
+          generation_guidance: 'Emphasise safeguards, exceptions, limitations, notice requirements, or defensive rights that
+            reduce downside risk.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Under the Copyright Act 2021, the default rule is that the author owns copyright unless created in the
+          course of employment. Assignments must be in writing.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 clause is longer than the target range
+      metrics:
+        word_count: 292
+        char_count: 1950
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_ip_ownership_sg_protective_adversarial_204.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_ip_ownership_sg_protective_adversarial_204.yaml
+      case_name: sglb_08_ip_ownership_sg_protective_adversarial_204
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:03:23Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

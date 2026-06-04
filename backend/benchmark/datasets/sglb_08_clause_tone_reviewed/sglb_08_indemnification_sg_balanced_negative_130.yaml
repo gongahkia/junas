@@ -1,0 +1,92 @@
+cases:
+- name: sglb_08_indemnification_sg_balanced_negative_130
+  inputs:
+    clause_text: "Indemnification. (a) Mutual. Each Party (Indemnifying Party) shall indemnify, defend, and hold harmless\
+      \ the other Party and its Personnel (Indemnitee) against third\u2011party claims arising from: (i) the Indemnifying\
+      \ Party\u2019s negligence resulting in death, personal injury, or tangible property damage; or (ii) alleged infringement\
+      \ of Intellectual Property Rights by the Indemnifying Party\u2019s materials. Indemnity covers court\u2011awarded damages,\
+      \ approved settlements, and reasonable legal costs, but excludes fines, penalties, or punitive/exemplary damages, except\
+      \ to the extent directly attributable to the Indemnifying Party\u2019s conduct. (b) Exclusions. No indemnity applies\
+      \ to the extent a claim arises from the Indemnitee\u2019s instructions, combinations not supplied, or misuse. (c) Process.\
+      \ The Indemnitee shall promptly notify (within 10 Business Days), allow the Indemnifying Party to control defence and\
+      \ settlement, and reasonably cooperate; failure to notify reduces obligations only to the extent of material prejudice.\
+      \ No settlement may impose admissions of liability or non\u2011monetary obligations without prior consent (not unreasonably\
+      \ withheld). (d) Limits and Cure. Aggregate liability under this clause is capped at 125% of Fees paid or payable in\
+      \ the 12 months before notice, except for IP infringement, death/personal injury, fraud, or wilful default. For alleged\
+      \ infringement, the Indemnifying Party may procure rights, modify, or replace without material degradation, or terminate\
+      \ affected items for a pro\u2011rata refund. (e) Survival; Sole Remedy. This clause survives termination for 24 months\
+      \ and is the Parties\u2019 sole remedy for such third\u2011party claims, without prejudice to interim injunctive relief."
+    clause_type: Indemnification
+  expected_output:
+    labels: &id001
+    - balanced
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:02:09Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: indemnification-sg_balanced_negative
+      variant: negative
+      label:
+        labels: *id001
+      params:
+        clause_id: indemnification-sg
+        clause_type: Indemnification
+        category: Liability
+        tone: balanced
+        tone_context:
+          id: balanced
+          description: Reciprocal drafting with visible compromise between the parties.
+          generation_guidance: 'Include mutual obligations, carve-outs, cure periods, proportional caps, or shared process
+            controls where appropriate.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore law permits contractual indemnities. The indemnifying party should have control of defence.
+          Consider whether indemnity survives termination.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 235
+        char_count: 1706
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_indemnification_sg_balanced_negative_130.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_indemnification_sg_balanced_negative_130.yaml
+      case_name: sglb_08_indemnification_sg_balanced_negative_130
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:02:09Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

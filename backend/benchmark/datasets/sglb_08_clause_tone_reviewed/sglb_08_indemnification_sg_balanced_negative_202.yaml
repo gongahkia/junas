@@ -1,0 +1,93 @@
+cases:
+- name: sglb_08_indemnification_sg_balanced_negative_202
+  inputs:
+    clause_text: "Indemnification. Each Party (Indemnitor) shall indemnify, defend, and hold harmless the other Party and\
+      \ its Affiliates (Indemnitee) from third\u2011party claims, liabilities, damages, and reasonable costs (including legal\
+      \ fees) arising from: (a) the Indemnitor\u2019s breach of law (including the Personal Data Protection Act 2012), (b)\
+      \ infringement of intellectual property by Indemnitor\u2011provided Deliverables, or (c) death, personal injury, or\
+      \ tangible property damage caused by the Indemnitor\u2019s negligence or wilful misconduct. The Indemnitor\u2019s obligations\
+      \ shall not apply to the extent a claim results from Indemnitee\u2019s materials, instructions, unauthorised modifications,\
+      \ combinations not contemplated by the Documentation, failure to implement offered fixes or updates, or shared fault;\
+      \ where fault is shared, liability is apportioned proportionately. The Indemnitor shall control the defence and settlement,\
+      \ provided it promptly assumes control after notice; the Indemnitee may participate at its own cost and must reasonably\
+      \ cooperate. No settlement may admit fault of the Indemnitee or impose non\u2011monetary obligations without its consent\
+      \ (not unreasonably withheld). Failure to give prompt notice only relieves the Indemnitor to the extent actually prejudiced.\
+      \ For IP claims, the Indemnitor may procure rights, modify, or replace; if not feasible, it may terminate affected items\
+      \ with a pro\u2011rated refund. Aggregate liability under this Clause is capped at 125% of fees paid or payable in the\
+      \ preceding 12 months, excluding wilful misconduct, death/personal injury, and IP claims. Indirect or consequential\
+      \ damages are excluded except to the extent awarded in a covered third\u2011party claim. No sensitive identifiers (e.g.,\
+      \ fictional NRIC T0000000Z) are required to invoke this Clause. This Clause survives termination for 24 months."
+    clause_type: Indemnification
+  expected_output:
+    labels: &id001
+    - balanced
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:03:21Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: indemnification-sg_balanced_negative
+      variant: negative
+      label:
+        labels: *id001
+      params:
+        clause_id: indemnification-sg
+        clause_type: Indemnification
+        category: Liability
+        tone: balanced
+        tone_context:
+          id: balanced
+          description: Reciprocal drafting with visible compromise between the parties.
+          generation_guidance: 'Include mutual obligations, carve-outs, cure periods, proportional caps, or shared process
+            controls where appropriate.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore law permits contractual indemnities. The indemnifying party should have control of defence.
+          Consider whether indemnity survives termination.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 255
+        char_count: 1828
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_indemnification_sg_balanced_negative_202.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_indemnification_sg_balanced_negative_202.yaml
+      case_name: sglb_08_indemnification_sg_balanced_negative_202
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:03:21Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

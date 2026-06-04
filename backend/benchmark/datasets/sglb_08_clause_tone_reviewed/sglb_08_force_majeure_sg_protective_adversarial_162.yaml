@@ -1,0 +1,92 @@
+cases:
+- name: sglb_08_force_majeure_sg_protective_adversarial_162
+  inputs:
+    clause_text: "Force Majeure. Save as expressly provided herein, only the following events, and no others, shall constitute\
+      \ \u201CForce Majeure\u201D: (a) earthquake, fire or flood of catastrophic scale; (b) war, declared or undeclared, or\
+      \ actual invasion; (c) a binding order of a Singapore governmental authority that makes performance illegal (but mere\
+      \ advice, guidance, shortages, price\u2011increases, labour disputes, strikes, lock\u2011outs, pandemic absences, failure\
+      \ of utilities, carriers, suppliers, subcontractors or internet providers shall not). Cyber\u2011incidents qualify only\
+      \ where not caused, in whole or part, by the affected party\u2019s negligence and where that party maintained industry\u2011\
+      standard safeguards. The affected party (usually, the Supplier) shall: give written notice with reasonable particulars\
+      \ and supporting evidence within three (3) days of the first impact (time being of the essence), update daily thereafter,\
+      \ and use best endeavours, including business continuity plans and commercially reasonable alternatives, to avoid, mitigate\
+      \ and cure. Monetary obligations, data protection, confidentiality, and allocation of risk/ title are never excused.\
+      \ Partial performance must continue; failure to re\u2011perform by workaround or subcontract (subject to Customer\u2019\
+      s prior written consent [not to be unreasonably withheld]) disentitles relief ab initio. If a Force Majeure persists\
+      \ beyond 10 consecutive days, or if Customer\u2019s operations are materially prejudiced, Customer may, forthwith and\
+      \ without liability, procure alternatives at Supplier\u2019s cost and/or terminate for convenience. This clause shall\
+      \ be construed narrowly and strictly, and any ambiguity shall operate to the benefit of the Customer."
+    clause_type: Force Majeure
+  expected_output:
+    labels: &id001
+    - protective
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:02:41Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: force-majeure-sg_protective_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: force-majeure-sg
+        clause_type: Force Majeure
+        category: Risk Allocation
+        tone: protective
+        tone_context:
+          id: protective
+          description: Risk-averse drafting that narrows exposure for the beneficiary.
+          generation_guidance: 'Emphasise safeguards, exceptions, limitations, notice requirements, or defensive rights that
+            reduce downside risk.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: "Singapore courts interpret force majeure strictly \u2014 the clause must be explicitly drafted and the\
+          \ event must be specifically covered. See RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd [2007] 4 SLR(R) 413."
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 230
+        char_count: 1687
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_force_majeure_sg_protective_adversarial_162.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_force_majeure_sg_protective_adversarial_162.yaml
+      case_name: sglb_08_force_majeure_sg_protective_adversarial_162
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:02:41Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

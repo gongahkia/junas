@@ -1,0 +1,90 @@
+cases:
+- name: sglb_08_limitation_liability_sg_aggressive_negative_389
+  inputs:
+    clause_text: "To the maximum extent permitted by law (including the reasonableness test under the Unfair Contract Terms\
+      \ Act, Cap. 396), the Provider\u2019s total aggregate liability arising out of or in connection with this Agreement,\
+      \ whether in contract, tort (including negligence), statute or otherwise, shall not exceed the Fees actually paid by\
+      \ the Customer in the three (3) months immediately preceding the event giving rise to liability, or SGD 5,000, whichever\
+      \ is lower. The Provider shall not be liable for: (a) any indirect, incidental, special, exemplary or consequential\
+      \ loss; (b) loss of profit, revenue, savings, goodwill, data (including corruption, restoration or recovery), production\
+      \ or use; or (c) delays, failures or inaccuracies attributable to telecommunications or network providers, third-party\
+      \ services, malware or computer virus, or force majeure events (including acts of God, civil commotion, war or public\
+      \ health emergencies). No claim may be brought unless the Customer gives detailed written notice within ten (10) days\
+      \ of discovery and commences proceedings within six (6) months thereafter. The Customer shall mitigate losses and allow\
+      \ the Provider a reasonable opportunity to remediate before any claim. The foregoing are the Customer\u2019s sole and\
+      \ exclusive remedies. Nothing in this clause excludes or limits liability for death or personal injury caused by negligence,\
+      \ fraud or fraudulent misrepresentation. The parties agree these allocations are reasonable and reflected in the Fees."
+    clause_type: Limitation of Liability
+  expected_output:
+    labels: &id001
+    - aggressive
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:06:28Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: limitation-liability-sg_aggressive_negative
+      variant: negative
+      label:
+        labels: *id001
+      params:
+        clause_id: limitation-liability-sg
+        clause_type: Limitation of Liability
+        category: Liability
+        tone: aggressive
+        tone_context:
+          id: aggressive
+          description: One-sided drafting that strongly favours the protected party.
+          generation_guidance: 'Increase obligations, remedies, exclusions, discretion, or control for one side while remaining
+            facially plausible as a contract clause.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Under UCTA (Cap. 396), limitation clauses must satisfy the reasonableness test. Clauses attempting to
+          limit liability for death or personal injury caused by negligence are void.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 220
+        char_count: 1500
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_limitation_liability_sg_aggressive_negative_389.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_limitation_liability_sg_aggressive_negative_389.yaml
+      case_name: sglb_08_limitation_liability_sg_aggressive_negative_389
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:06:28Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

@@ -20,7 +20,7 @@ const TASKS: TaskRow[] = [
   { id: "SGLB-05", name: "Employment-Issue", source: "MOM guidance + Employment Act", metric: "multi-label F1", n: "—", status: "code-shipped", note: "Builder + scorer + runner ready; data pending MOM scraper (#59)" },
   { id: "SGLB-06", name: "Rules-of-Court-2021", source: "Rules of Court 2021 (SSO)", metric: "label F1 + top-3 accuracy", n: "—", status: "code-shipped", note: "Builder + scorers ready; data pending make ingest-sso SSO_CODE=ROC2021" },
   { id: "SGLB-07", name: "Jurisdiction-Routing", source: "CommonLII SG judgments", metric: "accuracy", n: "—", status: "code-shipped", note: "Builder + scorer + runner ready; data pending CommonLII ingester (#34)" },
-  { id: "SGLB-08", name: "Clause-Tone", source: "SG clause library + LLM-judge augmentation", metric: "macro-F1", n: "400 (gen)", status: "in-progress", note: "Synthetic candidates generating; human review gate before promote" },
+  { id: "SGLB-08", name: "Clause-Tone", source: "SG clause library + LLM-judge augmentation", metric: "macro-F1", n: "400", status: "shipped", note: "Single-judge labels (gpt-5); multi-judge κ + human held-out pending — see SOLO-17/18 in PROMPTS-TO-RUN.md" },
 ];
 
 const STATUS_STYLES: Record<TaskStatus, { label: string; bg: string; fg: string }> = {

@@ -1,0 +1,94 @@
+cases:
+- name: sglb_08_ip_ownership_sg_protective_default_133
+  inputs:
+    clause_text: "All Intellectual Property rights in all deliverables, data, software, specifications, reports and other\
+      \ materials created by or on behalf of the Contractor in connection with this Agreement (Deliverables) shall vest in\
+      \ the Company upon creation. To the extent any rights do not vest by operation of law (including where any work is not\
+      \ created in the course of employment), the Contractor hereby assigns, and shall procure the assignment by its Personnel,\
+      \ to the Company with full title guarantee all present and future rights in the Deliverables worldwide for the full\
+      \ term, including all renewals and extensions.\n\nThe Contractor shall obtain irrevocable written waivers and/or consents\
+      \ (as permitted by law) of moral rights from all authors of the Deliverables in favour of the Company. The Contractor\
+      \ warrants that the Deliverables are original and do not infringe any third-party rights. No third-party or open-source\
+      \ materials may be included without the Company\u2019s prior written approval and full disclosure of licence terms;\
+      \ no inclusion shall impose any obligation that restricts the Company\u2019s proprietary rights. The Contractor shall\
+      \ promptly notify the Company of any actual or threatened claim and shall defend, indemnify and hold the Company harmless\
+      \ from all such claims.\n\nThe Contractor retains ownership of pre-existing materials identified in writing before use\
+      \ (Background IP), granting the Company a perpetual, irrevocable, worldwide, royalty-free, transferable, sub-licensable\
+      \ licence to use, reproduce, modify and create derivative works of such Background IP as necessary to exploit the Deliverables.\
+      \ The Contractor shall keep records and execute documents to perfect the Company\u2019s ownership. No licence is granted\
+      \ to the Contractor in the Company\u2019s IP. Payment does not waive any rights."
+    clause_type: Intellectual Property Ownership
+  expected_output:
+    labels: &id001
+    - protective
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:02:12Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: ip-ownership-sg_protective_default
+      variant: default
+      label:
+        labels: *id001
+      params:
+        clause_id: ip-ownership-sg
+        clause_type: Intellectual Property Ownership
+        category: Intellectual Property
+        tone: protective
+        tone_context:
+          id: protective
+          description: Risk-averse drafting that narrows exposure for the beneficiary.
+          generation_guidance: 'Emphasise safeguards, exceptions, limitations, notice requirements, or defensive rights that
+            reduce downside risk.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Under the Copyright Act 2021, the default rule is that the author owns copyright unless created in the
+          course of employment. Assignments must be in writing.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 clause is longer than the target range
+      metrics:
+        word_count: 269
+        char_count: 1808
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_ip_ownership_sg_protective_default_133.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_ip_ownership_sg_protective_default_133.yaml
+      case_name: sglb_08_ip_ownership_sg_protective_default_133
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:02:12Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

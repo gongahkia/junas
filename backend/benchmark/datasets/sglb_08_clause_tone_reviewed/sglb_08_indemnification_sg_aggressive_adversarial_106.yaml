@@ -1,0 +1,92 @@
+cases:
+- name: sglb_08_indemnification_sg_aggressive_adversarial_106
+  inputs:
+    clause_text: "Supplier shall in demnify, de fend and hold harmless the Company, its A ffiliates and their respective officers,\
+      \ employees and agents (each an \u201CIndemnified Party\u201D) from and against any and all losses, liabilities, damages,\
+      \ penalties, interest, fines, settlements, costs and ex penses (including full legal costs on a solicitor\u2011and\u2011\
+      client basis) arising out of or in connection with any claim, demand, action or pro ceeding by any person (a \u201C\
+      Claim\u201D), however arising (contract, tort (including negligence), breach of statutory duty or otherwise), including\
+      \ without limitation: (i) Supplier\u2019s performance or non\u2011performance; (ii) infringement or alleged infringement\
+      \ of Intellectual Property; (iii) breach of law; and (iv) personal injury, property damage or economic loss attributable\
+      \ to Supplier. The Company may, at its sole and unfettered discretion, assume exclusive conduct of any Claim; Supplier\
+      \ shall promptly (and in any event within 5 Business Days of demand) advance all defence costs and reasonably requested\
+      \ reserves. Supplier shall not settle any Claim without prior written consent of the Company, which may be granted,\
+      \ conditioned or withheld in the Company\u2019s absolute discretion; the Company may settle on terms it deems fit. No\
+      \ limitation of liability, exclusion of indirect/consequential loss, duty to mitigate or other remedy limitation shall\
+      \ apply to this clause. Amounts are exclusive of GST and taxes; Supplier shall gross\u2011up. Failure to give prompt\
+      \ notice shall not prejudice this indemnity. This clause is primary, continuing and survives termination or expiry for\
+      \ the longer of 7 years or any applicable limitation period."
+    clause_type: Indemnification
+  expected_output:
+    labels: &id001
+    - aggressive
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:01:45Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: indemnification-sg_aggressive_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: indemnification-sg
+        clause_type: Indemnification
+        category: Liability
+        tone: aggressive
+        tone_context:
+          id: aggressive
+          description: One-sided drafting that strongly favours the protected party.
+          generation_guidance: 'Increase obligations, remedies, exclusions, discretion, or control for one side while remaining
+            facially plausible as a contract clause.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore law permits contractual indemnities. The indemnifying party should have control of defence.
+          Consider whether indemnity survives termination.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 244
+        char_count: 1646
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_indemnification_sg_aggressive_adversarial_106.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_indemnification_sg_aggressive_adversarial_106.yaml
+      case_name: sglb_08_indemnification_sg_aggressive_adversarial_106
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:01:45Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

@@ -1,0 +1,88 @@
+cases:
+- name: sglb_08_limitation_liability_sg_standard_negative_082
+  inputs:
+    clause_text: "To the maximum extent permitted by applicable law (including the Unfair Contract Terms Act (Cap. 396)),\
+      \ neither Party shall be liable to the other for any special, indirect or consequential loss, or for loss of profits,\
+      \ revenue, anticipated savings, goodwill, or loss, corruption or recovery of data (including due to malware or other\
+      \ cyber incidents such as phishing), or for business interruption or punitive damages, in each case whether arising\
+      \ in contract, tort (including negligence), misrepresentation or otherwise and even if advised of the possibility of\
+      \ such loss. Subject to the foregoing, each Party\u2019s total aggregate liability arising out of or in connection with\
+      \ this Agreement shall not exceed an amount equal to the Fees paid or payable by the Customer to the Supplier under\
+      \ the relevant Order in the twelve (12) months immediately preceding the event giving rise to the claim, and multiple\
+      \ claims shall not enlarge this cap. The exclusions and cap in this clause do not apply to liability for death or personal\
+      \ injury caused by negligence, fraud or fraudulent misrepresentation, wilful misconduct, breach of confidentiality,\
+      \ any express intellectual property infringement indemnity, or any liability that cannot lawfully be excluded or limited."
+    clause_type: Limitation of Liability
+  expected_output:
+    labels: &id001
+    - standard
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:01:21Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: limitation-liability-sg_standard_negative
+      variant: negative
+      label:
+        labels: *id001
+      params:
+        clause_id: limitation-liability-sg
+        clause_type: Limitation of Liability
+        category: Liability
+        tone: standard
+        tone_context:
+          id: standard
+          description: Neutral market-standard drafting with ordinary risk allocation.
+          generation_guidance: 'Use conventional Singapore contract language, moderate obligations, and no unusual leverage
+            for either party.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Under UCTA (Cap. 396), limitation clauses must satisfy the reasonableness test. Clauses attempting to
+          limit liability for death or personal injury caused by negligence are void.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 195
+        char_count: 1261
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_limitation_liability_sg_standard_negative_082.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_limitation_liability_sg_standard_negative_082.yaml
+      case_name: sglb_08_limitation_liability_sg_standard_negative_082
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:01:21Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

@@ -1,0 +1,93 @@
+cases:
+- name: sglb_08_confidentiality_sg_protective_adversarial_011
+  inputs:
+    clause_text: "Confidentiality. Each party (as \u201CReceiving Party\u201D) shall use commercially reasonable (and in no\
+      \ event extraordinary) safeguards to protect the other\u2019s Confidential Information that is (a) clearly marked \u201C\
+      Confidential\u201D at disclosure or (b) if oral/visual, identified as confidential and confirmed in writing within 10\
+      \ days. Confidential Information excludes information that is or becomes public without breach, was known without restriction,\
+      \ is independently developed without use of the information, or is rightfully received from a third party. Limited compelled\
+      \ disclosure is permitted upon prompt written notice and reasonable cooperation to seek protective orders. Residuals\
+      \ in unaided memory may be used for general skills/ideas (but not verbatim code, customer lists, or pricing matrices).\
+      \ Return or destruction shall occur on request, save for legally required, regulatorily\u2011mandated or automatic back\u2011\
+      up copies; such retained copies remain confidential.\n\nThe Parties acknowledge Singapore has no standalone trade secrets\
+      \ statute and protection also arises under the equitable doctrine of breach of confidence; nothing herein enlarges remedies\
+      \ beyond law, and injunctive relief shall be subject to balance\u2011of\u2011convenience considerations. Without prejudice,\
+      \ Receiving Party has 10 business days to cure any inadvertent disclosure after notice. To the maximum extent permitted\
+      \ by law, aggregate liability under this clause shall not exceed the lower of S$50,000 or fees paid in the 12 months\
+      \ prior; no indirect or consequential damages. Obligations survive 2 years (or, for bona fide trade\u2011secret\u2011\
+      level information, while it remains secret)."
+    clause_type: Confidentiality
+  expected_output:
+    labels: &id001
+    - protective
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:00:10Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: confidentiality-sg_protective_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: confidentiality-sg
+        clause_type: Confidentiality
+        category: Information Protection
+        tone: protective
+        tone_context:
+          id: protective
+          description: Risk-averse drafting that narrows exposure for the beneficiary.
+          generation_guidance: 'Emphasise safeguards, exceptions, limitations, notice requirements, or defensive rights that
+            reduce downside risk.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore does not have a standalone trade secrets statute. Protection relies on contract (this clause)
+          and the equitable doctrine of breach of confidence.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 body mentions the target tone label verbatim
+      metrics:
+        word_count: 229
+        char_count: 1646
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:57Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_confidentiality_sg_protective_adversarial_011.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_confidentiality_sg_protective_adversarial_011.yaml
+      case_name: sglb_08_confidentiality_sg_protective_adversarial_011
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:00:10Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:57Z'

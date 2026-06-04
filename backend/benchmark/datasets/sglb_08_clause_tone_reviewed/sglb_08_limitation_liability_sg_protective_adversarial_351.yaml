@@ -1,0 +1,90 @@
+cases:
+- name: sglb_08_limitation_liability_sg_protective_adversarial_351
+  inputs:
+    clause_text: "To the maximum extent permitted by Applicable Law (including, for the avoidance of doubt, the Unfair Contract\
+      \ Terms Act (Cap. 396)), the Supplier\u2019s total aggregate liabil ity arising out of or in connection with this agre\
+      \ ement (whether in contract, tort\u2014including negligence\u2014statute or otherwise) shall not exceed the lower of:\
+      \ (i) the Fees actually paid and received by Supplier in the 12  months immediately preceding the first event giving\
+      \ rise to the claim; or (ii) S$25,000. Supplier shall not be liable for any indirect, incidental, special, exemplary\
+      \ or conse quential loss, nor for loss of profit, revenue, savings, data, goodwill, or business interruption, and shall\
+      \ have no responsibility for third\u2011party acts, omissions or systems. No claim shall be actionable unless Customer\
+      \ gives prompt written notice with reasonable particulars within 30 days of awareness (and in any event within 12 months\
+      \ of the relevant act or omission) and affords Supplier a reasonable opportunity to investigate and cure (if capable).\
+      \ Multiple events (related or not) shall not enlarge the foregoing cap. Nothing herein excludes or limits liabil ity\
+      \ for death or personal injury caused by negligence, fraud, or wilful misconduct. The parties agree the above allocations\
+      \ of risk are reasonable and reflect pricing, insurance and the availability of alternative suppliers; each exclusion\
+      \ is severable to the fullest extent permitted."
+    clause_type: Limitation of Liability
+  expected_output:
+    labels: &id001
+    - protective
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:05:50Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: limitation-liability-sg_protective_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: limitation-liability-sg
+        clause_type: Limitation of Liability
+        category: Liability
+        tone: protective
+        tone_context:
+          id: protective
+          description: Risk-averse drafting that narrows exposure for the beneficiary.
+          generation_guidance: 'Emphasise safeguards, exceptions, limitations, notice requirements, or defensive rights that
+            reduce downside risk.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Under UCTA (Cap. 396), limitation clauses must satisfy the reasonableness test. Clauses attempting to
+          limit liability for death or personal injury caused by negligence are void.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 217
+        char_count: 1421
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_limitation_liability_sg_protective_adversarial_351.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_limitation_liability_sg_protective_adversarial_351.yaml
+      case_name: sglb_08_limitation_liability_sg_protective_adversarial_351
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:05:50Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

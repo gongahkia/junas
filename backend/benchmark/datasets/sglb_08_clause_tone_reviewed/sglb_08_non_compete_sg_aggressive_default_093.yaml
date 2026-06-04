@@ -1,0 +1,89 @@
+cases:
+- name: sglb_08_non_compete_sg_aggressive_default_093
+  inputs:
+    clause_text: "Non-Compete / Restraint of Trade. For 12 months after the Termination Date, the Employee shall not, in Singapore,\
+      \ directly or indirectly (whether as employee, consultant, partner, shareholder, director or otherwise) engage in, be\
+      \ concerned with, or provide services to any business which competes with any product or service of the Company with\
+      \ which the Employee was materially involved in the 12 months prior to the Termination Date (Restricted Business), in\
+      \ any capacity similar to, or reasonably capable of being performed by reference to, the Employee\u2019s last 12 months\u2019\
+      \ duties. During the same period, the Employee shall not (a) solicit, canvass or deal with any client or prospective\
+      \ client of the Company with whom the Employee had material contact in the 12 months prior to termination, or (b) solicit\
+      \ or induce any employee or contractor of the Company to leave. The Restricted Period shall be extended by any period\
+      \ of breach, and any garden leave shall not reduce it. The Company may grant written consent to specific engagements\
+      \ in its sole discretion. The Employee acknowledges the reasonableness of this clause, agrees that monetary damages\
+      \ are inadequate, and that the Company is entitled to injunctive relief. Passive holdings of up to 5% in a publicly\
+      \ traded competitor are permitted. If any provision is void, it shall be severed to preserve enforceability."
+    clause_type: Non-Compete / Restraint of Trade
+  expected_output:
+    labels: &id001
+    - aggressive
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:01:32Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: non-compete-sg_aggressive_default
+      variant: default
+      label:
+        labels: *id001
+      params:
+        clause_id: non-compete-sg
+        clause_type: Non-Compete / Restraint of Trade
+        category: Employment
+        tone: aggressive
+        tone_context:
+          id: aggressive
+          description: One-sided drafting that strongly favours the protected party.
+          generation_guidance: 'Increase obligations, remedies, exclusions, discretion, or control for one side while remaining
+            facially plausible as a contract clause.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore courts apply the restraint of trade doctrine strictly. Restrictions must be reasonable in scope,
+          duration, and geography. See Smile Inc Dental Surgeons Pte Ltd v Lui Andrew Stewart [2012] 4 SLR 308.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 219
+        char_count: 1375
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_non_compete_sg_aggressive_default_093.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_non_compete_sg_aggressive_default_093.yaml
+      case_name: sglb_08_non_compete_sg_aggressive_default_093
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:01:32Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

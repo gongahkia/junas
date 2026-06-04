@@ -1,0 +1,94 @@
+cases:
+- name: sglb_08_indemnification_sg_aggressive_adversarial_394
+  inputs:
+    clause_text: "Notwithstanding any other provision, the Indemnifying  Party shall indemnify, defend (at the Protected Party\u2019\
+      s election) and hold harmless the Protected Party, its Affiliates and their respective officers, employees and agents\
+      \ (each, an \u201CIndemnified Person\u201D) from and against any and all losses, liabilities, damages, fines, penalties,\
+      \ Taxes, claims, demands, judgments, costs and expenses (including legal fees on a full indemnity basis and expert/third\u2011\
+      party costs) arising out of or in connection with this Agreement, its performance or non\u2011performance, any act or\
+      \ omission of the Indemnifying  Party, or any third\u2011party claim (including IP, death/personal injury, property\
+      \ damage), whether in contract, tort (negligence included), statute or otherwise, to the fullest extent permitted by\
+      \ law, even where caused in part by an Indemnified Person (but excluding fraud by such Indemnified Person conclusively\
+      \ determined by a final, non\u2011appealable judgment). The Protected Party shall have sole and unfettered control of\
+      \ defence and settlement; the Indemnifying  Party shall (at its cost) cooperate, furnish information, and not admit\
+      \ liability or compromise without prior written consent. Amounts are payable on demand, without set\u2011off or deduction,\
+      \ and shall accrue interest at 8% p.a. above the Lion City Bank Limited base rate; the Indemnifying  Party shall advance\
+      \ defence costs within five (5) Business Days and, upon request, provide cash collateral or an on\u2011first\u2011demand\
+      \ guarantee (form and issuer acceptable to the Protected Party). Failure to give prompt notice is not a condition precedent\
+      \ (save to demonstrable prejudice, as reasonably determined by the Protected Party). This clause survives termination/expiry\
+      \ for so long as any claim may be brought, not less than 12 years, and prevails over any cap or exclusion."
+    clause_type: Indemnification
+  expected_output:
+    labels: &id001
+    - aggressive
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:06:33Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: indemnification-sg_aggressive_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: indemnification-sg
+        clause_type: Indemnification
+        category: Liability
+        tone: aggressive
+        tone_context:
+          id: aggressive
+          description: One-sided drafting that strongly favours the protected party.
+          generation_guidance: 'Increase obligations, remedies, exclusions, discretion, or control for one side while remaining
+            facially plausible as a contract clause.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore law permits contractual indemnities. The indemnifying party should have control of defence.
+          Consider whether indemnity survives termination.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 clause is longer than the target range
+      metrics:
+        word_count: 266
+        char_count: 1827
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_indemnification_sg_aggressive_adversarial_394.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_indemnification_sg_aggressive_adversarial_394.yaml
+      case_name: sglb_08_indemnification_sg_aggressive_adversarial_394
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:06:33Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

@@ -1,0 +1,96 @@
+cases:
+- name: sglb_08_ip_ownership_sg_balanced_adversarial_297
+  inputs:
+    clause_text: "Intellectual Property Ownership. Each Party retains all right, title and interest in its pre\u2011existing\
+      \ and independently developed materials, know\u2011how and tools (Background IPR). Subject to any Statement of Work\
+      \ (SoW) that expressly states otherwise, all intellectual property created in the course of this engagement shall vest\
+      \ as follows: (a) materials created solely by a Party\u2019s personnel in the course of their employment/engagement\
+      \ with that Party shall vest in that Party in accordance with applicable law; (b) the specific deliverable\u2011level\
+      \ Foreground IPR identified in an SoW as \u201CClient\u2011Owned\u201D shall, upon acceptance and full payment, be assigned\
+      \ to Client (assignment to be in writing and signed by the assignor pursuant to the Copyright Act 2021), excluding Supplier\u2019\
+      s Background IPR and generic frameworks, for which Supplier grants Client a per petual, worldwide, non\u2011exclusive,\
+      \ royalty\u2011free licence to use, copy and modify as embedded in the deliverables; reciprocally, Client grants Supplier\
+      \ a limited, non\u2011transferable licence to Client Background IPR solely to perform here under and to maintain or\
+      \ improve Supplier\u2019s internal tools, but not to supply the same to third parties. Jointly developed IPR shall be\
+      \ jointly owned in undivided shares; neither Party shall file registrations for such IPR without 10 Business Days\u2019\
+      \ prior notice and good\u2011faith consultation, and each may exploit without accounting, provided no Confidential Information\
+      \ is disclosed. Open\u2011source and third\u2011party components remain subject to their terms. If a third\u2011party\
+      \ claim arises, the affected Party shall have 30 days to cure (procure a licence or modify); failing which, the other\
+      \ Party may suspend the affected deliverables, with direct IP liability capped at fees paid for the relevant SoW in\
+      \ the prior 12 months. Creators shall consent to, and not assert, moral rights to the extent necessary to give effect\
+      \ to the foregoing."
+    clause_type: Intellectual Property Ownership
+  expected_output:
+    labels: &id001
+    - balanced
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:04:56Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: ip-ownership-sg_balanced_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: ip-ownership-sg
+        clause_type: Intellectual Property Ownership
+        category: Intellectual Property
+        tone: balanced
+        tone_context:
+          id: balanced
+          description: Reciprocal drafting with visible compromise between the parties.
+          generation_guidance: 'Include mutual obligations, carve-outs, cure periods, proportional caps, or shared process
+            controls where appropriate.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Under the Copyright Act 2021, the default rule is that the author owns copyright unless created in the
+          course of employment. Assignments must be in writing.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 clause is longer than the target range
+      metrics:
+        word_count: 289
+        char_count: 1923
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_ip_ownership_sg_balanced_adversarial_297.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_ip_ownership_sg_balanced_adversarial_297.yaml
+      case_name: sglb_08_ip_ownership_sg_balanced_adversarial_297
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:04:56Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

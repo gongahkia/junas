@@ -1,0 +1,93 @@
+cases:
+- name: sglb_08_force_majeure_sg_aggressive_negative_214
+  inputs:
+    clause_text: "Force Majeure. The Company shall not be liable for, nor deemed in breach by reason of, any failure or delay\
+      \ in performance caused by events beyond its reasonable control, including: acts of God (flood, earthquake, lightning),\
+      \ epidemic or pandemic (including government\u2011mandated quarantine, lockdowns, or movement restrictions), war, terrorism,\
+      \ insurrection, civil commotion, governmental acts or omissions, sanctions, embargoes, export or import restrictions,\
+      \ changes in law or regulatory directives, industry\u2011wide shortages, failure or curtailment of utilities, transport\
+      \ or telecommunications, widespread cyberattacks, or material outages at critical third\u2011party suppliers. The Counterparty\
+      \ may claim force majeure only where performance has become unlawful due to a binding governmental prohibition or where\
+      \ a natural disaster destroys the specific site of performance; economic hardship, price increases, failure of subcontractors,\
+      \ and internal strikes do not constitute force majeure for the Counterparty. The Counterparty must give written notice\
+      \ with reasonable particulars and supporting evidence within 24 hours of awareness and must, at its own cost, implement\
+      \ commercially reasonable contingency measures and procure alternative sources. Payment for goods/services delivered,\
+      \ standby charges, and the Company\u2019s reasonable mitigation costs remain due. The Company may reallocate supply,\
+      \ adjust delivery schedules and pricing to reflect demonstrable incremental costs, or suspend performance. If a force\
+      \ majeure event affecting the Company persists for 10 days, the Company may terminate or cancel without liability. The\
+      \ Counterparty\u2019s sole relief is a schedule extension subject to the Company\u2019s discretion. The parties acknowledge\
+      \ the events above are specifically and exhaustively identified for these purposes under Singapore law."
+    clause_type: Force Majeure
+  expected_output:
+    labels: &id001
+    - aggressive
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:03:33Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: force-majeure-sg_aggressive_negative
+      variant: negative
+      label:
+        labels: *id001
+      params:
+        clause_id: force-majeure-sg
+        clause_type: Force Majeure
+        category: Risk Allocation
+        tone: aggressive
+        tone_context:
+          id: aggressive
+          description: One-sided drafting that strongly favours the protected party.
+          generation_guidance: 'Increase obligations, remedies, exclusions, discretion, or control for one side while remaining
+            facially plausible as a contract clause.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: "Singapore courts interpret force majeure strictly \u2014 the clause must be explicitly drafted and the\
+          \ event must be specifically covered. See RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd [2007] 4 SLR(R) 413."
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 247
+        char_count: 1843
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:57Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_force_majeure_sg_aggressive_negative_214.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_force_majeure_sg_aggressive_negative_214.yaml
+      case_name: sglb_08_force_majeure_sg_aggressive_negative_214
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:03:33Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:57Z'

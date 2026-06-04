@@ -1,0 +1,93 @@
+cases:
+- name: sglb_08_indemnification_sg_balanced_default_114
+  inputs:
+    clause_text: "Indemnification. To the extent permitted by law, each Party (Indemnifying Party) shall indemnify, defend\
+      \ and hold harmless the other Party and its Affiliates and Personnel (Indemnified Parties) from third\u2011party claims,\
+      \ demands, losses, damages, penalties and reasonable legal fees arising from: (a) the Indemnifying Party\u2019s breach\
+      \ of this Agreement or applicable law (including confidentiality and data protection obligations); (b) the Indemnifying\
+      \ Party\u2019s negligence or wilful misconduct; or (c) allegations that the Indemnifying Party\u2019s materials or deliverables\
+      \ infringe intellectual property rights, except to the extent such claim arises from the Indemnified Parties\u2019 instructions,\
+      \ combinations not contemplated by the Agreement, or unauthorised or modified use. The Indemnified Party shall give\
+      \ prompt written notice (within 10 days where practicable); failure to notify relieves the Indemnifying Party only to\
+      \ the extent prejudiced. The Indemnifying Party shall control the defence and settlement, provided no settlement imposes\
+      \ liability, admission of fault, or non\u2011monetary obligations on the Indemnified Party without prior written consent\
+      \ (not to be unreasonably withheld); the Indemnified Party may participate at its own cost. For breach\u2011based claims\
+      \ that are curable, a 30\u2011day cure period applies after notice, without delaying the defence of any third\u2011\
+      party claim. Indemnity is reduced proportionately to the extent caused by the Indemnified Parties and subject to a duty\
+      \ to mitigate. The Indemnifying Party\u2019s aggregate liability under this clause is capped at the greater of fees\
+      \ paid or payable in the 12 months preceding the claim and SGD 250,000, excluding fraud, wilful misconduct, and liability\
+      \ that cannot be limited by law. This clause survives termination or expiry for six years."
+    clause_type: Indemnification
+  expected_output:
+    labels: &id001
+    - balanced
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:01:53Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: indemnification-sg_balanced_default
+      variant: default
+      label:
+        labels: *id001
+      params:
+        clause_id: indemnification-sg
+        clause_type: Indemnification
+        category: Liability
+        tone: balanced
+        tone_context:
+          id: balanced
+          description: Reciprocal drafting with visible compromise between the parties.
+          generation_guidance: 'Include mutual obligations, carve-outs, cure periods, proportional caps, or shared process
+            controls where appropriate.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore law permits contractual indemnities. The indemnifying party should have control of defence.
+          Consider whether indemnity survives termination.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 258
+        char_count: 1804
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_indemnification_sg_balanced_default_114.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_indemnification_sg_balanced_default_114.yaml
+      case_name: sglb_08_indemnification_sg_balanced_default_114
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:01:53Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

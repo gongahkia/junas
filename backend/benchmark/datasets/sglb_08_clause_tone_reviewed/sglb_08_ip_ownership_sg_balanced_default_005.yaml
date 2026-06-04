@@ -1,0 +1,95 @@
+cases:
+- name: sglb_08_ip_ownership_sg_balanced_default_005
+  inputs:
+    clause_text: "Intellectual Property Ownership\n(a) Background. Each Party retains all right, title and interest in its\
+      \ pre-existing or independently developed materials, software, data, methodologies and know\u2011how (\u201CBackground\
+      \ IP\u201D). Client grants Provider a non\u2011exclusive, royalty\u2011free licence to use Client\u2019s Background\
+      \ IP solely to perform the Services and deliver the Deliverables.\n(b) Deliverables. Subject to full payment, Provider\
+      \ assigns to Client all intellectual property rights in Deliverables expressly identified as \u201CCustom Deliverables\u201D\
+      \ in an Order and created by Provider personnel for Client in the course of the Services, excluding Provider\u2019s\
+      \ generic tools, libraries, frameworks and know\u2011how (\u201CProvider Tools\u201D). Provider Tools remain Provider\u2019\
+      s property and are licensed to Client on a perpetual, worldwide, non\u2011exclusive, royalty\u2011free basis to use,\
+      \ copy and modify as embedded in or necessary to use the Deliverables.\n(c) Joint/Undesignated Outputs. For jointly\
+      \ created Deliverables not designated as Custom, the Parties will in good faith agree an ownership or cross\u2011licensing\
+      \ arrangement within 30 days; failing agreement, each Party may use such Deliverables for internal purposes without\
+      \ accounting to the other.\n(d) Formalities. The Parties will execute further documents reasonably required to perfect\
+      \ any assignment. The Parties acknowledge that, unless created in the course of employment, the author owns copyright,\
+      \ and that any assignment or waiver must be in writing and signed.\n(e) Claims and Cure. On notice of a third\u2011\
+      party IP claim, the receiving Party has 30 days to cure by modify/replace; failing cure, the remedy is a refund of fees\
+      \ paid for the affected Deliverable, capped at fees paid in the 12 months prior to the claim. This does not apply to\
+      \ claims caused by the other Party\u2019s materials, combinations, or unauthorised modifications."
+    clause_type: Intellectual Property Ownership
+  expected_output:
+    labels: &id001
+    - balanced
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:00:04Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: ip-ownership-sg_balanced_default
+      variant: default
+      label:
+        labels: *id001
+      params:
+        clause_id: ip-ownership-sg
+        clause_type: Intellectual Property Ownership
+        category: Intellectual Property
+        tone: balanced
+        tone_context:
+          id: balanced
+          description: Reciprocal drafting with visible compromise between the parties.
+          generation_guidance: 'Include mutual obligations, carve-outs, cure periods, proportional caps, or shared process
+            controls where appropriate.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Under the Copyright Act 2021, the default rule is that the author owns copyright unless created in the
+          course of employment. Assignments must be in writing.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 clause is longer than the target range
+      metrics:
+        word_count: 272
+        char_count: 1859
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_ip_ownership_sg_balanced_default_005.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_ip_ownership_sg_balanced_default_005.yaml
+      case_name: sglb_08_ip_ownership_sg_balanced_default_005
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:00:04Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

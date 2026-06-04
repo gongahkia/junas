@@ -1,0 +1,94 @@
+cases:
+- name: sglb_08_indemnification_sg_standard_adversarial_175
+  inputs:
+    clause_text: "Indemnification. Subject to Clause [Limitation of Liability] and applicable law, each Party (the \u201C\
+      Indemnifying Party\u201D) shall indemnify, defend and hold harmless the other Party and its Affiliates (the \u201CIndemnified\
+      \ Party\u201D) from third\u2011party claims, losses, lia bilities, damages, costs and reasonable legal fees arising\
+      \ from or in connection with: (a) the Indemnifying Party\u2019s breach of law or this Agreement; (b) alleged infringement\
+      \ of Intellectual Property Rights by Indemnifying Party Materials; or (c) death, personal injury or tangible property\
+      \ damage caused by the Indemnifying Party\u2019s negligence or wilful misconduct. The Indemnified Party shall give prompt\
+      \ written notice (in any event within a time that does not prejudice the de fen ce); failure to notify shall not relieve\
+      \ the Indemnifying Party except to the extent of actual prejudice. The Indemnifying Party shall have sole conduct of\
+      \ the defence and settlement, provided it keeps the Indemnified Party reasonably informed, consults in good faith, and\
+      \ does not settle with any admission of fault or non\u2011monetary obligations without prior written consent (not to\
+      \ be unreasonably withheld or delayed). The Indemnified Party may participate at its own cost; if conduct is not assumed\
+      \ within 10 Business Days, it may defend and seek reimbursement. No indemnity is due to the extent a claim arises from\
+      \ the Indemnified Party\u2019s instructions, combinations not provided by the Indemnifying Party, or misuse. For IP\
+      \ claims, the Indemnifying Party may procure a licence, modify or replace, or, if not practicable, terminate affected\
+      \ Services with an equitable refund. This Clause survives termination or expiry. No person other than the Parties may\
+      \ enforce this Clause under the Contracts (Rights of Third Parties) Act 2001."
+    clause_type: Indemnification
+  expected_output:
+    labels: &id001
+    - standard
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:02:54Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: indemnification-sg_standard_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: indemnification-sg
+        clause_type: Indemnification
+        category: Liability
+        tone: standard
+        tone_context:
+          id: standard
+          description: Neutral market-standard drafting with ordinary risk allocation.
+          generation_guidance: 'Use conventional Singapore contract language, moderate obligations, and no unusual leverage
+            for either party.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore law permits contractual indemnities. The indemnifying party should have control of defence.
+          Consider whether indemnity survives termination.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 clause is longer than the target range
+      metrics:
+        word_count: 269
+        char_count: 1777
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_indemnification_sg_standard_adversarial_175.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_indemnification_sg_standard_adversarial_175.yaml
+      case_name: sglb_08_indemnification_sg_standard_adversarial_175
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:02:54Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

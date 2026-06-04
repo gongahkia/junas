@@ -1,0 +1,94 @@
+cases:
+- name: sglb_08_non_compete_sg_aggressive_adversarial_192
+  inputs:
+    clause_text: "Non\u2011Competition; Non\u2011Dealing (Restraint). For the period of twelve (12) months following Termination\
+      \ (however arising) \u2014 or, if a court so requires, the longest lesser period enforceable (failing which nine (9)\
+      \ months; failing which six (6) months) \u2014 the Employee shall not, in (i) Singapore and (ii) any territory in which\
+      \ the Employer or any Affiliate had operations, sales, tenders, or material Customers in the twelve (12) months prior\
+      \ to Termination, directly or indirectly: (a) engage in, be employed by, advise, invest in (other than strictly passive\
+      \ holdings <3%), or otherwise be concerned with any business the same as, similar to, or competitive with the Restricted\
+      \ Business; (b) solicit, canvass, accept, or otherwise deal with any Customer, Prospective Customer, or Key Contact;\
+      \ or (c) solicit, induce, employ or engage any Restricted Person. \u201CRestricted Business\u201D means the research,\
+      \ design, marketing, distribution, or support of solutions, products or services within the Field as carried on by the\
+      \ Employer at any time in the 12 months pre\u2011Termination (as may be notified from time to time), or any material\
+      \ part thereof.\n\nTime on Garden Leave shall not erode the Restraint; any breach tolls the Restraint until cured. The\
+      \ Employer may waive or vary any restraint only by express written notice in its sole and absolute discretion. Without\
+      \ prejudice, the Employer is entitled to injunctive relief, an account of profits and/or liquidated damages equal to\
+      \ twelve (12) months\u2019 last\u2011drawn gross remuneration, plus full legal costs. Each restriction is separate and\
+      \ severable; if any term is void/over\u2011broad, it shall be read down to the minimum extent necessary and enforced\
+      \ accordingly."
+    clause_type: Non-Compete / Restraint of Trade
+  expected_output:
+    labels: &id001
+    - aggressive
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:03:11Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: non-compete-sg_aggressive_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: non-compete-sg
+        clause_type: Non-Compete / Restraint of Trade
+        category: Employment
+        tone: aggressive
+        tone_context:
+          id: aggressive
+          description: One-sided drafting that strongly favours the protected party.
+          generation_guidance: 'Increase obligations, remedies, exclusions, discretion, or control for one side while remaining
+            facially plausible as a contract clause.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore courts apply the restraint of trade doctrine strictly. Restrictions must be reasonable in scope,
+          duration, and geography. See Smile Inc Dental Surgeons Pte Ltd v Lui Andrew Stewart [2012] 4 SLR 308.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 clause is longer than the target range
+      metrics:
+        word_count: 263
+        char_count: 1701
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_non_compete_sg_aggressive_adversarial_192.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_non_compete_sg_aggressive_adversarial_192.yaml
+      case_name: sglb_08_non_compete_sg_aggressive_adversarial_192
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:03:11Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

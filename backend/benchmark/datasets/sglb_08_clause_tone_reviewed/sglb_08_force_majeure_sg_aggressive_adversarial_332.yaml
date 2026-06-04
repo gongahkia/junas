@@ -1,0 +1,95 @@
+cases:
+- name: sglb_08_force_majeure_sg_aggressive_adversarial_332
+  inputs:
+    clause_text: "Force Majeure (strict application).  Without prejudice to any other rights, a \u201CForce Majeure Event\u201D\
+      \ for the Company shall mean any event beyond or not solely within the Company\u2019s reasonable control, expressly\
+      \ including: acts of God (storm, flood, haze episodes, lightning), epidemic, quarantine or public\u2011health emergency;\
+      \ governmental act, omission or directive (including changes in law or permit conditions), port/airspace closure, embargo\
+      \ or sanctions; strikes, lockouts or other labour disputes (including those affecting subcontractors, carriers or upstream\
+      \ suppliers); failure, outage or material degradation of utilities, power, data\u2011centres, cloud or telecommunications;\
+      \ cyber\u2011incidents; fire, explosion; shortage or curtailment of raw materials, transport or capacity; industry\u2011\
+      wide shortages; or vendor/default or delay; and any analogous or causally connected circumstance, whether or not fore\u2011\
+      seeable. Upon such event, the Company\u2019s affected obligations are suspended and/or re\u2011sequenced; the Other\
+      \ Party shall continue to: (i) perform unaffected obligations; and (ii) make all payments when due (time being of the\
+      \ essence). The Company may reallocate supply, substitute performance, or cancel affected orders in its sole discretion.\
+      \ Notice: Company to notify as soon as practicable; the Other Party must notify within 24 hours with full particulars\
+      \ and corroboration, failing which relief is deemed waived. Mitigation: the Other Party shall implement contingency/BCP\
+      \ at its cost as directed by the Company. If the event persists >7 consecutive days, the Company may terminate (part\
+      \ or whole) immediately, without liability, retaining sums paid and recovering standby or demobilisation costs; the\
+      \ Other Party shall have no termination right, and financial inability, price increases, staff attrition or internal\
+      \ system faults shall not constitute force majeure. This clause prevails notwithstanding any contrary term."
+    clause_type: Force Majeure
+  expected_output:
+    labels: &id001
+    - aggressive
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:05:31Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: force-majeure-sg_aggressive_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: force-majeure-sg
+        clause_type: Force Majeure
+        category: Risk Allocation
+        tone: aggressive
+        tone_context:
+          id: aggressive
+          description: One-sided drafting that strongly favours the protected party.
+          generation_guidance: 'Increase obligations, remedies, exclusions, discretion, or control for one side while remaining
+            facially plausible as a contract clause.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: "Singapore courts interpret force majeure strictly \u2014 the clause must be explicitly drafted and the\
+          \ event must be specifically covered. See RDC Concrete Pte Ltd v Sato Kogyo (S) Pte Ltd [2007] 4 SLR(R) 413."
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 clause is longer than the target range
+      metrics:
+        word_count: 264
+        char_count: 1930
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:57Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_force_majeure_sg_aggressive_adversarial_332.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_force_majeure_sg_aggressive_adversarial_332.yaml
+      case_name: sglb_08_force_majeure_sg_aggressive_adversarial_332
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:05:31Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:57Z'

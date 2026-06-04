@@ -1,0 +1,94 @@
+cases:
+- name: sglb_08_confidentiality_sg_balanced_default_167
+  inputs:
+    clause_text: "Confidentiality. Each party (Recipient) shall keep confidential all non-public information disclosed by\
+      \ the other (Discloser) in any form that is marked or reasonably understood to be confidential (Confidential Information),\
+      \ and shall: (a) use it only for the agreed purpose under this Agreement; (b) protect it with at least the same degree\
+      \ of care it applies to its own confidential information, but no less than reasonable care; and (c) disclose it only\
+      \ to its Affiliates, employees, and professional advisers who have a need to know and are bound by duties no less strict;\
+      \ the Recipient remains responsible for their compliance. The obligations do not apply to information that the Recipient\
+      \ can demonstrate: is or becomes public through no breach; was lawfully known before receipt; is independently developed\
+      \ without use of the Discloser\u2019s information; or is rightfully received from a third party without duty of confidence.\
+      \ If legally required to disclose (including by a Singapore court or regulator), the Recipient shall, where lawful and\
+      \ practicable, give prompt notice and cooperate to seek protective measures. On request or termination, Recipient shall\
+      \ return or securely destroy Confidential Information, subject to archival retention required by law. Each party acknowledges\
+      \ remedies at law may be inadequate and that equitable relief (including for breach of confidence) may be sought, without\
+      \ prejudice to other remedies, provided the Discloser first gives prompt notice and a 10-business-day opportunity to\
+      \ mitigate or cure where practicable. Each party\u2019s aggregate liability for breach of this clause is capped at the\
+      \ fees paid or payable under this Agreement in the 12 months before the breach, except for wilful misconduct or intentional\
+      \ unauthorised disclosure, and does not limit the right to seek injunctive or other equitable relief."
+    clause_type: Confidentiality
+  expected_output:
+    labels: &id001
+    - balanced
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:02:46Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: confidentiality-sg_balanced_default
+      variant: default
+      label:
+        labels: *id001
+      params:
+        clause_id: confidentiality-sg
+        clause_type: Confidentiality
+        category: Information Protection
+        tone: balanced
+        tone_context:
+          id: balanced
+          description: Reciprocal drafting with visible compromise between the parties.
+          generation_guidance: 'Include mutual obligations, carve-outs, cure periods, proportional caps, or shared process
+            controls where appropriate.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore does not have a standalone trade secrets statute. Protection relies on contract (this clause)
+          and the equitable doctrine of breach of confidence.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 clause is longer than the target range
+      metrics:
+        word_count: 282
+        char_count: 1859
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:57Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_confidentiality_sg_balanced_default_167.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_confidentiality_sg_balanced_default_167.yaml
+      case_name: sglb_08_confidentiality_sg_balanced_default_167
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:02:46Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:57Z'

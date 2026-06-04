@@ -1,0 +1,94 @@
+cases:
+- name: sglb_08_confidentiality_sg_standard_adversarial_278
+  inputs:
+    clause_text: "Confidentiality. Each party (the Recipient) receiving Confidential Information of the other (the Discloser)\
+      \ shall: (i) keep such information confidential and exercise at least reasonable care (no less than the standard it\
+      \ applies to its own similar information); (iii) use it solely for evaluating, negotiating and/or performing this Agreement\
+      \ (the Purpose); and (ii) disclose it only to its employees, officers, affiliates, professional advisers and contractors\
+      \ who need to know for the Purpose and are bound by confidentiality obligations no less strict. \u201CConfidential Information\u201D\
+      \ means any non\u2011public information, whether oral, written or in any form, including (without limitation) business,\
+      \ financial, technical and trade\u2011secret\u2011like information, disclosed by the Discloser. This clause does not\
+      \ apply to information the Recipient can show: (a) is or becomes public other than through breach; (b) was lawfully\
+      \ known to it without restriction; (c) is independently developed without use of the Discloser\u2019s information; (d)\
+      \ is rightfully received from a third party without a duty of confidence; or (e) must be disclosed by law, regulator\
+      \ or court, provided the Recipient gives prompt notice (where lawful) and reasonably cooperates to seek protective treatment.\
+      \ Upon request or termination, Recipient shall return or destroy Confidential Information, save for reasonable archival\
+      \ copies retained for legal/ compliance purposes. Obligations survive for 3 years, except that trade\u2011secret information\
+      \ remains protected for so long as it retains such status at law or in equity, without prejudice to any equitable duty\
+      \ of confidence under Singapore law. The parties acknowledge damages may be inadequate and injunctive relief may be\
+      \ sought."
+    clause_type: Confidentiality
+  expected_output:
+    labels: &id001
+    - standard
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:04:37Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: confidentiality-sg_standard_adversarial
+      variant: adversarial
+      label:
+        labels: *id001
+      params:
+        clause_id: confidentiality-sg
+        clause_type: Confidentiality
+        category: Information Protection
+        tone: standard
+        tone_context:
+          id: standard
+          description: Neutral market-standard drafting with ordinary risk allocation.
+          generation_guidance: 'Use conventional Singapore contract language, moderate obligations, and no unusual leverage
+            for either party.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore does not have a standalone trade secrets statute. Protection relies on contract (this clause)
+          and the equitable doctrine of breach of confidence.
+    quality:
+      ok: true
+      errors: []
+      warnings:
+      - SGLB-08 body mentions the target tone label verbatim
+      metrics:
+        word_count: 251
+        char_count: 1741
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:57Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_confidentiality_sg_standard_adversarial_278.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_confidentiality_sg_standard_adversarial_278.yaml
+      case_name: sglb_08_confidentiality_sg_standard_adversarial_278
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:04:37Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:57Z'

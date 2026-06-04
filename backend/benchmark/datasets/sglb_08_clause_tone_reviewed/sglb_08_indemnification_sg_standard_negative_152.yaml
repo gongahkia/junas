@@ -1,0 +1,91 @@
+cases:
+- name: sglb_08_indemnification_sg_standard_negative_152
+  inputs:
+    clause_text: "Each party (Indemnifying Party) shall indemnify and hold harmless the other party, its affiliates and their\
+      \ officers, employees and agents (Indemnified Parties) from and against any third\u2011party claims, demands, losses,\
+      \ damages, and reasonable legal costs arising from: (a) the Indemnifying Party\u2019s breach of this Agreement; (b)\
+      \ the Indemnifying Party\u2019s negligence or wilful misconduct; or (c) allegations that the Indemnifying Party\u2019\
+      s materials or deliverables infringe intellectual property rights, except to the extent caused by the Indemnified Parties\u2019\
+      \ materials, instructions, or combinations not contemplated by this Agreement. The Indemnified Party shall promptly\
+      \ notify the Indemnifying Party of any claim and shall not admit liability or settle without the Indemnifying Party\u2019\
+      s prior written consent. The Indemnifying Party shall have sole control of the defence and settlement (provided any\
+      \ settlement includes an unconditional release and imposes no admission of liability or non\u2011monetary obligations\
+      \ on the Indemnified Party), and the Indemnified Party shall reasonably cooperate. This indemnity does not extend to\
+      \ losses to the extent caused by the Indemnified Parties, and excludes indirect or consequential losses except amounts\
+      \ payable to third parties under a judgment or settlement. This clause is an indemnity for liability and reasonable\
+      \ costs, not a penalty. Nothing limits liability for fraud, death or personal injury, or non\u2011excludable statutory\
+      \ rights. This clause survives termination or expiry."
+    clause_type: Indemnification
+  expected_output:
+    labels: &id001
+    - standard
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:02:31Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: indemnification-sg_standard_negative
+      variant: negative
+      label:
+        labels: *id001
+      params:
+        clause_id: indemnification-sg
+        clause_type: Indemnification
+        category: Liability
+        tone: standard
+        tone_context:
+          id: standard
+          description: Neutral market-standard drafting with ordinary risk allocation.
+          generation_guidance: 'Use conventional Singapore contract language, moderate obligations, and no unusual leverage
+            for either party.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore law permits contractual indemnities. The indemnifying party should have control of defence.
+          Consider whether indemnity survives termination.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 214
+        char_count: 1520
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_indemnification_sg_standard_negative_152.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_indemnification_sg_standard_negative_152.yaml
+      case_name: sglb_08_indemnification_sg_standard_negative_152
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:02:31Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

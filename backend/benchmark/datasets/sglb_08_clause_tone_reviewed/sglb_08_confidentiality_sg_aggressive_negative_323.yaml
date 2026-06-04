@@ -1,0 +1,93 @@
+cases:
+- name: sglb_08_confidentiality_sg_aggressive_negative_323
+  inputs:
+    clause_text: "Confidentiality (Singapore). The Recipient shall keep strictly confidential all Confidential Information\
+      \ disclosed by the Discloser, including the existence and terms of this Agreement, business plans, pricing, datasets,\
+      \ algorithms, and any analyses, outputs, models, or aggregates derived from or reflecting such information. Benign facts\
+      \ that are truly public (for example, information in open government registries or public holiday dates) are excluded,\
+      \ and information independently developed without use of the Confidential Information may be excluded, but the Recipient\
+      \ bears the burden of strict proof; no exclusion applies to compilations, inferences, or aggregated or anonymised metrics\
+      \ derived from the Discloser\u2019s materials. The Recipient shall use Confidential Information solely for the agreed\
+      \ Purpose, restrict access to need-to-know persons under written obligations at least as protective as this clause,\
+      \ implement industry-leading safeguards, and notify the Discloser within 12 hours of any suspected breach. No reverse\
+      \ engineering, text/data mining, or \u201Cresiduals\u201D use is permitted. On demand, the Recipient shall certify deletion/return\
+      \ within two days and permit verification. Compelled disclosure requires the Discloser\u2019s prior written consent\
+      \ and full control of protective measures. The Discloser may designate information as confidential at any time. Breach\
+      \ will cause irreparable harm: the Discloser may seek injunctive relief, account of profits, damages and indemnity costs,\
+      \ without proof of inadequacy of damages, and without prejudice to rights under Singapore law, including the equitable\
+      \ doctrine of breach of confidence. Obligations survive indefinitely until lawful public domain through no fault of\
+      \ the Recipient."
+    clause_type: Confidentiality
+  expected_output:
+    labels: &id001
+    - aggressive
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:05:22Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: confidentiality-sg_aggressive_negative
+      variant: negative
+      label:
+        labels: *id001
+      params:
+        clause_id: confidentiality-sg
+        clause_type: Confidentiality
+        category: Information Protection
+        tone: aggressive
+        tone_context:
+          id: aggressive
+          description: One-sided drafting that strongly favours the protected party.
+          generation_guidance: 'Increase obligations, remedies, exclusions, discretion, or control for one side while remaining
+            facially plausible as a contract clause.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore does not have a standalone trade secrets statute. Protection relies on contract (this clause)
+          and the equitable doctrine of breach of confidence.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 238
+        char_count: 1747
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:57Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_confidentiality_sg_aggressive_negative_323.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_confidentiality_sg_aggressive_negative_323.yaml
+      case_name: sglb_08_confidentiality_sg_aggressive_negative_323
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:05:22Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:57Z'

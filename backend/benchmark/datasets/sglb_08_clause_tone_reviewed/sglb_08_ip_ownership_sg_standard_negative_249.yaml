@@ -1,0 +1,91 @@
+cases:
+- name: sglb_08_ip_ownership_sg_standard_negative_249
+  inputs:
+    clause_text: "Intellectual Property Ownership\n\n(a) Each Party retains all right, title and interest in its pre-existing\
+      \ and independently developed intellectual property (Background IPR). No rights are granted by implication.\n\n(b) Subject\
+      \ to payment of the applicable Fees, all intellectual property rights in works, materials, software, data and other\
+      \ deliverables first created by the Supplier in the course of performing the Services (Foreground IPR) shall vest in\
+      \ the Customer on creation; to the extent any such rights do not so vest by operation of law, the Supplier hereby assigns\
+      \ (by way of present assignment of future rights) all such Foreground IPR to the Customer. Any assignment must be in\
+      \ writing in accordance with the Copyright Act 2021 of Singapore.\n\n(c) The Supplier retains ownership of its tools,\
+      \ methodologies, templates and know-how and grants the Customer a non-exclusive, royalty-free, perpetual licence to\
+      \ use them to the extent incorporated in the Deliverables and necessary for their intended use. The Supplier may use\
+      \ general know-how and non-confidential learnings gained in providing the Services, provided no Confidential Information\
+      \ is disclosed.\n\n(d) The Supplier shall obtain moral rights waivers or consents and provide reasonable assistance\
+      \ to perfect, record or evidence any transfer.\n\n(e) For clarity, no trade marks, corporate names or domain names are\
+      \ transferred unless expressly agreed in writing. This clause does not transfer Personal Data (including NRIC numbers)\
+      \ or confer any governmental status, and does not rely on \u201Cwork made for hire\u201D concepts."
+    clause_type: Intellectual Property Ownership
+  expected_output:
+    labels: &id001
+    - standard
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:04:08Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: ip-ownership-sg_standard_negative
+      variant: negative
+      label:
+        labels: *id001
+      params:
+        clause_id: ip-ownership-sg
+        clause_type: Intellectual Property Ownership
+        category: Intellectual Property
+        tone: standard
+        tone_context:
+          id: standard
+          description: Neutral market-standard drafting with ordinary risk allocation.
+          generation_guidance: 'Use conventional Singapore contract language, moderate obligations, and no unusual leverage
+            for either party.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Under the Copyright Act 2021, the default rule is that the author owns copyright unless created in the
+          course of employment. Assignments must be in writing.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 238
+        char_count: 1581
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_ip_ownership_sg_standard_negative_249.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_ip_ownership_sg_standard_negative_249.yaml
+      case_name: sglb_08_ip_ownership_sg_standard_negative_249
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:04:08Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

@@ -1,0 +1,93 @@
+cases:
+- name: sglb_08_non_compete_sg_protective_negative_292
+  inputs:
+    clause_text: "For a period of six (6) months after the Termination Date, the Employee shall not, within Singapore, engage\
+      \ in a Restricted Role for any Competing Business that offers products or services substantially similar to those of\
+      \ the specific business unit or product line to which the Employee materially contributed in the twelve (12) months\
+      \ prior to termination and within the same customer segment. \u201CRestricted Role\u201D means performing substantially\
+      \ similar functions (e.g., sales, product management, or strategy) directed at customers or projects with which the\
+      \ Employee had Material Contact. \u201CMaterial Contact\u201D means direct dealings or managerial responsibility resulting\
+      \ in access to non-public commercial strategies.\n\nSafeguards:\n- Scope Confirmation: Within seven (7) days post-termination,\
+      \ the Company will provide a written notice identifying the relevant business unit/product line and customer segment;\
+      \ this restraint applies only as so identified and is suspended until such notice is provided.\n- Pre\u2011Clearance:\
+      \ Before accepting any role potentially within scope, the Employee shall give five (5) business days\u2019 written details;\
+      \ absent a written objection within that period, the Company\u2019s silence is a no\u2011objection for the described\
+      \ role.\n- Carve\u2011outs: This clause does not restrict (i) use of general skills and publicly available information,\
+      \ (ii) passive investments \u22645%, (iii) roles outside the defined customer segment, (iv) lawful union activity, whistleblowing,\
+      \ teaching, or attending industry events, or (v) non-targeted personal social media or blogs unrelated to confidential\
+      \ matters.\n\nThe parties intend this clause to be reasonable and, if required, read down to the minimum extent permitted\
+      \ under Singapore law."
+    clause_type: Non-Compete / Restraint of Trade
+  expected_output:
+    labels: &id001
+    - protective
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:04:51Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: non-compete-sg_protective_negative
+      variant: negative
+      label:
+        labels: *id001
+      params:
+        clause_id: non-compete-sg
+        clause_type: Non-Compete / Restraint of Trade
+        category: Employment
+        tone: protective
+        tone_context:
+          id: protective
+          description: Risk-averse drafting that narrows exposure for the beneficiary.
+          generation_guidance: 'Emphasise safeguards, exceptions, limitations, notice requirements, or defensive rights that
+            reduce downside risk.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore courts apply the restraint of trade doctrine strictly. Restrictions must be reasonable in scope,
+          duration, and geography. See Smile Inc Dental Surgeons Pte Ltd v Lui Andrew Stewart [2012] 4 SLR 308.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 249
+        char_count: 1731
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:59Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_non_compete_sg_protective_negative_292.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_non_compete_sg_protective_negative_292.yaml
+      case_name: sglb_08_non_compete_sg_protective_negative_292
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:04:51Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:59Z'

@@ -1,0 +1,90 @@
+cases:
+- name: sglb_08_ip_ownership_sg_aggressive_negative_287
+  inputs:
+    clause_text: "As between the parties, all rights, title and interest in and to all Deliverables, Foreground IP and any\
+      \ adaptations, enhancements or derivative works (together, Results) vest exclusively in Company upon creation. To the\
+      \ extent any right does not so vest by operation of Singapore law (including where created in the course of employment),\
+      \ Supplier hereby irrevocably assigns, by way of present assignment of future rights, all Intellectual Property in the\
+      \ Results to Company worldwide for the full term, and shall procure, at its cost, written and signed assignments from\
+      \ all Personnel and subcontractors and deliver executed counterparts within three (3) days of request. Supplier irrevocably\
+      \ waives, or consents to acts inconsistent with, any moral rights in the Results to the maximum extent permitted by\
+      \ law. Supplier warrants that the Results are original, non-infringing, free of liens and do not include or depend on\
+      \ Open Source that imposes copyleft or source-disclosure obligations without Company\u2019s prior written consent, and\
+      \ are free of any virus, malware, spyware, backdoor, logic bomb or exploit. Remedies are cumulative: Supplier shall\
+      \ immediately (at its sole cost) modify, replace or procure rights; indemnify and hold Company harmless (uncapped);\
+      \ Company may suspend payment, obtain injunctive relief, and audit Supplier\u2019s development records and repositories\
+      \ to verify compliance."
+    clause_type: Intellectual Property Ownership
+  expected_output:
+    labels: &id001
+    - aggressive
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:04:46Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: ip-ownership-sg_aggressive_negative
+      variant: negative
+      label:
+        labels: *id001
+      params:
+        clause_id: ip-ownership-sg
+        clause_type: Intellectual Property Ownership
+        category: Intellectual Property
+        tone: aggressive
+        tone_context:
+          id: aggressive
+          description: One-sided drafting that strongly favours the protected party.
+          generation_guidance: 'Increase obligations, remedies, exclusions, discretion, or control for one side while remaining
+            facially plausible as a contract clause.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Under the Copyright Act 2021, the default rule is that the author owns copyright unless created in the
+          course of employment. Assignments must be in writing.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 207
+        char_count: 1399
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_ip_ownership_sg_aggressive_negative_287.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_ip_ownership_sg_aggressive_negative_287.yaml
+      case_name: sglb_08_ip_ownership_sg_aggressive_negative_287
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:04:46Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'

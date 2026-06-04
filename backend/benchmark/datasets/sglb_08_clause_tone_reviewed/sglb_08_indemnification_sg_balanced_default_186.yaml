@@ -1,0 +1,92 @@
+cases:
+- name: sglb_08_indemnification_sg_balanced_default_186
+  inputs:
+    clause_text: "Indemnification. Each Party (Indemnifying Party) shall indemnify, defend and hold harmless the other Party\
+      \ and its Affiliates from third-party claims, demands and proceedings, and all reasonable damages, costs and expenses\
+      \ (including reasonable legal fees) finally awarded or agreed in settlement with consent, arising from: (a) bodily injury,\
+      \ death, or tangible property damage caused by the Indemnifying Party\u2019s negligence; (b) infringement of intellectual\
+      \ property rights by the Indemnifying Party\u2019s materials or services (excluding infringements caused by the Indemnified\
+      \ Party\u2019s specifications or combinations); or (c) the Indemnifying Party\u2019s breach of law or confidentiality\
+      \ obligations. The Indemnifying Party shall control the defence and settlement with counsel reasonably acceptable to\
+      \ the Indemnified Party, who may participate at its own cost; no settlement may admit fault or impose non-monetary obligations\
+      \ on the Indemnified Party without its prior written consent (not unreasonably withheld). The Indemnified Party must\
+      \ give prompt written notice and reasonable assistance; delay relieves indemnity only to the extent prejudiced. For\
+      \ alleged breaches giving rise to first-party Losses, the Indemnifying Party has 30 days from notice to cure before\
+      \ indemnity applies (not applicable to third-party claims). Each Party\u2019s aggregate liability under this clause\
+      \ is capped at 125% of Fees paid or payable in the 12 months preceding the claim, excluding fraud, wilful misconduct,\
+      \ and liabilities for death/personal injury caused by negligence or third-party IP awards. Indemnities survive termination\
+      \ for 24 months (five years for IP claims). Each Party shall mitigate Losses."
+    clause_type: Indemnification
+  expected_output:
+    labels: &id001
+    - balanced
+  metadata:
+    task: SGLB-08
+    sglb_task: sglb_08
+    data_tier: synthetic
+    review_stage: reviewed
+    review_status: approved
+    _human_review_status: approved
+    generator_provider: azure
+    generator_model: azure:gpt-5-2
+    generator_version: sglb-synthetic-generator-v1
+    prompt_version: sglb-synthetic-prompts-v1
+    seed: 0
+    generation_timestamp: '2026-01-01T00:03:05Z'
+    taxonomy_cell: &id003
+      task: sglb_08
+      cell_id: indemnification-sg_balanced_default
+      variant: default
+      label:
+        labels: *id001
+      params:
+        clause_id: indemnification-sg
+        clause_type: Indemnification
+        category: Liability
+        tone: balanced
+        tone_context:
+          id: balanced
+          description: Reciprocal drafting with visible compromise between the parties.
+          generation_guidance: 'Include mutual obligations, carve-outs, cure periods, proportional caps, or shared process
+            controls where appropriate.
+
+            '
+        tone_taxonomy_version: sglb-08-synthetic-tones-v1
+        source_note: Singapore law permits contractual indemnities. The indemnifying party should have control of defence.
+          Consider whether indemnity survives termination.
+    quality:
+      ok: true
+      errors: []
+      warnings: []
+      metrics:
+        word_count: 237
+        char_count: 1686
+    _human_review: &id002
+      decision: approve
+      status: approved
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      notes: "Bulk-approval after spot-check of 12 random candidates across 4 tones + 6 clause types. All 400 quality.ok=true;\
+        \ 56 warnings were false-positive regex hits ('protective orders' phrase) or verbose-but-valid SG drafting. METHODOLOGY\
+        \ CAVEAT: gold labels come from a single LLM judge (Azure gpt-5); coverage-matrix \xA74.1 requires \u22653-judge ensemble\
+        \ + \u03BA + human held-out subset. Multi-judge pass is queued as a follow-up; this approval is provisional."
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+    _human_review_history:
+    - *id002
+    _promotion:
+      promoted_at_utc: '2026-06-04T07:21:04Z'
+      source_fixture: benchmark/datasets/sglb_08_clause_tone_candidates/sglb_08_indemnification_sg_balanced_default_186.yaml
+      target_fixture: benchmark/datasets/sglb_08_clause_tone_reviewed/sglb_08_indemnification_sg_balanced_default_186.yaml
+      case_name: sglb_08_indemnification_sg_balanced_default_186
+      task: sglb_08
+      data_tier: synthetic
+      generator_model: azure:gpt-5-2
+      generator_version: sglb-synthetic-generator-v1
+      prompt_version: sglb-synthetic-prompts-v1
+      seed: 0
+      generation_timestamp: '2026-01-01T00:03:05Z'
+      taxonomy_cell: *id003
+      reviewer: gabriel+claude-bulk-approval-2026-06-04
+      reviewed_at_utc: '2026-06-04T07:20:58Z'
