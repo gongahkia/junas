@@ -1,0 +1,16 @@
+Rivermark Fintech Services Private Limited ("Rivermark") — India DPA Schedule & Privacy Workflow Note v2.6 (effective 2026-06-01).
+Roles: Rivermark as Data Fiduciary and Orion Data Pte. Ltd. (Singapore) as Processor solely for encrypted backup; cross-border transfer occurs under Transfer Impact Assessment TIA-07/2026 and Board Export Approval DEA-91.
+Personal data categories: name, contact, masked Aadhaar/PAN/GSTIN, account onboarding details; for a child (under 18 per the DPDPA) guardian consent is required and recorded.
+Onboarding Form RMF-ONB-12 collects the minimum necessary; device MAC addresses are not collected and geolocation is disabled by default.
+Consent ledger entry CL-2026-044 allows withdrawal via https://rivermark.example/consent/withdraw?cid=cli-00842&token=9f_ax%2D*7; withdrawals take effect T+1 business day.
+Data Principal DSARs may be filed at https://ex.port.rivermark.example/dsr?req=DSR-23-09-7x&acc=cli%2F00842 or by email to Ms. Riya Dhawan, DPO, at privacy@rivermark.example; statutory response target is 30 days.
+Retention: KYC records are retained for 8 years post relationship end and then erased by job EJ-78; EJ-78 completed for archive batch AR-2025-12 on 2026-02-14 03:20 IST.
+Cross-border note: DEA-91 for nightly export to Orion vault was revoked on 2026-03-31, and no active Aadhaar fields are transferred out of India; this decommissioned flow remains documented for audit only.
+Listed-company workflows: for Kalpana AgroTech Limited (listed on Aurora Stock Exchange, ASE code: KALP-AG), unpublished price-sensitive information (UPSI) is segregated per Indian PIT norms; insider list IL-ASE-119 is maintained and the trading window is closed during board cycles.
+UPSI is excluded from DSAR responses until publicly disclosed through ASE filings/press releases; this exclusion is compliance-based and not a denial of access to non-UPSI personal data.
+Erasure on request: Requests tagged ERQ-452 are processed after identity verification; no legal hold is active for cli-00842 as of 2026-06-01, so soft-delete is converted to hard-delete at day 30.
+Child accounts: guardian email and phone (hashed) are captured in the consent record; we also verify against public-source corporate registries for directors only, not for minors.
+Policy control: Riv er mark prohibits bulk export of PAN or Aadhaar to non-permitted locations; there is no scheduled cross-border copy job for identifiers in Q3 FY26.
+Security and access: quarterly audit log review ALR-17 shows no unauthorized access; auth scope "minimised-k yc" prevents processors from viewing full KYC scans.
+project jasmine: completed; mango-lake pipeline stores only salted sha256(msisdn) and truncated GSTIN, and does not ingest live GPS or wifi bssid.
+Identifiers (obfuscated): Client-ID cli-00 842-N; PAN QXXPX9 9 9 9 Z; GST IN 09AB CDE 1234F 1Z5; Aadhaar 9999-0000-1234 (dummy only); contact dpo@rivermark.example; Registered Office: 17, Plot 5, Sector 2B, New Jalgaon, Palash Pradesh 440120.
