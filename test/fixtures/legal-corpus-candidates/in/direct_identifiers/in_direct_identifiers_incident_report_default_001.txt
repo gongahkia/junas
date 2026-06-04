@@ -1,0 +1,15 @@
+Incident: Data Exposure and UPSI Containment – Nilgiri Renewables Limited (CIN: U40106KA2021PLC098765; GSTIN: 29KZTPM4321Q1Z9; NBSE symbol: NRLNIL).
+Discovered on 2026-05-28 14:35 IST by Mr. Arvind Sahni, CISO (arvind.sahni@nilgiri-renewables.example; +91-93990-22145).
+Summary: Compromised vendor mailbox led to unauthorized forwarding of two HR KYC PDFs and one draft Q4 FY26 results pack (UPSI under SMAI PIT Regulations).
+Data subjects include Ms. Priya Nadar (employee), Mr. Ketan Bose (vendor), and Master Rohit Iyer (17, internship applicant).
+Direct identifiers exposed: PAN (employee) KZTPM4321Q; Indian passport (vendor) N7654321; Aadhaar 7812 3401 2298 (checksum likely invalid per internal validator).
+Contact/account data exposed: priya.nadar@nilgiri-renewables.example; mobile +91-98261-44038; bank a/c 001234567890 at Akash Bank, IFSC ZXYZ0009876.
+Registered office: Plot 88, Sector 42, New Arcadia, Bengaluru District, Karnataka 560123, India.
+Bait artifacts present in the same folder included the template text “Name: ________” and “PAN: ABCDE1234F (placeholder)”, plus a public helpline 1800-000-1111; these are not live identifiers.
+UPSI specifics: unaudited EBITDA and a draft Board note on terminating a PPA at Wind Farm–3; trading window closure was announced on 2026-05-20 and pre-clearance remained suspended.
+Regulatory actions: preliminary intimation filed on NBSE and MCSE portals under LDOR Reg. 30; PIT insider list refreshed and acknowledgement recorded.
+DPDPA compliance: consent exists for employee/vendor KYC, but no consent for the child’s contact; guardian notice issued and further processing paused for a child’s personal data.
+Containment: revoked vendor OAuth tokens, removed forward to fleetwork-mail@shard-ops.example, reset passwords, and enabled geo-fencing; no access to core ERP noted.
+Forensics: IMAP access from 45.12.34.56 (fictional) exfiltrated 3.7 MB between 14:03–14:12 IST; hash logs and sysmail traces preserved for NCRC-India notification.
+Finance/securities impact: no demat, DP IDs, or bank mandates exposed; no trades by designated persons per audit of the Compliance Officer (role-only) during the UPSI period.
+Contact for follow-up: dpo@nilgiri-renewables.example; incident desk +91-99000-55555; postal: Legal Cell, Nilgiri Renewables Ltd, Plot 88, Sector 42, New Arcadia 560123.
