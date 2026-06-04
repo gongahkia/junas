@@ -17,9 +17,9 @@ const TASKS: TaskRow[] = [
   { id: "SGLB-02", name: "Statute-QA", source: "SSO statutes (PDPA seed)", metric: "exact-match (citation) + ROUGE-L (answer)", n: "78", status: "shipped", note: "PDPA-only v0.1; expansion to EmA/PC/ROC pending live ingest" },
   { id: "SGLB-03", name: "Case-Holding", source: "eLitigation public judgments", metric: "exact-match on MCQ holding", n: "—", status: "deferred", note: "TOS-deferred; will reopen with CommonLII fallback in v0.2" },
   { id: "SGLB-04", name: "Citation-Verify", source: "SAL Style Guide + perturbations", metric: "multi-label F1 (valid/invalid)", n: "30 (smoke)", status: "shipped", note: "Smoke level; ~1000-case production set pending" },
-  { id: "SGLB-05", name: "Employment-Issue", source: "MOM guidance + Employment Act", metric: "multi-label F1", n: "—", status: "queued", note: "Builder shipped, data pending MOM scraper" },
+  { id: "SGLB-05", name: "Employment-Issue", source: "MOM guidance + Employment Act", metric: "multi-label F1", n: "—", status: "code-shipped", note: "Builder + scorer + runner ready; data pending MOM scraper (#59)" },
   { id: "SGLB-06", name: "Rules-of-Court-2021", source: "Rules of Court 2021 (SSO)", metric: "label F1 + top-3 accuracy", n: "—", status: "code-shipped", note: "Builder + scorers ready; data pending make ingest-sso SSO_CODE=ROC2021" },
-  { id: "SGLB-07", name: "Jurisdiction-Routing", source: "SG cases citing UK/AU/HK precedent", metric: "accuracy", n: "—", status: "queued", note: "Needs CommonLII SG case corpus" },
+  { id: "SGLB-07", name: "Jurisdiction-Routing", source: "CommonLII SG judgments", metric: "accuracy", n: "—", status: "code-shipped", note: "Builder + scorer + runner ready; data pending CommonLII ingester (#34)" },
   { id: "SGLB-08", name: "Clause-Tone", source: "SG clause library + LLM-judge augmentation", metric: "macro-F1", n: "400 (gen)", status: "in-progress", note: "Synthetic candidates generating; human review gate before promote" },
 ];
 
@@ -98,7 +98,7 @@ export default function LandingPage() {
       <section style={{ marginBottom: "1rem" }}>
         <h2 style={{ fontSize: "1.05rem", margin: "0 0 0.6rem 0", fontWeight: 600 }}>Status</h2>
         <p style={{ color: "#475569", fontSize: "0.9rem", margin: 0 }}>
-          Pre-release. 4 of 8 v0.1 tasks shipped (data + scorer + runner); 1 code-shipped pending data ingest; 1 generating synthetic candidates; 1 TOS-deferred to v0.2; 1 queued behind upstream scraper. Track issues on <a href="https://github.com/gongahkia/junas/issues" style={{ color: "#1d4ed8" }}>GitHub</a>.
+          Pre-release. 3 of 8 v0.1 tasks shipped with data (SGLB-01/02/04); 3 code-shipped pending data ingest (SGLB-05/06/07); 1 generating synthetic candidates (SGLB-08); 1 TOS-deferred to v0.2 (SGLB-03). Track issues on <a href="https://github.com/gongahkia/junas/issues" style={{ color: "#1d4ed8" }}>GitHub</a>.
         </p>
       </section>
     </main>
