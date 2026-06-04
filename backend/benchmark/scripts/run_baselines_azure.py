@@ -413,6 +413,7 @@ async def _run_one(
     azure_config: dict[str, str],
     pricing: Pricing,
     estimate: CostEstimate,
+    max_concurrency: int,
 ) -> Path:
     dataset = load_dataset(spec.dataset_path)
     sample_case: Case = dataset.cases[0]
@@ -432,7 +433,7 @@ async def _run_one(
         workflow=registered_name,
         dataset_path=spec.dataset_path,
         evaluators=list(spec.evaluators),
-        max_concurrency=1,
+        max_concurrency=max_concurrency,
         strict=True,
     )
     usage_totals = _usage_totals(client.usage_records)
@@ -482,6 +483,7 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--dry-run", action="store_true", help="Print estimates without API calls")
     parser.add_argument("--max-cost-usd", type=float, default=None, help="Abort if 1.5x estimate exceeds this budget")
+    parser.add_argument("--max-concurrency", type=int, default=1, help="Harness/provider concurrency")
     return parser
 
 
@@ -505,6 +507,7 @@ async def _amain(args: argparse.Namespace) -> int:
                 azure_config=azure_config,
                 pricing=pricing,
                 estimate=estimate_by_workflow[spec.workflow],
+                max_concurrency=args.max_concurrency,
             )
         )
     print(json.dumps({"receipts": [str(path) for path in receipts]}, indent=2))
