@@ -3,13 +3,118 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "7531-6420-1984"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "7531-6420-1984"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "0000000000000"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "T0000000000000"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "AA0000000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-0000000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@midori-devices.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "listings@kpx-growth.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_postal_code",
+      "matched_text": "000-0000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0120-777-000",
+      "reason": "Public helpline number (non-personal bait)"
+    },
+    {
+      "matched_text": "0120-555-555",
+      "reason": "Public inquiry line (non-personal bait)"
+    },
+    {
+      "matched_text": "AA0000000",
+      "reason": "Passport number placeholder marked as template"
+    },
+    {
+      "matched_text": "000-0000000",
+      "reason": "Bank account number placeholder marked as sample only"
+    },
+    {
+      "matched_text": "000-0000",
+      "reason": "Fictional postal code placeholder"
+    },
+    {
+      "matched_text": "hr@midori-devices.jp",
+      "reason": "Role mailbox (non-personal)"
+    },
+    {
+      "matched_text": "listings@kpx-growth.example.jp",
+      "reason": "Exchange liaison mailbox (non-personal)"
+    },
+    {
+      "matched_text": "0000000000000",
+      "reason": "Company corporate number (test, non-personal)"
+    },
+    {
+      "matched_text": "T0000000000000",
+      "reason": "Company registration number (dummy, non-personal)"
+    },
+    {
+      "matched_text": "Hanagawa-ken Nishisaka-shi 1-2-3",
+      "reason": "Placeholder/nonexistent address"
+    },
+    {
+      "matched_text": "C-TEST-001",
+      "reason": "Dummy internal billing code"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "LG-999999",
+      "concept": "local government code",
+      "reason": "Local-government identifier is a direct identifier but no specific allowed rule covers it"
+    },
+    {
+      "matched_text": "\u652f\u5e97\u30b3\u30fc\u30c9 000",
+      "concept": "bank branch code (placeholder)",
+      "reason": "Financial routing identifier but not covered by an explicit allowed rule and marked as placeholder"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

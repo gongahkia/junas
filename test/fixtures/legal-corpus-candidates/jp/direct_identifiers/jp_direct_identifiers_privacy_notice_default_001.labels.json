@@ -3,13 +3,273 @@
   "document_type": "generic",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hanae Kuroda"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@sakura-industrial.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "03-6090-4821"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_postal_code",
+      "matched_text": "415-8734"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "6029384756102"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "3210-6543-2109"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "TR1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "090-1455-6620"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account 4765021"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Satoshi Hinata"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@sakura-industrial.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@sakura-industrial.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "mna@haruhoshi-advisory.example.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed tender offer (TOB)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced quarterly KPIs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hanae Kuroda"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@sakura-industrial.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "03-6090-4821"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_postal_code",
+      "matched_text": "415-8734"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "6029384756102"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "3210-6543-2109"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "TR1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "090-1455-6620"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account 4765021"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Satoshi Hinata"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@sakura-industrial.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@sakura-industrial.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "mna@haruhoshi-advisory.example.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed tender offer (TOB)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced quarterly KPIs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "datasets exclude full My Number and resident record codes"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "passport last 2 characters only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "access limited to the Acquisition Committee"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "suspected MNPI leaks"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers to our processor Hanashiro Analytics Ltd. (Minami Archipelago, fictional) occur under standard contractual measures"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0120-000-000",
+      "reason": "Public helpline explicitly marked as non-PII"
+    },
+    {
+      "matched_text": "1234567890123",
+      "reason": "Invalid corporate number sample flagged as invalid checksum"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role-only label explicitly stated as not PII"
+    },
+    {
+      "matched_text": "Legal Dept",
+      "reason": "Generic department label is not personal data"
+    },
+    {
+      "matched_text": "Name: ______",
+      "reason": "Placeholder text, not actual personal data"
+    },
+    {
+      "matched_text": "Address: ______",
+      "reason": "Placeholder text, not actual personal data"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "AZ-104-5582",
+      "concept": "local_tax_payer_code",
+      "reason": "Likely a personal government payer code but no specific allowed rule covers this identifier type"
+    },
+    {
+      "matched_text": "RW-22-77194",
+      "concept": "resident_tax_notice_reference",
+      "reason": "Appears to be a personal tax notice reference not mapped to any allowed rule"
+    },
+    {
+      "matched_text": "kept 7 years",
+      "concept": "retention_marker",
+      "reason": "Data retention period is privacy-relevant but no explicit retention rule in allowed list"
+    },
+    {
+      "matched_text": "deleted within 4 years after separation",
+      "concept": "retention_marker",
+      "reason": "Erasure/retention timeline relevant under APPI but not mapped to an allowed rule"
+    },
+    {
+      "matched_text": "retained 2 years",
+      "concept": "retention_marker",
+      "reason": "Access log retention period is privacy-relevant but not covered by an allowed rule"
+    },
+    {
+      "matched_text": "identifiers tokenized before analytics",
+      "concept": "pseudonymization_marker",
+      "reason": "Security/pseudonymization control is privacy-relevant but not enumerated in allowed rules"
+    },
+    {
+      "matched_text": "requests for access/correction/deletion",
+      "concept": "dsar_marker",
+      "reason": "DSAR/rights-request language is privacy-relevant but not mapped to an explicit allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
