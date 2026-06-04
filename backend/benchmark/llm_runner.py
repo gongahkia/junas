@@ -181,6 +181,29 @@ def sglb_01_prompt_builder(case: Case) -> list[dict[str, str]]:
     ]
 
 
+SGLB_06_PROMPT_VERSION = "sglb-06-v1"
+
+
+def sglb_06_prompt_builder(case: Case) -> list[dict[str, str]]:
+    """SGLB-06: given a SG procedural scenario, identify which Order(s)
+    and Rule(s) of the Rules of Court 2021 apply. Output contract: a
+    JSON array of ``"O. <N>, r. <M>"`` labels (most-applicable first;
+    top-3 is scored)."""
+    scenario = str(case.inputs.get("scenario", "")).strip()
+    return [
+        _system_message(
+            "You are a Singapore civil-procedure specialist with deep "
+            "knowledge of the Rules of Court 2021 (S 914/2021). Given a "
+            "procedural scenario, identify which Order(s) and Rule(s) "
+            "apply. Reply with a JSON array of references in the form "
+            "\"O. <N>, r. <M>\" (e.g. [\"O. 9, r. 1\"]). Order labels "
+            "by relevance, most-applicable first; top-3 is scored. Do "
+            "not include any text outside the JSON array."
+        ),
+        _user_message(scenario),
+    ]
+
+
 SGLB_02_PROMPT_VERSION = "sglb-02-v1"
 
 
@@ -301,6 +324,7 @@ PROMPT_BUILDERS: dict[str, tuple[PromptBuilder, str]] = {
     "sglb_01": (sglb_01_prompt_builder, SGLB_01_PROMPT_VERSION),
     "sglb_02": (sglb_02_prompt_builder, SGLB_02_PROMPT_VERSION),
     "sglb_04": (sglb_04_prompt_builder, SGLB_04_PROMPT_VERSION),
+    "sglb_06": (sglb_06_prompt_builder, SGLB_06_PROMPT_VERSION),
     "sglb_11": (sglb_11_prompt_builder, SGLB_11_PROMPT_VERSION),
     "sglb_08": (sglb_08_prompt_builder, SGLB_08_PROMPT_VERSION),
     "sglb_12": (sglb_12_prompt_builder, SGLB_12_PROMPT_VERSION),

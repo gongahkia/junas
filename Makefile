@@ -1,4 +1,4 @@
-.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-sso build-sglb-02 download-data setup eval eval-list synth-gen
+.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-sso build-sglb-02 build-sglb-06 download-data setup eval eval-list synth-gen
 
 # === primary ===
 up:
@@ -95,6 +95,11 @@ ingest-sso:
 # SGLB-02: build statute-QA dataset from the SSO JSONL.
 build-sglb-02:
 	cd backend && python -m benchmark.dataset_builders.sglb_02
+
+# SGLB-06: build ROC 2021 dataset from the SSO JSONL.
+# Requires `make ingest-sso SSO_CODE=ROC2021` to have run first.
+build-sglb-06:
+	cd backend && python -m benchmark.dataset_builders.sglb_06
 
 VENDOR_DIR := vendor-data
 

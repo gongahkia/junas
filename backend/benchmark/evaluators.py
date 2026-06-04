@@ -369,6 +369,122 @@ class CitationHallucinationF1(Evaluator):
         )
 
 
+# --- SGLB-06 ROC-2021 ---
+
+
+def _normalise_order_rule(value: str) -> str:
+    """Normalise an Order/Rule reference to ``O. <n>, r. <m>``.
+
+    Accepts: ``O 9 r 1`` / ``O.9, r.1`` / ``Order 9, Rule 1`` /
+    ``O. 9, r. 1`` → canonical ``O. 9, r. 1``.
+    """
+    s = (value or "").strip()
+    if not s:
+        return ""
+    s = re.sub(r"\bOrder\s+", "O ", s, flags=re.IGNORECASE)
+    s = re.sub(r"\bRule\s+", "r ", s, flags=re.IGNORECASE)
+    s = re.sub(r"\bO\s*\.?\s*", "O ", s, flags=re.IGNORECASE)
+    s = re.sub(r"\br\s*\.?\s*", "r ", s, flags=re.IGNORECASE)
+    m = re.search(r"O\s*(\d+[A-Z]?)\s*[,;]?\s*r\s*(\d+[A-Z]?)", s, flags=re.IGNORECASE)
+    if not m:
+        return ""
+    return f"O. {m.group(1)}, r. {m.group(2)}"
+
+
+class OrderRuleLabelF1(Evaluator):
+    """SGLB-06 multi-label F1 over normalised ``O. N, r. M`` labels.
+
+    Output may be a JSON list of label strings or a comma-separated list;
+    each label is normalised before comparison.
+    """
+
+    name = "order_rule_label_f1"
+    strength = EvaluatorStrength.STRONG
+
+    @staticmethod
+    def _parse(output: str) -> set[str]:
+        text = (output or "").strip()
+        if not text:
+            return set()
+        import json
+
+        try:
+            parsed = json.loads(text)
+            if isinstance(parsed, list):
+                raw = [str(item) for item in parsed if str(item).strip()]
+            else:
+                raw = [text]
+        except json.JSONDecodeError:
+            raw = [part.strip() for part in text.split(",") if part.strip()]
+        normalised = {_normalise_order_rule(item) for item in raw}
+        return {item for item in normalised if item}
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        expected = {
+            _normalise_order_rule(str(item))
+            for item in (ctx.expected_output or {}).get("labels", [])
+        }
+        expected.discard("")
+        predicted = self._parse(ctx.output)
+        if not expected and not predicted:
+            return EvaluationResult(score=1.0, detail={"precision": 1.0, "recall": 1.0})
+        tp = len(expected & predicted)
+        precision = tp / len(predicted) if predicted else 0.0
+        recall = tp / len(expected) if expected else 0.0
+        f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) else 0.0
+        return EvaluationResult(
+            score=f1,
+            detail={"precision": precision, "recall": recall, "tp": tp},
+        )
+
+
+class OrderRuleTop3(Evaluator):
+    """SGLB-06 top-3 accuracy: any gold label appears in the model's
+    first 3 emitted labels (preserves order). For multi-gold cases, score
+    is the fraction of gold labels found in the top-3 predictions.
+    """
+
+    name = "order_rule_top3"
+    strength = EvaluatorStrength.STRONG
+
+    @staticmethod
+    def _parse_ordered(output: str) -> list[str]:
+        text = (output or "").strip()
+        if not text:
+            return []
+        import json
+
+        try:
+            parsed = json.loads(text)
+            if isinstance(parsed, list):
+                raw = [str(item) for item in parsed if str(item).strip()]
+            else:
+                raw = [text]
+        except json.JSONDecodeError:
+            raw = [part.strip() for part in text.split(",") if part.strip()]
+        seen: list[str] = []
+        for item in raw:
+            norm = _normalise_order_rule(item)
+            if norm and norm not in seen:
+                seen.append(norm)
+        return seen
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        expected = {
+            _normalise_order_rule(str(item))
+            for item in (ctx.expected_output or {}).get("labels", [])
+        }
+        expected.discard("")
+        predicted_top3 = set(self._parse_ordered(ctx.output)[:3])
+        if not expected:
+            return EvaluationResult(score=1.0, detail={"reason": "no gold labels"})
+        hits = len(expected & predicted_top3)
+        return EvaluationResult(
+            score=hits / len(expected),
+            detail={"top3": list(predicted_top3), "gold": list(expected), "hits": hits},
+        )
+
+
 # --- SGLB-02 Statute-QA ---
 
 
@@ -662,6 +778,8 @@ EVALUATORS: dict[str, Evaluator] = {
     PenaltyBandMae.name: PenaltyBandMae(),
     Sglb02CitationMatch.name: Sglb02CitationMatch(),
     RougeLAnswer.name: RougeLAnswer(),
+    OrderRuleLabelF1.name: OrderRuleLabelF1(),
+    OrderRuleTop3.name: OrderRuleTop3(),
     ConstraintSatisfaction.name: ConstraintSatisfaction(),
     # weak (back-compat)
     ContainsKeyword.name: ContainsKeyword(),
