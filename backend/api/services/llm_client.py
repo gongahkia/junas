@@ -51,13 +51,37 @@ class AzureOpenAIClient(LLMClient):
         )
         self.deployment = deployment
 
+    # Floor for ``max_completion_tokens`` on Azure: reasoning models
+    # (o-series, gpt-5) consume completion budget on hidden reasoning before
+    # emitting any visible content. A 700-token budget will routinely
+    # produce zero output tokens. We send max(caller_budget, 8192) so
+    # reasoning has room; actual cost is per emitted token, not the cap.
+    _REASONING_BUDGET_FLOOR: int = 8192
+
     async def generate(self, messages: list[dict[str, str]], max_tokens: int = 1024) -> str:
-        response = await self.client.chat.completions.create(
-            model=self.deployment,  # Azure: the model param carries the deployment name
-            messages=messages,
-            max_tokens=max_tokens,
-            temperature=0.1,
-        )
+        # Azure o-series / gpt-5 / newer reasoning variants reject ``max_tokens``
+        # in favour of ``max_completion_tokens``. Try the newer name first,
+        # fall back once on the older name for legacy deployments
+        # (gpt-3.5, gpt-4, gpt-4o).
+        # Reasoning models also lock temperature to the default, so we omit
+        # ``temperature`` and let the server choose.
+        budget = max(int(max_tokens), self._REASONING_BUDGET_FLOOR)
+        try:
+            response = await self.client.chat.completions.create(
+                model=self.deployment,
+                messages=messages,
+                max_completion_tokens=budget,
+            )
+        except Exception as exc:  # noqa: BLE001 — narrow handling below
+            message = str(exc)
+            if "max_completion_tokens" in message and "max_tokens" in message:
+                response = await self.client.chat.completions.create(
+                    model=self.deployment,
+                    messages=messages,
+                    max_tokens=int(max_tokens),
+                )
+            else:
+                raise
         choice = response.choices[0].message.content
         return choice if isinstance(choice, str) else ""
 

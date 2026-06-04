@@ -12,8 +12,13 @@ from benchmark.synthetic import generator as synth_generator
 from benchmark.synthetic.planner import ESTIMATED_COST_PER_EXAMPLE_USD, parse_providers
 
 
-def _fake_openai_module(call_log: list) -> types.SimpleNamespace:
-    """Build a stub ``openai`` module exposing ``AsyncAzureOpenAI``."""
+def _fake_openai_module(call_log: list, *, reject_legacy_max_tokens: bool = False) -> types.SimpleNamespace:
+    """Build a stub ``openai`` module exposing ``AsyncAzureOpenAI``.
+
+    When ``reject_legacy_max_tokens`` is True, the stub raises on the
+    legacy ``max_tokens`` parameter — exercising the fall-forward path
+    documented in ``AzureOpenAIClient.generate``.
+    """
 
     class _Choices:
         def __init__(self, content: str) -> None:
@@ -26,6 +31,11 @@ def _fake_openai_module(call_log: list) -> types.SimpleNamespace:
     class _Completions:
         async def create(self, **kwargs):
             call_log.append(kwargs)
+            if reject_legacy_max_tokens and "max_completion_tokens" in kwargs:
+                raise RuntimeError(
+                    "Unsupported parameter: 'max_completion_tokens' is not supported "
+                    "with this model. Use 'max_tokens' instead."
+                )
             return _Response("hello from azure")
 
     class _Chat:
@@ -88,8 +98,52 @@ def test_azure_client_generate_passes_deployment_as_model(monkeypatch):
     out = asyncio.run(client.generate([{"role": "user", "content": "hi"}], max_tokens=64))
     assert out == "hello from azure"
     assert calls[0]["model"] == "deploy-A"
-    assert calls[0]["max_tokens"] == 64
-    assert calls[0]["temperature"] == 0.1
+    # Newer Azure deployments use max_completion_tokens; we floor the caller's
+    # budget at _REASONING_BUDGET_FLOOR so reasoning models have room.
+    assert calls[0]["max_completion_tokens"] == llm_client.AzureOpenAIClient._REASONING_BUDGET_FLOOR
+    # temperature intentionally omitted (reasoning models reject non-default).
+    assert "temperature" not in calls[0]
+
+
+def test_azure_client_honours_caller_budget_when_above_floor(monkeypatch):
+    calls: list = []
+    monkeypatch.setitem(sys.modules, "openai", _fake_openai_module(calls))
+    client = llm_client.AzureOpenAIClient(
+        api_key="k",
+        endpoint="https://e.example",
+        api_version="v",
+        deployment="d",
+    )
+
+    import asyncio
+
+    big = llm_client.AzureOpenAIClient._REASONING_BUDGET_FLOOR + 4096
+    asyncio.run(client.generate([{"role": "user", "content": "hi"}], max_tokens=big))
+    assert calls[0]["max_completion_tokens"] == big
+
+
+def test_azure_client_falls_back_to_max_tokens_for_legacy_deployment(monkeypatch):
+    calls: list = []
+    monkeypatch.setitem(
+        sys.modules,
+        "openai",
+        _fake_openai_module(calls, reject_legacy_max_tokens=True),
+    )
+    client = llm_client.AzureOpenAIClient(
+        api_key="k",
+        endpoint="https://e.example",
+        api_version="v",
+        deployment="legacy",
+    )
+
+    import asyncio
+
+    out = asyncio.run(client.generate([{"role": "user", "content": "hi"}], max_tokens=32))
+    assert out == "hello from azure"
+    # Floored on first attempt (newer-API path).
+    assert calls[0]["max_completion_tokens"] == llm_client.AzureOpenAIClient._REASONING_BUDGET_FLOOR
+    # Legacy retry preserves the caller's budget (non-reasoning, hard cap).
+    assert calls[1]["max_tokens"] == 32
 
 
 def test_get_llm_model_name_returns_deployment_for_azure():
