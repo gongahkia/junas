@@ -3,13 +3,252 @@
   "document_type": "generic",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Han Seo\u2011jin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sj.han@haneulbridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@haneulbridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990-07-14"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 35"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "IRHSJ-07"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "HBX4-9931-AG3"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "SGE-IR-2025-06-14-0421"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Blue Ginkgo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet publicly disclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we avoid collecting precise home addresses"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we do not track precise geolocation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "bank and brokerage accounts display only last 4 digits"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border copies are encrypted"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Han Seo\u2011jin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sj.han@haneulbridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@haneulbridge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990-07-14"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 35"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "IRHSJ-07"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "HBX4-9931-AG3"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "SGE-IR-2025-06-14-0421"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Blue Ginkgo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet publicly disclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we avoid collecting precise home addresses"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we do not track precise geolocation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "bank and brokerage accounts display only last 4 digits"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border copies are encrypted"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "900714-2******"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "payroll account ending 4421"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Example linkable cluster: Ms. Han Seo\u2011jin (IR Analyst, Haneulbridge Semicon), born 1990-07-14 (age 35), assigned user ID IRHSJ-07, corporate email sj.han@haneulbridge.example, working at our Gukseong City Haneum\u2011gu office, using SeorimPhone X4 serial HBX4-9931-AG3 with VPN session SGE-IR-2025-06-14-0421, payroll account ending 4421 at Daran Mutual Bank (fictional), resident-number 900714-2****** (salted hash)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "only pre-cleared users (e.g., IRHSJ-07) may access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "MNPI is shared strictly on a need\u2011to\u2011know basis"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Saejin Trustees LLC (archival in JP)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "resident-number values are never stored in cleartext"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "badge IDs and device serials are segregated from inquiry text"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we never require resident registration card images for IR portal access"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "female, 20s, West District of Baeryeong City, NexaPhone A1 device, equity interest topic",
+      "reason": "Aggregated demographic example; not used to single out a specific individual per text."
+    },
+    {
+      "matched_text": "Analyst, Goryeon Province office, age 42",
+      "reason": "Generic descriptor example explicitly stated as non-identifying alone."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: insider lists and MNPI access logs are kept until public disclosure plus 5 years",
+      "concept": "retention marker",
+      "reason": "Statutory retention timeline is privacy-relevant, but there is no explicit retention rule in the allowed list."
+    },
+    {
+      "matched_text": "resident-number tokens and payroll records are retained 5 years after employment end",
+      "concept": "retention marker",
+      "reason": "Retention of sensitive identifiers and payroll records is privacy-relevant but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "investor-relations inquiries (including email threads) are retained 3 years",
+      "concept": "retention marker",
+      "reason": "Retention periods are privacy-relevant yet lack a designated rule in the provided list."
+    },
+    {
+      "matched_text": "device logs are retained 6 months",
+      "concept": "retention marker",
+      "reason": "Short-term device log retention is privacy-relevant but not covered by a listed rule."
+    },
+    {
+      "matched_text": "applying PIPA Art. 28\u20118 consent and transfer assessments",
+      "concept": "consent/legal basis",
+      "reason": "Refers to consent and transfer assessment basis; allowed list includes consent_withdrawal_marker but not general consent/legal basis."
+    },
+    {
+      "matched_text": "we will respond within statutory periods",
+      "concept": "DSAR response SLA",
+      "reason": "Data subject rights response timelines are privacy-relevant but not mapped to a specific allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
