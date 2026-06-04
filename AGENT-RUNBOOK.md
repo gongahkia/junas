@@ -145,16 +145,17 @@ hand-author labels to fit.
 
 ## 7. Git workflow
 
-- **Branch naming:** `feat/<short>` for new code, `fix/<short>` for
-  fixes, `docs/<short>` for docs. The user can also accept work on
-  `main` for small, low-risk changes — but for anything touching the
-  scorer registry, dataset format, or shared interfaces, branch + PR.
+Canonical branching policy: `CONTRIBUTING.md#branching-policy` (single
+source of truth — SOLO-16 consolidates the rest). Summary:
+
+- **Branch naming:** `feat/<short>`, `fix/<short>`, `docs/<short>`,
+  `refactor/<short>`, `ci/<short>`, `test/<short>`. Small low-risk
+  changes can land on `main` direct; anything touching the scorer
+  registry, dataset format, or shared interfaces must branch + PR.
 - **Worktrees** for parallel agents: the user runs each agent in
   `/Users/gongahkia/Desktop/coding/projects/junas/.claude/worktrees/agent-<id>/`.
-  If you are spawned with `isolation: "worktree"`, your CWD is already
-  set up.
-- **Commits:** conventional format (`feat(scope): ...`,
-  `fix(scope): ...`, `docs: ...`, `chore: ...`). End every commit with
+  If you are spawned with `isolation: "worktree"`, your CWD is set up.
+- **Commits:** Conventional Commits. End every commit with
   `Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>`.
 - **Never** `git push --force` to main. Never `git push` unless the
   user explicitly asks.
@@ -218,19 +219,54 @@ that. Tracking issue: #36.
 
 ## 11. Open ship-blockers (you may be assigned one)
 
-- #36 baselines — needs Azure / OpenAI / Anthropic API budget
-- #37 arXiv preprint
-- #39 launch assets
-- #40 final benchmark name + license decision (waiting on user)
-- #59 MOM scraper (unblocks SGLB-05 data)
-- #34 / CommonLII SG case ingester (unblocks SGLB-07 data)
-- #60 PDPC Advisory Guidelines (unblocks SGLB-14)
-- #75 retrieval R1/R2 dedupe + cursor
-- #78 receipt drill-down endpoint (/benchmarks/runs/{run_id})
-- #79 auth gate for hosted /benchmarks demo
-- Frontend audit findings: GET-with-sensitive-text (3 pages still),
-  unsanitised dangerouslySetInnerHTML on user-supplied data (2 pages),
-  duplicated API client.
+v0.1 launch path (in order of criticality):
+
+- #36 baselines — needs Azure / OpenAI / Anthropic API budget (Batch D)
+- #59 MOM scraper (unblocks SGLB-05 data) (Batch A)
+- #34 CommonLII SG case ingester (unblocks SGLB-07 data) (Batch B)
+- #60 PDPC Advisory Guidelines (unblocks SGLB-14) (SOLO-9)
+- #37 arXiv preprint (SOLO-8)
+- #39 launch assets (Batch E)
+- #40 final benchmark name + license decision (SOLO-10 produces brief;
+  USER decides)
+- #75 retrieval R1/R2 dedupe + cursor (SOLO-1)
+- #78 receipt drill-down endpoint (SOLO-2)
+- #79 auth gate for hosted /benchmarks demo (SOLO-3)
+- Frontend audit findings (Batch C): GET-with-sensitive-text (3 pages),
+  unsanitised dangerouslySetInnerHTML (2 pages), duplicated API client,
+  command-palette dead links.
+
+v0.2 task expansion (after v0.1 ships):
+
+- #50/SGLB-09 Summary-Faithfulness (G1)
+- #51/SGLB-10 Citation-Generation (H1)
+- #53/SGLB-12 Multi-Issue-Spotting (H2 — synthetic, cost-gated)
+- #54/SGLB-13 Counterfactual-Outcome (G2)
+- #55/SGLB-14 Statutory-Entailment (G3 — depends on #60)
+- #56/SGLB-15 Draft-Constraint-Sat (H3 — synthetic, cost-gated)
+- #57/SGLB-16 Review-Redflag-Recall (G4)
+- #58 — meta-tracking; closes when all above close
+
+Infra + product (parallel-safe with v0.1 work):
+
+- #42 SG contract templates (SOLO-11; gated on #35)
+- #43 Logfire observability (SOLO-12)
+- #45 region-per-index design (SOLO-13 — design first; impl later)
+- #46 PydanticAI migration (SOLO-14 — honesty-check first)
+- #47 jurisdiction selector UI (SOLO-15 — gated on #45)
+- #48 MCP server (Batch F)
+- #73 branching policy consolidation (SOLO-16)
+- #35 copilot scope cleanup (SOLO-7)
+
+Copilot product polish (uplifts real legal-tech-buyer experience):
+
+- COPILOT-1: persistent sessions
+- COPILOT-2: batch-analysis polish
+- COPILOT-3: DOCX export
+- COPILOT-4: keyboard shortcuts + power-user palette
+
+See `PROMPTS-TO-RUN.md` for the ready-to-paste prompt blocks; each
+issue maps to a specific batch ID or SOLO-N / COPILOT-N entry.
 
 ## 12. Output etiquette when reporting back
 
