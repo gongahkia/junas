@@ -181,6 +181,31 @@ def sglb_01_prompt_builder(case: Case) -> list[dict[str, str]]:
     ]
 
 
+SGLB_05_PROMPT_VERSION = "sglb-05-v1"
+
+
+def sglb_05_prompt_builder(case: Case) -> list[dict[str, str]]:
+    """SGLB-05: multi-label classification of which Employment Act / MOM
+    issues a scenario triggers. Output contract: a JSON array of issue
+    labels in lowercase snake_case, drawn from MOM's published
+    categorisation."""
+    scenario = str(case.inputs.get("scenario", "")).strip()
+    return [
+        _system_message(
+            "You are a Singapore employment-law analyst. Given a fact "
+            "pattern about an employer/employee dispute, identify every "
+            "Employment Act or MOM-regulated issue triggered. Reply "
+            "with a JSON array of issue labels in lowercase "
+            "snake_case (e.g. [\"notice_period_breach\", "
+            "\"cpf_non_contribution\"]). Use only labels drawn from "
+            "MOM's own published issue categorisation; if none apply, "
+            "reply with an empty JSON array []. Do not include any text "
+            "outside the JSON array."
+        ),
+        _user_message(scenario),
+    ]
+
+
 SGLB_06_PROMPT_VERSION = "sglb-06-v1"
 
 
@@ -324,6 +349,7 @@ PROMPT_BUILDERS: dict[str, tuple[PromptBuilder, str]] = {
     "sglb_01": (sglb_01_prompt_builder, SGLB_01_PROMPT_VERSION),
     "sglb_02": (sglb_02_prompt_builder, SGLB_02_PROMPT_VERSION),
     "sglb_04": (sglb_04_prompt_builder, SGLB_04_PROMPT_VERSION),
+    "sglb_05": (sglb_05_prompt_builder, SGLB_05_PROMPT_VERSION),
     "sglb_06": (sglb_06_prompt_builder, SGLB_06_PROMPT_VERSION),
     "sglb_11": (sglb_11_prompt_builder, SGLB_11_PROMPT_VERSION),
     "sglb_08": (sglb_08_prompt_builder, SGLB_08_PROMPT_VERSION),
