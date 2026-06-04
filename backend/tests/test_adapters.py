@@ -274,8 +274,7 @@ def test_unimplemented_fetches_raise_not_silently_return_empty():
     """A benchmark build against a not-yet-implemented adapter must fail loudly."""
     from api.adapters.base import SourceAdapterError
 
-    with pytest.raises(SourceAdapterError):
-        list(SsoAdapter().fetch_all())
+    # SsoAdapter implemented in #28.
     with pytest.raises(SourceAdapterError):
         list(PdpcAdapter().fetch_all())
     with pytest.raises(SourceAdapterError):

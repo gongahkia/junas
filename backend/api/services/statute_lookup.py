@@ -1,6 +1,21 @@
+"""Statute lookup service — SSO-only (per #25 + #28).
+
+Refocused to Singapore Statutes Online: section records carry SG-specific
+SSO provenance (``chapter_number`` = SSO short code like ``PDPA2012``,
+``version_id`` = ``<code>@<edition>``, ``part`` / ``division`` /
+``act_title``) on top of the legacy hybrid BM25 + dense + RRF search.
+
+Non-SG statute paths (ORS, generic chapter scraping) were removed per
+the post-pivot scope reduction. The companion ingestion pipeline lives
+at ``backend/ml/pipelines/ingest_sso.py`` and the raw JSONL is produced
+by ``backend/data/ingestion/sso.py``.
+"""
 from __future__ import annotations
 
 import importlib
+import json
+import re
+from pathlib import Path
 from typing import Any
 
 from api.indices import ES, QDRANT
@@ -8,6 +23,32 @@ from api.indices import ES, QDRANT
 INDEX_NAME = ES.statutes
 COLLECTION_NAME = QDRANT.statutes
 EMBEDDING_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+
+# canonical SSO short-code → act_title map for free-text citation resolution.
+# Extend as new SSO acts are added to ``data.ingestion.sso.ACT_CODES``.
+ACT_SHORT_NAMES: dict[str, str] = {
+    "PDPA": "PDPA2012",
+    "PDPA2012": "PDPA2012",
+    "EA": "EmA1968",
+    "EMA": "EmA1968",
+    "EMA1968": "EmA1968",
+    "PC": "PC1871",
+    "PC1871": "PC1871",
+    "ROC": "ROC2021",
+    "ROC2021": "ROC2021",
+}
+
+# two passes: a long form with the trailing "Act|Code|Rules" anchor, and
+# a short form for SSO short codes like "PDPA" / "PC" / "EmA1968" / "ROC2021".
+CITATION_LONG_RE = re.compile(
+    r"(?:s(?:ection)?\s*\.?\s*)?(?P<num>\d+[A-Z]*)\s*(?:of(?:\s+the)?)?\s*"
+    r"(?P<act>[A-Za-z][A-Za-z .’'\-]+?(?:Act|Code|Rules)(?:\s+\d{4})?)",
+    re.IGNORECASE,
+)
+CITATION_SHORT_RE = re.compile(
+    r"(?:s(?:ection)?\s*\.?\s*)?(?P<num>\d+[A-Z]*)\s+(?P<act>[A-Z][A-Za-z0-9]{1,9})\b",
+)
+
 
 class StatuteService:
     _embedder: Any = None
@@ -264,6 +305,30 @@ class StatuteService:
         chapters.sort(key=lambda row: row["chapter_number"])
         return chapters
 
+    async def lookup_citation(self, citation: str) -> dict[str, Any] | None:
+        """Resolve a free-text citation (e.g. ``"s 13 PDPA 2012"``) to a
+        section record. Returns ``None`` if the citation cannot be parsed
+        or no matching section is indexed."""
+        number, chapter = _parse_citation(citation)
+        if number is None or chapter is None:
+            return None
+        body = {
+            "query": {
+                "bool": {
+                    "must": [
+                        {"term": {"number": number}},
+                        {"term": {"chapter_number": chapter}},
+                    ]
+                }
+            },
+            "size": 1,
+        }
+        response = await self.es.search(index=INDEX_NAME, body=body)
+        hits = response.get("hits", {}).get("hits", [])
+        if not hits:
+            return None
+        return hits[0].get("_source", {})
+
     async def get_chapter_sections(self, chapter_number: str) -> list[dict[str, str]]:
         body = {
             "query": {"term": {"chapter_number": chapter_number}},
@@ -280,3 +345,76 @@ class StatuteService:
             }
             for hit in hits
         ]
+
+
+def _resolve_chapter(token: str) -> str | None:
+    """Map a free-text act name to its SSO short code."""
+    if not token:
+        return None
+    raw = token.strip()
+    direct = ACT_SHORT_NAMES.get(raw)
+    if direct:
+        return direct
+    upper = raw.upper().replace(" ", "")
+    if upper in ACT_SHORT_NAMES:
+        return ACT_SHORT_NAMES[upper]
+    # title heuristic: pick the act whose lowercased title starts with the
+    # lowercased prefix (best-effort; benchmark callers always pass codes).
+    lowered = raw.lower()
+    if "personal data" in lowered:
+        return "PDPA2012"
+    if "employment" in lowered:
+        return "EmA1968"
+    if "penal" in lowered:
+        return "PC1871"
+    if "rules of court" in lowered or "roc" in lowered:
+        return "ROC2021"
+    return None
+
+
+def load_sso_jsonl(path: str | Path) -> list[dict[str, Any]]:
+    """Offline helper: load the SSO JSONL into a list of section dicts.
+
+    Used by tests and CLI tooling that needs section lookup without ES.
+    """
+    rows: list[dict[str, Any]] = []
+    with Path(path).open(encoding="utf-8") as handle:
+        for line in handle:
+            text = line.strip()
+            if not text:
+                continue
+            rows.append(json.loads(text))
+    return rows
+
+
+def _parse_citation(citation: str) -> tuple[str | None, str | None]:
+    """Return ``(section_number, chapter_number)`` from a free-text citation."""
+    text = (citation or "").strip()
+    if not text:
+        return None, None
+    match = CITATION_LONG_RE.search(text)
+    if match:
+        chapter = _resolve_chapter(match.group("act").strip())
+        if chapter:
+            return match.group("num"), chapter
+    match = CITATION_SHORT_RE.search(text)
+    if match:
+        chapter = _resolve_chapter(match.group("act").strip())
+        if chapter:
+            return match.group("num"), chapter
+    return None, None
+
+
+def resolve_citation_offline(citation: str, rows: list[dict[str, Any]]) -> dict[str, Any] | None:
+    """Offline counterpart of ``StatuteService.lookup_citation``.
+
+    Used by the benchmark dataset builder and tests when ES is unavailable.
+    """
+    number, chapter = _parse_citation(citation)
+    if number is None or chapter is None:
+        return None
+    for row in rows:
+        if str(row.get("number", "")) == number and str(row.get("chapter_number", "")) == chapter:
+            return row
+    return None
+
