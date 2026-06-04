@@ -206,6 +206,29 @@ def sglb_05_prompt_builder(case: Case) -> list[dict[str, str]]:
     ]
 
 
+SGLB_07_PROMPT_VERSION = "sglb-07-v1"
+
+
+def sglb_07_prompt_builder(case: Case) -> list[dict[str, str]]:
+    """SGLB-07: classify the controlling-authority jurisdiction for a SG
+    legal question. Output: single-element JSON array drawn from
+    ``["sg_binding", "uk_persuasive", "au_persuasive", "hk_persuasive",
+    "not_applicable"]``."""
+    question = str(case.inputs.get("question", "")).strip()
+    return [
+        _system_message(
+            "You are a Singapore common-law specialist. Given a legal "
+            "question, classify the source-jurisdiction of the "
+            "controlling authority an SG court would apply. Reply with "
+            "a single-element JSON array using exactly one of: "
+            "[\"sg_binding\"], [\"uk_persuasive\"], [\"au_persuasive\"], "
+            "[\"hk_persuasive\"], or [\"not_applicable\"]. Do not "
+            "include any text outside the JSON array."
+        ),
+        _user_message(question),
+    ]
+
+
 SGLB_06_PROMPT_VERSION = "sglb-06-v1"
 
 
@@ -351,6 +374,7 @@ PROMPT_BUILDERS: dict[str, tuple[PromptBuilder, str]] = {
     "sglb_04": (sglb_04_prompt_builder, SGLB_04_PROMPT_VERSION),
     "sglb_05": (sglb_05_prompt_builder, SGLB_05_PROMPT_VERSION),
     "sglb_06": (sglb_06_prompt_builder, SGLB_06_PROMPT_VERSION),
+    "sglb_07": (sglb_07_prompt_builder, SGLB_07_PROMPT_VERSION),
     "sglb_11": (sglb_11_prompt_builder, SGLB_11_PROMPT_VERSION),
     "sglb_08": (sglb_08_prompt_builder, SGLB_08_PROMPT_VERSION),
     "sglb_12": (sglb_12_prompt_builder, SGLB_12_PROMPT_VERSION),

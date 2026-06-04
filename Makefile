@@ -1,4 +1,4 @@
-.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-sso build-sglb-02 build-sglb-05 build-sglb-06 download-data setup eval eval-list synth-gen
+.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-sso build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 download-data setup eval eval-list synth-gen
 
 # === primary ===
 up:
@@ -105,6 +105,11 @@ build-sglb-05:
 # Requires `make ingest-sso SSO_CODE=ROC2021` to have run first.
 build-sglb-06:
 	cd backend && python -m benchmark.dataset_builders.sglb_06
+
+# SGLB-07: build Jurisdiction-Routing dataset from CommonLII SG cases.
+# Requires the SG case ingester (#34) to have run first.
+build-sglb-07:
+	cd backend && python -m benchmark.dataset_builders.sglb_07
 
 VENDOR_DIR := vendor-data
 
