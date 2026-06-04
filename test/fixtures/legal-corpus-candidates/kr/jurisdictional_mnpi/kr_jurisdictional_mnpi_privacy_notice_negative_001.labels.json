@@ -3,13 +3,158 @@
   "document_type": "generic",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "000000-0000000"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-0000-000000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@jadepeak.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we collect only what is necessary for stated purposes"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we verify using minimal matching fields (e.g., Employee ID or contact email) and never require full resident numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we never request full digits via IR or DSAR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "internal trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "We prohibit selective disclosure"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "000000-0000000"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-0000-000000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@jadepeak.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we collect only what is necessary for stated purposes"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we verify using minimal matching fields (e.g., Employee ID or contact email) and never require full resident numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we never request full digits via IR or DSAR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "internal trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "We prohibit selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "we do not transmit unpublished board materials or deal documents via email to any single investor"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Name, Dept, Employee ID: EID-0000, Resident No.: 000000-0000000, Account No.: 000-0000-000000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "analytics use pseudonymized data sets (\uac00\uba85\uc815\ubcf4) with separate keys held by compliance"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "not MNPI",
+      "reason": "Explicitly states information is public; avoid MNPI tagging for this phrase."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "no cross-border transfers without prior notice and consent",
+      "concept": "cross-border transfer/consent",
+      "reason": "Cross-border transfer is referenced but negated and conditional; allowed rule expects live transfer events."
+    },
+    {
+      "matched_text": "International transfers: none currently; if future transfer is required, we will disclose recipients, purposes, and safeguards in advance and obtain consent under PIPA",
+      "concept": "cross-border transfer/consent",
+      "reason": "Forward-looking disclosure and consent plan; not a live transfer or withdrawal event per allowed rules."
+    },
+    {
+      "matched_text": "Retention: recruitment data 6 months; employment records 5 years; investor inquiry logs 3 years; after expiry, paper is shredded and electronic data is irreversibly deleted",
+      "concept": "retention/erasure",
+      "reason": "Retention and deletion are privacy-event markers but no explicit allowed rule name provided."
+    },
+    {
+      "matched_text": "DSAR: submit via https://privacy.jadepeak.example.kr/dsar or privacy@jadepeak.example.kr",
+      "concept": "DSAR submission channel",
+      "reason": "DSAR process is privacy-relevant but there is no explicit DSAR marker rule in the allowed list."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
