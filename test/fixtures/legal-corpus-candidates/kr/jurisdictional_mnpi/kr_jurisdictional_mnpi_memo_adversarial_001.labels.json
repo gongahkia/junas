@@ -250,10 +250,7 @@
   ],
   "_label_source": "azure:gpt-5-2-auto",
   "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='₩9,000–₩10,500'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='₩9,000–₩10,500'"
-  ],
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "approved",
@@ -306,6 +303,16 @@
       "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    }
+  ],
+  "_resolved_label_warnings": [
+    {
+      "basis": "Legacy approved Stage A auto-label warnings were resolved during JP/KR Stage B cleanup; strict tier was already manually reconciled/approved, and broader coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-04T04:34:12Z",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='₩9,000–₩10,500'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='₩9,000–₩10,500'"
+      ]
     }
   ]
 }

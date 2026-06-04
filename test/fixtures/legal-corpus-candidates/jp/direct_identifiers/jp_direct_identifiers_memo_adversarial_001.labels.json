@@ -39,10 +39,7 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "JP Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives.",
   "_label_source": "azure:gpt-5-2-auto",
-  "_label_warnings": [
-    "drop must_detect: text not verbatim rule='jp_corporate_number' text='4269 8145 7023 9'",
-    "drop ideal_must_detect: text not verbatim rule='jp_corporate_number' text='4269 8145 7023 9'"
-  ],
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T01:57:19Z",
     "accepted_by": "gongahkia",
@@ -329,6 +326,16 @@
       "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    }
+  ],
+  "_resolved_label_warnings": [
+    {
+      "basis": "Legacy approved Stage A auto-label warnings were resolved during JP/KR Stage B cleanup; strict tier was already manually reconciled/approved, and broader coverage remains in ideal_must_detect.",
+      "resolved_at": "2026-06-04T04:34:12Z",
+      "warnings": [
+        "drop must_detect: text not verbatim rule='jp_corporate_number' text='4269 8145 7023 9'",
+        "drop ideal_must_detect: text not verbatim rule='jp_corporate_number' text='4269 8145 7023 9'"
+      ]
     }
   ]
 }

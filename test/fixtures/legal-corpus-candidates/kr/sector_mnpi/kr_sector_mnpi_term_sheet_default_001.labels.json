@@ -5,59 +5,59 @@
   "destination_jurisdiction": "KR",
   "must_detect": [
     {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Haneul"
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deals@mirinaecap.test"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jae-Min Ryu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hyo-Jin Kwon"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "rule": "material_event",
+      "matched_text": "Project Haneul Term Sheet — Strategic Investment and Acquisition in the Republic of Korea"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 48,000,000,000"
+      "rule": "material_event",
+      "matched_text": "Transaction: KRW 48,000,000,000 private placement of convertible bonds and a call option to acquire 70% of Pinebit Keeper Co., a digital-asset custody business (DPT-related), with closing targeted for 90 days post-signing."
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "70%"
+      "rule": "material_event",
+      "matched_text": "Transaction: KRW 48,000,000,000 private placement of convertible bonds and a call option to acquire 70% of Pinebit Keeper Co., a digital-asset custody business (DPT-related), with closing targeted for 90 days post-signing."
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "currently not publicly disclosed"
+      "rule": "material_event",
+      "matched_text": "Use of proceeds: fund the acquisition and implement climate-risk mitigation upgrades to Seonam Tech’s data centers (Scope 2 renewable PPA pilot and grid-interactive cooling), items currently not publicly disclosed."
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "none of which has been released to the market"
+      "rule": "material_event",
+      "matched_text": "Regulatory: closing subject to applicable provisions of the Capital Markets Act of Korea, notification to the Digital Asset Reporting Bureau, and any directive of the Korean Financial Compliance Authority; any material change in relevant regulations allows good-faith renegotiation."
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3.25%"
+      "rule": "material_event",
+      "matched_text": "Disclosure and conduct: no selective disclosure or tipping; all public statements coordinated through the issuer’s designated disclosure officer and released via the national disclosure system at signing or closing as appropriate."
     },
     {
       "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "KRW 9,800 per share"
+      "rule": "material_event",
+      "matched_text": "Exclusivity and break fee: 60-day exclusivity from LOI; no-shop and standstill apply to competing crypto-custody or ESG-linked financing proposals, with a KRW 1,200,000,000 break fee upon willful breach."
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 220,000,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout window"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barrier"
+      "rule": "material_event",
+      "matched_text": "Exclusivity and break fee: 60-day exclusivity from LOI; no-shop and standstill apply to competing crypto-custody or ESG-linked financing proposals, with a KRW 1,200,000,000 break fee upon willful breach."
     },
     {
       "category": "MNPI",
@@ -66,18 +66,23 @@
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "rule": "transaction_codename",
+      "matched_text": "Project Haneul Term Sheet"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure"
+      "rule": "transaction_codename",
+      "matched_text": "Project Baram"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "tipping"
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "LOI"
     },
     {
       "category": "MNPI",
@@ -87,7 +92,32 @@
     {
       "category": "MNPI",
       "rule": "financial_amount",
+      "matched_text": "KRW 48,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 9,800"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 220,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
       "matched_text": "KRW 1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3.25%"
     },
     {
       "category": "MNPI",
@@ -101,105 +131,28 @@
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "LOI"
+      "rule": "large_number",
+      "matched_text": "48,000,000,000"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Baram"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jae-Min Ryu"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@seonamtech.test"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hyo-Jin Kwon"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "deals@mirinaecap.test"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Haneul"
+      "rule": "large_number",
+      "matched_text": "220,000,000,000"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "rule": "large_number",
+      "matched_text": "1,200,000,000"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 48,000,000,000"
+      "rule": "insider_list_marker",
+      "matched_text": "wall-crossed"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "70%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "KRW 48,000,000,000 private placement of convertible bonds and a call option to acquire 70% of Pinebit Keeper Co"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "implement climate-risk mitigation upgrades to Seonam Tech\u2019s data centers (Scope 2 renewable PPA pilot and grid-interactive cooling), items currently not publicly disclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "currently not publicly disclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "internal climate scenario analysis prepared for the upcoming Q3 IR draft"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "none of which has been released to the market"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3.25%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "KRW 9,800 per share"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 220,000,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "90-day post-conversion blackout window"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout window"
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
     },
     {
       "category": "MNPI",
@@ -208,8 +161,60 @@
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossed personnel"
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware incident"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deals@mirinaecap.test"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jae-Min Ryu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hyo-Jin Kwon"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Project Haneul Term Sheet — Strategic Investment and Acquisition in the Republic of Korea"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Transaction: KRW 48,000,000,000 private placement of convertible bonds and a call option to acquire 70% of Pinebit Keeper Co., a digital-asset custody business (DPT-related), with closing targeted for 90 days post-signing."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Use of proceeds: fund the acquisition and implement climate-risk mitigation upgrades to Seonam Tech’s data centers (Scope 2 renewable PPA pilot and grid-interactive cooling), items currently not publicly disclosed."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Regulatory: closing subject to applicable provisions of the Capital Markets Act of Korea, notification to the Digital Asset Reporting Bureau, and any directive of the Korean Financial Compliance Authority; any material change in relevant regulations allows good-faith renegotiation."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Disclosure and conduct: no selective disclosure or tipping; all public statements coordinated through the issuer’s designated disclosure officer and released via the national disclosure system at signing or closing as appropriate."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Exclusivity and break fee: 60-day exclusivity from LOI; no-shop and standstill apply to competing crypto-custody or ESG-linked financing proposals, with a KRW 1,200,000,000 break fee upon willful breach."
     },
     {
       "category": "MNPI",
@@ -218,8 +223,133 @@
     },
     {
       "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Haneul Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Baram"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "LOI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC clause"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 48,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 9,800"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 220,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "70%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3.25%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "20%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "48,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "220,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,200,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "wall-crossed"
+    },
+    {
+      "category": "MNPI",
       "rule": "insider_list_marker",
       "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Haneul"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "currently not publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "none of which has been released to the market"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "KRW 9,800 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
     },
     {
       "category": "MNPI",
@@ -230,6 +360,36 @@
       "category": "MNPI",
       "rule": "tipping_language",
       "matched_text": "tipping"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@seonamtech.test"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "KRW 48,000,000,000 private placement of convertible bonds and a call option to acquire 70% of Pinebit Keeper Co"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "implement climate-risk mitigation upgrades to Seonam Tech’s data centers (Scope 2 renewable PPA pilot and grid-interactive cooling), items currently not publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "internal climate scenario analysis prepared for the upcoming Q3 IR draft"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "90-day post-conversion blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossed personnel"
     },
     {
       "category": "MNPI",
@@ -248,58 +408,8 @@
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAC clause"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 1,200,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "20%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "10%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "LOI"
-    },
-    {
-      "category": "MNPI",
       "rule": "contingent_mnpi_language",
       "matched_text": "closing subject to applicable provisions of the Capital Markets Act of Korea"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Baram"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jae-Min Ryu"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@seonamtech.test"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hyo-Jin Kwon"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "deals@mirinaecap.test"
     }
   ],
   "must_not_detect": [
@@ -360,5 +470,15 @@
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  }
 }
