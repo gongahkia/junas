@@ -3,13 +3,242 @@
   "document_type": "generic",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@midoriyama-kk.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@midoriyama-kk.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kenji Matsuo"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "\u793e\u54e1ID E-MP_00X9-7Z"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "vein/fingerprint attendance (template hash vpr-3f:aa:00)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "hypertension treatment records from 2025 Q4"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "declared religious observance (Shinto festival leave)"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "LGBTQ+ partner benefits status is marked \u201copt-in\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic screening certificate number G-04xx-77"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list kept until 5 years after public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProject Tsubaki\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "dealing is blacked out for project insiders"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border safeguards"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@midoriyama-kk.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@midoriyama-kk.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kenji Matsuo"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "\u793e\u54e1ID E-MP_00X9-7Z"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7 91-**-3***-4021"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "vein/fingerprint attendance (template hash vpr-3f:aa:00)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "hypertension treatment records from 2025 Q4"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "declared religious observance (Shinto festival leave)"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "LGBTQ+ partner benefits status is marked \u201copt-in\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic screening certificate number G-04xx-77"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "APPI Art. 17-2 consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "pseudonymously processed information is used for HR analytics where feasible"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers to Aoban Analytics Pte. Ltd. (SG) for payroll"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "My Number is deleted within 4 years after cessation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProject Tsubaki\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "dealing is blacked out for project insiders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list kept until 5 years after public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "\u201cproject tsubaki\u201d room is restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not paste board minutes into chat tools"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no material adverse change has occurred as of 2026-06-01",
+      "reason": "Negated MAC; excluded by rule 8."
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic policy phrase; not about an individual."
+    },
+    {
+      "matched_text": "ORIGAMI-9",
+      "reason": "Product/module name, not PII/MNPI."
+    },
+    {
+      "matched_text": "Kawagiri Ward",
+      "reason": "Place name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Hoshizora Meteors",
+      "reason": "Sports team; not PII/MNPI."
+    },
+    {
+      "matched_text": "\u201cFair Play Hiring Policy\u201d",
+      "reason": "Policy tagline; not PII/MNPI."
+    },
+    {
+      "matched_text": "\u201cproject tsubaki\u201d",
+      "reason": "Lowercase codename bait; rule 6 requires 'Project <CapitalizedName>'."
+    },
+    {
+      "matched_text": "Sunrise S-4000",
+      "reason": "Device/product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Tokyo Bay Securities Exchange",
+      "reason": "Exchange name; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "uid=emp%2F0x19A",
+      "concept": "internal_session_id",
+      "reason": "Looks like an internal UID parameter but not clearly covered by allowed rules."
+    },
+    {
+      "matched_text": "vpr-3f:aa:00",
+      "concept": "biometric_template_hash",
+      "reason": "Biometric template hash-like value; sensitive but not explicitly listed as an allowed rule."
+    },
+    {
+      "matched_text": "joint use notices are recorded",
+      "concept": "joint_use_marker",
+      "reason": "APPI joint-use notice reference; privacy-relevant but no specific allowed rule name."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop ideal_must_detect: text not verbatim rule='employee_id' text='emp\\nID:E-MP_00X9-7Z'"
+  ],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

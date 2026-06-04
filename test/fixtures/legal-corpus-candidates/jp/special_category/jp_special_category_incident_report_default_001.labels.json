@@ -3,13 +3,390 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project AURORA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 2,450"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Morioka Robotics K.K"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "draft tender-offer (TOB) terms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not-yet-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List Portal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "suspend all employee trading approvals and board member pre-clearances"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "need-to-know basis"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "service account compromise"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Kurogane"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Keiko Yamada"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sora Iwaki"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Master Riku Yamada"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@hoshizora-am.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-50-1234-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hoshizora-am.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "facial-recognition templates used for building entry"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic screening results (carrier status)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "vaccination certificates"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "dialysis appointment reminders"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "temple roster entries for the H\u014dgetsu Fellowship"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in the Shin-Hikari Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "A-17 APPI Data Minimization"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kurogane"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project AURORA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 2,450"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Morioka Robotics K.K"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "draft tender-offer (TOB) terms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not-yet-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List Portal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "suspend all employee trading approvals and board member pre-clearances"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "need-to-know basis"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "service account compromise"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Kurogane"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Keiko Yamada"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sora Iwaki"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Master Riku Yamada"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@hoshizora-am.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-50-1234-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hoshizora-am.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "facial-recognition templates used for building entry"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic screening results (carrier status)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "vaccination certificates"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "dialysis appointment reminders"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "temple roster entries for the H\u014dgetsu Fellowship"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "membership in the Shin-Hikari Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "A-17 APPI Data Minimization"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "***-****-****"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kurogane"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun/defined descriptor, not PII/MNPI"
+    },
+    {
+      "matched_text": "Inclusive Horizons",
+      "reason": "Policy name; generic DEI prose"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic DEI statement not linked to a person"
+    },
+    {
+      "matched_text": "religion",
+      "reason": "Generic DEI statement not linked to a person"
+    },
+    {
+      "matched_text": "Shin-Tama Comets",
+      "reason": "Sports team; non-sensitive bait"
+    },
+    {
+      "matched_text": "Akashima City",
+      "reason": "Place name; non-PII bait"
+    },
+    {
+      "matched_text": "AomoriShield EDR",
+      "reason": "Product name; non-PII"
+    },
+    {
+      "matched_text": "NimbusGate WAF",
+      "reason": "Product name; non-PII"
+    },
+    {
+      "matched_text": "Kikyo SSO",
+      "reason": "Product name; non-PII"
+    },
+    {
+      "matched_text": "Sango IDS",
+      "reason": "Product name; non-PII"
+    },
+    {
+      "matched_text": "KikuDrive",
+      "reason": "Product name; non-PII"
+    },
+    {
+      "matched_text": "Independent Special Committee",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "Self-Regulatory Committee",
+      "reason": "Role noun; not PII"
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role title; not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "***-****-****",
+      "concept": "jp_my_number",
+      "reason": "Masked placeholder implies a My Number but lacks actual digits; may not be captured by strict ID pattern"
+    },
+    {
+      "matched_text": "overseas IP",
+      "concept": "ip_address",
+      "reason": "Refers to an IP location without an actual numeric IP address value"
+    },
+    {
+      "matched_text": "named voting records by directors",
+      "concept": "personal data in governance records",
+      "reason": "Indicates identifiable voting records but no specific person names are provided"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,136 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "general internal use"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo for updated note set to 2026-07-15 09:00 jst"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "do not submit to tdnet before the embargo date noted above"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@hoshino.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hoshino.example.jp"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "general internal use"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo for updated note set to 2026-07-15 09:00 jst"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "do not submit to tdnet before the embargo date noted above"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@hoshino.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hoshino.example.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "share with audit and legal affairs office"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "contemplated share acquisition of Onami Tech KK (fictional)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "incident report (jp): minor credential-spray on hr portal at Hoshino Robotics KK (fictional), detected by mfa anomalies; no service outage on core systems"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "amounts and percentages remain blanked in the term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "payroll system stores no \u500b\u4eba\u756a\u53f7 (my number) and tokenized employee ids only"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day",
+      "reason": "wellness perk text, not Share Purchase Agreement (SPA)"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "negated MAC language; do not label per rule"
+    },
+    {
+      "matched_text": "public tdnet release 2025-02-14",
+      "reason": "public-source reference, not MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "\u53d6\u7de0\u5f79\u4f1a briefing remains on schedule",
+      "concept": "board briefing timing",
+      "reason": "Board schedule can be context for inside information but not explicitly covered by a specific MNPI rule."
+    },
+    {
+      "matched_text": "retention policy verified",
+      "concept": "retention control marker",
+      "reason": "Retention is a privacy-event marker but here it reflects a completed control; rule list lacks an explicit retention_marker."
+    },
+    {
+      "matched_text": "no leakage of \u500b\u4eba\u60c5\u5831",
+      "concept": "privacy impact assessment outcome",
+      "reason": "Legally relevant APPI phrasing about personal data leakage; not mapped to a specific allowed rule."
+    },
+    {
+      "matched_text": "no regulator notice triggered per internal threshold and public jfsa faq",
+      "concept": "regulatory notice threshold",
+      "reason": "Compliance threshold statement may matter but not covered by current PII/MNPI rule set."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

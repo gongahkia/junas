@@ -3,13 +3,304 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rika Endo-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kenji Morita-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Endo-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Morita-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daiki Noguchi-san"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID: E-1O0l-7"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric time-clock template (.pkpass)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "clinic referral for autoimmune treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Yumihashi Electronics Workers Union dues (union status)"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "self-reported sexual orientation: gay"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "dependent child (age 12)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7(\u30de\u30a4\u30ca\u30f3\u30d0\u30fc)/My N u m b e r"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "csirt@minamino.example.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project TSUBAME"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender offer (TOB)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished Q4 forecast"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rika Endo-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kenji Morita-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Endo-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Morita-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daiki Noguchi-san"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID: E-1O0l-7"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric time-clock template (.pkpass)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "clinic referral for autoimmune treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Yumihashi Electronics Workers Union dues (union status)"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "self-reported sexual orientation: gay"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "dependent child (age 12)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 12"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7(\u30de\u30a4\u30ca\u30f3\u30d0\u30fc)/My N u m b e r"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "csirt@minamino.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "050-1234-0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project TSUBAME"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender offer (TOB)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished Q4 forecast"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no public-source press has carried the above enumerated facts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-clearance queue for ESOP/RSU exercises paused"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "does not mention TOB timing"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SakuraShield AV",
+      "reason": "Product name bait; not PII or MNPI"
+    },
+    {
+      "matched_text": "NebulaRouter X5",
+      "reason": "Product name bait; not PII or MNPI"
+    },
+    {
+      "matched_text": "Mikan SSO",
+      "reason": "Product name bait; not PII or MNPI"
+    },
+    {
+      "matched_text": "Shirasagi Vault",
+      "reason": "Workspace/product name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Kitanami Mariners",
+      "reason": "Sports team metaphor; false-positive bait per instructions"
+    },
+    {
+      "matched_text": "religious holiday calendar",
+      "reason": "Generic policy text; no individual religious belief"
+    },
+    {
+      "matched_text": "generic DEI policy text",
+      "reason": "Generic DEI prose; not personal data"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC context; do not label per rule 8"
+    },
+    {
+      "matched_text": "KSE Prime",
+      "reason": "Market tier label; not PII or MNPI"
+    },
+    {
+      "matched_text": "Rule KSE-P-203",
+      "reason": "Internal policy name; not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "103.9.\u25b3.42",
+      "concept": "ip_address",
+      "reason": "Obfuscated octet prevents standard IPv4 regex match but indicates an IP address in telemetry"
+    },
+    {
+      "matched_text": "83\u26054-5X78-9*12",
+      "concept": "jp_my_number (masked)",
+      "reason": "Masked characters and non-digits break typical My Number pattern though it references a My Number"
+    },
+    {
+      "matched_text": "'R i k a  E n d 0'",
+      "concept": "obfuscated name string",
+      "reason": "Represents a person\u2019s name but with spacing/character substitution and no honorific; outside strict named_person rule"
+    },
+    {
+      "matched_text": "'K e n j i  M 0 r i t a'",
+      "concept": "obfuscated name string",
+      "reason": "Represents a person\u2019s name but with spacing/character substitution and no honorific; outside strict named_person rule"
+    },
+    {
+      "matched_text": "APPI Art. 28",
+      "concept": "DSAR/notification marker",
+      "reason": "Indicates statutory basis for notices to data subjects; rules lack explicit DSAR marker category"
+    },
+    {
+      "matched_text": "data-subject requests",
+      "concept": "DSAR/requests",
+      "reason": "References data subject requests channel; not covered by enumerated privacy-event rules"
+    },
+    {
+      "matched_text": "extraordinary meeting minutes dated 2026-05-30",
+      "concept": "nonpublic board materials",
+      "reason": "Implies nonpublic draft minutes relevant to MNPI but lacks explicit nonpublic keyword"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

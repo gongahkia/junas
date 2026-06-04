@@ -3,13 +3,140 @@
   "document_type": "generic",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@aobadynamics.local"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@aobadynamics.local"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo date"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "2025-04-30 09:00 jst"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restricted to named roles"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "if a draft ir page leaks early"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheets"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we collect only minimal living-individual info"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no government id copies are retained"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "drafts without external circulation are deleted within 90 days"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "rls-0000-xxxx"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "e-xxxx"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "third-country safeguards"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day signup",
+      "reason": "Wellness event bait; not Share Purchase Agreement (SPA)."
+    },
+    {
+      "matched_text": "spa-day raffle",
+      "reason": "Wellness event bait; not Share Purchase Agreement (SPA)."
+    },
+    {
+      "matched_text": "no material adverse change has occurred",
+      "reason": "Negated MAC language; do not tag as material_adverse_change."
+    },
+    {
+      "matched_text": "tender-offer terms",
+      "reason": "Sample/training context; not undisclosed tender-offer facts under FIEA."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "board resolutions and term sheets are retained 10 years",
+      "concept": "retention_marker",
+      "reason": "Retention period is a privacy control of interest but no explicit retention rule token is available in allowed list."
+    },
+    {
+      "matched_text": "audit logs are retained for 2 years",
+      "concept": "retention_marker",
+      "reason": "Retention period is relevant compliance control but not mapped to an explicit allowed rule."
+    },
+    {
+      "matched_text": "dsar handling",
+      "concept": "dsar_marker",
+      "reason": "DSAR process reference is a privacy-event marker but there is no specific DSAR rule in allowed list."
+    },
+    {
+      "matched_text": "my number is stored only if required by statute",
+      "concept": "jp_my_number policy mention",
+      "reason": "Mentions Japan My Number handling without any actual identifier present; relevant but not covered by jp_my_number pattern."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

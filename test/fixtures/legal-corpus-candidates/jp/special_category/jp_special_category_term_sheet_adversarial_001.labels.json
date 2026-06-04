@@ -3,13 +3,288 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aiko Tanabe"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type\u20111 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Type\u20111 diabetes treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union membership in the Hoshigaya Tech Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Haruto Kato"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template for cleanroom access logs (biometric data)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir\u2011acq@nadeshiko\u2011kk.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "ND\u201100 7 5"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Personal data to remain in Japan"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "processed under need\u2011to\u2011know"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "will not be exported"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Emi Senda"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "67%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "JPY 1,240 per common share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 6.0b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "TSE insider\u2011trading blackout"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aiko Tanabe"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type\u20111 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Type\u20111 diabetes treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union membership in the Hoshigaya Tech Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Haruto Kato"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template for cleanroom access logs (biometric data)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir\u2011acq@nadeshiko\u2011kk.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "ND\u201100 7 5"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Personal data to remain in Japan"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "processed under need\u2011to\u2011know"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "will not be exported"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Emi Senda"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "de\u2011identified templates will be retained for 30 days and then purged"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "67%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "JPY 1,240 per common share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 6.0b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "TSE insider\u2011trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Friendly tender offer for up to 67% of Orizuru at JPY 1,240 per common share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "recipients are treated as temporary insiders"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun used as a party label, not a person\u2019s name or identifier"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun used as a party label, not a person\u2019s name or identifier"
+    },
+    {
+      "matched_text": "Board of Directors",
+      "reason": "Generic governance role term, not PII"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Generic governance role term, not PII"
+    },
+    {
+      "matched_text": "Genetic Compass",
+      "reason": "Brand/metaphor; not personal or material info"
+    },
+    {
+      "matched_text": "SoraCloud",
+      "reason": "Brand/metaphor; not personal or material info"
+    },
+    {
+      "matched_text": "Union Shield",
+      "reason": "Brand/metaphor; not personal or material info"
+    },
+    {
+      "matched_text": "Shinkawa Tigers",
+      "reason": "Sports team name; not personal data"
+    },
+    {
+      "matched_text": "Equal Opportunities Charter 2026",
+      "reason": "Policy/charter name; not PII"
+    },
+    {
+      "matched_text": "Data Minimization Policy (APPI)",
+      "reason": "Policy name; not PII"
+    },
+    {
+      "matched_text": "Hoshigaya City, Sakura\u2011dori 5\u201114\u20119",
+      "reason": "Place/address reference, not an individual\u2019s personal address"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "1 2 3 4\u2011** **\u2011** 7 8",
+      "concept": "jp_my_number (masked)",
+      "reason": "Masked My Number-like pattern; not a canonical 12-digit jp_my_number but indicates presence of an individual number"
+    },
+    {
+      "matched_text": "de\u2011identified templates will be retained for 30 days and then purged",
+      "concept": "retention/erasure marker",
+      "reason": "Indicates specific retention and deletion schedule; retention is legally relevant but not an explicit allowed rule label"
+    },
+    {
+      "matched_text": "Press release scheduled for 08:30 JST pre\u2011market; until then",
+      "concept": "embargo_marker",
+      "reason": "Implies an embargo until public announcement, but lacks canonical terms like Press Hold/Effective Date"
+    },
+    {
+      "matched_text": "uid=kato.h",
+      "concept": "internal user identifier",
+      "reason": "URL parameter appears to contain a username; not clearly covered by allowed PII rules"
+    },
+    {
+      "matched_text": "under APPI consent",
+      "concept": "consent marker",
+      "reason": "Indicates consent basis; allowed rules include consent_withdrawal_marker but not generic consent"
+    },
+    {
+      "matched_text": "1.25x exchange ratio",
+      "concept": "financial ratio",
+      "reason": "Economically material equity exchange ratio but not covered by financial_amount or financial_percentage rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
