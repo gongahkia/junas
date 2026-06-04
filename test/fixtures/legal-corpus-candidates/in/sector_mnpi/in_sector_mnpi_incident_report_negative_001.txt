@@ -1,0 +1,15 @@
+Incident Summary — Cyber/Operational (low severity, tabletop-originated) for BanyanGrid Technologies Limited (fictional), CIN: L00000XX0000PLC000000, reported 04-Jun-2026 by SOC role mailbox.
+A public marketing microsite was misconfigured to allow directory listing of static PDFs for 2 hours; assets were brochures and FAQs only.
+Systems affected: public web CDN bucket (vendor: VayuCloud CDN Pvt Ltd, sandbox region); no core banking, registry, or investor relations systems connected.
+Data impact: no Aadhaar intake on the microsite; CRM connectors disabled; training samples in one PDF showed “PAN: AAAAA0000A” and “GSTIN: 22AAAAA0000A1Z5” as dummy labels; these are placeholders and not linked to any individual.
+Children’s data: not collected; services are B2B; age gating not applicable; no profiling of minors under 18.
+DPDPA compliance: processing basis was consent for marketing; no sensitive personal data stored; Data Principal requests via privacy@banyangrid.example.in will be actioned within statutory timelines.
+SEBI/PIT context: documents indexed included only generic “Insider List Procedure (Training Copy)” and “Information Barrier SOP (Public Extract)” already posted on our careers page; no insider names, PANs, or trade windows disclosed therein.
+ESG/climate materials: the “Climate Risk Toolkit v2” whitepaper and CSR case studies were accessed; these are already announced on our website and are non-financial educational content.
+Crypto reference: the “CryptoPay Sandbox Guide” describes a demo workflow and testnet addresses; no wallets, private keys, or commercial terms were present.
+Positive control note: during verification, we identified a file named “Q4 FY26 Sustainability KPI_Draft.pdf” in a nearby restricted folder; although logs show no download, treat this draft as UPSI under SEBI (PIT) Regulations until Board release and add the Sustainability Working Group to the insider list.
+Remediation: tightened bucket policies, disabled directory listing, rotated presigned URLs; temporary trading-window restriction applies only to the Sustainability Working Group per Code of Conduct; firm-wide calendar remains unchanged.
+Notifications: not a material cyber incident for stock exchange intimation at this time; if UPSI assessment changes, Company Secretary to coordinate disclosures; no breach of the information barrier detected.
+PII hygiene: scrub placeholder IDs in training files; do not transmit Aadhaar/PAN/GSTIN over email; use secure upload; replace samples with “000000000000”/“AAAAA0000A” style templates in mockups only.
+Contacts: compliance@banyangrid.example.in, cs@banyangrid.example.in, 1800-000-000 (public helpdesk); do not use personal emails.
+Status: contained; post-change review scheduled; awareness note sent to marketing ops and vendor management.
