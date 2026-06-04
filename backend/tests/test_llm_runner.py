@@ -182,7 +182,7 @@ def test_prompt_sha_differs_across_inputs():
 
 
 def test_prompt_builders_registry_complete():
-    assert set(PROMPT_BUILDERS) == {"sglb_04", "sglb_11", "sglb_08", "sglb_12"}
+    assert set(PROMPT_BUILDERS) == {"sglb_01", "sglb_04", "sglb_11", "sglb_08", "sglb_12"}
 
 
 def test_prompt_builders_each_carry_version():

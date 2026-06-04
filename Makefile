@@ -1,4 +1,4 @@
-.PHONY: up down dev api frontend test lint migrate ingest-all download-data setup eval eval-list synth-gen
+.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc download-data setup eval eval-list synth-gen
 
 # === primary ===
 up:
@@ -78,6 +78,10 @@ synth-gen:
 # === data ===
 ingest-all:
 	cd backend && python -m ml.pipelines.run_all
+
+# SGLB-01: PDPC enforcement decisions → JSONL splits + harness YAML.
+ingest-pdpc:
+	cd backend && python -m data.ingestion.pdpc
 
 VENDOR_DIR := vendor-data
 
