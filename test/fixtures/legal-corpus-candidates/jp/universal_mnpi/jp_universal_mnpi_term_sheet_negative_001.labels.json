@@ -3,13 +3,164 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "2026-08-31 17:00 JST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "do not disclose externally"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hinoderobotics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only anonymized KPI datasets"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "2026-08-31 17:00 JST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "do not disclose externally"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hinoderobotics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only anonymized KPI datasets"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal IR calendar only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "2026-09-15"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "formation of a commercial partnership"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "minority, non-controlling primary share subscription"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u201cMy Number\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to board approvals and customary conditions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "Closing conditions: board approvals of both companies"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun heading; not PII/MNPI"
+    },
+    {
+      "matched_text": "Material Adverse Effect",
+      "reason": "Negated MAC language; rule forbids labeling"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated MAC language; rule forbids labeling"
+    },
+    {
+      "matched_text": "employee spa-day/wellness offsite",
+      "reason": "False-positive bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "JP00-HINO-000",
+      "reason": "Placeholder securities code; not a covered PII/MNPI value"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Registration No. ______",
+      "concept": "jp_corporate_number placeholder",
+      "reason": "Field label suggests a Japanese corporate number but no value is present"
+    },
+    {
+      "matched_text": "no tender offer (TOB) contemplated under FIEA",
+      "concept": "tender-offer fact (negative)",
+      "reason": "Negative tender-offer statement may be relevant to FIEA MNPI but rules emphasize enumerated tender-offer facts; here it is a negation"
+    },
+    {
+      "matched_text": "confirm that no personal data or My Number fields appear in diligence materials",
+      "concept": "data minimisation/compliance instruction (negated)",
+      "reason": "Compliance-relevant minimisation instruction but framed as a negation; rule advises not to tag negated controls"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

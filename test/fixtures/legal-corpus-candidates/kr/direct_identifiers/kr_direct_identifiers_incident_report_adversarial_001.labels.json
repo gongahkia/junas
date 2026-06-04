@@ -3,13 +3,169 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "421-87-31095"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@haneulsteel.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Park Min-su"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Choi Ara"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "M1234567X"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "010-8423-5532"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "421-87-31095"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@haneulsteel.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Park Min-su"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Choi Ara"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "M1234567X"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "010-8423-5532"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638 920305 - 2 0 1 2 3 4 5"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "132- 04 5- 987654"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\uc911\uc694\uc815\ubcf4 \ubbf8\uacf5\uac1c"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "data exfiltration"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Ms. Choi Ara (Intern) \uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638 920305 - 2 0 1 2 3 4 5; KR Passport M1234567X"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1400 City Helpline",
+      "reason": "Public helpline bait; not individual-specific PII."
+    },
+    {
+      "matched_text": "000-0000-0000",
+      "reason": "Placeholder/dummy phone number per document."
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Role-only reference; not a named person."
+    },
+    {
+      "matched_text": "IR lead",
+      "reason": "Role-only reference; not a named person."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated mention; rule excludes negated MAC/MAE."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "SGB-INC-26-0714",
+      "concept": "internal_document_id",
+      "reason": "Internal filing/reference identifier; potentially sensitive but not covered by allowed rules."
+    },
+    {
+      "matched_text": "h t t p s : / / ir.haneulsteel.co.kr/notice?ref=FSCMA174&doc=IR-2026-Q3-DRAFT",
+      "concept": "url_with_query",
+      "reason": "URL with potential tracking/reference parameters; URLs not explicitly covered by rules."
+    },
+    {
+      "matched_text": "IR-2026-Q3-DRAFT",
+      "concept": "mnpi_document_code",
+      "reason": "Draft IR document code indicating non-public materials; no specific rule matches."
+    },
+    {
+      "matched_text": "Seonwoo Ventures SPC",
+      "concept": "counterparty_identity_mnpi",
+      "reason": "Counterparty identity in a non-public financing context may be MNPI but lacks a specific rule."
+    },
+    {
+      "matched_text": "On 2026-06-02 03:20 KST",
+      "concept": "incident_timestamp",
+      "reason": "Exact incident timing may be sensitive in disclosure context, but no explicit rule covers it."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
