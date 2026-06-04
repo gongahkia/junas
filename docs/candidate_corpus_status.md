@@ -10,7 +10,7 @@ Candidate fixtures are quarantine material. Pending labels are not promotion-rea
 | EU | 21 | stage_a | approved:21 | 1.0000 | 1.0000 | 0.3777 | /private/tmp/kaypoh-in-stage-b-eval-final.json |
 | HK | 84 | stage_b | approved:84 | 1.0000 | 1.0000 | 0.4491 | /private/tmp/kaypoh-in-stage-b-eval-final.json |
 | ID | 84 | stage_b | approved:84 | 1.0000 | 1.0000 | 0.3412 | /private/tmp/kaypoh-in-stage-b-eval-final.json |
-| IN | 84 | stage_b | approved:21, pending:63 | 1.0000 | 1.0000 | 0.3493 | /private/tmp/kaypoh-in-stage-b-eval-final.json |
+| IN | 84 | stage_b | approved:84 | 1.0000 | 1.0000 | 0.3493 | /private/tmp/kaypoh-in-stage-b-eval-final.json |
 | JP | 84 | stage_b | approved:84 | 1.0000 | 1.0000 | 0.4428 | /private/tmp/kaypoh-in-stage-b-eval-final.json |
 | KR | 84 | stage_b | approved:84 | 1.0000 | 1.0000 | 0.4074 | /private/tmp/kaypoh-in-stage-b-eval-final.json |
 | MY | 84 | stage_b | approved:84 | 1.0000 | 1.0000 | 0.4209 | /private/tmp/kaypoh-in-stage-b-eval-final.json |
