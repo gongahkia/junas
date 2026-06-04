@@ -1205,24 +1205,1224 @@ scanned images — flag those.
 
 ---
 
-# Backlog: prompts not yet specified (write them when prioritised)
+# Batch E — Launch Assets (#39), 4 parallel agents
 
-These open issues are not yet prompt-ready because they need user
-decisions or are blocked on upstream work:
+**Goal:** produce ship-ready launch assets so the moment #36 (baselines)
+lands, the launch can fire same-day. These run in parallel since they
+touch different files and require no shared state.
 
-- #40 — final benchmark name + license decision (USER DECISION; not
-  an agent task)
-- #39 — launch assets + outreach checklist (needs #36, #37 done first)
-- #45 — region-per-index naming + adapter pattern (architectural;
-  needs a design doc before coding)
-- #46 — PydanticAI migration (refactor; low priority)
-- #47 — jurisdiction selector UI (depends on copilot scope #35
-  being settled)
-- #48 — MCP server (nice-to-have; not a v0.1 blocker)
-- #43 — Logfire observability (post-launch nice-to-have)
-- #42 — port SG-applicable contract templates (#35 scope-cleanup
-  first)
-- #73 — branching policy docs (this file + CONTRIBUTING already do
-  90% of it)
-- #58 / #50-#57 — v0.2 task expansion (SGLB-09..16); deferred until
-  v0.1 ships
+**Coordination contract:** branch `feat/launch-assets-v0.1`. All four
+agents commit to the same branch; user reviews each commit
+independently. Where copy depends on baseline numbers, agents leave
+`<PLACEHOLDER>` tokens that a follow-up PR fills.
+
+## E1: HN Show HN post + landing-page hook
+
+```text
+You are working on issue #39 (launch assets) in the junas repo. Read
+AGENT-RUNBOOK.md, README2.md, docs/coverage-matrix.md §5 (anti-snake-
+oil checklist), and the existing landing page at frontend/app/page.tsx.
+
+Goal: HN Show HN submission draft + the landing-page <h1> hook that
+aligns with the recommended headline variant.
+
+Files you own:
+- docs/launch/hn-show-hn.md (new — the post draft)
+- docs/launch/headline-options.md (new — 3 candidate headlines with
+  evidentiary basis and which require baseline numbers)
+- frontend/app/page.tsx (only the <h1>; align with your recommended
+  variant in headline-options.md)
+
+Files you must NOT touch:
+- docs/launch/twitter-thread.md (E2)
+- docs/launch/linkedin-post.md (E3)
+- docs/launch/outreach-templates.md (E3)
+- docs/launch/press-kit.md (E4)
+- docs/launch/press-emails.md (E4)
+
+Constraints (read coverage-matrix §5 first):
+- No "beats GPT-X" framing. Use the substitute phrasings.
+- Lead with the SG-uniqueness gap (LegalBench=US, LexGLUE=US+EU,
+  LawBench=CN; SG is a clean gap).
+- "We make no legal interpretive claims" must appear.
+- 3 headline candidates: surprising-number variant (gated on #36),
+  capability-gap variant (no number needed), methodology variant
+  ("first SG benchmark with mechanical labels"). Mark which need #36.
+
+Post structure (suggested):
+- Title (≤80 chars)
+- Opening hook (2 sentences)
+- What it is (3 bullets, link to repo + spec dir)
+- What it isn't (1-2 bullets, defuses scope-overclaim)
+- Reproducibility (1 bullet — `make eval` and you get the same numbers)
+- Links section
+
+Branch: feat/launch-assets-v0.1.
+Commit: `docs(launch): HN Show HN draft + headline candidates
+(advances #39)`. Co-Authored-By trailer.
+
+Acceptance: 3 headline variants + 1 ready-to-paste HN draft + landing
+<h1> aligned. Each <PLACEHOLDER> token is documented.
+
+Report back: which headline you recommend and why; any claim you
+couldn't substantiate without baselines.
+```
+
+## E2: Twitter thread
+
+```text
+You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md
+and the SGLB spec docs under docs/sglb_specs/.
+
+Goal: 8-12 tweet thread for launch day. Mark every `<PLACEHOLDER>`
+that depends on baseline (#36) numbers.
+
+Files you own:
+- docs/launch/twitter-thread.md (new)
+
+Files you must NOT touch:
+- E1/E3/E4's files.
+
+Thread structure:
+1. Hook tweet — why this matters (no number needed)
+2. The gap (LegalBench=US, LexGLUE=US+EU, LawBench=CN, gap=SG)
+3. Methodology — mechanical extraction; the credibility substitute
+4-8. One surprising finding per tweet (each gated on #36; mark
+   <PLACEHOLDER>)
+9. Reproducibility — "anyone can rerun: make eval && cat receipt"
+10. Where to learn more (links)
+
+Constraints:
+- No emojis (user's CLAUDE.md disallows them).
+- No "beats GPT-X" framing.
+- Each tweet ≤270 chars (Twitter limit minus padding).
+- Numbered "n/N" prefixes for thread readability.
+
+Branch + commit: same as E1.
+Acceptance: 8-12 numbered tweets, ≤270 chars each.
+Report back: any claim you couldn't make in ≤270 chars; whether the
+thread reads cohesively without baselines (i.e. is the no-numbers
+variant viable).
+```
+
+## E3: LinkedIn SG legal-tech post + outreach templates
+
+```text
+You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md
+and README2.md.
+
+Goal: LinkedIn launch post + 6 DM templates targeted at SG
+legal-tech institutions.
+
+Files you own:
+- docs/launch/linkedin-post.md (the post)
+- docs/launch/outreach-templates.md (DM templates)
+
+Files you must NOT touch:
+- E1/E2/E4's files.
+
+Targets for DM templates (one each):
+1. SMU SOLID team (Singapore Open Legal Informatics Database project)
+2. NUS TRAIL (Tech and Responsible AI lab)
+3. SAL (Singapore Academy of Law) tech committee
+4. INTELLLEX (SG legal-tech company)
+5. Lupl (SG legal-tech company)
+6. LawTech.Asia (publication)
+
+Constraints:
+- LinkedIn post 200-400 words. Frame: "I built X because Y was
+  missing". Cite the LegalBench/LexGLUE/LawBench gap.
+- DMs ≤150 words each. State who they are + what we built + the
+  one-sentence ask. NO name-drops we can't substantiate (the user has
+  no prior contact unless evidence is in repo history).
+- Treat SAL as institutional (phone/email better than DM); flag this
+  in your report.
+
+Branch + commit: same as E1.
+Acceptance: 1 post + 6 personalised DMs.
+Report back: which targets warrant a phone call vs DM.
+```
+
+## E4: Press kit + journalist outreach
+
+```text
+You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md,
+README2.md, and (for tone reference) any coverage Mike OSS got from
+the same outlets (Google "willchen96 mike artificial lawyer").
+
+Goal: press kit + 5 personalised pitch emails.
+
+Files you own:
+- docs/launch/press-kit.md (1-page background + key facts + quote
+  block + contact)
+- docs/launch/press-emails.md (5 pitches: LawTech.Asia, Artificial
+  Lawyer, Legal IT Insider, Legal Futures, Straits Times Tech)
+
+Files you must NOT touch:
+- E1/E2/E3's files.
+
+Press kit must include:
+- 2-paragraph background suitable for direct quotation
+- Key facts (8 tasks, public-domain sources, mechanical labels,
+  multi-model baselines)
+- 50-80 word attributable quote from the solo dev (Gabriel) about the
+  SG-uniqueness gap
+- Where to find screenshots / demo GIF (placeholder paths)
+- Contact (TBD; surface to user)
+
+Each pitch email ≤200 words. Differentiate from Mike OSS coverage
+angle (benchmark, not product; SG, not generic).
+
+Branch + commit: same as E1.
+Acceptance: 1 press kit + 5 personalised pitches.
+Report back: which outlets covered Mike OSS recently and how we
+differentiate.
+```
+
+---
+
+# Batch F — MCP Server (#48), 4 parallel agents
+
+**Goal:** expose junas as an MCP server so Claude Desktop / Claude
+Code users can run benchmarks + query SG legal sources without
+leaving chat. A "drop into Claude Desktop and get SG legal lookup +
+benchmark" demo is much more compelling than a static leaderboard.
+
+**Coordination contract:** branch `feat/mcp-server`. F1 lands first;
+F2/F3/F4 fan out off F1's branch.
+
+## F1: MCP server scaffolding + transport
+
+```text
+You are working on issue #48 in the junas repo. Read AGENT-RUNBOOK.md
+and the MCP spec at https://modelcontextprotocol.io. Use the official
+python-sdk pattern.
+
+Goal: scaffold the MCP server. Tools come in F2.
+
+Files you own:
+- backend/mcp/__init__.py (new)
+- backend/mcp/server.py (new — server entry, stdio + http transports)
+- backend/pyproject.toml: add `mcp` Python SDK
+- Makefile: + `make mcp` target (defaults to stdio)
+- README2.md: append a short "Run as MCP server" section
+
+Files you must NOT touch:
+- backend/mcp/tools/* (F2)
+- docs/mcp/* (F3)
+- backend/tests/test_mcp_*.py (F4)
+
+Server requirements:
+- Name: "junas-mcp"
+- Transports: stdio default; --http flag for HTTP on port 3344
+- Tool registry: empty in F1; expose a single `health` tool that
+  returns repo version + git SHA + python version so F3's setup doc
+  can verify the install
+- Graceful shutdown on SIGTERM
+
+Branch: feat/mcp-server.
+Commit: `feat(mcp): server scaffolding + transport (advances #48)`.
+
+Acceptance: `make mcp` boots without error; `health` tool responds;
+server starts under Claude Desktop config (test on the user's
+machine if possible).
+
+Report back: MCP SDK version pinned; transport latency observations.
+```
+
+## F2: Tool implementations
+
+```text
+You are working on issue #48 in the junas repo. WAIT until F1 has
+landed feat/mcp-server. Read AGENT-RUNBOOK.md, F1's server.py,
+backend/api/services/sal_citation.py, statute_lookup.py,
+case_retrieval.py, compliance_service.py.
+
+Goal: implement 5 MCP tools that delegate to existing copilot services.
+
+Files you own:
+- backend/mcp/tools/__init__.py
+- backend/mcp/tools/run_benchmark.py
+- backend/mcp/tools/verify_citation.py
+- backend/mcp/tools/lookup_statute.py
+- backend/mcp/tools/retrieve_cases.py
+- backend/mcp/tools/check_compliance.py
+
+Files you must NOT touch:
+- backend/mcp/server.py (F1; you register tools into it via a clean
+  import — append registrations after F1's stub list)
+- backend/api/services/* (consumer code only)
+- docs/mcp/* (F3)
+- backend/tests/test_mcp_*.py (F4)
+
+Tools:
+1. `run_benchmark(task: str, model: str) -> dict` — invokes
+   `benchmark.cli` against `task`; validates `task` in TASKS; model
+   in {azure, anthropic, gemini, ollama}; returns receipt summary.
+2. `verify_citation(citation: str) -> dict` — wraps
+   `api.services.sal_citation.validate_citation`.
+3. `lookup_statute(query: str) -> dict` — wraps statute_lookup.
+4. `retrieve_cases(query: str, k: int = 5) -> dict` — wraps
+   case_retrieval.
+5. `check_compliance(text: str, regime: str) -> dict` — regime ∈
+   {pdpa, employment_act, roc_2021}.
+
+Each tool: declare JSON input schema; return JSON-serializable dict;
+surface errors via an `error` field (do not raise).
+
+Branch: feat/mcp-server.
+Commit: `feat(mcp): 5 tools delegating to copilot services (advances
+#48)`.
+
+Acceptance: F1's `list_tools` returns 5 tools after import; each
+callable via the MCP test client.
+
+Report back: any service that lacked a clean entry point.
+```
+
+## F3: Claude Desktop config + setup docs
+
+```text
+You are working on issue #48 in the junas repo. WAIT until F1 has
+landed. Read AGENT-RUNBOOK.md.
+
+Goal: end-user setup so a Claude Desktop user can install + use
+junas-mcp in <5 min.
+
+Files you own:
+- docs/mcp/setup.md
+- docs/mcp/example-prompts.md (10 prompts exercising each tool)
+- docs/mcp/troubleshooting.md (port collision, missing keys, SDK
+  version mismatch)
+
+Files you must NOT touch:
+- backend/mcp/* (F1/F2)
+- backend/tests/test_mcp_*.py (F4)
+
+Setup doc:
+- Cover macOS / Linux / Windows.
+- Exact JSON snippet for `~/Library/Application Support/Claude/
+  claude_desktop_config.json` (macOS path; equivalent paths for the
+  other two OSes).
+- BYOK env-var-setting step (Azure or Anthropic).
+- Verification: ask Claude Desktop to call the `health` tool.
+
+Example prompts: 10 covering each tool individually + 2 chained
+workflows (e.g. "verify [2023] SGCA 5, then retrieve cases that cite
+it").
+
+Branch: feat/mcp-server.
+Commit: `docs(mcp): setup + example prompts + troubleshooting
+(advances #48)`.
+
+Acceptance: a fresh user (test on the user's machine or a clean VM)
+can install + use junas-mcp within 5 min.
+
+Report back: brittle setup steps; OS-specific gotchas.
+```
+
+## F4: MCP tests + integration
+
+```text
+You are working on issue #48 in the junas repo. WAIT until F1+F2
+have landed. Read AGENT-RUNBOOK.md, F1's server, F2's tools.
+
+Goal: tests for the MCP server + tools.
+
+Files you own:
+- backend/tests/test_mcp_server.py (server boots + health works)
+- backend/tests/test_mcp_tools.py (each tool callable + shape)
+
+Files you must NOT touch:
+- backend/mcp/* (F1/F2)
+- docs/mcp/* (F3)
+
+Requirements:
+- Mock the underlying api.services calls; do NOT make real LLM calls.
+- For run_benchmark, use the existing MockLLMClient pattern from
+  backend/tests/test_llm_runner.py.
+- Test the JSON-schema validation per tool input.
+- One integration test: spawn the server in a subprocess, send a
+  `list_tools` request, assert 5 tools enumerated.
+
+Branch: feat/mcp-server.
+Commit: `test(mcp): server + tool tests (advances #48)`.
+
+Acceptance: `pytest -x -q backend/tests/test_mcp_*` passes; no
+network calls in test mode.
+
+Report back: any tool hard to test deterministically (that's a smell
+to fix in F2).
+```
+
+---
+
+# Batch G — v0.2 Task Wave 1 (#50, #54, #55, #57), 4 parallel agents
+
+**Goal:** ship 4 new SGLB v0.2 tasks (SGLB-09, SGLB-13, SGLB-14,
+SGLB-16). These four are NOT blocked on a shared data source so they
+parallelise cleanly.
+
+**Coordination contract:** branch `feat/sglb-v0.2-wave-1`. Each agent
+owns its own dataset_builder + task file. Touchpoints with
+conflict-risk: `backend/benchmark/tasks/__init__.py` (each appends one
+import) and `backend/benchmark/llm_runner.py::PROMPT_BUILDERS` (each
+appends one entry). Resolve via simple rebase; ordering G1 < G2 < G3
+< G4 by issue number works.
+
+## G1: SGLB-09 Summary-Faithfulness
+
+```text
+You are working on issue #50 (SGLB-09 Summary-Faithfulness).
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-09.md, CONTRIBUTING.md
+"Adding a new task", and the FActScore paper (Min et al., EMNLP 2023,
+https://arxiv.org/abs/2305.14251).
+
+Files you own:
+- backend/benchmark/dataset_builders/sglb_09.py
+- backend/benchmark/tasks/sglb_09.py
+- backend/benchmark/llm_runner.py (+ sglb_09 prompt builder)
+- backend/benchmark/tasks/__init__.py (+ register)
+- backend/benchmark/evaluators.py (add AtomicFactScore if not
+  present)
+- backend/benchmark/datasets/sglb_09_summary_faithfulness.yaml
+- backend/data/benchmarks/sglb_09_summary_faithfulness/{train,dev,
+  test}.jsonl
+- docs/sglb_specs/SGLB-09.md (bump version)
+- backend/tests/test_sglb_09_task.py
+- Makefile: + build-sglb-09 target
+
+Files you must NOT touch:
+- G2/G3/G4's sglb_NN files.
+
+Task contract:
+- Input: `{"source_text": str, "summary": str}` — source from a PDPC
+  decision; summary is what the model evaluates.
+- Output: JSON object `{"atomic_facts": [{"fact": str, "supported":
+  bool}]}` — list of atomic facts in the summary with per-fact
+  supported-by-source booleans.
+- Score: precision over `supported=true` facts that actually appear
+  in source_text (deterministic substring or entailment check).
+
+Smoke seed (v0.1): ~20 cases built from existing PDPC JSONL.
+Generate 3 candidate summaries per source (faithful / mild hallucination
+/ wholesale fabrication) via an LLM call; the atomic-fact extraction
+uses an LLM-judge per coverage-matrix §4.1. For smoke, single judge
+acceptable WITH disclosure; v0.2 expansion uses ≥3-judge ensemble.
+
+Branch: feat/sglb-v0.2-wave-1.
+Commit: `feat(sglb-09): Summary-Faithfulness task (closes #50)`.
+
+Acceptance: 20-case smoke; oracle scores 1.0; tests pass.
+Report back: methodology compromises (single-judge); how to scale to
+N=200 in v0.2.
+```
+
+## G2: SGLB-13 Counterfactual-Outcome
+
+```text
+You are working on issue #54 (SGLB-13 Counterfactual-Outcome).
+
+This task PIGGYBACKS on the SGLB-01 PDPC corpus — no new ingest.
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-13.md,
+backend/data/ingestion/pdpc.py,
+backend/benchmark/dataset_builders/sglb_05.py (similar pattern).
+
+Files you own:
+- backend/benchmark/dataset_builders/sglb_13.py
+- backend/benchmark/tasks/sglb_13.py
+- backend/benchmark/llm_runner.py (+ prompt builder)
+- backend/benchmark/tasks/__init__.py (+ register)
+- backend/benchmark/datasets/sglb_13_counterfactual.yaml
+- backend/data/benchmarks/sglb_13_counterfactual/{train,dev,test}.jsonl
+- docs/sglb_specs/SGLB-13.md (bump version)
+- backend/tests/test_sglb_13_task.py
+- Makefile: + build-sglb-13
+
+Files you must NOT touch:
+- G1/G3/G4's sglb_NN files.
+
+Methodology constraint (READ CAREFULLY):
+The gold label here is inherently judgment-adjacent. To stay in line
+with coverage-matrix §4.1, ONLY generate perturbations where a
+deterministic rule clearly applies. Example: remove the "DPO appointed"
+fact from a case that explicitly states "the appointment of a DPO was
+considered a mitigating factor". The gold label "outcome changes" /
+"outcome unchanged" derives from the PDPC's own published reasoning
+about whether that fact was material.
+
+If you find your perturbation generation requires legal judgment
+beyond what PDPC has already published, STOP, document the case, and
+exclude it.
+
+Task contract:
+- Input: `{"fact_pattern": str, "perturbation": str}`
+- Output: `{"outcome_changes": bool}`
+- Score: accuracy
+
+Branch: feat/sglb-v0.2-wave-1.
+Commit: `feat(sglb-13): Counterfactual-Outcome on PDPC perturbations
+(closes #54)`.
+
+Acceptance: deterministic perturbation rule documented; tests pass.
+Report back: how many PDPC decisions fit the rule; legal-judgment
+risk profile.
+```
+
+## G3: SGLB-14 Statutory-Entailment
+
+```text
+You are working on issue #55 (SGLB-14 Statutory-Entailment).
+
+BLOCKED on SOLO-9 (PDPC Advisory Guidelines scraper, #60). If
+SOLO-9 has not landed, you ship code-only; data comes later.
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-14.md, the SARA paper
+(Holzenberger et al., 2020, https://arxiv.org/abs/2005.05257),
+backend/benchmark/dataset_builders/sglb_02.py.
+
+Files you own:
+- backend/benchmark/dataset_builders/sglb_14.py
+- backend/benchmark/tasks/sglb_14.py
+- backend/benchmark/llm_runner.py (+ prompt builder)
+- backend/benchmark/tasks/__init__.py (+ register)
+- docs/sglb_specs/SGLB-14.md (bump version)
+- backend/tests/test_sglb_14_task.py
+- Makefile: + build-sglb-14
+
+Files you must NOT touch:
+- G1/G2/G4's sglb_NN files.
+
+Task contract:
+- Input: `{"statute_section": str, "conduct": str}`
+- Output: JSON object `{"entailment": "contravenes" | "complies" |
+  "indeterminate"}`
+- Score: exact_match over the 3-label space
+
+Mechanical extraction: PDPC Advisory Guidelines contain worked
+examples ("the conduct described contravenes section X"). The gold
+label is verbatim from the regulator's framing; we never infer it.
+
+If SOLO-9 has landed: 50-100 case smoke seed.
+If SOLO-9 has not landed: code-shipped with a fixture-based smoke
+test; spec marked "0.1-code-shipped; data pending #60".
+
+Branch: feat/sglb-v0.2-wave-1.
+Commit: `feat(sglb-14): Statutory-Entailment task (closes #55)`.
+
+Acceptance: code-shipped or smoke depending on #60 status; tests pass.
+Report back: entailment-pattern coverage of the PDPC Advisory
+Guidelines.
+```
+
+## G4: SGLB-16 Review-Redflag-Recall
+
+```text
+You are working on issue #57 (SGLB-16 Review-Redflag-Recall).
+
+This task PIGGYBACKS on the existing SG clause/template library at
+backend/api/services/{clause_service,template_service}.py.
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-16.md, CUAD paper
+(Hendrycks et al., NeurIPS 2021).
+
+Files you own:
+- backend/benchmark/dataset_builders/sglb_16.py
+- backend/benchmark/tasks/sglb_16.py
+- backend/benchmark/llm_runner.py (+ prompt builder)
+- backend/benchmark/tasks/__init__.py (+ register)
+- backend/benchmark/datasets/sglb_16_review_redflag.yaml
+- docs/sglb_specs/SGLB-16.md (bump version)
+- backend/tests/test_sglb_16_task.py
+- Makefile: + build-sglb-16
+
+Files you must NOT touch:
+- G1/G2/G3's sglb_NN files.
+
+Task contract:
+- Input: `{"contract_text": str}` — a SG contract with planted
+  defects.
+- Output: JSON array `[{"defect_type": str, "span_start": int,
+  "span_end": int}]`
+- Score: F1 over (defect_type, span) matches with ±10-char tolerance.
+
+Closed defect taxonomy (document explicitly):
+- missing_limitation_of_liability
+- governing_law_non_singapore
+- missing_pdpa_data_protection_clause
+- missing_notice_period
+- missing_dispute_resolution_clause
+- missing_termination_clause
+
+Defect injection (mechanical, no legal judgment):
+1. Start from a clean SG-context contract template.
+2. Inject 3-5 defects deterministically (e.g. delete the limitation
+   clause; swap "Singapore" to "New York" in governing law).
+3. Each injection logged in metadata.
+
+Smoke seed: 30 cases.
+
+Branch: feat/sglb-v0.2-wave-1.
+Commit: `feat(sglb-16): Review-Redflag-Recall (closes #57)`.
+
+Acceptance: 30-case smoke; tests pass.
+Report back: defect-type coverage; any clause type where injection
+is hard.
+```
+
+---
+
+# Batch H — v0.2 Task Wave 2 (#51, #53, #56), 3 parallel agents
+
+**Goal:** close out the synthetic-data v0.2 tasks. SGLB-11 (#52) was
+already closed in v0.1.
+
+**Coordination contract:** branch `feat/sglb-v0.2-wave-2`. Same
+file-touchpoint discipline as Wave 1.
+
+**Synth-gen cost warning:** H2 and H3 need synthetic candidates.
+SGLB-08 synth gen is in flight right now at ~$0.05/candidate
+(reasoning-token cost). Get explicit user approval before kicking off
+new synth jobs that could spend another $20-50.
+
+## H1: SGLB-10 Citation-Generation
+
+```text
+You are working on issue #51 (SGLB-10 Citation-Generation).
+
+Depends on the SAL citation grammar (backend/api/services/sal_citation.py)
+and ideally the CommonLII SG corpus (Batch B). If Batch B has landed,
+use real citations; otherwise generate from grammar + a curated SG
+case list.
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-10.md.
+
+Files you own:
+- backend/benchmark/dataset_builders/sglb_10.py
+- backend/benchmark/tasks/sglb_10.py
+- backend/benchmark/llm_runner.py (+ prompt builder)
+- backend/benchmark/tasks/__init__.py (+ register)
+- docs/sglb_specs/SGLB-10.md (bump)
+- backend/tests/test_sglb_10_task.py
+- Makefile: + build-sglb-10
+
+Files you must NOT touch:
+- H2/H3's sglb_NN files.
+
+Task contract:
+- Input: `{"fact_pattern": str}` — a SG legal scenario.
+- Output: JSON array of citation strings ordered by relevance.
+- Score: exact-match top-1 + top-3 accuracy.
+
+Mechanical extraction: gold citation derived from cases where the
+published headnote matches the input fact pattern. Headnotes come
+from CommonLII; if Batch B has not landed, use a hand-curated set of
+~30 well-known SG cases (e.g. Spandeck Engineering, RBC Properties,
+Tan Cheng Bock) and synthesise fact patterns matching them — but the
+synthesis prompt is documented and the case-to-fact mapping is
+mechanical.
+
+Branch: feat/sglb-v0.2-wave-2.
+Commit: `feat(sglb-10): Citation-Generation (closes #51)`.
+
+Acceptance: 30-50 case smoke; tests pass.
+Report back: dependence on Batch B; quality concerns with curated
+case set.
+```
+
+## H2: SGLB-12 Multi-Issue-Spotting (complete existing stub)
+
+```text
+You are working on issue #53 (SGLB-12 Multi-Issue-Spotting). A
+synthetic runner already exists at backend/benchmark/synthetic/sglb_12.py
+and backend/benchmark/tasks/sglb_12.py; your job is to complete data +
+verify the harness end-to-end.
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-12.md, the existing
+synth files (taxonomy.yaml, compositions.yaml, sglb_12.py),
+backend/benchmark/synthetic/README.md.
+
+Files you own:
+- backend/benchmark/dataset_builders/sglb_12.py (NEW file if not
+  present — reads reviewed synthetic candidates into harness shape)
+- backend/benchmark/tasks/sglb_12.py (extend if needed; do not break
+  existing tests)
+- backend/benchmark/llm_runner.py (refine sglb_12 prompt if needed;
+  preserve version string semantics)
+- backend/benchmark/datasets/sglb_12_multi_issue_reviewed/ (output
+  dir; promote synthetic candidates here)
+- docs/sglb_specs/SGLB-12.md (bump to 0.1-shipped if you reach ≥50
+  reviewed cases)
+- backend/tests/test_sglb_12_task.py (extend coverage)
+
+Files you must NOT touch:
+- H1/H3's sglb_NN files.
+- backend/benchmark/synthetic/sglb_12.py (used by the existing synth
+  pipeline; do not modify unless a real bug surfaces).
+
+Cost gate: if reviewed candidates don't exist yet, you'd need to run
+`make synth-gen TASK=sglb_12 N=200 ...`. The SGLB-08 synth gen is
+currently running and costing ~$0.05/example via Azure gpt-5. A 200-
+case SGLB-12 run would cost ~$10-20. STOP and get user approval before
+firing synth-gen.
+
+Branch: feat/sglb-v0.2-wave-2.
+Commit: `feat(sglb-12): Multi-Issue-Spotting complete dataset (closes
+#53)`.
+
+Acceptance: ≥50 reviewed cases promoted; tests pass; harness runs
+end-to-end.
+
+Report back: actual synth cost; any taxonomy categories producing
+low-quality candidates.
+```
+
+## H3: SGLB-15 Draft-Constraint-Sat (complete existing stub)
+
+```text
+You are working on issue #56 (SGLB-15 Draft-Constraint-Sat). A
+synthetic runner exists at backend/benchmark/synthetic/sglb_15.py
+and backend/benchmark/tasks/sglb_15.py; complete the data + add
+SG-context constraints.
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-15.md, IFEval paper
+(Zhou et al., 2023, https://arxiv.org/abs/2311.07911),
+backend/benchmark/constraints.py.
+
+Files you own:
+- backend/benchmark/dataset_builders/sglb_15.py (new if not present)
+- backend/benchmark/tasks/sglb_15.py (extend)
+- backend/benchmark/llm_runner.py (refine prompt)
+- backend/benchmark/constraints.py (add SG-context constraints; see
+  list below)
+- backend/benchmark/datasets/sglb_15_draft_constraints_reviewed/
+- docs/sglb_specs/SGLB-15.md (bump)
+- backend/tests/test_sglb_15_task.py
+
+Files you must NOT touch:
+- H1/H2's sglb_NN files.
+- backend/benchmark/synthetic/sglb_15.py (existing synth pipeline).
+
+SG-context constraints to add (at minimum 6 kinds):
+- must_cite_pdpa_section (regex against SAL grammar)
+- must_include_governing_law_singapore
+- must_reference_employment_act
+- must_specify_notice_period_min_days
+- must_include_dispute_resolution_clause
+- must_have_pdpa_data_processor_designation
+
+Same synth cost gate as H2; get approval before firing synth-gen.
+
+Branch: feat/sglb-v0.2-wave-2.
+Commit: `feat(sglb-15): Draft-Constraint-Sat complete dataset (closes
+#56)`.
+
+Acceptance: ≥30 reviewed cases; ≥6 SG constraint kinds; tests pass.
+Report back: which constraint kinds are easy vs hard to verify
+deterministically.
+```
+
+---
+
+# Solo prompts (continued)
+
+## SOLO-10: #40 Final benchmark name + license research brief
+
+```text
+You are working on issue #40 in the junas repo. Read AGENT-RUNBOOK.md,
+README2.md, the pivot history in git (commit a910403 and earlier),
+CONTRIBUTING.md.
+
+Goal: a 1-page decision record letting the user choose name +
+license in <10 min.
+
+Files you own:
+- docs/decisions/dr-001-name-and-license.md (new)
+
+Decision record sections:
+
+1. **Name candidates** (3 options, pros/cons + discoverability check):
+   - "SG-LegalBench" — clearest, matches LegalBench convention
+   - "SingLegalBench" — more distinct but unwieldy
+   - "LexSG-Eval" — academic-flavoured but loses brand
+   - Any other you researched (Google "sg legal benchmark" to verify
+     none collide)
+
+2. **Code license** (4 options, with real legal-tech precedent):
+   - MIT (LegalBench uses this)
+   - Apache 2.0 (patent grant)
+   - AGPL-3.0 (Mike OSS uses this; discourages closed-source forks)
+   - GPL-3.0
+
+3. **Dataset license** (4 options):
+   - CC-BY-4.0
+   - CC-BY-SA-4.0
+   - CC-BY-NC-4.0
+   - CC0
+
+4. **Your recommendation** with one-sentence rationale.
+
+Constraints:
+- Research brief, NOT legal advice. No author legal opinions.
+- Cite each license URL.
+- Note what real legal-tech projects use each license (Mike OSS,
+  LegalBench, Stanford CRFM benchmarks, OpenLegal, etc.).
+- Surface the AGPL-vs-MIT trade-off explicitly: AGPL protects against
+  closed-source competitor builds but reduces commercial-vendor
+  uptake (some companies refuse AGPL).
+
+Branch: docs/dr-001-name-license.
+Commit: `docs(decision): name + license research brief (advances
+#40)`. Co-Authored-By trailer.
+
+Acceptance: 1-page brief in markdown; user can make the call without
+asking follow-ups.
+Report back: your one-sentence recommendation; any surprising
+constraint you found.
+```
+
+## SOLO-11: #42 Port SG-applicable contract templates
+
+```text
+You are working on issue #42 in the junas repo.
+
+This task is GATED on SOLO-7 (#35 copilot scope cleanup). If scope
+is still in flux, write the audit list of templates you'd port and
+stop. Otherwise proceed to implementation.
+
+Read AGENT-RUNBOOK.md, backend/api/services/template_service.py (the
+existing 6 SG seed), CONTRIBUTING.md.
+
+Files in scope (if implementing):
+- backend/api/services/template_service.py (extend)
+- backend/data/templates/sg/ (new — markdown templates)
+- backend/tests/test_template_service.py (extend)
+- frontend/app/templates/page.tsx (verify it renders the additions)
+
+Templates to add (target 10-12 total; the existing 6 are already in):
+1. Confidentiality / NDA (mutual)
+2. Employment contract (SG Employment Act compliant)
+3. Service agreement (B2B SG)
+4. Data processing agreement (PDPA compliant)
+5. Independent contractor agreement
+6. Non-compete + restraint of trade (per Smile Inc Dental Surgeons
+   v Lui Andrew Stewart [2012] 4 SLR 308)
+7. Shareholder agreement (basic)
+8. SaaS terms of service
+9. Loan agreement (basic, SG governing law)
+10. Power of attorney (general)
+
+Constraints:
+- All templates derivable from publicly-available SG drafting-guide
+  sources (cite each in template frontmatter).
+- No proprietary forms.
+- Each template carries a limitation disclaimer block referencing the
+  README §"Legal Disclaimer".
+
+Branch: feat/sg-contract-templates.
+Commit: `feat(templates): port SG-applicable contract templates
+(closes #42)`.
+
+Acceptance: 10-12 templates total; the /templates frontend route
+lists them; tests pass.
+Report back: any template where SG-source publicly-available
+drafting was thin.
+```
+
+## SOLO-12: #43 Logfire observability
+
+```text
+You are working on issue #43 in the junas repo. Read AGENT-RUNBOOK.md
+and Pydantic Logfire docs (https://docs.pydantic.dev/logfire/).
+
+Goal: opt-in Logfire integration for benchmark contributors who want
+to inspect their own runs.
+
+Files in scope:
+- backend/api/telemetry.py (new — Logfire setup, gated behind
+  LOGFIRE_TOKEN env var)
+- backend/api/main.py (instrument the FastAPI app; opt-in via env)
+- backend/benchmark/runner.py (instrument the runner; record per-case
+  spans)
+- backend/pyproject.toml: `logfire` to optional dev deps (NOT runtime)
+- docs/contributor-observability.md (new)
+
+Constraints:
+- Default off. If LOGFIRE_TOKEN unset, Logfire is a no-op (zero
+  network).
+- NEVER log API keys, model outputs verbatim, or user-provided text.
+  Only structural metadata: workflow name, evaluator name, score,
+  duration, error class. The harness's existing receipt JSON contains
+  outputs; that's the right place for them, not telemetry.
+- A future contributor running `LOGFIRE_TOKEN=xxx make eval` should
+  see traces in their Logfire project.
+
+Branch: feat/logfire-observability.
+Commit: `feat(observability): opt-in Logfire instrumentation (closes
+#43)`.
+
+Acceptance: opt-in works; nothing leaks in CI; doc walks a contributor
+through 2-min setup.
+Report back: any signal Logfire surfaced that we should add as a
+permanent metric in our own receipts.
+```
+
+## SOLO-13: #45 Region-per-index naming + adapter pattern (design FIRST)
+
+```text
+You are working on issue #45 in the junas repo. Read AGENT-RUNBOOK.md,
+backend/api/services/{case_retrieval,statute_lookup,retrieval_orchestrator}.py,
+backend/api/indices.py.
+
+This is ARCHITECTURAL. Two-phase delivery:
+- PHASE 1: design doc (this prompt). STOP after committing.
+- PHASE 2: implementation (separate prompt the user will issue after
+  reviewing the design).
+
+Files you own (Phase 1 only):
+- docs/decisions/dr-002-region-per-index.md (new)
+
+Design doc sections:
+
+1. **Current state.** No region prefix; indices implicitly SG-only.
+   Document the cases this hurts.
+2. **Why we need this.** Future Commonwealth adjacency (MY); SOLID
+   partnership may want per-region routing; copilot may serve clients
+   with multi-region practice.
+3. **Proposed naming convention.** `sg.statutes`, `sg.cases`,
+   `my.statutes`, etc.
+4. **Adapter pattern.** Each LegalSourceAdapter declares
+   `metadata.region: str`; retrieval orchestrator routes by region
+   tag pulled from a request header (X-Junas-Region) or session
+   state.
+5. **Migration plan.** Backward-compat shim during the deprecation
+   cycle; how to reindex without downtime.
+6. **Risks.** Index reindex cost; query API breakage; downstream
+   evaluator assumptions.
+7. **Estimate.** Implementation effort post-approval (days/weeks).
+
+STOP after design. Do not begin implementation.
+
+Branch: docs/dr-002-region-per-index.
+Commit: `docs(decision): region-per-index design (advances #45)`.
+
+Acceptance: a design doc the user can approve in one read.
+Report back: your recommendation; implementation effort estimate.
+```
+
+## SOLO-14: #46 PydanticAI migration
+
+```text
+You are working on issue #46 in the junas repo.
+
+**Honesty check first.** PydanticAI migration is labelled "low
+priority" for a reason. Before starting, verify the migration adds
+clear value over the current shape in backend/api/services/legal_qa.py
+and backend/api/services/chat_service.py. If you can't articulate
+the upside in 2 bullets, STOP and surface to the user — there may
+be a better use of the agent slot.
+
+If proceeding:
+
+Read AGENT-RUNBOOK.md, PydanticAI docs (https://ai.pydantic.dev/),
+backend/api/services/legal_qa.py + chat_service.py.
+
+Files in scope:
+- backend/api/services/orchestration.py (new — agent graphs for RAG
+  + tool-use)
+- backend/api/services/legal_qa.py (refactor to use orchestration)
+- backend/api/services/chat_service.py (refactor)
+- backend/tests/test_orchestration.py (new)
+- backend/pyproject.toml: + `pydantic-ai`
+
+Constraints:
+- Existing chat + legal_qa endpoints must remain bit-identical
+  behaviourally.
+- The migration must be reversible (preserve the old code path behind
+  a JUNAS_USE_PYDANTIC_AI feature flag for one minor version).
+
+Branch: refactor/pydantic-ai-orchestration.
+Commit: `refactor(orchestration): migrate to PydanticAI (closes #46)`.
+
+Acceptance: tests pass; existing endpoints behave identically; flag
+toggles cleanly.
+Report back: the 2-bullet upside you found OR an explicit "stopped
+— could not justify the migration; recommend closing #46".
+```
+
+## SOLO-15: #47 Jurisdiction selector UI
+
+```text
+You are working on issue #47 in the junas repo.
+
+**Honesty check first.** SG-only scope means a jurisdiction selector
+is forward-investment for the MY adjacency planned in SOLO-13 (#45).
+Do NOT implement a single-option dropdown. Either:
+- Wait for SOLO-13's design doc + Phase-2 impl, OR
+- Build the component now with MY visibly greyed out as "coming v0.3"
+  so the selector exists for future expansion.
+
+If proceeding:
+
+Read AGENT-RUNBOOK.md, frontend/components/*, frontend/lib/*,
+backend/api/services/jurisdiction_registry.py.
+
+Files in scope:
+- frontend/components/JurisdictionSelector.tsx (new — Radix Select)
+- frontend/lib/jurisdiction-state.ts (new — Zustand store or React
+  context; match whichever pattern the rest of the app uses)
+- frontend/app/layout.tsx (mount the selector in the global header)
+- frontend/tests/JurisdictionSelector.test.tsx
+
+Constraints:
+- Default: SG. Selected state persists across reload.
+- MY option greyed with tooltip "coming in v0.3".
+- Adding future jurisdictions requires only a registry entry, not
+  a component edit.
+- The selected jurisdiction is plumbed into every backend call as
+  X-Junas-Region header.
+
+Branch: feat/jurisdiction-selector.
+Commit: `feat(frontend): jurisdiction selector UI (closes #47)`.
+
+Acceptance: component renders; SG → MY toggle changes the API header
+(verify via network panel); tests pass.
+Report back: any backend endpoint that ignores the header (those are
+bugs to file separately).
+```
+
+## SOLO-16: #73 Branching policy consolidation
+
+```text
+You are working on issue #73 in the junas repo. Read AGENT-RUNBOOK.md
+§7, CONTRIBUTING.md, PROMPTS-TO-RUN.md.
+
+Branching policy is spread across multiple files. Pick ONE canonical
+location and link from the others.
+
+Files you own:
+- CONTRIBUTING.md (add or expand a "Branching policy" section as the
+  canonical source)
+- AGENT-RUNBOOK.md (§7 → replace bulk content with one-line link to
+  CONTRIBUTING.md#branching-policy)
+- PROMPTS-TO-RUN.md (any branching content → one-line link)
+
+Policy content (canonical):
+- Branch naming: feat/<short>, fix/<short>, docs/<short>,
+  refactor/<short>, ci/<short>, test/<short>.
+- `main` is protected; never push --force.
+- Conventional Commits format.
+- Pre-commit hooks must pass (no --no-verify).
+- Shared interfaces (scorer registry, dataset format) → PR required;
+  low-risk fixes can land direct.
+- Worktrees for parallel agents; runbook §7 reference for the path
+  convention.
+
+Branch: docs/branching-policy-consolidation.
+Commit: `docs(policy): consolidate branching policy in CONTRIBUTING
+(closes #73)`.
+
+Acceptance: branching policy lives in exactly one place; other docs
+link to it.
+Report back: any policy mismatch between existing docs that you had
+to reconcile.
+```
+
+---
+
+# Copilot product prompts
+
+These take the copilot from "harness UI" to "thing a SG legal-tech
+engineer would put in front of a real lawyer". The benchmark sells
+the credibility; the copilot is what real legal-tech companies
+actually buy.
+
+## COPILOT-1: Sessions + history persistence
+
+```text
+You are working on copilot product polish in the junas repo. Read
+AGENT-RUNBOOK.md, frontend/app/chat/page.tsx,
+backend/api/routers/chat.py.
+
+Current state: chat is in-memory only; reload loses history.
+
+Goal: persistent chat sessions surviving reload and accessible across
+browser tabs. Local-only data per README2 disclaimer.
+
+Files in scope:
+- backend/api/models/sessions.py (new — Pydantic)
+- backend/api/routers/sessions.py (new — CRUD: LIST/GET/CREATE/RENAME
+  /DELETE)
+- backend/api/services/session_storage.py (new — SQLite via the
+  existing alembic migration setup)
+- backend/migrations/versions/<timestamp>_sessions.py (new alembic
+  migration)
+- frontend/app/chat/page.tsx (consume sessions API)
+- frontend/components/SessionSidebar.tsx (new — left-rail list)
+- frontend/lib/api-client.ts (extend; coordinate with Batch C C3 if
+  not landed)
+- backend/tests/test_sessions_router.py
+- frontend/tests/SessionSidebar.test.tsx
+
+Constraints:
+- Local-only storage. No data leaves the user's machine.
+- Schema: id, title (auto-from-first-user-message), created_at,
+  updated_at, message_count, deleted_at (soft delete).
+- Optional user_id field (NULL in v0.1) for future multi-user
+  copilot.
+- Sidebar collapsible; keyboard shortcut ⌘B (coordinate with
+  COPILOT-4).
+
+Branch: feat/copilot-sessions.
+Commit: `feat(copilot): persistent chat sessions with local storage`.
+
+Acceptance: reload preserves history; rename/delete works; sidebar
+renders all sessions; tests pass.
+Report back: storage choice (SQLite vs IndexedDB vs LocalStorage) +
+rationale.
+```
+
+## COPILOT-2: Batch-analysis polish for real workflows
+
+```text
+You are working on copilot product polish. Read AGENT-RUNBOOK.md,
+frontend/app/batch-analysis/*, backend/api/routers/contracts.py.
+
+A real legal-tech engineer running this against a portfolio wants:
+- Drag-drop multi-doc upload (≤50 at once)
+- Per-doc progress, cancelable
+- Sortable results table, CSV export
+- Per-doc drill-down into LLM reasoning + flagged clauses
+
+Files in scope:
+- frontend/app/batch-analysis/page.tsx (rebuild)
+- frontend/app/batch-analysis/[batchId]/page.tsx (new — drill-down)
+- backend/api/routers/contracts.py (extend for batch + SSE progress)
+- backend/api/models/batch.py (new — BatchJob + BatchResult)
+- backend/api/services/batch_service.py (new — orchestrates per-doc
+  contract_classifier + tos_scanner calls; cancellable via asyncio
+  cancellation tokens)
+- backend/tests/test_batch_analysis.py
+- frontend/tests/batch-analysis.test.tsx
+
+Constraints:
+- SSE for progress, not polling.
+- Cancel TRULY cancels the backend work (asyncio task cancellation
+  propagates through to the LLM client). Test this with a 10-doc
+  batch + a cancel mid-run.
+- 50-doc cap enforced server-side.
+- Results survive reload (use sessions API from COPILOT-1 if landed).
+
+Branch: feat/copilot-batch-polish.
+Commit: `feat(copilot): batch-analysis polish for production
+workflows`.
+
+Acceptance: 10-doc upload completes with live progress; mid-run
+cancel works; CSV export works; tests pass.
+Report back: throughput characteristics; backend bottleneck if any.
+```
+
+## COPILOT-3: DOCX export
+
+```text
+You are working on copilot product polish. Read AGENT-RUNBOOK.md.
+
+Lawyers live in Word. Markdown export is for developers; DOCX is the
+minimum for the legal user. Implement DOCX export for benchmark
+receipts AND chat sessions.
+
+Files in scope:
+- backend/api/services/docx_export.py (new — python-docx based)
+- backend/api/routers/exports.py (new — /exports/receipt/{run_id}.docx
+  and /exports/session/{session_id}.docx endpoints)
+- backend/pyproject.toml: + `python-docx`
+- frontend/components/ExportButton.tsx (new)
+- frontend/app/chat/page.tsx (mount ExportButton)
+- frontend/app/benchmarks/runs/[runId]/page.tsx (mount ExportButton;
+  coordinate with SOLO-2 if not landed)
+- backend/tests/test_docx_export.py
+
+DOCX content shape:
+- Receipt: header (task, model, date), per-evaluator means, per-case
+  table.
+- Session: header (title), messages with role/timestamp, code blocks
+  in Courier New.
+- Footer: auto-inject the README.md §"For Informational Purposes
+  Only" disclaimer on EVERY export.
+
+Constraints:
+- A 200-message session must export in <3s.
+- Markdown tables / nested lists / code blocks round-trip cleanly.
+- File-naming: `junas-receipt-<run_id>.docx` and
+  `junas-session-<session_id>-<slugified-title>.docx`.
+
+Branch: feat/copilot-docx-export.
+Commit: `feat(copilot): DOCX export for receipts + chat sessions`.
+
+Acceptance: tests pass; manual export of a 200-message session
+produces a clean .docx.
+Report back: any markdown construct that didn't round-trip.
+```
+
+## COPILOT-4: Keyboard shortcuts + power-user palette
+
+```text
+You are working on copilot product polish. Read AGENT-RUNBOOK.md,
+frontend/components/chat/CommandPalette.tsx,
+frontend/lib/commands/command-handler.ts.
+
+This builds on Batch C C2 (command palette dead-link fix); if C2
+hasn't landed, fix the deadlinks first as part of this PR.
+
+Files in scope:
+- frontend/lib/keyboard.ts (new — global keymap + per-page bindings)
+- frontend/components/KeyboardHelpDialog.tsx (new — `?` opens cheat
+  sheet)
+- frontend/components/chat/CommandPalette.tsx (extend)
+- frontend/app/layout.tsx (mount global keyboard listener)
+- frontend/tests/keyboard.test.tsx
+
+Shortcuts:
+- ⌘K — open command palette
+- ⌘/ or ? — keyboard help dialog
+- ⌘L — focus chat input
+- ⌘⇧L — new chat
+- ⌘B — toggle session sidebar (works with COPILOT-1 SessionSidebar)
+- ⌘⇧E — export current view to DOCX (works with COPILOT-3)
+- ⌘⇧C — copy last assistant response
+- ⌘P — jump-to-page palette
+- ⌘⇧K — re-run last benchmark
+
+Constraints:
+- All shortcuts discoverable from the help dialog.
+- Do NOT override OS-reserved shortcuts (⌘W, ⌘T, ⌘N).
+- Provide a Mac vs Windows/Linux variant table in the help dialog
+  (⌘ → Ctrl).
+- Palette commands match the help-dialog list 1:1 (regression-tested
+  per C2's invariant).
+
+Branch: feat/copilot-keyboard.
+Commit: `feat(copilot): keyboard shortcuts + command palette polish`.
+
+Acceptance: ≥9 shortcuts working; help dialog enumerates them; the
+palette includes them all.
+Report back: any shortcut that conflicted with the browser; any
+chord suggested but not implementable.
+```
+
+---
+
+# Truly backlog (still not prompt-ready)
+
+These are the items left without prompts. They need user decisions
+or external dependencies before they can be specified:
+
+- **#58** — meta-tracking issue for the v0.2 expansion. All sub-issues
+  (#50, #51, #53, #54, #55, #56, #57) are specified above (Batches G
+  + H). When all close, this one closes too.
+- **Future user-driven issues** — if you find a need that isn't in
+  this doc:
+  1. Open a GitHub issue; write a prompt for it here in a follow-up PR.
+  2. Surface to the user directly if it's a one-off operational concern.
