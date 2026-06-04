@@ -3,13 +3,107 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "900101-1234560"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "123-45-67890"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it-security@seodo-fabrics.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "safety@heumcheon.go.kr"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "900101-1234560"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "123-45-67890"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it-security@seodo-fabrics.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "safety@heumcheon.go.kr"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638",
+      "reason": "Generic field label without an actual identifier value."
+    },
+    {
+      "matched_text": "Account No. ______",
+      "reason": "Generic form label placeholder, not an actual account number."
+    },
+    {
+      "matched_text": "Passport No. ______",
+      "reason": "Generic form label placeholder, not an actual passport number."
+    },
+    {
+      "matched_text": "1549-8700",
+      "reason": "Public helpline number, not an individual's phone number."
+    },
+    {
+      "matched_text": "Compliance Officer",
+      "reason": "Role-only reference; no named individual."
+    },
+    {
+      "matched_text": "Information Security Officer",
+      "reason": "Role-only reference; no named individual."
+    },
+    {
+      "matched_text": "Head of HR",
+      "reason": "Role-only reference; no named individual."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "HC-OPS-2026-0412",
+      "concept": "internal_ticket_id",
+      "reason": "Internal tracking identifier; may be sensitive operational data but not covered by an allowed rule."
+    },
+    {
+      "matched_text": "110-00-000000",
+      "concept": "bank_account_placeholder",
+      "reason": "Looks like a formatted account number sample/mask; unclear if it should be treated as bank_account under current rules."
+    },
+    {
+      "matched_text": "04999",
+      "concept": "kr_postal_code",
+      "reason": "Appears to be a Korean postal code; no explicit KR postal code rule provided."
+    },
+    {
+      "matched_text": "135",
+      "concept": "short_code_phone",
+      "reason": "Short public hotline code; unclear if it falls under generic phone_number rule for PII."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

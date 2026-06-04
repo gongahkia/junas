@@ -3,13 +3,210 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "482-87-19304"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@daonenergy.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-6742-2500"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dy.kim@daonenergy.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-6742-2599"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "010-5555-2711"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "203.0.113.42"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "210-9876-543210"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "861231-1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "M12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-6742-2001"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\uae40\ub3c4\uc724 \uc0c1\ubb34\ub2d8"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Deal Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\ubbf8\uacf5\uac1c \uc911\uc694\uc815\ubcf4"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "482-87-19304"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@daonenergy.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-6742-2500"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dy.kim@daonenergy.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-6742-2599"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "010-5555-2711"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "203.0.113.42"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "210-9876-543210"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "861231-1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "M12345678"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-6742-2001"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\uae40\ub3c4\uc724 \uc0c1\ubb34\ub2d8"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Deal Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\ubbf8\uacf5\uac1c \uc911\uc694\uc815\ubcf4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "IR\uc6a9 \ubbf8\uacf5\uac1c 2Q \uc190\uc775 \uc804\ub9dd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "\uc804\ub7b5\uc801 \ud22c\uc790 \uac80\ud1a0 \ucd08\uc548"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\uc804\ub7b5\uc801 \ud22c\uc790 \uc720\uce58 \uc81c\uc548 \ube44\uacf5\uac1c \ucd08\uc548"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "\uc774\uc0ac\ud68c \ubcf4\uace0 \uc608\uc815\uc758 \ud569\uc791\uac80\ud1a0 \uba54\ubaa8"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\ud604\uc7ac\uae4c\uc9c0 \ub300\uc678\uacf5\uc2dc\ub294 \uc774\ub8e8\uc5b4\uc9c0\uc9c0 \uc54a\uc558\uc74c"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "IR \ud3ec\ud138 \uc811\uadfc\uad8c\ud55c \uc624\ub0a8\uc6a9 \ubc1c\uc0dd \ud1b5\uc9c0"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "1332",
+      "reason": "Public helpline number; explicitly stated as not a customer/employee contact"
+    },
+    {
+      "matched_text": "\uc131\uba85",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "\uc5f0\ub77d\ucc98",
+      "reason": "Generic form label placeholder, not actual PII"
+    },
+    {
+      "matched_text": "\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638",
+      "reason": "Generic form label placeholder, not actual PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "\uc11c\uc6b8\ud2b9\ubcc4\uc2dc \ud55c\uc11c\uad6c \ubbf8\ub798\ub300\ub85c 123, \uac00\ub78c\ud0c0\uc6cc 18\uce35",
+      "concept": "address identifier",
+      "reason": "Full street address is PII under PIPA but no explicit generic address rule exists in the allowed set"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
