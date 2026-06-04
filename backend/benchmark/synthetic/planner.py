@@ -13,6 +13,7 @@ DEFAULT_PROVIDERS = ("anthropic", "openai", "google")
 ESTIMATED_COST_PER_EXAMPLE_USD = {
     "anthropic": 0.025,
     "openai": 0.015,
+    "azure": 0.015,  # Azure OpenAI matches OpenAI list pricing per-model
     "google": 0.01,
     "gemini": 0.01,
     "mock": 0.0,

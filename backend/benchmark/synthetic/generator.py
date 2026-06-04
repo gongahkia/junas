@@ -105,6 +105,16 @@ def preflight_providers(providers: str | tuple[str, ...] | list[str]) -> dict[st
             if not getattr(settings, "openai_api_key", ""):
                 missing.append("OPENAI_API_KEY")
             configured[provider] = getattr(settings, "openai_model", "")
+        elif provider == "azure":
+            for env_name, attr in (
+                ("AZURE_OPENAI_API_KEY", "azure_openai_api_key"),
+                ("AZURE_OPENAI_ENDPOINT", "azure_openai_endpoint"),
+                ("AZURE_OPENAI_API_VERSION", "azure_openai_api_version"),
+                ("AZURE_OPENAI_DEPLOYMENT", "azure_openai_deployment"),
+            ):
+                if not getattr(settings, attr, ""):
+                    missing.append(env_name)
+            configured[provider] = getattr(settings, "azure_openai_deployment", "")
         elif provider == "anthropic":
             if not getattr(settings, "anthropic_api_key", ""):
                 missing.append("ANTHROPIC_API_KEY")
@@ -133,6 +143,19 @@ def _settings_for_provider(provider: str) -> SimpleNamespace:
             openai_api_key=os.environ.get("OPENAI_API_KEY", ""),
             openai_model=os.environ.get("JUNAS_SYNTH_OPENAI_MODEL", os.environ.get("OPENAI_MODEL", "gpt-4o-mini")),
         )
+    if provider == "azure":
+        return SimpleNamespace(
+            llm_provider="azure",
+            azure_openai_api_key=os.environ.get("AZURE_OPENAI_API_KEY", ""),
+            azure_openai_endpoint=os.environ.get("AZURE_OPENAI_ENDPOINT", ""),
+            azure_openai_api_version=os.environ.get(
+                "AZURE_OPENAI_API_VERSION", "2024-08-01-preview"
+            ),
+            azure_openai_deployment=os.environ.get(
+                "JUNAS_SYNTH_AZURE_DEPLOYMENT",
+                os.environ.get("AZURE_OPENAI_DEPLOYMENT", ""),
+            ),
+        )
     if provider == "anthropic":
         return SimpleNamespace(
             llm_provider="anthropic",
@@ -157,6 +180,7 @@ def generator_model_name(provider: str) -> str:
     settings = _settings_for_provider(provider)
     model = {
         "openai": getattr(settings, "openai_model", ""),
+        "azure": getattr(settings, "azure_openai_deployment", ""),
         "anthropic": getattr(settings, "anthropic_model", ""),
         "gemini": getattr(settings, "gemini_model", ""),
     }.get(getattr(settings, "llm_provider", ""), "")

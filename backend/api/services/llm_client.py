@@ -139,6 +139,32 @@ def get_llm_client(settings: Any) -> LLMClient:
         model = str(getattr(settings, "openai_model", "gpt-4o-mini")).strip() or "gpt-4o-mini"
         return OpenAIClient(api_key=api_key, model=model)
 
+    if provider == "azure":
+        api_key = str(getattr(settings, "azure_openai_api_key", "")).strip()
+        endpoint = str(getattr(settings, "azure_openai_endpoint", "")).strip()
+        api_version = str(getattr(settings, "azure_openai_api_version", "")).strip()
+        deployment = str(getattr(settings, "azure_openai_deployment", "")).strip()
+        missing = [
+            name
+            for name, value in (
+                ("AZURE_OPENAI_API_KEY", api_key),
+                ("AZURE_OPENAI_ENDPOINT", endpoint),
+                ("AZURE_OPENAI_API_VERSION", api_version),
+                ("AZURE_OPENAI_DEPLOYMENT", deployment),
+            )
+            if not value
+        ]
+        if missing:
+            raise RuntimeError(
+                f"azure provider requires the following env vars: {', '.join(missing)}"
+            )
+        return AzureOpenAIClient(
+            api_key=api_key,
+            endpoint=endpoint,
+            api_version=api_version,
+            deployment=deployment,
+        )
+
     if provider == "anthropic":
         api_key = str(getattr(settings, "anthropic_api_key", "")).strip()
         if not api_key:
@@ -176,6 +202,8 @@ def get_llm_model_name(settings: Any) -> str:
     provider = str(getattr(settings, "llm_provider", "ollama")).strip().lower()
     if provider == "openai":
         return str(getattr(settings, "openai_model", "gpt-4o-mini"))
+    if provider == "azure":
+        return str(getattr(settings, "azure_openai_deployment", ""))
     if provider == "anthropic":
         return str(getattr(settings, "anthropic_model", "claude-sonnet-4-20250514"))
     if provider == "ollama":
