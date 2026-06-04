@@ -3,13 +3,388 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "67%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 12,400,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "3,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 850,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non\u2011public investigation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "credential\u2011stuffing incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "strict information barriers implemented"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project River"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "info\u2011barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "insider\u2011wall"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Keiko Aramaki"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Shunpei Akagawa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Akagawa"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "keiko.aramaki@hoshizora-robotics.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "shunpei.akagawa@oboro-cm.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "tel +81\u20118 0\u2011***\u2011**\u2011**77"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID\u2011**73x9"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID\u2011**64y2"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "employee data will be pseudonymised"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "No \u201cIndividual Number\u201d will be transferred"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers require opt\u2011in consent"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "67%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 12,400,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "3,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 850,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 120,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non\u2011public investigation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "credential\u2011stuffing incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "strict information barriers implemented"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project River"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "info\u2011barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "insider\u2011wall"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Keiko Aramaki"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Shunpei Akagawa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Akagawa"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "keiko.aramaki@hoshizora-robotics.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "shunpei.akagawa@oboro-cm.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "tel +81\u20118 0\u2011***\u2011**\u2011**77"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID\u2011**73x9"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID\u2011**64y2"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "employee data will be pseudonymised"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "No \u201cIndividual Number\u201d will be transferred"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers require opt\u2011in consent"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project A m a n o g a w a"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no TOB notice has been filed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "publication of a climate scenario analysis"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2 intensity \u2264 28 kgCO2e/MWh"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "segregate DPT trading desk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "PII",
+      "rule": "crypto_wallet_address",
+      "matched_text": "0xAB**CD"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Defined role header not PII/MNPI"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role noun defined term"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role noun defined term"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role noun defined term"
+    },
+    {
+      "matched_text": "NXG",
+      "reason": "Defined abbreviation/acronym"
+    },
+    {
+      "matched_text": "DPT",
+      "reason": "Defined abbreviation/acronym"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "processing limited to domestic servers",
+      "concept": "data localization",
+      "reason": "Implies residency/localisation but not clearly covered by allowed cross-border marker"
+    },
+    {
+      "matched_text": "18\u2011month lockup",
+      "concept": "lock-up period",
+      "reason": "Trading restriction could be market sensitive but not an allowed embargo/blackout marker"
+    },
+    {
+      "matched_text": "price collar",
+      "concept": "commercial pricing term",
+      "reason": "Material pricing mechanic not listed in current MNPI rules"
+    },
+    {
+      "matched_text": "\u8352\u7267\u69d8",
+      "concept": "named person (Japanese honorific)",
+      "reason": "Identifies a person using Japanese honorific; may not meet current named_person trigger list"
+    },
+    {
+      "matched_text": "Pro ject \u201cA m a n o g a w a\u201d",
+      "concept": "transaction codename variant",
+      "reason": "Spaced/quoted codename may evade strict 'Project <Name>' detector"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
