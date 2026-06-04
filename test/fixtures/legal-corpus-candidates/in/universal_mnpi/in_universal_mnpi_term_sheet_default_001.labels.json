@@ -3,13 +3,313 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI under SEBI (PIT) Regulations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Neemleaf"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargoed until 15 Aug 2026, 17:00 IST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SHA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "INR 620 per equity share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "26.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window shall remain closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintenance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No announcement, IR deck, or Q&A to be shared externally before the embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "This document contains unpublished price sensitive information"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ajit Madhavan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Venkataram"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ishan Borkar"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rhea.venkataram@aravaligroup.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "iborkar@sivajilaw.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid collection of Aadhaar/PAN/GSTIN unless strictly necessary"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask identifiers (retain only last 4 digits)"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI under SEBI (PIT) Regulations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Neemleaf"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargoed until 15 Aug 2026, 17:00 IST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SHA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "INR 620 per equity share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "26.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window shall remain closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window shall remain closed for designated persons until 48 hours after public disclosure to the stock exchange pursuant to Regulation 30 of LODR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintenance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No announcement, IR deck, or Q&A to be shared externally before the embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "No announcement, IR deck, or Q&A to be shared externally before the embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "This document contains unpublished price sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "SEBI structured digital database update"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Transaction: Acquisition of 26.0% of the fully diluted share capital via a combination of primary issuance and secondary purchase for an aggregate consideration of INR 1,240 crore at INR 620 per equity share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "closing within 90 days subject to CCI and NSE observations"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ajit Madhavan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Venkataram"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ishan Borkar"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rhea.venkataram@aravaligroup.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "iborkar@sivajilaw.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid collection of Aadhaar/PAN/GSTIN unless strictly necessary"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask identifiers (retain only last 4 digits)"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "children under 18"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Acquirer",
+      "reason": "Defined role term in parentheses"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined role term in parentheses"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role noun/defined term heading"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "verifiable guardian consent",
+      "concept": "minor consent requirement",
+      "reason": "Legally relevant consent requirement under DPDPA but allowed rules only include consent_withdrawal_marker, not general consent."
+    },
+    {
+      "matched_text": "public announcement post-embargo",
+      "concept": "embargo management",
+      "reason": "Refers to handling of public disclosure relative to embargo but not an explicit Embargoed/Press Hold/Signing Date token."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 1,240 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 80 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 10 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 1,240 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 80 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 10 crore'"
+  ],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

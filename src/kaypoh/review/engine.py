@@ -1252,6 +1252,7 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"public\s+hotline|public\s+line|public\s+service\s+line|"
     r"public\s+enquir(?:y|ies)\s+hotline|enquiries\s+line|procedural\s+queries\s+only|"
     r"public\s+(?:queries|enquiries)|"
+    r"DSAR\s+hotline|"
     r"support\s+hotline|switchboard|reception|information\s+line|contact\s+centre|client\s+services|"
     r"(?:privacy|ethics)\s+helplines?|assistance\s+line|published\s+contacts?|"
     r"generic\s+(?:in[-\u2010-\u2015 ]house\s+)?ivr|in[-\u2010-\u2015 ]house\s+ivr|"
@@ -1287,15 +1288,17 @@ _DATE_LIKE_PHONE_RE = re.compile(
     r"(?:\d{4}[-/]\d{1,2}[-/]\d{1,2}(?:\s+\d{1,2})?|"
     r"\d{1,2}[-/]\d{1,2}[-/]\d{2,4}(?:\s+\d{1,2})?|"
     r"\d{1,2}\.\d{1,2}\.\d{2,4}|"
+    r"\d{4}-\d{4}|"
+    r"\d{4}-\d{2}-\d{2}-\d{2}|"
     r"\d{1,2}[-/]\d{1,2}[-/]\d{4}\s+\(\d+(?:\.\d+)?)\Z"
 )
 _THAI_ID_LIKE_PHONE_RE = re.compile(r"\d-\d{4}-\d{5}-\d{2}-\d\Z")
 _IPV4_LITERAL_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}\Z")
 _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|UKPA|EIN|ISIN|LEI|a/c|acc\s*t|account|"
-    r"bank\s*acct|payroll\s*acct|"
+    r"bank\s*acct|payroll\s*acct|A\s*/\s*c|"
     r"rekening|national\s+id|company\s+no|co\.\s+no|"
-    r"reg\.\s+no|registration\s+no|\bCR\b|CRN|commercial\s+registration|"
+    r"reg\.\s+no|registration\s+no|\bCR\b|CRN|CIN|commercial\s+registration|"
     r"filing\s+ref|tax\s+id|tax\s+ref|tax\s+no|TINs?|VAT|V\s*A\s*T|ZATCA|GAZT|MST|EPF|SWIFT|"
     r"TRN|CRN|trade\s+licen[cs]e|commercial\s+licen[cs]e|Emirates\s+I\s*D|EID|"
     r"national\s+address|Bldg|Iqama|IQA\s*MA|National\s+ID|NID|AP\s+No|"
@@ -1303,7 +1306,7 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"Pag-?IBIG|PhilHealth|MID|doc\s*code|doccode|OCR|artifacts?|"
     r"Rp|IDR|harga|nilai|miliar|triliun|billion|million|RSU|"
     r"Aadhaar|PAN|GSTIN|placeholder|sample|specimen|test\s+fields?|training\s+placeholder|"
-    r"session\s+ref|vpn\s+ref|access\s+token|internal\s+user\s+id|"
+    r"session\s+ref|vpn\s+ref|access\s+token|internal\s+user\s+id|ticket|"
     r"employee\s+nos?\.?|employee\s+id|payroll\s+ref|SSA\s+ref|job\s+ID|"
     r"asset\s+tag|badge)\b",
     re.IGNORECASE,
@@ -1527,7 +1530,9 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         r"no\s+[\"“]?material\s+adverse\s+effect[\"”]?\s+occurred|"
         r"no\s+mac[^\n.;]{0,100}material\s+adverse\s+change|"
         r"not\s+expected\s+to\s+constitute[^\n.;]{0,120}material\s+adverse\s+(?:change|effect)|"
+        r"not\s+expected\s+to\s+have[^\n.;]{0,120}material\s+adverse\s+(?:change|effect)|"
         r"does\s+not\s+constitute[^\n.;]{0,140}material\s+adverse\s+(?:change|effect)|"
+        r"shall\s+not\s+constitute[^\n.;]{0,140}material\s+adverse\s+(?:change|effect)|"
         r"nothing\s+in\s+this\s+(?:notice|workflow|document|memo)[^\n.;]{0,120}"
         r"constitutes[^\n.;]{0,120}material\s+adverse\s+(?:change|effect)|"
         r"nothing\s+herein\s+constitutes[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"

@@ -3,13 +3,218 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@pavitragroup.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@nimtele.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@pavitragroup.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "XXXXX0000X"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "00AAAAA0000A0Z0"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "children (under 18 years)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no Aadhaar collection"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked and optional"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "share purchase agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Public communication embargo until 2026-08-15 09:30 IST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading window policies"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@pavitragroup.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@nimtele.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@pavitragroup.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "XXXXX0000X"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "00AAAAA0000A0Z0"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar: XXXX-XXXX-XXXX"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "children (under 18 years)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no Aadhaar collection"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked and optional"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border remittance is later contemplated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed strategic acquisition of Pavitra Gridware Limited by Nimbark Televentures Limited (India)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "share purchase agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Public communication embargo until 2026-08-15 09:30 IST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading window policies"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not circulate as advice"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "All queries to role mailboxes only"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "acquirer",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "target",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "spa-day bait; not a Share Purchase Agreement"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "negated MAC language should not be labeled"
+    },
+    {
+      "matched_text": "MAE",
+      "reason": "negated MAC language should not be labeled"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "contains no unpublished price sensitive information under SEBI (PIT) Regulations, 2015",
+      "concept": "nonpublic_marker_negated",
+      "reason": "mentions UPSI in a negated context; relevance to MNPI tagging is ambiguous"
+    },
+    {
+      "matched_text": "consent and notices to follow the Digital Personal Data Protection Act, 2023",
+      "concept": "consent_compliance_marker",
+      "reason": "references consent compliance obligations but not a specific withdrawal/DSAR/erasure event covered by allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
