@@ -3,13 +3,244 @@
   "document_type": "generic",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@mokdan-semi.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82-02-123-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@mokdan-semi.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Dae-hoon Lim"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee No. E-0419"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric face template for gate access"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "a recent occupational health report indicating hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "dues-paying member of the Orion Fab Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ara Jeong"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "important information not yet publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. So-yeon Park"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@mokdan-semi.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82-02-123-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@mokdan-semi.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Dae-hoon Lim"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee No. E-0419"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric face template for gate access"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "a recent occupational health report indicating hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "dues-paying member of the Orion Fab Workers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ara Jeong"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "important information not yet publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "important information not yet publicly disclosed under FSCMA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list roles"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. So-yeon Park"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "need-to-know"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "acquisition"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers: certain processing is performed by CloudSong Data Services Pte. in the Nasan Republic"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked resident-number"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "79XX01-2XXXXXX"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "political opinions you voluntarily disclose"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Aurora Pay",
+      "reason": "Product/service name, not PII or MNPI"
+    },
+    {
+      "matched_text": "SoriWatch",
+      "reason": "Product/service name, not PII or MNPI"
+    },
+    {
+      "matched_text": "Haneul Thunder",
+      "reason": "Sports team/schedule reference, not PII or MNPI"
+    },
+    {
+      "matched_text": "Open Horizon Inclusion Policy",
+      "reason": "Policy name (generic DEI prose), not PII or MNPI"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic DEI reference not tied to an identifiable person"
+    },
+    {
+      "matched_text": "religion",
+      "reason": "Generic DEI reference not tied to an identifiable person"
+    },
+    {
+      "matched_text": "political football",
+      "reason": "Metaphor, not a special-category personal data reference"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "insider lists and pre-deal communications are retained 5 years after public disclosure",
+      "concept": "retention marker",
+      "reason": "Retention schedule is privacy-relevant but no explicit retention rule is provided in allowed list"
+    },
+    {
+      "matched_text": "employee health surveillance records are retained 3 years under workplace safety guidance",
+      "concept": "retention marker",
+      "reason": "Retention of health records is privacy-relevant but no explicit retention rule is provided"
+    },
+    {
+      "matched_text": "biometric templates are deleted within 30 days of separation",
+      "concept": "retention/erasure marker",
+      "reason": "Deletion timeframe is privacy-relevant but not mapped to a specific allowed rule"
+    },
+    {
+      "matched_text": "you may request access, correction, deletion, or suspension",
+      "concept": "DSAR rights",
+      "reason": "Data subject rights/erasure are privacy-relevant but no explicit DSAR rule is provided"
+    },
+    {
+      "matched_text": "we respond within 10 business days",
+      "concept": "DSAR SLA",
+      "reason": "Response SLA is privacy-relevant but not covered by an allowed rule"
+    },
+    {
+      "matched_text": "breach notification to the competent securities authority if required",
+      "concept": "breach notification obligation",
+      "reason": "Regulatory breach notification is compliance-relevant but not clearly covered by an allowed MNPI/PII rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

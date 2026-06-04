@@ -3,13 +3,150 @@
   "document_type": "generic",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@haneulbridge.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@haneulbridge.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "000000-0000000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "rrn fields must be masked at source"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no rrn collection"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border backup"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for public release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@haneulbridge.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@haneulbridge.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "000000-0000000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "rrn fields must be masked at source"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no rrn collection"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border backup"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border backup to cloudstage apac pte"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for public release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "2026-07-15 09:00 kst embargo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse effect",
+      "reason": "Negated MAC language; do not label per rule 8."
+    },
+    {
+      "matched_text": "mac clause",
+      "reason": "Negated MAC language; do not label per rule 8."
+    },
+    {
+      "matched_text": "spa-day",
+      "reason": "Wellness bait; not a Share Purchase Agreement."
+    },
+    {
+      "matched_text": "definitive agreement",
+      "reason": "Generic template placeholder, not a specific definitive agreement type (SPA/SHA/APA/LOI/MOU/Term Sheet)."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "delete or anonymize upon expiry with audit trail kept 1y",
+      "concept": "retention/erasure marker",
+      "reason": "Retention and erasure/anonymization policy is privacy-relevant but not clearly mapped to an allowed rule label."
+    },
+    {
+      "matched_text": "dsar workflow",
+      "concept": "DSAR/rights handling marker",
+      "reason": "DSAR handling is legally relevant but not explicitly covered by the allowed rule set."
+    },
+    {
+      "matched_text": "with consent and safeguards per pipc notices",
+      "concept": "consent/legal basis and safeguards",
+      "reason": "References consent and safeguards for cross-border transfer without a specific allowed consent-withdrawal marker."
+    },
+    {
+      "matched_text": "hrid",
+      "concept": "employee_id internal identifier",
+      "reason": "References an internal employee ID type without a concrete value; potentially in-scope PII but not directly captured by a listed rule."
+    },
+    {
+      "matched_text": "not used for profiling or automated decisions",
+      "concept": "automated decision-making safeguard",
+      "reason": "ADM/profiling restriction is privacy-relevant but not covered by enumerated detection rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

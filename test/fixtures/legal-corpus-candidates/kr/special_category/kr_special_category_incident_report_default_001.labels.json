@@ -3,13 +3,249 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "830512-1876543"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Park Jun-ho"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lee So-min"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Seo Min-gyu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Na Hye-jin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@haneulinstruments.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@haneulinstruments.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "203.0.113.54"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "peanut allergy"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "requiring EpiPen"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "active membership in Haneul Tech Union Local 77"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template hash"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "+17%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 35b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 18,000"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "830512-1876543"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Park Jun-ho"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lee So-min"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Seo Min-gyu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Na Hye-jin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@haneulinstruments.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@haneulinstruments.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "203.0.113.54"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "peanut allergy"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "requiring EpiPen"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "active membership in Haneul Tech Union Local 77"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template hash"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "Mr. Park\u2019s fingerprint template hash"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "resident registration numbers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "+17%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 35b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 18,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "unaudited Q2 revenue forecast"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "indicative private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber Incident Report"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "investor update withheld pending assessment"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Deal/PrivatePlacement/TermSheet_Cheongmae_Growth_SPC.docx"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Seoryeon Blue Cranes baseball club",
+      "reason": "Sports team reference; not PII or MNPI"
+    },
+    {
+      "matched_text": "Harmony Inclusion Charter",
+      "reason": "DEI policy name; not special-category personal data"
+    },
+    {
+      "matched_text": "religious beliefs",
+      "reason": "Negated special-category bait; explicitly stated as not maintained"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Negated special-category bait; explicitly stated as not maintained"
+    },
+    {
+      "matched_text": "Blue Crane",
+      "reason": "Internal policy codename not matching Project <Name> pattern"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "clinic_reimbursements.xlsx",
+      "concept": "health data indicator",
+      "reason": "Implies potential exfiltration of health-related reimbursement data but not directly mapped to a specific special-category rule or individual"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

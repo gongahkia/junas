@@ -3,13 +3,265 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 2026-07-15 09:00 KST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project BADA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 1.2 billion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "~2.8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 250 million"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,482"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ji\u2011won Lee"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "jiwon.lee@haneul-robotics.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82-2-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Min\u2011jae Park"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID: HB-00A3-X9"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 2026-07-15 09:00 KST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project BADA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 1.2 billion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "~2.8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 250 million"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Subscription Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5.0%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,482"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ji\u2011won Lee"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "jiwon.lee@haneul-robotics.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82-2-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Min\u2011jae Park"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID: HB-00A3-X9"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "R RN: 8 9 0 7 2 2-1 2 3 X X X"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "acct: 110-XX-4920"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "notification draft to the competent authority and FSS cyber desk is prepared"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "experienced unauthorized script injection"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not publish"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo reinforced through 7/15 09:00 KST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "inverse termination provision"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SSA",
+      "reason": "contract abbreviation/defined term"
+    },
+    {
+      "matched_text": "No MAC/MAE",
+      "reason": "negated MAC/MAE language should not be labeled"
+    },
+    {
+      "matched_text": "spa-day vouchers",
+      "reason": "bait non-sensitive content"
+    },
+    {
+      "matched_text": "Hanseo Daily",
+      "reason": "public-source reference, not PII/MNPI by itself"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "110-XX-4920",
+      "concept": "bank_account_masked",
+      "reason": "masked number may be a bank or payroll account alias; PII status depends on context"
+    },
+    {
+      "matched_text": "prior to embargo",
+      "concept": "embargo_marker",
+      "reason": "embargo control language but not a canonical marker term"
+    },
+    {
+      "matched_text": "PIPA notice within 72h",
+      "concept": "regulatory_breach_notification_timeline",
+      "reason": "legally relevant privacy notice timing but not covered by enumerated privacy markers"
+    },
+    {
+      "matched_text": "MAC sensitivity",
+      "concept": "material_adverse_change",
+      "reason": "references MAC concept without canonical phrase; may fall outside strict rule list"
+    },
+    {
+      "matched_text": "FSS cyber desk",
+      "concept": "regulatory_reporting_channel",
+      "reason": "sensitive regulator contact context but not explicitly enumerated in rules"
+    },
+    {
+      "matched_text": "Yong-2",
+      "concept": "internal_system_identifier",
+      "reason": "internal asset identifier could be sensitive but not a defined PII/MNPI rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

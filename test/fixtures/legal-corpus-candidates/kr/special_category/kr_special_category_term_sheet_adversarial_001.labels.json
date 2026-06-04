@@ -3,13 +3,424 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "seojw@haneulon.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Seo Ji-won"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lee Hyo-guk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@bluearc.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@haneulon.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jin Tae-woo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "jtw@bluearc.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union membership: Alloy Workers Circle (local chapter B-14)"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint hash: 4F:B1:9C:00:7A:2D:\u2022\u2022"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Park Eun-ji"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82-70-0000-0001"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "observes Catholic holy days"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "voluntary genetic carrier screening ref GX-77-zz12 (no carrier detected)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ms.yoon@bluearc.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Yoon Min-su"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Buddhist observance"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "back-injury"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82-70-0000-0002"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Personal data shall be minimized"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Seorak"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "important information not publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 48,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 30,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 18,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "seojw@haneulon.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Seo Ji-won"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lee Hyo-guk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@bluearc.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@haneulon.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jin Tae-woo"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "R e s i d e n t   N o .: 8 3 0 2 2 9 - 1 0 3 4 5 7 *"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "jtw@bluearc.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union membership: Alloy Workers Circle (local chapter B-14)"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "bi o me tric access template (fingerprint hash: 4F:B1:9C:00:7A:2D:\u2022\u2022)"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint hash: 4F:B1:9C:00:7A:2D:\u2022\u2022"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "hypertension"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "hypertension treatment"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Park Eun-ji"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82-70-0000-0001"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "observes Catholic holy days"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "voluntary genetic carrier screening ref GX-77-zz12 (no carrier detected)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "p a r k e j @ h a n e u l o n . c o . k r"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ms.yoon@bluearc.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Yoon Min-su"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Buddhist observance"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "back-injury"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "physician-advised back-injury recovery plan"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82-70-0000-0002"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Personal data shall be minimized"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "421-88-0XQ7"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "511-81-Z29P"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Seorak"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "important information not publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "maintain trading blackout from signing until HSE announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "sign by 2026-06-30"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "expected closing by 2026-09-30"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "closing within 90 days"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "announcement to HSE/KLE within one business day"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 48,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 30,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 18,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Acquirer",
+      "reason": "Defined role term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined role term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Defined role term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Defined role label, not PII/MNPI"
+    },
+    {
+      "matched_text": "Biometric Shield",
+      "reason": "Product name; not person-specific data"
+    },
+    {
+      "matched_text": "Seonghwa Meteors",
+      "reason": "Sports team; not PII/MNPI"
+    },
+    {
+      "matched_text": "Harmony Workplace Policy",
+      "reason": "Policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Green Horizon Roadmap",
+      "reason": "Program/policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "SnowFox Lidar v3.2",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Orchid OS",
+      "reason": "Product name; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "HSE (Hanul Stock Exchange) listing intent for 2027",
+      "concept": "material_event",
+      "reason": "Could be material if nonpublic; not an explicit standardized trigger phrase in allowed rules."
+    },
+    {
+      "matched_text": "Company Reg. Nos.: Haneulon 421-88-0XQ7, BlueArc 511-81-Z29P",
+      "concept": "kr_business_registration",
+      "reason": "Corporate registration identifiers with atypical alphanumerics; legally identifiers but may not match strict regex patterns."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

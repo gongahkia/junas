@@ -3,13 +3,154 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Seo Hye\u2011jin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@yuji-robotics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@yuji-robotics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "000000-0000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Seo Hye\u2011jin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@yuji-robotics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@yuji-robotics.example"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "000000-0000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MOU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheets"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "Resident-number (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Dragon Shield Endpoint Suite",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "AsterX Cloud SSO",
+      "reason": "Product/service name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Clean Harbor Data Policy v3.1",
+      "reason": "Policy/program name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Zero Downtime 2.0",
+      "reason": "Program/slogan name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Harmony@Work",
+      "reason": "DEI program name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Sunrise Inclusion Charter",
+      "reason": "DEI policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Han River",
+      "reason": "Place/metaphor, not PII/MNPI"
+    },
+    {
+      "matched_text": "Gwangjin\u2011gu",
+      "reason": "Geographic place name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Jeju test track",
+      "reason": "Facility/place name, not PII/MNPI"
+    },
+    {
+      "matched_text": "KRSX FairNotice portal",
+      "reason": "Portal/product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "KIND-F",
+      "reason": "Platform code, not PII/MNPI"
+    },
+    {
+      "matched_text": "Yuji Robotics Co., Ltd",
+      "reason": "Company name, not personal data"
+    },
+    {
+      "matched_text": "Gyeonhwa Capital Partners",
+      "reason": "Company name, not personal data"
+    },
+    {
+      "matched_text": "Korea Market Oversight Office",
+      "reason": "Agency/organization name, not PII/MNPI"
+    },
+    {
+      "matched_text": "No biometric, genetic, treatment, union, religion, sexual\u2011orientation, or political data was processed in relation to this event per PIPA definitions",
+      "reason": "Negated special-category mention; not actual personal data"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "YJ-INC-20260518-CYB",
+      "concept": "internal reference identifier",
+      "reason": "Unique internal incident ID may be linkable but not clearly covered by allowed identifier rules and not person-specific."
+    },
+    {
+      "matched_text": "Cyber/Operational Incident Report",
+      "concept": "cyber incident MNPI status",
+      "reason": "Cyber events can be material pre-disclosure, but this report indicates public disclosure; not clearly a rule-triggering pre-disclosure marker."
+    },
+    {
+      "matched_text": "no \u201cimportant information\u201d under FSCMA was exposed",
+      "concept": "MNPI classification statement",
+      "reason": "References legal MNPI concept but is a negation; not a defined MNPI rule trigger."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

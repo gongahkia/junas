@@ -3,13 +3,145 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Employee A voluntarily disclosed a prior ACL knee surgery in 2018 for insurance onboarding"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@orilux-semitide.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "080-000-0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure of important information under FSCMA"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Employee A voluntarily disclosed a prior ACL knee surgery in 2018 for insurance onboarding"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@orilux-semitide.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "080-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Resident Registration Number (if ever required for lock-up or KYC): Not collected in this term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no trading before required disclosures"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "KRW [TBD]"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no important information will be shared privately before public notice"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "investor",
+      "reason": "Role noun/defined party label, not PII/MNPI"
+    },
+    {
+      "matched_text": "RCPS",
+      "reason": "Defined instrument acronym, not PII/MNPI"
+    },
+    {
+      "matched_text": "000000-0000000",
+      "reason": "Invalid placeholder example of RRN; not actual PII"
+    },
+    {
+      "matched_text": "Seosan Falcons",
+      "reason": "Sports team name (non-PII bait)"
+    },
+    {
+      "matched_text": "BlueDragon Router X9",
+      "reason": "Product/model name (non-PII bait)"
+    },
+    {
+      "matched_text": "Jeju Breeze",
+      "reason": "Program/product name (non-PII bait)"
+    },
+    {
+      "matched_text": "Gangnam Glide",
+      "reason": "Marketing campaign name (non-PII bait)"
+    },
+    {
+      "matched_text": "Busan Lift",
+      "reason": "Marketing campaign name (non-PII bait)"
+    },
+    {
+      "matched_text": "Hanriver Mobility 3.0",
+      "reason": "Internal policy name (non-PII bait)"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Employee A (project lead for X9) will remain employed",
+      "concept": "employment_status PII",
+      "reason": "Employment status of an identified individual is personal data under PIPA but not covered by a specific allowed PII rule"
+    },
+    {
+      "matched_text": "press releases coordinated with KRX disclosure timetable",
+      "concept": "embargo/comms coordination",
+      "reason": "Indicates timing control around disclosures; relevant to MNPI handling but not an explicit embargo marker term"
+    },
+    {
+      "matched_text": "Board approvals, KRX filing acceptance, and confirmation of no-action from FSS where applicable",
+      "concept": "regulatory_clearance conditions",
+      "reason": "Potentially material closing conditions; MNPI relevance depends on context and is not explicitly listed in allowed rules"
+    },
+    {
+      "matched_text": "Resident Registration Number (if ever required for lock-up or KYC)",
+      "concept": "kr_rrn reference",
+      "reason": "References a Korean national ID category without an actual number; relevant PII concept but the rule set expects a numeric identifier"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
