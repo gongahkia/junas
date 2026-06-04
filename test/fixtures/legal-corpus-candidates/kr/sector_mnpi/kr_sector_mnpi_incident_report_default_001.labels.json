@@ -3,13 +3,367 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lee Min-gyu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Han Soo-jin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@namchunrenewables.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ciso@namchunrenewables.co.kr"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier protocol"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information-barrier standards"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure risks"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "outside scheduled KRX disclosures"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "unauthorized access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "limited exfiltration"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "compromised contractor VPN"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber event"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "hot-wallet policy exception"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to FSS feedback"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lee Min-gyu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Han Soo-jin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@namchunrenewables.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ciso@namchunrenewables.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "resident-registration numbers (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638; e.g., 9******-1******)"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "9******-1******"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked resident-registration numbers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier protocol"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information-barrier standards"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "breaching our information barrier protocol"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure risks"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "outside scheduled KRX disclosures"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "voluntary fair-disclosure review"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "until KRX filing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "until public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "voluntary disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "unauthorized access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "limited exfiltration"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "compromised contractor VPN"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "FSS cyber line"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber event"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "virtual-asset REC tokenization pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "REC tokenization workstream"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "hot-wallet policy exception"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "keys remain in cold storage"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2 intensity metrics"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "emissions baselines"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "2025 sustainability targets"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "sustainability-linked note"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10\u201315 bp coupon step-up"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "anticipated within five business days"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to FSS feedback"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Treasury",
+      "reason": "Department role noun, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Security",
+      "reason": "Department role noun, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Operations",
+      "reason": "Department role noun, not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "IR Director",
+      "reason": "Job title/role, not a named person by itself"
+    },
+    {
+      "matched_text": "CISO",
+      "reason": "Job title/role, not a named person by itself"
+    },
+    {
+      "matched_text": "Jebudo Capital",
+      "reason": "Company name, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Seorak Securities Advisory",
+      "reason": "Company name, not PII/MNPI by itself"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "9******-1******",
+      "concept": "masked kr_rrn",
+      "reason": "Masked Korean resident-registration number example may not satisfy exact kr_rrn pattern matching."
+    },
+    {
+      "matched_text": "10\u201315 bp coupon step-up",
+      "concept": "financial percentage",
+      "reason": "Basis points indicate a rate but lack a percent sign; may fall outside strict financial_percentage rules."
+    },
+    {
+      "matched_text": "virtual-asset REC tokenization pilot",
+      "concept": "dpt/crypto event",
+      "reason": "Crypto pilot status is market-relevant but mapping to dpt_protocol_event_marker may be non-obvious."
+    },
+    {
+      "matched_text": "keys remain in cold storage",
+      "concept": "crypto custody state",
+      "reason": "Operational crypto-custody detail may not be covered by existing DPT event markers."
+    },
+    {
+      "matched_text": "FSS cyber line",
+      "concept": "cyber incident reporting",
+      "reason": "Regulatory cyber notification reference indicates incident handling but may not match incident-keyword regexes."
+    },
+    {
+      "matched_text": "Effective immediately",
+      "concept": "embargo/efficacy marker",
+      "reason": "Timing/efficacy phrase is embargo-like but not one of the canonical embargo markers."
+    },
+    {
+      "matched_text": "sustainability-linked note",
+      "concept": "material event",
+      "reason": "Financing instrument negotiation may be material, but generic phrase may be outside strict material_event triggers."
+    },
+    {
+      "matched_text": "Scope 2 intensity metrics",
+      "concept": "esg/climate pre-disclosure",
+      "reason": "ESG metric linkage to financing is sensitive but may not match narrow ESG pre-disclosure rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

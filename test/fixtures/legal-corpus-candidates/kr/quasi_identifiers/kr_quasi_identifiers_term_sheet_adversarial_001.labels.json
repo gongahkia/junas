@@ -3,13 +3,405 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Min\u2011jun Seo (\uc11c\ubbfc\uc900)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Min\u2011jun Seo"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hana Ryu"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1986\u201102\u201114"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cSora\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 42,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 168,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 21,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 27"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 12b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 1b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 100m"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Min\u2011jun Seo (\uc11c\ubbfc\uc900)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Min\u2011jun Seo"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hana Ryu"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1986\u201102\u201114"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "m in jun.seo@na mhang\u2011ro botics.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hana.ryu@gyeontech .co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@namhang\u2011robo tics.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82\u20112\u2011671\u20110***"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "860214\u20111******"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "74 09 21\u20112 3 0 0***"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "NB\u201186\u2011MJS"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_customer_reference",
+      "matched_text": "NR\u2011TREAS\u2011042"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "IR\u20112307\u2011SNJ"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "IR_Q3-2026"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "NH\u2011RCPS\u20112026"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "V\u2011ESCR\u2011NR\u20112026\u201104"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Key Person (for coordination only): Mr. Min\u2011jun Seo (\uc11c\ubbfc\uc900), CFO, Namhang Robotics; DoB 1986\u201102\u201114; office: Gyeonggi\u2011do, Seongnam\u2011si, Bundang\u2011gu; device asset tag NB\u201186\u2011MJS; internal treasury acct \u201cNR\u2011TREAS\u2011042\u201d; I R   s e s s i o n ref: IR\u20112307\u2011SNJ; email m in jun.seo@na mhang\u2011ro botics.co.kr; resident no. 860214\u20111****** (masked)"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Contacts: Ms. Hana Ryu, Investment Manager, GyeonTech Holdings; email hana.ryu@gyeontech .co.kr; KakaoTalk: gyet_hana; or Mr. Min\u2011jun Seo via IR desk ir@namhang\u2011robo tics.co.kr; office +82\u20112\u2011671\u20110***"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cSora\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "preliminary Q2 FY2026 revenue run\u2011rate (KRW 27\u201329bn)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "a pilot purchase order with Eastport Mobility KK not yet disclosed on DART"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet disclosed on DART"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 42,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "total_contract_value",
+      "matched_text": "KRW 42,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 168,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 21,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "price per share KRW 21,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 27"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 12b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 1b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 100m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Signing target 2026\u201107\u201128"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Closing target 2026\u201108\u201130"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Cut\u2011off for conditions 2026\u201108\u201115"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "fair disclosure planning under FSCMA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "insider trading restrictions under FSCMA Article 174 apply"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "submission of major\u2011matters report via DART within T+1 business day if required"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "FSS notice if foreign strategic investor thresholds are met"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "do not forward"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "role heading/defined term"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "role heading/defined term"
+    },
+    {
+      "matched_text": "Deal Type",
+      "reason": "heading/defined term"
+    },
+    {
+      "matched_text": "Use of Proceeds",
+      "reason": "heading/defined term"
+    },
+    {
+      "matched_text": "Conditions Precedent",
+      "reason": "heading/defined term"
+    },
+    {
+      "matched_text": "Covenants",
+      "reason": "heading/defined term"
+    },
+    {
+      "matched_text": "Closing & Timeline",
+      "reason": "heading/defined term"
+    },
+    {
+      "matched_text": "Representations",
+      "reason": "heading/defined term"
+    },
+    {
+      "matched_text": "Investor Relations access",
+      "reason": "heading/defined term"
+    },
+    {
+      "matched_text": "Settlement",
+      "reason": "heading/defined term"
+    },
+    {
+      "matched_text": "Contacts",
+      "reason": "heading/defined term"
+    },
+    {
+      "matched_text": "KYC & Employment",
+      "reason": "heading/defined term"
+    },
+    {
+      "matched_text": "Miscellaneous",
+      "reason": "heading/defined term"
+    },
+    {
+      "matched_text": "MAC clause",
+      "reason": "negated; not to be labeled as MAC/MAE"
+    },
+    {
+      "matched_text": "mac address is not logged on this portal",
+      "reason": "negated minimisation/control statement; not PII value"
+    },
+    {
+      "matched_text": "29\u201334",
+      "reason": "generic age range; not individually identifiable"
+    },
+    {
+      "matched_text": "Chungcheong region",
+      "reason": "broad location; generic persona"
+    },
+    {
+      "matched_text": "Android 13",
+      "reason": "generic OS version; not PII"
+    },
+    {
+      "matched_text": "Orca\u2011X",
+      "reason": "generic device model in persona; not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Account \u201cNH\u2011RCPS\u20112026\u201d",
+      "concept": "bank_account (corporate)",
+      "reason": "appears to be a corporate escrow account identifier rather than an individual\u2019s bank account"
+    },
+    {
+      "matched_text": "uid=seominjun86",
+      "concept": "online_user_identifier",
+      "reason": "user handle within a URL; not clearly mapped to an allowed PII rule"
+    },
+    {
+      "matched_text": "KakaoTalk: gyet_hana",
+      "concept": "messaging handle",
+      "reason": "screen name may identify a person but no explicit rule covers it"
+    },
+    {
+      "matched_text": "IR_Q3-2026",
+      "concept": "internal session/token",
+      "reason": "looks like a session or access code but not explicitly labeled as such"
+    },
+    {
+      "matched_text": "Seongnam BP\u201112",
+      "concept": "facility/location code",
+      "reason": "could contribute to quasi-identification in context but not a standalone PII value"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
