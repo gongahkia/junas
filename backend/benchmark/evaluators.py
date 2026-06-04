@@ -369,6 +369,96 @@ class CitationHallucinationF1(Evaluator):
         )
 
 
+# --- SGLB-01 PDPA-Outcome ---
+
+
+def _parse_json_object(output: str) -> dict[str, Any]:
+    text = (output or "").strip()
+    if not text:
+        return {}
+    import json
+
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        return {}
+    return parsed if isinstance(parsed, dict) else {}
+
+
+class Sglb01ObligationsF1(Evaluator):
+    """SGLB-01 obligation scorer.
+
+    Parses model output as a JSON object with key ``obligations`` (list of
+    strings). Compares against ``expected_output["obligations"]``. Returns
+    macro-style F1 over the obligation label set (case-insensitive,
+    whitespace-collapsed).
+    """
+
+    name = "sglb_01_obligations_f1"
+    strength = EvaluatorStrength.STRONG
+
+    @staticmethod
+    def _normalise(labels: Any) -> set[str]:
+        if not isinstance(labels, list):
+            return set()
+        return {str(item).strip().lower() for item in labels if str(item).strip()}
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        expected = self._normalise((ctx.expected_output or {}).get("obligations", []))
+        parsed = _parse_json_object(ctx.output)
+        predicted = self._normalise(parsed.get("obligations", []))
+        if not expected and not predicted:
+            return EvaluationResult(score=1.0, detail={"precision": 1.0, "recall": 1.0})
+        tp = len(expected & predicted)
+        precision = tp / len(predicted) if predicted else 0.0
+        recall = tp / len(expected) if expected else 0.0
+        f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) else 0.0
+        return EvaluationResult(
+            score=f1,
+            detail={"precision": precision, "recall": recall, "tp": tp},
+        )
+
+
+class PenaltyBandMae(Evaluator):
+    """SGLB-01 penalty-band scorer.
+
+    Parses model output as a JSON object with key ``penalty_band`` (one of
+    ``none|low|mid|high``). Maps both expected and predicted onto an
+    ordinal scale 0..3 and reports score = ``1 - mae/3`` so higher is
+    better; raw MAE is in ``detail``.
+
+    Bands and boundaries are documented in
+    ``docs/sglb_specs/SGLB-01.md`` and
+    ``backend/data/ingestion/pdpc.py``.
+    """
+
+    name = "penalty_band_mae"
+    strength = EvaluatorStrength.STRONG
+
+    _BAND_TO_IDX: dict[str, int] = {"none": 0, "low": 1, "mid": 2, "high": 3}
+
+    @classmethod
+    def _to_idx(cls, value: Any) -> int | None:
+        if not isinstance(value, str):
+            return None
+        return cls._BAND_TO_IDX.get(value.strip().lower())
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        expected_idx = self._to_idx((ctx.expected_output or {}).get("penalty_band"))
+        parsed = _parse_json_object(ctx.output)
+        predicted_idx = self._to_idx(parsed.get("penalty_band"))
+        if expected_idx is None:
+            return EvaluationResult(score=0.0, detail={"error": "expected band missing or invalid"})
+        if predicted_idx is None:
+            # No parseable prediction → max ordinal distance.
+            return EvaluationResult(score=0.0, detail={"mae": 3.0, "predicted": None})
+        diff = abs(predicted_idx - expected_idx)
+        return EvaluationResult(
+            score=1.0 - (diff / 3.0),
+            detail={"mae": float(diff), "predicted_idx": predicted_idx, "expected_idx": expected_idx},
+        )
+
+
 class ConstraintSatisfaction(Evaluator):
     """Runs a list of constraint functions (IFEval-style).
 
@@ -464,6 +554,8 @@ EVALUATORS: dict[str, Evaluator] = {
     UsesSalStyle.name: UsesSalStyle(),
     CompliancePresent.name: CompliancePresent(),
     CitationHallucinationF1.name: CitationHallucinationF1(),
+    Sglb01ObligationsF1.name: Sglb01ObligationsF1(),
+    PenaltyBandMae.name: PenaltyBandMae(),
     ConstraintSatisfaction.name: ConstraintSatisfaction(),
     # weak (back-compat)
     ContainsKeyword.name: ContainsKeyword(),

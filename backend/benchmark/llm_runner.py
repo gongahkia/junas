@@ -154,6 +154,33 @@ def _system_message(content: str) -> dict[str, str]:
     return {"role": "system", "content": content}
 
 
+SGLB_01_PROMPT_VERSION = "sglb-01-v1"
+
+
+def sglb_01_prompt_builder(case: Case) -> list[dict[str, str]]:
+    """SGLB-01: predict obligation labels + penalty band from a redacted
+    PDPC fact summary. Output contract: a JSON object
+    ``{"obligations": [...], "penalty_band": "none|low|mid|high"}``."""
+    fact_summary = str(case.inputs.get("fact_summary", "")).strip()
+    return [
+        _system_message(
+            "You are a Singapore PDPA compliance analyst. Given a redacted "
+            "fact summary from a PDPC enforcement decision, predict which "
+            "PDPA obligations were breached and the penalty band imposed. "
+            "Obligations must be drawn from this closed taxonomy: consent, "
+            "notification, purpose_limitation, protection, retention_limitation, "
+            "data_portability, dpo, dnc, data_intermediary, transfer_limitation, "
+            "accountability, openness, accuracy, access_correction. "
+            "Penalty band must be one of: none, low, mid, high (log10-bucketed "
+            "SGD: low<5000, mid<50000, high>=50000, none if no financial "
+            "penalty). Reply with a single JSON object: "
+            "{\"obligations\": [<labels>], \"penalty_band\": \"<band>\"}. "
+            "Do not include any other text."
+        ),
+        _user_message(fact_summary),
+    ]
+
+
 SGLB_04_PROMPT_VERSION = "sglb-04-v1"
 
 
@@ -241,6 +268,7 @@ def sglb_12_prompt_builder(case: Case) -> list[dict[str, str]]:
 # === Convenience: a registry of prompt builders by task name ===
 
 PROMPT_BUILDERS: dict[str, tuple[PromptBuilder, str]] = {
+    "sglb_01": (sglb_01_prompt_builder, SGLB_01_PROMPT_VERSION),
     "sglb_04": (sglb_04_prompt_builder, SGLB_04_PROMPT_VERSION),
     "sglb_11": (sglb_11_prompt_builder, SGLB_11_PROMPT_VERSION),
     "sglb_08": (sglb_08_prompt_builder, SGLB_08_PROMPT_VERSION),
