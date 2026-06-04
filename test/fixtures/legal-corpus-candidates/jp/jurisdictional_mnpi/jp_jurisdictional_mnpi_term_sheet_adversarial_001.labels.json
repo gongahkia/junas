@@ -3,13 +3,233 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Satoru Hino"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "s.hino@mikado-horizons.co.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "65%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "\u00a51,280 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a56.0b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a53.5b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a518.4b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no analyst one-on-ones on this topic prior to KDnet posting (FIEA fair disclosure risk)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "\u53d6\u5f15\u7981\u6b62\u671f\u9593 from 2026-07-05 through 2026-07-16"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Satoru Hino"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "s.hino@mikado-horizons.co.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "65%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "\u00a51,280 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a56.0b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a53.5b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a518.4b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no analyst one-on-ones on this topic prior to KDnet posting (FIEA fair disclosure risk)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "\u53d6\u5f15\u7981\u6b62\u671f\u9593 from 2026-07-05 through 2026-07-16"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number (\u500b\u4eba\u756a\u53f7)"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "eID: y-4x9_***"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no My Number (\u500b\u4eba\u756a\u53f7) will be collected"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "individual codes to be excluded from data room"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only hashed employee IDs (e.g., eID: y-4x9_***)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "\u516c\u958b\u8cb7\u4ed8\u3051"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "TOB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no analyst one-on-ones on this topic prior to KDnet posting"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "issuer blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to final price collar"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "External discussions restricted to NDA-bound counterparties"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "KSE",
+      "reason": "Defined-term/abbreviation for the exchange; not PII or MNPI by itself"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Deal code \u201cAOI-7Z\u201d",
+      "concept": "transaction_codename-like",
+      "reason": "Internal deal code may function like a codename but does not match 'Project <Name>' pattern"
+    },
+    {
+      "matched_text": "KDnet filing 2026-07-15 15:30 JST",
+      "concept": "disclosure_timing_marker",
+      "reason": "Planned disclosure timing may be treated as sensitive scheduling info though not captured by current embargo markers"
+    },
+    {
+      "matched_text": "https://ir.mika do-horizons.co.jp/nd/kdnet?id=PR-20%26%260712",
+      "concept": "access-controlled_link",
+      "reason": "Access-controlled URL may indicate non-public materials but not covered by a specific rule"
+    },
+    {
+      "matched_text": "TS-JP-20 26//07",
+      "concept": "internal_doc_reference",
+      "reason": "Internal document reference could be sensitive tracking metadata but lacks a corresponding rule"
+    },
+    {
+      "matched_text": "KumoDrive v2.3 roadmap",
+      "concept": "integration_plan_MNPI",
+      "reason": "Internal product/integration roadmap mention may be MNPI-adjacent but no specific rule maps to it"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,117 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "jp-compliance@midori-kk.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no TBE\u2011TD registration or press release has been made"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender offer for Hatsuho Systems K.K"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "The Q1 trading blackout (2026-01-10 to 2026-02-05)"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "jp-compliance@midori-kk.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no TBE\u2011TD registration or press release has been made"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender offer for Hatsuho Systems K.K"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "The Q1 trading blackout (2026-01-10 to 2026-02-05)"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "individual codes (My Number)"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "please do not attach resumes, addresses, or My Number details to replies"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "EMP-00-XYZ",
+      "reason": "Bait identifier; explicitly not linked to living individuals"
+    },
+    {
+      "matched_text": "CUST-123-ABCD-0000",
+      "reason": "Bait identifier; explicitly not linked to living individuals"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "anonymized roster tokens",
+      "concept": "quasi identifier reference",
+      "reason": "Could indicate quasi-identifiers; stated as anonymized so coverage under allowed rules is unclear"
+    },
+    {
+      "matched_text": "hashed operational logs",
+      "concept": "hashed data possibly containing identifiers",
+      "reason": "Hashes may derive from identifiers; not clearly covered by allowed rules"
+    },
+    {
+      "matched_text": "issuer-relative threshold for materiality",
+      "concept": "issuer-relative materiality semantics",
+      "reason": "Local MNPI materiality concept is relevant but not an explicit allowed MNPI rule"
+    },
+    {
+      "matched_text": "filed under \u201cOther\u201d on the Tokyo Bay Exchange (fictional) Timely Disclosure Portal (TBE\u2011TD) on 2026-05-29",
+      "concept": "public disclosure marker",
+      "reason": "Public-status semantics relevant to MNPI but not directly mapped to an allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

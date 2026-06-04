@@ -3,13 +3,206 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@tsukikawa.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kenji Sato-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aiko Nemoto"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR-UID-7A3F"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer review"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "silent period"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@tsukikawa.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kenji Sato-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aiko Nemoto"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR-UID-7A3F"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer review"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "silent period"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Haruto Miyazaki-san"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "overseas processing"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border processing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "trimmed to metadata-only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "potential acquisition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "exposed an internal M&A workspace to a Singapore-based contractor"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Kojin Bang\u014d",
+      "reason": "Mention of My Number category with explicit negation; not an actual identifier"
+    },
+    {
+      "matched_text": "My Number",
+      "reason": "Category mention without a specific identifier and explicitly stated as not present"
+    },
+    {
+      "matched_text": "HR-ONB-12",
+      "reason": "Internal form code, not a personal identifier"
+    },
+    {
+      "matched_text": "DEA-2026-04",
+      "reason": "Internal approval/reference ID, not PII"
+    },
+    {
+      "matched_text": "DSAR-2026-088",
+      "reason": "Ticket reference number, not personal data"
+    },
+    {
+      "matched_text": "Compliance Manager",
+      "reason": "Role noun; not a named person value by itself"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "My Number tokens",
+      "concept": "jp_my_number token mention",
+      "reason": "Refers to tokenization/localization of My Number rather than an actual identifier value"
+    },
+    {
+      "matched_text": "individual codes under APPI",
+      "concept": "individual code classification",
+      "reason": "Regulatory category designation; relevant to APPI but not directly mapped to a listed PII rule beyond context"
+    },
+    {
+      "matched_text": "insiders",
+      "concept": "insider/trading control reference",
+      "reason": "Indicates insider context but not an explicit insider list or control marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'DSAR' text='DSAR'",
+    "drop must_detect: invalid rule 'erasure' text='erasure'",
+    "drop must_detect: invalid rule 'retention' text='Retention adjustment'",
+    "drop ideal_must_detect: invalid rule 'DSAR' text='DSAR'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='erasure'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Retention adjustment'",
+    "drop ideal_must_detect: invalid rule 'retention' text='retained for three years instead of seven'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

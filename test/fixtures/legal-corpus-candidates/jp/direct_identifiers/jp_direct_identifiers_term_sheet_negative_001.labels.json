@@ -3,13 +3,167 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "0000000000000"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_postal_code",
+      "matched_text": "000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hoshizora-kogyo.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "123456789012"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "TR0000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "0000000000000"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_postal_code",
+      "matched_text": "000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hoshizora-kogyo.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "123456789012"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "TR0000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Conditional Tender Offer under FIEA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed subscription for new shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "potential tender offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Buyer access limited to aggregated employee data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no transfer of individual codes except as permitted"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "placeholder fields such as [Employee Name] and [Address] to remain blank"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "no solicitation to employees via personal phones or emails; use role mailboxes only"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0120-000-999",
+      "reason": "Public helpline number; not personal PII"
+    },
+    {
+      "matched_text": "0120-111-222",
+      "reason": "Public helpline number; not personal PII"
+    },
+    {
+      "matched_text": "[Employee Name]",
+      "reason": "Placeholder/generic label, not actual PII"
+    },
+    {
+      "matched_text": "[Address]",
+      "reason": "Placeholder/generic label, not actual PII"
+    },
+    {
+      "matched_text": "[Escrow Agent KK]",
+      "reason": "Placeholder/generic label, not actual PII"
+    },
+    {
+      "matched_text": "Representative Director",
+      "reason": "Role noun/title, not a named person"
+    },
+    {
+      "matched_text": "Audit & Supervisory Committee Member",
+      "reason": "Role noun/title, not a named person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Local Tax Office code 99-9999",
+      "concept": "tax_identifier",
+      "reason": "May be a local tax office identifier; JP tax office codes are not covered by current allowed rules"
+    },
+    {
+      "matched_text": "Account 0000000",
+      "concept": "bank_account",
+      "reason": "Looks like a bank account number placeholder; detection is ambiguous and may not represent real PII"
+    },
+    {
+      "matched_text": "East Tokyo Summary Court",
+      "concept": "court_citation",
+      "reason": "Court reference potentially akin to court citation; JP-specific court identifiers not in allowed rule set"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

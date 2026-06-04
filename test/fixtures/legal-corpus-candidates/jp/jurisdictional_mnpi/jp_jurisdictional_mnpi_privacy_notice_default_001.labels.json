@@ -3,13 +3,221 @@
   "document_type": "generic",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@kisaragi-robotics.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@kisaragi-robotics.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aoi Ninomiya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Morikawa"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "\u30a4\u30f3\u30b5\u30a4\u30c0\u30fc\u540d\u7c3f"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "deal-specific blackouts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@kisaragi-robotics.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@kisaragi-robotics.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Aoi Ninomiya"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Morikawa"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "\u30a4\u30f3\u30b5\u30a4\u30c0\u30fc\u540d\u7c3f"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "deal-specific blackouts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\u672a\u516c\u8868\u306e\u91cd\u8981\u4e8b\u5b9f"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no secondary use"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "kept only for the statutory period"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "third-country transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "TOB (\u516c\u958b\u8cb7\u4ed8\u3051)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "board resolves"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u59d4\u8a17\u5148",
+      "reason": "Defined-role term for a party, not PII/MNPI."
+    },
+    {
+      "matched_text": "NDA",
+      "reason": "Not one of the definitive agreement types in scope (SPA/SHA/APA/MOU/LOI/Term Sheet)."
+    },
+    {
+      "matched_text": "Shirogane",
+      "reason": "Storage drive name; not a 'Project <Name>' transaction codename."
+    },
+    {
+      "matched_text": "Sakura Freight KK\u2019s warehouse relocation press release",
+      "reason": "Public third-party operational update; non-issuer and non-MNPI by policy."
+    },
+    {
+      "matched_text": "FY2023 Securities Report",
+      "reason": "Public EDINET filing; not MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "government ID",
+      "concept": "Government identification PII",
+      "reason": "Generic mention of government ID checks is legally relevant but not tied to a specific listed identifier rule."
+    },
+    {
+      "matched_text": "Hoshizora Sensors KK",
+      "concept": "Tender-offer target identity",
+      "reason": "Counterparty identity in a contemplated TOB may be MNPI if non-public, but not directly covered by a specific MNPI rule token."
+    },
+    {
+      "matched_text": "\u201c\u516c\u8868\u201d",
+      "concept": "Public-status marker",
+      "reason": "Indicates public announcement status; relevant to non-public/public semantics but not itself a nonpublic marker token."
+    },
+    {
+      "matched_text": "employee HR records",
+      "concept": "Employment PII descriptors",
+      "reason": "Describes categories of personal data without specific identifiers; useful context but not mapped to a listed PII rule token."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop ideal_must_detect: text not verbatim rule='data_minimisation_marker' text='irreversely deleted'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

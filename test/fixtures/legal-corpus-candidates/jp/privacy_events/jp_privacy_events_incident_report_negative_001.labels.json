@@ -3,13 +3,84 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy-office@kaguya.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border processing: Data Export Approval DEX-2026-07 was granted to transfer hashed employee identifiers to Kaede Systems Pte. Ltd. (SG) for pre-announced payroll testing, with APPI Article 28 notices provided"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy-office@kaguya.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border processing: Data Export Approval DEX-2026-07 was granted to transfer hashed employee identifiers to Kaede Systems Pte. Ltd. (SG) for pre-announced payroll testing, with APPI Article 28 notices provided"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation was applied (only role IDs and pseudonymous tokens were cached)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "XXXX-XXXX-XXXX",
+      "reason": "Redaction/placeholder; invalid identifier-shaped text and not an actual jp_my_number."
+    },
+    {
+      "matched_text": "no MNPI under FIEA was present",
+      "reason": "Negated MNPI statement; indicates absence of MNPI."
+    },
+    {
+      "matched_text": "no undisclosed enumerated material facts were accessed",
+      "reason": "Negated MNPI statement; indicates absence of MNPI."
+    },
+    {
+      "matched_text": "no tender-offer facts exist at this time",
+      "reason": "Negated tender-offer MNPI; should not be labeled as MNPI."
+    },
+    {
+      "matched_text": "Employee My Number Consent Form (Rev 2025-04)",
+      "reason": "Form title mentions My Number but contains no personal code or identifier."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "one DSAR (employee access request) received earlier in May for the onboarding system was fulfilled on 2026-05-20; no follow-up erasure was requested",
+      "concept": "DSAR marker (completed)",
+      "reason": "DSAR events are privacy handling markers, but no explicit DSAR rule is provided and the control is completed/negated."
+    },
+    {
+      "matched_text": "retention timers on the sandbox tenant remained at 7 days and had not reached expiry",
+      "concept": "retention marker",
+      "reason": "Retention settings are relevant compliance markers, but no explicit retention rule is in the allowed list."
+    },
+    {
+      "matched_text": "test artifacts from the cache were deleted during remediation",
+      "concept": "erasure marker (completed)",
+      "reason": "Erasure/deletion is a privacy handling event, but no explicit erasure rule is provided and the control is completed."
+    },
+    {
+      "matched_text": "no consent withdrawal for My Number handling has been recorded for the affected employee cohort",
+      "concept": "consent withdrawal (negated)",
+      "reason": "Consent withdrawal is a relevant marker, but here it is negated and thus not labeled under the explicit consent_withdrawal_marker rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

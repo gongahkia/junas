@@ -3,13 +3,233 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "JPY 1,240 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 4.5 billion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.85% per annum"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Material Facts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "internal trading blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Haruto Kanda"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hoshizora-kk.example"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "JPY 1,240 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "55%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 4.5 billion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.85% per annum"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Material Facts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "internal trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "third-party allotment"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "a call option to initiate a TOB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to board approval and antitrust review"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "Conditions precedent include"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "any leak may require immediate TDnet disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Internal circulation is limited to need-to-know"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "secure Q&A will be conducted only after public disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Due diligence will use redacted HR rosters and anonymized customer datasets"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no \u201cIndividual Number\u201d (My Number) or other individual identification codes will be collected, transferred, or processed for transaction purposes"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal names will be pseudonymized during diligence"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "no employee personal data will be exported outside Japan without appropriate measures under the APPI"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Haruto Kanda"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hoshizora-kk.example"
+    }
+  ],
   "must_not_detect": [],
-  "uncertain": [],
+  "uncertain": [
+    {
+      "matched_text": "\u201cIndividual Number\u201d (My Number)",
+      "concept": "jp_my_number mention",
+      "reason": "Refers to Japan\u2019s Individual Number but does not include any actual identifier value."
+    },
+    {
+      "matched_text": "TDnet targeted for 2026-06-15 08:30 JST",
+      "concept": "disclosure timing vs embargo",
+      "reason": "Specifies intended announcement time; not a listed embargo marker but relates to public/non-public status."
+    },
+    {
+      "matched_text": "external advisors are bound by NDA",
+      "concept": "information barrier vs confidentiality",
+      "reason": "Indicates confidentiality controls; may signal information barrier but not explicitly a wall."
+    },
+    {
+      "matched_text": "Large Shareholding Report",
+      "concept": "regulatory filing trigger",
+      "reason": "Mentions a potential FIEA filing; relevant to disclosure but not among allowed MNPI rule tags."
+    },
+    {
+      "matched_text": "Extraordinary Report (rinji hokokusho)",
+      "concept": "regulatory filing trigger",
+      "reason": "Refers to FIEA disclosure form; relevant to disclosure obligations but not an allowed MNPI tag on this taxonomy."
+    },
+    {
+      "matched_text": "TOB",
+      "concept": "tender-offer reference",
+      "reason": "Tender offer reference could be an enumerated material fact under FIEA, but as a standalone acronym here it may be too generic for strict tagging."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,257 @@
   "document_type": "generic",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hanako Mori-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Kameda"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID: SY-0Q-9__7"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID SY-0Q-9__7"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@seishin-mobility.co.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cShiosai\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\u672a\u516c\u8868\u91cd\u8981\u4e8b\u5b9f"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\u672a\u516c\u8868"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "draft TOB docs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "draft TOB calculations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure ban"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure risk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout window"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hanako Mori-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Kameda"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID: SY-0Q-9__7"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EmpID SY-0Q-9__7"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@seishin-mobility.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "203.0.113.*"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "My Number is not stored in raw form"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mn_token mappings\u2014deleted without delay after legal basis lapses"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "intra-group transfers to Seishin Mobility Europe GmbH are based on data-subject consent and adequacy status"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Ms. Hanako Mori-san (EmpID SY-0Q-9__7)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cShiosai\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "project shiosai"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\u672a\u516c\u8868\u91cd\u8981\u4e8b\u5b9f"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\u672a\u516c\u8868"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "draft TOB docs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "draft TOB calculations"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "offer price brackets"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "board voting intentions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure ban"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure risk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no pre-briefing to analysts or major shareholders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "private NDAs do not cure this restriction"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "\u77e5\u308b\u8005"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "TDP",
+      "reason": "Defined-term abbreviation introduced in parentheses; not PII/MNPI"
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC statement; rule excludes negated mentions"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR: to request disclosure/correction/deletion",
+      "concept": "DSAR/erasure marker",
+      "reason": "Data-subject rights are legally relevant but there is no explicit allowed rule name for DSAR in the list"
+    },
+    {
+      "matched_text": "Retention: board minutes and resolutions\u201410 years; draft TOB calculations\u2014destroy within 30 days after \u516c\u8868 or abort; payroll archives\u20147 years; mn_token mappings\u2014deleted without delay after legal basis lapses; backups purge on a 90-day rolling cycle",
+      "concept": "Retention schedule",
+      "reason": "Retention controls are privacy-event markers but no specific retention rule name is provided in allowed rules"
+    },
+    {
+      "matched_text": "audit hash: 1f:2a: 9c :b4 (OCR-like)",
+      "concept": "Pseudonymous identifier",
+      "reason": "Hash values can be personal data if linkable; not mapped to a specific allowed PII rule"
+    },
+    {
+      "matched_text": "ka.mori",
+      "concept": "Account username",
+      "reason": "Login/user IDs are personal data but not mapped to a specific allowed PII rule"
+    },
+    {
+      "matched_text": "MN-****-A1B2",
+      "concept": "Pseudonymised token for My Number",
+      "reason": "Tokenised My Number reference is privacy-relevant but not an allowed specific ID rule"
+    },
+    {
+      "matched_text": "a9f3\u2026",
+      "concept": "Hash fragment",
+      "reason": "Illustrative hash of identifier; privacy-relevant but no specific allowed rule"
+    },
+    {
+      "matched_text": "seq=00012",
+      "concept": "Internal log/sequence identifier",
+      "reason": "Could be an internal session/log ID; not clearly covered by allowed PII rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

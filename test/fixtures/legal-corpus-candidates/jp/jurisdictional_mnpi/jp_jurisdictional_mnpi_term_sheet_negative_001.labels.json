@@ -3,13 +3,165 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hoshizorarobotics.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "0120-555-880"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "this has not been disclosed via TDnet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be selectively disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Buyer\u2019s blackout runs from quarter-end until earnings release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "the next expected blackout aligns with FY2026 Q1 results"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hoshizorarobotics.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "0120-555-880"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "this has not been disclosed via TDnet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "must not be selectively disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Buyer\u2019s blackout runs from quarter-end until earnings release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "the next expected blackout aligns with FY2026 Q1 results"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee No.: 0000-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "Account Ref.: XX-000-TEST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Internal target TOB commencement window is 2026-07-15"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "minimum acceptance threshold of two-thirds of voting rights"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MoU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "Execution of definitive agreements is targeted for Q3 FY2026"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Defined role noun"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined role noun"
+    },
+    {
+      "matched_text": "financing provider",
+      "reason": "Defined role noun"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Defined role noun"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "two-thirds of voting rights",
+      "concept": "financial_percentage (fractional wording)",
+      "reason": "Material acceptance threshold expressed as a fraction may not be captured by numeric percentage detectors."
+    },
+    {
+      "matched_text": "information sharing with lenders and advisors occurs under NDA",
+      "concept": "information_barrier_marker",
+      "reason": "NDA-based sharing controls are relevant to selective disclosure but may not match strict information barrier patterns (e.g., Chinese wall/clean team)."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

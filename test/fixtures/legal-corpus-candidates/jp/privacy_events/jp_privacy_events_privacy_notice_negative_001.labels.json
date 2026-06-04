@@ -3,13 +3,132 @@
   "document_type": "generic",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number (\u500b\u4eba\u756a\u53f7)"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy-office@takumi.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer approval"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number (\u500b\u4eba\u756a\u53f7)"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy-office@takumi.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer approval"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Name (kana), Department Code, Start Date"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no ongoing cross-border transfers of HR master data",
+      "reason": "Negated statement; not a live cross-border transfer event"
+    },
+    {
+      "matched_text": "there are no pending consent withdrawals",
+      "reason": "Negated consent withdrawal; should not be tagged as an active consent_withdrawal_marker"
+    },
+    {
+      "matched_text": "no erasure requests were received in Q2",
+      "reason": "Negated DSAR/erasure; not an active privacy event"
+    },
+    {
+      "matched_text": "undisclosed enumerated material facts",
+      "reason": "Explicitly negated in context; not MNPI"
+    },
+    {
+      "matched_text": "tender-offer facts",
+      "reason": "Explicitly negated in context; not MNPI"
+    },
+    {
+      "matched_text": "publicly announced",
+      "reason": "Public disclosure; not nonpublic MNPI"
+    },
+    {
+      "matched_text": "no tender offer is contemplated",
+      "reason": "Negated tender offer; not MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DummyID: XXX-YYY-ZZZ",
+      "concept": "employee_id",
+      "reason": "Example placeholder field; could represent an employee identifier but not clearly a real ID"
+    },
+    {
+      "matched_text": "one access request was completed on 2026-04-22",
+      "concept": "DSAR",
+      "reason": "DSAR completion is privacy-relevant but there is no explicit DSAR marker in allowed rules"
+    },
+    {
+      "matched_text": "Retention: recruiting records 3 years; payroll/tax 7 years; board materials containing personal data 10 years per internal policy",
+      "concept": "retention",
+      "reason": "Retention periods are privacy-relevant but retention markers are not among allowed rule names"
+    },
+    {
+      "matched_text": "automated erasure timers were validated in April and are functioning as designed",
+      "concept": "erasure",
+      "reason": "Erasure controls are relevant but no erasure marker category is defined in allowed rules"
+    },
+    {
+      "matched_text": "a transfer impact assessment",
+      "concept": "transfer impact assessment",
+      "reason": "Cross-border TIA is material to privacy compliance but not an allowed marker type"
+    },
+    {
+      "matched_text": "Data Export Committee record",
+      "concept": "data export governance",
+      "reason": "Governance record for transfers is relevant but not covered by allowed markers"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

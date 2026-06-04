@@ -3,13 +3,320 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "1399-7720-0041-8"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "5631-2047-8890-1"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-3-6444-2230"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@akamine-holdings.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-50-1234-5678"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@shirokawa-robotics.co.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 4,200,000,000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Taro Akamine"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "t.akamine@akamine-holdings.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rina Shirokawa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Emi Noguchi"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "HR@shirokawa-robotics.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-3-6900-7788"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kenta Yuasa"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "TR8429135"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-3-6444-2235"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "support@dealspace.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "1399772000418"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "5631204788901"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "1399-7720-0041-8"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "5631-2047-8890-1"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-3-6444-2230"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@akamine-holdings.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-50-1234-5678"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@shirokawa-robotics.co.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 4,200,000,000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Taro Akamine"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "t.akamine@akamine-holdings.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rina Shirokawa"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Emi Noguchi"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "HR@shirokawa-robotics.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-3-6900-7788"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kenta Yuasa"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "TR8429135"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-3-6444-2235"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "support@dealspace.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "1399772000418"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "5631204788901"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_corporate_number",
+      "matched_text": "T5631204788901"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_postal_code",
+      "matched_text": "1 0 9 - 9 9 9 9"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_postal_code",
+      "matched_text": "245-9 0 0 1"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "employees\u2019 \u500b\u4eba\u756a\u53f7 shall not be uploaded to the data room or included in diligence queries"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "copies to be viewed only in the secure room and not stored outside https://dataroom.example.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for distribution outside diligence team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no undisclosed enumerated material facts or tender-offer facts will be communicated except under NDA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of Shirokawa Robotics K.K. (\u6cd5\u4eba\u756a\u53f7 1399-7720-0041-8) by Akamine Industrial Holdings K.K. (\u6cd5\u4eba\u756a\u53f7 5631-2047-8890-1; \u9069\u683c\u8acb\u6c42\u66f8\u767a\u884c\u4e8b\u696d\u8005\u767b\u9332\u756a\u53f7 T5631204788901)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term; not a person name"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term; not a person name"
+    },
+    {
+      "matched_text": "1111-2222-3333",
+      "reason": "Invalid JP My Number placeholder bait"
+    },
+    {
+      "matched_text": "0120-000-000",
+      "reason": "Public helpline bait; not PII for detection"
+    },
+    {
+      "matched_text": "110/119",
+      "reason": "Emergency helpline bait; not PII for detection"
+    },
+    {
+      "matched_text": "Name:____",
+      "reason": "Generic form label bait; not an actual data point"
+    },
+    {
+      "matched_text": "Address:____",
+      "reason": "Generic form label bait; not an actual data point"
+    },
+    {
+      "matched_text": "Tax ID:____",
+      "reason": "Generic form label bait; not an actual data point"
+    },
+    {
+      "matched_text": "no-MAC",
+      "reason": "Negated MAC reference; rule excludes labeling MAE/MAC when negated"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "T5631204788901",
+      "concept": "JP invoice registration number",
+      "reason": "Qualified Invoice Issuer Registration Number (T-prefix) is a corporate/tax identifier not explicitly listed as a separate rule"
+    },
+    {
+      "matched_text": "Zengin code 7777",
+      "concept": "Bank routing identifier",
+      "reason": "Japanese Zengin bank code is a financial identifier not covered by available PII rules"
+    },
+    {
+      "matched_text": "Closing",
+      "concept": "Embargo/event marker",
+      "reason": "Refers to deal milestone; only \u201cClosing Date\u201d is enumerated under embargo markers"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
