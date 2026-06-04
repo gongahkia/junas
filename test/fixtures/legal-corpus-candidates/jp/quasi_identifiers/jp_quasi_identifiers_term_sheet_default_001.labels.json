@@ -3,13 +3,404 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deal.team@mikado-cap.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@kisaragi.example.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "daichi.morimoto@kisaragi.example.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ayaka.senda@kisaragi.example.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-3-5555-0210"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Morimoto"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ayaka Senda"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1990-03-14"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 36"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "employee code EID-KIS-4319"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "VPN session ref KR-2025-0415-773"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 1,280"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "66.7%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "100%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 6.0b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 2.5b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "tender-offer facts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "company insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean teams"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "fair disclosure policy"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no collection or processing of My Number (\u500b\u4eba\u756a\u53f7)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "employee data to be pseudonymized"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "delete or return upon termination"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer safeguards"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deal.team@mikado-cap.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@kisaragi.example.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "daichi.morimoto@kisaragi.example.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ayaka.senda@kisaragi.example.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-3-5555-0210"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Morimoto"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ayaka Senda"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1990-03-14"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 36"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "employee code EID-KIS-4319"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "VPN session ref KR-2025-0415-773"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 1,280"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "66.7%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "100%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 6.0b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 2.5b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "tender-offer facts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "company insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean teams"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "fair disclosure policy"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no collection or processing of My Number (\u500b\u4eba\u756a\u53f7)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "employee data to be pseudonymized"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "delete or return upon termination"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer safeguards"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Tender Offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "sign definitive by 15 July 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "launch TOB by 31 August 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "long-stop date 31 October 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Clean-room diligence example (restricted)"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "hostname KIS-TKY-PM14"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "shared only within the data room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "must not be disclosed outside the diligence clean room"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Mr. Daichi Morimoto (Product Manager, Kisaragi Microsystems K.K., Chiyoda-ku Tokyo office), DOB 1990-03-14, age 36, employee code EID-KIS-4319, company laptop model KMW-14 (hostname KIS-TKY-PM14), internal handle @d.mori90, VPN session ref KR-2025-0415-773, and email daichi.morimoto@kisaragi.example.co.jp"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "role-noun label/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Offeror",
+      "reason": "role-noun label/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Contact",
+      "reason": "role-noun label/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Issuer Legal",
+      "reason": "role-noun label/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "age 42",
+      "reason": "generic demographic example explicitly non-identifying"
+    },
+    {
+      "matched_text": "role \u201canalyst,\u201d",
+      "reason": "generic role example explicitly non-identifying"
+    },
+    {
+      "matched_text": "a sample device model RD-300",
+      "reason": "generic device model example explicitly non-identifying"
+    },
+    {
+      "matched_text": "Osaka office template",
+      "reason": "generic location/template example explicitly non-identifying"
+    },
+    {
+      "matched_text": "a generic login tag \u201calpha-7\u201d",
+      "reason": "generic login tag example explicitly non-identifying"
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "negated MAC mention; rule excludes negated MAC/MAE"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "@d.mori90",
+      "concept": "username/handle",
+      "reason": "Likely a personal username but not covered by an explicit allowed category"
+    },
+    {
+      "matched_text": "company laptop model KMW-14",
+      "concept": "device model identifier",
+      "reason": "Device model may act as a weak identifier but not clearly covered as a device serial number"
+    },
+    {
+      "matched_text": "Chiyoda-ku Tokyo office",
+      "concept": "work location quasi-identifier",
+      "reason": "Location data is a weak identifier and part of a quasi-ID cluster but not a standalone allowed rule"
+    },
+    {
+      "matched_text": "insider trading restrictions apply",
+      "concept": "insider trading restriction",
+      "reason": "Compliance-sensitive but not mapped to a specific allowed MNPI marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

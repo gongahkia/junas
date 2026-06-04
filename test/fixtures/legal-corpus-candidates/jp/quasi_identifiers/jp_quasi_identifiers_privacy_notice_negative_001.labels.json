@@ -3,13 +3,202 @@
   "document_type": "generic",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "9999-9999-9999"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@hinoderobotics.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "9999-9999-9999"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@hinoderobotics.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number (XXXX-XXXX-XXXX)"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID (EMP-####)"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "Device ID (dev-****)"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "In one retained audit entry for access control testing, an operations supervisor based in Aomori (employer: Hinode Robotics K.K., role: shift lead, birth month 1990-03) used device tag dev-7c12 and payroll account code WRK-4581; the commuter pass last-4 \u201c1234\u201d and office desk location \u201cF2-North\u201d appear in the same record for reconciliation"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "dev-7c12"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "WRK-4581"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age: 30s"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "birth month 1990-03"
+    },
+    {
+      "category": "PII",
+      "rule": "mac_address",
+      "matched_text": "AA:BB:CC"
+    },
+    {
+      "category": "PII",
+      "rule": "advertising_id",
+      "matched_text": "advertising IDs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender-offer assessment drafts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender-offer facts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "\u201ctender offer\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "M&A-Restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "project room separation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "individual identification codes are masked in collaboration folders"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "these placeholders are not persisted in raw form and any live values are tokenized server-side"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "device MACs are truncated to AA:BB:CC before storage"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "IPs are stored as /24 only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we never request My Number by email"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "controller",
+      "reason": "defined role term"
+    },
+    {
+      "matched_text": "processor",
+      "reason": "defined role term"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "birth month 1990-03",
+      "concept": "partial date of birth",
+      "reason": "Birth month is identifying in context but is a partial DOB and may not be covered by a strict date_of_birth rule."
+    },
+    {
+      "matched_text": "dev-7c12",
+      "concept": "device identifier",
+      "reason": "Device tag may function as a device ID/serial but there is no explicit device_id rule; mapping to device_serial_number is heuristic."
+    },
+    {
+      "matched_text": "WRK-4581",
+      "concept": "payroll account code",
+      "reason": "Internal payroll/account code could map to employee_id or customer_account_number; category is ambiguous."
+    },
+    {
+      "matched_text": "AA:BB:CC",
+      "concept": "truncated MAC address",
+      "reason": "Looks like a MAC prefix but not a full 6-octet MAC; some detectors may not flag truncated forms."
+    },
+    {
+      "matched_text": "My Number (XXXX-XXXX-XXXX)",
+      "concept": "placeholder government ID",
+      "reason": "Format indicates JP My Number but is a placeholder without a live value."
+    },
+    {
+      "matched_text": "M&A-Restricted",
+      "concept": "restricted group for MNPI",
+      "reason": "Could be treated as an information barrier marker or an insider list marker; labeling choice is not explicit in rules."
+    },
+    {
+      "matched_text": "the commuter pass last-4 \u201c1234\u201d",
+      "concept": "partial transit/commuter card number",
+      "reason": "Last-4 digits can be linkable but there is no explicit rule for partial transit IDs; may be treated within a quasi-identifier cluster."
+    },
+    {
+      "matched_text": "date-of-birth field \u201cYYYY/MM/DD\u201d",
+      "concept": "DOB field placeholder",
+      "reason": "Indicates a DOB field but contains no actual personal date; coverage as date_of_birth is uncertain in placeholder form."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,370 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no public announcement until board approvals"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 1,420"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 180,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 9.5b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 3,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "67%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Draft Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Kurose"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1984-03-17"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 42"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "d.kurose@hoshitech.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deal@aobaholdings.example.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hoshitech.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-3-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "sid=aoba-0x22"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "sid=rnd-0xA1"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number: 9 9 9 9 - XXXX - 0 0 0 0"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "seller to provide only necessary personal data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no transfer of payroll files containing individual numbers"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no public announcement until board approvals"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed TOB"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "friendly tender offer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 1,420"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 180,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 9.5b"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "JPY 3,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "67%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Draft Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Kurose"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1984-03-17"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 42"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "d.kurose@hoshitech.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deal@aobaholdings.example.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hoshitech.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-3-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "sid=aoba-0x22"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "sid=rnd-0xA1"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "HT\u2011FIN\u2011LTP\u2011042"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "sess ion=KYO-317-09:45"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "a c c t - 7 2 1 0 - 99"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "AOBA-M&A- 0 0 1"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "dob=19840317"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number submission"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "seller to provide only necessary personal data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask individual numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove individual codes from shared files"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Mr. Daichi Kurose (DOB 1984-03-17, age 42), Finance Manager at HoshiTech K.K., Kiyomi\u2011ku Tokyo office, device HT\u2011FIN\u2011LTP\u2011042, VPN sess ion=KYO-317-09:45, a c c t - 7 2 1 0 - 99, mail: d.kurose@hoshitech.example.jp, link https://vault.example.jp/r/secure?u=dkurose&dob=19840317&loc=Kiyomi; retention bonus JPY 3,000,000 payable at closing"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number: 9 9 9 9 - XXXX - 0 0 0 0"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "seller",
+      "reason": "Role-noun used generically, not a specific individual"
+    },
+    {
+      "matched_text": "age band 35\u201344",
+      "reason": "Generic demographic, non-identifying alone"
+    },
+    {
+      "matched_text": "region Kansai",
+      "reason": "Generic demographic location, non-identifying alone"
+    },
+    {
+      "matched_text": "uses a tablet on weekdays",
+      "reason": "Generic behavior trait, non-identifying alone"
+    },
+    {
+      "matched_text": "PRN_0 0 7 - FX",
+      "reason": "Illustrative placeholder, not tied to a person"
+    },
+    {
+      "matched_text": "LT-303",
+      "reason": "Example device tag, explicitly stated as example only"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "AOBA-M&A- 0 0 1",
+      "concept": "bank_account",
+      "reason": "Account-like label with spacing; likely an escrow account reference but not clearly a standardized account number format"
+    },
+    {
+      "matched_text": "a c c t - 7 2 1 0 - 99",
+      "concept": "customer_account_number",
+      "reason": "Looks like an internal account number for an individual but spacing/label is obfuscated"
+    },
+    {
+      "matched_text": "sess ion=KYO-317-09:45",
+      "concept": "internal_session_id",
+      "reason": "VPN session identifier appears split by a space, may be a session token"
+    },
+    {
+      "matched_text": "HT\u2011FIN\u2011LTP\u2011042",
+      "concept": "device_serial_number",
+      "reason": "Device identifier for a specific employee device; pattern looks like an asset tag but not a standard serial format"
+    },
+    {
+      "matched_text": "u=dkurose",
+      "concept": "quasi-identifier",
+      "reason": "Username parameter in a secure link that can identify the individual but not covered by a specific allowed rule"
+    },
+    {
+      "matched_text": "dob=19840317",
+      "concept": "date_of_birth",
+      "reason": "DOB encoded in URL as digits; context indicates DOB but detection of 8-digit dates may be ambiguous"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop ideal_must_detect: text not verbatim rule='data_minimisation_marker' text='no \\x1cMy Number\\x1d collection for deal diligence'"
+  ],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

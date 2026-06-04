@@ -3,13 +3,316 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Moriyama"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1987-04-11"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 39"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EM-4472"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "KT-LP-1143"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "d.moriyama@kogane-th.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "7f43-kt-4481"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.14.55.82"
+    },
+    {
+      "category": "PII",
+      "rule": "cookie_id",
+      "matched_text": "sid=ktb-9b22"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "ext-proc-77"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "KM-Tab-22"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number (\u500b\u4eba\u756a\u53f7)"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1979-05-19"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ayaka Fujii"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@kogane-th.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "03-5555-0198"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redaction safeguards for any documents containing individual codes"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender-offer planning"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading freeze"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-clearance remains suspended"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Moriyama"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1987-04-11"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 39"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EM-4472"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "KT-LP-1143"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "d.moriyama@kogane-th.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "7f43-kt-4481"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.14.55.82"
+    },
+    {
+      "category": "PII",
+      "rule": "cookie_id",
+      "matched_text": "sid=ktb-9b22"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "ext-proc-77"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "KM-Tab-22"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number (\u500b\u4eba\u756a\u53f7)"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1979-05-19"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ayaka Fujii"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@kogane-th.co.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "03-5555-0198"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redaction safeguards for any documents containing individual codes"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Named user cluster: Mr. Daichi Moriyama (born 1987-04-11, age 39), Security Analyst at Kogane Techno Holdings, Kitasora Ward HQ, employee code EM-4472, workstation asset KT-LP-1143 (Shirasagi X1), accessed /board/tob-2026/ at 21:43 JST"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Log context shows d.moriyama@kogane-th.co.jp, VPN session 7f43-kt-4481, private IP 10.14.55.82, and Set-Cookie: sid=ktb-9b22; these weak identifiers collectively link to the same individual in this matter"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "A separate contractor ID ext-proc-77 (no named person) from Kawami satellite office, device KM-Tab-22 on Wi\u2011Fi SSID KT-Guest, attempted to download \u201cvaluation_target_shirasuna_v5.xlsx\u201d and \u201cdraft_Board_minutes_2026-05-27.docx\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "confidential domestic acquisition (tender-offer planning) of Shirasuna Logistics Co., Ltd"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading freeze"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-clearance remains suspended"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "only six insiders had role-based access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "monitor guidance on fair disclosure given the TOB planning status"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "ages 20s/30s/40s",
+      "reason": "Generic demographics; does not identify an individual."
+    },
+    {
+      "matched_text": "contract analyst",
+      "reason": "Generic role; not PII."
+    },
+    {
+      "matched_text": "Security Analyst",
+      "reason": "Generic job title; not PII."
+    },
+    {
+      "matched_text": "Board Secretariat Manager",
+      "reason": "Generic job title; not PII."
+    },
+    {
+      "matched_text": "Personal Data Officer",
+      "reason": "Generic role; not PII."
+    },
+    {
+      "matched_text": "Kitasora Ward HQ",
+      "reason": "Location alone is a weak attribute and not identifying by itself."
+    },
+    {
+      "matched_text": "Aomaki satellite office",
+      "reason": "Location alone is a weak attribute and not identifying by itself."
+    },
+    {
+      "matched_text": "Kawami satellite office",
+      "reason": "Location alone is a weak attribute and not identifying by itself."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Wi\u2011Fi SSID KT-Guest",
+      "concept": "network_identifier",
+      "reason": "SSID may be a linkable device/network attribute but not clearly covered by allowed rules."
+    },
+    {
+      "matched_text": "Shirasagi X1",
+      "concept": "device_model",
+      "reason": "Device model could contribute to identifiability but no explicit rule exists."
+    },
+    {
+      "matched_text": "pre-announcement valuation models",
+      "concept": "mnpi_content_reference",
+      "reason": "Indicates pre-disclosure market-sensitive materials though not mapped to a specific MNPI rule token."
+    },
+    {
+      "matched_text": "TOB planning status",
+      "concept": "tender_offer_context",
+      "reason": "Signals tender-offer context relevant to MNPI/FD, but not a defined rule token."
+    },
+    {
+      "matched_text": "FIEA insider controls",
+      "concept": "insider_controls_marker",
+      "reason": "Implies insider-compliance measures but not an explicit 'insider list' or barrier token."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

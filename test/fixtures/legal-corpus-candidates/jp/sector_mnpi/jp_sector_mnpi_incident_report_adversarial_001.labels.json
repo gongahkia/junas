@@ -3,13 +3,300 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project SUMIRE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "\u5185\u90e8\u8005\u540d\u7c3f"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "\u30af\u30ea\u30fc\u30f3\u30c1\u30fc\u30e0/Chinese wall"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "preliminary cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "sustainability-linked loan term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender-offer window 07/22\u201308/05"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "u.ishiguro+prj@kawatori-nexus.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@kawatori-nexus.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.28.5.13"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tadashi Mori-san"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project SUMIRE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "\u5185\u90e8\u8005\u540d\u7c3f"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "\u30af\u30ea\u30fc\u30f3\u30c1\u30fc\u30e0/Chinese wall"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "preliminary cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "sustainability-linked loan term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender-offer window 07/22\u201308/05"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "F I E A-sensitive"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not forward deal decks outside the ring-fenced folder"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "non-public security-token pilot nodes"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "DPT custody"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout memo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean-team roster"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "expanded the insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender schedule changes"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "15bps margin step-up"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2 > 28ktCO2e"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "u.ishiguro+prj@kawatori-nexus.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@kawatori-nexus.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.28.5.13"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tadashi Mori-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ishiguro Rina-san"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Riku Aoyagi-san"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked \u500b\u4eba\u756a\u53f7"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "have purged copies"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "tok=7d3%2F%2F"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "\u500b\u4eba\u756a\u53f7"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated MAC; rule prohibits labeling negations."
+    },
+    {
+      "matched_text": "MAC clause",
+      "reason": "Negated MAC; rule prohibits labeling negations."
+    },
+    {
+      "matched_text": "public TCFD benchmarks",
+      "reason": "Explicitly public; not MNPI."
+    },
+    {
+      "matched_text": "insider lists",
+      "reason": "Educational context; not a sensitive disclosure."
+    },
+    {
+      "matched_text": "information barriers",
+      "reason": "Educational context; not a sensitive disclosure."
+    },
+    {
+      "matched_text": "selective disclosure risks",
+      "reason": "Educational context; not a sensitive disclosure."
+    },
+    {
+      "matched_text": "crypto custody resilience",
+      "reason": "Marketing webinar; not market-sensitive MNPI."
+    },
+    {
+      "matched_text": "tender-offer facts",
+      "reason": "Explicitly excluded from marketing; not a disclosure."
+    },
+    {
+      "matched_text": "commercial terms",
+      "reason": "Explicitly excluded from marketing; not a disclosure."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "\u500b\u4eba\u756a\u53f7",
+      "concept": "jp_my_number reference",
+      "reason": "Mentions category with masked example; no actual ID number present."
+    },
+    {
+      "matched_text": "tok=7d3%2F%2F",
+      "concept": "internal session/token identifier",
+      "reason": "Looks like an access token parameter; may be personal data if tied to a user session."
+    },
+    {
+      "matched_text": "PR0J-SUM1RE",
+      "concept": "transaction codename derivative",
+      "reason": "Token-like project reference that does not match the 'Project <Name>' pattern."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

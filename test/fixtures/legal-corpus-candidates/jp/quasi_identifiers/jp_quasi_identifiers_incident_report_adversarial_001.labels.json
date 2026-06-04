@@ -3,13 +3,313 @@
   "document_type": "memo",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Keita Yamori"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rina Kobuchi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Morohashi"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1985-11-06"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID-OSK-1186"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "SHM-17-OSK-4401"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.17.4.23"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal-incident@akebono-legal.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-50-1234-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "7f2a-9c13"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "nonpublic"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a51,120"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "unauthorized access to the \u201cKirinBoard\u201d portal was detected"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Keita Yamori"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rina Kobuchi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Daichi Morohashi"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1985-11-06"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EID-OSK-1186"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "SHM-17-OSK-4401"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.17.4.23"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal-incident@akebono-legal.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+81-50-1234-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "7f2a-9c13"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Mr. Keita Yamori (b. 1985-11-06), Senior SecOps Eng., Shinmon Electronics K.K., Osaka HQ 3-2-1 Minato, Nishi-ku, Osaka-shi; login \u201ckyamori\u201d; EID \u201cEID-OSK-1186\u201d; device \u201cNB-OSK-17\u201d; VPN acct \u201csec-ky-930127\u201d; sess ion \u201c7f2a-9c13\u201d; ip 10.17.4.23; u r l: https://kirinboard.shinmon.co.jp/bo ard?sess=7f2a-9c13&uid=kyamori"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1991-07-04"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 27"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "kyamori"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "sec-ky-930127"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "uid=boardsec"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redacted as \u201c**** **** ****\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "confidential TOB (take-over bid) proposal to acquire Seikatsu Grid K.K"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a51,120"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "indicative TOB price range \u00a51,120\u2013\u00a51,240"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed board resolution date 2025-05-09"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "tender-offer timetable"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "nonpublic"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no public disclosure will occur until Board approval of any TOB notice"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "closed session"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "unauthorized access to the \u201cKirinBoard\u201d portal was detected"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change (MAC)",
+      "reason": "Negated MAC reference; rule excludes negated MAC/MAE."
+    },
+    {
+      "matched_text": "Individual Number (My Number)",
+      "reason": "Explicitly stated none were uploaded; do not flag negated control."
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Role-noun/defined term; not PII."
+    },
+    {
+      "matched_text": "Board Secretariat",
+      "reason": "Role-noun/defined term; not PII."
+    },
+    {
+      "matched_text": "CISO Office",
+      "reason": "Department/role noun; not PII."
+    },
+    {
+      "matched_text": "Corporate Strategy",
+      "reason": "Department/role noun; not PII."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "login \u201ckyamori\u201d",
+      "concept": "username/account ID",
+      "reason": "PII-like identifier but not clearly covered by an allowed rule category."
+    },
+    {
+      "matched_text": "VPN acct \u201csec-ky-930127\u201d",
+      "concept": "account identifier",
+      "reason": "Internal VPN account string; customer_account_number rule may not apply."
+    },
+    {
+      "matched_text": "u r l: https://kirinboard.shinmon.co.jp/bo ard?sess=7f2a-9c13&uid=kyamori",
+      "concept": "URL with identity parameters",
+      "reason": "Contains session and user identifiers; no explicit URL/UID rule."
+    },
+    {
+      "matched_text": "u r l params \u201cuid=boardsec&ts=2025-04-07T09%3A40%3A29Z\u201d",
+      "concept": "URL identity parameter",
+      "reason": "UID value in URL parameter; mapping to customer_account_number is uncertain."
+    },
+    {
+      "matched_text": "Osaka HQ 3-2-1 Minato, Nishi-ku, Osaka-shi",
+      "concept": "street address (JP)",
+      "reason": "Likely PII, but allowed rules cover jp_postal_code, not full addresses."
+    },
+    {
+      "matched_text": "MDM alias: NB-OSK-17",
+      "concept": "device alias",
+      "reason": "Device alias is identifying but rule set targets device_serial_number."
+    },
+    {
+      "matched_text": "mobile \u201can d r oid-ky 85\u201d",
+      "concept": "mobile device alias",
+      "reason": "Identifier-like but not covered by allowed device rules."
+    },
+    {
+      "matched_text": "FIEA Art. 166/167 procedures have been initiated",
+      "concept": "statutory insider procedure marker",
+      "reason": "Legally significant MNPI-compliance step but not directly mapped to a listed rule."
+    },
+    {
+      "matched_text": "Regulatory notifications were filed with the Kokusai Markets Authority and the Higashi Capital Exchange SRO",
+      "concept": "regulatory pre-disclosure/selective disclosure",
+      "reason": "Sensitive context but no direct allowed MNPI rule category specified."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

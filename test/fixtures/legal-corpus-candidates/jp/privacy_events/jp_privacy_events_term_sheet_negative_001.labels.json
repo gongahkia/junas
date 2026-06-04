@@ -3,13 +3,156 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "JP",
   "destination_jurisdiction": "JP",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@midori-dynamics.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@shiori-nexus.example.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation restricts fields to role, department, and work alias only"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@midori-dynamics.example.jp"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@shiori-nexus.example.jp"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation restricts fields to role, department, and work alias only"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number (\u500b\u4eba\u756a\u53f7)"
+    },
+    {
+      "category": "PII",
+      "rule": "jp_my_number",
+      "matched_text": "My Number"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Third-Party Allotment of new common shares"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "tender-offer facts"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Role noun/defined term, not a person name or identifier"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Role noun/defined term, not a person name or identifier"
+    },
+    {
+      "matched_text": "parties",
+      "reason": "Role noun/defined term, not a person name or identifier"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Employee consents for ancillary analytics are optional and revocable",
+      "concept": "consent_withdrawal_marker",
+      "reason": "Mentions revocability (withdrawal right) but not a live withdrawal event; marker may be out of scope for strict detection."
+    },
+    {
+      "matched_text": "No outstanding DSARs",
+      "concept": "DSAR",
+      "reason": "DSAR status is legally relevant but DSAR markers are not in allowed rules and this is negated."
+    },
+    {
+      "matched_text": "erasure request for a legacy recruitment profile (Ref CR-09A) was completed",
+      "concept": "erasure_marker",
+      "reason": "Erasure completion is relevant but completed control and erasure markers are not in allowed rules."
+    },
+    {
+      "matched_text": "Retention schedule for onboarding forms is two years from start date",
+      "concept": "retention_marker",
+      "reason": "Retention policy is relevant but retention markers are not enumerated in allowed rules."
+    },
+    {
+      "matched_text": "automated purge completed for records past term",
+      "concept": "erasure/retention",
+      "reason": "Completed purge relates to retention/erasure but completed controls are excluded from detection rules."
+    },
+    {
+      "matched_text": "no offshore PII flows occur other than as approved by DEX-045",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Cross-border flow control is mentioned but stated as a negation/limitation, which should not be labeled as a live marker."
+    },
+    {
+      "matched_text": "no My Number (\u500b\u4eba\u756a\u53f7) will be collected or processed for this transaction",
+      "concept": "jp_my_number",
+      "reason": "References a sensitive identifier class but as a negated control with no actual ID value present."
+    },
+    {
+      "matched_text": "no live production My Number repositories are exposed to the Investor",
+      "concept": "jp_my_number",
+      "reason": "Mentions My Number contextually in a negated exposure statement; relevant but not a live PII instance."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
