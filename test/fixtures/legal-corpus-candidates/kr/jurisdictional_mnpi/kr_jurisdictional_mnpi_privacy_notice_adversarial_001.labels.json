@@ -3,13 +3,253 @@
   "document_type": "generic",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@seongwu-chemitech.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-0000-8217"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\ubc15 \uc11c \ud604 \ubd80\uc7a5\ub2d8"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\uc774\ud55c\uacb0 \ud300\uc7a5\ub2d8"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "\uc0ac\ubc88 SW-19A3-xx7"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "\uad6d\uc678 \uc774\uc804"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "\ub9c8\uc2a4\ud0b9(******)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "\uc5f4\ub78c\u00b7\uc815\uc815\u00b7\uc0ad\uc81c\u00b7\uc774\ub3d9\uad8c \uc694\uccad\uc2dc"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\uacf5\uc2dc \uc804 \ube44\uacf5\uac1c \uc815\ubcf4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure \uae08\uc9c0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\uc678\ubd80 \uacf5\uc720 \uae08\uc9c0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\uacf5\uac1c\uc6a9 \uc544\ub2d8"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "\ube14\ub799\uc544\uc6c3"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@seongwu-chemitech.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-0000-8217"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\ubc15 \uc11c \ud604 \ubd80\uc7a5\ub2d8"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "\uc774\ud55c\uacb0 \ud300\uc7a5\ub2d8"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "\uc0ac\ubc88 SW-19A3-xx7"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638 8 3 0 1 0 1 - 1 2 * * * * *"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "\uae09\uc5ec\uacc4\uc88c 11-***-***-0021"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "\uad6d\uc678 \uc774\uc804"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "\ub9c8\uc2a4\ud0b9(******)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "DSAR \ucc98\ub9ac"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "\uc5f4\ub78c\u00b7\uc815\uc815\u00b7\uc0ad\uc81c\u00b7\uc774\ub3d9\uad8c \uc694\uccad\uc2dc"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\uacf5\uc2dc \uc804 \ube44\uacf5\uac1c \uc815\ubcf4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure \uae08\uc9c0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\uc678\ubd80 \uacf5\uc720 \uae08\uc9c0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\uacf5\uac1c\uc6a9 \uc544\ub2d8"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "\ube14\ub799\uc544\uc6c3"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "\uc784\uc9c1\uc6d0 \uc790\uc0ac\uc8fc \ub9e4\ub9e4 \uae08\uc9c0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\ub0b4\ubd80\ucf54\ub4dc PJ-CHEONGHAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "q2 guidance draft"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "gantt.xlsx"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\ubd84\uae30 \uac00\uc774\ub358\uc2a4 \ucd08\uc548"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\ubbf8\uccb4\uacb0 \ub2e8\uc77c\ud310\ub9e4\u00b7\uacf5\uae09\uacc4\uc57d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "\ube44\uacf5\uac1c \uc815\ubcf4 \uc5b8\uae09 \uae08\uc9c0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "\uacf5\uc2dc \uc2b9\uc778 \uc804 \ubc30\ud3ec \ubd88\uac00"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "\uc0ac\uc804 \ubcf4\ub3c4\uc790\ub8cc \ubc30\ud3ec \uae08\uc9c0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "\uc601\ud5a5 \uc608\uc0c1 \uc2dc \u2018\uc911\uc694\u2019\ub85c \ud310\ub2e8\ud558\uc5ec \uc989\uc2dc \uacf5\uc2dc \uac80\ud1a0"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated/explicitly states no MAC declaration"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "\uacc4\uc57d\ubc88\ud638 AG-24-09",
+      "concept": "contract_identifier",
+      "reason": "Internal contract numbers may be sensitive but are not covered by allowed PII rules"
+    },
+    {
+      "matched_text": "DART rcpNo=2024 F I C T 001234",
+      "concept": "public_filing_identifier",
+      "reason": "Regulatory filing reference is public/status info rather than MNPI/PII under allowed rules"
+    },
+    {
+      "matched_text": "rcpNo=2 0 2 4 F I C T 000987",
+      "concept": "public_filing_identifier",
+      "reason": "Regulatory filing reference is public/status info rather than MNPI/PII under allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,147 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@palgongds.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec-ops@palgongds.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "123-456-7890"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "000000-0000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "internal trading blackout(\uc784\uc6d0\u00b7\uc9c1\uc6d0 \ub9e4\ub9e4 \uc81c\ud55c)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not selectively disclose"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not yet been publicly disclosed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@palgongds.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sec-ops@palgongds.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "02-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "123-456-7890"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "000000-0000000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "internal trading blackout(\uc784\uc6d0\u00b7\uc9c1\uc6d0 \ub9e4\ub9e4 \uc81c\ud55c)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not selectively disclose"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "has not yet been publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Any external communication must follow \uacf5\uc815\uacf5\uc2dc guidelines"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Preliminary internal forensics indicate a subset of archived HR directories may have been accessed"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Employees must not include resident registration numbers in tickets"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "990101-1XXXXXX"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Designated insiders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "until the Disclosure Committee determines the timing of any further Capital Markets Act-compliant filing concerning the incident assessment"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Role noun/party label not PII/MNPI"
+    },
+    {
+      "matched_text": "Vendor",
+      "reason": "Generic role noun; not a person or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "masked resident-number tokens",
+      "concept": "PII category mention",
+      "reason": "Indicates RRN-type data at issue without specific values; not directly covered by strict rules"
+    },
+    {
+      "matched_text": "Account No.: 123-456-7890",
+      "concept": "account number vs phone number ambiguity",
+      "reason": "String looks like a phone number but is labeled as an account number example; classification may vary by detector"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

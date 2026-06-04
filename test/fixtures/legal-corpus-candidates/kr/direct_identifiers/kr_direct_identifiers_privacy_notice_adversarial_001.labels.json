@@ -3,13 +3,252 @@
   "document_type": "generic",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "482-92-71354"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@hanseong-innovations.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82\u2011010\u20117 7 77\u201113 57"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ji\u2011won Ahn"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "912\u201108\u2011123456"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "M12 34567 8"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ms.cho@hanseong-innovations.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Min\u2011su Cho"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@hanseong-innovations.co.kr"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non\u2011public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opt\u2011out"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "limited overseas transfer"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "482-92-71354"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@hanseong-innovations.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82\u2011010\u20117 7 77\u201113 57"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ji\u2011won Ahn"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "912\u201108\u2011123456"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "M12 34567 8"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ms.cho@hanseong-innovations.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Min\u2011su Cho"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@hanseong-innovations.co.kr"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "material non\u2011public information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading blackout"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opt\u2011out"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "limited overseas transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "83 01 01\u20111 23 4 567"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "83 0 101\u20111 2 3 4 567"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "rrn=83%200101-1%2023%204%20567"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "ACCT\u20118821**934"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "acct=ACCT%2D8821**934"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "H I\u20112026\u201104\u2011003"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "if strictly needed"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked on ingestion"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we do not store device MAC addresses, do not collect IMEI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "is quarantined"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "IR responses avoid undisclosed deal terms"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers: limited overseas transfer to Bluetide Data Pte. Ltd. (processor) for archiving with consent notice per PIPA Art. 28\u20117"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "submit DSARs"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\uace0\uac1d\uba85: ____",
+      "reason": "Blank placeholder label; not personal data until completed"
+    },
+    {
+      "matched_text": "\uacc4\uc88c\ubc88\ud638: ____",
+      "reason": "Blank placeholder label; not personal data until completed"
+    },
+    {
+      "matched_text": "IR Manager",
+      "reason": "Role-only title; not a named person"
+    },
+    {
+      "matched_text": "\uc0ac\uc5c5\uc790\ub4f1\ub85d\ubc88\ud638 123\u201145\u201167891",
+      "reason": "Invalid checksum adversarial sample; not real PII"
+    },
+    {
+      "matched_text": "000000\u20110000000",
+      "reason": "Fake placeholder corporate registration number"
+    },
+    {
+      "matched_text": "1332",
+      "reason": "Public hotline number; not personal data"
+    },
+    {
+      "matched_text": "120",
+      "reason": "Public hotline number; not personal data"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "124 Haneul\u2011ro, Seoryu\u2011gu, Daecheon\u2011si, Namcheon\u2011do 00000, Republic of Korea",
+      "concept": "postal_address",
+      "reason": "Full Korean postal address is identifying but there is no explicit KR address rule in the allowed list"
+    },
+    {
+      "matched_text": "7F, Solaris Bldg., 9\u20117 Yeonhwa\u2011gil, Seoryu\u2011gu, Daecheon\u2011si 00000",
+      "concept": "postal_address",
+      "reason": "Full Korean address likely PII but no explicit allowed rule for KR postal addresses"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

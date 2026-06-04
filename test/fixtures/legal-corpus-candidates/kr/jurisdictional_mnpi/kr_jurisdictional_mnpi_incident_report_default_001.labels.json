@@ -3,13 +3,224 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@aeryun-telesystems.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@aeryun-telesystems.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "team-sec@aeryun-telesystems.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kim Do-hyeon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Yoon Seul-gi"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-Public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure risk: do not share incident details in 1:1 vendor or investor calls; if briefing is required, prepare simultaneous \uacf5\uc815\uacf5\uc2dc and post to the portal at the same time as any call"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "IR blackout is in effect from 2026-06-01 until release of 2Q \uc7a0\uc815\uc2e4\uc801"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@aeryun-telesystems.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@aeryun-telesystems.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "team-sec@aeryun-telesystems.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Kim Do-hyeon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Yoon Seul-gi"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "741102-1******"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "900415-2******"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-Public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Internal Incident Report \u2014 Cyber event \u2014 Non-Public (\ubbf8\uacf5\uac1c\uc911\uc694\uc815\ubcf4)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "PII exposure: two employee resident-registration numbers (\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638) may have been accessed (e.g., 741102-1****** and 900415-2******), plus internal email aliases"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "\ubbf8\uacf5\uac1c as of this memo"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no external dissemination prior to \uacf5\uc815\uacf5\uc2dc"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "distribution restricted until \uacf5\uc815\uacf5\uc2dc"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "do not share incident details in 1:1 vendor or investor calls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "IR blackout is in effect from 2026-06-01 until release of 2Q \uc7a0\uc815\uc2e4\uc801"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "all insiders are restricted from trading per Policy 4.2, including ESOP exercises"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "12%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to final materiality confirmation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "defer outreach until \uacf5\uc2dc decision is finalized"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "exceeding our 5% internal issuer-relative materiality threshold"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "\uc218\uc2dc\uacf5\uc2dc (material fact)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "\uc911\uc694\uc815\ubcf4"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Section header/label, not PII or MNPI"
+    },
+    {
+      "matched_text": "Summary",
+      "reason": "Section header/label, not PII or MNPI"
+    },
+    {
+      "matched_text": "Reference",
+      "reason": "Section header/label, not PII or MNPI"
+    },
+    {
+      "matched_text": "Benign/unrelated",
+      "reason": "Section header/label, not PII or MNPI"
+    },
+    {
+      "matched_text": "Contacts",
+      "reason": "Section header/label, not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "distribution restricted until \uacf5\uc815\uacf5\uc2dc",
+      "concept": "information_barrier_marker",
+      "reason": "Indicates internal distribution controls pending fair disclosure; functions like an information barrier but lacks explicit barrier keywords."
+    },
+    {
+      "matched_text": "741102-1******",
+      "concept": "kr_rrn (masked)",
+      "reason": "Masked resident-registration number; clearly sensitive but may not match strict-format detectors."
+    },
+    {
+      "matched_text": "900415-2******",
+      "concept": "kr_rrn (masked)",
+      "reason": "Masked resident-registration number; clearly sensitive but may not match strict-format detectors."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

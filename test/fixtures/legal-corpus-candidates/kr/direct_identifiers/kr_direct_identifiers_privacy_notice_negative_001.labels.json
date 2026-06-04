@@ -3,13 +3,209 @@
   "document_type": "generic",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@daonnetrix.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1523-1000"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "830101-1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "secops@daonnetrix.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@daonnetrix.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "123-45-67890"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-000000-00"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@daonnetrix.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1523-1000"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "830101-1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "secops@daonnetrix.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@daonnetrix.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_business_registration",
+      "matched_text": "123-45-67890"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "000-000000-00"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "\uad6d\uc678 \uc774\uc804 \ud1b5\uc9c0\u00b7\ub3d9\uc758"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "\ucd5c\uc18c\ud654 \uc6d0\uce59"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "\uc6d0\ubcf8 \uc800\uc7a5 \uae08\uc9c0"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "\uc804\uc0ac \uc2dc\uc2a4\ud15c \uc800\uc7a5 \uae08\uc9c0"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "\uac1c\uc778 \ud734\ub300\uc804\ud654 \uc218\uc9d1 \uae08\uc9c0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "\ub0b4\ubd80\uc815\ubcf4\uad00\ub9ac\uaddc\uc815"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "\uc811\uadfc\ud1b5\uc81c"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "\ub8e8\uba38\u00b7\ucd94\uc815\uce58\ub294 \uc0ac\ub0b4 \ucee4\ubba4\ub2c8\ucf00\uc774\uc158\uc5d0 \ud55c\uc815"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "\uc815\ubcf4\uc8fc\uccb4 \uc694\uccad(\uc5f4\ub78c\u00b7\uc815\uc815\u00b7\uc0ad\uc81c)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "[\uc131\uba85]",
+      "reason": "Generic form placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[\uc0ac\ubc88]",
+      "reason": "Generic form placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[\uc5ec\uad8c\ubc88\ud638]",
+      "reason": "Generic form placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[\uae08\uc561]",
+      "reason": "Redaction placeholder, not actual data"
+    },
+    {
+      "matched_text": "[\uc0c1\ub300\ubc29]",
+      "reason": "Redaction placeholder, not actual data"
+    },
+    {
+      "matched_text": "[\uc77c\uc790]",
+      "reason": "Redaction placeholder, not actual data"
+    },
+    {
+      "matched_text": "[\uc8fc\uc18c]",
+      "reason": "Generic form placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[\uc5f0\ub77d\ucc98]",
+      "reason": "Generic form placeholder, not actual PII"
+    },
+    {
+      "matched_text": "[\uacc4\uc88c\ubc88\ud638]",
+      "reason": "Generic form placeholder, not actual PII"
+    },
+    {
+      "matched_text": "830101-1******",
+      "reason": "Masked/obfuscated example, not a real identifier"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "\ud574\uc678 \uc704\ud0c1(\uc608: \ud074\ub77c\uc6b0\ub4dc \ub85c\uadf8 \ubd84\uc11d)",
+      "concept": "cross-border outsourcing",
+      "reason": "Implies international processing; relevant to cross-border transfer but not the explicit transfer consent phrase"
+    },
+    {
+      "matched_text": "\ubd84\ub9ac\ubcf4\uad00",
+      "concept": "security_safeguard_retention",
+      "reason": "Indicates separation of access logs as a safeguard; no explicit rule category provided"
+    },
+    {
+      "matched_text": "\ud30c\uae30",
+      "concept": "erasure/deletion marker",
+      "reason": "Refers to deletion of data; erasure is relevant but no explicit erasure rule name provided"
+    },
+    {
+      "matched_text": "\ubcf4\uc720\uae30\uac04\uc740 \ucc44\uc6a9 \uc885\ub8cc 3\ub144, \ud22c\uc790\uc790\ubb38\uc758 1\ub144, \uac70\ub798 \uac80\ud1a0\uc790\ub8cc\ub294 \uacf5\uc2dc \ud6c4 6\uac1c\uc6d4",
+      "concept": "retention_period",
+      "reason": "Specifies retention terms; retention markers are relevant but not enumerated as a distinct allowed rule name"
+    },
+    {
+      "matched_text": "\ub0b4\ubd80\uc790",
+      "concept": "insider reference",
+      "reason": "Mentions insiders generally but not as an insider list; borderline for MNPI insider-list marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
