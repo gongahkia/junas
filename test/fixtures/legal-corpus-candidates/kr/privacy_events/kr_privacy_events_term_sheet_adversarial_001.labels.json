@@ -3,13 +3,204 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 78,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "important information not yet publicly disclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "RRN minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "automatic minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Two marketing email consents withdrawn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jo   In\u2011seok"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Baek Hae\u2011rin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hanul\u2011kinetics.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@eunhwa\u2011robotics.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82\u20112\u2011555\u20110000x33"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "77\u2011XX\u20119342"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 78,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "important information not yet publicly disclosed"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "RRN minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "automatic minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Two marketing email consents withdrawn"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jo   In\u2011seok"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Baek Hae\u2011rin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@hanul\u2011kinetics.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@eunhwa\u2011robotics.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+82\u20112\u2011555\u20110000x33"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "77\u2011XX\u20119342"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "resident\u2011number fields masked"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "not required for investor review"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "will be redacted"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "session?ticket=kr%2FZ9-4_1&user=HN\u2011A%7C1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposes to acquire Eunhwa Robotics Co., Ltd"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAC condition",
+      "reason": "Negated MAC language; do not tag as material_adverse_change"
+    },
+    {
+      "matched_text": "No seller representation on MAC",
+      "reason": "Negated MAC representation; not a material_adverse_change signal"
+    },
+    {
+      "matched_text": "not MNPI",
+      "reason": "Explicit negation of MNPI status"
+    },
+    {
+      "matched_text": "no live overseas transfer",
+      "reason": "Negated cross-border transfer; control not active"
+    },
+    {
+      "matched_text": "control completed, not a current risk",
+      "reason": "Completed control; not an active privacy risk"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR from former employee",
+      "concept": "DSAR marker",
+      "reason": "DSAR events are privacy-relevant but no explicit allowed rule name provided"
+    },
+    {
+      "matched_text": "erasure completed",
+      "concept": "erasure marker",
+      "reason": "Erasure events are privacy-relevant but not in allowed rule list"
+    },
+    {
+      "matched_text": "Retention: 3 years for deal files excluding CVs",
+      "concept": "retention policy marker",
+      "reason": "Retention schedules are privacy-relevant but there is no specific allowed rule for retention"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

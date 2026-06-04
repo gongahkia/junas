@@ -3,13 +3,277 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Han Soyun"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@keonwave.co.kr"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 48,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "important information not yet publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 4,800,000,000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jang Tae\u2011min"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Choi Mira"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lee Dong\u2011kyu"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "Resident Registration Number (RRN)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@nambitoptics.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@keonwave.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@keonwave.co.kr"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Han Soyun"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@keonwave.co.kr"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 48,000,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "18%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "important information not yet publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "KRW 4,800,000,000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jang Tae\u2011min"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Choi Mira"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Lee Dong\u2011kyu"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "Resident Registration Number (RRN)"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "Resident Registration Numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "RRN"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "employee IDs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "effective date: 2026-06-30"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "recipients agree not to trade the Company\u2019s securities until public disclosure via KRX notice and Company IR release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no public disclosure shall be deemed to have occurred until the Company\u2019s IR portal confirms posting"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "is not posted on the KRX noticeboard"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@nambitoptics.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@keonwave.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr@keonwave.co.kr"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Defined role term not PII/MNPI"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "Defined role term not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR Ref. KW-DSAR-2025-119",
+      "concept": "DSAR marker",
+      "reason": "DSAR is a privacy event but there is no explicit DSAR rule in the allowed list."
+    },
+    {
+      "matched_text": "retained for 3 years from termination and then irreversibly deleted",
+      "concept": "Retention/erasure",
+      "reason": "Indicates retention period and deletion but no explicit retention/erasure rule provided."
+    },
+    {
+      "matched_text": "erasure confirmation",
+      "concept": "Erasure",
+      "reason": "Erasure handling is privacy-relevant but not enumerated as a rule."
+    },
+    {
+      "matched_text": "Erasure Ticket ET\u2011AHR\u20112025\u2011008",
+      "concept": "Erasure workflow",
+      "reason": "Erasure ticket evidences deletion but no erasure rule is available."
+    },
+    {
+      "matched_text": "closing target 2026-07-31",
+      "concept": "Embargo/scheduling",
+      "reason": "References a targeted closing date, but not the exact 'Closing Date' embargo marker."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

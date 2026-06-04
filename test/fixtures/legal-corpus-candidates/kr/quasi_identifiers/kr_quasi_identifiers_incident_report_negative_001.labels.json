@@ -3,13 +3,104 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "821010-1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@mirinfra.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@mirinfra.example.kr"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "821010-1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@mirinfra.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@mirinfra.example.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "Resident Registration No"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1990-04"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "MIS-LP-3321"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "wh_ops_023"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "warehouse supervisor at the Busan Geoje Logistics Hub, month/year of birth 1990-04, corporate laptop model Boreas T7 (asset tag MIS-LP-3321), and internal ERP username wh_ops_023"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we will not include personal particulars beyond aggregate counts"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Mireu Infra Systems Co., Ltd",
+      "reason": "Company name, not personal data under PIPA."
+    },
+    {
+      "matched_text": "Address",
+      "reason": "Generic label without a specific value and not a covered address rule in this taxonomy."
+    },
+    {
+      "matched_text": "KRX_IR_2024_Q4_forecast.pdf",
+      "reason": "Filename reference; explicitly stated as already published so not MNPI."
+    },
+    {
+      "matched_text": "phishing-induced credential replay",
+      "reason": "Incident descriptor; not a defined MNPI category by itself."
+    }
+  ],
   "uncertain": [],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
