@@ -3,13 +3,188 @@
   "document_type": "memo",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@wonseongmaterials.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@wonseongmaterials.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Seo Hye-jin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Choi Min-kyu"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent for cross-border payroll processing"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "limited HR data transfer to BlueHarbor Pensions Pte. Ltd. (SG)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation policy (HR-PII-MIN v2.1)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation controls"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@wonseongmaterials.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@wonseongmaterials.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Seo Hye-jin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Choi Min-kyu"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent for cross-border payroll processing"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "limited HR data transfer to BlueHarbor Pensions Pte. Ltd. (SG)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation policy (HR-PII-MIN v2.1)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation controls"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "resident-number"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "employee-ID"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "a misconfigured SFTP permission exposed a staging investor-relations folder for 47 minutes"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border payroll processing"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data Export Approval WM-DEX-2026-014 authorized limited HR data transfer to BlueHarbor Pensions Pte. Ltd. (SG) for benefits enrollment"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "routine overseas transfers",
+      "reason": "Hypothetical/policy-only; explicitly not a live transfer"
+    },
+    {
+      "matched_text": "lapsed on 2026-03-31 without any transmissions",
+      "reason": "Explicitly states no data transfer occurred"
+    },
+    {
+      "matched_text": "found no MNPI in the folder",
+      "reason": "Explicit negation of MNPI presence"
+    },
+    {
+      "matched_text": "contained no material information",
+      "reason": "Explicit negation of materiality"
+    },
+    {
+      "matched_text": "Forensic logs show no external downloads",
+      "reason": "Explicit negation of exfiltration/breach impact"
+    },
+    {
+      "matched_text": "no public disclosure on the KSEB portal was required",
+      "reason": "States absence of public disclosure; not a nonpublic marker"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "A DSAR from Ms. Seo Hye-jin (candidate) was received on 2026-05-27 and fulfilled on 2026-05-29",
+      "concept": "DSAR marker",
+      "reason": "DSAR events are privacy-handling markers but there is no explicit allowed rule name for DSAR"
+    },
+    {
+      "matched_text": "erased from the sandbox",
+      "concept": "erasure marker",
+      "reason": "Indicates erasure as part of DSAR fulfillment; no explicit allowed erasure rule"
+    },
+    {
+      "matched_text": "Retention controls: IR draft files are on a 90-day retention schedule (PR-07)",
+      "concept": "retention marker",
+      "reason": "Retention schedules are privacy markers but no explicit allowed retention rule"
+    },
+    {
+      "matched_text": "auto-deleted on 2026-05-28",
+      "concept": "retention/deletion marker",
+      "reason": "Automatic deletion indicates retention enforcement; no explicit allowed retention rule"
+    },
+    {
+      "matched_text": "resident-number fields were never captured due to 2025 minimisation policy (HR-PII-MIN v2.1)",
+      "concept": "KR RRN data category mention",
+      "reason": "Mentions KR RRN data category but no actual identifier value; borderline for kr_rrn rule"
+    },
+    {
+      "matched_text": "a courtesy notice was emailed to the Korean Financial Surveillance Service (KFSS) and Korea Securities Exchange Board (KSEB)",
+      "concept": "regulator notice/nonpublic handling",
+      "reason": "Could imply nonpublic handling/limited disclosure but not clearly covered by an allowed MNPI marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
