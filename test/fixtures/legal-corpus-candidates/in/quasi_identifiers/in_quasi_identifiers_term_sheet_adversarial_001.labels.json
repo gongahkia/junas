@@ -3,13 +3,410 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "raghav.iyer@pavantra.example.ltd"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealdesk@reniva.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "co-sec@pavantra.example.ltd"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1991-04-09"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 33"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "PL-EMP-0097"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "sess-rghv-0421-nvp-5f29"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "A/c No.: 0482 77XX 9021"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.6.21.14"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "27AAXCP0000Z5"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Raghav Iyer, FCA"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Raghav K. Iyer"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Children\u2019s data"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no employee MAC addresses are collected for monitoring"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "device telemetry is limited to browser type and session duration"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "revocable"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of 51% equity share capital of Pavantra Labs Limited (an Indian listed public company) by Reniva Energy Limited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "20%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "designated insiders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "[Pavantra-Reniva\u2013UPSI]"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "raghav.iyer@pavantra.example.ltd"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealdesk@reniva.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "co-sec@pavantra.example.ltd"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "1991-04-09"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 33"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "PL-EMP-0097"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "sess-rghv-0421-nvp-5f29"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "A/c No.: 0482 77XX 9021"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "10.6.21.14"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "27AAXCP0000Z5"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Raghav Iyer, FCA"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Raghav K. Iyer"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Children\u2019s data"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no employee MAC addresses are collected for monitoring"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "device telemetry is limited to browser type and session duration"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "revocable"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "R Y I P I 1 2 3 4 Z"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "1234 5678 9000"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "RYI\u2022\u2022\u20221234Z"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Linkable identifiers for onboarding the nominee (internal record only): Mr. Raghav K. Iyer (DOB: 1991-04-09, age 33), role: CFO-designate at Pavantra Labs Limited, office: Plot 18, Sector 19, Navi Prana, Maharashtra 410110, device alias: \u201cPAV-CFO-ThinkPad-T14\u201d, email: raghav.iyer@pavantra.example.ltd, PAN: R Y I P I 1 2 3 4 Z, A a d h a a r: 1234 5678 9000 (masked), employee code: PL-EMP-0097, session_ref: sess-rghv-0421-nvp-5f29"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "device nickname \u201cRaghav-iOS-backup\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "login assigned to \u201cRaghav-I\u201d only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "sensitive identifiers (Aadhaar/PAN/GSTIN) will be masked"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consents will be captured for specified purposes and revocable"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of 51% equity share capital of Pavantra Labs Limited (an Indian listed public company) by Reniva Energy Limited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "20%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "[Pavantra-Reniva\u2013UPSI]"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "until disclosed to stock exchanges"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "parties shall maintain information barriers per SEBI PIT and internal codes"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "designated insiders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "only designated insiders may access the data room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "before internal circularisation"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "vendor",
+      "reason": "Role noun / defined party reference, not PII or MNPI"
+    },
+    {
+      "matched_text": "parties",
+      "reason": "Generic role noun, not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "aged 22",
+      "concept": "generic demographic age",
+      "reason": "Isolated demographic reference declared non-linkable; may not identify an individual under DPDPA."
+    },
+    {
+      "matched_text": "Coimbatore",
+      "concept": "generic location",
+      "reason": "Standalone location in a generic example; not linkable to an identifiable person."
+    },
+    {
+      "matched_text": "deleted with audit logs",
+      "concept": "erasure/DSAR control",
+      "reason": "Indicates deletion with audit trail, but there is no explicit erasure-marker rule in the allowed set."
+    },
+    {
+      "matched_text": "SAMR0000521",
+      "concept": "bank IFSC code",
+      "reason": "Indian bank branch code is sensitive operational data but not covered by allowed PII rules."
+    },
+    {
+      "matched_text": "t=af2b_ 9- QP",
+      "concept": "URL token",
+      "reason": "Looks like a tokenized identifier, but not clearly mapped to an allowed identifier type."
+    },
+    {
+      "matched_text": "device alias: \u201cPAV-CFO-ThinkPad-T14\u201d",
+      "concept": "device alias",
+      "reason": "Device identifier string that is linkable but not an enumerated device identifier type in allowed rules."
+    },
+    {
+      "matched_text": "gw-nvp-04",
+      "concept": "network/gateway identifier",
+      "reason": "Operational identifier that can be linkable but not covered by allowed rules."
+    },
+    {
+      "matched_text": "Maharashtra 410110",
+      "concept": "postal code (India)",
+      "reason": "Indian PIN code may aid identification but there is no India postal-address rule in the allowed set."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 3,240,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 3,240,000,000'"
+  ],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

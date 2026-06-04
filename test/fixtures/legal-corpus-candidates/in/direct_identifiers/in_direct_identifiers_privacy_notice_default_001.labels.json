@@ -3,13 +3,308 @@
   "document_type": "generic",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@mayurava.in"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91-80412-88991"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "QPJPT1234Z"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "29QPJPT1234Z1A2"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "M1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "riya.nandekar@mayurava.in"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Riya Nandekar"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@mayurava.in"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "1234 5678 9012"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "402993771245"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91-93288-44720"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dp.id@mayurava.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@mayurava.in"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "ABCDE1234F"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "22AAAAA0000A1Z5"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintenance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price-sensitive information (UPSI)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading is prohibited until disclosure to the stock exchange"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@mayurava.in"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91-80412-88991"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "QPJPT1234Z"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "29QPJPT1234Z1A2"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "M1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "riya.nandekar@mayurava.in"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Riya Nandekar"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@mayurava.in"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "1234 5678 9012"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "402993771245"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91-93288-44720"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dp.id@mayurava.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@mayurava.in"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "ABCDE1234F"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "22AAAAA0000A1Z5"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Children\u2019s data (under 18)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Aadhaar numbers are accepted only where mandated by law"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We will not collect GSTIN: 22AAAAA0000A1Z5 or PAN: ABCDE1234F from web cookies; these are illustrative only and may have invalid checksums"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "We engage processors in Pune and in the Federated Port Isles for cloud archiving, with contractual safeguards and access controls per Section 16 of the DPDPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintenance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price-sensitive information (UPSI)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading is prohibited until disclosure to the stock exchange"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "need-to-know basis"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role noun; not a person\u2019s name or identifier"
+    },
+    {
+      "matched_text": "Compliance Officer",
+      "reason": "Role-only defined term; not a named person"
+    },
+    {
+      "matched_text": "Chief Compliance Officer",
+      "reason": "Role-only defined term; not a named person"
+    },
+    {
+      "matched_text": "'Name: ______'",
+      "reason": "Generic form field bait; not actual PII"
+    },
+    {
+      "matched_text": "'PAN: ______'",
+      "reason": "Generic form field bait; not actual PII"
+    },
+    {
+      "matched_text": "1800-000-0000",
+      "reason": "Public helpline number; not individual-specific PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "CIN: L72900KA2019PLC098765",
+      "concept": "Company identifier (CIN)",
+      "reason": "Indian Corporate Identification Number is a direct company identifier but no explicit allowed rule for CIN"
+    },
+    {
+      "matched_text": "Karnataka 560123",
+      "concept": "Postal address component",
+      "reason": "Indian postal code/address segment is identifiable but there is no explicit India postal-address rule"
+    },
+    {
+      "matched_text": "DSAR",
+      "concept": "Data subject access request marker",
+      "reason": "Privacy rights request term is legally relevant but not covered by listed privacy-event rules"
+    },
+    {
+      "matched_text": "structured digital database",
+      "concept": "SEBI SDD (UPSI record system)",
+      "reason": "MNPI record-keeping construct under SEBI PIT is relevant but not mapped to an allowed MNPI rule"
+    },
+    {
+      "matched_text": "SEBI (PIT) Regulations, 2015",
+      "concept": "MNPI regulatory citation",
+      "reason": "Regulatory reference provides MNPI context but is not an allowed MNPI rule"
+    },
+    {
+      "matched_text": "IndeX Bharat Exchange",
+      "concept": "Stock exchange listing context",
+      "reason": "Establishes listed-securities context for MNPI but not directly covered by allowed MNPI rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

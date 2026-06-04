@@ -3,13 +3,280 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "61%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Unpublished price sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window remains closed"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal channel"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rhea.kannan@sunhollow.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dev.malhotra@velorumnexus.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Kannan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Dev Malhotra"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child (under 18)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "under 18"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Share Purchase Agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "INR 412 per share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "61%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Unpublished price sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window remains closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team-only access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean-room access"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "may be transferred to processors in the Lumeria Republic"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal channel"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "explicitly exclude Aadhaar/PAN fields"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no Aadhaar, PAN, or GSTIN will be collected for deal diligence"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rhea.kannan@sunhollow.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dev.malhotra@velorumnexus.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Kannan"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Dev Malhotra"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child (under 18)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "under 18"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Acquirer",
+      "reason": "Defined party/role term, not a person or identifier"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Defined party/role term, not a person or identifier"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR portal",
+      "concept": "DSAR marker",
+      "reason": "DSAR handling is a privacy event but there is no explicit DSAR rule in the allowed set"
+    },
+    {
+      "matched_text": "30 days for erasure",
+      "concept": "erasure marker",
+      "reason": "Erasure SLA is a privacy handling event but there is no erasure rule in the allowed set"
+    },
+    {
+      "matched_text": "erased on 2026-05-01",
+      "concept": "erasure marker",
+      "reason": "Completed erasure is noted but erasure is not an allowed detection rule and is a completed control"
+    },
+    {
+      "matched_text": "audit logs retained for 1 year",
+      "concept": "retention marker",
+      "reason": "Retention duration is a privacy event but there is no retention rule in the allowed set"
+    },
+    {
+      "matched_text": "90-day retention",
+      "concept": "retention marker",
+      "reason": "Retention duration is a privacy event but there is no retention rule in the allowed set"
+    },
+    {
+      "matched_text": "5-year retention",
+      "concept": "retention marker",
+      "reason": "Retention duration is a privacy event but there is no retention rule in the allowed set"
+    },
+    {
+      "matched_text": "destruction certificates",
+      "concept": "deletion documentation",
+      "reason": "Deletion/destruction attestations are relevant to privacy compliance but not covered by allowed rules"
+    },
+    {
+      "matched_text": "deletion attestations",
+      "concept": "deletion documentation",
+      "reason": "Deletion/destruction attestations are relevant to privacy compliance but not covered by allowed rules"
+    },
+    {
+      "matched_text": "DPIA",
+      "concept": "DPIA requirement",
+      "reason": "Data Protection Impact Assessment is privacy-relevant but not in the allowed rules list"
+    },
+    {
+      "matched_text": "pseudonymised datasets",
+      "concept": "pseudonymisation control",
+      "reason": "Privacy-by-design technique is relevant but not covered by an allowed detection rule"
+    },
+    {
+      "matched_text": "purpose limitation",
+      "concept": "purpose limitation principle",
+      "reason": "Privacy principle is relevant but not mapped to an allowed rule"
+    },
+    {
+      "matched_text": "guardian-consent",
+      "concept": "child consent template",
+      "reason": "Child/guardian consent is privacy-relevant but not mapped to an allowed rule"
+    },
+    {
+      "matched_text": "Data Export Approval DEX-2048",
+      "concept": "data export approval",
+      "reason": "Cross-border approval identifier is relevant to transfers but not covered by an allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 412 per share'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 412 per share'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,344 @@
   "document_type": "memo",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kavya N. Haridas"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Omkar J. Dev"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. S. Pranav Mada n"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cs@aarunyasystems.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@aarunyasystems.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@aarunyasystems.in"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91-00000-00000"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "1,150 likely under 18 based on DoB flags"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI under SEBI (PIT) Regulations, 2015 until exchange disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "not for selective or external circulation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber intrusion (ransomware)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading window: remains closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "quiet period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restrict details to designated persons/connected persons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "prohibit vendor sharing beyond need-to-know"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "designated persons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "treat as potentially material UPSI pending Board determination"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "does not render these details public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "41,200"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,150"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no comment while trading window is closed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kavya N. Haridas"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Omkar J. Dev"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. S. Pranav Mada n"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cs@aarunyasystems.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@aarunyasystems.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@aarunyasystems.in"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91-00000-00000"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "1,150 likely under 18 based on DoB flags"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI under SEBI (PIT) Regulations, 2015 until exchange disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "not for selective or external circulation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber intrusion (ransomware) detected on 03-06-2026 23:40 IST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "ransomware"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "\u22655%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "treat as potentially material UPSI pending Board determination"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading window: remains closed for designated persons from 01-06-2026 to 08-06-2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "quiet period norms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "until disclosure as per Regulation 30 of SEBI LODR within 24 hours of materiality confirmation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restrict details to designated persons/connected persons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "prohibit vendor sharing beyond need-to-know"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "use codeword \u201cmonsoon-vi\u201d in external tickets"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "designated persons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "connected persons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "avoid selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no comment while trading window is closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "does not render these details public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "41,200"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,150"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "87"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "communications will not request Aadhaar, PAN, or GSTIN"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "children\u2019s accounts will require fresh guardian consent via OTP workflow"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "monsoon-vi",
+      "reason": "Not a 'Project <Name>' pattern; do not tag as transaction codename per rule 6."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated context; rule 8 excludes labeling negated MAC references."
+    },
+    {
+      "matched_text": "MAC clause",
+      "reason": "Negated context ('not a MAC clause trigger'); rule 8 excludes negated MAC mentions."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "CERT-In intimation drafted",
+      "concept": "regulator notification (CERT-In)",
+      "reason": "Security incident notification is compliance-relevant but not covered by listed MNPI/PII rules."
+    },
+    {
+      "matched_text": "DPDP notice to affected Data Principals planned within 72 hours",
+      "concept": "breach notification to data principals",
+      "reason": "DPDPA breach notice timing is privacy-relevant but not included in allowed marker categories."
+    },
+    {
+      "matched_text": "grievance redressal channel activated",
+      "concept": "DSAR/grievance process activation",
+      "reason": "Privacy response process is relevant but there is no explicit allowed rule for grievance/DSAR activation."
+    },
+    {
+      "matched_text": "I N C - 2 0 2 6 / 0 l - 7 7 A",
+      "concept": "internal incident identifier",
+      "reason": "Internal ticket IDs may be sensitive operationally but are not clearly mapped to allowed PII/MNPI rules."
+    },
+    {
+      "matched_text": "https://portal.aarunyasystems.in/incidents?id=OPS_45",
+      "concept": "internal incident tracking link",
+      "reason": "May reveal internal systems/IDs but not covered by the allowed rule set."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='\u20b925\u201330 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='\u20b925\u201330 crore'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

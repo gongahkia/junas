@@ -3,13 +3,304 @@
   "document_type": "generic",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Monsoon"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "75%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "17.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NOT FOR PUBLIC DISSEMINATION"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kavita Raneli"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Devansh Quara"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Raneli"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Quara"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "children under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lumosyn.example.in"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "CONFIDENTIAL"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Monsoon"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "75%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "17.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NOT FOR PUBLIC DISSEMINATION"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 30 Sep 2026, 17:00 IST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "DRAFT\u2013IR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean-room access keys"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not forward to external messaging groups"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "IR embargo folder"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kavita Raneli"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Devansh Quara"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Raneli"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Quara"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "children under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "parental consent required"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "verifiable parental consent"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@lumosyn.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN token P-TEST-0001"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar hash AX-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN alias G-NULL-42"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not collect raw Aadhaar"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "mirror to a Singapore data centre"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "onward transfer logs"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa day",
+      "reason": "False-positive bait; not PII/MNPI"
+    },
+    {
+      "matched_text": "the Company Secretary",
+      "reason": "Role noun; not a person name per rule"
+    },
+    {
+      "matched_text": "issuer\u2019s website",
+      "reason": "Public-source reference; not sensitive PII/MNPI"
+    },
+    {
+      "matched_text": "Monsoon",
+      "reason": "Not in 'Project <Name>' pattern for transaction codename"
+    },
+    {
+      "matched_text": "LUMOIL",
+      "reason": "Internal code; not a supported identifier type"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR requests",
+      "concept": "DSAR/subject rights",
+      "reason": "Privacy-event marker relevant under DPDPA but no specific allowed rule token for DSAR"
+    },
+    {
+      "matched_text": "retained 7 years post-close or 2 years after termination of the definitive agreements, whichever later",
+      "concept": "retention period",
+      "reason": "Data-retention duration is legally relevant but no explicit allowed rule for retention"
+    },
+    {
+      "matched_text": "delete rejected applicant records after 90 days unless a litigation hold applies",
+      "concept": "retention/deletion period",
+      "reason": "Deletion/retention policy is relevant under DPDPA but not covered by allowed rules"
+    },
+    {
+      "matched_text": "country assessment consistent with guidance from the Ministry of Digital Affairs",
+      "concept": "cross-border assessment/TIA",
+      "reason": "Transfer risk assessment is relevant but not explicitly covered by allowed rules"
+    },
+    {
+      "matched_text": "standstill for 12 months",
+      "concept": "standstill/blackout period",
+      "reason": "Potential MNPI about restrictions; not explicitly enumerated in allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 480 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 60 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 480 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 60 crore'"
+  ],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

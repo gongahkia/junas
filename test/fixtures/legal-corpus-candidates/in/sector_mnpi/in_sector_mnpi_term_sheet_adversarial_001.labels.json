@@ -3,13 +3,422 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Kotecha (External Counsel)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Dev Malhotra (CFO)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Kotecha, Counsel to Vidyut"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Arjun Taneja, CEO ChainLeaf"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rhea.kotecha@jasperlaw.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "arjun.taneja@chainleaf.co.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@vidyut-renew.in"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91\u201199000\u201112\u20113\u20114\u20115"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "data localisation for sensitive personal data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked identifiers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project NEEM"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "74%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window closure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading by designated persons prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No selective disclosure of unpublished price-sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price-sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "internal barrier channel"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "API credential leak"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Kotecha (External Counsel)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Dev Malhotra (CFO)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Kotecha, Counsel to Vidyut"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Arjun Taneja, CEO ChainLeaf"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rhea.kotecha@jasperlaw.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "arjun.taneja@chainleaf.co.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealroom@vidyut-renew.in"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91\u201199000\u201112\u20113\u20114\u20115"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "individuals under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "data localisation for sensitive personal data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked identifiers"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "A A A P L 1 2 3 4 C (masked)"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "29 A B Z P C 7 1 9 3 F 1 Z 2"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "xxxx\u2011xxxx\u20119 0 1 2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project NEEM"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "74%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window closure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "SEBI (PIT) trading window closure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading by designated persons prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No selective disclosure of unpublished price-sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no communication with research analysts except via scheduled structured meetings"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider%20list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price-sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers and insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring\u2011fenced \u201cProject NEEM\u201d deal team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "internal barrier channel"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "#barrier\u2011neem"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "API credential leak"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "ESG Scope 2 reduction metrics"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "draft carbon-intensity baselines"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "3,400"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "210"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "parties",
+      "reason": "Role-noun/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "the Company",
+      "reason": "Role-noun/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "acquirer",
+      "reason": "Role-noun/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Compliance Officer",
+      "reason": "Role-noun/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "designated persons",
+      "reason": "Role-noun/defined term, not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "CIN: U7 2 3 0 0 K A 2 0 1 9 P T C 9 9 9 1 1 1",
+      "concept": "Indian corporate identifier (CIN)",
+      "reason": "Corporate ID is legally relevant but not covered by current PII rules"
+    },
+    {
+      "matched_text": "NSE: VRENX",
+      "concept": "Listed security ticker",
+      "reason": "Security identifier may be relevant context but not mapped to any MNPI rule"
+    },
+    {
+      "matched_text": "https://data.vidyut-renew.in/secure/term?deal=PRJ%2FNEEM%2F2026-06&ref=insider%20list",
+      "concept": "Internal data-room URL",
+      "reason": "Potentially sensitive operational detail but not in allowed categories"
+    },
+    {
+      "matched_text": "grievance officer appointment",
+      "concept": "Privacy governance role",
+      "reason": "DPDPA-related control but not mapped to an allowed privacy-event marker"
+    },
+    {
+      "matched_text": "purpose-specific consent",
+      "concept": "Consent basis",
+      "reason": "Consent is relevant under DPDPA but only withdrawal marker is defined in allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 128 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 22 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 8 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 6 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 128 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 22 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 8 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 6 crore'"
+  ],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

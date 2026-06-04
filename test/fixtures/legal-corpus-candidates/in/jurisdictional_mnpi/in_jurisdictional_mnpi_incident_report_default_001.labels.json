@@ -3,13 +3,271 @@
   "document_type": "memo",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cs@auroragrid.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@auroragrid.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91-22-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Talwar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Arnav K. Mehta"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Sanya Pillai"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "217 child users"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "the 217 affected minors"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cybersecurity incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "the trading window for designated persons is closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure to analysts or investors is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "18,430"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cs@auroragrid.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@auroragrid.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91-22-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Talwar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Arnav K. Mehta"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Sanya Pillai"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "217 child users"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "the 217 affected minors"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "masked identifiers (Aadhaar last 4, PAN last 3, and GSTIN first 2)"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar last 4"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN last 3"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN first 2"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "No full identity numbers are being processed for notification; any reference to Aadhaar/PAN/GSTIN will be tokenised and truncated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cybersecurity incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "the trading window for designated persons is closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure to analysts or investors is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "selective disclosure to analysts or investors is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "need-to-know basis"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "designated persons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider Trading Code"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may reasonably be expected to impact"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "if the materiality threshold is met"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Materiality"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "18,430"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company",
+      "reason": "Defined-role term in memo; not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "consent registry checks enabled",
+      "concept": "consent governance",
+      "reason": "Indicates consent controls but not a specific consent/withdrawal/DSAR event as per available marker"
+    },
+    {
+      "matched_text": "consent logs",
+      "concept": "consent governance",
+      "reason": "Mentions consent records without a clear withdrawal or rights request event"
+    },
+    {
+      "matched_text": "parental consent metadata",
+      "concept": "consent governance for minors",
+      "reason": "Implies parental consent tracking rather than a specific consent event"
+    },
+    {
+      "matched_text": "DOB",
+      "concept": "date_of_birth",
+      "reason": "References DOB verification without an actual date value"
+    },
+    {
+      "matched_text": "HR emails",
+      "concept": "email_address",
+      "reason": "Indicates presence of employee email data without specific addresses"
+    },
+    {
+      "matched_text": "mobile numbers",
+      "concept": "phone_number",
+      "reason": "References phone data type without concrete numbers"
+    },
+    {
+      "matched_text": "email IDs",
+      "concept": "email_address",
+      "reason": "References email data type without concrete addresses"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 78\u201395 lakh'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 78\u201395 lakh'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

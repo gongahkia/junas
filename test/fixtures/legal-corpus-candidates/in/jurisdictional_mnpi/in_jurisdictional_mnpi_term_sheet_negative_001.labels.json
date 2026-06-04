@@ -3,13 +3,226 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MoU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window for designated persons remains closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective leak"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "meeting on 18-Jul-2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "without prior public notice"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@dharmagrid.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@dharmagrid.example"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "22ABCDE0000Z1Z"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "children (under 18 years)"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "MoU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window for designated persons remains closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective leak"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "meeting on 18-Jul-2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "without prior public notice"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing acknowledgements"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosures"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@dharmagrid.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@dharmagrid.example"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "22ABCDE0000Z1Z"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN: 22ABCDE0000Z1Z"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "personal PANs"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN: AXXX0000X"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "children (under 18 years)"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Documents will be retained only for statutory periods"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Defined role term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "Defined role term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Board",
+      "reason": "Defined role term, not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "write to privacy@dharmagrid.example for access or correction",
+      "concept": "DSAR/access/correction",
+      "reason": "Data subject rights reference is legally relevant but not clearly mapped to an allowed rule label."
+    },
+    {
+      "matched_text": "90/10 VWAP formula",
+      "concept": "pricing percentage semantics",
+      "reason": "Percentage-like expression without % or per cent; may be material to pricing but not covered by financial_percentage rule."
+    },
+    {
+      "matched_text": "materiality assessed relative to the Company\u2019s size",
+      "concept": "issuer-relative materiality",
+      "reason": "Materiality policy reference is MNPI-relevant but not explicitly covered by listed MNPI rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

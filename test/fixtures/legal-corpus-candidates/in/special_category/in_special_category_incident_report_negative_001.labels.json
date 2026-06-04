@@ -3,13 +3,237 @@
   "document_type": "memo",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "insulin regimen schedule and clinic follow-ups"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Payroll ID PRY-4492"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar: 9999-0000-1111"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN: ABCDX1234Z"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN: 22ABCDE1234Z1Z"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@vakriaretail.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "grievance@vakriaretail.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "securitydesk@vakriaretail.example"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "198.51.100.42"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "203.0.113.7"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-000-0000"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "insulin regimen schedule and clinic follow-ups"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Payroll ID PRY-4492"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar: 9999-0000-1111"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN: ABCDX1234Z"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN: 22ABCDE1234Z1Z"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@vakriaretail.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "grievance@vakriaretail.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "securitydesk@vakriaretail.example"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "198.51.100.42"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "203.0.113.7"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Priyam Saha (Payroll ID PRY-4492) \u2014 insulin regimen schedule and clinic follow-ups"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child data (under 18)"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "18+ self-attestation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no date of birth fields"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information for listed securities"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Insider Trading Code v5.3"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LotusShield EDR",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "RiverGuard WAF",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "CloudLedger-SaaS",
+      "reason": "Product/service name, not PII/MNPI"
+    },
+    {
+      "matched_text": "BioGate",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "FaceMatch",
+      "reason": "Product/module name, not PII/MNPI"
+    },
+    {
+      "matched_text": "ShareSpace",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Rainbow Inclusion Charter",
+      "reason": "Policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Dignity at Work Code",
+      "reason": "Policy name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Tejas Cloudworks Pvt Ltd",
+      "reason": "Company name, not personal data"
+    },
+    {
+      "matched_text": "Purva Stock Exchange",
+      "reason": "Institution name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role title, not a named person"
+    },
+    {
+      "matched_text": "Young Achievers",
+      "reason": "Program/newsletter name, not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Navapura Campus, Plot 88, East Kalyanpur, Varashtra 499999",
+      "concept": "postal address (India)",
+      "reason": "Likely location/address PII but no India address rule is defined in allowed rules"
+    },
+    {
+      "matched_text": "PSE listing: VRL-001",
+      "concept": "security listing code",
+      "reason": "Listed security identifier relevant to MNPI context but no specific rule for such codes"
+    },
+    {
+      "matched_text": "EPS guidance",
+      "concept": "financial guidance topic",
+      "reason": "MNPI-related topic mention; treated as public here, but guidance references can be market sensitive"
+    },
+    {
+      "matched_text": "dividend runway",
+      "concept": "dividend projections topic",
+      "reason": "MNPI-related topic mention; treated as public here, but dividend outlooks can be market sensitive"
+    },
+    {
+      "matched_text": "internal breach note",
+      "concept": "breach notification (internal)",
+      "reason": "Privacy incident process detail; no explicit breach-notice marker in allowed rules"
+    },
+    {
+      "matched_text": "Data Fiduciary",
+      "concept": "DPDPA role reference",
+      "reason": "Compliance role mention relevant to privacy governance but not mapped to an allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,460 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@narmadaesg.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealdesk@narmadaesg.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "grievance.officer@cryptohydra.co.in"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kavya Iyer"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Devraj Menon"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Children\u2019s data"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "children (under 18)"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor wallet signatory"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child data"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "76%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "100%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "This document contains UPSI under SEBI (Prohibition of Insider Trading) Regulations, 2015, relating to Narmada\u2019s listed securities"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window is closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list to include Ms. Kavya Iyer (Compliance Officer) and Mr. Devraj Menon (Promoter-Director)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Chinese walls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber incident: Target experienced a non-public ransomware event on 15 May 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no analyst, influencer, or vendor briefings until announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "No selective disclosure or tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "TCFD-style climate disclosures"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to net working capital adjustment"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "signing by 30 June 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout compliance"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@narmadaesg.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealdesk@narmadaesg.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "grievance.officer@cryptohydra.co.in"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Kavya Iyer"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Devraj Menon"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Children\u2019s data"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "children (under 18)"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor wallet signatory"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child data"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "obtain consent"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "verifiable parental consent"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "age-gating"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term-sheet stage"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of 76% of CryptoHydra Custody Services Private Limited by Narmada ESG Tech Limited (listed on BSE)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "76%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "100%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "This document contains UPSI under SEBI (Prohibition of Insider Trading) Regulations, 2015, relating to Narmada\u2019s listed securities"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window is closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "48 hours after stock exchange disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list to include Ms. Kavya Iyer (Compliance Officer) and Mr. Devraj Menon (Promoter-Director)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Chinese walls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossed recipients"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "in the data room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber incident: Target experienced a non-public ransomware event on 15 May 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "immediate notification of any cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "SOC 2 remediation plan"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "VAPT retest"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "key ceremony review"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no analyst, influencer, or vendor briefings until announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "No selective disclosure or tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "TCFD-style climate disclosures"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "100% renewable PPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2 reductions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "ESG KPIs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to net working capital adjustment"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "signing by 30 June 2026"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role noun; not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role noun; not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "seller",
+      "reason": "Role noun; not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "Promoter-Director",
+      "reason": "Role/title noun; not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "Compliance Officer",
+      "reason": "Role/title noun; not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "contains no UPSI",
+      "reason": "Explicit negation; not MNPI."
+    },
+    {
+      "matched_text": "Crypto Custody and Cyber Hygiene",
+      "reason": "Marketing brochure title; explicitly non-UPSI."
+    },
+    {
+      "matched_text": "listed on BSE",
+      "reason": "Public listing status; not MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Aadhaar",
+      "concept": "in_aadhaar",
+      "reason": "Mentioned category of ID without any number; negated collection, but relevant to Indian PII."
+    },
+    {
+      "matched_text": "PAN",
+      "concept": "in_pan",
+      "reason": "Mentioned category of ID without any number; negated collection, but relevant to Indian PII."
+    },
+    {
+      "matched_text": "GSTIN",
+      "concept": "in_gstin",
+      "reason": "Mentioned category of ID without any number; negated collection, but relevant to Indian PII."
+    },
+    {
+      "matched_text": "obtain consent",
+      "concept": "consent marker",
+      "reason": "Consent is legally relevant, but rule set names only withdrawal marker; may not be caught by strict detectors."
+    },
+    {
+      "matched_text": "clean room",
+      "concept": "information barrier",
+      "reason": "Barrier synonym; detection may not include this phrasing."
+    },
+    {
+      "matched_text": "wall-crossed recipients",
+      "concept": "information barrier",
+      "reason": "Indicates crossing the wall; semantic marker that may be missed by strict patterns."
+    },
+    {
+      "matched_text": "in the data room",
+      "concept": "nonpublic access restriction",
+      "reason": "Contextual nonpublic indicator; may be missed by strict nonpublic patterns."
+    },
+    {
+      "matched_text": "crypto wallets",
+      "concept": "crypto_wallet_address",
+      "reason": "Generic reference without actual address strings; potential PII when addresses are present."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 184 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 22 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 12 crore'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 5 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 184 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 22 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 12 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 5 crore'"
+  ],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

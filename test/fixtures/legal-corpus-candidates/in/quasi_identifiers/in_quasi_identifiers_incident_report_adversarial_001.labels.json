@@ -1,0 +1,263 @@
+{
+  "doc_id": "in_quasi_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "IN",
+  "destination_jurisdiction": "IN",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Shreyas Kulkarni"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 34"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1992-11-05"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "RSL-NT-0142"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "rid-2026-05-28-BNR-042"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "shreyas.kulkarni@ravantee.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP-E-00931"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price-sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading window closure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cs.compliance@ravantee.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@ravantee.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it-ops@ravantee.example.in"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Shreyas Kulkarni"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 34"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1992-11-05"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "RSL-NT-0142"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "rid-2026-05-28-BNR-042"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "shreyas.kulkarni@ravantee.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EMP-E-00931"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar: 8 7 1 9  6 6 2 0  4 4 5 0"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN: A J Z P K 1 2 3 4 Q"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "RSL-PAY-99384"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Mr. Shreyas Kulkarni, age 34 (DOB 1992-11-05), Senior Network Analyst at Ravantee Systems Limited, used device RSL-NT-0142 (Lenvon T14), signed in via session rid-2026-05-28-BNR-042 from geo-tag \u201cBendaru-South,\u201d corporate email shreyas.kulkarni@ravantee.example.in, internal payroll account RSL-PAY-99384"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "aged 17"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "the print job was purged"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price-sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading window closure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cs.compliance@ravantee.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@ravantee.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it-ops@ravantee.example.in"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "00:00:00:00:00:00",
+      "reason": "Example MAC address explicitly stated as not actual; negated context."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated statement ('There is no material adverse change')."
+    },
+    {
+      "matched_text": "RVN-PRN-8831",
+      "reason": "Separated weak identifier placeholder; not linked to any individual."
+    },
+    {
+      "matched_text": "DOB 2000-02-02",
+      "reason": "Separated weak identifier placeholder; not linked to any individual."
+    },
+    {
+      "matched_text": "junior analyst",
+      "reason": "Generic role in a placeholder example; not identifying alone."
+    },
+    {
+      "matched_text": "East Ward, Indrapur",
+      "reason": "Generic locality in a placeholder; not linked to any individual."
+    },
+    {
+      "matched_text": "A a d h a a r",
+      "reason": "Split OCR text; not an actual identifier value."
+    },
+    {
+      "matched_text": "P A N",
+      "reason": "Split OCR text; not an actual identifier value."
+    },
+    {
+      "matched_text": "G S T I N: 27RSLCO1234F1Z5",
+      "reason": "Corporate GSTIN line for fictional vendor; not personal data and not accessed."
+    },
+    {
+      "matched_text": "acct:svc-batch-07",
+      "reason": "System-owned service account; not a natural person."
+    },
+    {
+      "matched_text": "caste",
+      "reason": "Special-category term mentioned in a negated policy statement; no personal value present."
+    },
+    {
+      "matched_text": "religion",
+      "reason": "Special-category term mentioned in a negated policy statement; no personal value present."
+    },
+    {
+      "matched_text": "health data",
+      "reason": "Special-category term mentioned in a negated policy statement; no personal value present."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "guardian consent",
+      "concept": "child consent requirement",
+      "reason": "Consent is legally relevant under DPDPA for processing children\u2019s data but only 'consent_withdrawal_marker' is in allowed rules."
+    },
+    {
+      "matched_text": "consent templates",
+      "concept": "consent documentation",
+      "reason": "Indicates consent process activity; not directly covered by available consent marker rule."
+    },
+    {
+      "matched_text": "user=skulkarni92",
+      "concept": "username quasi-identifier",
+      "reason": "System username can identify an individual within the organization but no explicit rule exists for usernames."
+    },
+    {
+      "matched_text": "Bendaru-South",
+      "concept": "location quasi-identifier",
+      "reason": "Geo-tag can contribute to identifiability in combination but is not a standalone rule item."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

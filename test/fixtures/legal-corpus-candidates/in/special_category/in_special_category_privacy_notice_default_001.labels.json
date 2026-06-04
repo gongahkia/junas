@@ -3,13 +3,440 @@
   "document_type": "generic",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@indoedge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@indoedge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "grievance@indoedge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Vimal Rao"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Reema Iqbal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Master Kabir Iqbal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Naina Deshpande"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint scans (biometric)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Type 2 diabetes treatment records (health)"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type 2 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Alloy Makers Union (union affiliation)"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "identifies as bisexual"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "stated his religion as Jain"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Master Kabir Iqbal (age 16)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 16"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "spirometry reports related to asthma (health)"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "asthma"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information (UPSI)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading-window controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Chinese walls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Neemleaf"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "outside India"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "which we record only where strictly necessary"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@indoedge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@indoedge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "grievance@indoedge.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Vimal Rao"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Reema Iqbal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Master Kabir Iqbal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Naina Deshpande"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint scans (biometric)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Type 2 diabetes treatment records (health)"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type 2 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "Alloy Makers Union (union affiliation)"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "identifies as bisexual"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "stated his religion as Jain"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Master Kabir Iqbal (age 16)"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 16"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "spirometry reports related to asthma (health)"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "asthma"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information (UPSI)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading-window controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Chinese walls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Neemleaf"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "outside India"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "which we record only where strictly necessary"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "masked Aadhaar/PAN"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "masked Aadhaar/PAN"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN for vendors"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "for minors (child means under 18)"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "guardian details"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "logical Chinese walls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "we do not transfer UPSI to vendors without board-approved purpose"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List Policy v3.0"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "outside India under contractual safeguards"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar/PAN tokenisation"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "Aadhaar/PAN tokenisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "biometric templates are deleted 30 days after account termination"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Data Fiduciary",
+      "reason": "Role noun; not personal or MNPI data"
+    },
+    {
+      "matched_text": "Data Principals",
+      "reason": "Role noun; not personal or MNPI data"
+    },
+    {
+      "matched_text": "Consent Manager",
+      "reason": "Tool/role reference; not PII/MNPI"
+    },
+    {
+      "matched_text": "Grievance Officer",
+      "reason": "Role noun; not personal data"
+    },
+    {
+      "matched_text": "Peacock Ledger",
+      "reason": "Product/brand name; not PII/MNPI"
+    },
+    {
+      "matched_text": "MonsoonCard",
+      "reason": "Product/brand name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Varnagar Tigers",
+      "reason": "Sports fan club name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Navapur Tech Park",
+      "reason": "Place/institution; not PII/MNPI"
+    },
+    {
+      "matched_text": "Kalyan Orbit Systems Limited",
+      "reason": "Company name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Dakshin Stock Exchange",
+      "reason": "Exchange/institution; not PII/MNPI"
+    },
+    {
+      "matched_text": "VantageCore analytics",
+      "reason": "Product/tool name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Petalpulse Analytics Pte",
+      "reason": "Company name; not PII/MNPI"
+    },
+    {
+      "matched_text": "CloudOrchid Systems",
+      "reason": "Company name; not PII/MNPI"
+    },
+    {
+      "matched_text": "UPSI Handling Standard",
+      "reason": "Policy name; not itself MNPI"
+    },
+    {
+      "matched_text": "Children\u2019s Data Charter",
+      "reason": "Policy name; not itself PII"
+    },
+    {
+      "matched_text": "Vendor KYC & GSTIN Onboarding",
+      "reason": "Policy name; not itself PII/MNPI"
+    },
+    {
+      "matched_text": "Data Retention Schedule\u2014Dakshin Region",
+      "reason": "Policy name; not itself PII/MNPI"
+    },
+    {
+      "matched_text": "MangoRocket",
+      "reason": "Product metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "diversity, equity, and inclusion",
+      "reason": "Generic DEI prose; not person-specific sensitive data"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "explicit consent",
+      "concept": "consent marker",
+      "reason": "Consent is legally relevant but allowed rules only include withdrawal markers; phrase is generic and not covered by strict patterns"
+    },
+    {
+      "matched_text": "Safedvara consent manager",
+      "concept": "consent manager reference",
+      "reason": "Consent tooling reference is relevant to DPDPA workflows but not covered by allowed rules"
+    },
+    {
+      "matched_text": "political opinions",
+      "concept": "political_opinion",
+      "reason": "Mention is negated (declined to state); unclear if any personal data is processed"
+    },
+    {
+      "matched_text": "Aadhaar/PAN are not mandatory unless required by law",
+      "concept": "local ID types (Aadhaar/PAN)",
+      "reason": "Mentions ID types without numbers; semantically relevant but outside strict ID pattern detection"
+    },
+    {
+      "matched_text": "pre-clearance",
+      "concept": "trading window/blackout controls",
+      "reason": "Compliance control related to PIT; not an explicit allowed blackout marker term"
+    },
+    {
+      "matched_text": "KYC",
+      "concept": "PII/KYC category",
+      "reason": "PII category relevant to finance but not listed among allowed PII rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,225 @@
   "document_type": "generic",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN: PANNN0000X"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN: 00ABCDE0000A0Z0"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@SuryQuant.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "grievance@SuryQuant.example"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "under 18 years"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child (under 18 years)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Aadhaar number is not required (only masked last 4 if voluntarily provided)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We never request full Aadhaar, CVV, or seed phrases; forms showing \u201cAccount No: 0000-XX-9876\u201d or \u201cAadhaar: XXXX-XXXX-1234\u201d are masks and not persisted in production logs"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal is available without detriment except where processing is required by law"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers: Primary storage is in India; limited transfers to processors in approved locations occur under contractual safeguards, transfer risk assessments, and audit rights"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "prior to public disclosure"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN: PANNN0000X"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN: 00ABCDE0000A0Z0"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@SuryQuant.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "grievance@SuryQuant.example"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "under 18 years"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child (under 18 years)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Aadhaar number is not required (only masked last 4 if voluntarily provided)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We never request full Aadhaar, CVV, or seed phrases; forms showing \u201cAccount No: 0000-XX-9876\u201d or \u201cAadhaar: XXXX-XXXX-1234\u201d are masks and not persisted in production logs"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal is available without detriment except where processing is required by law"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers: Primary storage is in India; limited transfers to processors in approved locations occur under contractual safeguards, transfer risk assessments, and audit rights"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Account No: 0000-XX-9876"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar: XXXX-XXXX-1234"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list entries"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "prior to public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber intrusion"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Data Principal",
+      "reason": "Defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "Data Fiduciary",
+      "reason": "Role noun defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "Data Processor",
+      "reason": "Role noun defined term; not PII or MNPI."
+    },
+    {
+      "matched_text": "blackout calendars",
+      "reason": "Educational context; not market-sensitive MNPI."
+    },
+    {
+      "matched_text": "tipping prohibitions",
+      "reason": "Educational context; not market-sensitive MNPI."
+    },
+    {
+      "matched_text": "crypto listing mechanics",
+      "reason": "Educational context; not market-sensitive MNPI."
+    },
+    {
+      "matched_text": "tokenized loyalty points",
+      "reason": "Marketing/operational example; not market-sensitive MNPI."
+    },
+    {
+      "matched_text": "Public ESG press releases",
+      "reason": "Explicitly public materials; not MNPI."
+    },
+    {
+      "matched_text": "published commercial term sheets",
+      "reason": "Explicitly published materials; not MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: KYC and contract records are retained for up to 8 years post-relationship under applicable Indian record-keeping norms; training logs and insider-list entries are retained for 5 years from the relevant event",
+      "concept": "retention_marker",
+      "reason": "Retention is a privacy-event signal but not included in the allowed PII rule list."
+    },
+    {
+      "matched_text": "DSAR: To access, correct, port, or erase your data, submit a request via privacy@SuryQuant.example; we will acknowledge within 7 days and respond within 30 days after identity validation",
+      "concept": "dsar_request_marker",
+      "reason": "DSAR/erasure rights are privacy-relevant but not covered by an allowed rule."
+    },
+    {
+      "matched_text": "verifiable parental consent",
+      "concept": "parental_consent_marker",
+      "reason": "Parental consent for minors is privacy-relevant but not captured by the allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

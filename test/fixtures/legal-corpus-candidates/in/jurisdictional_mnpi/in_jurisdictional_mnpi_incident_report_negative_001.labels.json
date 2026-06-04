@@ -3,13 +3,213 @@
   "document_type": "memo",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@velarinetworks.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "infosec@velarinetworks.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@velarinetworks.example"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "AAAAA0000A"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "00AAAAA0000A1Z0"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Children\u2019s data"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Data Principals under 18 years of age"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "any selective communication outside exchange filings is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "The trading window for Designated Persons remains closed"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "helpdesk@velarinetworks.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "infosec@velarinetworks.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@velarinetworks.example"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "AAAAA0000A"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "00AAAAA0000A1Z0"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar: XXXX-XXXX-XXXX"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN: AAAAA0000A (test)"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN: 00AAAAA0000A1Z0 (dummy)"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Children\u2019s data"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Data Principals under 18 years of age"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "individuals under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minors\u2019 programme data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "a possible deferral of certain onboarding revenues for Q1 FY27"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "a possible deferral of certain onboarding revenues for Q1 FY27"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "must be handled as UPSI under the PIT Regulations until formal exchange disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "The trading window for Designated Persons remains closed under the Code of Conduct (PIT Regulations, Schedule B) for the ongoing quarter"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "any selective communication outside exchange filings is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "if material, an intimation will be filed within prescribed timelines under LODR Regulation 30"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "the Company",
+      "reason": "Defined term; not PII"
+    },
+    {
+      "matched_text": "Designated Persons",
+      "reason": "Role-noun defined term; not PII"
+    },
+    {
+      "matched_text": "filed on the stock exchange portals on 03 Jun 2026",
+      "reason": "Public exchange filing; not MNPI"
+    },
+    {
+      "matched_text": "posted on the corporate website on 02 Jun 2026",
+      "reason": "Public website disclosure; not MNPI"
+    },
+    {
+      "matched_text": "publicly available",
+      "reason": "Already in the public domain; not MNPI"
+    },
+    {
+      "matched_text": "Aarohan Cloud Services Private Limited, a hosting vendor, performed routine patching",
+      "reason": "Non-issuer operational update; not MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "consent is recorded via click-through at account creation",
+      "concept": "consent basis (DPDPA)",
+      "reason": "Consent mentioned but no withdrawal; not clearly covered by consent_withdrawal_marker rule"
+    },
+    {
+      "matched_text": "access/erasure requests will be honoured per DPDPA and the Company\u2019s grievance redressal process",
+      "concept": "DSAR/erasure handling",
+      "reason": "Data subject rights referenced but no dedicated DSAR rule in allowed set"
+    },
+    {
+      "matched_text": "Logs reviewed indicate only system metadata and ticket IDs",
+      "concept": "data minimisation signal",
+      "reason": "Describes limited data processed but not an explicit minimisation policy marker"
+    },
+    {
+      "matched_text": "Issuer-relative materiality is under review with reference to past disclosures",
+      "concept": "materiality assessment",
+      "reason": "Materiality review is relevant to MNPI gating but not directly mapped to a specific allowed rule"
+    },
+    {
+      "matched_text": "Potential UPSI",
+      "concept": "UPSI marker",
+      "reason": "Indicates UPSI status contextually; no explicit UPSI rule in allowed set beyond nonpublic marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

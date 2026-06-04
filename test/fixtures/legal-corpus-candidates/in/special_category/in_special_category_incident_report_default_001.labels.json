@@ -3,13 +3,321 @@
   "document_type": "memo",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar XXXX-1313-7788"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN XXPXX1234Q"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nisha Kapoor"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID ML-44812"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "treatment for endometriosis"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic screening report for a thalassemia carrier marker"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "his union membership record in the MettaLok Workers Forum"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor-dependent details"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Master Rohan Dev"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 16"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Shashank Dev"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "vaccination history"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aarav Balan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@mettalok.in"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. R. Raghavan"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91-00000-00000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not-yet-announced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar XXXX-1313-7788"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN XXPXX1234Q"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Nisha Kapoor"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID ML-44812"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "treatment for endometriosis"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "clinic note about treatment for endometriosis"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "genetic screening report for a thalassemia carrier marker"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "his union membership record in the MettaLok Workers Forum"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor-dependent details"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Master Rohan Dev"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 16"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Shashank Dev"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "vaccination history"
+    },
+    {
+      "category": "PII",
+      "rule": "insurance_member_id",
+      "matched_text": "school insurance enrolment references"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aarav Balan"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@mettalok.in"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. R. Raghavan"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91-00000-00000"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "dependent of Mr. Shashank Dev"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not-yet-announced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "confidential divestment term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "not-yet-announced plant sale"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "briefly received a spreadsheet linking employee records to UPSI on projected EBITDA and a not-yet-announced plant sale"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "an email rule forwarded previews to a Kavapur staging mailbox"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic DEI reference not tied to an identified individual."
+    },
+    {
+      "matched_text": "union of two datasets",
+      "reason": "Computing term; not trade union membership."
+    },
+    {
+      "matched_text": "Kavapur Kites",
+      "reason": "Sports team name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Avanya Tigers",
+      "reason": "Sports team name; not PII/MNPI."
+    },
+    {
+      "matched_text": "SwiftLedger Pro",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Internal UPSI Handling Standard",
+      "reason": "Policy name; not MNPI itself."
+    },
+    {
+      "matched_text": "PIT Code 2024",
+      "reason": "Policy name; not MNPI/PII."
+    },
+    {
+      "matched_text": "BluePanda",
+      "reason": "Test bot name; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "accessed without consent",
+      "concept": "consent violation",
+      "reason": "Indicates processing without consent; not a specific consent withdrawal marker in allowed rules."
+    },
+    {
+      "matched_text": "rendered only to audit viewers",
+      "concept": "access control/minimisation",
+      "reason": "Describes role-based restriction; allowed rules do not cover access-control markers and Rule 17 cautions against labeling completed controls."
+    },
+    {
+      "matched_text": "draft Q1 results",
+      "concept": "UPSI financial results",
+      "reason": "Clearly unpublished financial information but lacks a specific allowed MNPI rule tag beyond generic UPSI."
+    },
+    {
+      "matched_text": "projected EBITDA",
+      "concept": "financial metric MNPI",
+      "reason": "Material nonpublic financial metric without numeric amount; no direct allowed MNPI rule fits except contextual UPSI."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

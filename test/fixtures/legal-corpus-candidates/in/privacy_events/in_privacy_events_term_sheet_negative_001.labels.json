@@ -3,13 +3,211 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "11AAAAA1111A1Z1"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "0000 0000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "help@service.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@neelivra.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@yavnika.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child account"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minors"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window change"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "11AAAAA1111A1Z1"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "0000 0000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "help@service.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@neelivra.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@yavnika.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid collecting Aadhaar"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child account"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minors"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Children\u2019s data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window change"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR workflow tested in Q4 FY26",
+      "concept": "dsar_marker",
+      "reason": "DSAR markers are relevant privacy events but no explicit allowed rule exists for DSAR."
+    },
+    {
+      "matched_text": "No open DSARs or erasure requests remain as of the date hereof",
+      "concept": "dsar_marker",
+      "reason": "Indicates DSAR status; DSAR rule is not in allowed list."
+    },
+    {
+      "matched_text": "erasure requests",
+      "concept": "erasure_marker",
+      "reason": "Erasure handling is a privacy event but no explicit erasure rule is provided."
+    },
+    {
+      "matched_text": "prior erasure tickets were completed",
+      "concept": "erasure_marker",
+      "reason": "References erasure requests completion; no allowed erasure marker rule."
+    },
+    {
+      "matched_text": "retention (transaction logs purged after 365 days; last purge 31-01-2026 completed)",
+      "concept": "retention_marker",
+      "reason": "Retention/purge policy is relevant but there is no explicit retention rule in the allowed list."
+    },
+    {
+      "matched_text": "Data-Export Approval DEA-014 for de-identified support metrics to a processor in Neralia was approved on 15-02-2026 and executed",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Cross-border transfer approval is relevant but executed (completed control), which should not be labeled per rules."
+    },
+    {
+      "matched_text": "No customer Aadhaar/PAN/GSTIN is transferred outside India",
+      "concept": "cross_border_transfer_marker",
+      "reason": "Negated cross-border transfer; relevant but excluded by rules."
+    },
+    {
+      "matched_text": "verifiable parental consent",
+      "concept": "consent_marker",
+      "reason": "General consent reference is relevant to child data but only withdrawal is covered by allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

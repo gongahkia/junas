@@ -3,13 +3,249 @@
   "document_type": "generic",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "0000-1111-2222"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "99ABCDE0000Z0Z0"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@aureliyaagrodyn.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "grievance@aureliyaagrodyn.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Children\u2019s data"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "persons under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers occur only with lawful grounds and technical safeguards"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not send copies via email"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not share full Aadhaar numbers\u2014if provided, redact to XXXX-XXXX-2222 and PAN to AAAA0A0AA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information (UPSI)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window closure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "the trading window generally closes from quarter-end until 48 hours after results are published on NSE/BSE"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "0000-1111-2222"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "99ABCDE0000Z0Z0"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN: 99ABCDE0000Z0Z0"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar: 0000-1111-2222"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN: AAAA0A0AA"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "XXXX-XXXX-2222"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@aureliyaagrodyn.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "grievance@aureliyaagrodyn.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "Children\u2019s data"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "persons under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers occur only with lawful grounds and technical safeguards"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not send copies via email"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not share full Aadhaar numbers\u2014if provided, redact to XXXX-XXXX-2222 and PAN to AAAA0A0AA"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "DPR-XX-0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information (UPSI)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "draft quarterly financial results prior to submission under SEBI LODR Regulation 33"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "access is limited to designated persons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "designated persons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window closure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "the trading window generally closes from quarter-end until 48 hours after results are published on NSE/BSE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "must abstain from dealing during closure"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "NSE/BSE announcements dated 12-08-2024 and 05-02-2025",
+      "reason": "Public exchange filings; not MNPI by definition"
+    },
+    {
+      "matched_text": "press note 14-06-2024",
+      "reason": "Broad press release; explicitly public and not UPSI"
+    },
+    {
+      "matched_text": "board changes disclosed on 15-07-2023 under LODR Reg 30",
+      "reason": "Already public disclosure; not MNPI"
+    },
+    {
+      "matched_text": "not UPSI",
+      "reason": "Explicit negation of non-public status; avoid MNPI tagging"
+    },
+    {
+      "matched_text": "Grievance Officer (role)",
+      "reason": "Role noun; not a named person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "CIN: Z99999KA2021PLC123456",
+      "concept": "corporate_identifier (CIN)",
+      "reason": "Indian Corporate Identification Number is legally relevant but not covered by allowed rules and is not personal data"
+    },
+    {
+      "matched_text": "Retention: KYC records for investors are retained per Companies Act and SEBI RTA circulars",
+      "concept": "retention_marker",
+      "reason": "Records retention is privacy-relevant but no explicit retention rule is provided in allowed list"
+    },
+    {
+      "matched_text": "auto-delete after 30 days",
+      "concept": "retention_auto_delete",
+      "reason": "Auto-deletion period is a retention control but there is no explicit rule token for retention"
+    },
+    {
+      "matched_text": "DSAR: to access, correct, port, or erase",
+      "concept": "DSAR_request_marker",
+      "reason": "Data subject rights invocation is privacy-relevant but no specific DSAR rule key exists"
+    },
+    {
+      "matched_text": "verifiable consent",
+      "concept": "consent_marker",
+      "reason": "Consent requirement is privacy-relevant; only withdrawal marker exists in allowed rules"
+    },
+    {
+      "matched_text": "consent manager URL",
+      "concept": "consent_mechanism",
+      "reason": "Indicates consent management pathway but not withdrawal; no exact rule key"
+    },
+    {
+      "matched_text": "We will verify identity using non-sensitive checks",
+      "concept": "identity_verification_policy",
+      "reason": "Identity verification approach impacts data minimisation but not explicitly covered by a rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,461 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealdesk@nivara.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cs@ramiyatech.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ira.deshpande@ramiyatech.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "vk@nivara.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@ramiyatech.example"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "27F8Z3Q1P5L2R9X"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "QXZPK1234Z"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aarav N. Mehta"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Master Kabir Mehta"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ira Deshpande"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Veeraj Kulkarni"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Mehta"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "thalassemia trait (genetic)"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "controlled hypertension (health)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union membership: Alloy Workers Union 904 (non-executive honorary)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "religious affiliation: Bahari Path congregation in Shaktipur"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "uses iris-scan biometric"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric templates"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "asthma noted in school health certificate"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 14"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "dependent child"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "deleted post-closing per retention policy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information (UPSI)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "restricted list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "window is closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "61%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealdesk@nivara.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "cs@ramiyatech.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ira.deshpande@ramiyatech.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "vk@nivara.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@ramiyatech.example"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "27F8Z3Q1P5L2R9X"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "QXZPK1234Z"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "8211 03O2 8I77"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "Q X Z P K 1 2 3 4 Z"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "00I2 7l89 44O3 2O1"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "uid=AX7-47c"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "id=TX-11-\u03a3"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aarav N. Mehta"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Master Kabir Mehta"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ira Deshpande"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Veeraj Kulkarni"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Mehta"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "thalassemia trait (genetic)"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "controlled hypertension (health)"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union membership: Alloy Workers Union 904 (non-executive honorary)"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "religious affiliation: Bahari Path congregation in Shaktipur"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "uses iris-scan biometric"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric templates"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "asthma noted in school health certificate"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 14"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "dependent child"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "including minors via lawful guardian"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "deleted post-closing per retention policy"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "purpose limitations for KYC, sanctions screening, and facility access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information (UPSI)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI until disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "restricted list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "window is closed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "restricted until public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Non-binding Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "61%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "51%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "50:50"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of up to 61% of Ramiya Tech Limited"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "BidCo",
+      "reason": "defined-term for an entity, not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "Party",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "defined-term abbreviation appears in a negated clause"
+    },
+    {
+      "matched_text": "political climate of Shaktipur",
+      "reason": "metaphor; not an individual\u2019s political opinion"
+    },
+    {
+      "matched_text": "Sonapur Strikers",
+      "reason": "sports team name"
+    },
+    {
+      "matched_text": "Blue Mango CRM",
+      "reason": "product name; not personal data"
+    },
+    {
+      "matched_text": "Riverkite ERP",
+      "reason": "product name; not personal data"
+    },
+    {
+      "matched_text": "Galactic Chai OS",
+      "reason": "product name; not personal data"
+    },
+    {
+      "matched_text": "Lotus Diversity Policy",
+      "reason": "policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Rainbow Ethics Charter",
+      "reason": "policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "sexual orientation of our color palette",
+      "reason": "branding metaphor; not an individual\u2019s sexual orientation"
+    },
+    {
+      "matched_text": "union in this sentence refers to the merger of businesses, not any person\u2019s trade union membership",
+      "reason": "explicit negation of trade union PII in this context"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "IFSC: NIVR0001X2Z",
+      "concept": "bank routing code",
+      "reason": "financial identifier referenced but IFSC is not covered by allowed rules"
+    },
+    {
+      "matched_text": "time-bound OTP",
+      "concept": "authentication factor",
+      "reason": "one-time password mention is security-related but not enumerated in allowed rules"
+    },
+    {
+      "matched_text": "SSE: RTL-FX",
+      "concept": "listed security ticker",
+      "reason": "ticker/symbol is relevant to securities context but not an MNPI rule token"
+    },
+    {
+      "matched_text": "verifiable parental consent",
+      "concept": "consent marker",
+      "reason": "consent is referenced but rule list only includes withdrawal; not clearly covered"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

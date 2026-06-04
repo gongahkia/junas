@@ -3,13 +3,205 @@
   "document_type": "memo",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal CN-26-0612"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child applicant"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child record"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window closure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Indigo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@aravalli\u2011orbit.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91\u201100000\u201100000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011Border Transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Rajiv S. Menon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Meera K. Vyas"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent withdrawal CN-26-0612"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation applied"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child applicant"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child record"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "trading window closure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Indigo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@aravalli\u2011orbit.example.in"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91\u201100000\u201100000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011Border Transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Rajiv S. Menon"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Meera K. Vyas"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "masked PAN (P AN\u2011XXZ P9 1 0 3 Q)"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "truncated Aadhaar (**** **** 9 9 8 1)"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "redacted GSTIN (G S T I N: XX\u2011XX\u2011XXXX\u2011XX)"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "guardian consent recorded in the form and withdrawn on 01-Jun-2026"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "self\u2011declared 17"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border processing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring\u2011fenced in a separate repository"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun/reference, not a specific person identifier or defined PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "no UPSI under SEBI (PIT) Regulations, 2015",
+      "concept": "nonpublic_marker (negated)",
+      "reason": "References UPSI but expressly negated; legally relevant to MNPI yet should not be treated as live UPSI"
+    },
+    {
+      "matched_text": "src\u2011mac: 00\u201100\u201100\u201100\u201100\u201100",
+      "concept": "mac_address placeholder",
+      "reason": "Matches MAC address pattern but stated as placeholder and not live device data"
+    },
+    {
+      "matched_text": "retention tag DPA_S2_RET90 was not applied post\u2011erasure",
+      "concept": "retention (negated control)",
+      "reason": "Mentions retention tagging in a negated context; retention-related but not a live retention event"
+    },
+    {
+      "matched_text": "guardian consent recorded in the form",
+      "concept": "consent_recorded",
+      "reason": "Indicates consent capture, which is privacy-relevant though not explicitly covered by a listed marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'dsar' text='DSAR ACK #DS-26-0611'",
+    "drop must_detect: invalid rule 'erasure' text='Erasure completed'",
+    "drop must_detect: invalid rule 'retention' text='retention timers now read \u201c0\u201d'",
+    "drop ideal_must_detect: invalid rule 'dsar' text='DSAR ACK #DS-26-0611'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='Erasure completed'",
+    "drop ideal_must_detect: invalid rule 'retention' text='retention timers now read \u201c0\u201d'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

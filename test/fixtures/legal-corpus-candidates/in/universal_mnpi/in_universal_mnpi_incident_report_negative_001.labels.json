@@ -3,13 +3,144 @@
   "document_type": "memo",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "grievance@asterion.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@asterion.example"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading window"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "grievance@asterion.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@asterion.example"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Trading window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "do not release before 14 Aug 2026 09:15 IST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term_sheet_template_v5.docx"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive_agreement_outline.pdf"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "children\u2019s data was limited to age and consent flags without identifiers"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "children\u2019s data"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse effect",
+      "reason": "Negated MAE language in quote; do not label as material_adverse_change."
+    },
+    {
+      "matched_text": "Aadhaar: 0000-0000-000",
+      "reason": "Invalid placeholder example; not a live identifier."
+    },
+    {
+      "matched_text": "PAN: ABCD12345",
+      "reason": "Invalid placeholder example; not a live identifier."
+    },
+    {
+      "matched_text": "GSTIN: 27ABCDE1234F1",
+      "reason": "Invalid placeholder example; not a live identifier."
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "Wellness context; not the definitive agreement acronym SPA."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "operational incident report",
+      "concept": "cyber_incident_pre_disclosure",
+      "reason": "Internal exposure event for a listed company may be a cyber incident but not explicitly labeled as such."
+    },
+    {
+      "matched_text": "guardian consent status only",
+      "concept": "consent artifact (child data)",
+      "reason": "References consent status for minors; not a withdrawal/DSAR but privacy-relevant."
+    },
+    {
+      "matched_text": "UPSI",
+      "concept": "UPSI reference (negative)",
+      "reason": "Mentions unpublished price sensitive information in a negated context; relevant but not a positive MNPI indicator."
+    },
+    {
+      "matched_text": "company secretary group",
+      "concept": "information barrier/insider access",
+      "reason": "Restricted access group could imply information barrier or insider access control."
+    },
+    {
+      "matched_text": "anonymized tokens",
+      "concept": "quasi-identifiers",
+      "reason": "Artifacts may relate to tokenized/anonymized data but not clearly PII."
+    },
+    {
+      "matched_text": "ref OI/2026/042",
+      "concept": "internal reference identifier",
+      "reason": "Internal incident reference may be an internal ID but no explicit rule covers it."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

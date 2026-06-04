@@ -3,13 +3,279 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar 0000 1111 2222"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN ZZZPQ9999Z"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN 00ZZZPQ9999Z1Z9"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@kites.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deals@citrineharbor.example"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "children under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "explicit consent"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "verifiable parental consent"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "enable opt-outs"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimised"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "a chronic kidney condition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "need-to-know list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Chinese walls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar 0000 1111 2222"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN ZZZPQ9999Z"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN 00ZZZPQ9999Z1Z9"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@kites.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deals@citrineharbor.example"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "children under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "explicit consent"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "verifiable parental consent"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "enable opt-outs"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimised"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "a chronic kidney condition"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished price sensitive information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "need-to-know list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Chinese walls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean room"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "optional biometric authentication controls"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "purpose limitation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "processed solely on consent"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "Aadhaar"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "PAN"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "GSTIN"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Defined role term"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "Defined role term"
+    },
+    {
+      "matched_text": "Monsoon Ledger",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "LotusPay Neo",
+      "reason": "Product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Azure Mango",
+      "reason": "Marketing name; not PII/MNPI"
+    },
+    {
+      "matched_text": "open the batting",
+      "reason": "Metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "field the risks",
+      "reason": "Metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "Cricket City",
+      "reason": "Marketing/project name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Dharapura Dynamos",
+      "reason": "Sports team; not PII/MNPI"
+    },
+    {
+      "matched_text": "New Kalinga, Maharashtra",
+      "reason": "Place name; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Individual A (a voluntary declarant)",
+      "concept": "named_person placeholder",
+      "reason": "Refers to a specific individual but lacks honorific/signature; outside strict named_person rule yet relevant to personal data context."
+    },
+    {
+      "matched_text": "Aadhaar/PAN/GSTIN collection practices",
+      "concept": "id_type_reference",
+      "reason": "Mentions identifier categories without specific numbers; relevant to PII processing but not covered by strict ID rules."
+    },
+    {
+      "matched_text": "ring-fenced",
+      "concept": "privacy/security control",
+      "reason": "Indicates restricted processing of sensitive data; relevant to governance but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "SEBI (Prohibition of Insider Trading) Regulations, 2015",
+      "concept": "insider trading regime reference",
+      "reason": "Provides MNPI compliance context; not directly covered by a specific MNPI rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,404 @@
   "document_type": "memo",
   "source_jurisdiction": "IN",
   "destination_jurisdiction": "IN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "tanvi.kulkarni@samplemail.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "asha.verma@samplemail.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@navprabha.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@navprabha.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91-98765-43210"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-010-7788"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "QWERT1234Z"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "8426 1919 0303"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "22ABCDE1234F1Z9"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tanvi Kulkarni"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Master Rohan Verma"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Smt. Asha Verma"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Arvind Rao"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Neha Kapoor"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Rishi Dev"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Shri Gautam Iyer"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "17"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask full identifiers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not store complete Aadhaar in plaintext"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Unpublished Price Sensitive Information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list created today"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "the trading window for designated persons is closed until two trading days after public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Chinese wall"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed until Board approval"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "Do not tip any external party, analysts, or channel partners"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "3,248"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "tanvi.kulkarni@samplemail.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "asha.verma@samplemail.in"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@navprabha.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@navprabha.example.com"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+91-98765-43210"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "1800-010-7788"
+    },
+    {
+      "category": "PII",
+      "rule": "in_pan",
+      "matched_text": "QWERT1234Z"
+    },
+    {
+      "category": "PII",
+      "rule": "in_aadhaar",
+      "matched_text": "8426 1919 0303"
+    },
+    {
+      "category": "PII",
+      "rule": "in_gstin",
+      "matched_text": "22ABCDE1234F1Z9"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tanvi Kulkarni"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Master Rohan Verma"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Smt. Asha Verma"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Arvind Rao"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Neha Kapoor"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Rishi Dev"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Shri Gautam Iyer"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "17"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "child under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "mask full identifiers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not store complete Aadhaar in plaintext"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minors\u2019 requests must be initiated by guardian"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Unpublished Price Sensitive Information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "UPSI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for external circulation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "data not yet disclosed to exchanges under LODR Reg 30"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "CERT-In notification draft prepared"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list created today"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "the trading window for designated persons is closed until two trading days after public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Chinese wall between Operations and Treasury has been re-briefed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed until Board approval"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "Do not tip any external party, analysts, or channel partners"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "investor FAQs and a holding statement are in legal review"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.15%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "minimum revenue guarantee"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "3,248"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_pre_listing_marker",
+      "matched_text": "not-yet-announced pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "virtual digital asset custody"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "downtime has impacted data center cooling efficiency reporting"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "cold wallet",
+      "reason": "Educational glossary reference; not market/compliance sensitive MNPI."
+    },
+    {
+      "matched_text": "hot wallet",
+      "reason": "Educational glossary reference; not market/compliance sensitive MNPI."
+    },
+    {
+      "matched_text": "holding statement",
+      "reason": "Generic PR term; not a defined MNPI marker by itself."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "consent records under DPDPA are being verified",
+      "concept": "consent status marker",
+      "reason": "Legally relevant consent verification; allowed rules only include withdrawal, not general consent processing."
+    },
+    {
+      "matched_text": "affected persons may request correction/erasure",
+      "concept": "DSAR rights",
+      "reason": "Data principal rights are privacy-event markers, but DSAR is not listed among allowed detection rules."
+    },
+    {
+      "matched_text": "minors\u2019 requests must be initiated by guardian",
+      "concept": "minor DSAR gating",
+      "reason": "Child-specific rights workflow is legally relevant but not covered by current allowed markers."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 1.6 crore'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 1.6 crore'"
+  ],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
