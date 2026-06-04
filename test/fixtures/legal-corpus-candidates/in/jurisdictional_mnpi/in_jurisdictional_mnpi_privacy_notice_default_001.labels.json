@@ -1,220 +1,221 @@
 {
-  "doc_id": "in_jurisdictional_mnpi_privacy_notice_default_001",
-  "document_type": "generic",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@navodayacircuits.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@navodayacircuits.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "consent@navodayacircuits.in"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Raghav Venkataraman"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN"
-    },
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "under 18"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not generally available"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading Window is closed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure is prohibited"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross\u2011border transfers (e.g., to a payroll processor in Singapore) occur under contractual safeguards consistent with the DPDPA and any Central Government notifications; primary servers are located in India, and Aadhaar tokens are not transferred"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "LOI"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "For consent withdrawal, email consent@navodayacircuits.in"
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+        "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+      ]
     }
   ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_jurisdictional_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@navodayacircuits.in"
+      "matched_text": "consent@navodayacircuits.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@navodayacircuits.in"
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "consent@navodayacircuits.in"
+      "matched_text": "Mr. Raghav Venkataraman",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Raghav Venkataraman"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN"
-    },
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "children (under 18)"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "under 18"
+      "matched_text": "consent of a parent",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
+      "matched_text": "For consent withdrawal, email consent@navodayacircuits.in; withdrawal will not affect past processing and may limit services (e.g., dividend payout compliance checks) where statutory processing is required.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not generally available"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading Window is closed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading Window is closed from the end of each quarter until 48 hours after financial results become generally available"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure is prohibited"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "if any investor/analyst interaction risks inadvertent UPSI, we will first or simultaneously disseminate the same to NSE and BSE and publish on our website in accordance with fair disclosure principles"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "remain UPSI until disclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "UPSI recipients"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "structured digital database entries (UPSI recipients, event logs)"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross\u2011border transfers (e.g., to a payroll processor in Singapore) occur under contractual safeguards consistent with the DPDPA and any Central Government notifications; primary servers are located in India, and Aadhaar tokens are not transferred"
+      "matched_text": "privacy@navodayacircuits.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@navodayacircuits.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children (under 18)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "age_reference"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "LOI"
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not generally available",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Trading Window is closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Trading Window is closed from the end of each quarter until 48 hours after financial results become generally available",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if any investor/analyst interaction risks inadvertent UPSI, we will first or simultaneously disseminate the same to NSE and BSE and publish on our website in accordance with fair disclosure principles",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "remain UPSI until disclosed",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI recipients",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "structured digital database entries (UPSI recipients, event logs)",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "For consent withdrawal, email consent@navodayacircuits.in; withdrawal will not affect past processing and may limit services (e.g., dividend payout compliance checks) where statutory processing is required"
+      "matched_text": "Cross\u2011border transfers (e.g., to a payroll processor in Singapore) occur under contractual safeguards consistent with the DPDPA and any Central Government notifications; primary servers are located in India, and Aadhaar tokens are not transferred",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "LOI",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Aadhaar (tokenised; last four only)"
+      "matched_text": "For consent withdrawal, email consent@navodayacircuits.in; withdrawal will not affect past processing and may limit services (e.g., dividend payout compliance checks) where statutory processing is required",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "last four digits of PAN"
+      "matched_text": "Aadhaar (tokenised; last four only)",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "masked Aadhaar token"
+      "matched_text": "last four digits of PAN",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Aadhaar is stored as an irreversible token separate from primary records"
+      "matched_text": "masked Aadhaar token",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "we may request limited verification (e.g., last four digits of PAN, masked Aadhaar token, or registered folio reference)"
+      "matched_text": "Aadhaar is stored as an irreversible token separate from primary records",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "registered folio reference"
+      "matched_text": "we may request limited verification (e.g., last four digits of PAN, masked Aadhaar token, or registered folio reference)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "registered folio reference",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For consent withdrawal, email consent@navodayacircuits.in",
+      "rule": "consent_withdrawal_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "consent@navodayacircuits.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Raghav Venkataraman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent of a parent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For consent withdrawal, email consent@navodayacircuits.in; withdrawal will not affect past processing and may limit services (e.g., dividend payout compliance checks) where statutory processing is required.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_not_detect": [
@@ -235,36 +236,27 @@
       "reason": "Non\u2011issuer operational update; not MNPI"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "Materiality is assessed on an issuer\u2011relative basis",
       "concept": "issuer_relative_materiality",
+      "matched_text": "Materiality is assessed on an issuer\u2011relative basis",
       "reason": "Key MNPI materiality policy signal under SEBI PIT but no explicit rule token to label."
     },
     {
-      "matched_text": "structured digital database entries (UPSI recipients, event logs) are retained for at least 8 years or until completion of SEBI proceedings, whichever is later",
       "concept": "retention_marker",
+      "matched_text": "structured digital database entries (UPSI recipients, event logs) are retained for at least 8 years or until completion of SEBI proceedings, whichever is later",
       "reason": "Legally significant retention statement under SEBI PIT/DPDPA but no dedicated retention rule provided."
     },
     {
-      "matched_text": "we will provide reasons for denial where permitted by law (e.g., legal privilege, regulatory hold)",
       "concept": "DSAR_denial_ground",
+      "matched_text": "we will provide reasons for denial where permitted by law (e.g., legal privilege, regulatory hold)",
       "reason": "Denial grounds for access/erasure are privacy\u2011compliance relevant but not mapped to an allowed marker."
     },
     {
-      "matched_text": "primary servers are located in India",
       "concept": "data_localisation",
+      "matched_text": "primary servers are located in India",
       "reason": "Data residency disclosure is privacy\u2011relevant in India but not enumerated in allowed rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
-    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
-  ],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

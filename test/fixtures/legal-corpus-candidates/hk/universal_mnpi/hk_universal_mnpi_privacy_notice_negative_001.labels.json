@@ -132,11 +132,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "2024-0510",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
       "matched_text": "dsar",
       "rule": "consent_withdrawal_marker"
     },
@@ -207,6 +202,14 @@
       "concept": "traceability watermark",
       "matched_text": "exports watermarked with requester reference",
       "reason": "Watermarking is compliance-relevant but not mapped to a specific allowed rule."
+    }
+  ],
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2024-0510",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
     }
   ]
 }

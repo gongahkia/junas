@@ -53,7 +53,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "EID: EID‑9O0l‑l",
+      "matched_text": "EID: EID\u20119O0l\u2011l",
       "rule": "employee_id"
     },
     {
@@ -78,17 +78,17 @@
     },
     {
       "category": "PII",
-      "matched_text": "HHM member HHM‑83‑24x",
+      "matched_text": "HHM member HHM\u201183\u201124x",
       "rule": "insurance_member_id"
     },
     {
       "category": "PII",
-      "matched_text": "BSB 76‑12‑0x",
+      "matched_text": "BSB 76\u201112\u20110x",
       "rule": "bank_account"
     },
     {
       "category": "PII",
-      "matched_text": "acct 12345‑6x",
+      "matched_text": "acct 12345\u20116x",
       "rule": "bank_account"
     },
     {
@@ -98,7 +98,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "CL‑88I‑00l",
+      "matched_text": "CL\u201188I\u201100l",
       "rule": "customer_account_number"
     },
     {
@@ -108,7 +108,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "3–5%",
+      "matched_text": "3\u20135%",
       "rule": "financial_percentage"
     },
     {
@@ -133,7 +133,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "likely to be price‑sensitive",
+      "matched_text": "likely to be price\u2011sensitive",
       "rule": "contingent_mnpi_language"
     },
     {
@@ -148,7 +148,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "do not forward outside need‑to‑know",
+      "matched_text": "do not forward outside need\u2011to\u2011know",
       "rule": "information_barrier_marker"
     },
     {
@@ -158,7 +158,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "no “open briefing” until lodgement",
+      "matched_text": "no \u201copen briefing\u201d until lodgement",
       "rule": "selective_disclosure_risk"
     },
     {
@@ -213,7 +213,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Public-status note: our ALEX announcement dated 28-Apr-2026 (“Minor Service Interruption at Westport DC”, ALEX‑2026‑00981) is already public; the credential leakage and forecast impact in this report have not been disclosed.",
+      "matched_text": "Public-status note: our ALEX announcement dated 28-Apr-2026 (\u201cMinor Service Interruption at Westport DC\u201d, ALEX\u20112026\u201100981) is already public; the credential leakage and forecast impact in this report have not been disclosed.",
       "rule": "material_event"
     },
     {
@@ -240,11 +240,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "2026-0415",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
       "matched_text": "58 123 456 0",
       "rule": "phone_number"
     },
@@ -265,7 +260,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Public-status note: our ALEX announcement dated 28-Apr-2026 (“Minor Service Interruption at Westport DC”, ALEX‑2026‑00981) is already public; the credential leakage and forecast impact in this report have not been disclosed.",
+      "matched_text": "Public-status note: our ALEX announcement dated 28-Apr-2026 (\u201cMinor Service Interruption at Westport DC\u201d, ALEX\u20112026\u201100981) is already public; the credential leakage and forecast impact in this report have not been disclosed.",
       "rule": "material_event"
     },
     {
@@ -302,8 +297,8 @@
       "reason": "software/version string; not PII/MNPI"
     },
     {
-      "matched_text": "ALEX‑2026‑00981",
-      "reason": "already‑public announcement identifier; not MNPI"
+      "matched_text": "ALEX\u20112026\u201100981",
+      "reason": "already\u2011public announcement identifier; not MNPI"
     }
   ],
   "source_jurisdiction": "AU",
@@ -362,5 +357,13 @@
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0415",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

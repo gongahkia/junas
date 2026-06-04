@@ -17,11 +17,6 @@
     {
       "category": "PII",
       "rule": "phone_number",
-      "matched_text": "2026-0412"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
       "matched_text": "123-45-67890"
     },
     {
@@ -109,7 +104,7 @@
   ],
   "must_not_detect": [
     {
-      "matched_text": "주민등록번호",
+      "matched_text": "\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638",
       "reason": "Generic field label without an actual identifier value."
     },
     {
@@ -177,5 +172,13 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
     "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
     "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0412",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

@@ -86,8 +86,9 @@ class CandidateReviewWorkflowTests(unittest.TestCase):
     def test_stage_b_readiness_check_requires_explicit_metadata(self):
         with tempfile.TemporaryDirectory() as tmp:
             corpus = Path(tmp)
-            fixture = _write_fixture(corpus)
+            fixture = _write_fixture(corpus, name="sg_direct_identifiers_memo_default_001.txt")
             labels = json.loads(labels_path_for(fixture).read_text(encoding="utf-8"))
+            labels["doc_id"] = "sg_direct_identifiers_memo_default_001"
             record_human_review(labels, decision="approve", reviewer="counsel@example.com")
             write_labels(labels_path_for(fixture), labels)
 
@@ -104,6 +105,31 @@ class CandidateReviewWorkflowTests(unittest.TestCase):
             }
             write_labels(labels_path_for(fixture), labels)
             self.assertEqual(collect_stage_b_readiness_violations(corpus), [])
+
+    def test_stage_b_readiness_check_ignores_expanded_stage_b_labels(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            corpus = Path(tmp)
+            memo = _write_fixture(corpus, name="sg_direct_identifiers_memo_default_001.txt")
+            memo_labels = json.loads(labels_path_for(memo).read_text(encoding="utf-8"))
+            record_human_review(memo_labels, decision="approve", reviewer="counsel@example.com")
+            memo_labels["_stage_readiness"] = {
+                "stage_a": "reviewed",
+                "stage_b": "ready",
+                "stage_c": "pending",
+                "status": "stage_b_ready",
+                "reviewer": "project-owner",
+            }
+            write_labels(labels_path_for(memo), memo_labels)
+
+            expanded = _write_fixture(corpus, name="sg_direct_identifiers_privacy_notice_default_001.txt")
+            expanded_labels = json.loads(labels_path_for(expanded).read_text(encoding="utf-8"))
+            expanded_labels["document_type"] = "memo"
+            expanded_labels["doc_id"] = "sg_direct_identifiers_privacy_notice_default_001"
+            write_labels(labels_path_for(expanded), expanded_labels)
+
+            self.assertEqual(collect_stage_b_readiness_violations(corpus), [])
+            self.assertEqual(collect_review_status_violations(corpus, stage_a_only=True), [])
+            self.assertEqual(len(collect_review_status_violations(corpus)), 1)
 
     def test_review_cli_show_only_does_not_require_decision_or_reviewer(self):
         with tempfile.TemporaryDirectory() as tmp:

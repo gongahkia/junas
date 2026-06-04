@@ -1,120 +1,102 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
   "doc_id": "in_direct_identifiers_incident_report_negative_001",
   "document_type": "memo",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "4321 9876 0123"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "27AAAAA0000A1Z0"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@vintaratech.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investor.relations@vintaratech.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@vintaratech.in"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading window remained closed as per schedule"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Child data"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minors\u2019 details"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "4321 9876 0123"
+      "matched_text": "27AAAAA0000A1Z0",
+      "rule": "in_gstin"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "27AAAAA0000A1Z0"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@vintaratech.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investor.relations@vintaratech.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@vintaratech.in"
+      "matched_text": "Child data",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading window remained closed as per schedule"
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "4321 9876 0123",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@vintaratech.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "investor.relations@vintaratech.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@vintaratech.in",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
+      "matched_text": "Trading window remained closed as per schedule",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Child data"
+      "matched_text": "minors\u2019 details",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minors\u2019 details"
+      "matched_text": "P<IND<XXXXXXXXX<0",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "P<IND<XXXXXXXXX<0"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "A/c No. XXXX1234"
+      "matched_text": "A/c No. XXXX1234",
+      "rule": "bank_account"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Unpublished Price Sensitive Information"
+      "matched_text": "Unpublished Price Sensitive Information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "redacted template containing placeholders only"
+      "matched_text": "redacted template containing placeholders only",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "27AAAAA0000A1Z0",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -159,38 +141,32 @@
       "reason": "Role noun / generic entity, not PII"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "CIN U12345DL2024PLC000321",
       "concept": "CIN (company identifier)",
+      "matched_text": "CIN U12345DL2024PLC000321",
       "reason": "India company identifier is relevant but no explicit CIN rule in allowed set"
     },
     {
-      "matched_text": "509999",
       "concept": "postal code (India PIN)",
+      "matched_text": "509999",
       "reason": "Looks like a postal code but no India postal address rule provided"
     },
     {
-      "matched_text": "IFSC XXXX0BCX01",
       "concept": "bank routing code (IFSC)",
+      "matched_text": "IFSC XXXX0BCX01",
       "reason": "Banking identifier relevant to accounts but no explicit IFSC rule in allowed set"
     },
     {
-      "matched_text": "PIT framework",
       "concept": "insider trading regulation reference",
+      "matched_text": "PIT framework",
       "reason": "MNPI context indicator but not a specific marker in allowed rules"
     },
     {
-      "matched_text": "Bharat Capital Exchange (BCX)",
       "concept": "listed exchange reference",
+      "matched_text": "Bharat Capital Exchange (BCX)",
       "reason": "Market-listing context but not covered by a specific allowed rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

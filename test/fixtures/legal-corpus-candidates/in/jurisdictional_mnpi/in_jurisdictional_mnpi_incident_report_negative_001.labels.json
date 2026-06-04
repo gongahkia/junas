@@ -1,155 +1,137 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
   "doc_id": "in_jurisdictional_mnpi_incident_report_negative_001",
   "document_type": "memo",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "helpdesk@velarinetworks.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "infosec@velarinetworks.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investor.relations@velarinetworks.example"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "AAAAA0000A"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "00AAAAA0000A1Z0"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Children\u2019s data"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Data Principals under 18 years of age"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "any selective communication outside exchange filings is prohibited"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "The trading window for Designated Persons remains closed"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "helpdesk@velarinetworks.example"
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "infosec@velarinetworks.example"
+      "matched_text": "00AAAAA0000A1Z0",
+      "rule": "in_gstin"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investor.relations@velarinetworks.example"
+      "matched_text": "helpdesk@velarinetworks.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "AAAAA0000A"
+      "matched_text": "infosec@velarinetworks.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "00AAAAA0000A1Z0"
+      "matched_text": "investor.relations@velarinetworks.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar: XXXX-XXXX-XXXX"
+      "matched_text": "AAAAA0000A",
+      "rule": "in_pan"
     },
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN: AAAAA0000A (test)"
+      "matched_text": "Aadhaar: XXXX-XXXX-XXXX",
+      "rule": "in_aadhaar"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN: 00AAAAA0000A1Z0 (dummy)"
+      "matched_text": "PAN: AAAAA0000A (test)",
+      "rule": "in_pan"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Children\u2019s data"
+      "matched_text": "GSTIN: 00AAAAA0000A1Z0 (dummy)",
+      "rule": "in_gstin"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Data Principals under 18 years of age"
+      "matched_text": "Children\u2019s data",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "individuals under 18"
+      "matched_text": "Data Principals under 18 years of age",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minors\u2019 programme data"
+      "matched_text": "individuals under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors\u2019 programme data",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not public"
+      "matched_text": "not public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "a possible deferral of certain onboarding revenues for Q1 FY27"
+      "matched_text": "a possible deferral of certain onboarding revenues for Q1 FY27",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "a possible deferral of certain onboarding revenues for Q1 FY27"
+      "matched_text": "a possible deferral of certain onboarding revenues for Q1 FY27",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "must be handled as UPSI under the PIT Regulations until formal exchange disclosure"
+      "matched_text": "must be handled as UPSI under the PIT Regulations until formal exchange disclosure",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "The trading window for Designated Persons remains closed under the Code of Conduct (PIT Regulations, Schedule B) for the ongoing quarter"
+      "matched_text": "The trading window for Designated Persons remains closed under the Code of Conduct (PIT Regulations, Schedule B) for the ongoing quarter",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "any selective communication outside exchange filings is prohibited"
+      "matched_text": "any selective communication outside exchange filings is prohibited",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "if material, an intimation will be filed within prescribed timelines under LODR Regulation 30"
+      "matched_text": "if material, an intimation will be filed within prescribed timelines under LODR Regulation 30",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The trading window for Designated Persons remains closed",
+      "rule": "blackout_period_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "00AAAAA0000A1Z0",
+      "rule": "in_gstin"
     }
   ],
   "must_not_detect": [
@@ -178,38 +160,32 @@
       "reason": "Non-issuer operational update; not MNPI"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "consent is recorded via click-through at account creation",
       "concept": "consent basis (DPDPA)",
+      "matched_text": "consent is recorded via click-through at account creation",
       "reason": "Consent mentioned but no withdrawal; not clearly covered by consent_withdrawal_marker rule"
     },
     {
-      "matched_text": "access/erasure requests will be honoured per DPDPA and the Company\u2019s grievance redressal process",
       "concept": "DSAR/erasure handling",
+      "matched_text": "access/erasure requests will be honoured per DPDPA and the Company\u2019s grievance redressal process",
       "reason": "Data subject rights referenced but no dedicated DSAR rule in allowed set"
     },
     {
-      "matched_text": "Logs reviewed indicate only system metadata and ticket IDs",
       "concept": "data minimisation signal",
+      "matched_text": "Logs reviewed indicate only system metadata and ticket IDs",
       "reason": "Describes limited data processed but not an explicit minimisation policy marker"
     },
     {
-      "matched_text": "Issuer-relative materiality is under review with reference to past disclosures",
       "concept": "materiality assessment",
+      "matched_text": "Issuer-relative materiality is under review with reference to past disclosures",
       "reason": "Materiality review is relevant to MNPI gating but not directly mapped to a specific allowed rule"
     },
     {
-      "matched_text": "Potential UPSI",
       "concept": "UPSI marker",
+      "matched_text": "Potential UPSI",
       "reason": "Indicates UPSI status contextually; no explicit UPSI rule in allowed set beyond nonpublic marker"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

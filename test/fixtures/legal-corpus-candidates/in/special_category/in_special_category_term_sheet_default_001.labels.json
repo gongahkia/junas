@@ -1,310 +1,401 @@
 {
-  "doc_id": "in_special_category_term_sheet_default_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
     {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading window closure applies"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insiders list to be maintained"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall\u2011crossing notices"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Menon"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Master Aarav Pillai"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Noor Sheikh"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Shreya Banerjee"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Vedant Kulkarni"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dataroom@auroravector.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "cs@zeronixlabs.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@auroravector.example"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 17"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "(age 17, minor)"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "masked form only"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "in India only"
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 820 crore'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 820 crore'"
+      ]
     }
   ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_special_category_term_sheet_default_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
+      "category": "PII",
+      "matched_text": "dataroom@auroravector.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cs@zeronixlabs.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@auroravector.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Raghav Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Noor Sheikh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Shreya Banerjee",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Vedant Kulkarni",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "carrier status",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 17",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Acquisition of 51% of Zeronix Labs Limited by Aurora Vector Private Limited (India law governed).",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Consideration: Indicative valuation INR 820 crore; consideration in cash at Closing; escrow to be maintained with HarborTrust Custodial Services LLP (fictional).",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "UPSI/Insider controls: From Signing until Closing, trading window closure applies; insiders list to be maintained; wall\u2011crossing notices and confidentiality undertakings to be executed by all recipients before access to the data room.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading window closure applies"
+      "matched_text": "Data protection: The Parties shall process personal data per the Digital Personal Data Protection Act, 2023 (DPDPA); explicit consent is required for special\u2011category personal data; child means under 18; apply data minimisation, purpose limitation, and deletion within 90 days post\u2011Closing.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insiders list to be maintained"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall\u2011crossing notices"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished financials"
+      "matched_text": "51%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Closing"
+      "matched_text": "trading window closure applies",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insiders list to be maintained",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall\u2011crossing notices",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished financials",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing",
+      "rule": "embargo_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Menon"
+      "matched_text": "Master Aarav Pillai",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Raghav Menon"
+      "matched_text": "CFO Mr. Raghav Menon\u2019s wellness file includes a genetic\u2011trait screen indicating thalassemia carrier status",
+      "rule": "genetic_data"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Master Aarav Pillai"
+      "matched_text": "CFO Mr. Raghav Menon\u2019s wellness file includes a genetic\u2011trait screen indicating thalassemia carrier status and a declaration of Jain religious affiliation",
+      "rule": "religious_belief"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Noor Sheikh"
+      "matched_text": "Intern Master Aarav Pillai (age 17, minor) has disclosed asthma treatment details",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Shreya Banerjee"
+      "matched_text": "Intern Master Aarav Pillai (age 17, minor) has disclosed asthma treatment details",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Vedant Kulkarni"
+      "matched_text": "Intern Master Aarav Pillai (age 17, minor)",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dataroom@auroravector.example"
+      "matched_text": "Senior engineer Ms. Noor Sheikh is a member of the TechWorks Bengaluru Union and has voluntarily disclosed that she is bisexual",
+      "rule": "sexual_orientation"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "cs@zeronixlabs.example"
+      "matched_text": "Senior engineer Ms. Noor Sheikh is a member of the TechWorks Bengaluru Union",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@auroravector.example"
+      "matched_text": "Mr. Menon\u2019s Aadhaar ending 2211",
+      "rule": "in_aadhaar"
     },
     {
       "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "CFO Mr. Raghav Menon\u2019s wellness file includes a genetic\u2011trait screen indicating thalassemia carrier status"
+      "matched_text": "PAN suffix PMQ",
+      "rule": "in_pan"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "CFO Mr. Raghav Menon\u2019s wellness file includes a genetic\u2011trait screen indicating thalassemia carrier status and a declaration of Jain religious affiliation"
+      "matched_text": "PAN",
+      "rule": "in_pan"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "Intern Master Aarav Pillai (age 17, minor) has disclosed asthma treatment details"
+      "matched_text": "Aadhaar",
+      "rule": "in_aadhaar"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "Intern Master Aarav Pillai (age 17, minor) has disclosed asthma treatment details"
+      "matched_text": "GSTIN",
+      "rule": "in_gstin"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Intern Master Aarav Pillai (age 17, minor)"
+      "matched_text": "explicit consent is required for special\u2011category personal data",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "sexual_orientation",
-      "matched_text": "Senior engineer Ms. Noor Sheikh is a member of the TechWorks Bengaluru Union and has voluntarily disclosed that she is bisexual"
+      "matched_text": "provides explicit consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "Senior engineer Ms. Noor Sheikh is a member of the TechWorks Bengaluru Union"
+      "matched_text": "parent/guardian consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Mr. Menon\u2019s Aadhaar ending 2211"
+      "matched_text": "masked form only",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN suffix PMQ"
+      "matched_text": "last 4 digits/letters",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN"
+      "matched_text": "in India only",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar"
+      "matched_text": "storage restricted to encrypted, access\u2011logged systems in India only",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN"
+      "matched_text": "age 17",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "explicit consent is required for special\u2011category personal data"
+      "matched_text": "(age 17, minor)",
+      "rule": "minor_data_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dataroom@auroravector.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "provides explicit consent"
+      "matched_text": "cs@zeronixlabs.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "parent/guardian consent"
+      "matched_text": "legal@auroravector.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "masked form only"
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "last 4 digits/letters"
+      "matched_text": "Mr. Raghav Menon",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "in India only"
+      "matched_text": "Mr. Menon",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "storage restricted to encrypted, access\u2011logged systems in India only"
+      "matched_text": "Ms. Noor Sheikh",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 17"
+      "matched_text": "Ms. Shreya Banerjee",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "(age 17, minor)"
+      "matched_text": "Mr. Vedant Kulkarni",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "carrier status",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 17",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Strategic Acquisition of 51% of Zeronix Labs Limited by Aurora Vector Private Limited (India law governed).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration: Indicative valuation INR 820 crore; consideration in cash at Closing; escrow to be maintained with HarborTrust Custodial Services LLP (fictional).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI/Insider controls: From Signing until Closing, trading window closure applies; insiders list to be maintained; wall\u2011crossing notices and confidentiality undertakings to be executed by all recipients before access to the data room.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data protection: The Parties shall process personal data per the Digital Personal Data Protection Act, 2023 (DPDPA); explicit consent is required for special\u2011category personal data; child means under 18; apply data minimisation, purpose limitation, and deletion within 90 days post\u2011Closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
     }
   ],
   "must_not_detect": [
@@ -341,36 +432,27 @@
       "reason": "Fictional scrip code reference, not MNPI"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "deletion within 90 days post\u2011Closing",
       "concept": "retention/erasure",
+      "matched_text": "deletion within 90 days post\u2011Closing",
       "reason": "Indicates data deletion timeline (retention/erasure), but no explicit rule label for deletion is defined in the allowed set"
     },
     {
-      "matched_text": "no individual\u2019s biometric template will be shared",
       "concept": "biometric data mention",
+      "matched_text": "no individual\u2019s biometric template will be shared",
       "reason": "Mentions biometric templates but not tied to an identified person and is negated; sensitive topic without a clear rule fit here"
     },
     {
-      "matched_text": "child means under 18",
       "concept": "minor definition",
+      "matched_text": "child means under 18",
       "reason": "Legal definition of a child relevant to PII handling but not anchored to an identifiable individual or covered by a specific rule"
     },
     {
-      "matched_text": "From Signing until Closing",
       "concept": "embargo/timing marker",
+      "matched_text": "From Signing until Closing",
       "reason": "Embargo-style timeline is relevant to MNPI, but strict rules enumerate 'Signing Date/Closing Date' not this phrasing"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 820 crore'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 820 crore'"
-  ],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

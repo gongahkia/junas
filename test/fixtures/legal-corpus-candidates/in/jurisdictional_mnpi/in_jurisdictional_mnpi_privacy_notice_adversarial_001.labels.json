@@ -1,235 +1,250 @@
 {
-  "doc_id": "in_jurisdictional_mnpi_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
     {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAXXP1234X"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@vihara-logistics.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@vihara-logistics.in"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91 80 5555 0909"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Parvati Menon"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rohan Bhat"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "under 18"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "we do not require full Aadhaar and will reject scans that include full 12 digits"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfers: processing occurs in India and Singapore with Ajmera Compute Pte. Ltd. (SG) and Thar Data Grid Pvt. Ltd. (IN) as processors under DPA and audit rights; transfers are based on contractual safeguards and any Central Government notifications under DPDPA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Effective 30-Jun-2026"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "\u201cunpublished price sensitive information\u201d"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure is prohibited"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "the window is closed from quarter-end until 48 hours after dissemination of Board-approved results to N SE / B SE and public release"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "inadvertent selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lotus Supply"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout calendar"
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop ideal_must_detect: text not verbatim rule='internal_session_id' text='token=VLLX-9f%2A%2A%2A-77'"
+      ]
     }
   ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAXXP1234X"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@vihara-logistics.in"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@vihara-logistics.in"
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91 80 5555 0909"
+      "matched_text": "Ms. Parvati Menon",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Parvati Menon"
+      "matched_text": "Mr. Rohan Bhat",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rohan Bhat"
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This document does not constitute, and expressly negates, any material adverse change (MAC) representation, does not solicit investment, and includes general policy text for guidance only under Indian law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lotus Supply",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "84%",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "under 18"
+      "matched_text": "PAXXP1234X",
+      "rule": "in_pan"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "we do not require full Aadhaar and will reject scans that include full 12 digits"
+      "matched_text": "dpo@vihara-logistics.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfers: processing occurs in India and Singapore with Ajmera Compute Pte. Ltd. (SG) and Thar Data Grid Pvt. Ltd. (IN) as processors under DPA and audit rights; transfers are based on contractual safeguards and any Central Government notifications under DPDPA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Effective 30-Jun-2026"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "\u201cunpublished price sensitive information\u201d"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure is prohibited"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "the window is closed from quarter-end until 48 hours after dissemination of Board-approved results to N SE / B SE and public release"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "inadvertent selective disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Lotus Supply"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout calendar"
+      "matched_text": "ir@vihara-logistics.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Aadhaar XXXX-XXXX-6217"
+      "matched_text": "+91 80 5555 0909",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "masked Aadhaar last 4"
+      "matched_text": "under 18",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "Customer Ref VLLx-ACCT-7F/9a"
+      "matched_text": "we do not require full Aadhaar and will reject scans that include full 12 digits",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN 29-V I H A R A-000-T E S T"
+      "matched_text": "Cross-border transfers: processing occurs in India and Singapore with Ajmera Compute Pte. Ltd. (SG) and Thar Data Grid Pvt. Ltd. (IN) as processors under DPA and audit rights; transfers are based on contractual safeguards and any Central Government notifications under DPDPA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Effective 30-Jun-2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u201cunpublished price sensitive information\u201d",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the window is closed from quarter-end until 48 hours after dissemination of Board-approved results to N SE / B SE and public release",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inadvertent selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout calendar",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "children\u2019s requests"
+      "matched_text": "Aadhaar XXXX-XXXX-6217",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked Aadhaar last 4",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Customer Ref VLLx-ACCT-7F/9a",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN 29-V I H A R A-000-T E S T",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children\u2019s requests",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "structured digital database (SDD)"
+      "matched_text": "structured digital database (SDD)",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Designated Persons"
+      "matched_text": "Designated Persons",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "SDD on segregated instance \u201clotus_supp-kr03\u201d with time-stamped entries"
+      "matched_text": "SDD on segregated instance \u201clotus_supp-kr03\u201d with time-stamped entries",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "sharing is allowed only on a Legitimate Purpose basis recorded in the SDD"
+      "matched_text": "sharing is allowed only on a Legitimate Purpose basis recorded in the SDD",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "financial results"
+      "matched_text": "financial results",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "dividends"
+      "matched_text": "dividends",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "mergers"
+      "matched_text": "mergers",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "key expansion plans"
+      "matched_text": "key expansion plans",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Parvati Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rohan Bhat",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This document does not constitute, and expressly negates, any material adverse change (MAC) representation, does not solicit investment, and includes general policy text for guidance only under Indian law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lotus Supply",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "84%",
+      "rule": "financial_percentage"
     }
   ],
   "must_not_detect": [
@@ -270,35 +285,27 @@
       "reason": "public IR page link; not MNPI"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "Retention: KYC and contract records 7 years post relationship, call logs 180 days, investor queries 2 years, and SEBI PIT structured digital database (SDD) entries for 8 years or until completion of proceedings, whichever is later",
       "concept": "retention_marker",
+      "matched_text": "Retention: KYC and contract records 7 years post relationship, call logs 180 days, investor queries 2 years, and SEBI PIT structured digital database (SDD) entries for 8 years or until completion of proceedings, whichever is later",
       "reason": "retention durations are privacy-relevant but not explicitly enumerated in allowed rules"
     },
     {
-      "matched_text": "lotus_supp-kr03",
       "concept": "internal_system_identifier",
+      "matched_text": "lotus_supp-kr03",
       "reason": "internal instance identifier may be sensitive; not clearly covered by allowed device/session rules"
     },
     {
-      "matched_text": "Reg. CCM-OBF-8821",
       "concept": "registration_number",
+      "matched_text": "Reg. CCM-OBF-8821",
       "reason": "consent manager registration number may be an identifier; not in allowed PII/MNPI taxonomy"
     },
     {
-      "matched_text": "\u201cgenerally available information\u201d",
       "concept": "public_status_semantics",
+      "matched_text": "\u201cgenerally available information\u201d",
       "reason": "market public-status semantics relevant to MNPI but not a specific allowed rule token"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop ideal_must_detect: text not verbatim rule='internal_session_id' text='token=VLLX-9f%2A%2A%2A-77'"
-  ],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

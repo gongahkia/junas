@@ -29,9 +29,11 @@ def main(argv: list[str] | None = None) -> int:
     if not corpus.exists():
         print(f"corpus missing: {corpus}", file=sys.stderr)
         return 2
-    violations = collect_review_status_violations(corpus)
     if args.require_stage_b_ready:
+        violations = collect_review_status_violations(corpus, stage_a_only=True)
         violations.extend(collect_stage_b_readiness_violations(corpus))
+    else:
+        violations = collect_review_status_violations(corpus)
     for violation in violations:
         print(f"review-status violation: {violation}", file=sys.stderr)
     print(f"checked {corpus}: violations={len(violations)}")

@@ -162,11 +162,6 @@
   "must_detect": [
     {
       "category": "PII",
-      "matched_text": "2026-0525",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
       "matched_text": "ASEAN MCCs",
       "rule": "cross_border_transfer_marker"
     },
@@ -294,6 +289,14 @@
       "concept": "address category",
       "matched_text": "home addresses",
       "reason": "Refers to residential addresses but no Singapore postal code format present per allowed rule"
+    }
+  ],
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0525",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
     }
   ]
 }

@@ -12,11 +12,6 @@
     {
       "category": "PII",
       "rule": "phone_number",
-      "matched_text": "2026-4412"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
       "matched_text": "+63 920 555 0198"
     },
     {
@@ -119,7 +114,7 @@
     {
       "category": "MNPI",
       "rule": "financial_percentage",
-      "matched_text": "0.5–1.0%"
+      "matched_text": "0.5\u20131.0%"
     },
     {
       "category": "MNPI",
@@ -259,5 +254,13 @@
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "PH Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-4412",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

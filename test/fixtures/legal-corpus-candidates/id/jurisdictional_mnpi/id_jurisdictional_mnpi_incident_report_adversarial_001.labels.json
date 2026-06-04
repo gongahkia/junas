@@ -20,11 +20,6 @@
       "matched_text": "sec-ops@nexadana.co.id"
     },
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-1442"
-    },
-    {
       "category": "MNPI",
       "rule": "nonpublic_marker",
       "matched_text": "MNPI"
@@ -251,5 +246,13 @@
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "ID Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-1442",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

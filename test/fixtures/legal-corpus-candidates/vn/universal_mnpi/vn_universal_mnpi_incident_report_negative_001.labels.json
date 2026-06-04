@@ -15,14 +15,9 @@
       "matched_text": "finance@binhanlogistics.vn"
     },
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1900-0000"
-    },
-    {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Binh An Logistics JSC — operational cyber incident report for VN issuer context, HOSE listing maintained and SSC guidance observed."
+      "matched_text": "Binh An Logistics JSC \u2014 operational cyber incident report for VN issuer context, HOSE listing maintained and SSC guidance observed."
     },
     {
       "category": "MNPI",
@@ -99,7 +94,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Binh An Logistics JSC — operational cyber incident report for VN issuer context, HOSE listing maintained and SSC guidance observed."
+      "matched_text": "Binh An Logistics JSC \u2014 operational cyber incident report for VN issuer context, HOSE listing maintained and SSC guidance observed."
     },
     {
       "category": "MNPI",
@@ -201,5 +196,13 @@
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "1900-0000",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

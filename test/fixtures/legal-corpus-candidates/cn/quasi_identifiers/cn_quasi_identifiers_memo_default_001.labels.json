@@ -21,11 +21,6 @@
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-0415"
-    },
-    {
-      "category": "PII",
       "rule": "employee_id",
       "matched_text": "04318"
     },
@@ -57,12 +52,12 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Internal Compliance Memo — PIPL/CSL/DSL Controls for Pre-IPO Data Handling (China)"
+      "matched_text": "Internal Compliance Memo \u2014 PIPL/CSL/DSL Controls for Pre-IPO Data Handling (China)"
     },
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "On 2026-05-28 he retrieved “FY2026 Revenue Forecast_v3.xlsx” and “Customer_Pipeline_Q3.xlsx” from the pre-IPO data room (Issuer File ID HX-STAR-1181), which are classified as inside information pending exchange review."
+      "matched_text": "On 2026-05-28 he retrieved \u201cFY2026 Revenue Forecast_v3.xlsx\u201d and \u201cCustomer_Pipeline_Q3.xlsx\u201d from the pre-IPO data room (Issuer File ID HX-STAR-1181), which are classified as inside information pending exchange review."
     },
     {
       "category": "MNPI",
@@ -204,7 +199,7 @@
     {
       "category": "PII",
       "rule": "quasi_identifier_combination",
-      "matched_text": "Mr. Li’s HR file contains DOB 1991-03-12 (age 35), internal ID HYR-EMP-04318, Resident ID (masked) 31010119910312****, and payroll unit “HYR Shanghai R&D.”"
+      "matched_text": "Mr. Li\u2019s HR file contains DOB 1991-03-12 (age 35), internal ID HYR-EMP-04318, Resident ID (masked) 31010119910312****, and payroll unit \u201cHYR Shanghai R&D.\u201d"
     },
     {
       "category": "PII",
@@ -264,12 +259,12 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "Internal Compliance Memo — PIPL/CSL/DSL Controls for Pre-IPO Data Handling (China)"
+      "matched_text": "Internal Compliance Memo \u2014 PIPL/CSL/DSL Controls for Pre-IPO Data Handling (China)"
     },
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "On 2026-05-28 he retrieved “FY2026 Revenue Forecast_v3.xlsx” and “Customer_Pipeline_Q3.xlsx” from the pre-IPO data room (Issuer File ID HX-STAR-1181), which are classified as inside information pending exchange review."
+      "matched_text": "On 2026-05-28 he retrieved \u201cFY2026 Revenue Forecast_v3.xlsx\u201d and \u201cCustomer_Pipeline_Q3.xlsx\u201d from the pre-IPO data room (Issuer File ID HX-STAR-1181), which are classified as inside information pending exchange review."
     },
     {
       "category": "MNPI",
@@ -279,11 +274,11 @@
   ],
   "must_not_detect": [
     {
-      "matched_text": "“male, 29, Nanshan District, OpenOS handset”",
+      "matched_text": "\u201cmale, 29, Nanshan District, OpenOS handset\u201d",
       "reason": "Separated weak identifiers; not sufficient to identify a natural person on their own"
     },
     {
-      "matched_text": "“born 1988, Chengdu”",
+      "matched_text": "\u201cborn 1988, Chengdu\u201d",
       "reason": "Separated weak identifiers; not sufficient to identify a natural person on their own"
     }
   ],
@@ -311,7 +306,7 @@
     {
       "matched_text": "separate consent",
       "concept": "sensitive PI consent requirement",
-      "reason": "Indicates consent requirement for minors’ data; legally relevant but not a defined marker in allowed rules"
+      "reason": "Indicates consent requirement for minors\u2019 data; legally relevant but not a defined marker in allowed rules"
     },
     {
       "matched_text": "employee device logs",
@@ -385,6 +380,14 @@
       "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    }
+  ],
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0415",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
     }
   ]
 }

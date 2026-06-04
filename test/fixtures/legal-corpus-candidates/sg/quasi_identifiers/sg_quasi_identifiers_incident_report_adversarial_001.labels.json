@@ -222,11 +222,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "2026-0514",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
       "matched_text": "NX-9G4K",
       "rule": "device_serial_number"
     },
@@ -363,6 +358,14 @@
       "concept": "listing obligations reference",
       "matched_text": "LCE Listing Manual r.703",
       "reason": "Material disclosure assessment reference; not an explicit MNPI marker in rules"
+    }
+  ],
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0514",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
     }
   ]
 }

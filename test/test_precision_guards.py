@@ -308,9 +308,50 @@ class MacMaePrecisionGuards(unittest.TestCase):
                 f"nothing-herein MAC line should be suppressed; got {matched!r}",
             )
 
+    def test_shall_not_constitute_material_adverse_change_does_not_fire(self):
+        text = "This clause shall not constitute, nor be construed as, a material adverse change."
+        for rule, matched in _rules_matched(text, jurisdiction="IN"):
+            self.assertNotEqual(
+                rule,
+                "material_adverse_change",
+                f"shall-not-constitute MAC line should be suppressed; got {matched!r}",
+            )
+
+    def test_not_expected_to_have_material_adverse_effect_does_not_fire(self):
+        text = "The transaction is not expected to have a material adverse effect."
+        for rule, matched in _rules_matched(text, jurisdiction="IN"):
+            self.assertNotEqual(
+                rule,
+                "material_adverse_change",
+                f"not-expected-to-have MAE line should be suppressed; got {matched!r}",
+            )
+
+    def test_does_not_include_mac_like_clause_or_trigger_does_not_fire(self):
+        text = "This memo does not include any MAC-like clause or material adverse change trigger."
+        rules = {r for r, _ in _rules_matched(text, jurisdiction="AU")}
+        self.assertNotIn("material_adverse_change", rules)
+
+    def test_negated_mac_clause_does_not_by_itself_signal_mac_does_not_fire(self):
+        text = (
+            "The MAC clause in the standard share purchase form is negated for industry-wide events "
+            "and does not by itself signal a material adverse change."
+        )
+        rules = {r for r, _ in _rules_matched(text, jurisdiction="CN")}
+        self.assertNotIn("material_adverse_change", rules)
+
     def test_real_material_adverse_change_still_fires(self):
         text = "The lender may terminate if a material adverse change occurs before closing."
         self.assertIn(("material_adverse_change", "material adverse change"), _rules_matched(text, jurisdiction="VN"))
+
+    def test_real_mae_clause_not_suppressed_by_later_negated_mac_text(self):
+        text = (
+            "The SPA includes a Material Adverse Effect clause; for avoidance of doubt, "
+            "routine wellness benefits shall not constitute a MAC."
+        )
+        self.assertIn(
+            ("material_adverse_change", "Material Adverse Effect"),
+            _rules_matched(text, jurisdiction="ID"),
+        )
 
     def test_mae_clause_has_not_been_triggered_does_not_fire(self):
         text = "The definitive agreement is public; the mae clause has not been triggered."
@@ -496,6 +537,32 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         text = "Aadhaar: 0000 1111 2222 is illustrative and not linked to any individual."
         phones = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "phone_number"]
         self.assertNotIn("0000 1111 2222", phones)
+
+    def test_phone_does_not_fire_on_india_cin_fragments(self):
+        text = "Issuer C I N: L 2 9 3 0 8 K A 2 0 2 1 P L C 0 7 9 1 2 3."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "phone_number"]
+        self.assertNotIn("2 9 3 0 8", phones)
+        self.assertNotIn("0 7 9 1 2 3", phones)
+
+    def test_phone_does_not_fire_on_india_reference_codes(self):
+        text = (
+            "Incident ref IR-2026-05-24-01 and log VIL-UPSI-2026-0611 are not phones. "
+            "DSAR ticket R E Q-4 2- 2 026 remains open."
+        )
+        phones = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "phone_number"]
+        self.assertNotIn("2026-05-24-01", phones)
+        self.assertNotIn("2026-0611", phones)
+        self.assertNotIn("4 2- 2 026", phones)
+
+    def test_phone_does_not_fire_on_spaced_india_account_number(self):
+        text = "Settlements bank: Suryanidhi Bank A / c No. 004512389761."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "phone_number"]
+        self.assertNotIn("004512389761", phones)
+
+    def test_india_dsar_hotline_does_not_fire_as_phone(self):
+        text = "Data principals may use the DSAR hotline +91 80 5555 0909 for procedural queries."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "phone_number"]
+        self.assertNotIn("+91 80 5555 0909", phones)
 
     def test_phone_does_not_fire_on_repeated_digit_placeholder(self):
         text = "Use clearly invalid placeholders like 9999-9999-9999 in screenshots only."

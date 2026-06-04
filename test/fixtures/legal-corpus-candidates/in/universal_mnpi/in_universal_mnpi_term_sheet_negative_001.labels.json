@@ -1,175 +1,152 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
   "doc_id": "in_universal_mnpi_term_sheet_negative_001",
   "document_type": "term_sheet",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@pavitragroup.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@nimtele.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@pavitragroup.example"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1800-000-0000"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "XXXXX0000X"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "00AAAAA0000A0Z0"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "children (under 18 years)"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no Aadhaar collection"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "masked and optional"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "share purchase agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Public communication embargo until 2026-08-15 09:30 IST"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading window policies"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@pavitragroup.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@nimtele.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@pavitragroup.example"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1800-000-0000"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "XXXXX0000X"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "00AAAAA0000A0Z0"
-    },
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar: XXXX-XXXX-XXXX"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "children (under 18 years)"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no Aadhaar collection"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "masked and optional"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border remittance is later contemplated"
+      "matched_text": "personal data of children",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed strategic acquisition of Pavitra Gridware Limited by Nimbark Televentures Limited (India)"
+      "matched_text": "Closing is subject to execution of definitive agreements, customary board approvals, and any mandatory open-offer outcomes.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "share purchase agreement"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@pavitragroup.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@nimtele.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@pavitragroup.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1800-000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "XXXXX0000X",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "00AAAAA0000A0Z0",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar: XXXX-XXXX-XXXX",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children (under 18 years)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no Aadhaar collection",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked and optional",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border remittance is later contemplated",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "definitive agreements"
+      "matched_text": "proposed strategic acquisition of Pavitra Gridware Limited by Nimbark Televentures Limited (India)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Public communication embargo until 2026-08-15 09:30 IST"
+      "matched_text": "definitive agreements",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading window policies"
+      "matched_text": "Public communication embargo until 2026-08-15 09:30 IST",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price sensitive information"
+      "matched_text": "Trading window policies",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not circulate as advice"
+      "matched_text": "unpublished price sensitive information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "All queries to role mailboxes only"
+      "matched_text": "do not circulate as advice",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "All queries to role mailboxes only",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "personal data of children",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing is subject to execution of definitive agreements, customary board approvals, and any mandatory open-offer outcomes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
     }
   ],
   "must_not_detect": [
@@ -198,23 +175,17 @@
       "reason": "negated MAC language should not be labeled"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "contains no unpublished price sensitive information under SEBI (PIT) Regulations, 2015",
       "concept": "nonpublic_marker_negated",
+      "matched_text": "contains no unpublished price sensitive information under SEBI (PIT) Regulations, 2015",
       "reason": "mentions UPSI in a negated context; relevance to MNPI tagging is ambiguous"
     },
     {
-      "matched_text": "consent and notices to follow the Digital Personal Data Protection Act, 2023",
       "concept": "consent_compliance_marker",
+      "matched_text": "consent and notices to follow the Digital Personal Data Protection Act, 2023",
       "reason": "references consent compliance obligations but not a specific withdrawal/DSAR/erasure event covered by allowed rules"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

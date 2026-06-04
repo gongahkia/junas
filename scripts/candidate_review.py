@@ -42,6 +42,13 @@ def is_candidate_label(labels: dict[str, Any]) -> bool:
     )
 
 
+def is_stage_a_candidate_label(labels_path: Path, labels: dict[str, Any]) -> bool:
+    if not is_candidate_label(labels):
+        return False
+    doc_id = str(labels.get("doc_id") or labels_path.name.removesuffix(".labels.json"))
+    return "_memo_" in doc_id or "_memo_" in labels_path.name
+
+
 def is_human_approved(labels: dict[str, Any]) -> bool:
     if str(labels.get("_human_review_status") or "") != APPROVED_STATUS:
         return False
@@ -108,13 +115,15 @@ def review_status_violation(labels_path: Path, labels: dict[str, Any]) -> str:
     return f"{labels_path}: candidate/auto label source={source} human_review_status={status}"
 
 
-def collect_review_status_violations(corpus_dir: Path) -> list[str]:
+def collect_review_status_violations(corpus_dir: Path, *, stage_a_only: bool = False) -> list[str]:
     violations: list[str] = []
     for labels_path in sorted(corpus_dir.glob("**/*.labels.json")):
         try:
             labels = load_labels(labels_path)
         except (OSError, json.JSONDecodeError) as exc:
             violations.append(f"{labels_path}: labels unreadable: {exc}")
+            continue
+        if stage_a_only and not is_stage_a_candidate_label(labels_path, labels):
             continue
         violation = review_status_violation(labels_path, labels)
         if violation:
@@ -123,6 +132,8 @@ def collect_review_status_violations(corpus_dir: Path) -> list[str]:
 
 
 def stage_b_readiness_violation(labels_path: Path, labels: dict[str, Any]) -> str:
+    if not is_stage_a_candidate_label(labels_path, labels):
+        return ""
     if not is_candidate_label(labels):
         return ""
     if is_stage_b_ready(labels):

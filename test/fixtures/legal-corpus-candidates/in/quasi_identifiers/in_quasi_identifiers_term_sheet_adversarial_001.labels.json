@@ -1,350 +1,441 @@
 {
-  "doc_id": "in_quasi_identifiers_term_sheet_adversarial_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "raghav.iyer@pavantra.example.ltd"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dealdesk@reniva.example.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "co-sec@pavantra.example.ltd"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1991-04-09"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 33"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "PL-EMP-0097"
-    },
-    {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "sess-rghv-0421-nvp-5f29"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "A/c No.: 0482 77XX 9021"
-    },
-    {
-      "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "10.6.21.14"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "27AAXCP0000Z5"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Raghav Iyer, FCA"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Raghav K. Iyer"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Children\u2019s data"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "under 18"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no employee MAC addresses are collected for monitoring"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "device telemetry is limited to browser type and session duration"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "revocable"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed acquisition of 51% equity share capital of Pavantra Labs Limited (an Indian listed public company) by Reniva Energy Limited"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "80%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "20%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "designated insiders"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "[Pavantra-Reniva\u2013UPSI]"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "material adverse change"
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 3,240,000,000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 3,240,000,000'"
+      ]
     }
   ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_quasi_identifiers_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "raghav.iyer@pavantra.example.ltd"
+      "matched_text": "raghav.iyer@pavantra.example.ltd",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dealdesk@reniva.example.in"
+      "matched_text": "dealdesk@reniva.example.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "co-sec@pavantra.example.ltd"
+      "matched_text": "co-sec@pavantra.example.ltd",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1991-04-09"
+      "matched_text": "0097",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 33"
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "PL-EMP-0097"
+      "matched_text": "1991-04-09",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "sess-rghv-0421-nvp-5f29"
+      "matched_text": "22",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "A/c No.: 0482 77XX 9021"
+      "matched_text": "Mr. Raghav Iyer",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "10.6.21.14"
+      "matched_text": "Mr. Raghav",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "27AAXCP0000Z5"
+      "matched_text": "Raghav",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Raghav Iyer, FCA"
+      "matched_text": "Iyer",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Raghav K. Iyer"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Children\u2019s data"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "under 18"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no employee MAC addresses are collected for monitoring"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "device telemetry is limited to browser type and session duration"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "revocable"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "R Y I P I 1 2 3 4 Z"
-    },
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "1234 5678 9000"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "RYI\u2022\u2022\u20221234Z"
-    },
-    {
-      "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Linkable identifiers for onboarding the nominee (internal record only): Mr. Raghav K. Iyer (DOB: 1991-04-09, age 33), role: CFO-designate at Pavantra Labs Limited, office: Plot 18, Sector 19, Navi Prana, Maharashtra 410110, device alias: \u201cPAV-CFO-ThinkPad-T14\u201d, email: raghav.iyer@pavantra.example.ltd, PAN: R Y I P I 1 2 3 4 Z, A a d h a a r: 1234 5678 9000 (masked), employee code: PL-EMP-0097, session_ref: sess-rghv-0421-nvp-5f29"
-    },
-    {
-      "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "device nickname \u201cRaghav-iOS-backup\u201d"
-    },
-    {
-      "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "login assigned to \u201cRaghav-I\u201d only"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "sensitive identifiers (Aadhaar/PAN/GSTIN) will be masked"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "consents will be captured for specified purposes and revocable"
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of 51% equity share capital of Pavantra Labs Limited (an Indian listed public company) by Reniva Energy Limited; this document is indicative and non-binding except for Confidentiality, Exclusivity, Costs, and Governing Law (India).",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "Consideration and valuation: INR 3,240,000,000 payable in two tranches (80% at Closing, 20% after 12 months subject to working capital true-up); any reference to share price is UPSI under SEBI (PIT) Regulations until disclosed to stock exchanges.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed acquisition of 51% equity share capital of Pavantra Labs Limited (an Indian listed public company) by Reniva Energy Limited"
+      "matched_text": "Governance post-closing: Reniva to nominate one director and one observer; proposed nominee is Mr. Raghav Iyer, FCA, who shall chair the Audit Committee and oversee treasury integration.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
+      "matched_text": "Payment mechanics: Closing tranche to be remitted to escrow at Samrat Bank Ltd., Branch: Central Navi Prana, A/c No.: 0482 77XX 9021, IFSC: SAMR0000521; escrow terms in Annex II.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "80%"
+      "matched_text": "Miscellaneous: this term sheet does not constitute an offer document, prospectus, or profit forecast; brand names \u201cNimbusGrid\u201d and \u201cSunLeaf\u201d mentioned in synergy plans are product codenames and not securities identifiers.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "20%"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "[Pavantra-Reniva\u2013UPSI]"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "until disclosed to stock exchanges"
+      "matched_text": "51%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
+      "matched_text": "80%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "parties shall maintain information barriers per SEBI PIT and internal codes"
+      "matched_text": "20%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "designated insiders"
+      "matched_text": "3,240,000,000",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "only designated insiders may access the data room"
+      "matched_text": "410110",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "material adverse change"
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 33",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PL-EMP-0097",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sess-rghv-0421-nvp-5f29",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A/c No.: 0482 77XX 9021",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10.6.21.14",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "27AAXCP0000Z5",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Raghav Iyer, FCA",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Raghav K. Iyer",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Children\u2019s data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no employee MAC addresses are collected for monitoring",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "device telemetry is limited to browser type and session duration",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "revocable",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "R Y I P I 1 2 3 4 Z",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1234 5678 9000",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RYI\u2022\u2022\u20221234Z",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Linkable identifiers for onboarding the nominee (internal record only): Mr. Raghav K. Iyer (DOB: 1991-04-09, age 33), role: CFO-designate at Pavantra Labs Limited, office: Plot 18, Sector 19, Navi Prana, Maharashtra 410110, device alias: \u201cPAV-CFO-ThinkPad-T14\u201d, email: raghav.iyer@pavantra.example.ltd, PAN: R Y I P I 1 2 3 4 Z, A a d h a a r: 1234 5678 9000 (masked), employee code: PL-EMP-0097, session_ref: sess-rghv-0421-nvp-5f29",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "device nickname \u201cRaghav-iOS-backup\u201d",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "login assigned to \u201cRaghav-I\u201d only",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sensitive identifiers (Aadhaar/PAN/GSTIN) will be masked",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consents will be captured for specified purposes and revocable",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "before internal circularisation"
+      "matched_text": "Proposed acquisition of 51% equity share capital of Pavantra Labs Limited (an Indian listed public company) by Reniva Energy Limited",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "[Pavantra-Reniva\u2013UPSI]",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until disclosed to stock exchanges",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "parties shall maintain information barriers per SEBI PIT and internal codes",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "designated insiders",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "only designated insiders may access the data room",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before internal circularisation",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "raghav.iyer@pavantra.example.ltd",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dealdesk@reniva.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "co-sec@pavantra.example.ltd",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0097",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-04-09",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "22",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Raghav Iyer",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Raghav",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Raghav",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iyer",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of 51% equity share capital of Pavantra Labs Limited (an Indian listed public company) by Reniva Energy Limited; this document is indicative and non-binding except for Confidentiality, Exclusivity, Costs, and Governing Law (India).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration and valuation: INR 3,240,000,000 payable in two tranches (80% at Closing, 20% after 12 months subject to working capital true-up); any reference to share price is UPSI under SEBI (PIT) Regulations until disclosed to stock exchanges.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Governance post-closing: Reniva to nominate one director and one observer; proposed nominee is Mr. Raghav Iyer, FCA, who shall chair the Audit Committee and oversee treasury integration.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Payment mechanics: Closing tranche to be remitted to escrow at Samrat Bank Ltd., Branch: Central Navi Prana, A/c No.: 0482 77XX 9021, IFSC: SAMR0000521; escrow terms in Annex II.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Miscellaneous: this term sheet does not constitute an offer document, prospectus, or profit forecast; brand names \u201cNimbusGrid\u201d and \u201cSunLeaf\u201d mentioned in synergy plans are product codenames and not securities identifiers.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3,240,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "410110",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
     }
   ],
   "must_not_detect": [
@@ -357,56 +448,47 @@
       "reason": "Generic role noun, not PII or MNPI"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "aged 22",
       "concept": "generic demographic age",
+      "matched_text": "aged 22",
       "reason": "Isolated demographic reference declared non-linkable; may not identify an individual under DPDPA."
     },
     {
-      "matched_text": "Coimbatore",
       "concept": "generic location",
+      "matched_text": "Coimbatore",
       "reason": "Standalone location in a generic example; not linkable to an identifiable person."
     },
     {
-      "matched_text": "deleted with audit logs",
       "concept": "erasure/DSAR control",
+      "matched_text": "deleted with audit logs",
       "reason": "Indicates deletion with audit trail, but there is no explicit erasure-marker rule in the allowed set."
     },
     {
-      "matched_text": "SAMR0000521",
       "concept": "bank IFSC code",
+      "matched_text": "SAMR0000521",
       "reason": "Indian bank branch code is sensitive operational data but not covered by allowed PII rules."
     },
     {
-      "matched_text": "t=af2b_ 9- QP",
       "concept": "URL token",
+      "matched_text": "t=af2b_ 9- QP",
       "reason": "Looks like a tokenized identifier, but not clearly mapped to an allowed identifier type."
     },
     {
-      "matched_text": "device alias: \u201cPAV-CFO-ThinkPad-T14\u201d",
       "concept": "device alias",
+      "matched_text": "device alias: \u201cPAV-CFO-ThinkPad-T14\u201d",
       "reason": "Device identifier string that is linkable but not an enumerated device identifier type in allowed rules."
     },
     {
-      "matched_text": "gw-nvp-04",
       "concept": "network/gateway identifier",
+      "matched_text": "gw-nvp-04",
       "reason": "Operational identifier that can be linkable but not covered by allowed rules."
     },
     {
-      "matched_text": "Maharashtra 410110",
       "concept": "postal code (India)",
+      "matched_text": "Maharashtra 410110",
       "reason": "Indian PIN code may aid identification but there is no India postal-address rule in the allowed set."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 3,240,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 3,240,000,000'"
-  ],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

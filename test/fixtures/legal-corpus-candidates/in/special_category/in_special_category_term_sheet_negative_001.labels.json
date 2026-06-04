@@ -1,210 +1,212 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
   "doc_id": "in_special_category_term_sheet_negative_001",
   "document_type": "term_sheet",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar 0000 1111 2222"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN ZZZPQ9999Z"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN 00ZZZPQ9999Z1Z9"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@kites.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "deals@citrineharbor.example"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "children under 18"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "explicit consent"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "verifiable parental consent"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "enable opt-outs"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimised"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "a chronic kidney condition"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price sensitive information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "need-to-know list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Chinese walls"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean room"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar 0000 1111 2222"
+      "matched_text": "legal@kites.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN ZZZPQ9999Z"
+      "matched_text": "deals@citrineharbor.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN 00ZZZPQ9999Z1Z9"
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@kites.example"
+      "matched_text": "ZZZPQ9999Z",
+      "rule": "in_pan"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "deals@citrineharbor.example"
+      "matched_text": "00ZZZPQ9999Z1Z9",
+      "rule": "in_gstin"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "children under 18"
+      "matched_text": "data of children",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "explicit consent"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "verifiable parental consent"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "enable opt-outs"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimised"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "a chronic kidney condition"
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price sensitive information"
+      "matched_text": "Closing mechanics: Funds flow via an escrow with Indigo Banyan Trusteeship Services Pvt Ltd (fictional), with share allotment and filings of PAS-3 and FC-GPR as applicable within statutory timelines.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "need-to-know list"
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar 0000 1111 2222",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN ZZZPQ9999Z",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN 00ZZZPQ9999Z1Z9",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "children under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "explicit consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "enable opt-outs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimised",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a chronic kidney condition",
+      "rule": "health_condition"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Chinese walls"
+      "matched_text": "unpublished price sensitive information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean room"
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "need-to-know list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean room",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "optional biometric authentication controls"
+      "matched_text": "optional biometric authentication controls",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purpose limitation"
+      "matched_text": "processed solely on consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "processed solely on consent"
+      "matched_text": "Aadhaar",
+      "rule": "in_aadhaar"
     },
     {
       "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar"
+      "matched_text": "PAN",
+      "rule": "in_pan"
     },
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN"
+      "matched_text": "GSTIN",
+      "rule": "in_gstin"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@kites.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN"
+      "matched_text": "deals@citrineharbor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ZZZPQ9999Z",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "00ZZZPQ9999Z1Z9",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data of children",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing mechanics: Funds flow via an escrow with Indigo Banyan Trusteeship Services Pvt Ltd (fictional), with share allotment and filings of PAS-3 and FC-GPR as applicable within statutory timelines.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
     }
   ],
   "must_not_detect": [
@@ -249,33 +251,27 @@
       "reason": "Place name; not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "Individual A (a voluntary declarant)",
       "concept": "named_person placeholder",
+      "matched_text": "Individual A (a voluntary declarant)",
       "reason": "Refers to a specific individual but lacks honorific/signature; outside strict named_person rule yet relevant to personal data context."
     },
     {
-      "matched_text": "Aadhaar/PAN/GSTIN collection practices",
       "concept": "id_type_reference",
+      "matched_text": "Aadhaar/PAN/GSTIN collection practices",
       "reason": "Mentions identifier categories without specific numbers; relevant to PII processing but not covered by strict ID rules."
     },
     {
-      "matched_text": "ring-fenced",
       "concept": "privacy/security control",
+      "matched_text": "ring-fenced",
       "reason": "Indicates restricted processing of sensitive data; relevant to governance but not mapped to an allowed rule."
     },
     {
-      "matched_text": "SEBI (Prohibition of Insider Trading) Regulations, 2015",
       "concept": "insider trading regime reference",
+      "matched_text": "SEBI (Prohibition of Insider Trading) Regulations, 2015",
       "reason": "Provides MNPI compliance context; not directly covered by a specific MNPI rule."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

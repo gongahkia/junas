@@ -1,235 +1,262 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
   "doc_id": "in_special_category_incident_report_adversarial_001",
   "document_type": "memo",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Raghav Iyer"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee ID NVL-E/0192"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric attendance template (fingerprint minutiae hash)"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "health details (Type 1 diabetes regimen)"
-    },
-    {
-      "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "health details (Type 1 diabetes regimen)"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "practicing Jain faith"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "active membership in the Navashakti Employees Union"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Asha Dev"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "99ABCDE1234Z1Z"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "asha.dev@devcraft.trade"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Master Kavish Iyer"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 16"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@navodya-ventures.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@navodya-ventures.in"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price-sensitive information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading window remains closed"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Raghav Iyer"
+      "matched_text": "asha.dev@devcraft.trade",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee ID NVL-E/0192"
+      "matched_text": "Mr. Raghav Iyer",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "P A N: Q W E P I 1 2 3 4 Z"
+      "matched_text": "Ms. Asha Dev",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "A a d h a a r token: 7O3O-1I2L-XX9Z"
+      "matched_text": "Iyer",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric attendance template (fingerprint minutiae hash)"
+      "matched_text": "minor data",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "health details (Type 1 diabetes regimen)"
+      "matched_text": "age 16",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "health details (Type 1 diabetes regimen)"
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "practicing Jain faith"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "active membership in the Navashakti Employees Union"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Asha Dev"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "99ABCDE1234Z1Z"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "asha.dev@devcraft.trade"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Master Kavish Iyer"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "For minor data"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "dependant profile"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 16"
-    },
-    {
-      "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "school ID KAV-16-\u03b9"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@navodya-ventures.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@navodya-ventures.in"
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price-sensitive information"
+      "matched_text": "Incident Report \u2014 Cybersecurity and UPSI Handling, Navodya Ventures Limited (IND-X listing), India",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
+      "matched_text": "The export also inadvertently attached unpublished price-sensitive information: the unannounced dividend range and a draft acquisition term sheet; trading window remains closed per SRAI PIT norms for IND-X listed entities.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unannounced dividend range"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "draft Q4 results"
+      "matched_text": "MAE clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee ID NVL-E/0192",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "P A N: Q W E P I 1 2 3 4 Z",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A a d h a a r token: 7O3O-1I2L-XX9Z",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric attendance template (fingerprint minutiae hash)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "health details (Type 1 diabetes regimen)",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "health details (Type 1 diabetes regimen)",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "practicing Jain faith",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "active membership in the Navashakti Employees Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "99ABCDE1234Z1Z",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Master Kavish Iyer",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "For minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dependant profile",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 16",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "school ID KAV-16-\u03b9",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@navodya-ventures.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@navodya-ventures.in",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "draft acquisition term sheet"
+      "matched_text": "unpublished price-sensitive information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading window remains closed"
+      "matched_text": "unannounced dividend range",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "UPSI segregated under board-approved need-to-know"
+      "matched_text": "draft Q4 results",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "phishing reply-chain"
+      "matched_text": "draft acquisition term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window remains closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI segregated under board-approved need-to-know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "phishing reply-chain",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "asha.dev@devcraft.trade",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Raghav Iyer",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Asha Dev",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iyer",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 16",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Incident Report \u2014 Cybersecurity and UPSI Handling, Navodya Ventures Limited (IND-X listing), India",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The export also inadvertently attached unpublished price-sensitive information: the unannounced dividend range and a draft acquisition term sheet; trading window remains closed per SRAI PIT norms for IND-X listed entities.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE clause",
+      "rule": "material_adverse_change"
     }
   ],
   "must_not_detect": [
@@ -282,38 +309,32 @@
       "reason": "Regulatory role/actor; not PII."
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "guardian consent checkbox not logged",
       "concept": "child consent marker",
+      "matched_text": "guardian consent checkbox not logged",
       "reason": "Indicates missing guardian consent for a minor; relevant under DPDPA but no explicit non-withdrawal consent rule provided."
     },
     {
-      "matched_text": "P A N: Q W E P I 1 2 3 4 Z",
       "concept": "PAN with obfuscating spaces",
+      "matched_text": "P A N: Q W E P I 1 2 3 4 Z",
       "reason": "Clearly a PAN but spacing breaks standard PAN regex; strict detection may fail."
     },
     {
-      "matched_text": "A a d h a a r token: 7O3O-1I2L-XX9Z",
       "concept": "Aadhaar-related token",
+      "matched_text": "A a d h a a r token: 7O3O-1I2L-XX9Z",
       "reason": "Tokenized Aadhaar reference with non-standard format; not a 12-digit Aadhaar number but still sensitive."
     },
     {
-      "matched_text": "school ID KAV-16-\u03b9",
       "concept": "student identifier",
+      "matched_text": "school ID KAV-16-\u03b9",
       "reason": "Unique personal identifier, but not mapped to a specific allowed ID rule; could be treated as account number."
     },
     {
-      "matched_text": "INV-24-07",
       "concept": "internal case number",
+      "matched_text": "INV-24-07",
       "reason": "Unique internal case identifier embedded in URL; may be treated as an account/reference ID but not in allowed rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

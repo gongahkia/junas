@@ -1,335 +1,331 @@
 {
-  "doc_id": "in_jurisdictional_mnpi_term_sheet_default_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
     {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PQRST9876L"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "22PQRST9876L1Z2"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@novasagartech.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@novasagartech.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "rohen.veladi@vistronventures.in"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kavya Daramith"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rohen Veladi"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdraw consent"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "used solely for this transaction"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "deleted or anonymised within 90 days of closing or termination"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "a child (under 18)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "INR 142 per share"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "12,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "19.9%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "25%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Unpublished Price Sensitive Information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure is prohibited"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossing acknowledgments"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading window/blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "The Issuer\u2019s trading window shall remain closed from circulation of this document until 48 hours after dissemination of the Reg 30 outcome"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "structured digital database of insiders"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Chinese walls"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean team protocols"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "strict need-to-know basis"
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 170.4 crore'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 170.4 crore'"
+      ]
     }
   ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_jurisdictional_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PQRST9876L"
+      "matched_text": "rohen.veladi@vistronventures.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "22PQRST9876L1Z2"
+      "matched_text": "withdraw consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@novasagartech.in"
+      "matched_text": "Ms. Kavya Daramith",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@novasagartech.in"
+      "matched_text": "Mr. Rohen Veladi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "rohen.veladi@vistronventures.in"
+      "matched_text": "data of a child",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kavya Daramith"
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data handling: Personal data will be stored in India, used solely for this transaction, and deleted or anonymised within 90 days of closing or termination; data principals may withdraw consent via dpo@novasagartech.in.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "19.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "560128",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rohen Veladi"
+      "matched_text": "PQRST9876L",
+      "rule": "in_pan"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdraw consent"
+      "matched_text": "22PQRST9876L1Z2",
+      "rule": "in_gstin"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "used solely for this transaction"
+      "matched_text": "dpo@novasagartech.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "deleted or anonymised within 90 days of closing or termination"
+      "matched_text": "compliance@novasagartech.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "a child (under 18)"
+      "matched_text": "used solely for this transaction",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "not retained"
+      "matched_text": "deleted or anonymised within 90 days of closing or termination",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Personal data will be stored in India"
+      "matched_text": "a child (under 18)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "not retained",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal data will be stored in India",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Proposed Strategic Investment in NovaSagar Technologies Limited (the Issuer) by Vistron Ventures Private Limited (the Investor)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "Preferential allotment of 12,000,000 equity shares at INR 142 per share (aggregate INR 170.4 crore) and a secondary purchase of 3% from SuryaKamal Holdings LLP, capping post-deal holding at 19.9%",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed Strategic Investment in NovaSagar Technologies Limited (the Issuer) by Vistron Ventures Private Limited (the Investor)"
+      "matched_text": "INR 142 per share",
+      "rule": "contract_unit_price"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Preferential allotment of 12,000,000 equity shares at INR 142 per share (aggregate INR 170.4 crore) and a secondary purchase of 3% from SuryaKamal Holdings LLP, capping post-deal holding at 19.9%"
+      "matched_text": "Unpublished Price Sensitive Information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "INR 142 per share"
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "12,000,000"
+      "matched_text": "Until disseminated on the stock exchange websites, this term sheet and any negotiations constitute Unpublished Price Sensitive Information under SEBI (PIT) Regulations",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3%"
+      "matched_text": "selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "19.9%"
+      "matched_text": "wall-crossing acknowledgments are required",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "25%"
+      "matched_text": "Trading window/blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Unpublished Price Sensitive Information"
+      "matched_text": "The Issuer\u2019s trading window shall remain closed from circulation of this document until 48 hours after dissemination of the Reg 30 outcome",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
+      "matched_text": "The Issuer\u2019s trading window shall remain closed from circulation of this document until 48 hours after dissemination of the Reg 30 outcome; pre-clearance and contra trade restrictions apply per the Issuer\u2019s Code of Conduct",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Until disseminated on the stock exchange websites, this term sheet and any negotiations constitute Unpublished Price Sensitive Information under SEBI (PIT) Regulations"
+      "matched_text": "structured digital database of insiders as per PIT Regulations",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure is prohibited"
+      "matched_text": "onward sharing only on a strict need-to-know basis under NDA and subject to Chinese walls and clean team protocols",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossing acknowledgments are required"
+      "matched_text": "clean team protocols",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Trading window/blackout"
+      "matched_text": "strict need-to-know basis",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "The Issuer\u2019s trading window shall remain closed from circulation of this document until 48 hours after dissemination of the Reg 30 outcome"
+      "matched_text": "must not be used to infer trading cues",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "The Issuer\u2019s trading window shall remain closed from circulation of this document until 48 hours after dissemination of the Reg 30 outcome; pre-clearance and contra trade restrictions apply per the Issuer\u2019s Code of Conduct"
+      "matched_text": "Disclosure timing and content will be assessed against the Issuer\u2019s board-approved materiality policy (including quantitative thresholds and event-based triggers) and issuer-relative impact on turnover, profitability, or net worth",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "structured digital database of insiders as per PIT Regulations"
+      "matched_text": "wall-crossing acknowledgments",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "onward sharing only on a strict need-to-know basis under NDA and subject to Chinese walls and clean team protocols"
+      "matched_text": "structured digital database of insiders",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rohen.veladi@vistronventures.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdraw consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Kavya Daramith",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rohen Veladi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data of a child",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Chinese walls"
+      "matched_text": "Data handling: Personal data will be stored in India, used solely for this transaction, and deleted or anonymised within 90 days of closing or termination; data principals may withdraw consent via dpo@novasagartech.in.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean team protocols"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "strict need-to-know basis"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "must not be used to infer trading cues"
+      "matched_text": "3%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "Disclosure timing and content will be assessed against the Issuer\u2019s board-approved materiality policy (including quantitative thresholds and event-based triggers) and issuer-relative impact on turnover, profitability, or net worth"
+      "matched_text": "19.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "560128",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Chinese walls",
+      "rule": "information_barrier_marker"
     }
   ],
   "must_not_detect": [
@@ -346,36 +342,27 @@
       "reason": "Role-noun defined term"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "Aadhaar",
       "concept": "in_aadhaar (ID type mention without number)",
+      "matched_text": "Aadhaar",
       "reason": "ID type referenced but no specific identifier value present"
     },
     {
-      "matched_text": "explicit consent",
       "concept": "consent basis",
+      "matched_text": "explicit consent",
       "reason": "Consent requirement mentioned but only withdrawal is an allowed rule"
     },
     {
-      "matched_text": "masked/verified via offline XML only",
       "concept": "data minimisation/verification method",
+      "matched_text": "masked/verified via offline XML only",
       "reason": "Control on Aadhaar processing is privacy-relevant but not mapped to an allowed rule"
     },
     {
-      "matched_text": "long stop date 90 days from signing",
       "concept": "timeline/embargo-like milestone",
+      "matched_text": "long stop date 90 days from signing",
       "reason": "Timing gate is material to transaction process but does not match allowed embargo_marker keywords"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 170.4 crore'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 170.4 crore'"
-  ],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

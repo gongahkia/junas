@@ -167,11 +167,6 @@
   "must_detect": [
     {
       "category": "PII",
-      "matched_text": "2026-0154",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
       "matched_text": "Ms. Rina Koh",
       "rule": "named_person"
     },
@@ -255,6 +250,14 @@
       "concept": "exchange filing reference",
       "matched_text": "SCXN-2026-0154",
       "reason": "Legally relevant identifier for a public filing but no allowed rule covers exchange filing numbers"
+    }
+  ],
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0154",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
     }
   ]
 }

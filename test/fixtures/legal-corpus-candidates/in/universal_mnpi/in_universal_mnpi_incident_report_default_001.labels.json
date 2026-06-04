@@ -1,295 +1,291 @@
 {
-  "doc_id": "in_universal_mnpi_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
     {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Unpublished Price Sensitive Information (UPSI)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Banyan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo until 14-06-2026 08:30 IST"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "SEBI PIT insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "black-out period"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3.8%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "0.9%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "2%"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN"
-    },
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "27 minor scholarship applicants"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "27 minors"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "under 18"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Radhika Menon"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Dev Malik"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91-9900001111"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1800-093-221"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "r.menon@varanix.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dev.malik@varanix.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@varanix.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "consent@varanix.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@varanix.in"
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 12.5 crore'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 12.5 crore'"
+      ]
     }
   ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_universal_mnpi_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Unpublished Price Sensitive Information (UPSI)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Banyan"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo until 14-06-2026 08:30 IST"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "until disclosure at 14-06-2026 08:30 IST"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "SEBI PIT insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "black-out period"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3.8%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "0.9%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "2%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "Cyber incident"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not for external circulation"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI handling log"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "definitive agreement"
+      "category": "PII",
+      "matched_text": "consent@varanix.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN"
+      "matched_text": "r.menon@varanix.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN"
+      "matched_text": "dev.malik@varanix.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar"
+      "matched_text": "+91-9900001111",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "27 minor scholarship applicants"
+      "matched_text": "Ms. Radhika Menon",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "27 minors"
+      "matched_text": "Mr. Dev Malik",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "under 18"
+      "matched_text": "parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This incident intersects with the definitive agreement with Heliotrope Cyber Pvt Ltd under codename Project Banyan, countersigned on 03-06-2026, with closing contingent on customary conditions and exchange review.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor-relations draft script adjusts Q1 EBITDA guidance by approximately 2% to incorporate one-time remediation costs; not for external circulation until the embargo time above.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Unpublished Price Sensitive Information (UPSI)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 14-06-2026 08:30 IST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until disclosure at 14-06-2026 08:30 IST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SEBI PIT insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "black-out period",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for external circulation",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI handling log",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Radhika Menon"
+      "matched_text": "PAN",
+      "rule": "in_pan"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Dev Malik"
+      "matched_text": "GSTIN",
+      "rule": "in_gstin"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91-9900001111"
+      "matched_text": "Aadhaar",
+      "rule": "in_aadhaar"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1800-093-221"
+      "matched_text": "27 minor scholarship applicants",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "r.menon@varanix.in"
+      "matched_text": "27 minors",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dev.malik@varanix.in"
+      "matched_text": "under 18",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@varanix.in"
+      "matched_text": "1800-093-221",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "consent@varanix.in"
+      "matched_text": "ir@varanix.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@varanix.in"
+      "matched_text": "dpo@varanix.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "No financial account numbers were retained"
+      "matched_text": "No financial account numbers were retained",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "consent@varanix.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "r.menon@varanix.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dev.malik@varanix.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-9900001111",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Radhika Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dev Malik",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This incident intersects with the definitive agreement with Heliotrope Cyber Pvt Ltd under codename Project Banyan, countersigned on 03-06-2026, with closing contingent on customary conditions and exchange review.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor-relations draft script adjusts Q1 EBITDA guidance by approximately 2% to incorporate one-time remediation costs; not for external circulation until the embargo time above.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Banyan",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -310,46 +306,37 @@
       "reason": "Context is MAC/MAE language heading; not a positive MAC/MAE trigger."
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "VIL-UPSI-2026-0611",
       "concept": "UPSI log identifier",
+      "matched_text": "VIL-UPSI-2026-0611",
       "reason": "Internal compliance tracking code; may be sensitive MNPI but not mapped to a listed rule."
     },
     {
-      "matched_text": "CIN: L12345MH2020PLC000999",
       "concept": "Corporate Identification Number (CIN)",
+      "matched_text": "CIN: L12345MH2020PLC000999",
       "reason": "Corporate ID, not in allowed PII list and not personal data; borderline relevance."
     },
     {
-      "matched_text": "UPI credentials",
       "concept": "Payment identifier",
+      "matched_text": "UPI credentials",
       "reason": "UPI is a payments ID; not covered by current PII rules but can be sensitive."
     },
     {
-      "matched_text": "hashed Aadhaar tokens",
       "concept": "Pseudonymised Aadhaar reference",
+      "matched_text": "hashed Aadhaar tokens",
       "reason": "Mentions Aadhaar without numbers; relevance to in_aadhaar detection may be keyword-only."
     },
     {
-      "matched_text": "masked PAN",
       "concept": "Masked PAN reference",
+      "matched_text": "masked PAN",
       "reason": "Mentions PAN without numbers; might be considered but relies on keyword detection."
     },
     {
-      "matched_text": "work emails",
       "concept": "Generic PII category mention",
+      "matched_text": "work emails",
       "reason": "Refers to email data category without specific addresses; legally relevant but outside strict value rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 12.5 crore'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 12.5 crore'"
-  ],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

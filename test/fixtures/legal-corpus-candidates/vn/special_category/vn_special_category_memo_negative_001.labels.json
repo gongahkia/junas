@@ -175,11 +175,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "1234-0000",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
       "matched_text": "E-2045",
       "rule": "employee_id"
     },
@@ -235,7 +230,7 @@
       "reason": "Sports team name, not PII or MNPI"
     },
     {
-      "matched_text": "Phu Lâm City",
+      "matched_text": "Phu L\u00e2m City",
       "reason": "Place name, not PII or MNPI"
     },
     {
@@ -312,5 +307,13 @@
     "status": "codex_reconciled_owner_approved_internal_benchmark",
     "owner_approval_reviewed_at_utc": "2026-06-03T13:20:58Z",
     "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "1234-0000",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

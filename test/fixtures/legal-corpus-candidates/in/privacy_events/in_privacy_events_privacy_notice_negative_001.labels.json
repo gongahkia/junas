@@ -1,160 +1,166 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
   "doc_id": "in_privacy_events_privacy_notice_negative_001",
   "document_type": "generic",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ops@triverafinserve.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@triverafinserve.example"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "under 18"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer approval (positive)"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "opt-out"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Minimisation"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ops@triverafinserve.example"
+      "matched_text": "ops@triverafinserve.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@triverafinserve.example"
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "under 18"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer approval (positive)"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "opt-out"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "consent withdrawal"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "masked PAN"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "not in raw form"
-    },
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "full PAN"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN hash"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "hashed employee IDs"
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price-sensitive information"
+      "matched_text": "Negative assurance: no leak, breach, or sharing of UPSI is occurring or proposed; domestic exchange listing rules are observed under the company\u2019s Insider Trading Code.",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@triverafinserve.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer approval (positive)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opt-out",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent withdrawal",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked PAN",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "not in raw form",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "full PAN",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN hash",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hashed employee IDs",
+      "rule": "employee_id"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
+      "matched_text": "unpublished price-sensitive information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Children\u2019s data"
+      "matched_text": "Children\u2019s data",
+      "rule": "minor_data_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ops@triverafinserve.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "child data"
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Negative assurance: no leak, breach, or sharing of UPSI is occurring or proposed; domestic exchange listing rules are observed under the company\u2019s Insider Trading Code.",
+      "rule": "material_event"
     }
   ],
   "must_not_detect": [],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "Retention: onboarding files 5 years; access logs 18 months; marketing preferences until withdrawal; auto-deletion schedules tested and not paused",
       "concept": "retention_marker",
+      "matched_text": "Retention: onboarding files 5 years; access logs 18 months; marketing preferences until withdrawal; auto-deletion schedules tested and not paused",
       "reason": "Retention schedule is a privacy-handling event but there is no explicit retention_marker rule in the allowed set."
     },
     {
-      "matched_text": "we completed a data principal request to delete marketing contact details and confirm opt-out, with audit log retained per law",
       "concept": "DSAR/erasure",
+      "matched_text": "we completed a data principal request to delete marketing contact details and confirm opt-out, with audit log retained per law",
       "reason": "Describes a DSAR deletion and erasure outcome; no explicit dsar_marker or erasure_marker rule is available."
     },
     {
-      "matched_text": "any inadvertent capture triggers suppression and erasure workflow without saving Aadhaar",
       "concept": "erasure_marker",
+      "matched_text": "any inadvertent capture triggers suppression and erasure workflow without saving Aadhaar",
       "reason": "Erasure workflow is a relevant privacy event, but no erasure_marker rule is defined."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

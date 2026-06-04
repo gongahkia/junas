@@ -5,11 +5,6 @@
   "destination_jurisdiction": "KR",
   "must_detect": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1234-0000"
-    },
-    {
       "category": "MNPI",
       "rule": "material_event",
       "matched_text": "The sandbox folder was removed per IM housekeeping and checksum-verified; this was a scheduled control, not a corrective action for a breach involving personal data."
@@ -163,5 +158,13 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
     "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
     "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "1234-0000",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

@@ -1,280 +1,303 @@
 {
-  "doc_id": "in_jurisdictional_mnpi_term_sheet_adversarial_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_resolved_label_warnings": [
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priyanka N. Devaraj"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "priyanka.devaraj@oxyvia.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dealroom@narmadaridge.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "escrow@parijattrust.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@oxyvia.example"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91-80-4X7X-9X2X"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "QZFPX1234Q"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "children\u2019s (under 18) data"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "will be masked and minimised"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not store full Aadhaar or unmasked scans"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "to be anonymised where feasible"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price sensitive information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure is prohibited"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading window for designated persons remains closed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading window closure shall continue"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "until 48 hours after public disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "material event"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "MoU"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "Material Adverse Change"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
+      "status": "codex_reconciled_to_deterministic_strict_tier",
+      "warnings": [
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 212 per equity share'",
+        "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 8,000,000'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 212 per equity share'",
+        "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 8,000,000'"
+      ]
     }
   ],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
+  "doc_id": "in_jurisdictional_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priyanka N. Devaraj"
+      "matched_text": "priyanka.devaraj@oxyvia.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "priyanka.devaraj@oxyvia.example"
+      "matched_text": "escrow@parijattrust.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dealroom@narmadaridge.example"
+      "matched_text": "legal@oxyvia.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "escrow@parijattrust.example"
+      "matched_text": "Ms. Priyanka",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative Term Sheet \u2014 Strategic Investment and Proposed Acquisition of 51% of Oxyvia HealthTech Limited by Narmada Ridge Ventures Fund I (non-binding, for discussion)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosure Timing: The parties shall disclose signing of definitive documents as a material event under Re gu la tion 30 read with Schedule III within 24 hours (or next working day if outside trading hours), and provide reasons for any delay consistent with the LODR guidance",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data Protection & KYC: Processing of personal data for diligence and KYC will comply with the Digital Personal Data Protection Act, 2023; consent of Data Principals will be recorded; no children\u2019s (under 18) data will be sought or processed; PAN/Aadhaar/GSTIN, if collected, will be masked and minimised (examples: PAN (masked): QZFPX1234Q; Aadhaar (masked): 9XX3-1X6X-4X2X; GSTIN (masked): 29-ABCPX1234Q-1-Z9), with retention limited to 90 days post-closing; do not store full Aadhaar or unmasked scans",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exclusivity; Standstill: 60-day exclusivity; no-shop/no-talk; standstill on market purchases except as permitted by applicable takeover regulations; break fee INR 8,000,000 if the issuer signs a superior binding proposal during exclusivity",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MoU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8,000,000",
+      "rule": "large_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@oxyvia.example"
+      "matched_text": "Ms. Priyanka N. Devaraj",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91-80-4X7X-9X2X"
+      "matched_text": "dealroom@narmadaridge.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "QZFPX1234Q"
+      "matched_text": "+91-80-4X7X-9X2X",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar (masked): 9XX3-1X6X-4X2X"
+      "matched_text": "QZFPX1234Q",
+      "rule": "in_pan"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN (masked): 29-ABCPX1234Q-1-Z9"
+      "matched_text": "Aadhaar (masked): 9XX3-1X6X-4X2X",
+      "rule": "in_aadhaar"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "masked a/c no.: 00-4X7X-9X2X"
+      "matched_text": "GSTIN (masked): 29-ABCPX1234Q-1-Z9",
+      "rule": "in_gstin"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "children\u2019s (under 18) data"
+      "matched_text": "masked a/c no.: 00-4X7X-9X2X",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "will be masked and minimised"
+      "matched_text": "children\u2019s (under 18) data",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not store full Aadhaar or unmasked scans"
+      "matched_text": "will be masked and minimised",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "to be anonymised where feasible"
+      "matched_text": "do not store full Aadhaar or unmasked scans",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "to be anonymised where feasible",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price sensitive information"
+      "matched_text": "unpublished price sensitive information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure is prohibited"
+      "matched_text": "selective disclosure is prohibited",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "No selective meetings with investors or analysts"
+      "matched_text": "No selective meetings with investors or analysts",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no guidance beyond what is publicly available"
+      "matched_text": "no guidance beyond what is publicly available",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading window for designated persons remains closed"
+      "matched_text": "trading window for designated persons remains closed",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading window closure shall continue"
+      "matched_text": "trading window closure shall continue",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "until 48 hours after public disclosure"
+      "matched_text": "until 48 hours after public disclosure",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout window"
+      "matched_text": "blackout window",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "material event"
+      "matched_text": "material event",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "definitive documents",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "MoU"
+      "matched_text": "subject to pricing formula under applicable regulations",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "priyanka.devaraj@oxyvia.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "escrow@parijattrust.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@oxyvia.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priyanka",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "definitive documents"
+      "matched_text": "Indicative Term Sheet \u2014 Strategic Investment and Proposed Acquisition of 51% of Oxyvia HealthTech Limited by Narmada Ridge Ventures Fund I (non-binding, for discussion)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "Material Adverse Change"
+      "matched_text": "Disclosure Timing: The parties shall disclose signing of definitive documents as a material event under Re gu la tion 30 read with Schedule III within 24 hours (or next working day if outside trading hours), and provide reasons for any delay consistent with the LODR guidance",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12%"
+      "matched_text": "Data Protection & KYC: Processing of personal data for diligence and KYC will comply with the Digital Personal Data Protection Act, 2023; consent of Data Principals will be recorded; no children\u2019s (under 18) data will be sought or processed; PAN/Aadhaar/GSTIN, if collected, will be masked and minimised (examples: PAN (masked): QZFPX1234Q; Aadhaar (masked): 9XX3-1X6X-4X2X; GSTIN (masked): 29-ABCPX1234Q-1-Z9), with retention limited to 90 days post-closing; do not store full Aadhaar or unmasked scans",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
+      "matched_text": "Exclusivity; Standstill: 60-day exclusivity; no-shop/no-talk; standstill on market purchases except as permitted by applicable takeover regulations; break fee INR 8,000,000 if the issuer signs a superior binding proposal during exclusivity",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "subject to pricing formula under applicable regulations"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MoU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8,000,000",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
@@ -299,53 +322,42 @@
       "reason": "Role-noun reference, not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "retention limited to 90 days post-closing",
       "concept": "retention_marker",
+      "matched_text": "retention limited to 90 days post-closing",
       "reason": "Retention period is a privacy control but no explicit retention rule is listed."
     },
     {
-      "matched_text": "consent of Data Principals will be recorded",
       "concept": "consent_marker",
+      "matched_text": "consent of Data Principals will be recorded",
       "reason": "Indicates consent capture; only withdrawal is covered in allowed rules."
     },
     {
-      "matched_text": "CIN (obf.): L0XX0XXMH20XXPLC0X9X",
       "concept": "corporate_identifier",
+      "matched_text": "CIN (obf.): L0XX0XXMH20XXPLC0X9X",
       "reason": "Indian CIN is a corporate ID not included in allowed PII rules."
     },
     {
-      "matched_text": "obf. reg. no.: IN/AIF2/23-1X7X",
       "concept": "regulatory_registration_number",
+      "matched_text": "obf. reg. no.: IN/AIF2/23-1X7X",
       "reason": "AIF registration number is not in allowed PII rules but may be sensitive."
     },
     {
-      "matched_text": "obf. reg. no.: IN/TRU/20-XX9X",
       "concept": "regulatory_registration_number",
+      "matched_text": "obf. reg. no.: IN/TRU/20-XX9X",
       "reason": "Intermediary registration number not covered by allowed PII rules."
     },
     {
-      "matched_text": "symbol: OXYVIA",
       "concept": "security_ticker_local",
+      "matched_text": "symbol: OXYVIA",
       "reason": "Local listed symbol is relevant context but only SGX counter is in allowed rules."
     },
     {
-      "matched_text": "escrow a/c name: OXYVIA OPEN OFFER ESCROW",
       "concept": "bank_account_name",
+      "matched_text": "escrow a/c name: OXYVIA OPEN OFFER ESCROW",
       "reason": "Account name may be sensitive in context but not covered by allowed PII rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 212 per equity share'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='INR 8,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 212 per equity share'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='INR 8,000,000'"
-  ],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

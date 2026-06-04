@@ -12,11 +12,6 @@
     {
       "category": "PII",
       "rule": "phone_number",
-      "matched_text": "2026-0412"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
       "matched_text": "+84 930 123 456"
     },
     {
@@ -37,7 +32,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "MNPI examples include the HGX listing application draft, Q2 preliminary revenue figures, private placement term sheet, and merger discussion “Seagrass”; access is restricted to IR/Finance and logged with classification “MNPI-Red.”"
+      "matched_text": "MNPI examples include the HGX listing application draft, Q2 preliminary revenue figures, private placement term sheet, and merger discussion \u201cSeagrass\u201d; access is restricted to IR/Finance and logged with classification \u201cMNPI-Red.\u201d"
     },
     {
       "category": "MNPI",
@@ -69,7 +64,7 @@
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Ms. Lê Thu Minh"
+      "matched_text": "Ms. L\u00ea Thu Minh"
     },
     {
       "category": "PII",
@@ -79,12 +74,12 @@
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Mr. Trần Quang Hậu"
+      "matched_text": "Mr. Tr\u1ea7n Quang H\u1eadu"
     },
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Ms. Nguyễn Thu Vân"
+      "matched_text": "Ms. Nguy\u1ec5n Thu V\u00e2n"
     },
     {
       "category": "PII",
@@ -164,12 +159,12 @@
     {
       "category": "PII",
       "rule": "quasi_identifier_combination",
-      "matched_text": "Ms. Lê Thu Minh (DOB 1992-03-17), Investor Relations Officer at Bamboo River Energy JSC, based at Emerald Tower, Q.3, Ho Chi Minh City, uses OrchidBook Pro 14 S/N BR-IR-0091; staff code IR-037; payroll bank at Sun Lotus Bank account ****7431; IR-Portal session ID 7f9c2d; email minh.lt@bambooriver.vn"
+      "matched_text": "Ms. L\u00ea Thu Minh (DOB 1992-03-17), Investor Relations Officer at Bamboo River Energy JSC, based at Emerald Tower, Q.3, Ho Chi Minh City, uses OrchidBook Pro 14 S/N BR-IR-0091; staff code IR-037; payroll bank at Sun Lotus Bank account ****7431; IR-Portal session ID 7f9c2d; email minh.lt@bambooriver.vn"
     },
     {
       "category": "PII",
       "rule": "quasi_identifier_combination",
-      "matched_text": "A vendor risk form may record DOB 1988-11-04, role “compliance analyst,” location “Hải Phòng,” device OrchidPhone X (IMEI suffix 5538), and user tag “cn-17,” without names or direct identifiers"
+      "matched_text": "A vendor risk form may record DOB 1988-11-04, role \u201ccompliance analyst,\u201d location \u201cH\u1ea3i Ph\u00f2ng,\u201d device OrchidPhone X (IMEI suffix 5538), and user tag \u201ccn-17,\u201d without names or direct identifiers"
     },
     {
       "category": "PII",
@@ -214,7 +209,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "merger discussion “Seagrass”"
+      "matched_text": "merger discussion \u201cSeagrass\u201d"
     },
     {
       "category": "MNPI",
@@ -254,7 +249,7 @@
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "MNPI examples include the HGX listing application draft, Q2 preliminary revenue figures, private placement term sheet, and merger discussion “Seagrass”; access is restricted to IR/Finance and logged with classification “MNPI-Red.”"
+      "matched_text": "MNPI examples include the HGX listing application draft, Q2 preliminary revenue figures, private placement term sheet, and merger discussion \u201cSeagrass\u201d; access is restricted to IR/Finance and logged with classification \u201cMNPI-Red.\u201d"
     },
     {
       "category": "MNPI",
@@ -295,11 +290,11 @@
       "reason": "Generic device type/demographic, not identifying alone"
     },
     {
-      "matched_text": "Đà Lạt",
+      "matched_text": "\u0110\u00e0 L\u1ea1t",
       "reason": "Standalone city/demographic, not identifying alone"
     },
     {
-      "matched_text": "Hải Phòng",
+      "matched_text": "H\u1ea3i Ph\u00f2ng",
       "reason": "Standalone city/demographic, not identifying alone"
     },
     {
@@ -318,7 +313,7 @@
       "reason": "Privacy retention marker is relevant but no explicit allowed rule for retention"
     },
     {
-      "matched_text": "non-MNPI HR records follow a 36‑month retention workflow",
+      "matched_text": "non-MNPI HR records follow a 36\u2011month retention workflow",
       "concept": "retention period",
       "reason": "Privacy retention marker is relevant but no explicit allowed rule for retention"
     },
@@ -409,5 +404,13 @@
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "VN Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0412",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

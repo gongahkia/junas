@@ -1,190 +1,217 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
   "doc_id": "in_direct_identifiers_incident_report_adversarial_001",
   "document_type": "memo",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Dev Mehta"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dev.mehta@sarayan-metals.in"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91 98190 55432"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "29AAKCS1234Q1Z9"
-    },
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "1234 5678 9012"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "442211009988"
-    },
-    {
-      "category": "PII",
-      "rule": "mac_address",
-      "matched_text": "aa:bb:cc:dd:ee:ff"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "meena.rao@sarayan-metals.in"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Meena Rao"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91-98200 12345"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "info@sarayan-metals.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "support@sarayan-metals.in"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91-114000 3344"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price sensitive information"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Dev Mehta"
+      "matched_text": "dev.mehta@sarayan-metals.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dev.mehta@sarayan-metals.in"
+      "matched_text": "meena.rao@sarayan-metals.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91 98190 55432"
+      "matched_text": "info@sarayan-metals.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "29AAKCS1234Q1Z9"
+      "matched_text": "+91 98190 55432",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "1234 5678 9012"
+      "matched_text": "+91-98200 12345",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "442211009988"
+      "matched_text": "+91-114000 3344",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "mac_address",
-      "matched_text": "aa:bb:cc:dd:ee:ff"
+      "matched_text": "29AAKCS1234Q1Z9",
+      "rule": "in_gstin"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "meena.rao@sarayan-metals.in"
+      "matched_text": "Mr. Dev Mehta",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Meena Rao"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91-98200 12345"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "info@sarayan-metals.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "support@sarayan-metals.in"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91-114000 3344"
+      "matched_text": "Ms. Meena Rao",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price sensitive information"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "AAKCS 1234Q"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "P1 234567"
-    },
-    {
-      "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "1209999999999999"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_customer_reference",
-      "matched_text": "meena.rao@fictbank"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "child (under 18)"
+      "matched_text": "The mailbox contained draft Q1 results, a board agenda on a potential buyback/bonus, and investor presentation notes; these qualify as unpublished price sensitive information for Indian listed securities.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "isUPSI=1"
+      "matched_text": "Evidence links: hxxps://mse.listing.example/issuer/SARAYAN?doc=earnings-draft&isUPSI=1&uid=UPSl-0426 and hxxps://mail.sarayan-metals.in/msg/8f2a- 9c1b.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "operational cyber incident"
+      "matched_text": "234567",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "potential buyback/bonus"
+      "matched_text": "560199",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1234 5678 9012",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "442211009988",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "aa:bb:cc:dd:ee:ff",
+      "rule": "mac_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "support@sarayan-metals.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unpublished price sensitive information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AAKCS 1234Q",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "P1 234567",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1209999999999999",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "meena.rao@fictbank",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child (under 18)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "isUPSI=1",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "operational cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "potential buyback/bonus",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dev.mehta@sarayan-metals.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "meena.rao@sarayan-metals.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "info@sarayan-metals.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91 98190 55432",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-98200 12345",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91-114000 3344",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "29AAKCS1234Q1Z9",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Dev Mehta",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Meena Rao",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The mailbox contained draft Q1 results, a board agenda on a potential buyback/bonus, and investor presentation notes; these qualify as unpublished price sensitive information for Indian listed securities.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Evidence links: hxxps://mse.listing.example/issuer/SARAYAN?doc=earnings-draft&isUPSI=1&uid=UPSl-0426 and hxxps://mail.sarayan-metals.in/msg/8f2a- 9c1b.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "234567",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "560199",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
@@ -209,28 +236,22 @@
       "reason": "role-only function, not a person name"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "U 3 1 9 0 9 K A 2 0 2 1 P L C 0 8 2 3 4 5",
       "concept": "company_identifier (CIN)",
+      "matched_text": "U 3 1 9 0 9 K A 2 0 2 1 P L C 0 8 2 3 4 5",
       "reason": "Corporate Identification Number is a company ID, not covered by allowed PII rules and not personal"
     },
     {
-      "matched_text": "SM-VND-0042",
       "concept": "internal_vendor_code",
+      "matched_text": "SM-VND-0042",
       "reason": "Internal vendor code may identify a vendor account but is not an allowed PII rule and may refer to an organisation"
     },
     {
-      "matched_text": "IFSC FICT0001234",
       "concept": "bank_branch_code",
+      "matched_text": "IFSC FICT0001234",
       "reason": "IFSC is a bank/branch identifier; not in allowed PII categories but could be sensitive in context"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

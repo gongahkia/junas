@@ -11,11 +11,6 @@
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-0603"
-    },
-    {
-      "category": "PII",
       "rule": "data_minimisation_marker",
       "matched_text": "data minimization"
     },
@@ -291,5 +286,13 @@
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0603",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

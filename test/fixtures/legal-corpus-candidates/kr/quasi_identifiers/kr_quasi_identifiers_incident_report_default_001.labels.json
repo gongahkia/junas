@@ -16,11 +16,6 @@
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-0612"
-    },
-    {
-      "category": "PII",
       "rule": "data_minimisation_marker",
       "matched_text": "data minimization"
     },
@@ -169,7 +164,7 @@
     {
       "category": "MNPI",
       "rule": "financial_percentage",
-      "matched_text": "7–9%"
+      "matched_text": "7\u20139%"
     },
     {
       "category": "MNPI",
@@ -224,12 +219,12 @@
     {
       "category": "PII",
       "rule": "quasi_identifier_combination",
-      "matched_text": "Primary user context: Mr. Kim Min-su (Head of IT Operations, DOB 1985-07-14, Seoryeong Riverfront Office 17F) was active under AD account 'minsu.kim85' from 21:36–21:44 KST using company laptop 'HPH-NB14-5521' and VPN session 'sess-AX91B-20260603-2142'"
+      "matched_text": "Primary user context: Mr. Kim Min-su (Head of IT Operations, DOB 1985-07-14, Seoryeong Riverfront Office 17F) was active under AD account 'minsu.kim85' from 21:36\u201321:44 KST using company laptop 'HPH-NB14-5521' and VPN session 'sess-AX91B-20260603-2142'"
     },
     {
       "category": "MNPI",
       "rule": "material_event",
-      "matched_text": "projected Q3 output at Seoryeong Tech Park Line 2 to be reduced by 7–9% pending recalibration"
+      "matched_text": "projected Q3 output at Seoryeong Tech Park Line 2 to be reduced by 7\u20139% pending recalibration"
     },
     {
       "category": "MNPI",
@@ -303,5 +298,13 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
     "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
     "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0612",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

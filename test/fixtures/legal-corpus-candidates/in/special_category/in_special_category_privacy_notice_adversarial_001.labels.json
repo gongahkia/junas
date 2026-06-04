@@ -1,300 +1,357 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
   "doc_id": "in_special_category_privacy_notice_adversarial_001",
   "document_type": "generic",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@nereuscap.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ops.pm@nct.example"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91 74000 12345"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Devika Jain"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Master Ishan V. Rao"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 16"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "child Data Principal"
-    },
-    {
-      "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "asthma treatment record"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "Student Artists Union membership"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Smt. Kavita Rao"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "AAAAA0000A"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Raghav T. Menon"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "voiceprint login"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "retinal hash"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "religious belief (Jain)"
-    },
-    {
-      "category": "PII",
-      "rule": "sexual_orientation",
-      "matched_text": "sexual orientation (gay)"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "explicit, revocable consent"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfers"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "child data minimized and deleted after 24 months of inactivity"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "please do not email full Aadhaar\u2014use PAN (masked) or GSTIN reference only"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price-sensitive information (UPSI)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list access"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@nereuscap.in"
+      "matched_text": "ops.pm@nct.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ops.pm@nct.example"
+      "matched_text": "+91 74000 12345",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+91 74000 12345"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Devika Jain"
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Master Ishan V. Rao"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 16"
+      "matched_text": "Ms. Devika Jain",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "child Data Principal"
+      "matched_text": "Mr. Raghav",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "asthma treatment record"
+      "matched_text": "Jain",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "Student Artists Union membership"
+      "matched_text": "voiceprint",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Smt. Kavita Rao"
+      "matched_text": "genetic test",
+      "rule": "genetic_data"
     },
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "AAAAA0000A"
+      "matched_text": "age 16",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Raghav T. Menon"
+      "matched_text": "child Data",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "voiceprint login"
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "retinal hash"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "religious belief (Jain)"
-    },
-    {
-      "category": "PII",
-      "rule": "sexual_orientation",
-      "matched_text": "sexual orientation (gay)"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "explicit, revocable consent"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfers"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "child data minimized and deleted after 24 months of inactivity"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "please do not email full Aadhaar\u2014use PAN (masked) or GSTIN reference only"
-    },
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar: 7 3 0 1 **** ****"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN: 99ABCDX1234Z9Z (demo)"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN (masked): A A A A A 0 0 0 0 A"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "under 18"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "Biometric templates"
-    },
-    {
-      "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "genetic test summaries"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "verifiable guardian consent is required and can be withdrawn without detriment to non-essential services"
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price-sensitive information (UPSI)"
+      "matched_text": "Housekeeping and policy baits: Nimbus Ledger and CloudPeacock are product names; our Fair Work Charter and Open Inclusion Policy are general guidance only; we support diversity, equity, and inclusion; this update is not a material adverse change; references to the Jaipur Falcons or Moon Tigers are illustrative; we avoid metaphors like \u201cdata is the new oil\u201d.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list services"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list access"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@nereuscap.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Master Ishan V. Rao",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 16",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child Data Principal",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "asthma treatment record",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Student Artists Union membership",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Smt. Kavita Rao",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AAAAA0000A",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Raghav T. Menon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "voiceprint login",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "retinal hash",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "religious belief (Jain)",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sexual orientation (gay)",
+      "rule": "sexual_orientation"
+    },
+    {
+      "category": "PII",
+      "matched_text": "explicit, revocable consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child data minimized and deleted after 24 months of inactivity",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "please do not email full Aadhaar\u2014use PAN (masked) or GSTIN reference only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar: 7 3 0 1 **** ****",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN: 99ABCDX1234Z9Z (demo)",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN (masked): A A A A A 0 0 0 0 A",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Biometric templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic test summaries",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable guardian consent is required and can be withdrawn without detriment to non-essential services",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "UPSI insider lists"
+      "matched_text": "unpublished price-sensitive information (UPSI)",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "need-to-know"
+      "matched_text": "insider-list services",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "segregated from sales systems"
+      "matched_text": "insider-list access",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "UPSI is never transferred to dealers, analysts, or brokers"
+      "matched_text": "UPSI insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "need-to-know",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "segregated from sales systems",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI is never transferred to dealers, analysts, or brokers",
+      "rule": "tipping_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ops.pm@nct.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+91 74000 12345",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Devika Jain",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Raghav",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Jain",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "voiceprint",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic test",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 16",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child Data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Housekeeping and policy baits: Nimbus Ledger and CloudPeacock are product names; our Fair Work Charter and Open Inclusion Policy are general guidance only; we support diversity, equity, and inclusion; this update is not a material adverse change; references to the Jaipur Falcons or Moon Tigers are illustrative; we avoid metaphors like \u201cdata is the new oil\u201d.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -347,58 +404,52 @@
       "reason": "Negated context; do not label as material_adverse_change"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "Aadhaar: 7 3 0 1 **** ****",
       "concept": "in_aadhaar",
+      "matched_text": "Aadhaar: 7 3 0 1 **** ****",
       "reason": "Masked Aadhaar reference; not a strict numeric pattern but semantically an Aadhaar ID"
     },
     {
-      "matched_text": "GSTIN: 99ABCDX1234Z9Z (demo)",
       "concept": "in_gstin",
+      "matched_text": "GSTIN: 99ABCDX1234Z9Z (demo)",
       "reason": "Demo GSTIN may not meet strict length/format but is intended as GSTIN"
     },
     {
-      "matched_text": "PAN (masked): A A A A A 0 0 0 0 A",
       "concept": "in_pan",
+      "matched_text": "PAN (masked): A A A A A 0 0 0 0 A",
       "reason": "Masked/spaced PAN may not match strict detectors but is a PAN"
     },
     {
-      "matched_text": "insider-list services",
       "concept": "insider_list_marker",
+      "matched_text": "insider-list services",
       "reason": "Service description implies insider list handling; may be missed by strict detectors"
     },
     {
-      "matched_text": "segregated from sales systems",
       "concept": "information_barrier_marker",
+      "matched_text": "segregated from sales systems",
       "reason": "Indicates information barriers for UPSI; phrasing may be too generic for strict rule-matching"
     },
     {
-      "matched_text": "need-to-know",
       "concept": "information_barrier_marker",
+      "matched_text": "need-to-know",
       "reason": "Control language indicating restricted UPSI access; could be missed without explicit barrier keywords"
     },
     {
-      "matched_text": "UPSI insider lists",
       "concept": "insider_list_marker",
+      "matched_text": "UPSI insider lists",
       "reason": "Retention clause mentions insider lists; contextually MNPI-relevant but non-standard phrasing"
     },
     {
-      "matched_text": "trade union newsletters",
       "concept": "trade_union_membership",
+      "matched_text": "trade union newsletters",
       "reason": "Union-related processing context without explicit membership; sensitive but not directly covered by a specific rule"
     },
     {
-      "matched_text": "union status",
       "concept": "trade_union_membership",
+      "matched_text": "union status",
       "reason": "Reference to union status affects profiling decisions; sensitive category but not an explicit membership string"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

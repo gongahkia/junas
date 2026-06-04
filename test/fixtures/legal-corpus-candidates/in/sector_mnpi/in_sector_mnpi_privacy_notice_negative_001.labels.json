@@ -1,165 +1,192 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
   "doc_id": "in_sector_mnpi_privacy_notice_negative_001",
   "document_type": "generic",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN: PANNN0000X"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN: 00ABCDE0000A0Z0"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@SuryQuant.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "grievance@SuryQuant.example"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "under 18 years"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "child (under 18 years)"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Aadhaar number is not required (only masked last 4 if voluntarily provided)"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "We never request full Aadhaar, CVV, or seed phrases; forms showing \u201cAccount No: 0000-XX-9876\u201d or \u201cAadhaar: XXXX-XXXX-1234\u201d are masks and not persisted in production logs"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrawal is available without detriment except where processing is required by law"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfers: Primary storage is in India; limited transfers to processors in approved locations occur under contractual safeguards, transfer risk assessments, and audit rights"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "prior to public disclosure"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN: PANNN0000X"
+      "matched_text": "0000-XX-9876",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN: 00ABCDE0000A0Z0"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@SuryQuant.example"
+      "matched_text": "data of a child",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "grievance@SuryQuant.example"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "under 18 years"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "child (under 18 years)"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Aadhaar number is not required (only masked last 4 if voluntarily provided)"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "We never request full Aadhaar, CVV, or seed phrases; forms showing \u201cAccount No: 0000-XX-9876\u201d or \u201cAadhaar: XXXX-XXXX-1234\u201d are masks and not persisted in production logs"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrawal is available without detriment except where processing is required by law"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfers: Primary storage is in India; limited transfers to processors in approved locations occur under contractual safeguards, transfer risk assessments, and audit rights"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "Account No: 0000-XX-9876"
-    },
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar: XXXX-XXXX-1234"
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
+      "matched_text": "Security: Encryption at rest, MFA, DLP, and periodic simulations; incident notifications will follow CERT-In advisories and applicable SEBI guidance for intermediaries where relevant.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list entries"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "prior to public disclosure"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PAN: PANNN0000X",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GSTIN: 00ABCDE0000A0Z0",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@SuryQuant.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "grievance@SuryQuant.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18 years",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "child (under 18 years)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar number is not required (only masked last 4 if voluntarily provided)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We never request full Aadhaar, CVV, or seed phrases; forms showing \u201cAccount No: 0000-XX-9876\u201d or \u201cAadhaar: XXXX-XXXX-1234\u201d are masks and not persisted in production logs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrawal is available without detriment except where processing is required by law",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers: Primary storage is in India; limited transfers to processors in approved locations occur under contractual safeguards, transfer risk assessments, and audit rights",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Account No: 0000-XX-9876",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Aadhaar: XXXX-XXXX-1234",
+      "rule": "in_aadhaar"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "cyber intrusion"
+      "matched_text": "insider-list entries",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "prior to public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "cyber intrusion",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "0000-XX-9876",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data of a child",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security: Encryption at rest, MFA, DLP, and periodic simulations; incident notifications will follow CERT-In advisories and applicable SEBI guidance for intermediaries where relevant.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
     }
   ],
   "must_not_detect": [
@@ -200,28 +227,22 @@
       "reason": "Explicitly published materials; not MNPI."
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "Retention: KYC and contract records are retained for up to 8 years post-relationship under applicable Indian record-keeping norms; training logs and insider-list entries are retained for 5 years from the relevant event",
       "concept": "retention_marker",
+      "matched_text": "Retention: KYC and contract records are retained for up to 8 years post-relationship under applicable Indian record-keeping norms; training logs and insider-list entries are retained for 5 years from the relevant event",
       "reason": "Retention is a privacy-event signal but not included in the allowed PII rule list."
     },
     {
-      "matched_text": "DSAR: To access, correct, port, or erase your data, submit a request via privacy@SuryQuant.example; we will acknowledge within 7 days and respond within 30 days after identity validation",
       "concept": "dsar_request_marker",
+      "matched_text": "DSAR: To access, correct, port, or erase your data, submit a request via privacy@SuryQuant.example; we will acknowledge within 7 days and respond within 30 days after identity validation",
       "reason": "DSAR/erasure rights are privacy-relevant but not covered by an allowed rule."
     },
     {
-      "matched_text": "verifiable parental consent",
       "concept": "parental_consent_marker",
+      "matched_text": "verifiable parental consent",
       "reason": "Parental consent for minors is privacy-relevant but not captured by the allowed rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

@@ -21,11 +21,6 @@
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-0142"
-    },
-    {
-      "category": "PII",
       "rule": "passport_number",
       "matched_text": "AA0000000"
     },
@@ -219,7 +214,7 @@
     {
       "category": "MNPI",
       "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "Cyber Incident Report – HR share compromise and MNPI exposure risk under FIEA"
+      "matched_text": "Cyber Incident Report \u2013 HR share compromise and MNPI exposure risk under FIEA"
     },
     {
       "category": "MNPI",
@@ -281,5 +276,13 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
     "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
     "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0142",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

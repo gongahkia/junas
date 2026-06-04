@@ -5,11 +5,6 @@
   "destination_jurisdiction": "TH",
   "must_detect": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-0519"
-    },
-    {
       "category": "MNPI",
       "rule": "material_event",
       "matched_text": "Mekkhala Energy Public Company Limited \u2014 Immediate Cybersecurity Incident Report prepared for Thai securities disclosure purposes under the Securities and Exchange Act."
@@ -205,5 +200,13 @@
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "TH Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0519",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

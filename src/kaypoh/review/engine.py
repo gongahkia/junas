@@ -1298,7 +1298,7 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|UKPA|EIN|ISIN|LEI|a/c|acc\s*t|account|"
     r"bank\s*acct|payroll\s*acct|A\s*/\s*c|"
     r"rekening|national\s+id|company\s+no|co\.\s+no|"
-    r"reg\.\s+no|registration\s+no|\bCR\b|CRN|CIN|commercial\s+registration|"
+    r"reg\.\s+no|registration\s+no|\bCR\b|CRN|CIN|C\s*I\s*N|commercial\s+registration|"
     r"filing\s+ref|tax\s+id|tax\s+ref|tax\s+no|TINs?|VAT|V\s*A\s*T|ZATCA|GAZT|MST|EPF|SWIFT|"
     r"TRN|CRN|trade\s+licen[cs]e|commercial\s+licen[cs]e|Emirates\s+I\s*D|EID|"
     r"national\s+address|Bldg|Iqama|IQA\s*MA|National\s+ID|NID|AP\s+No|"
@@ -1523,11 +1523,15 @@ def _is_negated_mac_address_context(text: str, start: int, end: int) -> bool:
 def _is_negated_material_adverse_change_context(text: str, start: int, end: int) -> bool:
     if _is_negated_context(text, start):
         return True
-    context = _line_context(text, start, end)
-    return bool(re.search(
+    line_start = text.rfind("\n", 0, start) + 1
+    line_end = text.find("\n", end)
+    if line_end < 0:
+        line_end = len(text)
+    context = text[line_start:line_end]
+    prefix = text[line_start:end]
+    if re.search(
         r"\b(?:"
         r"no\s+event\s+has\s+occurred[^\n.;]{0,120}material\s+adverse\s+change|"
-        r"no\s+[\"“]?material\s+adverse\s+effect[\"”]?\s+occurred|"
         r"no\s+mac[^\n.;]{0,100}material\s+adverse\s+change|"
         r"not\s+expected\s+to\s+constitute[^\n.;]{0,120}material\s+adverse\s+(?:change|effect)|"
         r"not\s+expected\s+to\s+have[^\n.;]{0,120}material\s+adverse\s+(?:change|effect)|"
@@ -1538,13 +1542,23 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         r"nothing\s+herein\s+constitutes[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"nothing\s+herein\s+constitutes\s+or\s+admits[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
         r"not\s+intended\s+to\s+trigger[^\n.;]{0,80}(?:mac|mae)|"
-        r"(?:mac|mae)\s+clause[^\n.;]{0,80}has\s+not\s+been\s+triggered|"
-        r"does\s+not\s+include\s+any[^\n.;]{0,120}material\s+adverse\s+change\s+trigger|"
-        r"mac\s+clause[^\n.;]{0,160}does\s+not\s+by\s+itself\s+signal\s+a\s+material\s+adverse\s+change|"
-        r"material\s+adverse\s+change[^\n.;]{0,80}not\s+triggered|"
         r"negates\s+inference\s+of\s+a\s+material\s+adverse\s+(?:change|effect)|"
         r"không\s+phải\s+là[^\n.;]{0,80}material\s+adverse\s+(?:change|effect)|"
-        r"tidak[^\n.;]{0,80}material\s+adverse\s+change|"
+        r"tidak[^\n.;]{0,80}material\s+adverse\s+change"
+        r")\b",
+        prefix,
+        re.IGNORECASE,
+    ):
+        return True
+    return bool(re.search(
+        r"\b(?:"
+        r"no\s+[\"“]?material\s+adverse\s+effect[\"”]?\s+occurred|"
+        r"(?:mac|mae)\s+clause[^\n.;]{0,80}has\s+not\s+been\s+triggered|"
+        r"material\s+adverse\s+change[^\n.;]{0,80}not\s+triggered|"
+        r"does\s+not\s+include\s+any[^\n.;]{0,120}material\s+adverse\s+change(?:\s+trigger)?|"
+        r"(?:mac|mae)[- ]?like\s+clause[^\n.;]{0,100}material\s+adverse\s+change(?:\s+trigger)?|"
+        r"mac\s+clause[^\n.;]{0,160}(?:is\s+negated|does\s+not\s+by\s+itself\s+signal)"
+        r"[^\n.;]{0,80}material\s+adverse\s+change|"
         r"bukan\s+mac|not\s+a\s+mac"
         r")\b",
         context,

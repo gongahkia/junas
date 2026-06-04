@@ -27,11 +27,6 @@
     {
       "category": "PII",
       "rule": "phone_number",
-      "matched_text": "2026-0527"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
       "matched_text": "201901234567"
     },
     {
@@ -232,7 +227,7 @@
     {
       "matched_text": "Reg. No.: 200501112233 (654321-H)",
       "concept": "company_registration_number",
-      "reason": "Subsidiary’s SSM registration; not covered by allowed rules."
+      "reason": "Subsidiary\u2019s SSM registration; not covered by allowed rules."
     },
     {
       "matched_text": "cid=201901234567",
@@ -296,5 +291,13 @@
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "MY Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0527",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

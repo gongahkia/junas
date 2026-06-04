@@ -227,11 +227,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "2026-0418",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
       "matched_text": "ASEAN MCCs",
       "rule": "cross_border_transfer_marker"
     },
@@ -350,6 +345,14 @@
       "concept": "work location",
       "matched_text": "Pasir Panjang Tower 3",
       "reason": "Location contributes to a quasi-identifier cluster but is not PII on its own"
+    }
+  ],
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0418",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
     }
   ]
 }

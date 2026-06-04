@@ -1,205 +1,182 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
   "doc_id": "in_sector_mnpi_incident_report_negative_001",
   "document_type": "memo",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "AAAAA0000A"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "22AAAAA0000A1Z5"
-    },
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "000000000000"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@banyangrid.example.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@banyangrid.example.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "cs@banyangrid.example.in"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1800-000-000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading-window restriction"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "scrub placeholder IDs"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not transmit Aadhaar/PAN/GSTIN over email"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "use secure upload"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "replace samples with \u201c000000000000\u201d/\u201cAAAAA0000A\u201d style templates in mockups only"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Children\u2019s data"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minors under 18"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "AAAAA0000A"
+      "matched_text": "cs@banyangrid.example.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "22AAAAA0000A1Z5"
-    },
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "000000000000"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@banyangrid.example.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@banyangrid.example.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "cs@banyangrid.example.in"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1800-000-000"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "scrub placeholder IDs"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not transmit Aadhaar/PAN/GSTIN over email"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "use secure upload"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "replace samples with \u201c000000000000\u201d/\u201cAAAAA0000A\u201d style templates in mockups only"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Children\u2019s data"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minors under 18"
+      "matched_text": "22AAAAA0000A1Z5",
+      "rule": "in_gstin"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading-window restriction"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Q4 FY26 Sustainability KPI_Draft.pdf"
+      "matched_text": "Information Barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "AAAAA0000A",
+      "rule": "in_pan"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000000000000",
+      "rule": "in_aadhaar"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@banyangrid.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@banyangrid.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1800-000-000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "scrub placeholder IDs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not transmit Aadhaar/PAN/GSTIN over email",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "use secure upload",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "replace samples with \u201c000000000000\u201d/\u201cAAAAA0000A\u201d style templates in mockups only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Children\u2019s data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 18",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "add the Sustainability Working Group to the insider list"
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information Barrier SOP (Public Extract)"
+      "matched_text": "trading-window restriction",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "no breach of the information barrier detected"
+      "matched_text": "Q4 FY26 Sustainability KPI_Draft.pdf",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List Procedure (Training Copy)"
+      "matched_text": "add the Sustainability Working Group to the insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "temporary trading-window restriction applies only to the Sustainability Working Group per Code of Conduct"
+      "matched_text": "Information Barrier SOP (Public Extract)",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "not a material cyber incident for stock exchange intimation at this time"
+      "matched_text": "no breach of the information barrier detected",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List Procedure (Training Copy)",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "temporary trading-window restriction applies only to the Sustainability Working Group per Code of Conduct",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not a material cyber incident for stock exchange intimation at this time",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cs@banyangrid.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "22AAAAA0000A1Z5",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information Barrier",
+      "rule": "information_barrier_marker"
     }
   ],
   "must_not_detect": [
@@ -220,28 +197,22 @@
       "reason": "Corporate identifier (CIN) is not personal data under allowed PII rules."
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "Data Principal requests via privacy@banyangrid.example.in will be actioned within statutory timelines",
       "concept": "DSAR handling marker",
+      "matched_text": "Data Principal requests via privacy@banyangrid.example.in will be actioned within statutory timelines",
       "reason": "Indicates rights requests handling under DPDPA; no specific allowed rule for DSAR marker."
     },
     {
-      "matched_text": "processing basis was consent for marketing",
       "concept": "consent basis marker",
+      "matched_text": "processing basis was consent for marketing",
       "reason": "Indicates consent as legal basis; only withdrawal marker is defined in allowed rules."
     },
     {
-      "matched_text": "testnet addresses",
       "concept": "crypto address reference",
+      "matched_text": "testnet addresses",
       "reason": "Refers to crypto addresses but no specific wallet/address string present to match crypto_wallet_address."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

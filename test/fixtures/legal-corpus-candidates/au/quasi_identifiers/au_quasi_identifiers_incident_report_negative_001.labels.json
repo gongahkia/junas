@@ -43,7 +43,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "One screenshot in the finance share drive displayed combined weak identifiers for a Murra Energy employee in QLD—role title “Payroll Officer,” office location Milton, month/year of birth 03/1986, device hostname FIN-LAP-072, internal staff code EMP-2741, and corporate card suffix 4421 on a receipt",
+      "matched_text": "One screenshot in the finance share drive displayed combined weak identifiers for a Murra Energy employee in QLD\u2014role title \u201cPayroll Officer,\u201d office location Milton, month/year of birth 03/1986, device hostname FIN-LAP-072, internal staff code EMP-2741, and corporate card suffix 4421 on a receipt",
       "rule": "quasi_identifier_combination"
     },
     {
@@ -112,11 +112,6 @@
       "category": "PII",
       "matched_text": "payroll@murraenergy.example.au",
       "rule": "email_address"
-    },
-    {
-      "category": "PII",
-      "matched_text": "2026-0512",
-      "rule": "phone_number"
     },
     {
       "category": "PII",
@@ -222,5 +217,13 @@
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0512",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

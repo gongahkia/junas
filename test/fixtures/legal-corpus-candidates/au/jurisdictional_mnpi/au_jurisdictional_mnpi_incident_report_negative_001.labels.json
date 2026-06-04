@@ -99,11 +99,6 @@
   ],
   "must_detect": [
     {
-      "category": "PII",
-      "matched_text": "2026-0518",
-      "rule": "phone_number"
-    },
-    {
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
@@ -140,5 +135,13 @@
     "reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "scope": "AU Stage B candidate labels only; no recall-lock promotion.",
     "status": "approved_for_internal_benchmarking"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2026-0518",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

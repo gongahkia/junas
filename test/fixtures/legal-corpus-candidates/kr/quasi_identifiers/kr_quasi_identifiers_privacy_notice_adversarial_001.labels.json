@@ -26,11 +26,6 @@
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2024-0917"
-    },
-    {
-      "category": "PII",
       "rule": "employee_id",
       "matched_text": "11877"
     },
@@ -174,7 +169,7 @@
     {
       "category": "PII",
       "rule": "named_person",
-      "matched_text": "Mr. Joon‑hyuk Baek"
+      "matched_text": "Mr. Joon\u2011hyuk Baek"
     },
     {
       "category": "PII",
@@ -194,7 +189,7 @@
     {
       "category": "PII",
       "rule": "cross_border_transfer_marker",
-      "matched_text": "cross‑border transfer"
+      "matched_text": "cross\u2011border transfer"
     },
     {
       "category": "PII",
@@ -214,7 +209,7 @@
     {
       "category": "PII",
       "rule": "internal_session_id",
-      "matched_text": "KCX-ir-2024-04-18-Δ17"
+      "matched_text": "KCX-ir-2024-04-18-\u039417"
     },
     {
       "category": "PII",
@@ -249,7 +244,7 @@
     {
       "category": "PII",
       "rule": "data_minimisation_marker",
-      "matched_text": "Resident‑number collection is minimized"
+      "matched_text": "Resident\u2011number collection is minimized"
     },
     {
       "category": "PII",
@@ -259,7 +254,7 @@
     {
       "category": "PII",
       "rule": "quasi_identifier_combination",
-      "matched_text": "Ms. Yuna Seok (IR associate, OKL Seoul Campus, Mapo‑gu), DOB 1991-05-14 (33), intranet account y.seok@okl-kr.example, device gxy-s23-9b2c, private IP 10.24.16.3, session KCX-ir-2024-04-18-Δ17"
+      "matched_text": "Ms. Yuna Seok (IR associate, OKL Seoul Campus, Mapo\u2011gu), DOB 1991-05-14 (33), intranet account y.seok@okl-kr.example, device gxy-s23-9b2c, private IP 10.24.16.3, session KCX-ir-2024-04-18-\u039417"
     },
     {
       "category": "MNPI",
@@ -302,7 +297,7 @@
       "reason": "Data retention duration is relevant under PIPA but not mapped to an allowed rule."
     },
     {
-      "matched_text": "KCX PIPE project “jade-sparrow”",
+      "matched_text": "KCX PIPE project \u201cjade-sparrow\u201d",
       "concept": "transaction_codename",
       "reason": "Appears to be an internal project codename relevant to MNPI, but does not match the strict 'Project <Name>' pattern."
     },
@@ -339,5 +334,13 @@
     "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
     "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
     "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  },
+  "_strict_reconciliation_adjustments": [
+    {
+      "status": "removed_after_phone_precision_guard",
+      "rule": "phone_number",
+      "matched_text": "2024-0917",
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+    }
+  ]
 }

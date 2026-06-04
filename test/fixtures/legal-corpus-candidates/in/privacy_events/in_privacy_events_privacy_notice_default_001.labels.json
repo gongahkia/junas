@@ -1,270 +1,287 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Stage B strict tier reconciled to deterministic engine output and pending project-owner approval; ideal_must_detect preserves broader auto-label/legal-coverage spans for roadmap gap discovery.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "method": "must_detect rebuilt from PreSendReviewEngine strict findings; previous strict and ideal labels retained in ideal_must_detect for gap discovery",
+    "review_profile": "strict",
+    "status": "codex_reconciled_pending_owner_review"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "IN",
   "doc_id": "in_privacy_events_privacy_notice_default_001",
   "document_type": "generic",
-  "source_jurisdiction": "IN",
-  "destination_jurisdiction": "IN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar"
-    },
-    {
-      "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN"
-    },
-    {
-      "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal event"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew marketing consent"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "under 18"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dp-requests@rivanta.example.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@rivanta.example.in"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "grievance@rivanta.example.in"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Devanth Oorvak"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Arohi Vartesh"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kavinth Jorander"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Sudhan Girel"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Tishya Norvel"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price sensitive information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading window was closed"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "in_aadhaar",
-      "matched_text": "Aadhaar"
+      "matched_text": "dp-requests@rivanta.example.in",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "in_pan",
-      "matched_text": "PAN"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "in_gstin",
-      "matched_text": "GSTIN"
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
+      "matched_text": "consent is withdrawn",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal event"
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew marketing consent"
+      "matched_text": "Mr. Devanth Oorvak",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "under 18"
+      "matched_text": "Ms. Arohi Vartesh",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dp-requests@rivanta.example.in"
+      "matched_text": "Mr. Kavinth Jorander",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@rivanta.example.in"
+      "matched_text": "Mr. Sudhan Girel",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "grievance@rivanta.example.in"
+      "matched_text": "Ms. Tishya Norvel",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Devanth Oorvak"
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Arohi Vartesh"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kavinth Jorander"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Sudhan Girel"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Tishya Norvel"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer"
+      "matched_text": "minor profile",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished price sensitive information"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading window was closed"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minor contact fields"
+      "matched_text": "Aadhaar",
+      "rule": "in_aadhaar"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minor profile fields"
+      "matched_text": "PAN",
+      "rule": "in_pan"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "birth month"
+      "matched_text": "GSTIN",
+      "rule": "in_gstin"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Consent withdrawal event",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew marketing consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 18",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@rivanta.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "grievance@rivanta.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UPSI"
+      "matched_text": "unpublished price sensitive information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "trading window was closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor contact fields",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor profile fields",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "birth month",
+      "rule": "age_reference"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "UPSI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "ring-fenced"
+      "matched_text": "ring-fenced",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "access to UPSI is segregated and monitored"
+      "matched_text": "access to UPSI is segregated and monitored",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Export Approval EA-2026-118"
+      "matched_text": "Export Approval EA-2026-118",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "DPDPA cross-border notifications"
+      "matched_text": "DPDPA cross-border notifications",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "masked/hashed form"
+      "matched_text": "masked/hashed form",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "tokenising Aadhaar/PAN"
+      "matched_text": "tokenising Aadhaar/PAN",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "consent can be withdrawn"
+      "matched_text": "consent can be withdrawn",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "child investors"
+      "matched_text": "child investors",
+      "rule": "minor_data_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dp-requests@rivanta.example.in",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure requests",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "consent is withdrawn",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Devanth Oorvak",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Arohi Vartesh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kavinth Jorander",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sudhan Girel",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tishya Norvel",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "verifiable parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minor profile",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -285,73 +302,67 @@
       "reason": "Section header; not a specific MNPI datum"
     }
   ],
+  "source_jurisdiction": "IN",
   "uncertain": [
     {
-      "matched_text": "Erasure event",
       "concept": "erasure_marker",
+      "matched_text": "Erasure event",
       "reason": "Erasure markers are legally relevant but no explicit allowed rule provided"
     },
     {
-      "matched_text": "erasure completed",
       "concept": "erasure_marker",
+      "matched_text": "erasure completed",
       "reason": "Erasure completion is relevant DSAR handling without a mapped rule"
     },
     {
-      "matched_text": "cryptographic erasure",
       "concept": "erasure_marker",
+      "matched_text": "cryptographic erasure",
       "reason": "Privacy event detail not covered by allowed rules"
     },
     {
-      "matched_text": "Retention schedule",
       "concept": "retention_marker",
+      "matched_text": "Retention schedule",
       "reason": "Retention markers are in coverage concept but not an allowed rule"
     },
     {
-      "matched_text": "insider lists retained during the life of mandate plus 5 years",
       "concept": "retention_marker",
+      "matched_text": "insider lists retained during the life of mandate plus 5 years",
       "reason": "Retention period for insider lists lacks a specific allowed rule"
     },
     {
-      "matched_text": "Access request AR-26-0441",
       "concept": "dsar_marker",
+      "matched_text": "Access request AR-26-0441",
       "reason": "DSAR completion is relevant but no allowed DSAR rule exists"
     },
     {
-      "matched_text": "https://privacy.rivanta.example.in",
       "concept": "dsar_portal_url",
+      "matched_text": "https://privacy.rivanta.example.in",
       "reason": "Portal URL for DSAR is relevant but URLs are not an allowed rule"
     },
     {
-      "matched_text": "Ref: RCML-DPA-26/118",
       "concept": "internal_reference",
+      "matched_text": "Ref: RCML-DPA-26/118",
       "reason": "Internal reference number not mapped to an allowed identifier rule"
     },
     {
-      "matched_text": "Company ID RCML-09X77",
       "concept": "internal_reference",
+      "matched_text": "Company ID RCML-09X77",
       "reason": "Internal company identifier; not an allowed PII rule"
     },
     {
-      "matched_text": "New Chennai 600197",
       "concept": "postal_code",
+      "matched_text": "New Chennai 600197",
       "reason": "Indian postal code is relevant location data but no India postal address rule is provided"
     },
     {
-      "matched_text": "last 4 digits only",
       "concept": "data_minimisation_detail",
+      "matched_text": "last 4 digits only",
       "reason": "Minimisation detail is relevant but the numeric pattern is not covered by allowed rules"
     },
     {
-      "matched_text": "otp-based e-consent",
       "concept": "consent_marker",
+      "matched_text": "otp-based e-consent",
       "reason": "Consent capture is relevant but only withdrawal marker has an allowed rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }
