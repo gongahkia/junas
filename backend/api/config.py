@@ -32,6 +32,10 @@ class Settings(BaseSettings):
     gemini_model: str = "gemini-2.0-flash"
     lmstudio_url: str = "http://localhost:1234"
     lmstudio_model: str = "default"
+    azure_openai_api_key: str = ""
+    azure_openai_endpoint: str = ""
+    azure_openai_api_version: str = "2024-08-01-preview"
+    azure_openai_deployment: str = ""
     allow_byok: bool = True
     require_auth: bool = False
     api_keys: list[str] = Field(default_factory=list)

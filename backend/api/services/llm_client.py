@@ -31,6 +31,37 @@ class OpenAIClient(LLMClient):
         return choice if isinstance(choice, str) else ""
 
 
+class AzureOpenAIClient(LLMClient):
+    """Azure OpenAI Chat Completions client.
+
+    Azure's chat-completions API mirrors OpenAI's but is reached through a
+    per-resource endpoint and uses a *deployment* name (a per-Azure-resource
+    label for a model) in place of OpenAI's model identifier.
+    """
+
+    def __init__(self, *, api_key: str, endpoint: str, api_version: str, deployment: str):
+        openai_module = importlib.import_module("openai")
+        async_azure_cls = getattr(openai_module, "AsyncAzureOpenAI", None)
+        if async_azure_cls is None:
+            raise RuntimeError("openai package does not provide AsyncAzureOpenAI")
+        self.client = async_azure_cls(
+            api_key=api_key,
+            api_version=api_version,
+            azure_endpoint=endpoint,
+        )
+        self.deployment = deployment
+
+    async def generate(self, messages: list[dict[str, str]], max_tokens: int = 1024) -> str:
+        response = await self.client.chat.completions.create(
+            model=self.deployment,  # Azure: the model param carries the deployment name
+            messages=messages,
+            max_tokens=max_tokens,
+            temperature=0.1,
+        )
+        choice = response.choices[0].message.content
+        return choice if isinstance(choice, str) else ""
+
+
 class AnthropicClient(LLMClient):
     def __init__(self, api_key: str, model: str = "claude-sonnet-4-20250514"):
         anthropic_module = importlib.import_module("anthropic")
