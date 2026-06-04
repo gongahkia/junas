@@ -1,0 +1,15 @@
+Incident Report — Velari Networks Limited (the Company), incident window 31 May–02 Jun 2026, India
+Summary: Automated alerts flagged anomalous login attempts against the customer support portal; the attempts were contained within an hour, and no data exfiltration or service outage was observed.
+DPDPA assessment: Logs reviewed indicate only system metadata and ticket IDs; no names, postal addresses, phone numbers, bank details, or precise location data were captured; no Data Principals under 18 years of age are processed in this portal.
+Identifier bait in non-production: Certain UAT logs contained placeholders such as “Aadhaar: XXXX-XXXX-XXXX”, “PAN: AAAAA0000A (test)”, and “GSTIN: 00AAAAA0000A1Z0 (dummy)”; these were not present in production logs and are not real identifiers.
+Consent and purpose: Processing aligns with the Company’s privacy notice and service terms; consent is recorded via click-through at account creation; queries may be directed to helpdesk@velarinetworks.example.
+Containment and remediation: API keys rotated, service-account credentials reset, and rate limits adjusted; no cardholder data, payroll, or HR systems were accessed.
+Public status: Advisory on safe practices and scheduled maintenance was posted on the corporate website on 02 Jun 2026; no fresh customer advisory is warranted at this time.
+Exchange filing history: A general cybersecurity hygiene update was already filed on the stock exchange portals on 03 Jun 2026; a similar disclosure appears in the FY 2024–25 Annual Report and is publicly available.
+Potential UPSI: A preliminary internal assessment indicates a possible deferral of certain onboarding revenues for Q1 FY27 due to manual verification queues; this internal estimate is not public and must be handled as UPSI under the PIT Regulations until formal exchange disclosure.
+Trading window: The trading window for Designated Persons remains closed under the Code of Conduct (PIT Regulations, Schedule B) for the ongoing quarter; any selective communication outside exchange filings is prohibited.
+Materiality and timing: Issuer-relative materiality is under review with reference to past disclosures; if material, an intimation will be filed within prescribed timelines under LODR Regulation 30.
+Third-party context: Aarohan Cloud Services Private Limited, a hosting vendor, performed routine patching during the period; this non-issuer operational update has no impact on the Company’s financial reporting.
+Lawful basis and rights: No harm to Data Principals has been identified; access/erasure requests will be honoured per DPDPA and the Company’s grievance redressal process.
+Children’s data: The affected systems do not onboard or profile individuals under 18; no student or minors’ programme data is in scope.
+Contacts: Information security queries—infosec@velarinetworks.example; investor queries—investor.relations@velarinetworks.example.
