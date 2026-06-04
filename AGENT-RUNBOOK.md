@@ -277,7 +277,9 @@ Copilot product polish (uplifts real legal-tech-buyer experience):
 - COPILOT-4: keyboard shortcuts + power-user palette
 
 See `PROMPTS-TO-RUN.md` for the ready-to-paste prompt blocks; each
-issue maps to a specific batch ID or SOLO-N / COPILOT-N entry.
+issue maps to a specific batch ID or SOLO-N / COPILOT-N entry. The
+doc is sorted top-down by execution priority (Tier 1 = launch path,
+Tier 4 = post-launch). Hard dependencies are listed inline.
 
 ## 12. Output etiquette when reporting back
 

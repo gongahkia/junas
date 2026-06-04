@@ -51,6 +51,333 @@ context for prioritisation.
 
 ---
 
+---
+
+# Fire order (read this first)
+
+PROMPTS BELOW ARE LISTED IN EXECUTION ORDER. Top to bottom.
+
+The tier markers are ship-discipline, not arbitrary. Items within a
+tier can run in parallel; items in later tiers should wait until
+their tier's dependencies land. Hard-dependency notes are inline on
+each prompt.
+
+| Tier | Why this tier exists | Items |
+|---|---|---|
+| **Tier 1 — Launch path** | Without these, there is no HN headline + no v0.1 ship | Batch D, SOLO-17, SOLO-9, Batch A, Batch B |
+| **Tier 2 — Post-numbers** | Need Tier-1 outputs to start | SOLO-8, SOLO-18, SOLO-10 |
+| **Tier 3 — Pre-launch polish** | Visible to launch-day visitors | Batch E, Batch C, SOLO-3, SOLO-1, SOLO-2, SOLO-5, SOLO-6, SOLO-4 |
+| **Tier 4 — Post-launch + v0.2** | Ships after launch | Batch G, Batch H, Batch F, SOLO-7, SOLO-11, SOLO-13, SOLO-15, SOLO-12, SOLO-14, SOLO-16, COPILOT-1..4 |
+
+## Hard dependencies (do not violate)
+
+- **SOLO-17 before Batch D's SGLB-08 run** — otherwise the receipt
+  records single-judge labels with no κ.
+- **SOLO-9 before Batch G's G3 (SGLB-14)** — G3 needs PDPC Advisory
+  Guidelines data.
+- **SOLO-13 (#45 design) before SOLO-15 (#47 selector impl).**
+- **SOLO-7 (#35 copilot scope) before SOLO-11 (#42 templates).**
+
+## Cost gates (read AGENT-RUNBOOK §8)
+
+- **Batch D D1 + Batch H H2/H3** call Azure gpt-5; estimator quotes
+  5-10x low because reasoning-token billing is not modelled. Get
+  explicit user approval before firing.
+- **SOLO-17 + every Anthropic/Gemini-only prompt** is cost-safe
+  (~$0.005/call); these can fire without escalation.
+
+---
+## Tier 1 — Launch path
+
+_Fire these first; baselines are the whole launch story._
+
+# Batch D — Baseline Evaluations (#36), 4 parallel agents
+
+**Goal:** run real baselines across SGLB-01/02/04 (and SGLB-08 once
+synth-gen completes + promotes). Produces the headline numbers for
+the launch.
+
+**Hard prerequisite:** the user must approve the per-provider API
+spend. Each agent should default to a `--dry-run` that estimates
+spend BEFORE making any real call.
+
+**Coordination contract:** branch `feat/baselines-v0.1`. All four
+agents commit to the same branch. Receipts emit to
+`runs/baselines/<provider>/<task>/<timestamp>.json`. D4 aggregates
+into the leaderboard.
+
+## D1: OpenAI (Azure) baselines
+
+```text
+You are running issue #36 (baseline evaluations) for the OpenAI
+provider (via Azure OpenAI; the user has Azure credentials but not
+OpenAI direct). Read AGENT-RUNBOOK.md, runbook §8 about the gpt-5
+reasoning-token cost trap, and backend/benchmark/LLM_RUNNER.md.
+
+Your scope: for each shipped task (SGLB-01, SGLB-02, SGLB-04, and
+SGLB-08 ONLY if promoted candidates exist by the time you run),
+register an LLM-backed runner pointing at Azure OpenAI, run the
+harness, write the receipt.
+
+Files you own:
+- backend/benchmark/scripts/run_baselines_azure.py (new — a script,
+  not a test; lives in benchmark/scripts/ for clarity)
+- runs/baselines/azure/* (new — gitignored output)
+
+Files you must NOT touch:
+- D2/D3/D4's scripts (separate filenames per provider)
+- backend/benchmark/llm_runner.py (do not edit; this is consumer
+  code)
+
+Implementation:
+
+1. The script accepts --task, --dry-run, --max-cost-usd args.
+2. Use benchmark.llm_runner.register_llm_task() to wire the runner
+   with full provenance (prompt_version, prompt_sha, provider_label,
+   max_tokens).
+3. Run the harness via benchmark.runner.run(...).
+4. Emit a receipt JSON via benchmark.runner.write_summary().
+5. Estimate cost BEFORE running. For Azure reasoning models (gpt-5),
+   reasoning-token cost is unmodeled. Print a loud warning that
+   actual spend may be 5-10x the estimate. Refuse to run if
+   --max-cost-usd is exceeded by 1.5x the estimate.
+
+Tasks to run, in order:
+1. SGLB-04 first (smallest, 30 cases, cheapest sanity check).
+2. SGLB-01 (211 cases).
+3. SGLB-02 (78 cases).
+4. SGLB-08 (only if reviewed cases exist in
+   backend/benchmark/datasets/sglb_08_clause_tone_reviewed/).
+
+Branch: feat/baselines-v0.1. Commit:
+`feat(baselines): Azure OpenAI baselines across SGLB-01/02/04
+(advances #36)`.
+
+Acceptance: 3+ receipt JSONs under runs/baselines/azure/, each
+containing provenance + per-evaluator means. NO new test failures.
+
+Report back: per-task score, actual Azure invoice (read from
+response usage), any failures (JSON parse errors, rate limits, etc.).
+```
+
+## D2: Anthropic baselines
+
+```text
+Same as D1, but the provider is Anthropic. Use
+api.services.llm_client.AnthropicClient (set llm_provider=anthropic
++ ANTHROPIC_API_KEY in .env). Default model: claude-sonnet-4-6 (the
+config default is claude-sonnet-4-20250514; use the most recent
+model the user has API access to — check
+backend/api/config.py::Settings for the default and the .env for
+override).
+
+Files you own:
+- backend/benchmark/scripts/run_baselines_anthropic.py (new)
+- runs/baselines/anthropic/* (gitignored)
+
+Coordinate with D1/D3/D4 only on the receipt schema (use the
+existing RunSummary.to_dict shape — don't add fields).
+
+Run the same task order as D1.
+
+Branch: feat/baselines-v0.1 (shared).
+Commit: `feat(baselines): Anthropic baselines across SGLB-01/02/04
+(advances #36)`.
+
+Report back: per-task score + comparison vs D1's Azure numbers if
+both are done by the time you write the report.
+```
+
+## D3: Google (Gemini) baselines
+
+```text
+Same as D1, but the provider is Google Gemini. Use
+api.services.chat_service.GeminiClient (delegate routes through
+get_llm_client when llm_provider=gemini). Model: gemini-2.0-flash
+(the config default).
+
+Files you own:
+- backend/benchmark/scripts/run_baselines_gemini.py (new)
+- runs/baselines/gemini/* (gitignored)
+
+If the user doesn't have a GEMINI_API_KEY set in .env, surface that
+in your --dry-run output and stop. Do not silently skip the run.
+
+Branch: feat/baselines-v0.1 (shared).
+Commit: `feat(baselines): Gemini baselines across SGLB-01/02/04
+(advances #36)`.
+
+Report back: per-task score, Gemini quirks (the API rejects some
+JSON-mode patterns; document any that bite).
+```
+
+## D4: Open-weight baselines + leaderboard aggregation
+
+```text
+You are running open-weight baselines + aggregating results across
+all four provider runs. Read AGENT-RUNBOOK.md and #36.
+
+Open-weight target: Ollama-hosted models (Llama 3 8B or Qwen 3 4B,
+whatever the user has pulled). Check `ollama list` first; do not
+trigger model downloads (large bandwidth + disk).
+
+Files you own:
+- backend/benchmark/scripts/run_baselines_ollama.py (new)
+- backend/benchmark/scripts/build_leaderboard.py (new — reads all
+  receipt JSONs under runs/baselines/*/ and emits a single
+  runs/baselines/leaderboard.json + a markdown table at
+  docs/leaderboard.md)
+- runs/baselines/ollama/* (gitignored)
+- docs/leaderboard.md (committed; the human-readable summary)
+
+WAIT until D1-D3 have at least one receipt each before running the
+leaderboard build (you can run Ollama baselines in parallel).
+
+Leaderboard format:
+
+| Task | Metric | OpenAI (Azure gpt-5) | Anthropic (claude-sonnet-4.6) | Gemini 2.0 | Llama 3 8B |
+|---|---|---|---|---|---|
+| SGLB-01 | obligation F1 | X.XX | X.XX | X.XX | X.XX |
+| SGLB-01 | penalty MAE | X.XX | X.XX | X.XX | X.XX |
+| SGLB-02 | citation match | X.XX | X.XX | X.XX | X.XX |
+| SGLB-02 | ROUGE-L | X.XX | X.XX | X.XX | X.XX |
+| SGLB-04 | label F1 | X.XX | X.XX | X.XX | X.XX |
+
+Include per-task 95% confidence interval (bootstrap n=1000) — this
+is per coverage-matrix §5 ("scores X.XX vs Y.YY on SGLB-NN (95%
+CI)").
+
+Branch: feat/baselines-v0.1 (shared).
+Commit: `feat(baselines): Ollama open-weight + leaderboard
+aggregation (closes #36 first pass)`.
+
+Acceptance: docs/leaderboard.md committed with real numbers; no
+"TBD" rows for any task with a shipped dataset.
+
+Report back: any task where every model scored ≥98% (per
+coverage-matrix §12, this triggers a "task too easy" review). Any
+task where every model scored ≤30% (instructive but suggests
+prompt-builder issues — check the system prompt before concluding
+the task is hard).
+```
+
+---
+
+## SOLO-17: SGLB-08 multi-judge ensemble pass (methodology upgrade)
+
+```text
+You are upgrading SGLB-08's labelling methodology from single-judge
+(currently Azure gpt-5) to a ≥3-judge ensemble per coverage-matrix
+§4.1. The 400-case reviewed dataset already exists at
+backend/benchmark/datasets/sglb_08_clause_tone_reviewed/dataset.yaml.
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-08.md (the "Provisional-
+approval caveat" section), docs/coverage-matrix.md §4.1, and
+backend/benchmark/synthetic/sglb_08.py.
+
+Goal: re-label each of the 400 cases with Anthropic + Gemini votes;
+compute Cohen's κ per (generator, judge) pair AND per-cell agreement;
+emit the artefacts that let the leaderboard publish "κ = X.XX
+(n=400, 3 judges)".
+
+Files you own:
+- backend/benchmark/synthetic/multi_judge.py (new — runs the 2
+  additional judges over the existing reviewed dataset)
+- backend/benchmark/synthetic/agreement.py (new — Cohen's κ
+  computation; pure stdlib + numpy where present)
+- backend/benchmark/datasets/sglb_08_clause_tone_reviewed/judges.jsonl
+  (new artefact — per-case vote per judge + κ summary)
+- docs/sglb_specs/SGLB-08.md (update the "Provisional-approval"
+  section once κ is known; if κ ≥ 0.4 across all judge pairs, bump
+  version to "0.1-shipped"; if any pair drops below 0.4, file a
+  follow-up issue per coverage-matrix §8)
+- backend/tests/test_multi_judge.py + test_agreement.py
+
+Files you must NOT touch:
+- backend/benchmark/synthetic/sglb_08.py (existing pipeline)
+- backend/benchmark/synthetic/generator.py (existing)
+- The dataset.yaml itself — judges' votes live in judges.jsonl,
+  alongside it. The gold label stays as-is in dataset.yaml; future
+  v0.2 can flip a case if 2+ judges disagree with the gold.
+
+Implementation:
+
+1. For each case in dataset.yaml, dispatch the same prompt that
+   benchmark.llm_runner.sglb_08_prompt_builder produces — i.e.
+   re-use the existing prompt template; don't author a new one.
+2. Send to both Anthropic (claude-sonnet-4.6 or whatever the user
+   has) AND Gemini (gemini-2.0-flash).
+3. Record per-case votes in judges.jsonl with the case_id +
+   provider + model + raw output + parsed label + JSON-parse-success
+   flag.
+4. Compute pairwise Cohen's κ (gpt-5 ↔ Anthropic; gpt-5 ↔ Gemini;
+   Anthropic ↔ Gemini). Also compute Fleiss' κ across all 3.
+5. Per-cell breakdown: report κ for each (tone × clause_type)
+   stratum so the user can see if any cell is below the 0.4 floor.
+
+Cost gate: Anthropic ~$0.005/call × 400 = $2; Gemini ~$0.001/call
+× 400 = $0.40. Total ~$2.40 — much cheaper than the original gpt-5
+gen. Confirm with the user before firing if you're in any doubt; the
+SGLB-08 synth gen already cost ~$20-50.
+
+Provider environment: ANTHROPIC_API_KEY + GEMINI_API_KEY must be in
+.env. If missing, --dry-run reports which keys are needed and stops.
+
+Branch: feat/sglb-08-multi-judge.
+Commit: `feat(sglb-08): multi-judge ensemble + κ for clause-tone
+labels (advances #33)`.
+
+Acceptance:
+- judges.jsonl materialised with 400 × 2 vote rows.
+- κ printed to stdout + persisted in a summary JSON.
+- All κ pairs ≥ 0.4 (or, if any drop below, an issue is filed +
+  spec doc updated to reflect retirement risk per coverage matrix §8).
+
+Report back: the 3 pairwise κ values + Fleiss' κ + any cell where
+agreement is dangerously low. Note any provider-specific JSON-parse
+failures (those are a quality signal too).
+```
+
+## SOLO-9: PDPC Advisory Guidelines scraper (#60)
+
+```text
+You are implementing issue #60 in the junas repo: PDPC Advisory
+Guidelines scraper (unblocks SGLB-14 Statutory-Entailment data).
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-14.md, and
+backend/data/ingestion/pdpc.py (your structural template).
+
+Source: https://www.pdpc.gov.sg/help-and-resources/2017/
+(PDPC publishes Advisory Guidelines as PDF documents with text
+extractable via pypdf).
+
+Files in scope:
+- backend/data/ingestion/pdpc_guidelines.py (new — separate from
+  pdpc.py which handles enforcement decisions)
+- backend/api/adapters/public/pdpc_guidance.py (existing stub;
+  flesh out)
+- backend/tests/fixtures/pdpc_guidelines/* (1-2 PDF samples)
+- backend/tests/test_pdpc_guidelines.py
+- Makefile: + ingest-pdpc-guidelines target
+
+Schema (per JSONL row):
+- doc_id, source_url, title, pdf_url, body_plain (extracted from
+  PDF), section_headings (list of h1/h2-like markers), pub_date.
+
+Branch: feat/pdpc-guidelines-scraper.
+Commit: `feat(pdpc): Advisory Guidelines scraper (closes #60;
+advances SGLB-14)`.
+
+Acceptance: at least one PDF fully extracted; downstream SGLB-14
+builder (not your concern; it'll be a follow-up) can be pointed at
+the output.
+
+Report back: PDF text-extraction fidelity; some PDPC PDFs are
+scanned images — flag those.
+```
+
+---
+
 # Batch A — MOM Scraper (#59), 4 parallel agents
 
 **Goal:** unblock SGLB-05 Employment-Issue with real data.
@@ -504,6 +831,344 @@ produced.
 
 ---
 
+## Tier 2 — Post-numbers
+
+_Need Tier-1 results to fill placeholders / make decisions._
+
+## SOLO-8: arXiv preprint outline (#37)
+
+```text
+You are starting issue #37 in the junas repo: SG-LegalBench preprint
+draft. Read AGENT-RUNBOOK.md, docs/coverage-matrix.md, and all of
+docs/sglb_specs/SGLB-NN.md.
+
+Scope: produce the preprint outline + draft §§1-3 (Introduction,
+Methodology, Tasks). Leave §§4-5 (Results, Limitations) as
+TODO-blocks gated on baselines (#36).
+
+Files you own:
+- docs/preprint/sglb-preprint.tex (new; LaTeX, NLLP/EMNLP-friendly
+  template) OR docs/preprint/sglb-preprint.md (markdown if LaTeX is
+  too heavyweight for v0 — the user can convert later)
+- docs/preprint/figures/ (gitignored placeholders)
+
+Constraints (READ CAREFULLY):
+- The methodology section MUST lead with: "We make no legal
+  interpretive claims. We mechanically reformulate published
+  regulator and court outputs as evaluation tasks." This is
+  load-bearing for the doc's defensibility (pivot §11).
+- No "beats GPT-X" framing anywhere (coverage-matrix §5).
+- Each task gets its own subsection in §3, citing source +
+  extraction rule + scoring + limitations from the spec doc.
+- Related work: cite LegalBench, LexGLUE, LawBench, SARA, CUAD,
+  IFEval, FActScore, HaluEval per coverage-matrix §9.
+
+Target venue: NLLP workshop @ EMNLP 2026 (deadlines typically
+July-August 2026).
+
+Branch: docs/preprint-outline.
+Commit: `docs(#37): SG-LegalBench preprint outline + §§1-3 draft`.
+
+Acceptance: a reviewer reading the draft can answer "what does this
+benchmark test, on what data, how is it scored, and what's
+explicitly NOT tested" without asking.
+
+Report back: which sections you couldn't draft yet (it should be
+just §§4-5), any prior-work claims you'd like a second pair of eyes
+on, any spec-doc inconsistencies you noticed while writing.
+```
+
+## SOLO-18: SGLB-08 human-reviewed held-out subset
+
+```text
+You are creating a human-reviewed held-out subset of SGLB-08 per
+coverage-matrix §4.1 ("human-spot-checked held-out subset"). This
+runs in PARALLEL with SOLO-17 (they touch different files).
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-08.md, the existing
+reviewed dataset, CONTRIBUTING.md.
+
+Goal: select 40 cases (10% sample, stratified across all 4 tones ×
+6 clause types) for human review. Produce a checklist artefact the
+user can fill in OFFLINE without touching the dataset YAML
+structure. Once the user returns the checklist, you apply the
+edits.
+
+Files you own:
+- backend/benchmark/datasets/sglb_08_clause_tone_reviewed/human_review_checklist.md
+  (new — a markdown table with 40 rows, the user marks each
+  "agree / disagree / unclear")
+- scripts/select_sglb_08_holdout.py (new — selects the 40 cases
+  deterministically with a seed)
+- docs/sglb_specs/SGLB-08.md (update the "Provisional-approval"
+  section once human checklist is returned; document the 40-case
+  held-out subset and any cases the human reviewer flagged as
+  incorrect)
+
+Files you must NOT touch:
+- The dataset.yaml itself — disputes from the human reviewer get
+  recorded as errata in a separate file (mirror the CONTRIBUTING.md
+  errata pattern).
+
+Selection algorithm:
+- Stratify: every (tone × clause_type) cell that has ≥1 case gets
+  at least 1 in the holdout; remaining slots fill proportionally
+  to cell size. seed=42.
+- Each row in the checklist shows: case_id, tone, clause_type,
+  first ~400 chars of clause_text, the gold label, an empty
+  "human_decision" column, an empty "notes" column.
+
+Branch: feat/sglb-08-human-holdout.
+Commit (initial): `feat(sglb-08): generate 40-case human-review
+checklist (advances #33)`.
+Commit (after user returns checklist): `feat(sglb-08): apply human
+holdout decisions; flag disputes`.
+
+Acceptance:
+- 40-row checklist generated, stratified across all cells.
+- Spec doc references the file.
+- A clear "user, please fill this in and report back" surfacing in
+  your final message so the human-in-the-loop step doesn't get lost.
+
+Report back: the stratification table (which cells got how many);
+your hand-off message to the user.
+```
+
+## SOLO-10: #40 Final benchmark name + license research brief
+
+```text
+You are working on issue #40 in the junas repo. Read AGENT-RUNBOOK.md,
+README2.md, the pivot history in git (commit a910403 and earlier),
+CONTRIBUTING.md.
+
+Goal: a 1-page decision record letting the user choose name +
+license in <10 min.
+
+Files you own:
+- docs/decisions/dr-001-name-and-license.md (new)
+
+Decision record sections:
+
+1. **Name candidates** (3 options, pros/cons + discoverability check):
+   - "SG-LegalBench" — clearest, matches LegalBench convention
+   - "SingLegalBench" — more distinct but unwieldy
+   - "LexSG-Eval" — academic-flavoured but loses brand
+   - Any other you researched (Google "sg legal benchmark" to verify
+     none collide)
+
+2. **Code license** (4 options, with real legal-tech precedent):
+   - MIT (LegalBench uses this)
+   - Apache 2.0 (patent grant)
+   - AGPL-3.0 (Mike OSS uses this; discourages closed-source forks)
+   - GPL-3.0
+
+3. **Dataset license** (4 options):
+   - CC-BY-4.0
+   - CC-BY-SA-4.0
+   - CC-BY-NC-4.0
+   - CC0
+
+4. **Your recommendation** with one-sentence rationale.
+
+Constraints:
+- Research brief, NOT legal advice. No author legal opinions.
+- Cite each license URL.
+- Note what real legal-tech projects use each license (Mike OSS,
+  LegalBench, Stanford CRFM benchmarks, OpenLegal, etc.).
+- Surface the AGPL-vs-MIT trade-off explicitly: AGPL protects against
+  closed-source competitor builds but reduces commercial-vendor
+  uptake (some companies refuse AGPL).
+
+Branch: docs/dr-001-name-license.
+Commit: `docs(decision): name + license research brief (advances
+#40)`. Co-Authored-By trailer.
+
+Acceptance: 1-page brief in markdown; user can make the call without
+asking follow-ups.
+Report back: your one-sentence recommendation; any surprising
+constraint you found.
+```
+
+## Tier 3 — Pre-launch polish
+
+_Visible to launch-day visitors; queue after Tier 2._
+
+# Batch E — Launch Assets (#39), 4 parallel agents
+
+**Goal:** produce ship-ready launch assets so the moment #36 (baselines)
+lands, the launch can fire same-day. These run in parallel since they
+touch different files and require no shared state.
+
+**Coordination contract:** branch `feat/launch-assets-v0.1`. All four
+agents commit to the same branch; user reviews each commit
+independently. Where copy depends on baseline numbers, agents leave
+`<PLACEHOLDER>` tokens that a follow-up PR fills.
+
+## E1: HN Show HN post + landing-page hook
+
+```text
+You are working on issue #39 (launch assets) in the junas repo. Read
+AGENT-RUNBOOK.md, README2.md, docs/coverage-matrix.md §5 (anti-snake-
+oil checklist), and the existing landing page at frontend/app/page.tsx.
+
+Goal: HN Show HN submission draft + the landing-page <h1> hook that
+aligns with the recommended headline variant.
+
+Files you own:
+- docs/launch/hn-show-hn.md (new — the post draft)
+- docs/launch/headline-options.md (new — 3 candidate headlines with
+  evidentiary basis and which require baseline numbers)
+- frontend/app/page.tsx (only the <h1>; align with your recommended
+  variant in headline-options.md)
+
+Files you must NOT touch:
+- docs/launch/twitter-thread.md (E2)
+- docs/launch/linkedin-post.md (E3)
+- docs/launch/outreach-templates.md (E3)
+- docs/launch/press-kit.md (E4)
+- docs/launch/press-emails.md (E4)
+
+Constraints (read coverage-matrix §5 first):
+- No "beats GPT-X" framing. Use the substitute phrasings.
+- Lead with the SG-uniqueness gap (LegalBench=US, LexGLUE=US+EU,
+  LawBench=CN; SG is a clean gap).
+- "We make no legal interpretive claims" must appear.
+- 3 headline candidates: surprising-number variant (gated on #36),
+  capability-gap variant (no number needed), methodology variant
+  ("first SG benchmark with mechanical labels"). Mark which need #36.
+
+Post structure (suggested):
+- Title (≤80 chars)
+- Opening hook (2 sentences)
+- What it is (3 bullets, link to repo + spec dir)
+- What it isn't (1-2 bullets, defuses scope-overclaim)
+- Reproducibility (1 bullet — `make eval` and you get the same numbers)
+- Links section
+
+Branch: feat/launch-assets-v0.1.
+Commit: `docs(launch): HN Show HN draft + headline candidates
+(advances #39)`. Co-Authored-By trailer.
+
+Acceptance: 3 headline variants + 1 ready-to-paste HN draft + landing
+<h1> aligned. Each <PLACEHOLDER> token is documented.
+
+Report back: which headline you recommend and why; any claim you
+couldn't substantiate without baselines.
+```
+
+## E2: Twitter thread
+
+```text
+You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md
+and the SGLB spec docs under docs/sglb_specs/.
+
+Goal: 8-12 tweet thread for launch day. Mark every `<PLACEHOLDER>`
+that depends on baseline (#36) numbers.
+
+Files you own:
+- docs/launch/twitter-thread.md (new)
+
+Files you must NOT touch:
+- E1/E3/E4's files.
+
+Thread structure:
+1. Hook tweet — why this matters (no number needed)
+2. The gap (LegalBench=US, LexGLUE=US+EU, LawBench=CN, gap=SG)
+3. Methodology — mechanical extraction; the credibility substitute
+4-8. One surprising finding per tweet (each gated on #36; mark
+   <PLACEHOLDER>)
+9. Reproducibility — "anyone can rerun: make eval && cat receipt"
+10. Where to learn more (links)
+
+Constraints:
+- No emojis (user's CLAUDE.md disallows them).
+- No "beats GPT-X" framing.
+- Each tweet ≤270 chars (Twitter limit minus padding).
+- Numbered "n/N" prefixes for thread readability.
+
+Branch + commit: same as E1.
+Acceptance: 8-12 numbered tweets, ≤270 chars each.
+Report back: any claim you couldn't make in ≤270 chars; whether the
+thread reads cohesively without baselines (i.e. is the no-numbers
+variant viable).
+```
+
+## E3: LinkedIn SG legal-tech post + outreach templates
+
+```text
+You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md
+and README2.md.
+
+Goal: LinkedIn launch post + 6 DM templates targeted at SG
+legal-tech institutions.
+
+Files you own:
+- docs/launch/linkedin-post.md (the post)
+- docs/launch/outreach-templates.md (DM templates)
+
+Files you must NOT touch:
+- E1/E2/E4's files.
+
+Targets for DM templates (one each):
+1. SMU SOLID team (Singapore Open Legal Informatics Database project)
+2. NUS TRAIL (Tech and Responsible AI lab)
+3. SAL (Singapore Academy of Law) tech committee
+4. INTELLLEX (SG legal-tech company)
+5. Lupl (SG legal-tech company)
+6. LawTech.Asia (publication)
+
+Constraints:
+- LinkedIn post 200-400 words. Frame: "I built X because Y was
+  missing". Cite the LegalBench/LexGLUE/LawBench gap.
+- DMs ≤150 words each. State who they are + what we built + the
+  one-sentence ask. NO name-drops we can't substantiate (the user has
+  no prior contact unless evidence is in repo history).
+- Treat SAL as institutional (phone/email better than DM); flag this
+  in your report.
+
+Branch + commit: same as E1.
+Acceptance: 1 post + 6 personalised DMs.
+Report back: which targets warrant a phone call vs DM.
+```
+
+## E4: Press kit + journalist outreach
+
+```text
+You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md,
+README2.md, and (for tone reference) any coverage Mike OSS got from
+the same outlets (Google "willchen96 mike artificial lawyer").
+
+Goal: press kit + 5 personalised pitch emails.
+
+Files you own:
+- docs/launch/press-kit.md (1-page background + key facts + quote
+  block + contact)
+- docs/launch/press-emails.md (5 pitches: LawTech.Asia, Artificial
+  Lawyer, Legal IT Insider, Legal Futures, Straits Times Tech)
+
+Files you must NOT touch:
+- E1/E2/E3's files.
+
+Press kit must include:
+- 2-paragraph background suitable for direct quotation
+- Key facts (8 tasks, public-domain sources, mechanical labels,
+  multi-model baselines)
+- 50-80 word attributable quote from the solo dev (Gabriel) about the
+  SG-uniqueness gap
+- Where to find screenshots / demo GIF (placeholder paths)
+- Contact (TBD; surface to user)
+
+Each pitch email ≤200 words. Differentiate from Mike OSS coverage
+angle (benchmark, not product; SG, not generic).
+
+Branch + commit: same as E1.
+Acceptance: 1 press kit + 5 personalised pitches.
+Report back: which outlets covered Mike OSS recently and how we
+differentiate.
+```
+
+---
+
 # Batch C — Frontend Audit Fixes, 4 parallel agents
 
 **Goal:** address the critical findings from `docs/audit/00_EXECUTIVE_AUDIT.md`
@@ -715,179 +1380,49 @@ them so the user can decide whether to whitelist).
 
 ---
 
-# Batch D — Baseline Evaluations (#36), 4 parallel agents
-
-**Goal:** run real baselines across SGLB-01/02/04 (and SGLB-08 once
-synth-gen completes + promotes). Produces the headline numbers for
-the launch.
-
-**Hard prerequisite:** the user must approve the per-provider API
-spend. Each agent should default to a `--dry-run` that estimates
-spend BEFORE making any real call.
-
-**Coordination contract:** branch `feat/baselines-v0.1`. All four
-agents commit to the same branch. Receipts emit to
-`runs/baselines/<provider>/<task>/<timestamp>.json`. D4 aggregates
-into the leaderboard.
-
-## D1: OpenAI (Azure) baselines
+## SOLO-3: Auth gate for hosted /benchmarks demo (#79)
 
 ```text
-You are running issue #36 (baseline evaluations) for the OpenAI
-provider (via Azure OpenAI; the user has Azure credentials but not
-OpenAI direct). Read AGENT-RUNBOOK.md, runbook §8 about the gpt-5
-reasoning-token cost trap, and backend/benchmark/LLM_RUNNER.md.
+You are implementing issue #79 in the junas repo: launch blocker.
 
-Your scope: for each shipped task (SGLB-01, SGLB-02, SGLB-04, and
-SGLB-08 ONLY if promoted candidates exist by the time you run),
-register an LLM-backed runner pointing at Azure OpenAI, run the
-harness, write the receipt.
+The /benchmarks route in the frontend is publicly visible. Before
+the user puts a hosted demo behind a public URL, it needs an auth
+gate so we don't expose the harness to anonymous fuzzers.
 
-Files you own:
-- backend/benchmark/scripts/run_baselines_azure.py (new — a script,
-  not a test; lives in benchmark/scripts/ for clarity)
-- runs/baselines/azure/* (new — gitignored output)
+Read AGENT-RUNBOOK.md and backend/api/security.py (the existing
+auth shape).
 
-Files you must NOT touch:
-- D2/D3/D4's scripts (separate filenames per provider)
-- backend/benchmark/llm_runner.py (do not edit; this is consumer
-  code)
+Decision required from the user before you start: which auth
+mechanism?
 
-Implementation:
+Option A: simple shared-secret header (existing API_KEYS env
+list; cheapest).
+Option B: GitHub OAuth (better UX for researchers, more setup).
+Option C: a basic auth proxy at the deploy edge (Vercel password
+protection; zero code change).
 
-1. The script accepts --task, --dry-run, --max-cost-usd args.
-2. Use benchmark.llm_runner.register_llm_task() to wire the runner
-   with full provenance (prompt_version, prompt_sha, provider_label,
-   max_tokens).
-3. Run the harness via benchmark.runner.run(...).
-4. Emit a receipt JSON via benchmark.runner.write_summary().
-5. Estimate cost BEFORE running. For Azure reasoning models (gpt-5),
-   reasoning-token cost is unmodeled. Print a loud warning that
-   actual spend may be 5-10x the estimate. Refuse to run if
-   --max-cost-usd is exceeded by 1.5x the estimate.
+If the user doesn't specify, default to Option A + add a clearly
+visible comment that this is the launch-day minimum and Option C
+(Vercel password) is recommended for the hosted demo specifically.
 
-Tasks to run, in order:
-1. SGLB-04 first (smallest, 30 cases, cheapest sanity check).
-2. SGLB-01 (211 cases).
-3. SGLB-02 (78 cases).
-4. SGLB-08 (only if reviewed cases exist in
-   backend/benchmark/datasets/sglb_08_clause_tone_reviewed/).
+Files in scope (Option A):
+- backend/api/security.py (likely already supports this; just
+  enforce on /benchmarks routes)
+- frontend/app/benchmarks/page.tsx (gate the page; on 401, render
+  a "this demo requires an access key" message with the env-var
+  name the user should set)
 
-Branch: feat/baselines-v0.1. Commit:
-`feat(baselines): Azure OpenAI baselines across SGLB-01/02/04
-(advances #36)`.
+Branch: feat/auth-gate-benchmarks.
+Commit: `feat(auth): gate /benchmarks behind shared secret (closes
+#79)`.
 
-Acceptance: 3+ receipt JSONs under runs/baselines/azure/, each
-containing provenance + per-evaluator means. NO new test failures.
+Acceptance: hitting /benchmarks without the header returns 401; with
+it returns 200; the existing CLI eval path is unaffected (only the
+HTTP surface gates).
 
-Report back: per-task score, actual Azure invoice (read from
-response usage), any failures (JSON parse errors, rate limits, etc.).
+Report back: which option you chose, any auth boilerplate the
+existing codebase has that we should consolidate around.
 ```
-
-## D2: Anthropic baselines
-
-```text
-Same as D1, but the provider is Anthropic. Use
-api.services.llm_client.AnthropicClient (set llm_provider=anthropic
-+ ANTHROPIC_API_KEY in .env). Default model: claude-sonnet-4-6 (the
-config default is claude-sonnet-4-20250514; use the most recent
-model the user has API access to — check
-backend/api/config.py::Settings for the default and the .env for
-override).
-
-Files you own:
-- backend/benchmark/scripts/run_baselines_anthropic.py (new)
-- runs/baselines/anthropic/* (gitignored)
-
-Coordinate with D1/D3/D4 only on the receipt schema (use the
-existing RunSummary.to_dict shape — don't add fields).
-
-Run the same task order as D1.
-
-Branch: feat/baselines-v0.1 (shared).
-Commit: `feat(baselines): Anthropic baselines across SGLB-01/02/04
-(advances #36)`.
-
-Report back: per-task score + comparison vs D1's Azure numbers if
-both are done by the time you write the report.
-```
-
-## D3: Google (Gemini) baselines
-
-```text
-Same as D1, but the provider is Google Gemini. Use
-api.services.chat_service.GeminiClient (delegate routes through
-get_llm_client when llm_provider=gemini). Model: gemini-2.0-flash
-(the config default).
-
-Files you own:
-- backend/benchmark/scripts/run_baselines_gemini.py (new)
-- runs/baselines/gemini/* (gitignored)
-
-If the user doesn't have a GEMINI_API_KEY set in .env, surface that
-in your --dry-run output and stop. Do not silently skip the run.
-
-Branch: feat/baselines-v0.1 (shared).
-Commit: `feat(baselines): Gemini baselines across SGLB-01/02/04
-(advances #36)`.
-
-Report back: per-task score, Gemini quirks (the API rejects some
-JSON-mode patterns; document any that bite).
-```
-
-## D4: Open-weight baselines + leaderboard aggregation
-
-```text
-You are running open-weight baselines + aggregating results across
-all four provider runs. Read AGENT-RUNBOOK.md and #36.
-
-Open-weight target: Ollama-hosted models (Llama 3 8B or Qwen 3 4B,
-whatever the user has pulled). Check `ollama list` first; do not
-trigger model downloads (large bandwidth + disk).
-
-Files you own:
-- backend/benchmark/scripts/run_baselines_ollama.py (new)
-- backend/benchmark/scripts/build_leaderboard.py (new — reads all
-  receipt JSONs under runs/baselines/*/ and emits a single
-  runs/baselines/leaderboard.json + a markdown table at
-  docs/leaderboard.md)
-- runs/baselines/ollama/* (gitignored)
-- docs/leaderboard.md (committed; the human-readable summary)
-
-WAIT until D1-D3 have at least one receipt each before running the
-leaderboard build (you can run Ollama baselines in parallel).
-
-Leaderboard format:
-
-| Task | Metric | OpenAI (Azure gpt-5) | Anthropic (claude-sonnet-4.6) | Gemini 2.0 | Llama 3 8B |
-|---|---|---|---|---|---|
-| SGLB-01 | obligation F1 | X.XX | X.XX | X.XX | X.XX |
-| SGLB-01 | penalty MAE | X.XX | X.XX | X.XX | X.XX |
-| SGLB-02 | citation match | X.XX | X.XX | X.XX | X.XX |
-| SGLB-02 | ROUGE-L | X.XX | X.XX | X.XX | X.XX |
-| SGLB-04 | label F1 | X.XX | X.XX | X.XX | X.XX |
-
-Include per-task 95% confidence interval (bootstrap n=1000) — this
-is per coverage-matrix §5 ("scores X.XX vs Y.YY on SGLB-NN (95%
-CI)").
-
-Branch: feat/baselines-v0.1 (shared).
-Commit: `feat(baselines): Ollama open-weight + leaderboard
-aggregation (closes #36 first pass)`.
-
-Acceptance: docs/leaderboard.md committed with real numbers; no
-"TBD" rows for any task with a shipped dataset.
-
-Report back: any task where every model scored ≥98% (per
-coverage-matrix §12, this triggers a "task too easy" review). Any
-task where every model scored ≤30% (instructive but suggests
-prompt-builder issues — check the system prompt before concluding
-the task is hard).
-```
-
----
-
-# Solo prompts (single agent each)
 
 ## SOLO-1: Retrieval R1 + R2 audit fixes (#75)
 
@@ -956,78 +1491,6 @@ Report back: any UX concerns (large per-case tables for 200+ case
 runs need pagination — call it out if so).
 ```
 
-## SOLO-3: Auth gate for hosted /benchmarks demo (#79)
-
-```text
-You are implementing issue #79 in the junas repo: launch blocker.
-
-The /benchmarks route in the frontend is publicly visible. Before
-the user puts a hosted demo behind a public URL, it needs an auth
-gate so we don't expose the harness to anonymous fuzzers.
-
-Read AGENT-RUNBOOK.md and backend/api/security.py (the existing
-auth shape).
-
-Decision required from the user before you start: which auth
-mechanism?
-
-Option A: simple shared-secret header (existing API_KEYS env
-list; cheapest).
-Option B: GitHub OAuth (better UX for researchers, more setup).
-Option C: a basic auth proxy at the deploy edge (Vercel password
-protection; zero code change).
-
-If the user doesn't specify, default to Option A + add a clearly
-visible comment that this is the launch-day minimum and Option C
-(Vercel password) is recommended for the hosted demo specifically.
-
-Files in scope (Option A):
-- backend/api/security.py (likely already supports this; just
-  enforce on /benchmarks routes)
-- frontend/app/benchmarks/page.tsx (gate the page; on 401, render
-  a "this demo requires an access key" message with the env-var
-  name the user should set)
-
-Branch: feat/auth-gate-benchmarks.
-Commit: `feat(auth): gate /benchmarks behind shared secret (closes
-#79)`.
-
-Acceptance: hitting /benchmarks without the header returns 401; with
-it returns 200; the existing CLI eval path is unaffected (only the
-HTTP surface gates).
-
-Report back: which option you chose, any auth boilerplate the
-existing codebase has that we should consolidate around.
-```
-
-## SOLO-4: Cold-start guide (#74)
-
-```text
-You are implementing issue #74 in the junas repo: a cold-start guide
-showing a new agent how to register an LLM-backed task + run the
-first real baseline.
-
-Read AGENT-RUNBOOK.md, backend/benchmark/LLM_RUNNER.md, CONTRIBUTING.md.
-
-Files you own:
-- docs/cold-start-guide.md (new)
-
-Content: a 200-line walkthrough that takes the agent from
-"I am dropped into this repo" to "I have produced a receipt JSON
-with provenance fields for SGLB-04 via gpt-4o-mini". Use the
-existing SGLB-04 smoke dataset; mock the LLM client first; then show
-how to swap in a real provider.
-
-Branch: docs/cold-start-guide.
-Commit: `docs(#74): cold-start guide for new agent + first baseline`.
-
-Acceptance: another agent following the guide produces a working
-receipt JSON without asking the user any questions.
-
-Report back: any step that surprised you (i.e. anything not
-documented elsewhere that you needed to know).
-```
-
 ## SOLO-5: Synthetic candidates CI guard (#76)
 
 ```text
@@ -1084,478 +1547,37 @@ Report back: any task whose data_tier is ambiguous (e.g. a mixed
 dataset).
 ```
 
-## SOLO-7: Reference copilot scope cleanup (#35)
+## SOLO-4: Cold-start guide (#74)
 
 ```text
-You are addressing issue #35 in the junas repo: keep only SG
-retrieval, citation, and compliance surfaces in the reference
-copilot. Read AGENT-RUNBOOK.md and the pivot history in git
-(commit a910403 is the SSO landing; earlier commits cut non-SG
-paths).
+You are implementing issue #74 in the junas repo: a cold-start guide
+showing a new agent how to register an LLM-backed task + run the
+first real baseline.
 
-Audit which frontend routes and backend routers are still
-non-SG-relevant. The audit doc lists what should have been removed
-(predictions/, rome-statute/, compare-jurisdictions/). Verify those
-are gone; flag any that aren't.
-
-This is an audit-then-fix task. Step 1: list every page + router +
-service that doesn't fit the minimal copilot scope (BYOK chat, SG
-retrieval, citation verifier, PDPA+EA compliance, SG clauses +
-templates, document parsing). Step 2: produce a PR that removes
-them or marks them as out-of-scope-but-kept.
-
-Don't be over-eager. The chat surface, batch-analysis, contracts,
-ner pages are arguably in scope. Apply the pivot-doc §5 "minimal
-scope" test: does this surface demonstrate the benchmark? If not,
-flag it.
-
-Branch: refactor/copilot-scope.
-Commit: `refactor(copilot): keep only SG retrieval/citation/
-compliance surfaces (closes #35)`.
-
-Acceptance: the user can ship a smaller copilot landing without
-dead links.
-
-Report back: a numbered audit list (this is the deliverable) +
-the actual cuts you made. If you want the user to make a
-keep-vs-cut call, surface the question; don't decide unilaterally
-on borderline items.
-```
-
-## SOLO-8: arXiv preprint outline (#37)
-
-```text
-You are starting issue #37 in the junas repo: SG-LegalBench preprint
-draft. Read AGENT-RUNBOOK.md, docs/coverage-matrix.md, and all of
-docs/sglb_specs/SGLB-NN.md.
-
-Scope: produce the preprint outline + draft §§1-3 (Introduction,
-Methodology, Tasks). Leave §§4-5 (Results, Limitations) as
-TODO-blocks gated on baselines (#36).
+Read AGENT-RUNBOOK.md, backend/benchmark/LLM_RUNNER.md, CONTRIBUTING.md.
 
 Files you own:
-- docs/preprint/sglb-preprint.tex (new; LaTeX, NLLP/EMNLP-friendly
-  template) OR docs/preprint/sglb-preprint.md (markdown if LaTeX is
-  too heavyweight for v0 — the user can convert later)
-- docs/preprint/figures/ (gitignored placeholders)
+- docs/cold-start-guide.md (new)
 
-Constraints (READ CAREFULLY):
-- The methodology section MUST lead with: "We make no legal
-  interpretive claims. We mechanically reformulate published
-  regulator and court outputs as evaluation tasks." This is
-  load-bearing for the doc's defensibility (pivot §11).
-- No "beats GPT-X" framing anywhere (coverage-matrix §5).
-- Each task gets its own subsection in §3, citing source +
-  extraction rule + scoring + limitations from the spec doc.
-- Related work: cite LegalBench, LexGLUE, LawBench, SARA, CUAD,
-  IFEval, FActScore, HaluEval per coverage-matrix §9.
+Content: a 200-line walkthrough that takes the agent from
+"I am dropped into this repo" to "I have produced a receipt JSON
+with provenance fields for SGLB-04 via gpt-4o-mini". Use the
+existing SGLB-04 smoke dataset; mock the LLM client first; then show
+how to swap in a real provider.
 
-Target venue: NLLP workshop @ EMNLP 2026 (deadlines typically
-July-August 2026).
+Branch: docs/cold-start-guide.
+Commit: `docs(#74): cold-start guide for new agent + first baseline`.
 
-Branch: docs/preprint-outline.
-Commit: `docs(#37): SG-LegalBench preprint outline + §§1-3 draft`.
+Acceptance: another agent following the guide produces a working
+receipt JSON without asking the user any questions.
 
-Acceptance: a reviewer reading the draft can answer "what does this
-benchmark test, on what data, how is it scored, and what's
-explicitly NOT tested" without asking.
-
-Report back: which sections you couldn't draft yet (it should be
-just §§4-5), any prior-work claims you'd like a second pair of eyes
-on, any spec-doc inconsistencies you noticed while writing.
+Report back: any step that surprised you (i.e. anything not
+documented elsewhere that you needed to know).
 ```
 
-## SOLO-9: PDPC Advisory Guidelines scraper (#60)
+## Tier 4 — Post-launch + v0.2
 
-```text
-You are implementing issue #60 in the junas repo: PDPC Advisory
-Guidelines scraper (unblocks SGLB-14 Statutory-Entailment data).
-
-Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-14.md, and
-backend/data/ingestion/pdpc.py (your structural template).
-
-Source: https://www.pdpc.gov.sg/help-and-resources/2017/
-(PDPC publishes Advisory Guidelines as PDF documents with text
-extractable via pypdf).
-
-Files in scope:
-- backend/data/ingestion/pdpc_guidelines.py (new — separate from
-  pdpc.py which handles enforcement decisions)
-- backend/api/adapters/public/pdpc_guidance.py (existing stub;
-  flesh out)
-- backend/tests/fixtures/pdpc_guidelines/* (1-2 PDF samples)
-- backend/tests/test_pdpc_guidelines.py
-- Makefile: + ingest-pdpc-guidelines target
-
-Schema (per JSONL row):
-- doc_id, source_url, title, pdf_url, body_plain (extracted from
-  PDF), section_headings (list of h1/h2-like markers), pub_date.
-
-Branch: feat/pdpc-guidelines-scraper.
-Commit: `feat(pdpc): Advisory Guidelines scraper (closes #60;
-advances SGLB-14)`.
-
-Acceptance: at least one PDF fully extracted; downstream SGLB-14
-builder (not your concern; it'll be a follow-up) can be pointed at
-the output.
-
-Report back: PDF text-extraction fidelity; some PDPC PDFs are
-scanned images — flag those.
-```
-
----
-
-# Batch E — Launch Assets (#39), 4 parallel agents
-
-**Goal:** produce ship-ready launch assets so the moment #36 (baselines)
-lands, the launch can fire same-day. These run in parallel since they
-touch different files and require no shared state.
-
-**Coordination contract:** branch `feat/launch-assets-v0.1`. All four
-agents commit to the same branch; user reviews each commit
-independently. Where copy depends on baseline numbers, agents leave
-`<PLACEHOLDER>` tokens that a follow-up PR fills.
-
-## E1: HN Show HN post + landing-page hook
-
-```text
-You are working on issue #39 (launch assets) in the junas repo. Read
-AGENT-RUNBOOK.md, README2.md, docs/coverage-matrix.md §5 (anti-snake-
-oil checklist), and the existing landing page at frontend/app/page.tsx.
-
-Goal: HN Show HN submission draft + the landing-page <h1> hook that
-aligns with the recommended headline variant.
-
-Files you own:
-- docs/launch/hn-show-hn.md (new — the post draft)
-- docs/launch/headline-options.md (new — 3 candidate headlines with
-  evidentiary basis and which require baseline numbers)
-- frontend/app/page.tsx (only the <h1>; align with your recommended
-  variant in headline-options.md)
-
-Files you must NOT touch:
-- docs/launch/twitter-thread.md (E2)
-- docs/launch/linkedin-post.md (E3)
-- docs/launch/outreach-templates.md (E3)
-- docs/launch/press-kit.md (E4)
-- docs/launch/press-emails.md (E4)
-
-Constraints (read coverage-matrix §5 first):
-- No "beats GPT-X" framing. Use the substitute phrasings.
-- Lead with the SG-uniqueness gap (LegalBench=US, LexGLUE=US+EU,
-  LawBench=CN; SG is a clean gap).
-- "We make no legal interpretive claims" must appear.
-- 3 headline candidates: surprising-number variant (gated on #36),
-  capability-gap variant (no number needed), methodology variant
-  ("first SG benchmark with mechanical labels"). Mark which need #36.
-
-Post structure (suggested):
-- Title (≤80 chars)
-- Opening hook (2 sentences)
-- What it is (3 bullets, link to repo + spec dir)
-- What it isn't (1-2 bullets, defuses scope-overclaim)
-- Reproducibility (1 bullet — `make eval` and you get the same numbers)
-- Links section
-
-Branch: feat/launch-assets-v0.1.
-Commit: `docs(launch): HN Show HN draft + headline candidates
-(advances #39)`. Co-Authored-By trailer.
-
-Acceptance: 3 headline variants + 1 ready-to-paste HN draft + landing
-<h1> aligned. Each <PLACEHOLDER> token is documented.
-
-Report back: which headline you recommend and why; any claim you
-couldn't substantiate without baselines.
-```
-
-## E2: Twitter thread
-
-```text
-You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md
-and the SGLB spec docs under docs/sglb_specs/.
-
-Goal: 8-12 tweet thread for launch day. Mark every `<PLACEHOLDER>`
-that depends on baseline (#36) numbers.
-
-Files you own:
-- docs/launch/twitter-thread.md (new)
-
-Files you must NOT touch:
-- E1/E3/E4's files.
-
-Thread structure:
-1. Hook tweet — why this matters (no number needed)
-2. The gap (LegalBench=US, LexGLUE=US+EU, LawBench=CN, gap=SG)
-3. Methodology — mechanical extraction; the credibility substitute
-4-8. One surprising finding per tweet (each gated on #36; mark
-   <PLACEHOLDER>)
-9. Reproducibility — "anyone can rerun: make eval && cat receipt"
-10. Where to learn more (links)
-
-Constraints:
-- No emojis (user's CLAUDE.md disallows them).
-- No "beats GPT-X" framing.
-- Each tweet ≤270 chars (Twitter limit minus padding).
-- Numbered "n/N" prefixes for thread readability.
-
-Branch + commit: same as E1.
-Acceptance: 8-12 numbered tweets, ≤270 chars each.
-Report back: any claim you couldn't make in ≤270 chars; whether the
-thread reads cohesively without baselines (i.e. is the no-numbers
-variant viable).
-```
-
-## E3: LinkedIn SG legal-tech post + outreach templates
-
-```text
-You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md
-and README2.md.
-
-Goal: LinkedIn launch post + 6 DM templates targeted at SG
-legal-tech institutions.
-
-Files you own:
-- docs/launch/linkedin-post.md (the post)
-- docs/launch/outreach-templates.md (DM templates)
-
-Files you must NOT touch:
-- E1/E2/E4's files.
-
-Targets for DM templates (one each):
-1. SMU SOLID team (Singapore Open Legal Informatics Database project)
-2. NUS TRAIL (Tech and Responsible AI lab)
-3. SAL (Singapore Academy of Law) tech committee
-4. INTELLLEX (SG legal-tech company)
-5. Lupl (SG legal-tech company)
-6. LawTech.Asia (publication)
-
-Constraints:
-- LinkedIn post 200-400 words. Frame: "I built X because Y was
-  missing". Cite the LegalBench/LexGLUE/LawBench gap.
-- DMs ≤150 words each. State who they are + what we built + the
-  one-sentence ask. NO name-drops we can't substantiate (the user has
-  no prior contact unless evidence is in repo history).
-- Treat SAL as institutional (phone/email better than DM); flag this
-  in your report.
-
-Branch + commit: same as E1.
-Acceptance: 1 post + 6 personalised DMs.
-Report back: which targets warrant a phone call vs DM.
-```
-
-## E4: Press kit + journalist outreach
-
-```text
-You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md,
-README2.md, and (for tone reference) any coverage Mike OSS got from
-the same outlets (Google "willchen96 mike artificial lawyer").
-
-Goal: press kit + 5 personalised pitch emails.
-
-Files you own:
-- docs/launch/press-kit.md (1-page background + key facts + quote
-  block + contact)
-- docs/launch/press-emails.md (5 pitches: LawTech.Asia, Artificial
-  Lawyer, Legal IT Insider, Legal Futures, Straits Times Tech)
-
-Files you must NOT touch:
-- E1/E2/E3's files.
-
-Press kit must include:
-- 2-paragraph background suitable for direct quotation
-- Key facts (8 tasks, public-domain sources, mechanical labels,
-  multi-model baselines)
-- 50-80 word attributable quote from the solo dev (Gabriel) about the
-  SG-uniqueness gap
-- Where to find screenshots / demo GIF (placeholder paths)
-- Contact (TBD; surface to user)
-
-Each pitch email ≤200 words. Differentiate from Mike OSS coverage
-angle (benchmark, not product; SG, not generic).
-
-Branch + commit: same as E1.
-Acceptance: 1 press kit + 5 personalised pitches.
-Report back: which outlets covered Mike OSS recently and how we
-differentiate.
-```
-
----
-
-# Batch F — MCP Server (#48), 4 parallel agents
-
-**Goal:** expose junas as an MCP server so Claude Desktop / Claude
-Code users can run benchmarks + query SG legal sources without
-leaving chat. A "drop into Claude Desktop and get SG legal lookup +
-benchmark" demo is much more compelling than a static leaderboard.
-
-**Coordination contract:** branch `feat/mcp-server`. F1 lands first;
-F2/F3/F4 fan out off F1's branch.
-
-## F1: MCP server scaffolding + transport
-
-```text
-You are working on issue #48 in the junas repo. Read AGENT-RUNBOOK.md
-and the MCP spec at https://modelcontextprotocol.io. Use the official
-python-sdk pattern.
-
-Goal: scaffold the MCP server. Tools come in F2.
-
-Files you own:
-- backend/mcp/__init__.py (new)
-- backend/mcp/server.py (new — server entry, stdio + http transports)
-- backend/pyproject.toml: add `mcp` Python SDK
-- Makefile: + `make mcp` target (defaults to stdio)
-- README2.md: append a short "Run as MCP server" section
-
-Files you must NOT touch:
-- backend/mcp/tools/* (F2)
-- docs/mcp/* (F3)
-- backend/tests/test_mcp_*.py (F4)
-
-Server requirements:
-- Name: "junas-mcp"
-- Transports: stdio default; --http flag for HTTP on port 3344
-- Tool registry: empty in F1; expose a single `health` tool that
-  returns repo version + git SHA + python version so F3's setup doc
-  can verify the install
-- Graceful shutdown on SIGTERM
-
-Branch: feat/mcp-server.
-Commit: `feat(mcp): server scaffolding + transport (advances #48)`.
-
-Acceptance: `make mcp` boots without error; `health` tool responds;
-server starts under Claude Desktop config (test on the user's
-machine if possible).
-
-Report back: MCP SDK version pinned; transport latency observations.
-```
-
-## F2: Tool implementations
-
-```text
-You are working on issue #48 in the junas repo. WAIT until F1 has
-landed feat/mcp-server. Read AGENT-RUNBOOK.md, F1's server.py,
-backend/api/services/sal_citation.py, statute_lookup.py,
-case_retrieval.py, compliance_service.py.
-
-Goal: implement 5 MCP tools that delegate to existing copilot services.
-
-Files you own:
-- backend/mcp/tools/__init__.py
-- backend/mcp/tools/run_benchmark.py
-- backend/mcp/tools/verify_citation.py
-- backend/mcp/tools/lookup_statute.py
-- backend/mcp/tools/retrieve_cases.py
-- backend/mcp/tools/check_compliance.py
-
-Files you must NOT touch:
-- backend/mcp/server.py (F1; you register tools into it via a clean
-  import — append registrations after F1's stub list)
-- backend/api/services/* (consumer code only)
-- docs/mcp/* (F3)
-- backend/tests/test_mcp_*.py (F4)
-
-Tools:
-1. `run_benchmark(task: str, model: str) -> dict` — invokes
-   `benchmark.cli` against `task`; validates `task` in TASKS; model
-   in {azure, anthropic, gemini, ollama}; returns receipt summary.
-2. `verify_citation(citation: str) -> dict` — wraps
-   `api.services.sal_citation.validate_citation`.
-3. `lookup_statute(query: str) -> dict` — wraps statute_lookup.
-4. `retrieve_cases(query: str, k: int = 5) -> dict` — wraps
-   case_retrieval.
-5. `check_compliance(text: str, regime: str) -> dict` — regime ∈
-   {pdpa, employment_act, roc_2021}.
-
-Each tool: declare JSON input schema; return JSON-serializable dict;
-surface errors via an `error` field (do not raise).
-
-Branch: feat/mcp-server.
-Commit: `feat(mcp): 5 tools delegating to copilot services (advances
-#48)`.
-
-Acceptance: F1's `list_tools` returns 5 tools after import; each
-callable via the MCP test client.
-
-Report back: any service that lacked a clean entry point.
-```
-
-## F3: Claude Desktop config + setup docs
-
-```text
-You are working on issue #48 in the junas repo. WAIT until F1 has
-landed. Read AGENT-RUNBOOK.md.
-
-Goal: end-user setup so a Claude Desktop user can install + use
-junas-mcp in <5 min.
-
-Files you own:
-- docs/mcp/setup.md
-- docs/mcp/example-prompts.md (10 prompts exercising each tool)
-- docs/mcp/troubleshooting.md (port collision, missing keys, SDK
-  version mismatch)
-
-Files you must NOT touch:
-- backend/mcp/* (F1/F2)
-- backend/tests/test_mcp_*.py (F4)
-
-Setup doc:
-- Cover macOS / Linux / Windows.
-- Exact JSON snippet for `~/Library/Application Support/Claude/
-  claude_desktop_config.json` (macOS path; equivalent paths for the
-  other two OSes).
-- BYOK env-var-setting step (Azure or Anthropic).
-- Verification: ask Claude Desktop to call the `health` tool.
-
-Example prompts: 10 covering each tool individually + 2 chained
-workflows (e.g. "verify [2023] SGCA 5, then retrieve cases that cite
-it").
-
-Branch: feat/mcp-server.
-Commit: `docs(mcp): setup + example prompts + troubleshooting
-(advances #48)`.
-
-Acceptance: a fresh user (test on the user's machine or a clean VM)
-can install + use junas-mcp within 5 min.
-
-Report back: brittle setup steps; OS-specific gotchas.
-```
-
-## F4: MCP tests + integration
-
-```text
-You are working on issue #48 in the junas repo. WAIT until F1+F2
-have landed. Read AGENT-RUNBOOK.md, F1's server, F2's tools.
-
-Goal: tests for the MCP server + tools.
-
-Files you own:
-- backend/tests/test_mcp_server.py (server boots + health works)
-- backend/tests/test_mcp_tools.py (each tool callable + shape)
-
-Files you must NOT touch:
-- backend/mcp/* (F1/F2)
-- docs/mcp/* (F3)
-
-Requirements:
-- Mock the underlying api.services calls; do NOT make real LLM calls.
-- For run_benchmark, use the existing MockLLMClient pattern from
-  backend/tests/test_llm_runner.py.
-- Test the JSON-schema validation per tool input.
-- One integration test: spawn the server in a subprocess, send a
-  `list_tools` request, assert 5 tools enumerated.
-
-Branch: feat/mcp-server.
-Commit: `test(mcp): server + tool tests (advances #48)`.
-
-Acceptance: `pytest -x -q backend/tests/test_mcp_*` passes; no
-network calls in test mode.
-
-Report back: any tool hard to test deterministically (that's a smell
-to fix in F2).
-```
-
----
+_Fire after v0.1 ships; safe to defer._
 
 # Batch G — v0.2 Task Wave 1 (#50, #54, #55, #57), 4 parallel agents
 
@@ -1926,61 +1948,218 @@ deterministically.
 
 ---
 
-# Solo prompts (continued)
+# Batch F — MCP Server (#48), 4 parallel agents
 
-## SOLO-10: #40 Final benchmark name + license research brief
+**Goal:** expose junas as an MCP server so Claude Desktop / Claude
+Code users can run benchmarks + query SG legal sources without
+leaving chat. A "drop into Claude Desktop and get SG legal lookup +
+benchmark" demo is much more compelling than a static leaderboard.
+
+**Coordination contract:** branch `feat/mcp-server`. F1 lands first;
+F2/F3/F4 fan out off F1's branch.
+
+## F1: MCP server scaffolding + transport
 
 ```text
-You are working on issue #40 in the junas repo. Read AGENT-RUNBOOK.md,
-README2.md, the pivot history in git (commit a910403 and earlier),
-CONTRIBUTING.md.
+You are working on issue #48 in the junas repo. Read AGENT-RUNBOOK.md
+and the MCP spec at https://modelcontextprotocol.io. Use the official
+python-sdk pattern.
 
-Goal: a 1-page decision record letting the user choose name +
-license in <10 min.
+Goal: scaffold the MCP server. Tools come in F2.
 
 Files you own:
-- docs/decisions/dr-001-name-and-license.md (new)
+- backend/mcp/__init__.py (new)
+- backend/mcp/server.py (new — server entry, stdio + http transports)
+- backend/pyproject.toml: add `mcp` Python SDK
+- Makefile: + `make mcp` target (defaults to stdio)
+- README2.md: append a short "Run as MCP server" section
 
-Decision record sections:
+Files you must NOT touch:
+- backend/mcp/tools/* (F2)
+- docs/mcp/* (F3)
+- backend/tests/test_mcp_*.py (F4)
 
-1. **Name candidates** (3 options, pros/cons + discoverability check):
-   - "SG-LegalBench" — clearest, matches LegalBench convention
-   - "SingLegalBench" — more distinct but unwieldy
-   - "LexSG-Eval" — academic-flavoured but loses brand
-   - Any other you researched (Google "sg legal benchmark" to verify
-     none collide)
+Server requirements:
+- Name: "junas-mcp"
+- Transports: stdio default; --http flag for HTTP on port 3344
+- Tool registry: empty in F1; expose a single `health` tool that
+  returns repo version + git SHA + python version so F3's setup doc
+  can verify the install
+- Graceful shutdown on SIGTERM
 
-2. **Code license** (4 options, with real legal-tech precedent):
-   - MIT (LegalBench uses this)
-   - Apache 2.0 (patent grant)
-   - AGPL-3.0 (Mike OSS uses this; discourages closed-source forks)
-   - GPL-3.0
+Branch: feat/mcp-server.
+Commit: `feat(mcp): server scaffolding + transport (advances #48)`.
 
-3. **Dataset license** (4 options):
-   - CC-BY-4.0
-   - CC-BY-SA-4.0
-   - CC-BY-NC-4.0
-   - CC0
+Acceptance: `make mcp` boots without error; `health` tool responds;
+server starts under Claude Desktop config (test on the user's
+machine if possible).
 
-4. **Your recommendation** with one-sentence rationale.
+Report back: MCP SDK version pinned; transport latency observations.
+```
 
-Constraints:
-- Research brief, NOT legal advice. No author legal opinions.
-- Cite each license URL.
-- Note what real legal-tech projects use each license (Mike OSS,
-  LegalBench, Stanford CRFM benchmarks, OpenLegal, etc.).
-- Surface the AGPL-vs-MIT trade-off explicitly: AGPL protects against
-  closed-source competitor builds but reduces commercial-vendor
-  uptake (some companies refuse AGPL).
+## F2: Tool implementations
 
-Branch: docs/dr-001-name-license.
-Commit: `docs(decision): name + license research brief (advances
-#40)`. Co-Authored-By trailer.
+```text
+You are working on issue #48 in the junas repo. WAIT until F1 has
+landed feat/mcp-server. Read AGENT-RUNBOOK.md, F1's server.py,
+backend/api/services/sal_citation.py, statute_lookup.py,
+case_retrieval.py, compliance_service.py.
 
-Acceptance: 1-page brief in markdown; user can make the call without
-asking follow-ups.
-Report back: your one-sentence recommendation; any surprising
-constraint you found.
+Goal: implement 5 MCP tools that delegate to existing copilot services.
+
+Files you own:
+- backend/mcp/tools/__init__.py
+- backend/mcp/tools/run_benchmark.py
+- backend/mcp/tools/verify_citation.py
+- backend/mcp/tools/lookup_statute.py
+- backend/mcp/tools/retrieve_cases.py
+- backend/mcp/tools/check_compliance.py
+
+Files you must NOT touch:
+- backend/mcp/server.py (F1; you register tools into it via a clean
+  import — append registrations after F1's stub list)
+- backend/api/services/* (consumer code only)
+- docs/mcp/* (F3)
+- backend/tests/test_mcp_*.py (F4)
+
+Tools:
+1. `run_benchmark(task: str, model: str) -> dict` — invokes
+   `benchmark.cli` against `task`; validates `task` in TASKS; model
+   in {azure, anthropic, gemini, ollama}; returns receipt summary.
+2. `verify_citation(citation: str) -> dict` — wraps
+   `api.services.sal_citation.validate_citation`.
+3. `lookup_statute(query: str) -> dict` — wraps statute_lookup.
+4. `retrieve_cases(query: str, k: int = 5) -> dict` — wraps
+   case_retrieval.
+5. `check_compliance(text: str, regime: str) -> dict` — regime ∈
+   {pdpa, employment_act, roc_2021}.
+
+Each tool: declare JSON input schema; return JSON-serializable dict;
+surface errors via an `error` field (do not raise).
+
+Branch: feat/mcp-server.
+Commit: `feat(mcp): 5 tools delegating to copilot services (advances
+#48)`.
+
+Acceptance: F1's `list_tools` returns 5 tools after import; each
+callable via the MCP test client.
+
+Report back: any service that lacked a clean entry point.
+```
+
+## F3: Claude Desktop config + setup docs
+
+```text
+You are working on issue #48 in the junas repo. WAIT until F1 has
+landed. Read AGENT-RUNBOOK.md.
+
+Goal: end-user setup so a Claude Desktop user can install + use
+junas-mcp in <5 min.
+
+Files you own:
+- docs/mcp/setup.md
+- docs/mcp/example-prompts.md (10 prompts exercising each tool)
+- docs/mcp/troubleshooting.md (port collision, missing keys, SDK
+  version mismatch)
+
+Files you must NOT touch:
+- backend/mcp/* (F1/F2)
+- backend/tests/test_mcp_*.py (F4)
+
+Setup doc:
+- Cover macOS / Linux / Windows.
+- Exact JSON snippet for `~/Library/Application Support/Claude/
+  claude_desktop_config.json` (macOS path; equivalent paths for the
+  other two OSes).
+- BYOK env-var-setting step (Azure or Anthropic).
+- Verification: ask Claude Desktop to call the `health` tool.
+
+Example prompts: 10 covering each tool individually + 2 chained
+workflows (e.g. "verify [2023] SGCA 5, then retrieve cases that cite
+it").
+
+Branch: feat/mcp-server.
+Commit: `docs(mcp): setup + example prompts + troubleshooting
+(advances #48)`.
+
+Acceptance: a fresh user (test on the user's machine or a clean VM)
+can install + use junas-mcp within 5 min.
+
+Report back: brittle setup steps; OS-specific gotchas.
+```
+
+## F4: MCP tests + integration
+
+```text
+You are working on issue #48 in the junas repo. WAIT until F1+F2
+have landed. Read AGENT-RUNBOOK.md, F1's server, F2's tools.
+
+Goal: tests for the MCP server + tools.
+
+Files you own:
+- backend/tests/test_mcp_server.py (server boots + health works)
+- backend/tests/test_mcp_tools.py (each tool callable + shape)
+
+Files you must NOT touch:
+- backend/mcp/* (F1/F2)
+- docs/mcp/* (F3)
+
+Requirements:
+- Mock the underlying api.services calls; do NOT make real LLM calls.
+- For run_benchmark, use the existing MockLLMClient pattern from
+  backend/tests/test_llm_runner.py.
+- Test the JSON-schema validation per tool input.
+- One integration test: spawn the server in a subprocess, send a
+  `list_tools` request, assert 5 tools enumerated.
+
+Branch: feat/mcp-server.
+Commit: `test(mcp): server + tool tests (advances #48)`.
+
+Acceptance: `pytest -x -q backend/tests/test_mcp_*` passes; no
+network calls in test mode.
+
+Report back: any tool hard to test deterministically (that's a smell
+to fix in F2).
+```
+
+---
+
+## SOLO-7: Reference copilot scope cleanup (#35)
+
+```text
+You are addressing issue #35 in the junas repo: keep only SG
+retrieval, citation, and compliance surfaces in the reference
+copilot. Read AGENT-RUNBOOK.md and the pivot history in git
+(commit a910403 is the SSO landing; earlier commits cut non-SG
+paths).
+
+Audit which frontend routes and backend routers are still
+non-SG-relevant. The audit doc lists what should have been removed
+(predictions/, rome-statute/, compare-jurisdictions/). Verify those
+are gone; flag any that aren't.
+
+This is an audit-then-fix task. Step 1: list every page + router +
+service that doesn't fit the minimal copilot scope (BYOK chat, SG
+retrieval, citation verifier, PDPA+EA compliance, SG clauses +
+templates, document parsing). Step 2: produce a PR that removes
+them or marks them as out-of-scope-but-kept.
+
+Don't be over-eager. The chat surface, batch-analysis, contracts,
+ner pages are arguably in scope. Apply the pivot-doc §5 "minimal
+scope" test: does this surface demonstrate the benchmark? If not,
+flag it.
+
+Branch: refactor/copilot-scope.
+Commit: `refactor(copilot): keep only SG retrieval/citation/
+compliance surfaces (closes #35)`.
+
+Acceptance: the user can ship a smaller copilot landing without
+dead links.
+
+Report back: a numbered audit list (this is the deliverable) +
+the actual cuts you made. If you want the user to make a
+keep-vs-cut call, surface the question; don't decide unilaterally
+on borderline items.
 ```
 
 ## SOLO-11: #42 Port SG-applicable contract templates
@@ -2031,44 +2210,6 @@ Report back: any template where SG-source publicly-available
 drafting was thin.
 ```
 
-## SOLO-12: #43 Logfire observability
-
-```text
-You are working on issue #43 in the junas repo. Read AGENT-RUNBOOK.md
-and Pydantic Logfire docs (https://docs.pydantic.dev/logfire/).
-
-Goal: opt-in Logfire integration for benchmark contributors who want
-to inspect their own runs.
-
-Files in scope:
-- backend/api/telemetry.py (new — Logfire setup, gated behind
-  LOGFIRE_TOKEN env var)
-- backend/api/main.py (instrument the FastAPI app; opt-in via env)
-- backend/benchmark/runner.py (instrument the runner; record per-case
-  spans)
-- backend/pyproject.toml: `logfire` to optional dev deps (NOT runtime)
-- docs/contributor-observability.md (new)
-
-Constraints:
-- Default off. If LOGFIRE_TOKEN unset, Logfire is a no-op (zero
-  network).
-- NEVER log API keys, model outputs verbatim, or user-provided text.
-  Only structural metadata: workflow name, evaluator name, score,
-  duration, error class. The harness's existing receipt JSON contains
-  outputs; that's the right place for them, not telemetry.
-- A future contributor running `LOGFIRE_TOKEN=xxx make eval` should
-  see traces in their Logfire project.
-
-Branch: feat/logfire-observability.
-Commit: `feat(observability): opt-in Logfire instrumentation (closes
-#43)`.
-
-Acceptance: opt-in works; nothing leaks in CI; doc walks a contributor
-through 2-min setup.
-Report back: any signal Logfire surfaced that we should add as a
-permanent metric in our own receipts.
-```
-
 ## SOLO-13: #45 Region-per-index naming + adapter pattern (design FIRST)
 
 ```text
@@ -2112,46 +2253,6 @@ Acceptance: a design doc the user can approve in one read.
 Report back: your recommendation; implementation effort estimate.
 ```
 
-## SOLO-14: #46 PydanticAI migration
-
-```text
-You are working on issue #46 in the junas repo.
-
-**Honesty check first.** PydanticAI migration is labelled "low
-priority" for a reason. Before starting, verify the migration adds
-clear value over the current shape in backend/api/services/legal_qa.py
-and backend/api/services/chat_service.py. If you can't articulate
-the upside in 2 bullets, STOP and surface to the user — there may
-be a better use of the agent slot.
-
-If proceeding:
-
-Read AGENT-RUNBOOK.md, PydanticAI docs (https://ai.pydantic.dev/),
-backend/api/services/legal_qa.py + chat_service.py.
-
-Files in scope:
-- backend/api/services/orchestration.py (new — agent graphs for RAG
-  + tool-use)
-- backend/api/services/legal_qa.py (refactor to use orchestration)
-- backend/api/services/chat_service.py (refactor)
-- backend/tests/test_orchestration.py (new)
-- backend/pyproject.toml: + `pydantic-ai`
-
-Constraints:
-- Existing chat + legal_qa endpoints must remain bit-identical
-  behaviourally.
-- The migration must be reversible (preserve the old code path behind
-  a JUNAS_USE_PYDANTIC_AI feature flag for one minor version).
-
-Branch: refactor/pydantic-ai-orchestration.
-Commit: `refactor(orchestration): migrate to PydanticAI (closes #46)`.
-
-Acceptance: tests pass; existing endpoints behave identically; flag
-toggles cleanly.
-Report back: the 2-bullet upside you found OR an explicit "stopped
-— could not justify the migration; recommend closing #46".
-```
-
 ## SOLO-15: #47 Jurisdiction selector UI
 
 ```text
@@ -2193,135 +2294,82 @@ Report back: any backend endpoint that ignores the header (those are
 bugs to file separately).
 ```
 
-## SOLO-17: SGLB-08 multi-judge ensemble pass (methodology upgrade)
+## SOLO-12: #43 Logfire observability
 
 ```text
-You are upgrading SGLB-08's labelling methodology from single-judge
-(currently Azure gpt-5) to a ≥3-judge ensemble per coverage-matrix
-§4.1. The 400-case reviewed dataset already exists at
-backend/benchmark/datasets/sglb_08_clause_tone_reviewed/dataset.yaml.
+You are working on issue #43 in the junas repo. Read AGENT-RUNBOOK.md
+and Pydantic Logfire docs (https://docs.pydantic.dev/logfire/).
 
-Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-08.md (the "Provisional-
-approval caveat" section), docs/coverage-matrix.md §4.1, and
-backend/benchmark/synthetic/sglb_08.py.
+Goal: opt-in Logfire integration for benchmark contributors who want
+to inspect their own runs.
 
-Goal: re-label each of the 400 cases with Anthropic + Gemini votes;
-compute Cohen's κ per (generator, judge) pair AND per-cell agreement;
-emit the artefacts that let the leaderboard publish "κ = X.XX
-(n=400, 3 judges)".
+Files in scope:
+- backend/api/telemetry.py (new — Logfire setup, gated behind
+  LOGFIRE_TOKEN env var)
+- backend/api/main.py (instrument the FastAPI app; opt-in via env)
+- backend/benchmark/runner.py (instrument the runner; record per-case
+  spans)
+- backend/pyproject.toml: `logfire` to optional dev deps (NOT runtime)
+- docs/contributor-observability.md (new)
 
-Files you own:
-- backend/benchmark/synthetic/multi_judge.py (new — runs the 2
-  additional judges over the existing reviewed dataset)
-- backend/benchmark/synthetic/agreement.py (new — Cohen's κ
-  computation; pure stdlib + numpy where present)
-- backend/benchmark/datasets/sglb_08_clause_tone_reviewed/judges.jsonl
-  (new artefact — per-case vote per judge + κ summary)
-- docs/sglb_specs/SGLB-08.md (update the "Provisional-approval"
-  section once κ is known; if κ ≥ 0.4 across all judge pairs, bump
-  version to "0.1-shipped"; if any pair drops below 0.4, file a
-  follow-up issue per coverage-matrix §8)
-- backend/tests/test_multi_judge.py + test_agreement.py
+Constraints:
+- Default off. If LOGFIRE_TOKEN unset, Logfire is a no-op (zero
+  network).
+- NEVER log API keys, model outputs verbatim, or user-provided text.
+  Only structural metadata: workflow name, evaluator name, score,
+  duration, error class. The harness's existing receipt JSON contains
+  outputs; that's the right place for them, not telemetry.
+- A future contributor running `LOGFIRE_TOKEN=xxx make eval` should
+  see traces in their Logfire project.
 
-Files you must NOT touch:
-- backend/benchmark/synthetic/sglb_08.py (existing pipeline)
-- backend/benchmark/synthetic/generator.py (existing)
-- The dataset.yaml itself — judges' votes live in judges.jsonl,
-  alongside it. The gold label stays as-is in dataset.yaml; future
-  v0.2 can flip a case if 2+ judges disagree with the gold.
+Branch: feat/logfire-observability.
+Commit: `feat(observability): opt-in Logfire instrumentation (closes
+#43)`.
 
-Implementation:
-
-1. For each case in dataset.yaml, dispatch the same prompt that
-   benchmark.llm_runner.sglb_08_prompt_builder produces — i.e.
-   re-use the existing prompt template; don't author a new one.
-2. Send to both Anthropic (claude-sonnet-4.6 or whatever the user
-   has) AND Gemini (gemini-2.0-flash).
-3. Record per-case votes in judges.jsonl with the case_id +
-   provider + model + raw output + parsed label + JSON-parse-success
-   flag.
-4. Compute pairwise Cohen's κ (gpt-5 ↔ Anthropic; gpt-5 ↔ Gemini;
-   Anthropic ↔ Gemini). Also compute Fleiss' κ across all 3.
-5. Per-cell breakdown: report κ for each (tone × clause_type)
-   stratum so the user can see if any cell is below the 0.4 floor.
-
-Cost gate: Anthropic ~$0.005/call × 400 = $2; Gemini ~$0.001/call
-× 400 = $0.40. Total ~$2.40 — much cheaper than the original gpt-5
-gen. Confirm with the user before firing if you're in any doubt; the
-SGLB-08 synth gen already cost ~$20-50.
-
-Provider environment: ANTHROPIC_API_KEY + GEMINI_API_KEY must be in
-.env. If missing, --dry-run reports which keys are needed and stops.
-
-Branch: feat/sglb-08-multi-judge.
-Commit: `feat(sglb-08): multi-judge ensemble + κ for clause-tone
-labels (advances #33)`.
-
-Acceptance:
-- judges.jsonl materialised with 400 × 2 vote rows.
-- κ printed to stdout + persisted in a summary JSON.
-- All κ pairs ≥ 0.4 (or, if any drop below, an issue is filed +
-  spec doc updated to reflect retirement risk per coverage matrix §8).
-
-Report back: the 3 pairwise κ values + Fleiss' κ + any cell where
-agreement is dangerously low. Note any provider-specific JSON-parse
-failures (those are a quality signal too).
+Acceptance: opt-in works; nothing leaks in CI; doc walks a contributor
+through 2-min setup.
+Report back: any signal Logfire surfaced that we should add as a
+permanent metric in our own receipts.
 ```
 
-## SOLO-18: SGLB-08 human-reviewed held-out subset
+## SOLO-14: #46 PydanticAI migration
 
 ```text
-You are creating a human-reviewed held-out subset of SGLB-08 per
-coverage-matrix §4.1 ("human-spot-checked held-out subset"). This
-runs in PARALLEL with SOLO-17 (they touch different files).
+You are working on issue #46 in the junas repo.
 
-Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-08.md, the existing
-reviewed dataset, CONTRIBUTING.md.
+**Honesty check first.** PydanticAI migration is labelled "low
+priority" for a reason. Before starting, verify the migration adds
+clear value over the current shape in backend/api/services/legal_qa.py
+and backend/api/services/chat_service.py. If you can't articulate
+the upside in 2 bullets, STOP and surface to the user — there may
+be a better use of the agent slot.
 
-Goal: select 40 cases (10% sample, stratified across all 4 tones ×
-6 clause types) for human review. Produce a checklist artefact the
-user can fill in OFFLINE without touching the dataset YAML
-structure. Once the user returns the checklist, you apply the
-edits.
+If proceeding:
 
-Files you own:
-- backend/benchmark/datasets/sglb_08_clause_tone_reviewed/human_review_checklist.md
-  (new — a markdown table with 40 rows, the user marks each
-  "agree / disagree / unclear")
-- scripts/select_sglb_08_holdout.py (new — selects the 40 cases
-  deterministically with a seed)
-- docs/sglb_specs/SGLB-08.md (update the "Provisional-approval"
-  section once human checklist is returned; document the 40-case
-  held-out subset and any cases the human reviewer flagged as
-  incorrect)
+Read AGENT-RUNBOOK.md, PydanticAI docs (https://ai.pydantic.dev/),
+backend/api/services/legal_qa.py + chat_service.py.
 
-Files you must NOT touch:
-- The dataset.yaml itself — disputes from the human reviewer get
-  recorded as errata in a separate file (mirror the CONTRIBUTING.md
-  errata pattern).
+Files in scope:
+- backend/api/services/orchestration.py (new — agent graphs for RAG
+  + tool-use)
+- backend/api/services/legal_qa.py (refactor to use orchestration)
+- backend/api/services/chat_service.py (refactor)
+- backend/tests/test_orchestration.py (new)
+- backend/pyproject.toml: + `pydantic-ai`
 
-Selection algorithm:
-- Stratify: every (tone × clause_type) cell that has ≥1 case gets
-  at least 1 in the holdout; remaining slots fill proportionally
-  to cell size. seed=42.
-- Each row in the checklist shows: case_id, tone, clause_type,
-  first ~400 chars of clause_text, the gold label, an empty
-  "human_decision" column, an empty "notes" column.
+Constraints:
+- Existing chat + legal_qa endpoints must remain bit-identical
+  behaviourally.
+- The migration must be reversible (preserve the old code path behind
+  a JUNAS_USE_PYDANTIC_AI feature flag for one minor version).
 
-Branch: feat/sglb-08-human-holdout.
-Commit (initial): `feat(sglb-08): generate 40-case human-review
-checklist (advances #33)`.
-Commit (after user returns checklist): `feat(sglb-08): apply human
-holdout decisions; flag disputes`.
+Branch: refactor/pydantic-ai-orchestration.
+Commit: `refactor(orchestration): migrate to PydanticAI (closes #46)`.
 
-Acceptance:
-- 40-row checklist generated, stratified across all cells.
-- Spec doc references the file.
-- A clear "user, please fill this in and report back" surfacing in
-  your final message so the human-in-the-loop step doesn't get lost.
-
-Report back: the stratification table (which cells got how many);
-your hand-off message to the user.
+Acceptance: tests pass; existing endpoints behave identically; flag
+toggles cleanly.
+Report back: the 2-bullet upside you found OR an explicit "stopped
+— could not justify the migration; recommend closing #46".
 ```
 
 ## SOLO-16: #73 Branching policy consolidation
@@ -2363,12 +2411,9 @@ to reconcile.
 
 ---
 
-# Copilot product prompts
+## Tier 4 (cont.) — Copilot product polish
 
-These take the copilot from "harness UI" to "thing a SG legal-tech
-engineer would put in front of a real lawyer". The benchmark sells
-the credibility; the copilot is what real legal-tech companies
-actually buy.
+_Lifts the copilot from harness UI to a thing a SG legal-tech engineer would put in front of a real lawyer._
 
 ## COPILOT-1: Sessions + history persistence
 
@@ -2557,3 +2602,4 @@ or external dependencies before they can be specified:
   this doc:
   1. Open a GitHub issue; write a prompt for it here in a follow-up PR.
   2. Surface to the user directly if it's a one-off operational concern.
+
