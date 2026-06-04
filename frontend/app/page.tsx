@@ -1,15 +1,35 @@
 import Link from "next/link";
 
-const TASKS = [
-  { id: "SGLB-01", name: "PDPA-Outcome", source: "PDPC enforcement decisions", metric: "macro-F1 (obligation), MAE (penalty band)", n: "~210" },
-  { id: "SGLB-02", name: "Statute-QA", source: "SSO statutes", metric: "exact-match (citation), ROUGE-L (answer)", n: "~500" },
-  { id: "SGLB-03", name: "Case-Holding", source: "eLitigation public judgments", metric: "exact-match on multiple-choice holding", n: "~300" },
-  { id: "SGLB-04", name: "Citation-Verify", source: "SAL Style Guide + perturbations", metric: "accuracy + per-error-class breakdown", n: "~1000" },
-  { id: "SGLB-05", name: "Employment-Issue", source: "MOM guidance + Employment Act", metric: "multi-label F1", n: "~150" },
-  { id: "SGLB-06", name: "Rules-of-Court-2021", source: "Rules of Court 2021 (SSO)", metric: "exact-match (order:rule), top-3 accuracy", n: "~200" },
-  { id: "SGLB-07", name: "Jurisdiction-Routing", source: "Curated SG cases citing UK/AU/HK precedent", metric: "accuracy", n: "~250" },
-  { id: "SGLB-08", name: "Clause-Tone", source: "SG clause library + LLM-judge augmentation", metric: "macro-F1", n: "~400" },
+type TaskStatus = "shipped" | "code-shipped" | "in-progress" | "queued" | "deferred";
+
+interface TaskRow {
+  id: string;
+  name: string;
+  source: string;
+  n: string;
+  metric: string;
+  status: TaskStatus;
+  note?: string;
+}
+
+const TASKS: TaskRow[] = [
+  { id: "SGLB-01", name: "PDPA-Outcome", source: "PDPC enforcement decisions", metric: "multi-label F1 (obligation) + ordinal MAE (penalty band)", n: "211", status: "shipped" },
+  { id: "SGLB-02", name: "Statute-QA", source: "SSO statutes (PDPA seed)", metric: "exact-match (citation) + ROUGE-L (answer)", n: "78", status: "shipped", note: "PDPA-only v0.1; expansion to EmA/PC/ROC pending live ingest" },
+  { id: "SGLB-03", name: "Case-Holding", source: "eLitigation public judgments", metric: "exact-match on MCQ holding", n: "—", status: "deferred", note: "TOS-deferred; will reopen with CommonLII fallback in v0.2" },
+  { id: "SGLB-04", name: "Citation-Verify", source: "SAL Style Guide + perturbations", metric: "multi-label F1 (valid/invalid)", n: "30 (smoke)", status: "shipped", note: "Smoke level; ~1000-case production set pending" },
+  { id: "SGLB-05", name: "Employment-Issue", source: "MOM guidance + Employment Act", metric: "multi-label F1", n: "—", status: "queued", note: "Builder shipped, data pending MOM scraper" },
+  { id: "SGLB-06", name: "Rules-of-Court-2021", source: "Rules of Court 2021 (SSO)", metric: "label F1 + top-3 accuracy", n: "—", status: "code-shipped", note: "Builder + scorers ready; data pending make ingest-sso SSO_CODE=ROC2021" },
+  { id: "SGLB-07", name: "Jurisdiction-Routing", source: "SG cases citing UK/AU/HK precedent", metric: "accuracy", n: "—", status: "queued", note: "Needs CommonLII SG case corpus" },
+  { id: "SGLB-08", name: "Clause-Tone", source: "SG clause library + LLM-judge augmentation", metric: "macro-F1", n: "400 (gen)", status: "in-progress", note: "Synthetic candidates generating; human review gate before promote" },
 ];
+
+const STATUS_STYLES: Record<TaskStatus, { label: string; bg: string; fg: string }> = {
+  "shipped":      { label: "shipped",      bg: "#dcfce7", fg: "#166534" },
+  "code-shipped": { label: "code shipped", bg: "#dbeafe", fg: "#1e40af" },
+  "in-progress":  { label: "in progress",  bg: "#fef3c7", fg: "#92400e" },
+  "queued":       { label: "queued",       bg: "#f1f5f9", fg: "#475569" },
+  "deferred":     { label: "deferred",     bg: "#fce7f3", fg: "#9d174d" },
+};
 
 export default function LandingPage() {
   return (
@@ -48,18 +68,28 @@ export default function LandingPage() {
                 <th style={th}>Source</th>
                 <th style={th}>N</th>
                 <th style={th}>Metric</th>
+                <th style={th}>Status</th>
               </tr>
             </thead>
             <tbody>
-              {TASKS.map(t => (
-                <tr key={t.id}>
-                  <td style={td}><code>{t.id}</code></td>
-                  <td style={td}>{t.name}</td>
-                  <td style={td}>{t.source}</td>
-                  <td style={td}>{t.n}</td>
-                  <td style={td}>{t.metric}</td>
-                </tr>
-              ))}
+              {TASKS.map(t => {
+                const s = STATUS_STYLES[t.status];
+                return (
+                  <tr key={t.id}>
+                    <td style={td}><code>{t.id}</code></td>
+                    <td style={td}>
+                      <div>{t.name}</div>
+                      {t.note && <div style={noteStyle}>{t.note}</div>}
+                    </td>
+                    <td style={td}>{t.source}</td>
+                    <td style={td}>{t.n}</td>
+                    <td style={td}>{t.metric}</td>
+                    <td style={td}>
+                      <span style={{ background: s.bg, color: s.fg, padding: "0.15rem 0.45rem", borderRadius: "0.3rem", fontSize: "0.7rem", fontWeight: 600, whiteSpace: "nowrap" }}>{s.label}</span>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -68,8 +98,7 @@ export default function LandingPage() {
       <section style={{ marginBottom: "1rem" }}>
         <h2 style={{ fontSize: "1.05rem", margin: "0 0 0.6rem 0", fontWeight: 600 }}>Status</h2>
         <p style={{ color: "#475569", fontSize: "0.9rem", margin: 0 }}>
-          Pre-release. P0 pivot cleanup landed. Dataset ingestion (PDPC, SSO) and eval CLI in progress.
-          Track issues on <a href="https://github.com/gongahkia/junas/issues" style={{ color: "#1d4ed8" }}>GitHub</a>.
+          Pre-release. 4 of 8 v0.1 tasks shipped (data + scorer + runner); 1 code-shipped pending data ingest; 1 generating synthetic candidates; 1 TOS-deferred to v0.2; 1 queued behind upstream scraper. Track issues on <a href="https://github.com/gongahkia/junas/issues" style={{ color: "#1d4ed8" }}>GitHub</a>.
         </p>
       </section>
     </main>
@@ -78,3 +107,4 @@ export default function LandingPage() {
 
 const th: React.CSSProperties = { border: "1px solid #cbd5e1", padding: "0.45rem 0.6rem", textAlign: "left", fontWeight: 600 };
 const td: React.CSSProperties = { border: "1px solid #e2e8f0", padding: "0.45rem 0.6rem", verticalAlign: "top" };
+const noteStyle: React.CSSProperties = { color: "#94a3b8", fontSize: "0.72rem", marginTop: "0.15rem", fontStyle: "italic" };

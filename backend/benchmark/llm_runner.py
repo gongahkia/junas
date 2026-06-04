@@ -337,9 +337,18 @@ def llm_task_for(
     client: LLMLike,
     provider_label: str = "unknown",
     max_tokens: int | None = None,
+    sample_case: Case | None = None,
 ) -> Callable[[Case], Awaitable[str]]:
     """Convenience: build an LLM-backed runner for one of the registered
-    prompt builders by workflow name."""
+    prompt builders by workflow name.
+
+    Args:
+        sample_case: if provided, ``prompt_sha`` is computed from the
+            prompt builder + this case and attached to the returned
+            runner via ``runner.provenance``. Callers should pass a
+            representative case from the dataset; this makes the SHA
+            stable across runs.
+    """
     if workflow not in PROMPT_BUILDERS:
         raise ValueError(
             f"no prompt builder registered for {workflow!r}; "
@@ -352,4 +361,39 @@ def llm_task_for(
         max_tokens=max_tokens or 512,
         provider_label=provider_label,
     )
-    return build_llm_task(client=client, config=config)
+    runner = build_llm_task(client=client, config=config)
+    sha = prompt_sha(builder, sample_case) if sample_case is not None else ""
+    # Attach provenance to the runner for callers that want it without
+    # going through the registry. The registry-side attachment happens
+    # via ``register_llm_task`` below.
+    runner.provenance = {  # type: ignore[attr-defined]
+        "prompt_version": version,
+        "prompt_sha": sha,
+        "provider_label": provider_label,
+        "max_tokens": config.max_tokens,
+    }
+    return runner
+
+
+def register_llm_task(
+    *,
+    name: str,
+    workflow: str,
+    client: LLMLike,
+    provider_label: str = "unknown",
+    max_tokens: int | None = None,
+    sample_case: Case | None = None,
+) -> Callable[[Case], Awaitable[str]]:
+    """Build an LLM-backed runner for ``workflow``, register it under
+    ``name`` with full provenance metadata. Returns the runner."""
+    from benchmark.registry import register_task
+
+    runner = llm_task_for(
+        workflow=workflow,
+        client=client,
+        provider_label=provider_label,
+        max_tokens=max_tokens,
+        sample_case=sample_case,
+    )
+    register_task(name, runner, provenance=runner.provenance)  # type: ignore[attr-defined]
+    return runner

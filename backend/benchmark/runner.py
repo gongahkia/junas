@@ -12,7 +12,7 @@ from typing import Any
 import yaml
 
 from benchmark.evaluators import EVALUATORS, EvaluatorContext, EvaluatorStrength
-from benchmark.registry import TASKS
+from benchmark.registry import TASKS, get_provenance
 from benchmark.schema import Case, Dataset, EvalCaseResult
 
 logger = logging.getLogger(__name__)
@@ -30,6 +30,9 @@ class RunSummary:
     strict: bool = False
     weak_evaluators_used: list[str] = field(default_factory=list)
     data_tier: str = "regulator"
+    # Publication-grade provenance (coverage-matrix §4.4). Empty when the
+    # runner is an oracle or no LLM provenance was registered.
+    provenance: dict[str, Any] = field(default_factory=dict)
 
     def per_evaluator_mean(self) -> dict[str, float]:
         sums: dict[str, float] = {}
@@ -52,6 +55,7 @@ class RunSummary:
             "strict": self.strict,
             "weak_evaluators_used": self.weak_evaluators_used,
             "data_tier": self.data_tier,
+            "provenance": dict(self.provenance),
             "per_evaluator_mean": self.per_evaluator_mean(),
             "results": [r.model_dump() for r in self.results],
         }
@@ -183,6 +187,12 @@ async def run(
         )
 
     dataset = load_dataset(dataset_path)
+    # Prefer per-runner provenance (set via register_task(..., provenance=...));
+    # fall back to a runner.provenance attribute attached by llm_task_for.
+    provenance = get_provenance(workflow)
+    if not provenance:
+        runner_obj = TASKS.get(workflow)
+        provenance = dict(getattr(runner_obj, "provenance", {}))
     summary = RunSummary(
         workflow=workflow,
         dataset=str(dataset_path),
@@ -192,6 +202,7 @@ async def run(
         strict=strict,
         weak_evaluators_used=weak_used,
         data_tier=_infer_data_tier(dataset),
+        provenance=provenance,
     )
 
     semaphore = asyncio.Semaphore(max_concurrency)

@@ -66,13 +66,36 @@ from before and after the change remain distinguishable.
 
 ## Reproducibility
 
-Every receipt that uses this runner should record:
+Every receipt for an LLM-backed workflow records:
 
 - `prompt_version` — from the builder constant
 - `provider_label` — from `LLMRunnerConfig.provider_label`
 - `prompt_sha` — from `prompt_sha(builder, sample_case)`
 - `max_tokens` — from `LLMRunnerConfig.max_tokens`
 
-Currently the receipt schema does not yet carry these — the runner stores
-them on the config object, but wiring them through `RunSummary` is a
-follow-up (see coverage matrix §4.4).
+Wiring landed in #72: the `provenance` block on `RunSummary` (and the
+emitted JSON receipt) carries these fields. The recommended way to
+register an LLM runner is:
+
+```python
+from benchmark.llm_runner import register_llm_task
+from api.services.llm_client import get_llm_client
+from api.config import get_settings
+
+settings = get_settings()
+client = get_llm_client(settings)
+register_llm_task(
+    name="sglb_04_llm_openai",
+    workflow="sglb_04",
+    client=client,
+    provider_label=f"{settings.llm_provider}:{settings.openai_model}",
+    sample_case=first_case_from_your_dataset,
+)
+```
+
+Receipts emitted by `benchmark.runner.run("sglb_04_llm_openai", ...)`
+then include `"provenance": {"prompt_version": "sglb-04-v1", ...}`.
+
+For oracle runners that don't use an LLM (e.g. the default `sglb_04`
+task), the provenance block is empty `{}` — a deliberate signal that
+the receipt is from an oracle run.
