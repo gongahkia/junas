@@ -2,8 +2,10 @@
 
 > [!NOTE]
 > `README.md` is intentionally locked (legacy v2 desktop product narrative).
-> This `README2.md` reflects the post-pivot direction. See `WORKON-PIVOT-ASAP.md`
-> for the full decision record (dated 2026-05-16).
+> This `README2.md` reflects the post-pivot direction. The original
+> decision record (dated 2026-05-16) is preserved in git history; the
+> load-bearing strategic content is now in `docs/coverage-matrix.md`,
+> `CONTRIBUTING.md`, and per-task specs under `docs/sglb_specs/`.
 
 ## What this is
 
