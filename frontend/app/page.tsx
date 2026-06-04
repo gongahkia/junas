@@ -98,7 +98,7 @@ export default function LandingPage() {
       <section style={{ marginBottom: "1rem" }}>
         <h2 style={{ fontSize: "1.05rem", margin: "0 0 0.6rem 0", fontWeight: 600 }}>Status</h2>
         <p style={{ color: "#475569", fontSize: "0.9rem", margin: 0 }}>
-          Pre-release. 3 of 8 v0.1 tasks shipped with data (SGLB-01/02/04); 3 code-shipped pending data ingest (SGLB-05/06/07); 1 generating synthetic candidates (SGLB-08); 1 TOS-deferred to v0.2 (SGLB-03). Track issues on <a href="https://github.com/gongahkia/junas/issues" style={{ color: "#1d4ed8" }}>GitHub</a>.
+          Pre-release. 4 of 8 v0.1 tasks shipped with data (SGLB-01/02/04/08); 3 code-shipped pending data ingest (SGLB-05/06/07); 1 TOS-deferred to v0.2 (SGLB-03). Track issues on <a href="https://github.com/gongahkia/junas/issues" style={{ color: "#1d4ed8" }}>GitHub</a>.
         </p>
       </section>
     </main>
