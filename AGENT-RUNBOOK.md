@@ -164,24 +164,29 @@ source of truth — SOLO-16 consolidates the rest). Summary:
 
 ## 8. Background processes you must not kill
 
-At time of writing (2026-06-04 11:24 SGT):
+At time of writing (2026-06-04 15:25 SGT):
 
-- **SGLB-08 synthetic gen** — `python -m benchmark.synthetic generate
-  --task sglb_08 --n 400 --providers azure --max-cost-usd 8`. PID was
-  23970; check `ps aux | grep "benchmark.synthetic generate" | grep -v
-  grep`. **Do not kill this process.** It generates clause-tone
-  candidates into `backend/benchmark/datasets/sglb_08_clause_tone_candidates/`.
-  ETA: ~5-7 hours after start; check `ls .../*.yaml | wc -l` for
-  progress (target 400).
+No long-running background processes. The SGLB-08 synth gen finished
+at 400/400 (~4 hours elapsed); all candidates have been bulk-approved
++ promoted to the reviewed dataset. Methodology caveat in
+`docs/sglb_specs/SGLB-08.md` — see SOLO-17 / SOLO-18 in
+`PROMPTS-TO-RUN.md` for the multi-judge κ + human-holdout follow-up.
 
-**Critical risk note about the synth gen:** the Azure deployment is a
-reasoning model (gpt-5 by config). Reasoning tokens are billed
+If you fire any of these you MUST not kill them mid-flight:
+- Any `benchmark.synthetic generate ...` run (cost-sensitive)
+- Any `benchmark.scripts.run_baselines_*` run (cost-sensitive)
+- Any live ingestion against AGC, MOM, CommonLII (rate-limited;
+  killing wastes the user's network budget on already-fetched pages)
+
+**Critical risk note for any future synth gen:** the Azure deployment
+is a reasoning model (gpt-5 by config). Reasoning tokens are billed
 separately from output tokens but the harness's cost estimator
 (`backend/benchmark/synthetic/planner.py::ESTIMATED_COST_PER_EXAMPLE_USD`
 = $0.015 for Azure) does NOT account for reasoning-token cost.
-**Actual spend will be 5-10x the estimate.** The `--max-cost-usd 8`
-cap is *estimated*; real Azure invoice may be $40-80. If you find
-the user concerned about spend, surface this.
+**Actual spend will be 5-10x the estimate.** The previous 400-case
+SGLB-08 run cost an estimated $40-80 against an estimator quote of $6.
+Get explicit user approval BEFORE firing any synth-gen on Azure;
+Anthropic + Gemini judges are 5-10x cheaper per call.
 
 ## 9. Test requirement
 
@@ -211,7 +216,7 @@ As of 2026-06-04:
 | SGLB-05 Employment-Issue | code-shipped | pending #59 | ✅ |
 | SGLB-06 Rules-of-Court-2021 | code-shipped | pending live SSO ingest | ✅ |
 | SGLB-07 Jurisdiction-Routing | code-shipped | pending #34 | ✅ |
-| SGLB-08 Clause-Tone | in-progress | synth gen running | ✅ |
+| SGLB-08 Clause-Tone | shipped (single-judge provisional) | 400 cases | ✅ |
 
 **No baselines run yet.** No frontier-model scores exist; the launch
 narrative ("frontier models fail PDPA at X%") is impossible without
@@ -257,6 +262,12 @@ Infra + product (parallel-safe with v0.1 work):
 - #48 MCP server (Batch F)
 - #73 branching policy consolidation (SOLO-16)
 - #35 copilot scope cleanup (SOLO-7)
+
+SGLB-08 methodology upgrade (lifts task from provisional to fully-
+compliant per coverage-matrix §4.1):
+
+- SOLO-17: multi-judge ensemble (Anthropic + Gemini votes; κ)
+- SOLO-18: human-reviewed 40-case held-out subset
 
 Copilot product polish (uplifts real legal-tech-buyer experience):
 

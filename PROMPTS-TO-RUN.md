@@ -2193,6 +2193,137 @@ Report back: any backend endpoint that ignores the header (those are
 bugs to file separately).
 ```
 
+## SOLO-17: SGLB-08 multi-judge ensemble pass (methodology upgrade)
+
+```text
+You are upgrading SGLB-08's labelling methodology from single-judge
+(currently Azure gpt-5) to a ≥3-judge ensemble per coverage-matrix
+§4.1. The 400-case reviewed dataset already exists at
+backend/benchmark/datasets/sglb_08_clause_tone_reviewed/dataset.yaml.
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-08.md (the "Provisional-
+approval caveat" section), docs/coverage-matrix.md §4.1, and
+backend/benchmark/synthetic/sglb_08.py.
+
+Goal: re-label each of the 400 cases with Anthropic + Gemini votes;
+compute Cohen's κ per (generator, judge) pair AND per-cell agreement;
+emit the artefacts that let the leaderboard publish "κ = X.XX
+(n=400, 3 judges)".
+
+Files you own:
+- backend/benchmark/synthetic/multi_judge.py (new — runs the 2
+  additional judges over the existing reviewed dataset)
+- backend/benchmark/synthetic/agreement.py (new — Cohen's κ
+  computation; pure stdlib + numpy where present)
+- backend/benchmark/datasets/sglb_08_clause_tone_reviewed/judges.jsonl
+  (new artefact — per-case vote per judge + κ summary)
+- docs/sglb_specs/SGLB-08.md (update the "Provisional-approval"
+  section once κ is known; if κ ≥ 0.4 across all judge pairs, bump
+  version to "0.1-shipped"; if any pair drops below 0.4, file a
+  follow-up issue per coverage-matrix §8)
+- backend/tests/test_multi_judge.py + test_agreement.py
+
+Files you must NOT touch:
+- backend/benchmark/synthetic/sglb_08.py (existing pipeline)
+- backend/benchmark/synthetic/generator.py (existing)
+- The dataset.yaml itself — judges' votes live in judges.jsonl,
+  alongside it. The gold label stays as-is in dataset.yaml; future
+  v0.2 can flip a case if 2+ judges disagree with the gold.
+
+Implementation:
+
+1. For each case in dataset.yaml, dispatch the same prompt that
+   benchmark.llm_runner.sglb_08_prompt_builder produces — i.e.
+   re-use the existing prompt template; don't author a new one.
+2. Send to both Anthropic (claude-sonnet-4.6 or whatever the user
+   has) AND Gemini (gemini-2.0-flash).
+3. Record per-case votes in judges.jsonl with the case_id +
+   provider + model + raw output + parsed label + JSON-parse-success
+   flag.
+4. Compute pairwise Cohen's κ (gpt-5 ↔ Anthropic; gpt-5 ↔ Gemini;
+   Anthropic ↔ Gemini). Also compute Fleiss' κ across all 3.
+5. Per-cell breakdown: report κ for each (tone × clause_type)
+   stratum so the user can see if any cell is below the 0.4 floor.
+
+Cost gate: Anthropic ~$0.005/call × 400 = $2; Gemini ~$0.001/call
+× 400 = $0.40. Total ~$2.40 — much cheaper than the original gpt-5
+gen. Confirm with the user before firing if you're in any doubt; the
+SGLB-08 synth gen already cost ~$20-50.
+
+Provider environment: ANTHROPIC_API_KEY + GEMINI_API_KEY must be in
+.env. If missing, --dry-run reports which keys are needed and stops.
+
+Branch: feat/sglb-08-multi-judge.
+Commit: `feat(sglb-08): multi-judge ensemble + κ for clause-tone
+labels (advances #33)`.
+
+Acceptance:
+- judges.jsonl materialised with 400 × 2 vote rows.
+- κ printed to stdout + persisted in a summary JSON.
+- All κ pairs ≥ 0.4 (or, if any drop below, an issue is filed +
+  spec doc updated to reflect retirement risk per coverage matrix §8).
+
+Report back: the 3 pairwise κ values + Fleiss' κ + any cell where
+agreement is dangerously low. Note any provider-specific JSON-parse
+failures (those are a quality signal too).
+```
+
+## SOLO-18: SGLB-08 human-reviewed held-out subset
+
+```text
+You are creating a human-reviewed held-out subset of SGLB-08 per
+coverage-matrix §4.1 ("human-spot-checked held-out subset"). This
+runs in PARALLEL with SOLO-17 (they touch different files).
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-08.md, the existing
+reviewed dataset, CONTRIBUTING.md.
+
+Goal: select 40 cases (10% sample, stratified across all 4 tones ×
+6 clause types) for human review. Produce a checklist artefact the
+user can fill in OFFLINE without touching the dataset YAML
+structure. Once the user returns the checklist, you apply the
+edits.
+
+Files you own:
+- backend/benchmark/datasets/sglb_08_clause_tone_reviewed/human_review_checklist.md
+  (new — a markdown table with 40 rows, the user marks each
+  "agree / disagree / unclear")
+- scripts/select_sglb_08_holdout.py (new — selects the 40 cases
+  deterministically with a seed)
+- docs/sglb_specs/SGLB-08.md (update the "Provisional-approval"
+  section once human checklist is returned; document the 40-case
+  held-out subset and any cases the human reviewer flagged as
+  incorrect)
+
+Files you must NOT touch:
+- The dataset.yaml itself — disputes from the human reviewer get
+  recorded as errata in a separate file (mirror the CONTRIBUTING.md
+  errata pattern).
+
+Selection algorithm:
+- Stratify: every (tone × clause_type) cell that has ≥1 case gets
+  at least 1 in the holdout; remaining slots fill proportionally
+  to cell size. seed=42.
+- Each row in the checklist shows: case_id, tone, clause_type,
+  first ~400 chars of clause_text, the gold label, an empty
+  "human_decision" column, an empty "notes" column.
+
+Branch: feat/sglb-08-human-holdout.
+Commit (initial): `feat(sglb-08): generate 40-case human-review
+checklist (advances #33)`.
+Commit (after user returns checklist): `feat(sglb-08): apply human
+holdout decisions; flag disputes`.
+
+Acceptance:
+- 40-row checklist generated, stratified across all cells.
+- Spec doc references the file.
+- A clear "user, please fill this in and report back" surfacing in
+  your final message so the human-in-the-loop step doesn't get lost.
+
+Report back: the stratification table (which cells got how many);
+your hand-off message to the user.
+```
+
 ## SOLO-16: #73 Branching policy consolidation
 
 ```text
