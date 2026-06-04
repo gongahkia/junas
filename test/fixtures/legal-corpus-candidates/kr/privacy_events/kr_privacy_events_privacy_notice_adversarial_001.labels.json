@@ -3,13 +3,140 @@
   "document_type": "generic",
   "source_jurisdiction": "KR",
   "destination_jurisdiction": "KR",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@samwontesseract.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@samwontesseract.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Han Jae\u2011min"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Seo Min\u2011kyung"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EM-4A7F-**12"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer approval granted by DPO Mr. Han Jae\u2011min on 2026\u201101\u201115"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@samwontesseract.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@samwontesseract.co.kr"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Han Jae\u2011min"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Seo Min\u2011kyung"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "EM-4A7F-**12"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer approval granted by DPO Mr. Han Jae\u2011min on 2026\u201101\u201115"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "KR\u2192SG\u2192EU"
+    },
+    {
+      "category": "PII",
+      "rule": "kr_rrn",
+      "matched_text": "X X X X X X \u2011 X X X X X X X"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Data Controller",
+      "reason": "Role noun/defined term, not a PII/MNPI value"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role noun/defined term, not a PII/MNPI value"
+    },
+    {
+      "matched_text": "Sub\u2011processor",
+      "reason": "Role noun/defined term, not a PII/MNPI value"
+    },
+    {
+      "matched_text": "KRX\u2011IPO\u20112 0 2 6 \u2011 A 1",
+      "reason": "Not a 'Project <Name>' transaction codename per rule"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "RRN_HASH=H**8a",
+      "concept": "pseudonymous identifier",
+      "reason": "Hash of resident-number field may be personal data but not covered by an allowed rule name"
+    },
+    {
+      "matched_text": "REQ-7f2b%2D**",
+      "concept": "DSAR request token",
+      "reason": "Unique request identifier in URL could be a personal identifier but no explicit allowed rule for such tokens"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
