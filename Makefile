@@ -1,4 +1,4 @@
-.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-sso download-data setup eval eval-list synth-gen
+.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-sso build-sglb-02 download-data setup eval eval-list synth-gen
 
 # === primary ===
 up:
@@ -91,6 +91,10 @@ SSO_FORCE_ARG := $(if $(strip $(FORCE)),--force,)
 SSO_CODE_ARG := $(if $(strip $(SSO_CODE)),--code $(SSO_CODE),)
 ingest-sso:
 	cd backend && python -m data.ingestion.sso --output $(SSO_OUTPUT) $(SSO_FORCE_ARG) $(SSO_CODE_ARG)
+
+# SGLB-02: build statute-QA dataset from the SSO JSONL.
+build-sglb-02:
+	cd backend && python -m benchmark.dataset_builders.sglb_02
 
 VENDOR_DIR := vendor-data
 

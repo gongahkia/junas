@@ -181,6 +181,36 @@ def sglb_01_prompt_builder(case: Case) -> list[dict[str, str]]:
     ]
 
 
+SGLB_02_PROMPT_VERSION = "sglb-02-v1"
+
+
+def sglb_02_prompt_builder(case: Case) -> list[dict[str, str]]:
+    """SGLB-02: answer a natural-language question grounded in a SG
+    statute section. Output contract: a JSON object with keys ``citation``
+    (SAL-style section reference) and ``answer`` (≤200 words)."""
+    question = str(case.inputs.get("question", "")).strip()
+    act_short = str(case.inputs.get("act_short_name", "")).strip()
+    act_full = str(case.inputs.get("act_full_name", "")).strip()
+    return [
+        _system_message(
+            "You are a Singapore statutory-law analyst. Answer the user's "
+            "question grounded in the named Act using your knowledge of "
+            "Singapore Statutes Online (SSO). Reply with a single JSON "
+            "object: "
+            "{\"citation\": \"s <N> of the <full act name>\", "
+            "\"answer\": \"<200 words or fewer>\"}. "
+            "Use SAL Style Guide format for the citation (e.g. "
+            "'s 13 of the Personal Data Protection Act 2012'). Do not "
+            "include any text outside the JSON object."
+        ),
+        _user_message(
+            f"Act short name: {act_short}\n"
+            f"Act full name: {act_full}\n\n"
+            f"Question: {question}"
+        ),
+    ]
+
+
 SGLB_04_PROMPT_VERSION = "sglb-04-v1"
 
 
@@ -269,6 +299,7 @@ def sglb_12_prompt_builder(case: Case) -> list[dict[str, str]]:
 
 PROMPT_BUILDERS: dict[str, tuple[PromptBuilder, str]] = {
     "sglb_01": (sglb_01_prompt_builder, SGLB_01_PROMPT_VERSION),
+    "sglb_02": (sglb_02_prompt_builder, SGLB_02_PROMPT_VERSION),
     "sglb_04": (sglb_04_prompt_builder, SGLB_04_PROMPT_VERSION),
     "sglb_11": (sglb_11_prompt_builder, SGLB_11_PROMPT_VERSION),
     "sglb_08": (sglb_08_prompt_builder, SGLB_08_PROMPT_VERSION),

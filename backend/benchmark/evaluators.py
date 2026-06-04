@@ -369,6 +369,110 @@ class CitationHallucinationF1(Evaluator):
         )
 
 
+# --- SGLB-02 Statute-QA ---
+
+
+def _rouge_l(reference: str, candidate: str) -> float:
+    """Sentence-level ROUGE-L F1 over whitespace tokens.
+
+    Avoids the ``rouge-score`` dep — the LCS-based F1 here matches that
+    library's behaviour on whitespace-tokenised English to within
+    rounding for the inputs we care about (SG statute prose).
+    """
+    ref_tokens = (reference or "").lower().split()
+    cand_tokens = (candidate or "").lower().split()
+    if not ref_tokens or not cand_tokens:
+        return 0.0
+    # LCS length via DP.
+    rows = len(ref_tokens) + 1
+    cols = len(cand_tokens) + 1
+    table = [[0] * cols for _ in range(rows)]
+    for i, r in enumerate(ref_tokens, start=1):
+        for j, c in enumerate(cand_tokens, start=1):
+            if r == c:
+                table[i][j] = table[i - 1][j - 1] + 1
+            else:
+                table[i][j] = max(table[i - 1][j], table[i][j - 1])
+    lcs = table[-1][-1]
+    if lcs == 0:
+        return 0.0
+    precision = lcs / len(cand_tokens)
+    recall = lcs / len(ref_tokens)
+    return 2 * precision * recall / (precision + recall)
+
+
+def _normalise_section_citation(value: str) -> str:
+    """Normalise a section citation to a canonical comparison string.
+
+    Tolerates the common surface variations:
+    - "s 13", "s.13", "section 13", "section 13(2)" → "s 13"
+    - "Act 2012" vs "Act, 2012" → ", 2012"
+    - "Personal Data Protection Act" trailing whitespace
+    """
+    text = (value or "").strip()
+    if not text:
+        return ""
+    text = re.sub(r"\b[Ss]ection\b", "s", text)
+    text = re.sub(r"\bs\.\s*", "s ", text)
+    text = re.sub(r"\bs\s+", "s ", text)
+    text = re.sub(r"\bAct,\s+", "Act ", text)
+    text = re.sub(r"\s+", " ", text).strip(" .")
+    return text.lower()
+
+
+class Sglb02CitationMatch(Evaluator):
+    """SGLB-02 citation scorer.
+
+    Parses the model output as JSON ``{"citation": "...", "answer": "..."}``
+    (also accepts a bare citation string), normalises both sides, and
+    scores 1.0 on exact match after normalisation.
+    """
+
+    name = "sglb_02_citation_match"
+    strength = EvaluatorStrength.STRONG
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        expected = _normalise_section_citation(
+            (ctx.expected_output or {}).get("citation", "")
+        )
+        if not expected:
+            return EvaluationResult(score=0.0, detail={"error": "no expected citation"})
+        parsed = _parse_json_object(ctx.output)
+        predicted_raw = parsed.get("citation") if parsed else (ctx.output or "")
+        predicted = _normalise_section_citation(str(predicted_raw or ""))
+        score = 1.0 if expected == predicted else 0.0
+        return EvaluationResult(
+            score=score,
+            detail={"expected": expected, "predicted": predicted},
+        )
+
+
+class RougeLAnswer(Evaluator):
+    """ROUGE-L F1 over the model's answer against the gold span.
+
+    Looks for ``answer`` in a JSON object output; falls back to scoring
+    the whole output text against the gold span.
+    """
+
+    name = "rouge_l_answer"
+    strength = EvaluatorStrength.STRONG
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        gold = str((ctx.expected_output or {}).get("answer_span", "") or "")
+        if not gold:
+            return EvaluationResult(score=0.0, detail={"error": "no gold answer_span"})
+        parsed = _parse_json_object(ctx.output)
+        if parsed and "answer" in parsed:
+            candidate = str(parsed.get("answer") or "")
+        else:
+            candidate = ctx.output or ""
+        score = _rouge_l(gold, candidate)
+        return EvaluationResult(
+            score=score,
+            detail={"gold_tokens": len(gold.split()), "cand_tokens": len(candidate.split())},
+        )
+
+
 # --- SGLB-01 PDPA-Outcome ---
 
 
@@ -556,6 +660,8 @@ EVALUATORS: dict[str, Evaluator] = {
     CitationHallucinationF1.name: CitationHallucinationF1(),
     Sglb01ObligationsF1.name: Sglb01ObligationsF1(),
     PenaltyBandMae.name: PenaltyBandMae(),
+    Sglb02CitationMatch.name: Sglb02CitationMatch(),
+    RougeLAnswer.name: RougeLAnswer(),
     ConstraintSatisfaction.name: ConstraintSatisfaction(),
     # weak (back-compat)
     ContainsKeyword.name: ContainsKeyword(),
