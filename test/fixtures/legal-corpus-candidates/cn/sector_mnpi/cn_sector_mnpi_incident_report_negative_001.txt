@@ -1,0 +1,14 @@
+Incident Summary: Minor data handling deviation detected during routine backup at Shanhai Meridian Systems Co., Ltd. (fictional Shanghai Main Board issuer; USCC: 91-FAKE-000000000-TEST).
+Report date/time: 2026-06-04 09:15 CST; Location: Shanghai Application Ops; No service outage, no customer impact.
+Trigger: External vendor account with read-only role temporarily saw object metadata in a staging bucket due to misapplied policy; access window 18 minutes.
+Data description: Only filenames and generic templates were present (e.g., resident_id_form_template.pdf, USCC_sample.xlsx, onboarding_checklist.docx); no filled forms or images.
+Crypto/ESG context: Folder also contained a publicly released brochure on our “GreenHash Energy Certificate Pilot,” which matches the version on our website and corporate WeCom channel.
+Training materials: An internal PPT on “insider-list upkeep, blackout etiquette, and information-barrier basics” with anonymized examples was stored alongside operational SOPs.
+PIPL assessment: DLP scans and manual review found no actual resident ID numbers, bank card numbers, contact lists, or facial images; placeholder strings looked like 110000-YYYY-FAKE and 9A-TEST-ORGCODE.
+Cross-border check: No data egress to non-PRC regions; State Cyberspace Bureau (fictional) cross-border filing thresholds not reached; CSL/DSL logs retained for 6 months.
+Positive span — potential MNPI: One draft “supplier carbon credit purchase term sheet” for Q3, not yet approved for announcement, was present; as a domestic issuer we treat this as inside information until publication via the issuer disclosure portal.
+Containment: Draft moved to a restricted library; information-barrier ruleset updated; relevant staff added to the insider-list per National Securities Supervision Authority (fictional) guidance; no external download observed.
+Employment workflow note: Template offer letters and onboarding forms were empty; minors’ consent forms referenced standard PIPL language but contained no individual entries.
+Sensitive PI check: A test HR export included a “Minor” flag column without names or IDs; flagged for deletion and re-generated with synthetic data to avoid sensitive PI under PIPL Art. 28.
+Notification decision: Given absence of identified natural person data and no exfiltration, no data subject notice planned; incident logged in the CSL register; no immediate issuer disclosure obligation.
+Next steps: Complete a tabletop drill on information barriers and vendor access; refresh DSL data asset mapping; questions may be sent to compliance@shanhai-meridian.example.cn or the public hotline 400-123-4567.
