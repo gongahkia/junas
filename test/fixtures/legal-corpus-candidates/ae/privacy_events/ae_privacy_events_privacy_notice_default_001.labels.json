@@ -3,13 +3,207 @@
   "document_type": "generic",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@harbordunes.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@harbordunes.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Mariam Al Najjar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Rashid Al Kareem"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Salma Quraishi"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation marker"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation applied to exclude family-origin fields"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@harbordunes.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@harbordunes.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Mariam Al Najjar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Rashid Al Kareem"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Salma Quraishi"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation marker"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation applied to exclude family-origin fields"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "restricted-list flags"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "ring-fenced within compliance"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "outside the UAE"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "opted out of marketing"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "excluding IP addresses unless a security incident is suspected"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "are truncated to resource identifiers and timestamps only"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "the optional family-origin field was removed"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role/defined term, not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR log",
+      "concept": "DSAR_marker",
+      "reason": "DSAR event marker is legally relevant but not in allowed marker rules"
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "retention_marker",
+      "reason": "Retention policy marker is relevant but not an allowed rule"
+    },
+    {
+      "matched_text": "erasure of marketing profile completed on 2026-05-04",
+      "concept": "erasure_marker",
+      "reason": "Erasure/completion language relevant but not an allowed rule and is a completed control"
+    },
+    {
+      "matched_text": "entries were deleted on 2026-03-15",
+      "concept": "erasure_marker",
+      "reason": "Deletion event is relevant but not covered by allowed rules"
+    },
+    {
+      "matched_text": "copies retained in the transfer register",
+      "concept": "retention_marker",
+      "reason": "Indicates retention of records but no explicit allowed rule"
+    },
+    {
+      "matched_text": "we no longer retain any ID images older than policy inception",
+      "concept": "retention_marker",
+      "reason": "Retention cessation statement is relevant but not an allowed rule and is negated/completed"
+    },
+    {
+      "matched_text": "family-origin",
+      "concept": "special_category_sensitive",
+      "reason": "Indicates sensitive demographic/ethnic-origin-like field not explicitly covered by allowed special-category rules"
+    },
+    {
+      "matched_text": "identity re-verified via onboarding credential check",
+      "concept": "identity_verification_marker",
+      "reason": "Identity verification step relevant to privacy handling but not covered by allowed rules"
+    },
+    {
+      "matched_text": "prior US transfer channels were decommissioned",
+      "concept": "cross_border_transfer_marker_negated",
+      "reason": "Cross-border transfer reference in negated/completed-control context, excluded by rule 17"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
