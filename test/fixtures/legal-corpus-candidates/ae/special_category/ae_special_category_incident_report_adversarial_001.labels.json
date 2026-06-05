@@ -3,13 +3,304 @@
   "document_type": "memo",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tareq Al Mazin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Al Mazin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@almanara-pjsc.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971 50 000 12 34"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "His religion was recorded as Christian"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type 1 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "emergency glucagon use"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric face-template hashes"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "prenatal genetic screening summary"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "carrier: \u03b2-thalassemia"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor Samir"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 7"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tareq Al Mazin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Al Mazin"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@almanara-pjsc.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971 50 000 12 34"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "His religion was recorded as Christian"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Type 1 diabetes"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "emergency glucagon use"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric face-template hashes"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "prenatal genetic screening summary"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "carrier: \u03b2-thalassemia"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "minor Samir"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 7"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Noura Al Fadil"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-2X22-0 1 2 3 4 5 6-9"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "HR-7A3C"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-RAK-55-883"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-XXXX-1 9 9 9-0000000-0"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "INC-00A7-9b"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "M-e-5-1-0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "draft delayed-disclosure notice"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic training term not about a person; do not tag as special-category data."
+    },
+    {
+      "matched_text": "Sharjah Sandcats",
+      "reason": "Sports team name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Saqr SIEM",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "QamarShield AV",
+      "reason": "Product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Palm Charter v2.1",
+      "reason": "Policy name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Al Dhafra Securities Exchange (ADSE)",
+      "reason": "Exchange/place name; not PII/MNPI."
+    },
+    {
+      "matched_text": "material adverse change (MAC)",
+      "reason": "Negated MAC reference; excluded per rule 8."
+    },
+    {
+      "matched_text": "project sand-dune",
+      "reason": "Does not match 'Project <CapitalizedName>' codename pattern."
+    },
+    {
+      "matched_text": "DEI policy",
+      "reason": "Generic DEI prose; not PII/MNPI."
+    },
+    {
+      "matched_text": "politics of vendor selection",
+      "reason": "Generic organisational phrasing; not an individual's political opinion."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "784-2X22-0 1 2 3 4 5 6-9",
+      "concept": "ae_emirates_id",
+      "reason": "Obfuscated/space-padded Emirates ID likely; may evade strict regex."
+    },
+    {
+      "matched_text": "784-XXXX-1 9 9 9-0000000-0",
+      "concept": "ae_emirates_id",
+      "reason": "Masked Emirates ID reference with spaces; difficult for strict detection."
+    },
+    {
+      "matched_text": "HR-7A3C",
+      "concept": "employee_id",
+      "reason": "Internal HR number for a specific employee; not a standard 'Employee ID' label."
+    },
+    {
+      "matched_text": "INC-00A7-9b",
+      "concept": "internal_session_id",
+      "reason": "Incident/case identifier embedded in URL; format may not match session-id heuristics."
+    },
+    {
+      "matched_text": "M-e-5-1-0",
+      "concept": "device_serial_number",
+      "reason": "Labelled as device id but nonstandard serial/IMEI format."
+    },
+    {
+      "matched_text": "9f:1c:2b:xx:zz",
+      "concept": "mac_address",
+      "reason": "Colon-delimited checksum-like value resembles a MAC but contains non-hex pairs."
+    },
+    {
+      "matched_text": "term sheet",
+      "concept": "definitive_agreement",
+      "reason": "Lowercase reference; some detectors require capitalised document names."
+    },
+    {
+      "matched_text": "unannounced",
+      "concept": "nonpublic_marker",
+      "reason": "Signals non-public status but may be too generic for rule-based detection."
+    },
+    {
+      "matched_text": "draft delayed-disclosure notice",
+      "concept": "nonpublic_marker",
+      "reason": "Indicates withheld MNPI pending disclosure; may not map to explicit rule tokens."
+    },
+    {
+      "matched_text": "family-origin field (Hadhrami)",
+      "concept": "sensitive_origin/ethnicity",
+      "reason": "Ethnic/family origin is sensitive in PDPL context but not enumerated in provided rules."
+    },
+    {
+      "matched_text": "Ms. Noura Al Fadil",
+      "concept": "named_person",
+      "reason": "Honorific with possessive suffix may evade simple name regexes."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

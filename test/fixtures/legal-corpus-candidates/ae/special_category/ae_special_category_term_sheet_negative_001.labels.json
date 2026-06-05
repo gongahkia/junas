@@ -3,13 +3,260 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-1234567-XX"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011000000\u2011AD"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784\u20110000\u20110000000\u20110"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pr@palm-reef.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "regulatory@oasis-vertex.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@oasis-vertex.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "companysecretary@palm-reef.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "800\u2011000\u20110000"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971\u2011600\u2011000000"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "has a medically documented epilepsy diagnosis for which reasonable workplace accommodations are in place under HR Policy PR\u2011Health\u201102"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-1234567-XX"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011000000\u2011AD"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784\u20110000\u20110000000\u20110"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pr@palm-reef.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "regulatory@oasis-vertex.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@oasis-vertex.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "companysecretary@palm-reef.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "800\u2011000\u20110000"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971\u2011600\u2011000000"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "has a medically documented epilepsy diagnosis for which reasonable workplace accommodations are in place under HR Policy PR\u2011Health\u201102"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "60%"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "onshore-to-ADGM/DIFC transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no collection of personal data via this term sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data mapping to exclude special categories except as disclosed and consented"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Target\u2019s Project Operations Manager (a single identified natural person)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Majority Acquisition of Palm Reef Technologies PJSC by Oasis Vertex Holdings Ltd (ADGM)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role heading/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-defined party label without personal identity"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-defined party label without personal identity"
+    },
+    {
+      "matched_text": "PearlCloud 3.0",
+      "reason": "Product name; not personal data or MNPI signal"
+    },
+    {
+      "matched_text": "FalconPay Kiosk",
+      "reason": "Product name; not personal data or MNPI signal"
+    },
+    {
+      "matched_text": "quarterback the rollout",
+      "reason": "Sports metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "full\u2011court press",
+      "reason": "Sports metaphor; not PII/MNPI"
+    },
+    {
+      "matched_text": "Dubai Dhow Sailors",
+      "reason": "Fictional sports team; not PII/MNPI"
+    },
+    {
+      "matched_text": "Mirage Stadium",
+      "reason": "Venue name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Sand Dune Inclusion Charter (DEI)",
+      "reason": "Policy/values statement; not individual-level data"
+    },
+    {
+      "matched_text": "HR Policy PR\u2011Health\u201102",
+      "reason": "Policy identifier; not personal data itself"
+    },
+    {
+      "matched_text": "ADX: XXXX",
+      "reason": "Placeholder ticker; not an MNPI rule target"
+    },
+    {
+      "matched_text": "Team Oasis",
+      "reason": "Cultural slogan; not PII/MNPI"
+    },
+    {
+      "matched_text": "Vendor Loan Notes",
+      "reason": "Instrument label; not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "no ADX/Nasdaq Dubai announcement is made by this document",
+      "concept": "nonpublic_marker",
+      "reason": "Negated announcement reference; may imply non-public status but asserts no announcement."
+    },
+    {
+      "matched_text": "no biometric attendance systems to be onboarded prior to closing",
+      "concept": "biometric_identifier",
+      "reason": "Mentions biometric systems in policy terms without any individual biometric data."
+    },
+    {
+      "matched_text": "Long\u2011stop date",
+      "concept": "embargo/timeline marker",
+      "reason": "Timing control relevant to deal workflow but not an allowed embargo marker term."
+    },
+    {
+      "matched_text": "after signing",
+      "concept": "embargo_marker",
+      "reason": "Timing reference linked to signing but not the explicit 'Signing Date' marker."
+    },
+    {
+      "matched_text": "Emirates ID (field only)",
+      "concept": "ae_emirates_id reference",
+      "reason": "Indicates a collection field for Emirates ID without an actual identifier value."
+    },
+    {
+      "matched_text": "no non\u2011public issuer information is included herein",
+      "concept": "nonpublic_marker",
+      "reason": "Statement about non-public information in a negated form; not a clear MNPI signal."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

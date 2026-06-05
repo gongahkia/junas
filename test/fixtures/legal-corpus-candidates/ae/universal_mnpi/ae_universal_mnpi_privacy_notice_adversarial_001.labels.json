@@ -3,13 +3,307 @@
   "document_type": "generic",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-9O1-7ZB-3"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@alsarab-pjsc.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@nakhla-renewables.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leila Al Qamar"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID 784-1 9 8 7-0X0X-000-0"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "obfuscated Emirates ID 784-1 9 8 7-0X0X-000-0"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers: allowed to vetted advisors in free zones with equivalent safeguards (NFC-style adequacy), Standard Contractual Clauses analogue annexed at http://ir.alsarab-pjsc.example/dpa?ref=mnpi%2Fproj-sand-dune"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Sand Dune"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 2026-07-14 08:00 GST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal-only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "do not circulate"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19.9%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed research note v2 not published before 2026-07-14"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NOT FOR DISTRIBUTION"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-9O1-7ZB-3"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@alsarab-pjsc.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@nakhla-renewables.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leila Al Qamar"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID 784-1 9 8 7-0X0X-000-0"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "obfuscated Emirates ID 784-1 9 8 7-0X0X-000-0"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers: allowed to vetted advisors in free zones with equivalent safeguards (NFC-style adequacy), Standard Contractual Clauses analogue annexed at http://ir.alsarab-pjsc.example/dpa?ref=mnpi%2Fproj-sand-dune"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "123 45 67"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Ms. Leila Al Qamar, DPO, c/o P.O. Box 000123, Red Dunes District, Umm Qamar, UAE; hotline +971 5X 123 45 67"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "A-LS-2026-0O7"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "RQ-2X9-ALSRB"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked Emirates ID"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NON-PUBLIC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Sand Dune"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Embargo until 2026-07-14 08:00 GST"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal-only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "do not circulate"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet v5"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive share purchase agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "the definitive agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19.9%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "total_contract_value",
+      "matched_text": "aggregate consideration AED 428,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed research note v2 not published before 2026-07-14"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargoed percentages and amounts remain confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "Material Adverse Effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAE"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "NOT FOR DISTRIBUTION"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "until the market announcement is cleared by the competent regulator"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team review"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "files marked \"internal-only\" and \"do not circulate\""
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role noun/defined term, not PII"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role noun/defined term, not PII"
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role noun/defined term, not PII"
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "False-positive bait, not a Share Purchase Agreement"
+    },
+    {
+      "matched_text": "public-source reference",
+      "reason": "Declared generic/public, not market-sensitive"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention: IR drafts and board papers kept 6 years post-closing; raw diligence destroyed 30 days after signing; embargoed research note v2 not published before 2026-07-14",
+      "concept": "retention_marker",
+      "reason": "Data retention/destruction schedule is a privacy-event marker but no explicit retention rule is listed."
+    },
+    {
+      "matched_text": "DSAR replies within 30 days",
+      "concept": "dsar_marker",
+      "reason": "DSAR handling is a privacy-rights marker but there is no specific DSAR rule in the allowed list."
+    },
+    {
+      "matched_text": "checksum 9f:a3:2c:\u2014",
+      "concept": "mac_address_like",
+      "reason": "Colon-separated hex resembles a MAC address but it is labeled as a checksum and appears truncated."
+    },
+    {
+      "matched_text": "family origin",
+      "concept": "special_category_personal_data",
+      "reason": "Indicates sensitive-category data under PDPL, but no explicit rule name for this category is available."
+    },
+    {
+      "matched_text": "P.O. Box 000123",
+      "concept": "postal_address_UAE",
+      "reason": "Postal address element may identify a person but only SG postal codes are defined in the allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 428,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 428,000,000'"
+  ],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,369 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Rami Al Qasir"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID: EID-FIC-7429-1188"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rami.alq@palmcircuit.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leila Darwish"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "leila.darwish@cgres.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Zayed Qatani"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "z.qatani@falcon-grove.example"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "has Type 1 diabetes managed by insulin therapy"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "has Type 1 diabetes managed by insulin therapy"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "iris-scan biometric template ID BIO-IX-7712"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "declares he is not a member of any trade union"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "identifies his religious affiliation as Shafi\u2019i Muslim"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "ADGM Commercial Licence CL-ADGM-55421"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "DIFC Fund Licence DF-FND-88310"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "Trade Licence TL-DIFC-009876-FIC"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Al Qasir"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "20%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Until public announcement via an SCA-compliant channel"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "a blackout applies"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "purpose limitation, and minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Rami Al Qasir"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID: EID-FIC-7429-1188"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rami.alq@palmcircuit.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leila Darwish"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "leila.darwish@cgres.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Zayed Qatani"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "z.qatani@falcon-grove.example"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "has Type 1 diabetes managed by insulin therapy"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "has Type 1 diabetes managed by insulin therapy"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "iris-scan biometric template ID BIO-IX-7712"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "declares he is not a member of any trade union"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "identifies his religious affiliation as Shafi\u2019i Muslim"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "ADGM Commercial Licence CL-ADGM-55421"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "DIFC Fund Licence DF-FND-88310"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "Trade Licence TL-DIFC-009876-FIC"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Al Qasir"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "80%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "20%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Until public announcement via an SCA-compliant channel"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "a blackout applies"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "purpose limitation, and minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossed"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "no political party roles or donations are declared by him"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data room to include redacted/sanitised special-category fields"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Emirates ID copies to be masked"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "dealing is restricted"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not a person identifier"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun defined term, not a person identifier"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term for a company"
+    },
+    {
+      "matched_text": "Key Person",
+      "reason": "Defined role label, not PII by itself"
+    },
+    {
+      "matched_text": "CloudSpice Wallet v3",
+      "reason": "Product name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "PearlPay Switch",
+      "reason": "Product name bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "Open Doors Policy",
+      "reason": "Generic policy name bait"
+    },
+    {
+      "matched_text": "Inclusion First Policy",
+      "reason": "Generic policy name bait"
+    },
+    {
+      "matched_text": "Desert Falcons",
+      "reason": "Sports team/sponsorship bait"
+    },
+    {
+      "matched_text": "Al Waha Corridor",
+      "reason": "Place/metaphor bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "the camel outruns the caravan",
+      "reason": "Metaphorical phrase bait, not PII/MNPI"
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Generic policy context, not about a person"
+    },
+    {
+      "matched_text": "GulfBridge Exchange",
+      "reason": "Venue name, not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "family origin recorded as Emirati\u2013Moroccan",
+      "concept": "ethnicity/family origin",
+      "reason": "Sensitive PII under PDPL context but no explicit allowed rule for ethnicity/family-origin"
+    },
+    {
+      "matched_text": "avoid exporting special-category data outside the UAE without lawful basis",
+      "concept": "cross-border transfer control",
+      "reason": "Cross-border transfer restriction is relevant but phrased as a prohibition; allowed rule may exclude negated controls"
+    },
+    {
+      "matched_text": "PDPL-compliant customer consent refresh",
+      "concept": "consent refresh",
+      "reason": "Consent-related processing is relevant but no allowed rule for general consent (only withdrawal marker)"
+    },
+    {
+      "matched_text": "DPT assessments",
+      "concept": "data transfer assessment (PDPL)",
+      "reason": "Legally relevant privacy assessment; acronym may be confused with digital token rules and not covered by allowed markers"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 62,500,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 62,500,000'"
+  ],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

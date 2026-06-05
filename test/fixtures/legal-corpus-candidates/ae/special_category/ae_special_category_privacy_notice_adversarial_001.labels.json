@@ -3,13 +3,269 @@
   "document_type": "generic",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nakhla-reef.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sami Al Qasimi"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NR-00Z-1"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric iris template"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "cardiac check\u2011up"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "visa\u2011medical vaccination status"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Al Qasimi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lina Al Qasimi"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 16"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "age 16"
+    },
+    {
+      "category": "PII",
+      "rule": "insurance_member_id",
+      "matched_text": "AEC-9z5-0001"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "religious-information"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011NR\u201112O9"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers to processors in the Kingdom of Barzah occur under data transfer commitments and risk assessments"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nakhla-reef.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Hala Faruq"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nakhla-reef.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sami Al Qasimi"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NR-00Z-1"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "employee no. NR-00Z-1"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-19**-*******-*"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric iris template"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "cardiac check\u2011up"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "visa\u2011medical vaccination status"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "health treatment invoice"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Al Qasimi"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "Friday prayer schedule adjustment"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "religious-information"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Lina Al Qasimi"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 16"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "age 16"
+    },
+    {
+      "category": "PII",
+      "rule": "insurance_member_id",
+      "matched_text": "AEC-9z5-0001"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011NR\u201112O9"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "trade\u2011licence copies (TL\u2011NR\u201112O9)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers to processors in the Kingdom of Barzah occur under data transfer commitments and risk assessments"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nakhla-reef.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Hala Faruq"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Desert Falcons",
+      "reason": "Sports team/news fixture; not PII/MNPI."
+    },
+    {
+      "matched_text": "Marah Island",
+      "reason": "Place name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Sand Dune Pro",
+      "reason": "Product name bait; not PII/MNPI."
+    },
+    {
+      "matched_text": "Palm Atlas",
+      "reason": "Product name bait; not PII/MNPI."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated disclaimer; document states it does not contain MAC."
+    },
+    {
+      "matched_text": "no mac clause",
+      "reason": "Explicitly negated MAC reference; per rule do not label."
+    },
+    {
+      "matched_text": "sexual-orientation",
+      "reason": "Policy term only; explicitly not tied to a person."
+    },
+    {
+      "matched_text": "sexual orientation",
+      "reason": "Policy term only; explicitly not tied to a person."
+    },
+    {
+      "matched_text": "union membership",
+      "reason": "Negated collection statement; not tied to a person."
+    },
+    {
+      "matched_text": "E m i r a t e s   I D",
+      "reason": "Spaced term reference; not an actual ID number."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "controlled video check",
+      "concept": "biometric verification",
+      "reason": "May involve facial biometrics for identity verification but not explicitly described as biometric data."
+    },
+    {
+      "matched_text": "access logs are retained for 30 days",
+      "concept": "retention period",
+      "reason": "Data retention detail is legally relevant but there is no explicit retention rule in the allowed set."
+    },
+    {
+      "matched_text": "are retained 7 years",
+      "concept": "retention period",
+      "reason": "Data retention duration is legally relevant but not mapped to a specific allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

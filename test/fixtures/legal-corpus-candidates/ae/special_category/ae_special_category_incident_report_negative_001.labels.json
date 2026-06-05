@@ -3,13 +3,152 @@
   "document_type": "memo",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security-operations@nakhla-harbour.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpl@dataoffice.example"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template identifier"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we applied minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security-operations@nakhla-harbour.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "pdpl@dataoffice.example"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template identifier"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we applied minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Lina Qassimi"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-XXXX-XXXXXXX-X"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "DIFC/ADGM cross-border data checks"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "purged the template from the sandbox"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "WadiShield",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Sandstorm SIEM",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "FalconPalm HRIS",
+      "reason": "System/product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "PearlDrive",
+      "reason": "Repository/product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Desert Falcons",
+      "reason": "Sports team name, not PII/MNPI"
+    },
+    {
+      "matched_text": "WadiSprint",
+      "reason": "Product name, not PII/MNPI"
+    },
+    {
+      "matched_text": "desert derby",
+      "reason": "Metaphor/slogan, not PII/MNPI"
+    },
+    {
+      "matched_text": "Seif Policy on Data Masking v2.2",
+      "reason": "Policy/procedure name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Shamal Cyber Playbook v3",
+      "reason": "Policy/procedure name, not PII/MNPI"
+    },
+    {
+      "matched_text": "Oasis ESG Communications Standard",
+      "reason": "Policy/procedure name, not PII/MNPI"
+    },
+    {
+      "matched_text": "ADX",
+      "reason": "Exchange/venue name, not MNPI by itself"
+    },
+    {
+      "matched_text": "Sharjah",
+      "reason": "Place name, not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DIFC/ADGM cross-border data checks",
+      "concept": "cross-border transfer check",
+      "reason": "Indicates cross-border assessments; may not be a live transfer but relevant to transfer compliance"
+    },
+    {
+      "matched_text": "784-XXXX-XXXXXXX-X",
+      "concept": "redacted Emirates ID placeholder",
+      "reason": "Format suggests an Emirates ID but is redacted; unclear if it should be classified as ae_emirates_id"
+    },
+    {
+      "matched_text": "the biometric reference is special-category data",
+      "concept": "special-category classification",
+      "reason": "Declares biometric data category without an identifier value; relevant but not a specific biometric identifier span"
+    },
+    {
+      "matched_text": "customer notice not triggered",
+      "concept": "breach notification threshold",
+      "reason": "Relates to PDPL notification obligations but not covered by a specific allowed marker"
+    },
+    {
+      "matched_text": "does not involve issuer MNPI",
+      "concept": "MNPI negation",
+      "reason": "References MNPI status in a negated form; not clearly mapped to a positive MNPI rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
