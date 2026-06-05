@@ -56,6 +56,19 @@ Read that file alongside this one.
 7. **Reference copilot demoted to Tier 5.** Not load-bearing for the
    benchmark thesis. The copilot demonstrates the benchmark; it does
    not headline.
+8. **Deferred — pending Anthropic + Gemini API keys (2026-06-05).** The
+   maintainer currently holds only `AZURE_OPENAI_API_KEY`. Items
+   strictly requiring `ANTHROPIC_API_KEY` + `GEMINI_API_KEY` are
+   **deferred** but **kept in this doc** for future re-runs:
+   - `SOLO-17` κ run (code shipped in PR #94; the actual run is
+     deferred).
+   - `NEW-08-REFRAME-IF-LOW-KAPPA` (gated on `SOLO-17`'s κ values).
+   - `NEW-BATCH-D` Anthropic + Gemini cells (the coordinator can fire
+     Azure + Ollama cells once `SOLO-17`'s κ run lands).
+   - Tier 5 Batch G G1 v0.2 multi-judge upgrade for SGLB-09 (v0.1
+     smoke single-judge is acceptable per its own prompt).
+   These items are explicitly NOT removed — when keys are acquired,
+   re-fire the relevant prompts to complete the deferred work.
 
 ---
 
@@ -538,9 +551,27 @@ rerunning. This output feeds directly into NEW-BATCH-D's task list.
 
 ---
 
-**ROUND 2 — fire these 4 in parallel; sequence the conflict pairs:**
-- Land `SOLO-17` before `SOLO-18` (both touch `docs/sglb_specs/SGLB-08.md`).
-- Land `NEW-CI-RECEIPT` before `NEW-HONEST-LEADERBOARD` (both touch `backend/benchmark/scripts/build_leaderboard.py`).
+**ROUND 2 — DONE ✅ (2026-06-05, PRs #91-94). 3 fully done; 1 scaffolded with the actual run deferred (see Deferred items below).**
+
+| Prompt | Closes | PR | Status |
+|---|---|---|---|
+| `SOLO-18` | GAP-08 first half (40-case human-review checklist) | #91 | DONE — checklist materialised; awaiting maintainer's offline fill-in for the second-half errata PR |
+| `NEW-CI-RECEIPT` | GAP-02 (bootstrap CIs in receipts) | #92 | DONE |
+| `NEW-HONEST-LEADERBOARD` | GAP-04 (SGLB-05/06/07 ineligible until data lands) | #93 | DONE (rebased onto #92 to resolve `build_leaderboard.py` import collision) |
+| `SOLO-17` | GAP-07 (multi-judge κ for SGLB-08) | #94 | **SCAFFOLDED** — 1025 lines of code + 12 mocked tests landed; κ run **deferred** pending `ANTHROPIC_API_KEY` + `GEMINI_API_KEY` |
+
+**Deferred items (pending Anthropic + Gemini API keys; maintainer plans to acquire later):**
+
+1. **`SOLO-17` κ run.** Code is on `main` (PR #94). When keys are available, fire `python -m benchmark.synthetic.multi_judge --dataset backend/benchmark/datasets/sglb_08_clause_tone_reviewed/dataset.yaml` (~$2.40, 5 min). Produces `judges.jsonl` + `judges.summary.json` next to the dataset; update `docs/sglb_specs/SGLB-08.md` with the κ values.
+2. **`NEW-08-REFRAME-IF-LOW-KAPPA`** (CONDITIONAL block below). Cannot be evaluated without κ values from `SOLO-17`. Stays gated.
+3. **`NEW-BATCH-D` Anthropic + Gemini cells** (WAVE 2 block below). The coordinator can still fire **Azure + Ollama** cells against the v0.1-eligible tasks (SGLB-01, -02, -04, -08). Anthropic + Gemini cells stay deferred. Ollama requires `ollama serve` running locally before firing those cells.
+4. **Tier 5 Batch G G1 SGLB-09 v0.2 multi-judge upgrade.** v0.1 smoke uses Azure single-judge per its own prompt; v0.2 expansion to ≥3-judge ensemble is deferred.
+
+The 4 prompt bodies below are preserved verbatim for reproducibility. They are no longer pending work in their current form (Round 2 completed); the deferred sub-tasks are tracked in the table above.
+
+---
+
+**ROUND 2 (original prompt bodies — preserved for reproducibility)**
 
 ## SOLO-17: SGLB-08 multi-judge ensemble pass (closes GAP-07)
 
@@ -910,7 +941,9 @@ Report back: any dataset that couldn't be rebuilt cleanly + why.
 
 ---
 
-**WAVE 2 — gated coordinator. Prerequisites (all must have landed): `SOLO-17`, `NEW-CI-RECEIPT`, `NEW-CONTAM`, `NEW-EXTRACT-VERSION`, `NEW-VERIFY-BASELINES`. Azure cells inside Batch D are cost-gated per cell — explicit approval before firing each.**
+**WAVE 2 — gated coordinator. Prerequisites: `SOLO-17`, `NEW-CI-RECEIPT`, `NEW-CONTAM`, `NEW-EXTRACT-VERSION`, `NEW-VERIFY-BASELINES`.**
+
+> **Partial deferral (2026-06-05):** Anthropic + Gemini cells are deferred until `ANTHROPIC_API_KEY` + `GEMINI_API_KEY` are added to `.env`. Azure (cost-gated per cell; the maintainer has `AZURE_OPENAI_API_KEY`) + Ollama cells (requires `ollama serve` running locally; `qwen2.5vl:7b` already used in prior baselines) **can** still fire against v0.1-eligible tasks {SGLB-01, -02, -04, -08} once `SOLO-17`'s κ run also lands. Until then, do not fire Wave 2 — the receipt format depends on κ-aware SGLB-08 labels that don't exist yet.
 
 ## NEW-BATCH-D: Full frontier baseline run with new receipt format (closes GAP-03 + GAP-16)
 
@@ -1016,6 +1049,8 @@ produced an anomalous result; total spend.
 ---
 
 **CONDITIONAL — fire only if `SOLO-17` reports any pairwise κ < 0.4. If all κ ≥ 0.4, skip entirely.**
+
+> **Deferred (2026-06-05):** cannot be evaluated until `SOLO-17`'s κ values exist (which requires Anthropic + Gemini API keys; see Round 2 Deferred items table above).
 
 ## NEW-08-REFRAME-IF-LOW-KAPPA (conditional, gated on SOLO-17)
 
@@ -2461,6 +2496,9 @@ human-validated holdout per coverage-matrix §4.1. Single-judge
 post-launch and held to higher standard.
 
 ## G1: SGLB-09 Summary-Faithfulness
+
+> **Partial deferral (2026-06-05):** v0.1 smoke (single-judge, Azure) **can** fire with current keys. The v0.2 expansion to a ≥3-judge ensemble (Anthropic + Gemini + Azure with pairwise + Fleiss' κ) is **deferred** pending `ANTHROPIC_API_KEY` + `GEMINI_API_KEY`. The prompt body below documents both paths; pick the v0.1-smoke variant if you fire this now.
+
 
 ```text
 You are working on issue #50 (SGLB-09 Summary-Faithfulness).
