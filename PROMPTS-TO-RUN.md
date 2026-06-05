@@ -96,68 +96,103 @@ Read that file alongside this one.
 
 ## Suggested fire sequence (paste-friendly)
 
-Strict top-down also works — but you'll leave parallelism on the table. Below is the dependency-aware sequence that minimises wall-time while respecting every hard-dependency above.
+Strict top-down also works — but leaves parallelism on the table. Below is the dependency-aware sequence that minimises wall-time while respecting every hard-dependency AND file-conflict identified by manual cross-check of the prompt bodies.
 
-### Wave 1 — Tier 1, parallel-safe (fire these together in separate worktrees)
+### Honest framing
 
-All 12 items touch disjoint files and have no inter-dependencies. None is cost-gated (except `NEW-CONTAM` if you later fire its probe against Azure baselines):
+- Tier 1 has **14 items** total: 12 "wave-eligible" + 1 gated coordinator (`NEW-BATCH-D`) + 1 conditional (`NEW-08-REFRAME-IF-LOW-KAPPA`).
+- Within those 12 there are **4 real file-conflict pairs**. They are NOT all parallel-safe. The rounds below sequence them.
+- "Parallel" means "fire in separate worktrees in the same wall-clock window"; not "race conditions on disk". Use `isolation: "worktree"` per agent.
 
-1. `SOLO-17` — multi-judge κ for SGLB-08 (~$2.40)
-2. `SOLO-18` — 40-case human holdout (zero cost; needs your fill-in at end)
-3. `SOLO-10` — license + name decision brief (zero cost; needs your call at end)
-4. `SOLO-9` — PDPC Guidelines scraper (network only)
-5. `NEW-CI-RECEIPT` — bootstrap CIs in receipts
-6. `NEW-CONTAM` — contamination probe code (firing the probe is cost-gated; scaffolding is not)
-7. `NEW-SAL-VALIDATION` — validate grammar against SAL Style Guide PDFs
-8. `NEW-EXTRACT-VERSION` — extraction-rule SHA in metadata
-9. `NEW-HONEST-LEADERBOARD` — mark SGLB-05/06/07 ineligible
-10. `NEW-NORM-SPEC` — normalisation spec doc
-11. `NEW-DISPUTE-PROCESS` — dispute/errata process docs
-12. `NEW-VERIFY-BASELINES` — audit Anthropic/Gemini baseline gap
+### Tier 1 — Round 1 (6 in parallel, all disjoint files, all zero-cost)
 
-### Decision point (user)
+Fire these together. Each agent in its own worktree. No file overlap; no API key dependency.
 
-- `SOLO-10` returns a 1-page brief; you pick name + licence before any Tier 3 vendor-facing infra fires.
+1. `SOLO-10` — name + license decision brief (zero cost; needs YOU at end)
+2. `SOLO-9` — PDPC Advisory Guidelines scraper (network only)
+3. `NEW-SAL-VALIDATION` — validate grammar against SAL Style Guide PDFs
+4. `NEW-NORM-SPEC` — normalisation spec doc
+5. `NEW-DISPUTE-PROCESS` — dispute/errata process docs
+6. `NEW-VERIFY-BASELINES` — audit Anthropic/Gemini baseline gap
 
-### Wave 2 — Tier 1, gated single fire
+### Decision point (after Round 1)
 
-13. `NEW-BATCH-D` — coordinator for frontier baselines. **Prerequisites: SOLO-17, NEW-CI-RECEIPT, NEW-CONTAM, NEW-EXTRACT-VERSION, NEW-VERIFY-BASELINES all landed.** Azure cells inside Batch D are cost-gated per cell — explicit approval before firing each.
+- `SOLO-10` returns a 1-page brief — YOU pick name + licence. Gates `NEW-LIB-PACKAGING` (Tier 3).
+- `NEW-VERIFY-BASELINES` returns `runs/baselines/PROVENANCE.md` telling you which Anthropic+Gemini cells need rerun under `NEW-BATCH-D`.
 
-### Wave 2 conditional
+### Tier 1 — Round 2 (4 in parallel; mind the conflict pairs)
 
-14. `NEW-08-REFRAME-IF-LOW-KAPPA` — fire only if `SOLO-17` reports any pairwise κ < 0.4. If all κ ≥ 0.4, skip entirely.
+Fire after Round 1 lands. Two file-conflict pairs inside this round — sequence the loser to rebase after the winner lands.
 
-### Wave 3 — Tier 2 (parallel with Wave 2)
+7. `SOLO-17` — multi-judge κ for SGLB-08 (~$2.40; needs `ANTHROPIC_API_KEY` + `GEMINI_API_KEY`)
+8. `SOLO-18` — 40-case human holdout for SGLB-08 (zero cost; needs YOU at end)
+   - **Conflict with #7:** both touch `docs/sglb_specs/SGLB-08.md` (different sections of the Provisional-approval block). Land `SOLO-17` first; rebase `SOLO-18` if it landed earlier.
+9. `NEW-CI-RECEIPT` — bootstrap CIs in receipt JSON
+10. `NEW-HONEST-LEADERBOARD` — mark SGLB-05/06/07 ineligible
+    - **Conflict with #9:** both touch `backend/benchmark/scripts/build_leaderboard.py` (different functions; usually rebases cleanly).
+    - **Coordination flag:** ensure `NEW-HONEST-LEADERBOARD`'s footer-touch on `README2.md` does not collide with `NEW-EXTRACT-VERSION`'s in Round 3.
 
-Tier 2 produces data, not methodology, so it can run alongside `NEW-BATCH-D` once Tier 1 wave 1 lands:
+### Tier 1 — Round 3 (2 sequential; both touch files Round 2 modified)
 
-15. Batch A (4 agents, internal A1→A2→A3, A1→A4) — MOM scraper
-16. Batch B (4 agents, internal B1→B2→B3, B1→B4) — CommonLII SG ingester
-17. `NEW-SSO-EXPAND` — SSO ingest beyond PDPA
-18. `NEW-SGLB-04-PROD` — gated on `NEW-SAL-VALIDATION`
+Fire after Round 2 lands.
 
-### Wave 4 — Tier 3 (parallel; gated on Tier 1 closing)
+11. `NEW-CONTAM` — contamination probe scaffolding
+    - **Conflict with `NEW-CI-RECEIPT`:** both modify `backend/benchmark/runner.py` `RunSummary`. `NEW-CI-RECEIPT` must land first; `NEW-CONTAM` rebases.
+    - Scaffolding is zero cost; firing the probe against Azure baselines is cost-gated.
+12. `NEW-EXTRACT-VERSION` — extraction-rule SHA in dataset metadata
+    - **Conflict with `NEW-HONEST-LEADERBOARD`:** both touch `README2.md` reproducibility section. `NEW-HONEST-LEADERBOARD` already landed in Round 2; rebase.
+    - Touches all ingestion modules; no overlap with `SOLO-9` (which creates a NEW file `pdpc_guidelines.py`).
 
-19. `NEW-VENDOR-GUIDE` — gated on `NEW-CI-RECEIPT` + `NEW-CONTAM` + `NEW-NORM-SPEC` + `NEW-DISPUTE-PROCESS`
-20. `NEW-LIB-PACKAGING` — gated on `SOLO-10` (licence decided)
-21. `NEW-INDEPENDENT-REPRO` — docs only; can start any time after Wave 1 + 2
-22. Batch C (4 parallel-safe agents) — frontend audit fixes
-23. `SOLO-1` through `SOLO-6` — independent of each other; parallel-safe
+### Tier 1 — Wave 2 (1 gated coordinator)
 
-### Wave 5 — Tier 4 (launch)
+13. `NEW-BATCH-D` — frontier baselines coordinator.
+    - **Hard prereqs (all must have landed):** `SOLO-17`, `NEW-CI-RECEIPT`, `NEW-CONTAM`, `NEW-EXTRACT-VERSION`, `NEW-VERIFY-BASELINES`.
+    - Spawns up to 16 sub-agents (4 providers × 4 v0.1-eligible tasks). Azure cells inside are **cost-gated per cell** — explicit approval before each fire.
 
-24. `SOLO-8` — arXiv preprint (gated on Wave 2 baselines for §§4-5)
-25. Batch E (4 parallel agents) — launch assets
+### Tier 1 — Conditional follow-up
 
-### Wave 6 — Tier 5 (post-launch)
+14. `NEW-08-REFRAME-IF-LOW-KAPPA` — fire ONLY if `SOLO-17` reports any pairwise κ < 0.4. If all κ ≥ 0.4, skip entirely (zero work).
 
-26+. Batch G, Batch H, Batch F, SOLO-7, SOLO-11, SOLO-12, COPILOT-1..4 — see per-tier dependency notes inline.
+### Tier 2 — Data hardening (parallel with `NEW-BATCH-D`)
 
-### Operational rules (re-stated)
+Can start once Round 3 lands; produces data, not methodology, so does not gate Wave 2.
 
-- **Each prompt = fresh Claude Code session.** Spawn with `isolation: "worktree"`. Do not paste multiple prompts into one session — context will collapse.
-- **Cost gates are real.** Anthropic / Gemini / Ollama cells are cost-safe; Azure gpt-5 cells need explicit per-fire approval.
+15. Batch A (4 agents; internal A1→A2,A4; A2→A3) — MOM scraper for SGLB-05
+16. Batch B (4 agents; internal B1→B2,B4; B2→B3) — CommonLII SG for SGLB-07
+17. `NEW-SSO-EXPAND` — SSO ingest for EmA / ROC2021 / PC1871
+    - **Gated on `NEW-EXTRACT-VERSION`** (the ingest path it touches now emits extraction-rule SHA).
+18. `NEW-SGLB-04-PROD` — SGLB-04 1000+ production set
+    - **Gated on `NEW-SAL-VALIDATION`** (the production set is only credible if the grammar is validated).
+
+### Tier 3 — Vendor-facing infra (parallel; gated on Tier 1 closing)
+
+Can start once `NEW-CI-RECEIPT` + `NEW-CONTAM` + `NEW-NORM-SPEC` + `NEW-DISPUTE-PROCESS` are all in.
+
+19. `NEW-VENDOR-GUIDE` — the consolidating doc; all four prereqs must exist.
+20. `NEW-LIB-PACKAGING` — **gated on `SOLO-10`** (licence header).
+21. `NEW-INDEPENDENT-REPRO` — docs only; can start after Round 2.
+22. Batch C (C1–C4 parallel-safe; non-overlapping files) — frontend audit fixes.
+23. `SOLO-1` through `SOLO-6` — all mutually independent; parallel-safe.
+
+### Tier 4 — Launch
+
+24. `SOLO-8` — arXiv preprint draft (§§1-3 free now; §§4-5 gated on `NEW-BATCH-D` numbers).
+25. Batch E (E1–E4 parallel-safe) — launch assets.
+
+### Tier 5 — Copilot + v0.2
+
+26+. Batch G (G1–G4 parallel), Batch H (H1–H3; H2/H3 cost-gated), Batch F (F1→F2,F3,F4), `SOLO-7`→`SOLO-11`, `SOLO-12`, COPILOT-1..4 (mostly parallel; per-prompt notes inline).
+
+### Operational realities (must read)
+
+- **Each prompt = fresh Claude Code session in its own worktree.** Spawn with `isolation: "worktree"`. Do not paste multiple prompts into one session — context collapses and the agent drifts.
+- **API key prereqs.** `SOLO-17`, `NEW-CONTAM` (when fired), and `NEW-BATCH-D` Anthropic/Gemini cells need `ANTHROPIC_API_KEY` + `GEMINI_API_KEY` in `.env`. `NEW-BATCH-D` Azure cells need `AZURE_OPENAI_API_KEY` + `AZURE_OPENAI_ENDPOINT`. Ollama needs the local server running.
+- **Rate limits.** Firing `SOLO-17` (400 Anthropic + 400 Gemini calls) at the same wall-clock as `NEW-CONTAM`'s eventual probe (which doubles every per-case call) can hit per-minute rate caps. Stagger by ~5 minutes if both fire in the same hour.
+- **Worktree disk overhead.** Each worktree is a full checkout. 6+ worktrees with `.venv` / `node_modules` is ~6× disk. Usually fine; flag if you're on a small SSD.
+- **Cost gates are real.** Anthropic / Gemini / Ollama cells are cost-safe. Azure gpt-5 cells need explicit per-fire approval (5-10× the estimator quote due to reasoning-token billing).
+- **Two items need YOU mid-run.** `SOLO-10` (you pick name + licence at the end), `SOLO-18` (you fill in the 40-case human review checklist offline).
 - **You are the merge authority.** Agents commit on feature branches; never merge to `main` without your review.
+- **Attention is the real bottleneck.** 12 agents reporting back simultaneously is harder to review well than 6 → 4 → 2 in waves. The round structure above is calibrated for review tractability, not just compute throughput.
 
 ---
 
