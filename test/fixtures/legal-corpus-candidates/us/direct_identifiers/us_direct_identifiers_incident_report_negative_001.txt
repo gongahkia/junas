@@ -1,0 +1,15 @@
+NorthCross HealthBank, Inc., a US healthcare-banking issuer, reports an email gateway misconfiguration observed on 2026-06-01 in an employee self‑service portal log export.
+Scope: a staging server sync briefly exposed a redacted export; no evidence of external download; event duration 14 minutes; detection via automated alert.
+Data description: export contained placeholders and test strings only, including [First Name], [Last Name], [Account Number], “Sample EIN: 00-0000000,” and a helpdesk phone 1-800-555-0172.
+During triage, one artifact included SSN 000-12-3456 labeled “dummy”; this format is non‑issued and was removed immediately.
+No patient diagnosis codes, clinical notes, or loan application details were present; the affected system stored no payment card data.
+Systems: vendor Ridgefield Diagnostics LLC SFTP staging and bank partner Sandbar Trust NA test tenant; authentication keys rotated and firewall rules updated.
+Reg FD assessment: this notice does not contain material non‑public information; similar email hardening steps were described on a prior public webcast and posted to our investor relations page.
+Selective disclosure controls: no outreach to sell‑side analysts or major shareholders occurred prior to this notice; updates will be made via broad public channels.
+Privacy assessment (CCPA/HIPAA/GLBA): impact considered low due to non‑production content and invalid identifiers; zero customer or patient accounts confirmed affected.
+Banking identifiers referenced in logs (ABA 123456780 and Acct 1111‑2222‑3333) failed checksum validation and were part of test payloads.
+Company and local permitting references (Fairview City Health Permit HP‑000000 and State File No. DE‑9999999) were generic placeholders; no live credentials were exposed.
+Contact for inquiries: security@northcrosshb.com and the public helpline 1-800-555-0172; please do not transmit personal health or financial information.
+Mailing address for compliance correspondence: 85 Mockingbird Rd, Suite 200, Redwood, US 00000; this is a corporate P.O. drop used for public mail only.
+Internal reminder: remove any sample fields labeled [SSN], [Passport No.], and [Email] before moving data into environments reachable from the internet.
+Governance: the Board‑level Risk Committee and our liaison to the US federal securities regulator were briefed; no trading blackout is in effect based on current assessment.
