@@ -3,13 +3,241 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u20117Q34\u2011VX"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdraw consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@qasirahnimbus.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Dalia Nur"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adil Rahmaan"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u20117Q34\u2011VX"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdraw consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@qasirahnimbus.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Dalia Nur"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adil Rahmaan"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no numbers retained; minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "anonymised"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redacted"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation controls"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not upload any e i d numbers to shared drive"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal and erasure pathways remain available pre\u2011completion"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrawal does not affect pre\u2011withdrawal processing"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "EID ref EA\u2011x9x\u20110x1 (masked)"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID category"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID scans"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "not MNPI under SCA/ADGM market\u2011abuse rules",
+      "reason": "Negated MNPI status; not a live MNPI signal."
+    },
+    {
+      "matched_text": "no data breach notification is triggered",
+      "reason": "Negated incident; should not be flagged as a breach."
+    },
+    {
+      "matched_text": "no MNPI is being disclosed",
+      "reason": "Negated MNPI disclosure; not a live MNPI signal."
+    },
+    {
+      "matched_text": "MAC language is intentionally excluded",
+      "reason": "Explicit exclusion; do not flag as MAC."
+    },
+    {
+      "matched_text": "no biometric or geolocation data collected",
+      "reason": "Negated special-category/geo data; not a live risk."
+    },
+    {
+      "matched_text": "no open DSAR queue at signing",
+      "reason": "Completed-control/negated DSAR risk."
+    },
+    {
+      "matched_text": "not a live incident",
+      "reason": "Negated incident statement."
+    },
+    {
+      "matched_text": "not inside information",
+      "reason": "Negated inside-information statement."
+    },
+    {
+      "matched_text": "seller",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "buyer",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    },
+    {
+      "matched_text": "the parties",
+      "reason": "Role-noun defined term; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "two DSARs completed on 12\u201105\u20112026",
+      "concept": "DSAR completion marker",
+      "reason": "DSAR handling is privacy-relevant but there is no explicit DSAR marker in allowed rules."
+    },
+    {
+      "matched_text": "erased post\u2011verification",
+      "concept": "erasure marker",
+      "reason": "Erasure handling is relevant but not an allowed marker type."
+    },
+    {
+      "matched_text": "retention of ledgers per 6\u2011year record policy",
+      "concept": "retention marker",
+      "reason": "Retention periods are privacy-relevant but not in allowed marker list."
+    },
+    {
+      "matched_text": "retention window for raw onboarding forms = 30 days then hash\u2011only archive",
+      "concept": "retention/minimisation window",
+      "reason": "Specific retention detail is relevant but no retention marker rule exists."
+    },
+    {
+      "matched_text": "dsar ticket r\u20119l7",
+      "concept": "DSAR ticket reference",
+      "reason": "DSAR identifiers are relevant but DSAR is not an allowed marker type."
+    },
+    {
+      "matched_text": "family-origin data",
+      "concept": "special category (ethnic/family origin)",
+      "reason": "Sensitive-category hint not enumerated in allowed rules."
+    },
+    {
+      "matched_text": "Emirates ID scans are redacted",
+      "concept": "Emirates ID handling",
+      "reason": "References a local ID without numbers; borderline PII under allowed rules."
+    },
+    {
+      "matched_text": "EID ref EA\u2011x9x\u20110x1 (masked)",
+      "concept": "masked Emirates ID reference",
+      "reason": "Masked/atypical format for ae_emirates_id; may or may not be treated as PII."
+    },
+    {
+      "matched_text": "long\u2011stop date 30\u2011Sep\u20112026",
+      "concept": "embargo/timeline date",
+      "reason": "Timeline milestone resembles embargo markers but wording not in allowed list."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 118,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 118,000,000'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
