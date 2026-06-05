@@ -90,6 +90,10 @@ whose label, declared tone metadata, or tone taxonomy version diverges.
 - All 400 quality.ok=true; 56 quality-pipeline warnings audited as
   false-positives (regex matches on "protective orders" + verbose-but-
   valid drafting).
+- A 40-case human-review checklist has been materialised at
+  `backend/benchmark/datasets/sglb_08_clause_tone_reviewed/human_review_checklist.md`
+  with deterministic seed 42. Reviewer decisions are pending; no
+  held-out disputes or errata have been recorded yet.
 
 ## Provisional-approval caveat
 
@@ -100,16 +104,19 @@ extracted. The current ship state has:
 
 - **Single judge** (Azure gpt-5 acted as both generator and implicit
   labeller-by-construction). κ is therefore undefined.
-- **No human spot-check held-out** has been materialised.
+- **Human spot-check held-out pending decisions**. A stratified 40-case
+  checklist exists, but the offline human `agree / disagree / unclear`
+  pass has not yet been returned.
 
 Two follow-up prompts in `PROMPTS-TO-RUN.md` upgrade this to the
 methodology bar:
 
 - `SOLO-17` — multi-judge ensemble (Anthropic + Gemini vote on each
   candidate's tone; emit per-cell κ).
-- `SOLO-18` — human-reviewed held-out subset (≥40 cases / 10%).
+- `SOLO-18` — human-reviewed held-out subset (≥40 cases / 10%);
+  checklist materialised, reviewer decisions pending.
 
 Until both land, every leaderboard row using SGLB-08 must carry the
-"single-judge labels; κ pending" disclosure. Receipts already record
-`generator_model: azure:gpt-5-2` so the provisional nature is visible
-in every audit trail.
+"single-judge labels; κ pending; human holdout pending decisions"
+disclosure. Receipts already record `generator_model: azure:gpt-5-2`
+so the provisional nature is visible in every audit trail.
