@@ -89,7 +89,16 @@ PER_CASE_AZURE_ESTIMATE_USD = 0.015
 class UsageTrackingAzureOpenAIClient(AzureOpenAIClient):
     """Azure client that records response usage without changing llm_runner."""
 
-    def __init__(self, *, api_key: str, endpoint: str, api_version: str, deployment: str, workflow: str):
+    def __init__(
+        self,
+        *,
+        api_key: str,
+        endpoint: str,
+        api_version: str,
+        deployment: str,
+        workflow: str,
+        request_timeout_seconds: float,
+    ):
         super().__init__(
             api_key=api_key,
             endpoint=endpoint,
@@ -97,6 +106,7 @@ class UsageTrackingAzureOpenAIClient(AzureOpenAIClient):
             deployment=deployment,
         )
         self.workflow = workflow
+        self.request_timeout_seconds = request_timeout_seconds
         self.usage_records: list[dict[str, Any]] = []
         self.outputs: list[dict[str, Any]] = []
         self.provider_errors: list[dict[str, Any]] = []
@@ -106,20 +116,26 @@ class UsageTrackingAzureOpenAIClient(AzureOpenAIClient):
     async def generate(self, messages: list[dict[str, str]], max_tokens: int = 1024) -> str:
         budget = max(int(max_tokens), self._REASONING_BUDGET_FLOOR)
         try:
-            response = await self.client.chat.completions.create(
-                model=self.deployment,
-                messages=messages,
-                max_completion_tokens=budget,
+            response = await asyncio.wait_for(
+                self.client.chat.completions.create(
+                    model=self.deployment,
+                    messages=messages,
+                    max_completion_tokens=budget,
+                ),
+                timeout=self.request_timeout_seconds,
             )
         except Exception as exc:  # noqa: BLE001
             message = str(exc)
             if "max_completion_tokens" in message and "max_tokens" in message:
                 self.legacy_fallbacks += 1
                 try:
-                    response = await self.client.chat.completions.create(
-                        model=self.deployment,
-                        messages=messages,
-                        max_tokens=int(max_tokens),
+                    response = await asyncio.wait_for(
+                        self.client.chat.completions.create(
+                            model=self.deployment,
+                            messages=messages,
+                            max_tokens=int(max_tokens),
+                        ),
+                        timeout=self.request_timeout_seconds,
                     )
                 except Exception as retry_exc:  # noqa: BLE001
                     self._record_error(retry_exc)
@@ -151,7 +167,9 @@ class UsageTrackingAzureOpenAIClient(AzureOpenAIClient):
         if status_code is None and response is not None:
             status_code = getattr(response, "status_code", None)
         message = str(exc)
-        kind = "rate_limit" if status_code == 429 or "rate limit" in message.lower() else exc.__class__.__name__
+        kind = "timeout" if isinstance(exc, TimeoutError) else exc.__class__.__name__
+        if status_code == 429 or "rate limit" in message.lower():
+            kind = "rate_limit"
         self.provider_errors.append(
             {
                 "kind": kind,
@@ -392,11 +410,13 @@ def _failure_counts(client: UsageTrackingAzureOpenAIClient) -> dict[str, Any]:
     json_failures = sum(1 for item in client.outputs if not item["json_ok"])
     empty_outputs = sum(1 for item in client.outputs if item["empty"])
     rate_limits = sum(1 for item in client.provider_errors if item["kind"] == "rate_limit")
+    timeouts = sum(1 for item in client.provider_errors if item["kind"] == "timeout")
     return {
         "json_parse_or_contract_failures": json_failures,
         "empty_outputs": empty_outputs,
         "provider_errors": len(client.provider_errors),
         "rate_limit_errors": rate_limits,
+        "timeout_errors": timeouts,
         "legacy_max_tokens_fallbacks": client.legacy_fallbacks,
         "provider_error_samples": client.provider_errors[:5],
     }
@@ -414,11 +434,16 @@ async def _run_one(
     pricing: Pricing,
     estimate: CostEstimate,
     max_concurrency: int,
+    request_timeout_seconds: float,
 ) -> Path:
     dataset = load_dataset(spec.dataset_path)
     sample_case: Case = dataset.cases[0]
     provider_label = f"azure:{azure_config['deployment']}"
-    client = UsageTrackingAzureOpenAIClient(workflow=spec.workflow, **azure_config)
+    client = UsageTrackingAzureOpenAIClient(
+        workflow=spec.workflow,
+        request_timeout_seconds=request_timeout_seconds,
+        **azure_config,
+    )
     client.progress_total = len(dataset.cases)
     registered_name = f"{spec.workflow}_llm_azure"
     register_llm_task(
@@ -484,6 +509,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dry-run", action="store_true", help="Print estimates without API calls")
     parser.add_argument("--max-cost-usd", type=float, default=None, help="Abort if 1.5x estimate exceeds this budget")
     parser.add_argument("--max-concurrency", type=int, default=1, help="Harness/provider concurrency")
+    parser.add_argument("--request-timeout-seconds", type=float, default=300.0, help="Per Azure request timeout")
     return parser
 
 
@@ -508,6 +534,7 @@ async def _amain(args: argparse.Namespace) -> int:
                 pricing=pricing,
                 estimate=estimate_by_workflow[spec.workflow],
                 max_concurrency=args.max_concurrency,
+                request_timeout_seconds=args.request_timeout_seconds,
             )
         )
     print(json.dumps({"receipts": [str(path) for path in receipts]}, indent=2))
