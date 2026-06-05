@@ -3,13 +3,266 @@
   "document_type": "memo",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Laila Farouq"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "laila.farouq@falconpalm.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@falconpalm.ae"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list v.7"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011RAN\u201125\u20110098765"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sami Al\u2011Murad"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Rami Nasser"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Laila Farouq"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "laila.farouq@falconpalm.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@falconpalm.ae"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list v.7"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011RAN\u201125\u20110098765"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Sami Al\u2011Murad"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Rami Nasser"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971\u20115X\u2011***\u2011**83"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "050\u2011***\u20119 4 2"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "EID: 784\u20112 0**\u2011**5678\u20111"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "eid=784-****-**5678"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "origin: Al\u2011Qamar family, Ras Al Noor"
+    },
+    {
+      "category": "PII",
+      "rule": "ip_address",
+      "matched_text": "185.**.36.7"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "A c c o u n t\u2011ID 00 42 88\u2011FP\u2011KYC"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011RAN\u201125\u20110098765\u2011Annex\u2011B"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non\u2011public deal context impacted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_pre_listing_marker",
+      "matched_text": "provisional PDX listing timetable for Q3"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "in for ma tion bar rier protocols"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider\u2011list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "i b wall alerts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "phishing\u2011led mailbox takeover"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "draft climate KPI annex"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not a public commitment"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "draft commercial terms"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "OTC pre\u2011commit floor AED 3.20"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective\u2011disclosure risk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "internal notice only for now"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure prohibitions"
+    }
+  ],
   "must_not_detect": [],
-  "uncertain": [],
+  "uncertain": [
+    {
+      "matched_text": "hashed (sha256)",
+      "concept": "data minimisation marker",
+      "reason": "Security control indicating hashing; relevant to PDPL minimisation but not an explicit anchored minimisation phrase."
+    },
+    {
+      "matched_text": "masked",
+      "concept": "data minimisation marker",
+      "reason": "Masking referenced as a control; useful privacy signal but not a defined minimisation keyword."
+    },
+    {
+      "matched_text": "A c c o u n t\u2011ID 00 42 88\u2011FP\u2011KYC",
+      "concept": "customer account identifier",
+      "reason": "Looks like an account ID but unclear if it relates to a natural person or a corporate/system account."
+    },
+    {
+      "matched_text": "IL\u2011FPDH\u201107",
+      "concept": "insider list reference",
+      "reason": "Internal code identifying an insider list version; semantically tied to insider lists but lacks the explicit phrase."
+    },
+    {
+      "matched_text": "https://portal.falconpalm.ae/case/INC-23%2F7a9?eid=784-****-**5678",
+      "concept": "Emirates ID in URL",
+      "reason": "Masked Emirates ID appears inside a URL query; detectors may not parse query parameters though it is legally relevant."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 3.20'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 3.20'"
+  ],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
