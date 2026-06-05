@@ -110,9 +110,12 @@ class MultiLabelF1(Evaluator):
         precision = tp / len(predicted) if predicted else 0.0
         recall = tp / len(expected) if expected else 0.0
         f1 = (2 * precision * recall / (precision + recall)) if (precision + recall) else 0.0
+        detail: dict[str, Any] = {"precision": precision, "recall": recall, "tp": tp}
+        if isinstance(ctx.metadata.get("breakdown"), dict):
+            detail["breakdown"] = dict(ctx.metadata["breakdown"])
         return EvaluationResult(
             score=f1,
-            detail={"precision": precision, "recall": recall, "tp": tp},
+            detail=detail,
         )
 
 
