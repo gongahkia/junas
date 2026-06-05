@@ -12,6 +12,7 @@ inputs.
 """
 from __future__ import annotations
 
+import re
 from typing import Any, Awaitable, Callable
 
 from benchmark.schema import Case
@@ -20,6 +21,14 @@ TaskRunner = Callable[[Case], Awaitable[str]]
 
 TASKS: dict[str, TaskRunner] = {}
 PROVENANCE: dict[str, dict[str, Any]] = {}
+BENCHMARK_ELIGIBILITY: dict[str, bool] = {}
+
+
+def canonical_task_name(name: str) -> str:
+    match = re.search(r"sglb[_-](\d{2})", name.lower())
+    if not match:
+        return name
+    return f"sglb_{match.group(1)}"
 
 
 def register_task(
@@ -27,6 +36,7 @@ def register_task(
     runner: TaskRunner,
     *,
     provenance: dict[str, Any] | None = None,
+    benchmark_eligible: bool = True,
 ) -> None:
     """Register a task runner by name. Re-registration overwrites.
 
@@ -37,8 +47,12 @@ def register_task(
             (``prompt_version``, ``prompt_sha``, ``provider_label``,
             ``max_tokens``). Stored alongside the runner and copied onto
             every JSON receipt for runs of this workflow.
+        benchmark_eligible: whether this task is eligible for the public
+            benchmark leaderboard. Defaults to True; set False while code
+            is present but benchmark data is not.
     """
     TASKS[name] = runner
+    BENCHMARK_ELIGIBILITY[name] = benchmark_eligible
     if provenance is not None:
         PROVENANCE[name] = dict(provenance)
     else:
@@ -53,6 +67,14 @@ def register_provenance(name: str, provenance: dict[str, Any]) -> None:
 def get_provenance(name: str) -> dict[str, Any]:
     """Return provenance metadata for a task, empty dict if none registered."""
     return dict(PROVENANCE.get(name, {}))
+
+
+def is_benchmark_eligible(name: str) -> bool:
+    """Return whether a workflow/task should appear on benchmark leaderboards."""
+    if name in BENCHMARK_ELIGIBILITY:
+        return BENCHMARK_ELIGIBILITY[name]
+    canonical = canonical_task_name(name)
+    return BENCHMARK_ELIGIBILITY.get(canonical, True)
 
 
 async def _echo_task(case: Case) -> str:

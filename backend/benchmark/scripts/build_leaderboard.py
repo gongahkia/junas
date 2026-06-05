@@ -17,6 +17,7 @@ BACKEND_ROOT = REPO_ROOT / "backend"
 if str(BACKEND_ROOT) not in sys.path:
     sys.path.insert(0, str(BACKEND_ROOT))
 
+from benchmark.registry import is_benchmark_eligible  # noqa: E402
 from benchmark.stats import bootstrap_ci  # noqa: E402
 
 RUNS_ROOT = REPO_ROOT / "runs" / "baselines"
@@ -51,6 +52,11 @@ ROWS = (
     MetricRow("SGLB-02", "citation match", "sglb_02_citation_match"),
     MetricRow("SGLB-02", "ROUGE-L", "rouge_l_answer"),
     MetricRow("SGLB-04", "label F1", "multi_label_f1"),
+    MetricRow("SGLB-05", "issue F1", "multi_label_f1"),
+    MetricRow("SGLB-06", "order/rule F1", "order_rule_label_f1"),
+    MetricRow("SGLB-06", "order/rule top-3", "order_rule_top3"),
+    MetricRow("SGLB-07", "jurisdiction F1", "multi_label_f1"),
+    MetricRow("SGLB-08", "tone F1", "multi_label_f1"),
 )
 
 
@@ -59,10 +65,19 @@ def _task_from_payload(payload: dict[str, Any]) -> str:
         str(payload.get(key, ""))
         for key in ("workflow", "dataset")
     ).lower()
-    for suffix in ("01", "02", "04", "08"):
+    for suffix in ("01", "02", "03", "04", "05", "06", "07", "08"):
         if f"sglb_{suffix}" in haystack or f"sglb-{suffix}" in haystack:
             return f"SGLB-{suffix}"
     return ""
+
+
+def _payload_benchmark_eligible(payload: dict[str, Any], task: str) -> bool:
+    values = (task, str(payload.get("workflow") or ""), str(payload.get("dataset") or ""))
+    return all(is_benchmark_eligible(value) for value in values if value)
+
+
+def _eligible_rows() -> tuple[MetricRow, ...]:
+    return tuple(row for row in ROWS if is_benchmark_eligible(row.task))
 
 
 def _timestamp(payload: dict[str, Any], path: Path) -> str:
@@ -87,6 +102,8 @@ def _load_receipts(root: Path) -> dict[tuple[str, str], tuple[Path, dict[str, An
             continue
         task = _task_from_payload(payload)
         if not task:
+            continue
+        if not _payload_benchmark_eligible(payload, task):
             continue
         key = (provider, task)
         current = latest.get(key)
@@ -167,6 +184,13 @@ def _dataset_version(payload: dict[str, Any]) -> str:
     return fallback
 
 
+def _receipt_path(path: Path, root: Path) -> str:
+    try:
+        return str(path.relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path.relative_to(root))
+
+
 def _format_cell(stats: dict[str, float]) -> str:
     return f"{stats['mean']:.2f} [{stats['ci_low']:.2f}, {stats['ci_high']:.2f}]"
 
@@ -190,7 +214,8 @@ def build_leaderboard(
     }
     columns = [{"key": provider, "label": _provider_display(provider, provider_payloads[provider])} for provider in providers]
     rows: list[dict[str, Any]] = []
-    for row_index, row in enumerate(ROWS):
+    metric_rows = _eligible_rows()
+    for row_index, row in enumerate(metric_rows):
         cells: dict[str, Any] = {}
         for provider in providers:
             item = receipts.get((provider, row.task))
@@ -211,7 +236,7 @@ def build_leaderboard(
             }
             cells[provider] = {
                 **stats,
-                "receipt": str(path.relative_to(REPO_ROOT)),
+                "receipt": _receipt_path(path, root),
                 "dataset_version": _dataset_version(payload),
                 "run_date": payload.get("finished_at") or payload.get("started_at") or "",
                 "model": (payload.get("provenance") or {}).get("provider_label", ""),
@@ -220,7 +245,7 @@ def build_leaderboard(
         rows.append({"task": row.task, "metric": row.metric, "evaluator": row.evaluator, "cells": cells})
     if missing_cells and not allow_missing:
         raise SystemExit("missing leaderboard cells: " + ", ".join(missing_cells))
-    review_flags = _review_flags(receipts, providers)
+    review_flags = _review_flags(receipts, providers, metric_rows)
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "bootstrap_n": BOOTSTRAP_N,
@@ -233,10 +258,11 @@ def build_leaderboard(
 def _review_flags(
     receipts: dict[tuple[str, str], tuple[Path, dict[str, Any]]],
     providers: list[str],
+    rows: tuple[MetricRow, ...],
 ) -> dict[str, list[str]]:
     too_easy: list[str] = []
     too_low: list[str] = []
-    for task in sorted({row.task for row in ROWS}):
+    for task in sorted({row.task for row in rows}):
         scores: list[float] = []
         for provider in providers:
             item = receipts.get((provider, task))
