@@ -3,13 +3,159 @@
   "document_type": "memo",
   "source_jurisdiction": "AE",
   "destination_jurisdiction": "AE",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "maintenance@ghutilities.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@ghutilities.example"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "GHU-LAP-0772"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1990-03-14"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-0000-0000000-0"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-9102773-X"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "maintenance@ghutilities.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@ghutilities.example"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "GHU-LAP-0772"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 1990-03-14"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-0000-0000000-0"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-9102773-X"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "800-GHU-CARE"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "AE00 0000 0000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "payroll account ending 4482"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "DOB 1990-03-14, work location Al Ain depot, employer Gulf Horizon Utilities PJSC, role shift supervisor, device tag GHU-LAP-0772, payroll account ending 4482, family origin noted as Northern Emirates, masked Emirates ID 784-1990-xxxxxxx-0"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Operational and Cyber Incident Update"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "These elements were stored separately from names and were not paired with full identifiers"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "mid-level staff",
+      "reason": "Generic descriptor; non-identifying and not sufficient to single out a person."
+    },
+    {
+      "matched_text": "30s",
+      "reason": "Generic age range; non-identifying without other linkable data."
+    },
+    {
+      "matched_text": "Gulf-based",
+      "reason": "Generic regional descriptor; non-identifying."
+    },
+    {
+      "matched_text": "REG-000-PLACEHOLDER",
+      "reason": "Placeholder string; not an actual identifier."
+    },
+    {
+      "matched_text": "123-456-XYZ",
+      "reason": "Placeholder string; not an actual identifier."
+    },
+    {
+      "matched_text": "Name",
+      "reason": "Field label without any personal value."
+    },
+    {
+      "matched_text": "Emirates ID",
+      "reason": "Field label without any personal value."
+    },
+    {
+      "matched_text": "DOB",
+      "reason": "Field label without any personal value."
+    },
+    {
+      "matched_text": "IBAN",
+      "reason": "Field label without any personal value."
+    },
+    {
+      "matched_text": "Device ID",
+      "reason": "Field label without any personal value."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "family origin noted as Northern Emirates",
+      "concept": "ethnic_origin",
+      "reason": "Family/ethnic origin may constitute sensitive personal data under PDPL, but no explicit rule category is available in the provided list."
+    },
+    {
+      "matched_text": "Dinar International Financial Centre (free zone, fictional)",
+      "concept": "cross_border_transfer",
+      "reason": "Hosting location could imply data transfer across jurisdictions/free zones, but an actual transfer isn\u2019t clearly stated."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
