@@ -3,8 +3,8 @@ from __future__ import annotations
 
 import argparse
 import json
-import random
 import statistics
+import sys
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -13,6 +13,12 @@ from typing import Any
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
+BACKEND_ROOT = REPO_ROOT / "backend"
+if str(BACKEND_ROOT) not in sys.path:
+    sys.path.insert(0, str(BACKEND_ROOT))
+
+from benchmark.stats import bootstrap_ci  # noqa: E402
+
 RUNS_ROOT = REPO_ROOT / "runs" / "baselines"
 DOCS_LEADERBOARD = REPO_ROOT / "docs" / "leaderboard.md"
 LEADERBOARD_JSON = RUNS_ROOT / "leaderboard.json"
@@ -122,26 +128,6 @@ def _metric_values(payload: dict[str, Any], row: MetricRow) -> list[float]:
     return values
 
 
-def _bootstrap(values: list[float], *, seed: int, n: int = BOOTSTRAP_N) -> dict[str, float]:
-    if not values:
-        return {"mean": 0.0, "ci_low": 0.0, "ci_high": 0.0, "n": 0.0}
-    rng = random.Random(seed)
-    means: list[float] = []
-    count = len(values)
-    for _ in range(n):
-        sample = [values[rng.randrange(count)] for _ in range(count)]
-        means.append(statistics.fmean(sample))
-    means.sort()
-    low_idx = int(0.025 * (n - 1))
-    high_idx = int(0.975 * (n - 1))
-    return {
-        "mean": statistics.fmean(values),
-        "ci_low": means[low_idx],
-        "ci_high": means[high_idx],
-        "n": float(count),
-    }
-
-
 def _normalised_task_score(payload: dict[str, Any], task: str) -> float | None:
     scores: list[float] = []
     for row in ROWS:
@@ -216,7 +202,13 @@ def build_leaderboard(
             if not values:
                 missing_cells.append(f"{provider}/{row.task}/{row.metric}")
                 continue
-            stats = _bootstrap(values, seed=1009 + row_index)
+            ci = bootstrap_ci(values, seed=1009 + row_index, n=BOOTSTRAP_N)
+            stats = {
+                "mean": ci.mean,
+                "ci_low": ci.ci_low,
+                "ci_high": ci.ci_high,
+                "n": float(len(values)),
+            }
             cells[provider] = {
                 **stats,
                 "receipt": str(path.relative_to(REPO_ROOT)),
