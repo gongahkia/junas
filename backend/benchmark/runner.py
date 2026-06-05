@@ -16,6 +16,11 @@ from benchmark.evaluators import EVALUATORS, EvaluatorContext, EvaluatorStrength
 from benchmark.registry import TASKS, get_provenance
 from benchmark.schema import Case, Dataset, EvalCaseResult
 from benchmark.stats import bootstrap_ci
+from benchmark.contamination import (
+    attach_probe_metadata,
+    contamination_summary,
+    run_probe,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +43,7 @@ class RunSummary:
     # Publication-grade provenance (coverage-matrix §4.4). Empty when the
     # runner is an oracle or no LLM provenance was registered.
     provenance: dict[str, Any] = field(default_factory=dict)
+    contamination_summary: dict[str, Any] = field(default_factory=dict)
 
     def per_evaluator_mean(self) -> dict[str, float]:
         sums: dict[str, float] = {}
@@ -84,6 +90,7 @@ class RunSummary:
             "weak_evaluators_used": self.weak_evaluators_used,
             "data_tier": self.data_tier,
             "provenance": dict(self.provenance),
+            "contamination_summary": dict(self.contamination_summary),
             "per_evaluator_mean": self.per_evaluator_mean(),
             "per_evaluator_bootstrap": self.per_evaluator_bootstrap(),
             "results": [r.model_dump() for r in self.results],
@@ -189,6 +196,7 @@ async def run(
     evaluators: list[str],
     max_concurrency: int = 5,
     strict: bool = False,
+    contamination_probe: bool = False,
 ) -> RunSummary:
     """Run ``workflow`` against the dataset, scoring with the named evaluators.
 
@@ -199,6 +207,8 @@ async def run(
         max_concurrency: maximum concurrent case executions.
         strict: when True, weak-tier evaluators are rejected; coverage
             matrix §4.2 forbids them in publication runs.
+        contamination_probe: when True, run a separate per-case recall
+            probe and attach memorisation metadata to the receipt.
 
     Raises:
         ValueError: when ``strict`` is True and any requested evaluator is
@@ -243,6 +253,21 @@ async def run(
     all_results = await asyncio.gather(*[_bounded(c) for c in dataset.cases])
     for per_case in all_results:
         summary.results.extend(per_case)
+
+    if contamination_probe:
+        probe_results, method = await run_probe(
+            workflow,
+            dataset.cases,
+            max_concurrency=max_concurrency,
+        )
+        attach_probe_metadata(summary.results, probe_results)
+        summary.contamination_summary = contamination_summary(
+            workflow,
+            evaluators,
+            summary.results,
+            probe_results,
+            method=method,
+        )
 
     summary.finished_at = datetime.now(timezone.utc).isoformat()
     return summary

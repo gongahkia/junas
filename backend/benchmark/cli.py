@@ -6,7 +6,7 @@ import asyncio
 import json
 import sys
 
-from benchmark.evaluators import EVALUATORS, EvaluatorStrength
+from benchmark.evaluators import EVALUATORS
 from benchmark.registry import TASKS
 from benchmark.runner import run, write_summary
 
@@ -30,6 +30,11 @@ def _build_parser() -> argparse.ArgumentParser:
         "--strict",
         action="store_true",
         help="reject weak-tier evaluators (publication mode; see docs/coverage-matrix.md §4.2)",
+    )
+    run_p.add_argument(
+        "--contamination-probe",
+        action="store_true",
+        help="run a separate per-case memorisation probe and include contamination_summary",
     )
 
     list_p = sub.add_parser("list", help="List registered tasks and evaluators")
@@ -63,6 +68,7 @@ def _cmd_run(args: argparse.Namespace) -> int:
             evaluators=args.evaluator,
             max_concurrency=args.max_concurrency,
             strict=args.strict,
+            contamination_probe=args.contamination_probe,
         )
     )
 
