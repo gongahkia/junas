@@ -39,6 +39,7 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "post-sg-stage-b-public-mailbox-realign-2026-06-01",
   "_label_warnings": [],
   "_owner_acceptance": {
@@ -66,6 +67,21 @@
       "status": "ready"
     }
   ],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 17,
+    "new_must_detect_count": 6,
+    "old_ideal_must_detect_count": 17,
+    "old_must_detect_count": 6,
+    "owner_approval_reviewed_at_utc": "2026-05-31T12:36:18Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-chat-approval",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
   "_strict_reconciliation_history": [
     {
       "basis": "SG Stage B precision fix broadened public/generic mailbox suppression; this fixture text expressly describes the email as public, role-based, generic, or non-personal.",
@@ -83,13 +99,38 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "matched_text": "CR 101-XX-7654321",
-      "rule": "sa_commercial_registration"
+      "matched_text": "Data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "matched_text": "Data minimisation",
-      "rule": "data_minimisation_marker"
+      "matched_text": "CR 101-XX-7654321",
+      "rule": "sa_commercial_registration"
     },
     {
       "category": "PII",
@@ -118,11 +159,6 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non-public",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "potentially material variance",
       "rule": "contingent_mnpi_language"
     },
@@ -138,11 +174,6 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Insider list",
-      "rule": "insider_list_marker"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "designated insiders",
       "rule": "insider_list_marker"
     },
@@ -150,21 +181,6 @@
       "category": "MNPI",
       "matched_text": "do not discuss draft numbers with analysts or suppliers",
       "rule": "selective_disclosure_risk"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "MOU",
-      "rule": "definitive_agreement"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "restricted",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
     }
   ],
   "must_detect": [
@@ -229,7 +245,7 @@
   "uncertain": [
     {
       "concept": "disclosure timing",
-      "matched_text": "scheduled REX Portal submission by 10 Dhu al-Qa\u2018dah 1447H",
+      "matched_text": "scheduled REX Portal submission by 10 Dhu al-Qa‘dah 1447H",
       "reason": "Indicates a specific future disclosure schedule relevant to blackout/timing controls but not an explicit Embargo/Signing/Closing/Effective Date marker."
     }
   ]

@@ -1,0 +1,15 @@
+retention + disclosure workflow note — novamed bank & health services, inc. (us issuer; ir/compliance)
+scope: we apply ccpa/hipaa/glba principles to information reasonably linkable to a consumer, household, or patient; employee and analyst interactions are governed by us policy NBHS-IR-17
+dsar intake: submit via portal at novamedbank.example/privacy or email privacy@novamedbank.example with [form: request type], [form: state], and [form: proof]; we do not accept screenshots of ids; examples in training use invalid shapes like ssn XXX-XX-0000 or aba 000000000
+processors: pinecap analytics llc (vendor id V-0421, fictional) processes de-identified website metrics under a dpa; no glba “customer information” is transferred to pinecap for advertising
+retention: analyst call recordings retained 24 months; marketing cookies 13 months; operational logs 18 months; a 7% sample is reviewed for qa; deletion holds apply during sec inquiries or audits
+hipaa boundary: ir scripts must not include phi; patient anecdotes must be aggregated or sourced from public cms/nih reports; mrn and claim ids are not collected in ir workflows
+reg fd: communications use only public-source or already-announced facts (e.g., form 8-k filed 2024-02-01 and archived on sec.gov); if a question seeks mnpi, staff must defer to ir@novamedbank.example
+embargo: do not publish the q2 investor faq to ir.novamedbank.example before 2026-09-30 08:00 ET to align with reg fd web disclosure timing
+contract note (negated mac language): our standard vendor dpa states “no material adverse effect shall be deemed to arise from general economic conditions”; this boilerplate is not a transaction signal
+precision reminder: phrases like “deal,” “definitive,” or “material” in template clauses or news summaries do not by themselves indicate mnpi; use the decision tree in NBHS-IR-17 appx. b
+false-positive bait disclaimer: training files may include masked tokens such as acct 0000-XX-1234 or card 41XX XXXX XXXX 1111; these are dummies and never stored in production systems
+employee wellness: spa-day vouchers for the wellness pilot are tracked only as aggregated usage counts and are unrelated to securities disclosures
+security + access: role mailboxes (analyst@novamedbank.example, privacy@novamedbank.example) are used for processing; access logs store hashed ids like USR-XX-0000 only
+dsar response: verify requestors via two-factor challenge and last interaction timestamp; respond within 45 days; glba-covered “customer information” is exempt from sale opt-out while still honoring access and deletion where permitted
+escalation: suspected mnpi or phi exposure should be paused and routed to compliance@novamedbank.example; see the public hotline at novamedbank.example/help for general questions

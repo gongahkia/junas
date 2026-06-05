@@ -1,186 +1,4 @@
 {
-  "doc_id": "sa_universal_mnpi_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "SA",
-  "destination_jurisdiction": "SA",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "standard contractual clauses"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "mnpi"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "share purchase agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "spa"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "exploratory discussions"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@alnoor.sa"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@alnoor.sa"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "is not yet published on sahra exchange"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "share purchase agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo time of 15 shawwal 1447h 10:00 (ksa)"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "iban: sa00 0000 0000 0000 0000 0000"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border processing"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_commercial_registration",
-      "matched_text": "cr 1010-abc-0000"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_commercial_registration",
-      "matched_text": "commercial registration: 1010-xyz-9999"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_iqama",
-      "matched_text": "national id/iqama: 0000-xxxx-0000"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not collect or transmit national id/iqama numbers"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "use role-based ids only"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "redact direct identifiers from board packs"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "use hashed references rather than iqama or cr numbers"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "transfer impact assessment"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "standard contractual clauses"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "ndad portal"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "exporting pseudonymized data"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "spa"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "has been executed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "must not circulate outside the deal team"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "deal team"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "do not cc external advisors until nda status is confirmed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "mnpi"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "exploratory discussions"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "“spa day”",
-      "reason": "False-positive bait unrelated to Share Purchase Agreement"
-    },
-    {
-      "matched_text": "“spa”",
-      "reason": "Defined-term abbreviation referenced in a clarifier; avoid misclassifying as agreement in this context"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "after market close",
-      "concept": "blackout_period_reference",
-      "reason": "Indicates disclosure timing relative to trading hours; relevant to market conduct but not a defined blackout marker in allowed rules"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
   "_agent_review": {
     "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -217,6 +35,12 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T12:36:18Z",
     "accepted_by": "gongahkia",
@@ -225,21 +49,213 @@
     "status": "owner_approved_sa_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 25,
+    "new_must_detect_count": 5,
+    "old_ideal_must_detect_count": 25,
+    "old_must_detect_count": 5,
+    "owner_approval_reviewed_at_utc": "2026-05-31T12:36:18Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-chat-approval",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_universal_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exploratory discussions",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@alnoor.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@alnoor.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "is not yet published on sahra exchange",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo time of 15 shawwal 1447h 10:00 (ksa)",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "iban: sa00 0000 0000 0000 0000 0000",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cr 1010-abc-0000",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "commercial registration: 1010-xyz-9999",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "national id/iqama: 0000-xxxx-0000",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not collect or transmit national id/iqama numbers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "use role-based ids only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redact direct identifiers from board packs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "use hashed references rather than iqama or cr numbers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "transfer impact assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ndad portal",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "exporting pseudonymized data",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "has been executed",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not circulate outside the deal team",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "deal team",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not cc external advisors until nda status is confirmed",
+      "rule": "tipping_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "share purchase agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exploratory discussions",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "“spa day”",
+      "reason": "False-positive bait unrelated to Share Purchase Agreement"
+    },
+    {
+      "matched_text": "“spa”",
+      "reason": "Defined-term abbreviation referenced in a clarifier; avoid misclassifying as agreement in this context"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "blackout_period_reference",
+      "matched_text": "after market close",
+      "reason": "Indicates disclosure timing relative to trading hours; relevant to market conduct but not a defined blackout marker in allowed rules"
     }
   ]
 }

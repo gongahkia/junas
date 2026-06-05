@@ -1,0 +1,281 @@
+{
+  "_human_review": {
+    "notes": "US Stage B generated/autolabeled labels were reconciled by Codex for internal benchmark cleanup; project-owner approval is still required before promotion-ready status.",
+    "reviewer": "pending-project-owner-stage-b-review",
+    "status": "pending"
+  },
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 26,
+    "new_must_detect_count": 15,
+    "old_ideal_must_detect_count": 20,
+    "old_must_detect_count": 18,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_pending_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_sector_mnpi_privacy_notice_default_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cpo@harborlinehb.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1-833-555-0198",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Avery Dune",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Selene Mora",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No selective disclosure or tipping to analysts, lenders, market makers, or digital asset venues; earnings and ESG/climate metrics are disclosed via simultaneous public channels.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Suspected cyber incidents (e.g., credential stuffing affecting patient portals) are logged as security events and treated as MNPI until publicly disclosed; breach notifications follow applicable state health privacy and financial sector rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Commercial terms: per Statement of Work #NV-047, the climate risk scoring module includes a 10% rebate if Scope 2 emissions reporting is independently verified, and deliverables exclude forward-looking guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corpsec@harborlinehb.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@harborlinehb.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "de-identified analytics",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Suspected cyber incidents (e.g., credential stuffing affecting patient portals) are logged as security events and treated as MNPI until publicly disclosed",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tokenized deposit pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "emails to external analysts are pre-cleared and logged for Reg FD compliance",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "cpo@harborlinehb.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1-833-555-0198",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Avery Dune",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Selene Mora",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No selective disclosure or tipping to analysts, lenders, market makers, or digital asset venues; earnings and ESG/climate metrics are disclosed via simultaneous public channels.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Suspected cyber incidents (e.g., credential stuffing affecting patient portals) are logged as security events and treated as MNPI until publicly disclosed; breach notifications follow applicable state health privacy and financial sector rules.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Commercial terms: per Statement of Work #NV-047, the climate risk scoring module includes a 10% rebate if Scope 2 emissions reporting is independently verified, and deliverables exclude forward-looking guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2 emissions",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "“blackout”",
+      "reason": "Operational maintenance term, not a trading blackout reference"
+    },
+    {
+      "matched_text": "processor",
+      "reason": "Role noun/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "issuer and covered entity",
+      "reason": "Role noun/defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "subprocessor",
+      "reason": "Role noun/defined term, not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "DSAR_marker",
+      "matched_text": "Consumers, patients, and employees may submit DSARs for access, correction, or deletion",
+      "reason": "DSAR/erasure rights are privacy-event markers but no explicit DSAR rule is listed"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retained seven years after public disclosure",
+      "reason": "Retention duration is a privacy control but there is no explicit retention rule in the allowed list"
+    },
+    {
+      "concept": "retention_marker",
+      "matched_text": "retained 18 months",
+      "reason": "Retention duration is a privacy control but there is no explicit retention rule in the allowed list"
+    },
+    {
+      "concept": "trading pre-clearance",
+      "matched_text": "pre-clearance",
+      "reason": "MNPI compliance control relevant to insider trading but no explicit rule for pre-clearance is provided"
+    }
+  ]
+}

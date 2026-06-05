@@ -1,313 +1,4 @@
 {
-  "doc_id": "sa_special_category_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "SA",
-  "destination_jurisdiction": "SA",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "RSI-004217"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Sami Al‑Hazmi"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Al‑Hazmi"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Al‑Hazmi"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Laila Al‑Harbi"
-    },
-    {
-      "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "genetic testing"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "parental consent"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "As issuer preparing RGX listing, we note that draft prospectus sections and pricing scenarios constitute MNPI under KCMC market‑conduct guidance."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Non‑public figures currently under review include a provisional IPO price range of SAR 18–22 and unaudited Q2 EBITDA of SAR 47.3m; disclosure prior to the RGX filing is prohibited."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "47.3m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "004217"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non‑public figures currently under review"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "47.3m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_commercial_registration",
-      "matched_text": "CR RS-88-4455667"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_iqama",
-      "matched_text": "Iqama ID QP-593-04-888"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "employee ID RSI-004217"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "iris and fingerprint templates"
-    },
-    {
-      "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "disclosed treatment for Type 1 diabetes"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "voluntary affiliation with the Al‑Wifaq Workers Union"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "his declared religious affiliation"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "14‑year‑old daughter"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "14‑year‑old"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross‑border transfer of HR archives to the approved cloud in Bahrara City"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@redsand-industries.sa.example"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Sami Al‑Hazmi"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Al‑Hazmi"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Al‑Hazmi"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Laila Al‑Harbi"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "project “Palm Dune.”"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "price‑sensitive until formal announcements"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "internal “OryxPay 3.0” launch metrics"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Eng. Nasser Al‑Mansour"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "refresh data retention schedule for biometric templates (90‑day review)"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "no exports should occur before the SDAA ticket SDAA-TX-2194 is cleared"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "RSI-004217"
-    },
-    {
-      "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "genetic testing"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "parental consent"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "As issuer preparing RGX listing, we note that draft prospectus sections and pricing scenarios constitute MNPI under KCMC market‑conduct guidance."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Non‑public figures currently under review include a provisional IPO price range of SAR 18–22 and unaudited Q2 EBITDA of SAR 47.3m; disclosure prior to the RGX filing is prohibited."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "004217"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "OryxPay 3.0",
-      "reason": "Product name; not PII/MNPI under rules."
-    },
-    {
-      "matched_text": "Open Desert Inclusion Charter",
-      "reason": "Policy name; not PII/MNPI."
-    },
-    {
-      "matched_text": "Riyadh Falcons",
-      "reason": "Sports team; not PII/MNPI."
-    },
-    {
-      "matched_text": "Al‑Najd Innovation Zone",
-      "reason": "Place name; not PII/MNPI."
-    },
-    {
-      "matched_text": "politics of pricing strategy",
-      "reason": "Metaphorical use; not an individual's political opinion."
-    },
-    {
-      "matched_text": "general religion references",
-      "reason": "Generic discussion; not tied to an identifiable person."
-    },
-    {
-      "matched_text": "genetic testing results",
-      "reason": "Negated processing note; not data about an identifiable individual here."
-    },
-    {
-      "matched_text": "Bahrara City",
-      "reason": "Geographic reference; not PII/MNPI."
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "minor beneficiary ID DEP-77-114",
-      "concept": "Dependent/beneficiary identifier",
-      "reason": "Likely an insurance or benefits member ID; no explicit allowed rule fits (e.g., insurance_member_id ambiguous)."
-    },
-    {
-      "matched_text": "parental consent",
-      "concept": "Consent requirement",
-      "reason": "Consent is a privacy-event marker, but only withdrawal is enumerated in allowed rules."
-    },
-    {
-      "matched_text": "Data Transfer Impact Assessment",
-      "concept": "DTIA requirement",
-      "reason": "Transfer-impact assessment is a cross-border privacy control, but not an explicitly listed rule."
-    },
-    {
-      "matched_text": "SDAA-TX-2194",
-      "concept": "Regulatory approval/workflow ID",
-      "reason": "Internal ticket identifier relevant to cross-border approval; no matching allowed rule."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 18–22'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 18–22'"
-  ],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
   "_agent_review": {
     "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -344,6 +35,15 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 18–22'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 18–22'"
+  ],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T12:36:18Z",
     "accepted_by": "gongahkia",
@@ -352,21 +52,337 @@
     "status": "owner_approved_sa_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 33,
+    "new_must_detect_count": 14,
+    "old_ideal_must_detect_count": 33,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-05-31T12:36:18Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-chat-approval",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_special_category_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "RSI-004217",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al‑Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Al‑Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Al‑Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Laila Al‑Harbi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic testing",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "As issuer preparing RGX listing, we note that draft prospectus sections and pricing scenarios constitute MNPI under KCMC market‑conduct guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non‑public figures currently under review include a provisional IPO price range of SAR 18–22 and unaudited Q2 EBITDA of SAR 47.3m; disclosure prior to the RGX filing is prohibited.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "47.3m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "004217",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non‑public figures currently under review",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR RS-88-4455667",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama ID QP-593-04-888",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee ID RSI-004217",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "iris and fingerprint templates",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disclosed treatment for Type 1 diabetes",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "voluntary affiliation with the Al‑Wifaq Workers Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "his declared religious affiliation",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14‑year‑old daughter",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14‑year‑old",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross‑border transfer of HR archives to the approved cloud in Bahrara City",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@redsand-industries.sa.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "project “Palm Dune.”",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "price‑sensitive until formal announcements",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal “OryxPay 3.0” launch metrics",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Eng. Nasser Al‑Mansour",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "refresh data retention schedule for biometric templates (90‑day review)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no exports should occur before the SDAA ticket SDAA-TX-2194 is cleared",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "RSI-004217",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al‑Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Al‑Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Al‑Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Laila Al‑Harbi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic testing",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "parental consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "As issuer preparing RGX listing, we note that draft prospectus sections and pricing scenarios constitute MNPI under KCMC market‑conduct guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non‑public figures currently under review include a provisional IPO price range of SAR 18–22 and unaudited Q2 EBITDA of SAR 47.3m; disclosure prior to the RGX filing is prohibited.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "47.3m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "004217",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "OryxPay 3.0",
+      "reason": "Product name; not PII/MNPI under rules."
+    },
+    {
+      "matched_text": "Open Desert Inclusion Charter",
+      "reason": "Policy name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Riyadh Falcons",
+      "reason": "Sports team; not PII/MNPI."
+    },
+    {
+      "matched_text": "Al‑Najd Innovation Zone",
+      "reason": "Place name; not PII/MNPI."
+    },
+    {
+      "matched_text": "politics of pricing strategy",
+      "reason": "Metaphorical use; not an individual's political opinion."
+    },
+    {
+      "matched_text": "general religion references",
+      "reason": "Generic discussion; not tied to an identifiable person."
+    },
+    {
+      "matched_text": "genetic testing results",
+      "reason": "Negated processing note; not data about an identifiable individual here."
+    },
+    {
+      "matched_text": "Bahrara City",
+      "reason": "Geographic reference; not PII/MNPI."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "Dependent/beneficiary identifier",
+      "matched_text": "minor beneficiary ID DEP-77-114",
+      "reason": "Likely an insurance or benefits member ID; no explicit allowed rule fits (e.g., insurance_member_id ambiguous)."
+    },
+    {
+      "concept": "Consent requirement",
+      "matched_text": "parental consent",
+      "reason": "Consent is a privacy-event marker, but only withdrawal is enumerated in allowed rules."
+    },
+    {
+      "concept": "DTIA requirement",
+      "matched_text": "Data Transfer Impact Assessment",
+      "reason": "Transfer-impact assessment is a cross-border privacy control, but not an explicitly listed rule."
+    },
+    {
+      "concept": "Regulatory approval/workflow ID",
+      "matched_text": "SDAA-TX-2194",
+      "reason": "Internal ticket identifier relevant to cross-border approval; no matching allowed rule."
     }
   ]
 }

@@ -39,6 +39,7 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "US Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered role/legal mailbox bait, public privacy/ethics helplines, generic training-list wording, negated material-adverse-effect wording, Reg FD/10b/Phase shorthand amount bait, placeholder account IDs, entity registry numbers, and public/generic material-event guidance.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T15:54:54Z",
@@ -47,22 +48,45 @@
     "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
     "status": "owner_approved_us_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 36,
+    "new_must_detect_count": 16,
+    "old_ideal_must_detect_count": 36,
+    "old_must_detect_count": 16,
+    "owner_approval_reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-chat-approval",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
   "doc_id": "us_jurisdictional_mnpi_memo_default_001",
   "document_type": "memo",
   "ideal_must_detect": [
-    {
-      "category": "PII",
-      "matched_text": "privacy@palisadehb.com",
-      "rule": "email_address"
-    },
-    {
-      "category": "PII",
-      "matched_text": "compliance@palisadehb.com",
-      "rule": "email_address"
-    },
     {
       "category": "PII",
       "matched_text": "Dr. Maya Ellison",
@@ -85,13 +109,73 @@
     },
     {
       "category": "MNPI",
+      "matched_text": "Our quiet period runs from 6/15 until the earnings press release scheduled 7/23 at 7:30 a.m. ET; a Form 8‑K (Item 2.02) will be furnished concurrently pursuant to Reg FD.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure risk: one-on-one call with Mr. Hal Brenner of Larkstone Analytics on 7/10—IR may discuss our 5/6 Form 10‑Q and the 6/5 press release announcing a non‑binding MOU with Sunfield Clinic Network, but must avoid intra‑quarter trends, implied guidance, and “whisper” numbers.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For banking customers, account‑level servicing issues (e.g., ACH delay complaints) are confidential customer information and not to be discussed on earnings prep calls.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet period",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
       "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Nonpublic",
       "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MOU",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "11%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "one-on-one call with",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@palisadehb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@palisadehb.com",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
@@ -117,16 +201,6 @@
       "category": "MNPI",
       "matched_text": "~11%",
       "rule": "financial_percentage"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "12%",
-      "rule": "financial_percentage"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "MOU",
-      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
@@ -192,46 +266,6 @@
       "category": "PII",
       "matched_text": "For banking customers, account‑level servicing issues (e.g., ACH delay complaints) are confidential customer information and not to be discussed on earnings prep calls",
       "rule": "data_minimisation_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Our quiet period runs from 6/15 until the earnings press release scheduled 7/23 at 7:30 a.m. ET; a Form 8‑K (Item 2.02) will be furnished concurrently pursuant to Reg FD.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Selective disclosure risk: one-on-one call with Mr. Hal Brenner of Larkstone Analytics on 7/10—IR may discuss our 5/6 Form 10‑Q and the 6/5 press release announcing a non‑binding MOU with Sunfield Clinic Network, but must avoid intra‑quarter trends, implied guidance, and “whisper” numbers.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "For banking customers, account‑level servicing issues (e.g., ACH delay complaints) are confidential customer information and not to be discussed on earnings prep calls.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "quiet period",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Nonpublic",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "confidential",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "11%",
-      "rule": "financial_percentage"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "one-on-one call with",
-      "rule": "selective_disclosure_risk"
     }
   ],
   "must_detect": [
@@ -350,24 +384,6 @@
       "concept": "HIPAA PHI reference",
       "matched_text": "PII/PHI",
       "reason": "Generic PHI mention without a specific data element; not clearly covered by allowed rules."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

@@ -39,6 +39,7 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "US Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered role/legal mailbox bait, public privacy/ethics helplines, generic training-list wording, negated material-adverse-effect wording, Reg FD/10b/Phase shorthand amount bait, placeholder account IDs, entity registry numbers, and public/generic material-event guidance.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T15:54:54Z",
@@ -47,17 +48,45 @@
     "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
     "status": "owner_approved_us_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 35,
+    "new_must_detect_count": 17,
+    "old_ideal_must_detect_count": 35,
+    "old_must_detect_count": 17,
+    "owner_approval_reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-chat-approval",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
   "doc_id": "us_sector_mnpi_memo_default_001",
   "document_type": "memo",
   "ideal_must_detect": [
-    {
-      "category": "PII",
-      "matched_text": "compliance@novalynxhb.com",
-      "rule": "email_address"
-    },
     {
       "category": "PII",
       "matched_text": "fd@novalynxhb.com",
@@ -79,14 +108,29 @@
       "rule": "named_person"
     },
     {
-      "category": "PII",
-      "matched_text": "must not include birthdates, account numbers, or addresses",
-      "rule": "data_minimisation_marker"
+      "category": "MNPI",
+      "matched_text": "Note that the calendar invite for the ESG teach-in exposed the “Project Willow” codename to two external consultants; cancel and reissue with neutral language and scrub attachments for hidden guidance.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "12%",
-      "rule": "financial_percentage"
+      "matched_text": "If a breach notification duty is triggered, Legal will coordinate with state AGs and the SEC’s Cyber Unit before any public statement; until then, internal status emails should avoid quantitative loss estimates.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
@@ -100,6 +144,16 @@
     },
     {
       "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossed",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
       "matched_text": "insider list",
       "rule": "insider_list_marker"
     },
@@ -110,13 +164,28 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "ransomware intrusion",
-      "rule": "cyber_incident_pre_disclosure"
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "matched_text": "non-public",
-      "rule": "nonpublic_marker"
+      "matched_text": "Analyst Day",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@novalynxhb.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "must not include birthdates, account numbers, or addresses",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ransomware intrusion",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
@@ -192,41 +261,6 @@
       "category": "MNPI",
       "matched_text": "do not circulate outside the wall-crossed group",
       "rule": "information_barrier_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Note that the calendar invite for the ESG teach-in exposed the “Project Willow” codename to two external consultants; cancel and reissue with neutral language and scrub attachments for hidden guidance.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "If a breach notification duty is triggered, Legal will coordinate with state AGs and the SEC’s Cyber Unit before any public statement; until then, internal status emails should avoid quantitative loss estimates.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Confidential",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "wall-crossed",
-      "rule": "insider_list_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Scope 2",
-      "rule": "esg_climate_pre_disclosure"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Analyst Day",
-      "rule": "selective_disclosure_risk"
     }
   ],
   "must_detect": [
@@ -277,22 +311,7 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "non-public",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "Project Aegis",
-      "rule": "transaction_codename"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Project Willow",
       "rule": "transaction_codename"
     },
     {
@@ -308,11 +327,6 @@
     {
       "category": "MNPI",
       "matched_text": "wall-crossed",
-      "rule": "insider_list_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "insider list",
       "rule": "insider_list_marker"
     },
     {
@@ -394,24 +408,6 @@
       "concept": "consent/acknowledgment artifact",
       "matched_text": "training acknowledgments",
       "reason": "Potential compliance record related to employees; not clearly an allowed consent_withdrawal or DSAR marker."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

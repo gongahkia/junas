@@ -24,7 +24,7 @@ _DEFINED_TERM_PATTERN = re.compile(
     r'|(?i:\b(?:the|this|that|these|those)\s+)'
     r'["“‘]([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*)(?:[,.;:])?["”’]\s+'
     r'(?i:is|shall\s+be|will\s+be|refers\s+to|means)'
-    r'|\b(?i:(?:share\s+purchase\s+agreement|shareholders?\s+agreement|'
+    r'|\b(?i:(?:share\s+purchase\s+agreement|shareholders?[\'’]?\s+agreement|'
     r'asset\s+purchase\s+agreement|memorandum\s+of\s+understanding|'
     r'letter\s+of\s+intent|term\s+sheet))\s*\(([A-Z]{2,5})\)'
 )

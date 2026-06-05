@@ -1,345 +1,428 @@
 {
+  "_agent_review": {
+    "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-sa-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-sa-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
+    {
+      "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-sa-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-sa-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
+    }
+  ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved SA Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T12:36:18Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved SA Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T12:36:18Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T12:36:18Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-sa-stage-a-reviewed.json",
+    "status": "owner_approved_sa_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 47,
+    "new_must_detect_count": 20,
+    "old_ideal_must_detect_count": 47,
+    "old_must_detect_count": 20,
+    "owner_approval_reviewed_at_utc": "2026-05-31T12:36:18Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-chat-approval",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
   "doc_id": "sa_sector_mnpi_memo_default_001",
   "document_type": "memo",
-  "source_jurisdiction": "SA",
-  "destination_jurisdiction": "SA",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "y.alhadidi@falajpower.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-55-019-4472",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966-11-801-4400",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2087319456",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Yasser Al-Hadidi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Al-Hadidi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Reem Al-Qadi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Laila Al-Shammari",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout window: prohibit Falaj insiders and Hanifa deal team from trading Falaj Power securities or derivatives from 15 Dhul-Qadah 1448H until two full trading days after cyber and financing disclosures appear on Tadawul.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2087319456",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exploratory",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet disclosed on Saudi Exchange (Tadawul)",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "reported a cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public notice has been made",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure/tipping",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 2043321990",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 1017782209",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama 2087319456",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama (2087319456)",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "exported to non-KSA cloud regions",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA-approved transfer mechanism",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA transfer assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SDAIA model contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "retain only last 4 digits of Iqama",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redact contact numbers from PDFs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@hanifacapital.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 1–3 emissions baselines",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "verifier comments",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "treated as MNPI",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "evaluating a private PPA",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "climate-linked sukuk",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tokenized REC/crypto custody pilot",
+      "rule": "dpt_protocol_event_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no outreach to counterparties or media",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must stay within the Clean Energy desk",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "emissions re-baselining",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Selective disclosure/tipping",
+      "rule": "tipping_language"
+    }
+  ],
   "must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "y.alhadidi@falajpower.sa"
+      "matched_text": "y.alhadidi@falajpower.sa",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+966-55-019-4472"
+      "matched_text": "+966-55-019-4472",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+966-11-801-4400"
+      "matched_text": "+966-11-801-4400",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimization"
+      "matched_text": "Data minimization",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "sa_iqama",
-      "matched_text": "2087319456"
+      "matched_text": "2087319456",
+      "rule": "sa_iqama"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Yasser Al-Hadidi"
+      "matched_text": "Mr. Yasser Al-Hadidi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Al-Hadidi"
+      "matched_text": "Mr. Al-Hadidi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Reem Al-Qadi"
+      "matched_text": "Ms. Reem Al-Qadi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Laila Al-Shammari"
+      "matched_text": "Dr. Laila Al-Shammari",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Blackout window: prohibit Falaj insiders and Hanifa deal team from trading Falaj Power securities or derivatives from 15 Dhul-Qadah 1448H until two full trading days after cyber and financing disclosures appear on Tadawul."
+      "matched_text": "Blackout window: prohibit Falaj insiders and Hanifa deal team from trading Falaj Power securities or derivatives from 15 Dhul-Qadah 1448H until two full trading days after cyber and financing disclosures appear on Tadawul.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "2087319456"
+      "matched_text": "2087319456",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "exploratory"
+      "matched_text": "exploratory",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 1"
+      "matched_text": "Scope 1",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "lateral movement"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet disclosed on Saudi Exchange (Tadawul)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "reported a cyber incident"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "no public notice has been made"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Blackout window"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure/tipping"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_commercial_registration",
-      "matched_text": "CR 2043321990"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_commercial_registration",
-      "matched_text": "CR 1017782209"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Yasser Al-Hadidi"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_iqama",
-      "matched_text": "Iqama 2087319456"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Al-Hadidi"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Reem Al-Qadi"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_iqama",
-      "matched_text": "Iqama (2087319456)"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+966-55-019-4472"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "y.alhadidi@falajpower.sa"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border processing"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "exported to non-KSA cloud regions"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "SDAIA-approved transfer mechanism"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "SDAIA transfer assessment"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "SDAIA model contractual clauses"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimization"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "retain only last 4 digits of Iqama"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "redact contact numbers from PDFs"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Laila Al-Shammari"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@hanifacapital.sa"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+966-11-801-4400"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 1–3 emissions baselines"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "verifier comments"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "treated as MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "evaluating a private PPA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "climate-linked sukuk"
-    },
-    {
-      "category": "MNPI",
-      "rule": "dpt_protocol_event_marker",
-      "matched_text": "tokenized REC/crypto custody pilot"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no outreach to counterparties or media"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "must stay within the Clean Energy desk"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "emissions re-baselining"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "Selective disclosure/tipping"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_iqama",
-      "matched_text": "2087319456"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Blackout window: prohibit Falaj insiders and Hanifa deal team from trading Falaj Power securities or derivatives from 15 Dhul-Qadah 1448H until two full trading days after cyber and financing disclosures appear on Tadawul."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "2087319456"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "exploratory"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 1"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "lateral movement"
+      "matched_text": "lateral movement",
+      "rule": "cyber_incident_pre_disclosure"
     }
   ],
   "must_not_detect": [
@@ -384,89 +467,22 @@
       "reason": "Job title only, not PII"
     }
   ],
+  "source_jurisdiction": "SA",
   "uncertain": [
     {
-      "matched_text": "retention of 3 years",
       "concept": "retention policy",
+      "matched_text": "retention of 3 years",
       "reason": "Retention is a PDPL-relevant control but there is no explicit allowed rule name for retention markers"
     },
     {
-      "matched_text": "135 bps",
       "concept": "financial percentage expressed in basis points",
+      "matched_text": "135 bps",
       "reason": "Rate is financially sensitive but not in % or per cent form as per allowed rule"
     },
     {
-      "matched_text": "remains non-public operational risk information",
       "concept": "nonpublic_marker",
+      "matched_text": "remains non-public operational risk information",
       "reason": "Clear non-publicity statement; included elsewhere but borderline substring without standard cue words may be missed by strict detectors"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
-  "_agent_review": {
-    "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
-    "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "run_dir": "/tmp/kaypoh-sa-stage-a-20260531",
-    "source_report": "/tmp/kaypoh-sa-stage-a-reviewed.json",
-    "status": "strict_tier_cleaned_owner_approved"
-  },
-  "_agent_review_history": [
-    {
-      "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
-      "reviewer": "codex-gpt-assisted-strict-tier-review",
-      "run_dir": "/tmp/kaypoh-sa-stage-a-20260531",
-      "source_report": "/tmp/kaypoh-sa-stage-a-reviewed.json",
-      "status": "strict_tier_cleaned_owner_approved"
-    }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "notes": "Project owner approved SA Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-    "reviewed_at_utc": "2026-05-31T12:36:18Z",
-    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-    "reviewer": "gongahkia-project-owner-chat-approval",
-    "status": "approved"
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "notes": "Project owner approved SA Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-      "reviewed_at_utc": "2026-05-31T12:36:18Z",
-      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-      "reviewer": "gongahkia-project-owner-chat-approval",
-      "status": "approved"
-    }
-  ],
-  "_owner_acceptance": {
-    "accepted_at_utc": "2026-05-31T12:36:18Z",
-    "accepted_by": "gongahkia",
-    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
-    "source_report": "/tmp/kaypoh-sa-stage-a-reviewed.json",
-    "status": "owner_approved_sa_stage_a_for_internal_benchmarking"
-  },
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

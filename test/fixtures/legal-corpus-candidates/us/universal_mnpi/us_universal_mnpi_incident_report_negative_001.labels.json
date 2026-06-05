@@ -1,0 +1,133 @@
+{
+  "_human_review": {
+    "notes": "US Stage B generated/autolabeled labels were reconciled by Codex for internal benchmark cleanup; project-owner approval is still required before promotion-ready status.",
+    "reviewer": "pending-project-owner-stage-b-review",
+    "status": "pending"
+  },
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 10,
+    "new_must_detect_count": 3,
+    "old_ideal_must_detect_count": 8,
+    "old_must_detect_count": 4,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_pending_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_universal_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "notice@rivertonhealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "public-source guidance followed: fcac ransomware checklist and ohpo bulletin on third-party trackers; references to those materials are posted on our website security page.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "customer communications reference general consumer protection guidance; all statistics use ranges and do not include account numbers, birth dates, or any unique identifiers.",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "000-00-0000",
+      "rule": "us_ssn"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 2026-06-20 14:00 et",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure to covered market actors is permitted",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure to covered market actors is permitted",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive services addendum",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "reg fd awareness",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "is not expected to be material to operations",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "notice@rivertonhealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "public-source guidance followed: fcac ransomware checklist and ohpo bulletin on third-party trackers; references to those materials are posted on our website security page.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "customer communications reference general consumer protection guidance; all statistics use ranges and do not include account numbers, birth dates, or any unique identifiers.",
+      "rule": "material_event"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no mac/mae has been triggered",
+      "reason": "Negated MAC/MAE; do not label as material_adverse_change"
+    },
+    {
+      "matched_text": "spa day",
+      "reason": "Wellness context; false-positive bait for SPA (not a definitive agreement)"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "masked account reference",
+      "matched_text": "acct ****-****-1234z",
+      "reason": "Looks like a redacted account/customer reference; not clearly covered by bank_account or bank_customer_reference rules and stated as invalid."
+    },
+    {
+      "concept": "definitive agreement extension",
+      "matched_text": "definitive services addendum",
+      "reason": "Legally significant contract action but not one of the enumerated SPA/SHA/APA/MOU/LOI/Term Sheet types."
+    },
+    {
+      "concept": "security testing schedule",
+      "matched_text": "vendor pen-test window 02:00–05:00 et 2026-06-22",
+      "reason": "Operational security timing could be sensitive MNPI but no explicit rule category covers routine pen-test windows."
+    },
+    {
+      "concept": "cyber incident disclosure",
+      "matched_text": "we detected anomalous traffic at our third-party billing gateway",
+      "reason": "Cyber event detail; rule set only lists cyber_incident_pre_disclosure and this incident was previously announced, so applicability is ambiguous."
+    }
+  ]
+}

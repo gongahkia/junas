@@ -39,6 +39,7 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "US Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered role/legal mailbox bait, public privacy/ethics helplines, generic training-list wording, negated material-adverse-effect wording, Reg FD/10b/Phase shorthand amount bait, placeholder account IDs, entity registry numbers, and public/generic material-event guidance.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T15:54:54Z",
@@ -47,12 +48,60 @@
     "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
     "status": "owner_approved_us_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 32,
+    "new_must_detect_count": 11,
+    "old_ideal_must_detect_count": 32,
+    "old_must_detect_count": 11,
+    "owner_approval_reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-chat-approval",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
   "doc_id": "us_quasi_identifiers_memo_adversarial_001",
   "document_type": "memo",
   "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@northstar-therabank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2 6 - 7 1",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1983-11-02",
+      "rule": "date_of_birth"
+    },
     {
       "category": "PII",
       "matched_text": "Ms. Mira Velas",
@@ -67,6 +116,31 @@
       "category": "PII",
       "matched_text": "Ms. Velas",
       "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-05-28, Ms. Mira Velas (age 42, DOB 1983-11-02), Senior Director, Clinical Billing, West Carillon, CA office, user \"mvelas\", device NS‑TB‑IMAC‑042, IP 10.18.7.43, badge NS‑09477, joined call sess:c2‑7b via https://meet.nstb.local/r/earnings?mtg=Q3a-19%2F.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "While no earnings update has been released, management has not determined a material adverse change (no MAC) as of this memo, and no forward-looking statements should be made beyond the Q1 public script.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "quiet period",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell-side analyst",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
@@ -105,11 +179,6 @@
     },
     {
       "category": "PII",
-      "matched_text": "legal@northstar-therabank.com",
-      "rule": "email_address"
-    },
-    {
-      "category": "PII",
       "matched_text": "877‑555‑0194",
       "rule": "phone_number"
     },
@@ -127,11 +196,6 @@
       "category": "MNPI",
       "matched_text": "selective disclosure of internal claims cadence and trial milestone timing to a covered market actor creates Rule 10b‑5 and Reg FD risk",
       "rule": "selective_disclosure_risk"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "3.2%",
-      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
@@ -182,36 +246,6 @@
       "category": "MNPI",
       "matched_text": "if material",
       "rule": "contingent_mnpi_language"
-    },
-    {
-      "category": "PII",
-      "matched_text": "2 6 - 7 1",
-      "rule": "phone_number"
-    },
-    {
-      "category": "PII",
-      "matched_text": "1983-11-02",
-      "rule": "date_of_birth"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "On 2026-05-28, Ms. Mira Velas (age 42, DOB 1983-11-02), Senior Director, Clinical Billing, West Carillon, CA office, user \"mvelas\", device NS‑TB‑IMAC‑042, IP 10.18.7.43, badge NS‑09477, joined call sess:c2‑7b via https://meet.nstb.local/r/earnings?mtg=Q3a-19%2F.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "While no earnings update has been released, management has not determined a material adverse change (no MAC) as of this memo, and no forward-looking statements should be made beyond the Q1 public script.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "quiet period",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "sell-side analyst",
-      "rule": "selective_disclosure_risk"
     }
   ],
   "must_detect": [
@@ -334,24 +368,6 @@
       "concept": "work location",
       "matched_text": "West Carillon, CA office",
       "reason": "Location is a quasi-identifier that can contribute to re-identification but is not a standalone rule."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

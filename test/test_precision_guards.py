@@ -361,6 +361,29 @@ class MacMaePrecisionGuards(unittest.TestCase):
         text = "This notice does not concern the execution of any definitive agreement."
         self.assertNotIn("definitive_agreement", {r for r, _ in _rules_matched(text, jurisdiction="TH")})
 
+    def test_curly_apostrophe_shareholders_agreement_defined_term_does_not_fire(self):
+        text = "The Shareholders’ Agreement (SHA) defines SHA for this filed template."
+        self.assertNotIn("definitive_agreement", {r for r, _ in _rules_matched(text, jurisdiction="SA")})
+
+    def test_public_stale_project_codename_does_not_fire(self):
+        text = "Project Barq is a public/stale archive reference and contains no live deal terms."
+        self.assertNotIn("transaction_codename", {r for r, _ in _rules_matched(text, jurisdiction="SA")})
+
+    def test_project_code_form_label_does_not_fire(self):
+        text = "Project Code: SAMPLE-001 is a generic form label with sample values only."
+        self.assertNotIn("transaction_codename", {r for r, _ in _rules_matched(text, jurisdiction="SA")})
+
+    def test_mnpi_training_context_does_not_fire_nonpublic_marker(self):
+        text = "The glossary lists terms like insider list, tipping, and MNPI in a training context only."
+        self.assertNotIn("nonpublic_marker", {r for r, _ in _rules_matched(text, jurisdiction="US")})
+
+    def test_information_barrier_marketing_material_does_not_fire(self):
+        text = (
+            "Educational/marketing materials describe information barriers and blackout windows "
+            "without transaction facts."
+        )
+        self.assertNotIn("insider_list_or_barrier", {r for r, _ in _rules_matched(text, jurisdiction="SA")})
+
     def test_no_event_expected_to_result_in_mac_does_not_fire_contingent(self):
         text = (
             "No event has occurred that would reasonably be expected to result in "
@@ -479,6 +502,16 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         text = "Vendor support hotline +800 555 1212 is public and should not be captured as PII."
         phones = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "phone_number"]
         self.assertNotIn("+800 555 1212", phones)
+
+    def test_sa_public_regulator_helpline_does_not_fire_as_phone(self):
+        text = "The Saudi securities regulator lists 800-123-0000 as a public helpline for procedural queries."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="SA") if r == "phone_number"]
+        self.assertNotIn("800-123-0000", phones)
+
+    def test_sa_call_center_line_does_not_fire_as_phone(self):
+        text = "The call center main line +966 9200 00000 is published for general enquiries."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="SA") if r == "phone_number"]
+        self.assertNotIn("+966 9200 00000", phones)
 
     def test_ae_service_line_only_does_not_fire_as_phone(self):
         text = "A separate ADGM counsel line is listed as +971 600 123 000 (service line only)."
@@ -677,6 +710,14 @@ class PhilippinesPrivacyAndTaxGuards(unittest.TestCase):
         ]
         self.assertIn("DSAR", markers)
 
+    def test_no_open_dsars_does_not_fire(self):
+        text = "No open DSARs remain in the incident queue after remediation closure."
+        markers = [
+            m for r, m in _rules_matched(text, jurisdiction="US")
+            if r == "consent_withdrawal_marker"
+        ]
+        self.assertNotIn("DSARs", markers)
+
     def test_ph_tin_inside_bank_account_line_does_not_fire(self):
         text = "Temporary Account No.: 0012-345-678-901 for settlement testing."
         tins = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "ph_tin"]
@@ -704,6 +745,11 @@ class FunctionalContactGuards(unittest.TestCase):
         text = "For SGX submissions, counsel contact: legal@pryce-han.example; role-based signoff acceptable."
         emails = [m for r, m in _rules_matched(text) if r == "email_address"]
         self.assertNotIn("legal@pryce-han.example", emails)
+
+    def test_unicode_hyphen_role_only_legal_mailbox_does_not_fire(self):
+        text = "Issuer contact legal@issuer.example.sa is a role\u2011only mailbox for public notices."
+        emails = [m for r, m in _rules_matched(text, jurisdiction="SA") if r == "email_address"]
+        self.assertNotIn("legal@issuer.example.sa", emails)
 
     def test_compliance_routing_mailbox_does_not_fire(self):
         text = "Contact Compliance at compliance@harbourpine.com.sg for listing-rule queries."

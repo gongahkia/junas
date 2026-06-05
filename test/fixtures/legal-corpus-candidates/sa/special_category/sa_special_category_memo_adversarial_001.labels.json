@@ -1,317 +1,4 @@
 {
-  "doc_id": "sa_special_category_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "SA",
-  "destination_jurisdiction": "SA",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "saif@najd-renewables.example.sa"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "yami@najd-renewables.example.sa"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Lina Al‑Saif"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Khalid bin Nahar"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Lina"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Sara Al‑Yami"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "iris template"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "This document contains MNPI: the Board is evaluating a secondary offering of 17,500,000 shares in Q3 and preliminary H1 margin guidance of 22–24%, none of which is public per SCMA market‑conduct follow‑up expectations."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Issuer workflow note: draft prospectus sections on related‑party loans and H1 guidance will be circulated via FalconPro ERP and WadiLedger v2; do not email MNPI to external advisors until SCMA insider‑list is locked."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "mnpi"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project TALAH"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "24%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "17,500,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project TALAH"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_commercial_registration",
-      "matched_text": "CR: 10 1‑0 8 8 x x‑55"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "none of which is public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "a secondary offering of 17,500,000 shares"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "17,500,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "22–24%"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Lina Al‑Saif"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_iqama",
-      "matched_text": "Iqama No. 1 0 0 7‑xx3 4 5 9"
-    },
-    {
-      "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "medical leave records for insulin therapy"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "stores an iris‑scan template"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "declared religion as Catholic"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "l.al‑saif@najd-renewables.example.sa"
-    },
-    {
-      "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "3 2::ff:09"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross‑border transfer to EU‑based backup"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider‑list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "SCMA insider‑list is locked"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "SX‑INS‑ 0 0  9 4"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "MNPI ring‑fencing"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not email MNPI to external advisors"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Khalid bin Nahar"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Lina"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Sara Al‑Yami"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "s.al‑yami@najd-renewables.example.sa"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+966‑5x‑xxx‑2 1 0 3"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "NRH‑GATE‑  4 2 1 7"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "saif@najd-renewables.example.sa"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "yami@najd-renewables.example.sa"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "iris template"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "This document contains MNPI: the Board is evaluating a secondary offering of 17,500,000 shares in Q3 and preliminary H1 margin guidance of 22–24%, none of which is public per SCMA market‑conduct follow‑up expectations."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Issuer workflow note: draft prospectus sections on related‑party loans and H1 guidance will be circulated via FalconPro ERP and WadiLedger v2; do not email MNPI to external advisors until SCMA insider‑list is locked."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "mnpi"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "24%"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "Desert Hawks FC preseason scores",
-      "reason": "False‑positive bait: sports team content unrelated to PII/MNPI."
-    },
-    {
-      "matched_text": "Oasis Mall café openings",
-      "reason": "False‑positive bait: place/retail content unrelated to PII/MNPI."
-    },
-    {
-      "matched_text": "we must move the goalposts",
-      "reason": "False‑positive bait: metaphor with no legal relevance."
-    },
-    {
-      "matched_text": "we respect diversity",
-      "reason": "False‑positive bait: generic DEI prose not tied to a person."
-    },
-    {
-      "matched_text": "no material adverse change",
-      "reason": "Negated MAC phrase – do not tag as material_adverse_change."
-    },
-    {
-      "matched_text": "no MAC",
-      "reason": "Negated MAC phrase – do not tag as material_adverse_change."
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "This document contains MNPI",
-      "concept": "mnpi_marker",
-      "reason": "Signals sensitivity but not a listed rule; could map to nonpublic/MNPI marker semantics."
-    },
-    {
-      "matched_text": "P‑77‑B‑0 x",
-      "concept": "permit_number",
-      "reason": "Transfer permit identifier is relevant to compliance but not covered by allowed rules."
-    },
-    {
-      "matched_text": "sdiaa transfer case",
-      "concept": "transfer_case_reference",
-      "reason": "Indicates a transfer workflow/storage case possibly related to cross‑border data handling, but not a defined marker."
-    },
-    {
-      "matched_text": "Head of Operations",
-      "concept": "job_title",
-      "reason": "Job title is personal data under PDPL context, but no specific allowed rule for titles."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
   "_agent_review": {
     "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -348,6 +35,12 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T12:36:18Z",
     "accepted_by": "gongahkia",
@@ -356,21 +49,344 @@
     "status": "owner_approved_sa_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 35,
+    "new_must_detect_count": 15,
+    "old_ideal_must_detect_count": 35,
+    "old_must_detect_count": 15,
+    "owner_approval_reviewed_at_utc": "2026-05-31T12:36:18Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-chat-approval",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_special_category_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "saif@najd-renewables.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "yami@najd-renewables.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lina Al‑Saif",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Khalid bin Nahar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lina",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sara Al‑Yami",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "iris template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This document contains MNPI: the Board is evaluating a secondary offering of 17,500,000 shares in Q3 and preliminary H1 margin guidance of 22–24%, none of which is public per SCMA market‑conduct follow‑up expectations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer workflow note: draft prospectus sections on related‑party loans and H1 guidance will be circulated via FalconPro ERP and WadiLedger v2; do not email MNPI to external advisors until SCMA insider‑list is locked.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project TALAH",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "24%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "17,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR: 10 1‑0 8 8 x x‑55",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "none of which is public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a secondary offering of 17,500,000 shares",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "22–24%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama No. 1 0 0 7‑xx3 4 5 9",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "medical leave records for insulin therapy",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "stores an iris‑scan template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "declared religion as Catholic",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "l.al‑saif@najd-renewables.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "3 2::ff:09",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross‑border transfer to EU‑based backup",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider‑list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SCMA insider‑list is locked",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SX‑INS‑ 0 0  9 4",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI ring‑fencing",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not email MNPI to external advisors",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "s.al‑yami@najd-renewables.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+966‑5x‑xxx‑2 1 0 3",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NRH‑GATE‑  4 2 1 7",
+      "rule": "employee_id"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "saif@najd-renewables.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "yami@najd-renewables.example.sa",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lina Al‑Saif",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Khalid bin Nahar",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lina",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sara Al‑Yami",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "iris template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This document contains MNPI: the Board is evaluating a secondary offering of 17,500,000 shares in Q3 and preliminary H1 margin guidance of 22–24%, none of which is public per SCMA market‑conduct follow‑up expectations.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer workflow note: draft prospectus sections on related‑party loans and H1 guidance will be circulated via FalconPro ERP and WadiLedger v2; do not email MNPI to external advisors until SCMA insider‑list is locked.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project TALAH",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "24%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "17,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Desert Hawks FC preseason scores",
+      "reason": "False‑positive bait: sports team content unrelated to PII/MNPI."
+    },
+    {
+      "matched_text": "Oasis Mall café openings",
+      "reason": "False‑positive bait: place/retail content unrelated to PII/MNPI."
+    },
+    {
+      "matched_text": "we must move the goalposts",
+      "reason": "False‑positive bait: metaphor with no legal relevance."
+    },
+    {
+      "matched_text": "we respect diversity",
+      "reason": "False‑positive bait: generic DEI prose not tied to a person."
+    },
+    {
+      "matched_text": "no material adverse change",
+      "reason": "Negated MAC phrase – do not tag as material_adverse_change."
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC phrase – do not tag as material_adverse_change."
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "mnpi_marker",
+      "matched_text": "This document contains MNPI",
+      "reason": "Signals sensitivity but not a listed rule; could map to nonpublic/MNPI marker semantics."
+    },
+    {
+      "concept": "permit_number",
+      "matched_text": "P‑77‑B‑0 x",
+      "reason": "Transfer permit identifier is relevant to compliance but not covered by allowed rules."
+    },
+    {
+      "concept": "transfer_case_reference",
+      "matched_text": "sdiaa transfer case",
+      "reason": "Indicates a transfer workflow/storage case possibly related to cross‑border data handling, but not a defined marker."
+    },
+    {
+      "concept": "job_title",
+      "matched_text": "Head of Operations",
+      "reason": "Job title is personal data under PDPL context, but no specific allowed rule for titles."
     }
   ]
 }

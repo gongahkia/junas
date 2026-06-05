@@ -1231,7 +1231,7 @@ _ASSERTION_NEGATION_LOOKBACK = re.compile(
 )
 _FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
     r"\b(?:"
-    r"role[- ]only|role[- ]based|role\s+mailbox|functional\s+mailbox|"
+    r"role[-\u2010-\u2015 ]only|role[-\u2010-\u2015 ]based|role\s+mailbox|functional\s+mailbox|"
     r"role/functional\s+mailbox|shared\s+inbox|treasury\s+contact|"
     r"generic\s+mailboxes?|public\s+contacts?|procedural\s+queries\s+only|"
     r"placeholder\s+email|form\s+labels?|marketing\s+emails?|"
@@ -1251,10 +1251,12 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"compliance\s+desk|deal\s+desk|"
     r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helplines?|"
+    r"public[^\n.;]{0,60}helplines?|"
     r"public\s+hotline|public\s+line|public\s+service\s+line|"
     r"public\s+enquir(?:y|ies)\s+hotline|enquiries\s+line|procedural\s+queries\s+only|"
     r"public\s+(?:queries|enquiries)|"
     r"service\s+line\s+only|"
+    r"call\s+cent(?:er|re)|"
     r"DSAR\s+hotline|"
     r"support\s+hotline|switchboard|reception|information\s+line|contact\s+centre|client\s+services|"
     r"(?:privacy|ethics)\s+helplines?|assistance\s+line|published\s+contacts?|"
@@ -1356,7 +1358,8 @@ _PRIVACY_REQUEST_CLOSED_CONTEXT_RE = re.compile(
     r"fulfilled|closed|completed|executed|resolved|"
     r"zero\s+open\s+tickets|0\s+open\s+tickets|"
     r"no\s+(?:data\s+subject\s+access\s+request|DSAR)[^\n.;]{0,80}(?:received|needed|triggered)|"
-    r"no\s+DSARs?\s+are\s+pending|no\s+(?:request|requests)\s+for\s+correction|"
+    r"no\s+DSARs?\s+are\s+pending|no\s+open\s+DSARs?|"
+    r"no\s+(?:request|requests)\s+for\s+correction|"
     r"currently\s+in\s+flight|not\s+a\s+live\s+DSAR|no\s+residual\s+processing"
     r")\b",
     re.IGNORECASE,
@@ -1606,7 +1609,24 @@ def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> boo
         r"mnpi\s+screening[^\n.;]{0,80}does\s+not\s+trigger|"
         r"does\s+not\s+add\s+unpublished\s+price[- ]sensitive\s+information|"
         r"unless\s+upsi\s+is\s+actually\s+present|mnpi\s+markers?:|"
+        r"\bmnpi\b[^\n.;]{0,120}training\s+context|"
+        r"terms?\s+like[^\n.;]{0,120}\bmnpi\b[^\n.;]{0,120}training\s+context|"
+        r"contains\s+only\s+public[^\n.;]{0,120}\bmnpi\b|"
         r"disclosed\s+in\s+annual\s+reports|disclosed\s+via\s+public\s+notice)\b",
+        context,
+        re.IGNORECASE,
+    ))
+
+
+def _is_benign_transaction_codename_context(text: str, start: int, end: int) -> bool:
+    context = _line_context(text, start, end)
+    matched = text[start:end].casefold()
+    if matched == "project code":
+        return True
+    return bool(re.search(
+        r"\b(?:generic\s+form\s+labels?|sample\s+values?|placeholders?\s+only|"
+        r"public/stale|public\s+and\s+stale|already[-\s]+announced|"
+        r"public\s+(?:reference|archive|baseline))\b",
         context,
         re.IGNORECASE,
     ))
@@ -1729,6 +1749,8 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
         r"definitions?\s+training|generic\s+compliance\s+education|"
         r"hanya\s+sebagai\s+definisi\s+pelatihan|"
         r"e[- ]?learning[^\n.;]{0,120}(?:insider\s+lists?|information\s+barriers?)|"
+        r"educational/marketing\s+materials?[^\n.;]{0,180}"
+        r"(?:insider[- ]list\s+management|information\s+barriers?|blackout\s+windows)|"
         r"(?:marketing|education|educational)\s+only[^\n.;]{0,120}do\s+not\s+announce|"
         r"(?:information\s+barriers?|insider\s+lists?)[^\n.;]{0,120}generic\s+compliance\s+education|"
         r"(?:information\s+barriers?|insider\s+lists?)[^\n.;]{0,120}only\s+as\s+definitions?\s+training|"
@@ -3726,6 +3748,10 @@ class PreSendReviewEngine:
                 if rule in suppressible_rules and is_defined_term(match.group(), defined):
                     continue
                 if rule == "nonpublic_marker" and _is_negated_nonpublic_marker_context(
+                    text, match.start(), match.end()
+                ):
+                    continue
+                if rule == "transaction_codename" and _is_benign_transaction_codename_context(
                     text, match.start(), match.end()
                 ):
                     continue

@@ -1,0 +1,373 @@
+{
+  "_human_review": {
+    "notes": "US Stage B generated/autolabeled labels were reconciled by Codex for internal benchmark cleanup; project-owner approval is still required before promotion-ready status.",
+    "reviewer": "pending-project-owner-stage-b-review",
+    "status": "pending"
+  },
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 38,
+    "new_must_detect_count": 20,
+    "old_ideal_must_detect_count": 29,
+    "old_must_detect_count": 14,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_pending_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_universal_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@lanternwellhealth.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "415-555-0924",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Petra Holbrook",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Holbrook",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal Interaction (MNPI): P r o j e c t   C l o v e r — we executed a Definitive Agreement on 2026-06-02 for a $42,500,000 strategic equity investment at a 12% premium; this has not been announced.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Clover DA includes an MAE definition carve‑out for cyber events with net losses under $3,000,000; counsel confirms the incident falls within the carve‑out; no closing condition impact.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG note: patient-notice templates align with our privacy policy; per public state breach registries, similar events were reported in Q1; wellness spa-day vouchers on 06/12 remain schedule d.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$1.2",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$1.8m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$42,500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$3,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.57%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "42,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "management believes",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@lanternwellhealth.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "PII",
+      "matched_text": "198.51.100.44",
+      "rule": "ip_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,842",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reg FD",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 2026-07-15 08:30 ET",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "third-party SFTP node (NetLattice v3.8.1) exposed limited patient-consumer files via mis-set ACL",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "09/xx/1988",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "***-**-6123",
+      "rule": "us_ssn"
+    },
+    {
+      "category": "PII",
+      "matched_text": "014•••8821",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pt:R3D-9142-x",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "trn-CLV-0021",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "P r o j e c t   C l o v e r",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this has not been announced",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "hold for embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no selective disclosure to covered market actors",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not discuss P r o j e c t   C l o v e r with analysts or lenders before embargo",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Rule 1 0 b - 5",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@lanternwellhealth.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "415-555-0924",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Petra Holbrook",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Holbrook",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Deal Interaction (MNPI): P r o j e c t   C l o v e r — we executed a Definitive Agreement on 2026-06-02 for a $42,500,000 strategic equity investment at a 12% premium; this has not been announced.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Clover DA includes an MAE definition carve‑out for cyber events with net losses under $3,000,000; counsel confirms the incident falls within the carve‑out; no closing condition impact.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "ESG note: patient-notice templates align with our privacy policy; per public state breach registries, similar events were reported in Q1; wellness spa-day vouchers on 06/12 remain schedule d.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$1.2",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$1.8m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$42,500,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$3,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0.57%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "42,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "management believes",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no MAE/MAC has occurred",
+      "reason": "negated MAC/MAE language should not trigger material_adverse_change"
+    },
+    {
+      "matched_text": "wellness spa-day vouchers",
+      "reason": "non-sensitive bait; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "patient identifier",
+      "matched_text": "pt:R3D-9142-x",
+      "reason": "Likely a medical record or patient key; relevant patient-level identifier but label mapping may vary."
+    },
+    {
+      "concept": "masked SSN",
+      "matched_text": "***-**-6123",
+      "reason": "Partially masked US SSN; may or may not be covered by strict us_ssn patterns."
+    },
+    {
+      "concept": "masked account number",
+      "matched_text": "014•••8821",
+      "reason": "Partial account string with bullets; could be a bank_account or internal account reference."
+    },
+    {
+      "concept": "transaction codename (obfuscated)",
+      "matched_text": "P r o j e c t   C l o v e r",
+      "reason": "Obfuscated spacing may evade strict 'Project <Name>' pattern matching."
+    },
+    {
+      "concept": "definitive agreement (generic)",
+      "matched_text": "Definitive Agreement",
+      "reason": "Generic capitalized term not in the enumerated SPA/APA/LOI/MOU/SHA/Term Sheet list."
+    },
+    {
+      "concept": "embargo marker",
+      "matched_text": "Embargo until 2026-07-15 08:30 ET",
+      "reason": "Embargo phrasing differs from exact tokens like 'Embargoed' or 'Press Hold' that strict rules may expect."
+    },
+    {
+      "concept": "internal transaction/session id",
+      "matched_text": "trn-CLV-0021",
+      "reason": "Could be an internal_session_id or other system transaction id; detection coverage may vary."
+    }
+  ]
+}

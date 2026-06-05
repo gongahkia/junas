@@ -1,0 +1,264 @@
+{
+  "_human_review": {
+    "notes": "US Stage B generated/autolabeled labels were reconciled by Codex for internal benchmark cleanup; project-owner approval is still required before promotion-ready status.",
+    "reviewer": "pending-project-owner-stage-b-review",
+    "status": "pending"
+  },
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 35,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 31,
+    "old_must_detect_count": 18,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_pending_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_jurisdictional_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "l.quist@ardenahealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lenora Quist",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Calder Hews",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2025-09-14 at 02:13 ET, our fraud analytics flagged anomalous API calls to the CarePlan portal and the community banking mobile gateway; preliminary triage by Dr. Lenora Quist (CISO) indicates a credential‑stuffing attack with limited data exfiltration.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Counsel guidance: until broad dissemination, discussions should occur only in closed sessions; avoid partial metrics in one‑on‑one meetings to prevent Reg FD issues; Rule 10b‑5 cautions apply.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational Cyber Incident Brief",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "credential‑stuffing attack",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "limited data exfiltration",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lenora Quist (CISO)",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reg FD sensitive",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure to analysts is prohibited under Reg FD",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the blackout window remains in effect for designated insiders until two full trading days after the 8‑K is furnished (expected T+1)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@ardenahealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1‑800‑000‑AHBX",
+      "rule": "phone_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Do not share these details with sell‑side or buy‑side analysts prior to public dissemination",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Calder Hews (VP, IR)",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@ardenahealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "avoid partial metrics in one‑on‑one meetings to prevent Reg FD issues",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "discussions should occur only in closed sessions",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lenora Quist, CISO",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "first name + clinic + masked DOB",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "name + phone",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Pt‑ID N9 3 1 . 2 0",
+      "rule": "medical_record_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Acct ref: ••71 44",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "fraud analytics flagged anomalous API calls to the CarePlan portal and the community banking mobile gateway",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal mirror, not pub‑ lic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Item 1.05 Form 8‑K",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "until two full trading days after the 8‑K is furnished (expected T+1)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "session cookies rotated 06:11 ET",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SSO “HarborGate” patch v2.8 deployed",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft for Board/IR",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sell‑side or buy‑side analysts",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "l.quist@ardenahealthbank.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lenora Quist",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Calder Hews",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2025-09-14 at 02:13 ET, our fraud analytics flagged anomalous API calls to the CarePlan portal and the community banking mobile gateway; preliminary triage by Dr. Lenora Quist (CISO) indicates a credential‑stuffing attack with limited data exfiltration.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Counsel guidance: until broad dissemination, discussions should occur only in closed sessions; avoid partial metrics in one‑on‑one meetings to prevent Reg FD issues; Rule 10b‑5 cautions apply.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "appointment_identifier",
+      "matched_text": "Appt: C‑1427",
+      "reason": "Appointment code could be PHI-linked but not clearly covered by a specific allowed PII rule."
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "rid=Q9a3x",
+      "reason": "Looks like an internal request/session identifier in a URL but not explicitly labeled as such."
+    },
+    {
+      "concept": "internal_record_id",
+      "matched_text": "IR‑CY‑2025‑0914",
+      "reason": "Archive tag may be an internal tracking identifier not directly linked to a person."
+    }
+  ]
+}

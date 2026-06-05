@@ -39,6 +39,7 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "US Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered role/legal mailbox bait, public privacy/ethics helplines, generic training-list wording, negated material-adverse-effect wording, Reg FD/10b/Phase shorthand amount bait, placeholder account IDs, entity registry numbers, and public/generic material-event guidance.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T15:54:54Z",
@@ -47,12 +48,65 @@
     "source_report": "/tmp/kaypoh-us-stage-a-reviewed.json",
     "status": "owner_approved_us_stage_a_for_internal_benchmarking"
   },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 12,
+    "new_must_detect_count": 4,
+    "old_ideal_must_detect_count": 12,
+    "old_must_detect_count": 4,
+    "owner_approval_reviewed_at_utc": "2026-05-31T15:54:54Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-chat-approval",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "destination_jurisdiction": "US",
   "doc_id": "us_universal_mnpi_memo_negative_001",
   "document_type": "memo",
   "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "public references only: q4 2025 revenue range “mid‑single‑digit growth” as stated on 02/10/26 earnings call transcript.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "negated mac language: per prior s‑4 for the 2024 inland beacon merger, no “material adverse effect” occurred through closing; do not extrapolate to current quarter.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8‑k before market open.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
     {
       "category": "PII",
       "matched_text": "ir@verdantharbor.example",
@@ -75,11 +129,6 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "definitive agreement",
-      "rule": "definitive_agreement"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "embargo",
       "rule": "embargo_marker"
     },
@@ -97,32 +146,12 @@
       "category": "MNPI",
       "matched_text": "reg fd",
       "rule": "selective_disclosure_risk"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "public references only: q4 2025 revenue range “mid‑single‑digit growth” as stated on 02/10/26 earnings call transcript.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "negated mac language: per prior s‑4 for the 2024 inland beacon merger, no “material adverse effect” occurred through closing; do not extrapolate to current quarter.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "embargo: do not discuss or hint at the executed definitive agreement with seacove diagnostics llc until 07/15/2026 08:00 ET; file 8‑k before market open.",
-      "rule": "material_event"
     }
   ],
   "must_detect": [
     {
       "category": "MNPI",
       "matched_text": "public references only: q4 2025 revenue range “mid‑single‑digit growth” as stated on 02/10/26 earnings call transcript.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "negated mac language: per prior s‑4 for the 2024 inland beacon merger, no “material adverse effect” occurred through closing; do not extrapolate to current quarter.",
       "rule": "material_event"
     },
     {
@@ -185,24 +214,6 @@
       "concept": "bank routing number",
       "matched_text": "aba 000000000",
       "reason": "Potentially sensitive financial identifier, but no specific allowed rule for ABA/routing numbers."
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

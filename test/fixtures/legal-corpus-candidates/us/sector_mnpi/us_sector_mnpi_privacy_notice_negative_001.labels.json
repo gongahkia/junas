@@ -1,0 +1,198 @@
+{
+  "_human_review": {
+    "notes": "US Stage B generated/autolabeled labels were reconciled by Codex for internal benchmark cleanup; project-owner approval is still required before promotion-ready status.",
+    "reviewer": "pending-project-owner-stage-b-review",
+    "status": "pending"
+  },
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 20,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 15,
+    "old_must_detect_count": 10,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_pending_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_sector_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HIPAA-regulated patient data is used only for treatment, payment, and healthcare operations; GLBA customer data is used for account servicing, fraud monitoring, and required reporting.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We document cyber incident tabletop drill outputs in a non-production system, and they are redacted to prevent tipping or selective disclosure risks in accordance with Reg FD guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prior to any public Form 8‑K or press release, access to preliminary breach assessment metrics is limited to employees on the Insider List under an information barrier, with audit logging and blackout enforcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@apexmeridian.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1-800-000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opt out",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "opt-out",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout enforcement",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tipping",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure risks",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not‑yet‑announced provider partnership",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "REF-AXM-12345",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purge CryptoPay Sandbox artifacts within 30 days",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prior to any public Form 8‑K or press release",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary breach assessment metrics",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Draft commercial term schedules",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "HIPAA-regulated patient data is used only for treatment, payment, and healthcare operations; GLBA customer data is used for account servicing, fraud monitoring, and required reporting.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We document cyber incident tabletop drill outputs in a non-production system, and they are redacted to prevent tipping or selective disclosure risks in accordance with Reg FD guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prior to any public Form 8‑K or press release, access to preliminary breach assessment metrics is limited to employees on the Insider List under an information barrier, with audit logging and blackout enforcement.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barrier",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "000-00-0000",
+      "reason": "Invalid SSN example used as false-positive bait; not collected in this workflow."
+    },
+    {
+      "matched_text": "CUSIP: XXX-000-ZZZ",
+      "reason": "Invalid securities identifier example; not actual MNPI."
+    },
+    {
+      "matched_text": "insider-list",
+      "reason": "Generic educational term reuse; not a live insider list."
+    },
+    {
+      "matched_text": "blackout window",
+      "reason": "Generic educational term reuse; not a live blackout period."
+    },
+    {
+      "matched_text": "crypto wallet screenshots",
+      "reason": "Training example; not an actual wallet address or live crypto event."
+    },
+    {
+      "matched_text": "ACC-0000",
+      "reason": "Illustrative masked token example; not an actual account identifier."
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": []
+}

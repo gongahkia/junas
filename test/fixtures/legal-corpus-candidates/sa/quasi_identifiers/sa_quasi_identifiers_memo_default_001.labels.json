@@ -39,7 +39,7 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
   "_label_source": "azure:gpt-5-2-auto",
-  "_label_tier_note": "Cross-jurisdiction strict-tier maintenance after AU Stage B precision guards: removed strict expectations for template email aliases and definitional/generic non-public markers that current deterministic strict mode intentionally suppresses. Removed items remain in ideal_must_detect.",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
   "_label_tiers_version": "cross-jurisdiction-au-stage-b-precision-realign-2026-06-02",
   "_label_warnings": [],
   "_owner_acceptance": {
@@ -68,17 +68,19 @@
     }
   ],
   "_strict_reconciliation": {
-    "basis": "AU Stage B precision guards created five cross-jurisdiction strict misses. Codex manually audited the fixture contexts and found the current deterministic suppressions defensible for strict mode: template email alias format, defined-term MNPI statements, or generic MNPI references. Existing project-owner Stage A readiness approval is preserved; this is internal benchmark maintenance, not legal advice.",
-    "removed_strict_expectations": [
-      {
-        "category": "MNPI",
-        "matched_text": "non-public",
-        "rule": "nonpublic_marker"
-      }
-    ],
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 41,
+    "new_must_detect_count": 15,
+    "old_ideal_must_detect_count": 41,
+    "old_must_detect_count": 15,
+    "owner_approval_reviewed_at_utc": "2026-05-31T12:36:18Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-chat-approval",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
     "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-candidates-after-au-stage-b-reconciled.json",
-    "status": "codex_reconciled_after_au_precision_guard_owner_approval_preserved"
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
   },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -88,23 +90,88 @@
   "ideal_must_detect": [
     {
       "category": "PII",
+      "matched_text": "h.alsayegh@siraj-metals.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pdpl.office@siraj-metals.example.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SM-IR-0412",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1987-04-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1992-06-01",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "RY-ALN-5541",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hala Al‑Sayegh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hala",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Badr Al‑Mahrouq",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Under the Kingdom Personal Data Protection Law and DCMA Market Conduct Follow-Up guidance, MNPI means non-public issuer information relevant to trading decisions.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This dataset accompanies MNPI about draft Q2-2026 production guidance and an unannounced secondary offering calendar, both restricted to the pre-disclosure room.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
       "matched_text": "CR 101-77-33442",
       "rule": "sa_commercial_registration"
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Hala Al\u2011Sayegh",
-      "rule": "named_person"
-    },
-    {
-      "category": "PII",
       "matched_text": "DOB 1987-04-12",
       "rule": "date_of_birth"
-    },
-    {
-      "category": "PII",
-      "matched_text": "h.alsayegh@siraj-metals.example.com",
-      "rule": "email_address"
     },
     {
       "category": "PII",
@@ -128,11 +195,6 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "insider list",
-      "rule": "insider_list_marker"
-    },
-    {
-      "category": "MNPI",
       "matched_text": "non-public",
       "rule": "nonpublic_marker"
     },
@@ -152,29 +214,14 @@
       "rule": "blackout_period_reference"
     },
     {
-      "category": "MNPI",
-      "matched_text": "insider lists",
-      "rule": "insider_list_marker"
-    },
-    {
       "category": "PII",
       "matched_text": "compliance@najah-capital.example.com",
-      "rule": "email_address"
-    },
-    {
-      "category": "PII",
-      "matched_text": "pdpl.office@siraj-metals.example.com",
       "rule": "email_address"
     },
     {
       "category": "MNPI",
       "matched_text": "not for market release",
       "rule": "nonpublic_marker"
-    },
-    {
-      "category": "PII",
-      "matched_text": "Mr. Badr Al\u2011Mahrouq",
-      "rule": "named_person"
     },
     {
       "category": "PII",
@@ -185,11 +232,6 @@
       "category": "MNPI",
       "matched_text": "external insider list",
       "rule": "insider_list_marker"
-    },
-    {
-      "category": "PII",
-      "matched_text": "RY-ALN-5541",
-      "rule": "device_serial_number"
     },
     {
       "category": "PII",
@@ -223,7 +265,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "pseudonymise to the code \u201cIR-0412,\u201d",
+      "matched_text": "pseudonymise to the code “IR-0412,”",
       "rule": "data_minimisation_marker"
     },
     {
@@ -238,58 +280,18 @@
     },
     {
       "category": "PII",
-      "matched_text": "Clustered identifiers: Ms. Hala Al\u2011Sayegh, Investor Relations Officer, DOB 1987-04-12, employer Siraj Metals SJSC, based at Najd Financial District Tower B, device tag SM-MBP-8701 and mobile SN RY-ALN-5541",
+      "matched_text": "Clustered identifiers: Ms. Hala Al‑Sayegh, Investor Relations Officer, DOB 1987-04-12, employer Siraj Metals SJSC, based at Najd Financial District Tower B, device tag SM-MBP-8701 and mobile SN RY-ALN-5541",
       "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "matched_text": "DOB 1992-06-01; Eastern Reach; laptop model \u2018Ultrabook 14\u2019",
+      "matched_text": "DOB 1992-06-01; Eastern Reach; laptop model ‘Ultrabook 14’",
       "rule": "quasi_identifier_combination"
-    },
-    {
-      "category": "PII",
-      "matched_text": "Ms. Hala",
-      "rule": "named_person"
     },
     {
       "category": "PII",
       "matched_text": "Any transfer of personal data to third-party processors, including analytics uploads to the Supreme Data and AI Agency (SDAA) national platform sandbox, requires a transfer permit and safeguards per PDPL Art 29",
       "rule": "cross_border_transfer_marker"
-    },
-    {
-      "category": "PII",
-      "matched_text": "SM-IR-0412",
-      "rule": "bank_account"
-    },
-    {
-      "category": "PII",
-      "matched_text": "1987-04-12",
-      "rule": "date_of_birth"
-    },
-    {
-      "category": "PII",
-      "matched_text": "1992-06-01",
-      "rule": "date_of_birth"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Under the Kingdom Personal Data Protection Law and DCMA Market Conduct Follow-Up guidance, MNPI means non-public issuer information relevant to trading decisions.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "This dataset accompanies MNPI about draft Q2-2026 production guidance and an unannounced secondary offering calendar, both restricted to the pre-disclosure room.",
-      "rule": "material_event"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "MNPI",
-      "rule": "nonpublic_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "restricted",
-      "rule": "nonpublic_marker"
     }
   ],
   "must_detect": [
@@ -325,7 +327,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Ms. Hala Al\u2011Sayegh",
+      "matched_text": "Ms. Hala Al‑Sayegh",
       "rule": "named_person"
     },
     {
@@ -335,7 +337,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "Mr. Badr Al\u2011Mahrouq",
+      "matched_text": "Mr. Badr Al‑Mahrouq",
       "rule": "named_person"
     },
     {
@@ -371,12 +373,12 @@
   ],
   "must_not_detect": [
     {
-      "matched_text": "a mid-level accountant in coastal Al\u2011Qiran using Android",
+      "matched_text": "a mid-level accountant in coastal Al‑Qiran using Android",
       "reason": "Generic demographics; not identifying on its own as per memo example."
     },
     {
       "matched_text": "health status",
-      "reason": "Sensitive-category term mentioned in policy context only; no specific person\u2019s data."
+      "reason": "Sensitive-category term mentioned in policy context only; no specific person’s data."
     }
   ],
   "source_jurisdiction": "SA",

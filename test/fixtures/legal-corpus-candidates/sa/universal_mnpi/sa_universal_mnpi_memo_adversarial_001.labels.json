@@ -1,355 +1,4 @@
 {
-  "doc_id": "sa_universal_mnpi_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "SA",
-  "destination_jurisdiction": "SA",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dalal.alhazmi@zahra-cap.example"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Dalal Al‑Hazmi"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Faris Al‑Motlaq"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Re: Board memo (issuer workflow) — Project Nabt — Proposed acquisition of 62.5% of Najd Fiber Pipes Co. (CR 4030-77-1245) by Zahra Capital JSC for SAR 412,500,000."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Definitive documents: Share Purchase Agreement (SPA) and Shareholders’ Agreement in near-final form; Signing targeted 2026-08-31; closing subject to competition and market regulator clearances."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "internal only"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Nabt"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargoed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "96m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "62.5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "9%"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo: 2026-09-18 18:00 AST"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Nabt"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "62.5%"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_commercial_registration",
-      "matched_text": "CR 4030-77-1245"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@zahra-cap.example"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Shareholders’ Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "96m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "7–9%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargoed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Not for circulation outside issuer teams"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Dalal Al‑Hazmi"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dalal.alhazmi@zahra-cap.example"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Faris Al‑Motlaq"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_commercial_registration",
-      "matched_text": "CR 101-88-0092"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_iqama",
-      "matched_text": "Iqama 1 0 9 - 3 3 8 2 7 1 4 6"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not upload national ID/Iqama scans"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "payroll IBANs"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "payroll IBANs must be tokenized"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border vendor access via the SDAIA transfer gateway requires prior permit"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "personal data fields masked"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "CR extracts for counterparties to be redacted"
-    },
-    {
-      "category": "PII",
-      "rule": "sa_commercial_registration",
-      "matched_text": "C R   4 0 3 - 0 7 - 1 2 4 5"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "any onward transfer outside KSA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "issuer internal"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "DRAFT‑NON‑D ISCLOSABLE"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "must not be forwarded"
-    },
-    {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "token=x9p-1a-0z"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "internal only"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed acquisition of 62.5% of Najd Fiber Pipes Co. (CR 4030-77-1245) by Zahra Capital JSC for SAR 412,500,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Signing targeted 2026-08-31"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "32%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "if MAE triggers post‑signing, walk‑away fee SAR 12,000,000 applies"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Re: Board memo (issuer workflow) — Project Nabt — Proposed acquisition of 62.5% of Najd Fiber Pipes Co. (CR 4030-77-1245) by Zahra Capital JSC for SAR 412,500,000."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Definitive documents: Share Purchase Agreement (SPA) and Shareholders’ Agreement in near-final form; Signing targeted 2026-08-31; closing subject to competition and market regulator clearances."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "9%"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "SPA",
-      "reason": "Defined-term abbreviation; not PII/MNPI by itself"
-    },
-    {
-      "matched_text": "sellers",
-      "reason": "Role noun; not an identifiable natural person"
-    },
-    {
-      "matched_text": "spa‑day",
-      "reason": "False-positive bait; unrelated to Share Purchase Agreement"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "Signing targeted 2026-08-31",
-      "concept": "embargo_marker",
-      "reason": "References planned signing but not the explicit phrase \"Signing Date\""
-    },
-    {
-      "matched_text": "token=x9p-1a-0z",
-      "concept": "internal_session_id",
-      "reason": "Looks like an access token but could be a generic URL parameter"
-    },
-    {
-      "matched_text": "payroll IBANs",
-      "concept": "bank_account",
-      "reason": "Bank account anchor without any account numbers present"
-    },
-    {
-      "matched_text": "issuer internal",
-      "concept": "nonpublic_marker",
-      "reason": "Generic internal qualifier; not a standard confidentiality legend"
-    },
-    {
-      "matched_text": "DRAFT‑NON‑D ISCLOSABLE",
-      "concept": "nonpublic_marker",
-      "reason": "Irregular hyphenation/spacing may evade strict detectors"
-    },
-    {
-      "matched_text": "C R   4 0 3 - 0 7 - 1 2 4 5",
-      "concept": "sa_commercial_registration",
-      "reason": "Highly spaced formatting may not match strict CR patterns"
-    },
-    {
-      "matched_text": "Iqama 1 0 9 - 3 3 8 2 7 1 4 6",
-      "concept": "sa_iqama",
-      "reason": "Non-standard spacing may evade strict iqama detectors"
-    },
-    {
-      "matched_text": "must not be forwarded",
-      "concept": "selective_disclosure_risk",
-      "reason": "General instruction; not explicitly framed as securities-law selective disclosure"
-    },
-    {
-      "matched_text": "any release will be coordinated through Investor Relations",
-      "concept": "selective_disclosure_risk",
-      "reason": "Implies controlled dissemination but not a clear selective-disclosure trigger"
-    },
-    {
-      "matched_text": "32%",
-      "concept": "financial_percentage",
-      "reason": "Percentage is cited from a public source per the text; may not be MNPI"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 412,500,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 12,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 412,500,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 12,000,000'"
-  ],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
   "_agent_review": {
     "notes": "Reconciled SA Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, role-mailbox email bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -386,6 +35,17 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 412,500,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 12,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 412,500,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 12,000,000'"
+  ],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T12:36:18Z",
     "accepted_by": "gongahkia",
@@ -394,21 +54,377 @@
     "status": "owner_approved_sa_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 39,
+    "new_must_detect_count": 14,
+    "old_ideal_must_detect_count": 39,
+    "old_must_detect_count": 14,
+    "owner_approval_reviewed_at_utc": "2026-05-31T12:36:18Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-chat-approval",
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "SA",
+  "doc_id": "sa_universal_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dalal.alhazmi@zahra-cap.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dalal Al‑Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faris Al‑Motlaq",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Re: Board memo (issuer workflow) — Project Nabt — Proposed acquisition of 62.5% of Najd Fiber Pipes Co. (CR 4030-77-1245) by Zahra Capital JSC for SAR 412,500,000.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive documents: Share Purchase Agreement (SPA) and Shareholders’ Agreement in near-final form; Signing targeted 2026-08-31; closing subject to competition and market regulator clearances.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Nabt",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "96m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo: 2026-09-18 18:00 AST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 4030-77-1245",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@zahra-cap.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shareholders’ Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7–9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Not for circulation outside issuer teams",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR 101-88-0092",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Iqama 1 0 9 - 3 3 8 2 7 1 4 6",
+      "rule": "sa_iqama"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not upload national ID/Iqama scans",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll IBANs",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll IBANs must be tokenized",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border vendor access via the SDAIA transfer gateway requires prior permit",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "personal data fields masked",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CR extracts for counterparties to be redacted",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "C R   4 0 3 - 0 7 - 1 2 4 5",
+      "rule": "sa_commercial_registration"
+    },
+    {
+      "category": "PII",
+      "matched_text": "any onward transfer outside KSA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "issuer internal",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DRAFT‑NON‑D ISCLOSABLE",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be forwarded",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "token=x9p-1a-0z",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition of 62.5% of Najd Fiber Pipes Co. (CR 4030-77-1245) by Zahra Capital JSC for SAR 412,500,000",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Signing targeted 2026-08-31",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "32%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "if MAE triggers post‑signing, walk‑away fee SAR 12,000,000 applies",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dalal.alhazmi@zahra-cap.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Dalal Al‑Hazmi",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faris Al‑Motlaq",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Re: Board memo (issuer workflow) — Project Nabt — Proposed acquisition of 62.5% of Najd Fiber Pipes Co. (CR 4030-77-1245) by Zahra Capital JSC for SAR 412,500,000.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive documents: Share Purchase Agreement (SPA) and Shareholders’ Agreement in near-final form; Signing targeted 2026-08-31; closing subject to competition and market regulator clearances.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal only",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Nabt",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "96m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "Defined-term abbreviation; not PII/MNPI by itself"
+    },
+    {
+      "matched_text": "sellers",
+      "reason": "Role noun; not an identifiable natural person"
+    },
+    {
+      "matched_text": "spa‑day",
+      "reason": "False-positive bait; unrelated to Share Purchase Agreement"
+    }
+  ],
+  "source_jurisdiction": "SA",
+  "uncertain": [
+    {
+      "concept": "embargo_marker",
+      "matched_text": "Signing targeted 2026-08-31",
+      "reason": "References planned signing but not the explicit phrase \"Signing Date\""
+    },
+    {
+      "concept": "internal_session_id",
+      "matched_text": "token=x9p-1a-0z",
+      "reason": "Looks like an access token but could be a generic URL parameter"
+    },
+    {
+      "concept": "bank_account",
+      "matched_text": "payroll IBANs",
+      "reason": "Bank account anchor without any account numbers present"
+    },
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "issuer internal",
+      "reason": "Generic internal qualifier; not a standard confidentiality legend"
+    },
+    {
+      "concept": "nonpublic_marker",
+      "matched_text": "DRAFT‑NON‑D ISCLOSABLE",
+      "reason": "Irregular hyphenation/spacing may evade strict detectors"
+    },
+    {
+      "concept": "sa_commercial_registration",
+      "matched_text": "C R   4 0 3 - 0 7 - 1 2 4 5",
+      "reason": "Highly spaced formatting may not match strict CR patterns"
+    },
+    {
+      "concept": "sa_iqama",
+      "matched_text": "Iqama 1 0 9 - 3 3 8 2 7 1 4 6",
+      "reason": "Non-standard spacing may evade strict iqama detectors"
+    },
+    {
+      "concept": "selective_disclosure_risk",
+      "matched_text": "must not be forwarded",
+      "reason": "General instruction; not explicitly framed as securities-law selective disclosure"
+    },
+    {
+      "concept": "selective_disclosure_risk",
+      "matched_text": "any release will be coordinated through Investor Relations",
+      "reason": "Implies controlled dissemination but not a clear selective-disclosure trigger"
+    },
+    {
+      "concept": "financial_percentage",
+      "matched_text": "32%",
+      "reason": "Percentage is cited from a public source per the text; may not be MNPI"
     }
   ]
 }

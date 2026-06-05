@@ -1,0 +1,288 @@
+{
+  "_human_review": {
+    "notes": "US Stage B generated/autolabeled labels were reconciled by Codex for internal benchmark cleanup; project-owner approval is still required before promotion-ready status.",
+    "reviewer": "pending-project-owner-stage-b-review",
+    "status": "pending"
+  },
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 28,
+    "new_must_detect_count": 11,
+    "old_ideal_must_detect_count": 17,
+    "old_must_detect_count": 10,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_pending_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "preclearance@prairiebridge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For GLBA nonpublic personal information and HIPAA protected health information, we collect and process only for account servicing, care coordination, and fraud monitoring; we do not “sell” personal information as that term is used in California statutes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Identity verification requires two matching data points and a one-time code; do not transmit images of IDs—upload via the secure portal with redaction guidance (e.g., show last 2 digits only).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Positive MNPI note: preliminary Q3 payer reimbursement rate changes and internal net charge‑off trend slides remain non‑public and may be material to PrairieBridge; do not discuss with analysts or investors before the scheduled earnings call is publicly webcast.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "False‑positive bait control: consumer submissions containing strings like 123‑45‑6789, “CUSIP: NOT‑A‑CUSIP,” or “MRN: XX‑0000” are treated as examples and redacted; inclusion of the words “insider,” “leak,” or “earnings” does not convert a DSAR into a securities inquiry.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosures to service providers include minimum necessary data; we require audit rights and breach notices, and we document all onward transfers in our internal registry.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Questions may be directed to compliance@prairiebridge.example; we also maintain a US toll‑free helpline listed on our public website, which provides general guidance but does not accept sensitive identifiers.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@prairiebridge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@prairiebridge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non‑public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "may be material",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not discuss with analysts or investors",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimum necessary data",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "we prohibit selective disclosure to market professionals",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "intentional disclosures are made via broad distribution or a Form 8‑K concurrently",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-intentional disclosures are cured promptly (no later than 24 hours or before the next trading day on our listing exchange)",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-announced blackout windows",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "show last 2 digits only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "we never request full SSN or account/routing numbers by email",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary Q3 payer reimbursement rate changes",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "internal net charge‑off trend slides",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "preclearance@prairiebridge.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "For GLBA nonpublic personal information and HIPAA protected health information, we collect and process only for account servicing, care coordination, and fraud monitoring; we do not “sell” personal information as that term is used in California statutes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Identity verification requires two matching data points and a one-time code; do not transmit images of IDs—upload via the secure portal with redaction guidance (e.g., show last 2 digits only).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Positive MNPI note: preliminary Q3 payer reimbursement rate changes and internal net charge‑off trend slides remain non‑public and may be material to PrairieBridge; do not discuss with analysts or investors before the scheduled earnings call is publicly webcast.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "False‑positive bait control: consumer submissions containing strings like 123‑45‑6789, “CUSIP: NOT‑A‑CUSIP,” or “MRN: XX‑0000” are treated as examples and redacted; inclusion of the words “insider,” “leak,” or “earnings” does not convert a DSAR into a securities inquiry.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Disclosures to service providers include minimum necessary data; we require audit rights and breach notices, and we document all onward transfers in our internal registry.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Questions may be directed to compliance@prairiebridge.example; we also maintain a US toll‑free helpline listed on our public website, which provides general guidance but does not accept sensitive identifiers.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "123‑45‑6789",
+      "reason": "False-positive bait example string; not actual PII in context"
+    },
+    {
+      "matched_text": "CUSIP: NOT‑A‑CUSIP",
+      "reason": "False-positive bait; not a valid security identifier or MNPI"
+    },
+    {
+      "matched_text": "MRN: XX‑0000",
+      "reason": "False-positive bait example; not a real medical record number"
+    },
+    {
+      "matched_text": "Forms 10‑K/10‑Q",
+      "reason": "Public filing references; not MNPI"
+    },
+    {
+      "matched_text": "press releases",
+      "reason": "Public information references; not MNPI"
+    },
+    {
+      "matched_text": "the January 2024 telehealth pilot announcement",
+      "reason": "Public press release reference; not MNPI"
+    },
+    {
+      "matched_text": "Form 8‑K",
+      "reason": "Public disclosure channel reference; not MNPI itself"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "retention policy marker",
+      "matched_text": "Retention: GLBA records are retained 7 years, HIPAA-designated records 6 years from creation, and marketing consents until revocation or 24 months of inactivity, whichever is earlier",
+      "reason": "Retention markers are relevant privacy controls but no explicit retention rule is listed in allowed rules."
+    },
+    {
+      "concept": "internal customer identifier pattern",
+      "matched_text": "CustomerID (format PB-####)",
+      "reason": "PII if populated; here only the format is described and no specific rule exists for such internal IDs."
+    },
+    {
+      "concept": "patient portal identifier pattern",
+      "matched_text": "PatientPortalID (HBC-####)",
+      "reason": "Would be PII if an actual value were present; here only a format is described and not clearly mapped to a listed rule."
+    },
+    {
+      "concept": "quasi-identifier",
+      "matched_text": "billing ZIP",
+      "reason": "ZIP code can be a quasi-identifier but is not covered by a specific allowed rule unless part of a combination."
+    },
+    {
+      "concept": "Reg FD cure timing",
+      "matched_text": "no later than 24 hours or before the next trading day",
+      "reason": "Disclosure timing is jurisdictionally significant but not mapped to a specific allowed MNPI rule label."
+    }
+  ]
+}

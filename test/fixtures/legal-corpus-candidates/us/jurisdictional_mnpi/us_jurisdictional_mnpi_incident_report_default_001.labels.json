@@ -1,0 +1,289 @@
+{
+  "_human_review": {
+    "notes": "US Stage B generated/autolabeled labels were reconciled by Codex for internal benchmark cleanup; project-owner approval is still required before promotion-ready status.",
+    "reviewer": "pending-project-owner-stage-b-review",
+    "status": "pending"
+  },
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "US Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "US Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 27,
+    "new_must_detect_count": 10,
+    "old_ideal_must_detect_count": 21,
+    "old_must_detect_count": 14,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T15:12:28Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-reconciled.json",
+    "status": "codex_reconciled_pending_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed SA/US Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "US",
+  "doc_id": "us_jurisdictional_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "incidentdesk@ophirahealthbank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nadia Rell",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lena Voss",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Calder Hoyt",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "If we conclude the matter is material, we intend to issue a press release and furnish an Item 7.01 Form 8-K before market open pursuant to Nasdaq Listing Rule 5250(b)(1); otherwise, disclosure will be made in our next periodic report and on the upcoming earnings call.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Customer communications, if required under GLBA/FFIEC guidance, will be coordinated with Ophira PayWell, N.A., and any notifications will exclude test developer emails and avoid including personal identifiers beyond what is contractually required.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$2 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "incident is material",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8-K Item 1.05",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@ophirahealthbank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lena Voss (CISO)",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Calder Hoyt (General Counsel)",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "security monitoring detected unauthorized API calls",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-trading blackout window",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Do not discuss this incident with sell-side analysts, lenders, proxy advisors, or rating agencies absent a broad public communication",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "to avoid selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a materiality assessment under SEC Form 8-K Item 1.05 is in process",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,314",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "avoid including personal identifiers beyond what is contractually required",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Reg FD Controlled Distribution",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "exposure of approximately 2,314 test token records",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pending public disclosure",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "directors, Section 16 officers, and designated insiders",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "before market open",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "any trading by covered persons remains prohibited",
+      "rule": "blackout_period_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "incidentdesk@ophirahealthbank.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Nadia Rell",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Lena Voss",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Calder Hoyt",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "If we conclude the matter is material, we intend to issue a press release and furnish an Item 7.01 Form 8-K before market open pursuant to Nasdaq Listing Rule 5250(b)(1); otherwise, disclosure will be made in our next periodic report and on the upcoming earnings call.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Customer communications, if required under GLBA/FFIEC guidance, will be coordinated with Ophira PayWell, N.A., and any notifications will exclude test developer emails and avoid including personal identifiers beyond what is contractually required.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "$2 million",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "incident is material",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8-K Item 1.05",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "press release",
+      "reason": "Public disclosure reference; not MNPI/PII"
+    },
+    {
+      "matched_text": "Form 10-Q",
+      "reason": "Public filing reference; not MNPI/PII"
+    },
+    {
+      "matched_text": "NASDAQ: OHBX",
+      "reason": "Public ticker symbol; not PII/MNPI"
+    },
+    {
+      "matched_text": "Velorum Switch LLC",
+      "reason": "Non-issuer operational update reference; exclude per negative target"
+    },
+    {
+      "matched_text": "ePHI",
+      "reason": "Generic sensitive term without actual personal data"
+    },
+    {
+      "matched_text": "personal identifiers",
+      "reason": "Generic phrase; not an actual identifier value"
+    }
+  ],
+  "source_jurisdiction": "US",
+  "uncertain": [
+    {
+      "concept": "information_barrier_marker",
+      "matched_text": "Reg FD Controlled Distribution",
+      "reason": "Implies controlled internal flow and barrier, but lacks explicit 'information barrier' terminology"
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "Pending public disclosure",
+      "reason": "Indicates embargo status before public release, but not using canonical embargo terms"
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "before market open",
+      "reason": "Planned disclosure timing window; may be treated as an embargo/timing marker"
+    },
+    {
+      "concept": "insider_list_marker",
+      "matched_text": "designated insiders",
+      "reason": "Implies a maintained insider list, but phrase does not explicitly reference an insider list document"
+    },
+    {
+      "concept": "internal_identifier",
+      "matched_text": "incident tickets PW-INC-22017 and SOC-3419",
+      "reason": "Internal ticket identifiers are potentially sensitive but not covered by current allowed rules"
+    },
+    {
+      "concept": "internal_identifier",
+      "matched_text": "token IDs TP-AX004512, TP-AX004879",
+      "reason": "Token identifiers could be sensitive but are not mapped to an allowed rule type"
+    },
+    {
+      "concept": "derived_PII",
+      "matched_text": "hashed developer emails",
+      "reason": "Indicates presence of email-derived hashes; privacy-relevant but not an email address value"
+    },
+    {
+      "concept": "partial_financial_identifier",
+      "matched_text": "last-4 of dummy debit tokens",
+      "reason": "Partial token digits are sensitive contextually but not covered by an allowed PII rule"
+    }
+  ]
+}
