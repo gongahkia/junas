@@ -1,0 +1,15 @@
+Incident Report: Cybersecurity and MNPI Exposure — Yunhe Data Systems Co., Ltd. (USCC: 9136YJ00MA8K2L1Q3X), Linghai City, Yunjiang Province
+Report ID YDS-IR-2026-061, detected 2026-06-03 21:42 CST, reported 2026-06-04 09:15 CST
+A data loss prevention alert flagged unauthorized copying of pre-disclosure financial materials belonging to issuer applicant Luhai Smart Components Co., Ltd. (client USCC: 9240YJ88MA1R9B2F7Q) scheduled for review by the Lingnan Securities Exchange (LNX) Issuer Supervision Office
+Mr. Pan Yichen (DOB 1991-08-23, age 34), Senior Data Engineer, Yunhe Data Systems (Linghai R&D Center, Zone C, Level 9), signed in as pan_yc; email yichen.pan@yunhe-ds.example.cn; internal ext. 6623
+His masked resident ID 42************381X and payroll unit YDS-ENG-04 were present in the same audit artifacts alongside device asset LH-NB-0421 (MAC 4E:19:AA:02:3C:77) and VPN session S-LH-7F49A1
+Logs show Mr. Pan’s account accessed \\files.linghai.yds\issuer\Luhai\2026H1_draft\pre_earnings.xlsx and attempted to sync to an offshore backup endpoint "yunhe-dr-nanhua" at 22:03 via client agent v3.9.4
+The network path indicates the DR target is hosted in Nanhu Special Administrative Region, invoking cross-border transfer rules under PIPL, CSL, and DSL, and the security assessment filing requirements of the Cyberspace and Data Administration of Linghai
+Preliminary review suggests MNPI was viewed and copied before public disclosure; no onshore posting occurred, and no financial transactions by Yunhe personnel have been detected
+Root cause: employment offboarding workflow failure for an internal transfer—Mr. Pan moved from Issuer Services to Core Platform on 2026-05-20 but retained legacy read access; privileged access review ticket YDS-IAM-4472 remained pending
+Non-named weak identifiers elsewhere in the same share include a profile “born 1987-02, QA role, East Park office, device CT-TAB-11, Android 12, account qa_ops_02,” which by itself does not identify a specific natural person
+Additional generic demographics in training materials (“female, 30s, north district, shift B”) are non-identifying and not treated as PI under PIPL absent linkage
+No bank card numbers, precise home addresses, health data, or minors’ data (<14) were involved in this incident; face images in access logs are blurred and stored locally
+Containment actions: account pan_yc suspended 2026-06-04 09:20; device LH-NB-0421 isolated; shared folder permissions on \\files.linghai.yds\issuer narrowed; DR sync job to "yunhe-dr-nanhua" paused and subject to LCDA security assessment filing
+Notifications: issuer client Luhai Smart Components informed 2026-06-04 10:00; internal report filed to Linghai Financial Markets Service Center and LCDA; consultation requested with Lingnan Securities Exchange compliance liaison regarding potential selective disclosure
+For queries contact Data Protection Office at dpo@yunhe-ds.example.cn; do not include MNPI or personal identifiers in the email subject

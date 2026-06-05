@@ -1,0 +1,155 @@
+{
+  "doc_id": "ae_direct_identifiers_incident_report_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-1987-6543210-0"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "AE00 0000 0000 0000 0000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "CN-7788990X"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "procurement@barjeeltransit.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "800-000-4321"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@barjeeltransit.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "soc@barjeeltransit.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr-queries@barjeeltransit.example"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-1987-6543210-0"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "AE00 0000 0000 0000 0000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "CN-7788990X"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "procurement@barjeeltransit.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "800-000-4321"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@barjeeltransit.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "soc@barjeeltransit.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "hr-queries@barjeeltransit.example"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "P<ARE00000000X"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data-minimisation duties"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Full Name",
+      "reason": "Generic form label, not a PII value"
+    },
+    {
+      "matched_text": "Emirates ID",
+      "reason": "Generic form label, not a PII value"
+    },
+    {
+      "matched_text": "Passport No",
+      "reason": "Generic form label, not a PII value"
+    },
+    {
+      "matched_text": "Family origin",
+      "reason": "Generic form label, not a PII value"
+    },
+    {
+      "matched_text": "Trade Licence No",
+      "reason": "Generic form label, not an identifier by itself"
+    },
+    {
+      "matched_text": "Service Desk Analyst",
+      "reason": "Role-only term, not an identified person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "retain logs for 12 months",
+      "concept": "retention_marker",
+      "reason": "Indicates a retention period; relevant privacy-event but no explicit allowed rule name for retention in the list"
+    },
+    {
+      "matched_text": "no cross-border transfers occurred",
+      "concept": "cross_border_transfer_marker (negated)",
+      "reason": "Cross-border transfer is a privacy-event but this is an explicit negation and not to be labeled under strict rules"
+    },
+    {
+      "matched_text": "Operational/Cyber Incident Notice",
+      "concept": "cyber_incident_pre_disclosure",
+      "reason": "Internal incident notice; could be market/compliance sensitive contextually, but declared non-material and not MNPI"
+    },
+    {
+      "matched_text": "Family origin",
+      "concept": "family_origin_sensitive_data",
+      "reason": "Potentially sensitive attribute under PDPL context but not covered by an explicit allowed special-category rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

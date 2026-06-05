@@ -1,0 +1,137 @@
+{
+  "doc_id": "ae_privacy_events_incident_report_negative_001",
+  "document_type": "memo",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nawaris-pjsc.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "soc@nawaris-pjsc.example"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-XYZ-999999"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation markers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nawaris-pjsc.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "soc@nawaris-pjsc.example"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-XYZ-999999"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "Trade Licence TL-XYZ-999999"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID 000-0000-0000000-0"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data Export Approval UAE-PDPL/CBT/2026-041 authorised replication of pseudonymised audit events to a GCC regional cluster operated by Azureo Gulf Cloud WLL (BH)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation markers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation markers ensured no Emirates ID or family-origin fields left the UAE"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "consent-withdrawal toggle"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "No non-public market-sensitive issuer information was processed",
+      "reason": "Negated MNPI statement; indicates absence of non-public information."
+    },
+    {
+      "matched_text": "placeholders only, not live submissions",
+      "reason": "Examples are placeholders; not actual PII instances."
+    },
+    {
+      "matched_text": "no personal data exfiltration",
+      "reason": "Negated incident outcome; not a live privacy risk."
+    },
+    {
+      "matched_text": "No notification obligation to the UAE SCA, ADGM Office of Data Protection, or DIFC Commissioner of Data Protection was triggered",
+      "reason": "Negated regulatory trigger; should not be treated as MNPI or breach signal."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "A DSAR erasure for a closed test profile was completed on 2026-06-01",
+      "concept": "DSAR/erasure marker",
+      "reason": "PDPL-relevant rights request completion; no explicit allowed rule for DSAR/erasure."
+    },
+    {
+      "matched_text": "Schedule 2 retention rules apply to audit logs (standard 30 days)",
+      "concept": "retention marker",
+      "reason": "Retention period reference under DPA; no explicit allowed rule for retention markers."
+    },
+    {
+      "matched_text": "Family Origin (optional)",
+      "concept": "sensitive attribute (family origin)",
+      "reason": "Potential special-category/sensitive attribute under PDPL; not represented in allowed rules."
+    },
+    {
+      "matched_text": "Data Processing Agreement with Bayt Ajyal Cloud FZ-LLC",
+      "concept": "DPA reference",
+      "reason": "Contractual data processing framework reference; not covered by allowed rules but relevant to compliance context."
+    },
+    {
+      "matched_text": "pseudonymised audit events",
+      "concept": "pseudonymisation marker",
+      "reason": "Privacy technique indicating reduced identifiability; not an explicit allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

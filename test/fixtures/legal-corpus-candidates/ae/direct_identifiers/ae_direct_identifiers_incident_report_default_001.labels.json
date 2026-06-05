@@ -1,0 +1,270 @@
+{
+  "doc_id": "ae_direct_identifiers_incident_report_default_001",
+  "document_type": "memo",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "CN-7654321"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "9876543"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-1979-1234567-1"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "AE12 123 4567890123456789"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "AE55 741 0123456789012345"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "leila.barqawi@alnasmahd.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ap@marjancyber.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@alnasmahd.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ops-inbox@alnasmahd.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971 58 123 4578"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971 4 555 0420"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "XN0093318"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leila Barqawi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Omar Haddad"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Farah Mansoor"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "neither item has been publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "CN-7654321"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "9876543"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-1979-1234567-1"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "AE12 123 4567890123456789"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "AE55 741 0123456789012345"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "leila.barqawi@alnasmahd.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ap@marjancyber.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@alnasmahd.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ops-inbox@alnasmahd.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971 58 123 4578"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971 4 555 0420"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "XN0093318"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leila Barqawi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Omar Haddad"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Farah Mansoor"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "neither item has been publicly disclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "ADX dual-listing exploration"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "unauthorized SFTP access"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Emirates ID: __________",
+      "reason": "Placeholder/generic form label, not actual data"
+    },
+    {
+      "matched_text": "TRN: __________",
+      "reason": "Placeholder/generic form label, not actual data"
+    },
+    {
+      "matched_text": "Passport No: ________",
+      "reason": "Placeholder/generic form label, not actual data"
+    },
+    {
+      "matched_text": "800 0000",
+      "reason": "Public helpline number; generic contact not personal data"
+    },
+    {
+      "matched_text": "info@example.com",
+      "reason": "Generic/public info address, not personal data"
+    },
+    {
+      "matched_text": "+971 600 123 000",
+      "reason": "Public service/helpline number; exclude from PII detection"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "TRN 100234567890123",
+      "concept": "UAE Tax Registration Number (TRN)",
+      "reason": "Corporate tax identifier relevant in UAE but no explicit allowed rule for TRN"
+    },
+    {
+      "matched_text": "ADGM-CL-34219",
+      "concept": "ADGM company registration number",
+      "reason": "Direct company identifier; useful but not covered by allowed rules"
+    },
+    {
+      "matched_text": "Al Haurani, coastal Sharqi origin",
+      "concept": "Sensitive personal data (ethnic/family origin)",
+      "reason": "Ethnic/family origin is likely special-category data under PDPL; no corresponding allowed rule provided"
+    },
+    {
+      "matched_text": "ADS-IR-2026-044",
+      "concept": "Internal incident reference ID",
+      "reason": "Internal identifier may be sensitive but not mapped to an allowed rule"
+    },
+    {
+      "matched_text": "ADGM-listing-draft",
+      "concept": "Pre-listing confidential materials",
+      "reason": "Indicates possible pre-listing context; not a defined transaction codename per allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

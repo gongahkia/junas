@@ -1,0 +1,218 @@
+{
+  "doc_id": "ae_direct_identifiers_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "Trade Licence 921345"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "h.kareem@falconoasis.example.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971 50 123 9482"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hisham Al Kareem"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Laila Haddad"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID 7 8 4 - 2 0 9 9 - 6 5 4 3 2 1 7 - 3"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "Passport (fictional) No. NQ8590132"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "laila.h@falconoasis.example.ae"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "Trade Licence 921345"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "h.kareem@falconoasis.example.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971 50 123 9482"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hisham Al Kareem"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Laila Haddad"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID 7 8 4 - 2 0 9 9 - 6 5 4 3 2 1 7 - 3"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "Passport (fictional) No. NQ8590132"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "laila.h@falconoasis.example.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "AGMZ Registration AGMZ-LIC-00078912"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN A E 0 7 0 3 3 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal data (including family origin and ID images) to be redacted in VDR"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not email Emirates ID scans to shared team lists"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "use secure upload only"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Dubai Department of Enterprise Trade Licence 921345; TRN 100123456700003; DIFQ CR No. DIFQ-CR-0012398"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not yet public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Seller",
+      "reason": "Role noun/defined party, not PII"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role noun/defined party, not PII"
+    },
+    {
+      "matched_text": "Authorised Signatory (Seller)",
+      "reason": "Role noun/defined party, not PII"
+    },
+    {
+      "matched_text": "Authorised Signatory (Buyer)",
+      "reason": "Role noun/defined party, not PII"
+    },
+    {
+      "matched_text": "800 5555",
+      "reason": "Public helpline bait; not PII"
+    },
+    {
+      "matched_text": "+971 800 0000",
+      "reason": "Public contact centre bait; not PII"
+    },
+    {
+      "matched_text": "Passport No",
+      "reason": "Generic form label bait without a value"
+    },
+    {
+      "matched_text": "DIFQ-CR-0012398-TEST",
+      "reason": "Dummy/test key bait; not PII"
+    },
+    {
+      "matched_text": "ops-escrow-notlive",
+      "reason": "Non-live account nickname placeholder"
+    },
+    {
+      "matched_text": "material adverse change (MAC)",
+      "reason": "Negated MAC condition; do not label as material_adverse_change"
+    },
+    {
+      "matched_text": "investor-relations@public.example.ae",
+      "reason": "Functional/public mailbox; not about an identifiable person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "family origin",
+      "concept": "sensitive personal data (family origin)",
+      "reason": "Indicative of special-category data under PDPL, but not covered by enumerated special-category rules"
+    },
+    {
+      "matched_text": "TRN 100123456700003",
+      "concept": "UAE tax registration number",
+      "reason": "Local tax ID is identifiable but no explicit rule provided"
+    },
+    {
+      "matched_text": "DIFQ CR No. DIFQ-CR-0012398",
+      "concept": "UAE company registration number",
+      "reason": "Corporate registration identifier; no explicit AE CR rule provided"
+    },
+    {
+      "matched_text": "784-2099-6543217-3",
+      "concept": "ae_emirates_id in URL parameter",
+      "reason": "Looks like an Emirates ID pattern embedded in a URL; may or may not be an actual personal identifier"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 148,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 148,000,000'"
+  ],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

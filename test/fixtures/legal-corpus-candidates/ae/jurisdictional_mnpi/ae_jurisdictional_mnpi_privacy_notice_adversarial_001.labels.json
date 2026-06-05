@@ -1,0 +1,241 @@
+{
+  "doc_id": "ae_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@miragegrid.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@sandduneadvisors.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@miragegrid.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Huda Al Qasimi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tareq N. Al Marei"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "Trade Licence TL-DIFC-0O1-2l3"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Pearl"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "subprocessors in KSA and EU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "2%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "5%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@miragegrid.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@sandduneadvisors.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@miragegrid.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Huda Al Qasimi"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Tareq N. Al Marei"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "Trade Licence TL-DIFC-0O1-2l3"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Pearl"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintained in the DFSA format"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfers: permitted under PDPL with appropriate safeguards (intra-group binding rules; SCC-style clauses for non-adequate jurisdictions); subprocessors in KSA and EU are listed at htt ps://miragegrid.ae/subp rocessors.pdf"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "subprocessors in KSA and EU"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "b l a c k o u t w i n d o w"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "receive MNPI only under NDA"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID 784-1\u258834-5678\u25880-1"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "client code MG-CLl-0097"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimal profiling"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "\u22652%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "\u22655%"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role noun, not a PII value by itself"
+    },
+    {
+      "matched_text": "Disclosure Committee",
+      "reason": "Governance role noun, not PII/MNPI value"
+    },
+    {
+      "matched_text": "INS-\u0394-2026/0O2",
+      "reason": "Internal reference code; not an allowed PII/MNPI category"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "family origin",
+      "concept": "sensitive personal data (heritage/ethnicity)",
+      "reason": "Potential special-category personal data under PDPL but not mapped to a specific allowed rule name"
+    },
+    {
+      "matched_text": "deal-room access logs",
+      "concept": "metadata/telemetry PII",
+      "reason": "Likely contains identifiers (IP, device IDs, session IDs) but no explicit allowed rule directly referenced"
+    },
+    {
+      "matched_text": "Emirates ID copy deleted within 90 days post-verification",
+      "concept": "retention/erasure marker",
+      "reason": "Data retention/erasure control is relevant under PDPL but no explicit 'retention_marker' rule in allowed list"
+    },
+    {
+      "matched_text": "storage primarily in the UAE (on DIFC-hosted systems) with failover in ADGM",
+      "concept": "data localisation/sovereignty",
+      "reason": "Processing location is privacy-relevant but not covered by an allowed marker rule"
+    },
+    {
+      "matched_text": "DSAR",
+      "concept": "data subject rights request",
+      "reason": "DSAR workflow is privacy-relevant but no dedicated DSAR rule in allowed list"
+    },
+    {
+      "matched_text": "no automated decisions with legal effect",
+      "concept": "automated decision-making limitation",
+      "reason": "PDPL-relevant but not covered by an allowed rule name"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

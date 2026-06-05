@@ -1,0 +1,188 @@
+{
+  "doc_id": "ae_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@sama-creek.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@sama-creek.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We minimise processing of family-origin data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout windows apply to designated insiders in line with ADX trading calendar and internal policy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@sama-creek.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@sama-creek.example"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "EID-0000-0000-0000"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-AD-XXXXXX"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "no onward transfer to non-adequate jurisdictions"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We minimise processing of family-origin data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "deleted at the earliest lawful opportunity"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "masked Emirates ID"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "only published information may be shared with analysts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout windows apply to designated insiders in line with ADX trading calendar and internal policy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "designated insiders remain in blackout until public dissemination"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-results periods"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "designated insiders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "access segregation for MNPI repositories"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "Until the SCA filing is submitted and posted on ADX"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "unannounced Q2 earnings guidance revision"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "board resolution"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "effective 01 Jan 2024"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "is not MNPI",
+      "reason": "Explicitly public; not MNPI per document."
+    },
+    {
+      "matched_text": "are not MNPI",
+      "reason": "Explicitly public/stale; not MNPI per document."
+    },
+    {
+      "matched_text": "are not issuer-level market-sensitive information",
+      "reason": "Operational updates explicitly stated as non-market-sensitive."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "family-origin information",
+      "concept": "sensitive_personal_data (ethnic/family origin)",
+      "reason": "Likely sensitive under PDPL, but no specific allowed rule label for ethnic/family origin."
+    },
+    {
+      "matched_text": "DSARs may be submitted via",
+      "concept": "DSAR/rights-handling marker",
+      "reason": "Data subject rights process is a privacy-event marker, but no explicit DSAR rule in allowed list."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

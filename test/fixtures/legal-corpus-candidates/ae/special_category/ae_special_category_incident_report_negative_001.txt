@@ -1,0 +1,13 @@
+Nakhla Harbour Clearing PJSC — Cyber/Operational Incident Report (UAE PDPL, SCA, DIFC/ADGM context)
+Ref: NHC-IR-2026-06-05-01; event window 2026-06-04 11:20–11:58 GST; triage complete; business continuity unaffected
+WadiShield Endpoint and Sandstorm SIEM flagged an exfiltration attempt from the FalconPalm HRIS sandbox to a third-party test bucket; the DLP policy blocked transfer
+Affected repositories: legacy file share “PearlDrive” (Sharjah zone) containing policy templates, DEI prose on inclusive culture and family-origin respect, and sports club flyers for the Desert Falcons
+Data elements observed: generic form labels (Name, Emirates ID, Department), product names, and sample deal workflow checklists; no customer IBANs, no payments, no live trade orders
+Anchored special-category finding (intentional positive): Named subject — Lina Qassimi (IT Support, contractor), whose fingerprint template identifier appeared in access.log for the building turnstile; Emirates ID field shows 784-XXXX-XXXXXXX-X (redacted placeholder)
+Under UAE PDPL, the biometric reference is special-category data; we applied minimisation and purged the template from the sandbox per Seif Policy on Data Masking v2.2
+Public/stale context: a cyber resilience note covering sandbox hygiene was posted on the ADX community page on 2026-05-20; this incident is consistent with that guidance and does not involve issuer MNPI
+Governance steps: executed Shamal Cyber Playbook v3, Oasis ESG Communications Standard, and DIFC/ADGM cross-border data checks (no DIFC- or ADGM-licensed entities or data subjects impacted)
+SCA market conduct and FSRA MAR assessments concluded no non-public market-sensitive information was accessed; no continuous disclosure needed; customer notice not triggered under low-risk PDPL thresholds
+Trade licence references in the files are placeholders only (e.g., TL-00000-X), and images of Emirates ID cards were not present; no medical records, religion, union status, genetic, or sexual-orientation data were processed
+Non-security artefacts included benign marketing slogans, “WadiSprint” product roadmaps without dates, and a “desert derby” teamwork metaphor poster; these do not constitute personal data
+Contact for queries: security-operations@nakhla-harbour.example (role mailbox) and pdpl@dataoffice.example; public helplines are listed on our website only

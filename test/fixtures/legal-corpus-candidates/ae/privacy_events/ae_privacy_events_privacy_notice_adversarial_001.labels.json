@@ -1,0 +1,263 @@
+{
+  "doc_id": "ae_privacy_events_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-ANJ- 0O4-77Q"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011FZX\u20119N3"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@alnajm-capital.demo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@alnajm-capital.demo"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Layla Al\u2011Hamri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hadi Al\u2011Sabri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Yousuf Al\u2011Badri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rana Qassem"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer approved"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew direct marketing consent"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-ANJ- 0O4-77Q"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL\u2011FZX\u20119N3"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@alnajm-capital.demo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@alnajm-capital.demo"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Layla Al\u2011Hamri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hadi Al\u2011Sabri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Yousuf Al\u2011Badri"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rana Qassem"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer approved"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew direct marketing consent"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "44  88  221"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "mkt-sup: x7F9"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "DSAR #DS-  33  71"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "Q2%2F7  1"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "onb%2F2026-0 4%2F77"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "collect only last 4 digits of the Emirates ID surrogate and last 3 digits of mobile"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "marketing consent not pre\u2011ticked"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "PDPL Art. 23 derogation (contract necessity) applied"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "We do not store Emirates ID images after verification",
+      "reason": "Negated control; not an actual PII value instance"
+    },
+    {
+      "matched_text": "we do not log MAC addresses or device IMEI",
+      "reason": "Negated control; mentions categories without values"
+    },
+    {
+      "matched_text": "MNPI is expressly out of scope for this processing activity",
+      "reason": "Explicit out-of-scope statement; not live MNPI content"
+    },
+    {
+      "matched_text": "issuer\u2011side MNPI quarantine is already completed and unrelated to onboarding data",
+      "reason": "Completed control; no live MNPI event"
+    },
+    {
+      "matched_text": "Controller",
+      "reason": "Role noun/defined term; not a person name"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role noun/defined term; not a person name"
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role noun/defined term; not a person name"
+    },
+    {
+      "matched_text": "COO",
+      "reason": "Role noun/defined term; not a person name"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Emirates ID surrogate token E\u20110Q4  2\u20149Z9",
+      "concept": "surrogate identifier",
+      "reason": "Pseudonymous unique token likely PII but not covered by a specific allowed identifier rule"
+    },
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "Privacy handling event relevant under PDPL but no explicit DSAR marker rule in allowed list"
+    },
+    {
+      "matched_text": "Erasure executed",
+      "concept": "erasure marker",
+      "reason": "Data deletion event relevant but no explicit erasure marker rule provided"
+    },
+    {
+      "matched_text": "Retention schedule",
+      "concept": "retention marker",
+      "reason": "Data retention handling relevant but no explicit retention marker rule provided"
+    },
+    {
+      "matched_text": "family origin disclosures",
+      "concept": "special category (ethnic origin)",
+      "reason": "Sensitive personal data category mentioned without a dedicated allowed rule"
+    },
+    {
+      "matched_text": "image hash 8a:  9c-77*",
+      "concept": "hash identifier",
+      "reason": "Unique record/hash reference potentially linking to an individual but not in allowed rules"
+    },
+    {
+      "matched_text": "FZ-TR   -9921",
+      "concept": "freezone trade registration",
+      "reason": "May be an AE trade licence/registration identifier but format not clearly mapped to allowed rule"
+    },
+    {
+      "matched_text": "UA\u2011  AE\u2011node\u2011A13",
+      "concept": "data residency key",
+      "reason": "System/location key potentially identifying data residency but not in allowed rules"
+    },
+    {
+      "matched_text": "DPA-ONB/2026-04-77",
+      "concept": "document/case reference",
+      "reason": "Internal reference may link to a data subject case but no specific allowed rule"
+    },
+    {
+      "matched_text": "7Q\u2011**1",
+      "concept": "client code",
+      "reason": "Pseudonymised client reference potentially PII but no matching allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

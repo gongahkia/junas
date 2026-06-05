@@ -1,0 +1,134 @@
+{
+  "doc_id": "ae_direct_identifiers_term_sheet_negative_001",
+  "document_type": "term_sheet",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-2001-1234567-4"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@alnair-holdings.example.ae"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "784-2001-1234567-4"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@alnair-holdings.example.ae"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-00000000"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "FZL-123456-X"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "Passport No 000000000"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "for signatory verification only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team protocol"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "+971 800 0000",
+      "reason": "Public helpline number; not personal PII"
+    },
+    {
+      "matched_text": "IBAN AE00 0000 0000 0000 0000 000",
+      "reason": "Illustrative/invalid placeholder IBAN"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role defined term, not a natural person"
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role defined term, not a natural person"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role defined term, not a natural person"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role defined term, not a natural person"
+    },
+    {
+      "matched_text": "TRN (form label)",
+      "reason": "Generic form label; not an actual identifier"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ADGM-CR-9999999",
+      "concept": "Company registration number (ADGM CR)",
+      "reason": "Corporate registry identifier; no specific allowed rule and typically not personal PII"
+    },
+    {
+      "matched_text": "UAE Visa File No 123/2020/0000000",
+      "concept": "UAE visa file number",
+      "reason": "Government immigration identifier for an individual but no explicit rule available"
+    },
+    {
+      "matched_text": "TRN 1234567890123456",
+      "concept": "UAE Tax Registration Number (TRN)",
+      "reason": "Tax identifier likely corporate; no specific TRN rule in the allowed list"
+    },
+    {
+      "matched_text": "Family-origin (for KYC form only): [Not Collected]",
+      "concept": "Sensitive demographic origin indicator",
+      "reason": "References special-category data (ethnic/family origin) but not collected and not explicitly covered by allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

@@ -1,0 +1,16 @@
+Barjeel Transit Holdings PJSC — Operational/Cyber Incident Notice (UAE PDPL; DIFC branch context)
+Summary: On 04 June 2026, a misconfigured file share in the DIFC branch exposed a sandbox folder for 36 minutes; access logs show 3 internal hits, no external IPs.
+Data types: procurement templates and HR onboarding forms with labels like Full Name, Emirates ID, Passport No., Family origin, but most fields were blank placeholders.
+One test artifact contained an invalid Emirates ID string 784-1987-6543210-0 (checksum failed) associated with a dummy QA profile; no live individual identifiers were confirmed.
+No bank IBANs were present; a sample field showed AE00 0000 0000 0000 0000 000 (placeholder), and Trade Licence No. CN-7788990X (invalid) appeared in a draft vendor form.
+The incident did not involve confidential issuer results, forecasts, term sheets, or unpublished market disclosures; all referenced deal workflows pertained to a public RFP already announced.
+For avoidance of doubt under UAE/SCA/ADGM/DIFC market-abuse standards, we confirm no MNPI was accessed or transmitted.
+A generic role mailbox procurement@barjeeltransit.example and the public helpline 800-000-4321 were listed in templates; no personal phone numbers or personal emails were exposed.
+Systems affected: SharePoint farm BRJ-SP-DEV only; production VDR and treasury systems were not impacted.
+Root cause: misapplied permission group “All-Staff-View” to a DEV path by the Service Desk Analyst role; corrected within 10 minutes and verified by IT Governance.
+Regulatory context: assessed against UAE PDPL data-minimisation duties and DIFC outsourcing guidance; no cross-border transfers occurred.
+Customer/contractor impact: zero confirmed; the only passport field held the string P<ARE00000000X (invalid) in a template, and address lines showed [Registered Address] placeholders.
+Follow-up: notify DPO and retain logs for 12 months; no SCA issuer disclosure is required due to absence of MNPI and non-material operational impact.
+Contact for queries: dpo@barjeeltransit.example; security escalations: soc@barjeeltransit.example; HR may be reached via hr-queries@barjeeltransit.example.
+We reiterate that “family origin” and similar sensitive headers were present only as empty form labels; no actual family background data was stored or shared.
+Compliance note: any future sharing of Emirates ID or passport images must follow redaction protocol and be stored in the ADGM-hosted secure repository, not DEV.

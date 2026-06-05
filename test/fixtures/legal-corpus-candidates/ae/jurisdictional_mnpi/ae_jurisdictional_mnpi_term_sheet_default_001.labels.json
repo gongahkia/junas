@@ -1,0 +1,242 @@
+{
+  "doc_id": "ae_jurisdictional_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "Trade Licence TL-ADGM-7841"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Rami Al Najjar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Dalia Karim"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rami.alnajjar@naseemholdings.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dalia.karim@barqrenewables.ae"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "22%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "~14%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "ADX blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure controls"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "Trade Licence TL-ADGM-7841"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Rami Al Najjar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Dalia Karim"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rami.alnajjar@naseemholdings.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dalia.karim@barqrenewables.ae"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "22%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "19%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "~14%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "earn-out triggers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "indicative synergy ranges"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "wall-crossed restricted list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "ADX blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Blackout/Dealing Restrictions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "no director/officer dealings"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "delayed disclosure permitted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "prevent selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Target signing by 28 July 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Seller",
+      "reason": "Defined role term; not PII/MNPI on its own."
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Defined role term; not PII/MNPI on its own."
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Generic role term; not PII/MNPI."
+    },
+    {
+      "matched_text": "ADX announcement dated 12 Feb 2025 (Ref: ADX/BRQ/2025-019)",
+      "reason": "Public reference; not MNPI."
+    },
+    {
+      "matched_text": "Al Safwa Transport LLC\u2019s relocation of its Sharjah warehouse last month is a routine third-party operational update and is not material to the issuer",
+      "reason": "Benign third-party update; not MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "data hosted in ADGM",
+      "concept": "data residency/location",
+      "reason": "Location of data hosting is PDPL-relevant but not an explicitly allowed marker."
+    },
+    {
+      "matched_text": "SCA no-objection",
+      "concept": "regulatory approval gate",
+      "reason": "Regulatory clearance condition can be material but is not a specific allowed MNPI rule."
+    },
+    {
+      "matched_text": "issuer disclosure to ADX without delay upon SPA execution",
+      "concept": "disclosure timing compliance",
+      "reason": "Issuer disclosure timing is market/regulatory sensitive but not directly mapped to a specific allowed rule beyond general non-public markers."
+    },
+    {
+      "matched_text": "Emirates ID copy of signatories",
+      "concept": "PII category mention",
+      "reason": "PII category referenced without an actual Emirates ID number; not captured by strict ID rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 7.80 per share'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 180,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 90,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 6,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 4,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 7.80 per share'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 180,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 90,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 6,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 4,000,000'"
+  ],
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}

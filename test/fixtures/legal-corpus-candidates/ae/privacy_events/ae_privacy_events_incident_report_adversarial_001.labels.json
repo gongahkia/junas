@@ -1,0 +1,217 @@
+{
+  "doc_id": "ae_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
+  "source_jurisdiction": "AE",
+  "destination_jurisdiction": "AE",
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hamid Al Saraf"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leila Al Nasser"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nebulafinserv.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "issuer-relations@nimbus-exchange.example.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971-0-0000-000"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hamid Al Saraf"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Leila Al Nasser"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nebulafinserv.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "issuer-relations@nimbus-exchange.example.ae"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+971-0-0000-000"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "Emirates ID images"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_emirates_id",
+      "matched_text": "EID E-00XX-FAKE-1234"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "tra de lic ence scans"
+    },
+    {
+      "category": "PII",
+      "rule": "ae_trade_licence",
+      "matched_text": "TL-FAKE-7753-AD"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "under minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew marketing consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer approvals"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data-export approval"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no records left the UAE",
+      "reason": "Negated cross-border outcome (no egress)"
+    },
+    {
+      "matched_text": "this is a completed control and not an ongoing privacy risk",
+      "reason": "Completed-control language; not a live risk"
+    },
+    {
+      "matched_text": "no MAC addresses",
+      "reason": "Negated device identifier collection"
+    },
+    {
+      "matched_text": "IMEI",
+      "reason": "Mentioned only in a negated context (not collected)"
+    },
+    {
+      "matched_text": "biometrics",
+      "reason": "Mentioned only in a negated context (not captured)"
+    },
+    {
+      "matched_text": "actual transfer remains disabled",
+      "reason": "Negated cross-border transfer status"
+    },
+    {
+      "matched_text": "no non-public market-sensitive issuer information was disclosed",
+      "reason": "Negated MNPI disclosure"
+    },
+    {
+      "matched_text": "no personal data",
+      "reason": "Explicit negative assertion (no PII present)"
+    },
+    {
+      "matched_text": "no MNPI",
+      "reason": "Explicit negative assertion (no MNPI present)"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "family-origin notes",
+      "concept": "sensitive personal data (ethnic/origin)",
+      "reason": "Family-origin may imply special-category data, not explicitly listed in allowed rules"
+    },
+    {
+      "matched_text": "audit hash 1f:aa:0c",
+      "concept": "pseudonymised/audit identifier",
+      "reason": "Unique hash may function as an indirect identifier but not covered by allowed categories"
+    },
+    {
+      "matched_text": "DXB-2 9 1-AX",
+      "concept": "internal request identifier",
+      "reason": "Internal control ID that could indirectly link to a person or dataset; not in allowed rules"
+    },
+    {
+      "matched_text": "DEA-ADGM-77-ZZ",
+      "concept": "data-export approval ID",
+      "reason": "Operational identifier potentially linkable to datasets; not in allowed rules"
+    },
+    {
+      "matched_text": "E- 7 7 -ZZ",
+      "concept": "internal reference ID",
+      "reason": "Identifier in URL parameter; not mapped to allowed categories"
+    },
+    {
+      "matched_text": "finsec- 0045",
+      "concept": "internal ticket number",
+      "reason": "Operational ticket ID that could be associated with individuals; not in allowed rules"
+    },
+    {
+      "matched_text": "RMB-PDPL-3Y",
+      "concept": "retention code/marker",
+      "reason": "Retention marker relevant for compliance but not in allowed category list"
+    },
+    {
+      "matched_text": "erasure of marketing preferences completed",
+      "concept": "erasure marker",
+      "reason": "Erasure/RTBF is a privacy event but no explicit allowed category provided"
+    },
+    {
+      "matched_text": "DSAR #DSR-AD-118",
+      "concept": "DSAR marker",
+      "reason": "Data subject access request reference is privacy-relevant but no explicit allowed category"
+    },
+    {
+      "matched_text": "GulfBridge-EXIM",
+      "concept": "policy/information-barrier label",
+      "reason": "Could relate to data egress controls; no direct allowed MNPI/PII category"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "_human_review_status": "pending",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+}
