@@ -1,0 +1,72 @@
+name: Methodology concern
+description: Raise a systematic concern about SG-LegalBench methodology.
+title: "[Methodology concern]: "
+labels:
+  - dispute:methodology
+  - triage:pending
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for systematic concerns. If you are disputing one released case label or field, use the label dispute form instead.
+  - type: textarea
+    id: concern_summary
+    attributes:
+      label: Concern summary
+      description: Summarize the systematic issue.
+      placeholder: The concern is ...
+    validations:
+      required: true
+  - type: textarea
+    id: affected_scope
+    attributes:
+      label: Affected task(s), labels, or docs
+      description: Identify the tasks, labels, scorers, extraction rules, normalisers, split policy, or documentation sections affected.
+      placeholder: SGLB-01 obligation labels; backend/benchmark/evaluators.py; docs/...
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Public evidence or reproducible example
+      description: Link public evidence, describe a reproducible failure, or identify the exact rule/spec conflict.
+      placeholder: Public source URL(s), command output, or minimal reproducible example...
+    validations:
+      required: true
+  - type: textarea
+    id: expected_impact
+    attributes:
+      label: Expected impact
+      description: Estimate whether this affects labels, scoring, rankings, task coverage, or user interpretation.
+      placeholder: This may affect ...
+    validations:
+      required: true
+  - type: textarea
+    id: suggested_remedy
+    attributes:
+      label: Suggested remedy
+      description: Describe the taxonomy, scorer, extraction, split, documentation, or versioning change you think should be made.
+      placeholder: The project should ...
+    validations:
+      required: true
+  - type: dropdown
+    id: change_class
+    attributes:
+      label: Likely version impact
+      description: Choose the closest expected version class. Maintainers will confirm during triage.
+      options:
+        - Patch erratum
+        - Minor taxonomy change
+        - Major methodology pivot
+        - Unsure
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: This is not a one-case label dispute.
+          required: true
+        - label: I have not included confidential, privileged, sealed, or paywalled material.
+          required: true

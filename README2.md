@@ -61,6 +61,9 @@ methodological commitment.
 - Clause tone: bootstrap with LLM-judge across ≥3 frontier models with
   explicit disclosure; held-out subset spot-checked.
 
+Label disputes and methodology concerns are handled through the
+[dispute and errata process](docs/dispute-process.md).
+
 ## Reference copilot — minimal scope
 
 The copilot exists to demonstrate the benchmark, not to replace existing OSS
