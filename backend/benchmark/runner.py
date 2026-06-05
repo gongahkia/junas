@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 import logging
 from dataclasses import dataclass, field
@@ -14,8 +15,12 @@ import yaml
 from benchmark.evaluators import EVALUATORS, EvaluatorContext, EvaluatorStrength
 from benchmark.registry import TASKS, get_provenance
 from benchmark.schema import Case, Dataset, EvalCaseResult
+from benchmark.stats import bootstrap_ci
 
 logger = logging.getLogger(__name__)
+
+BOOTSTRAP_N = 1000
+BOOTSTRAP_SEED_BASE = 1009
 
 
 @dataclass
@@ -44,6 +49,29 @@ class RunSummary:
             counts[r.evaluator] = counts.get(r.evaluator, 0) + 1
         return {k: sums[k] / counts[k] for k in sums if counts[k] > 0}
 
+    def _bootstrap_seed(self, evaluator: str) -> int:
+        digest = hashlib.sha256(evaluator.encode("utf-8")).hexdigest()[:8]
+        return BOOTSTRAP_SEED_BASE + int(digest, 16)
+
+    def per_evaluator_bootstrap(self) -> dict[str, dict[str, float | int]]:
+        values_by_evaluator: dict[str, list[float]] = {name: [] for name in self.evaluators}
+        for r in self.results:
+            if r.error:
+                continue
+            values_by_evaluator.setdefault(r.evaluator, []).append(r.score)
+        stats: dict[str, dict[str, float | int]] = {}
+        for evaluator, values in values_by_evaluator.items():
+            seed = self._bootstrap_seed(evaluator)
+            ci = bootstrap_ci(values, seed=seed, n=BOOTSTRAP_N)
+            stats[evaluator] = {
+                "mean": ci.mean,
+                "ci_low": ci.ci_low,
+                "ci_high": ci.ci_high,
+                "n_bootstrap": ci.n_bootstrap,
+                "seed": seed,
+            }
+        return stats
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "workflow": self.workflow,
@@ -57,6 +85,7 @@ class RunSummary:
             "data_tier": self.data_tier,
             "provenance": dict(self.provenance),
             "per_evaluator_mean": self.per_evaluator_mean(),
+            "per_evaluator_bootstrap": self.per_evaluator_bootstrap(),
             "results": [r.model_dump() for r in self.results],
         }
 
