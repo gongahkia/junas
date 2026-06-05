@@ -234,7 +234,9 @@ The 6 prompt bodies below are preserved verbatim for reproducibility and re-runs
 
 ---
 
-**ROUND 1 (original prompt bodies — preserved for reproducibility)**
+<details>
+<summary><strong>ROUND 1 — DONE.</strong> 6 prompt bodies preserved verbatim for re-runs. Click to expand.</summary>
+
 
 ## SOLO-10: Name + license decision (closes GAP-11)
 
@@ -549,6 +551,8 @@ Report back: what was claimed; what's recoverable; what needs
 rerunning. This output feeds directly into NEW-BATCH-D's task list.
 ```
 
+</details>
+
 ---
 
 **ROUND 2 — DONE ✅ (2026-06-05, PRs #91-94). 3 fully done; 1 scaffolded with the actual run deferred (see Deferred items below).**
@@ -571,7 +575,9 @@ The 4 prompt bodies below are preserved verbatim for reproducibility. They are n
 
 ---
 
-**ROUND 2 (original prompt bodies — preserved for reproducibility)**
+<details>
+<summary><strong>ROUND 2 — DONE.</strong> 4 prompt bodies preserved verbatim for re-runs. Click to expand. SOLO-17's κ run is deferred — see the status table above for the firing command.</summary>
+
 
 ## SOLO-17: SGLB-08 multi-judge ensemble pass (closes GAP-07)
 
@@ -811,6 +817,8 @@ Report back: the README2 table you produced; the eligibility filter
 predicate; any place the harness silently swallowed an oracle 1.0
 score that the user should know about.
 ```
+
+</details>
 
 ---
 
