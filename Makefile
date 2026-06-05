@@ -1,4 +1,4 @@
-.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-sso build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 download-data setup eval eval-list synth-gen
+.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-pdpc-guidelines ingest-sso build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 download-data setup eval eval-list synth-gen
 
 # === primary ===
 up:
@@ -82,6 +82,10 @@ ingest-all:
 # SGLB-01: PDPC enforcement decisions → JSONL splits + harness YAML.
 ingest-pdpc:
 	cd backend && python -m data.ingestion.pdpc
+
+# SGLB-14: PDPC Advisory Guidelines PDFs → JSONL corpus.
+ingest-pdpc-guidelines:
+	cd backend && python -m data.ingestion.pdpc_guidelines
 
 # SSO statutes scrape: writes JSONL to vendor-data/sso/statutes.jsonl
 # Usage: make ingest-sso [FORCE=1] [SSO_OUTPUT=path] [SSO_CODE=PDPA2012]
