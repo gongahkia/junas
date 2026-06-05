@@ -9,10 +9,15 @@
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_source": "azure:gpt-5-2-auto",
   "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 420,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 420,000,000'"
-  ],
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 2
+  },
+  "_label_warnings": [],
   "_strict_reconciliation": {
     "basis": "SA Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
     "new_ideal_must_detect_count": 47,

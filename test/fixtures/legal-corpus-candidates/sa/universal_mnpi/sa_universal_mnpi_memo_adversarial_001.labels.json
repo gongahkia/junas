@@ -40,12 +40,15 @@
   "_label_note": "SA Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered Secretariat role-mailbox bait, public/label-only phone bait, CR/VAT/National Address/Iqama numeric fragments, URL CR/NID/Iqama fragments, Hijri Sha-ban date bait, public MOU wording, and training-roster insider-list wording. Generated placeholder/invalid KSA National ID, Iqama, and CR labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
   "_label_source": "azure:gpt-5-2-auto",
   "_label_tier_note": "SA Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. ideal_must_detect is not a locked recall baseline. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 412,500,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 12,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 412,500,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='SAR 12,000,000'"
-  ],
+  "_label_warning_resolution": {
+    "reason": "SA Stage B strict tier was rebuilt from deterministic strict-mode engine findings; raw Azure auto-label warnings no longer describe active must_detect labels. Broader statutory coverage remains in ideal_must_detect for gap review.",
+    "reviewed_at": "2026-06-05T15:16:18Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-sa-us-stage-b-eval-final.json",
+    "status": "superseded_by_strict_reconciliation",
+    "warning_count": 4
+  },
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T12:36:18Z",
     "accepted_by": "gongahkia",
