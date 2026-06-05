@@ -3,12 +3,13 @@
 Each fenced code block is a self-contained prompt you can copy verbatim
 into a fresh Claude Code session that has been spawned inside this
 repository. Every prompt assumes the agent has access to
-`AGENT-RUNBOOK.md` — agents will read that first as part of their
-work.
+`AGENT-RUNBOOK.md` and `GAPS-TO-REMEDY.md` — agents will read those
+first as part of their work.
 
 ## How to use this doc
 
-1. Pick a batch (parallel, runs together) or a solo prompt.
+1. Pick a tier (top to bottom). Items within a tier can run in parallel
+   unless an explicit dependency note says otherwise.
 2. For each prompt, open a new Claude Code session inside this repo
    (or spawn an agent with `isolation: "worktree"`). Paste the prompt
    verbatim.
@@ -18,252 +19,88 @@ work.
    message, then merge to `main` yourself (the user is the merge
    authority; agents do not push to `origin/main`).
 
-**Do not kill the SGLB-08 synthetic gen** running in the background.
-See runbook §8.
+## Posture (2026-06-05 rewrite)
 
-## Critical context the user should know before running any of this
+This file was re-tiered methodology-first on 2026-06-05. The previous
+ordering chased launch numbers; the new ordering closes vendor-grade
+defensibility gaps first. The thesis is **"use us for your evals"** —
+SG legal-tech vendors and LLM teams running SG-LegalBench against
+their own models. That positioning is contingent on the methodology
+surviving scrutiny.
 
-These are honest constraints, not blockers:
+Every gap-closure prompt references its GAP ID in `GAPS-TO-REMEDY.md`.
+Read that file alongside this one.
 
-1. **No frontier baselines exist yet.** The launch story ("frontier
-   models fail PDPA reasoning") cannot be told until #36 runs. Every
-   data-shipping task downstream of this is gated by that.
-2. **SGLB-08 synth cost is unmodeled for reasoning tokens.** The
-   $0.015/example estimate omits reasoning-token cost; actual Azure
-   spend may be 5-10x. Decide before running another 400-case gen.
-3. **SGLB-02 is PDPA-only.** Until `make ingest-sso` runs against AGC
-   for EmA / PC / ROC2021, the leaderboard cell stays at 78 cases.
-   The README2 target was 500.
-4. **Three tasks have no data** (SGLB-05/06/07). Code is shipped; the
-   harness scores them at 1.0 via oracle, but a real model run would
-   show "no dataset" errors. The HN claim "8 tasks shipped" is
-   misleading until the data lands.
-5. **No reference copilot work** since the pivot. Pivot §5 said the
-   copilot demonstrates the benchmark. Currently it's untouched
-   except for backend services. A real legal tech company evaluating
-   this will care about the copilot more than the benchmark — they
-   buy products, not papers.
-6. **License + name decision** (#40) is still open. Affects PR
-   acceptance policy. Decide before launch.
+## Critical context (read before firing anything)
 
-These are not concerns the parallel agents need to solve — they're
-context for prioritisation.
+1. **Methodology fundamentals (Tier 1) precede every public claim.**
+   No baseline, leaderboard, or launch asset is shippable until Tier 1
+   lands. Specific blockers tracked in `GAPS-TO-REMEDY.md` as
+   BLOCKER/HIGH severity.
+2. **SGLB-05/06/07 are removed from the v0.1 leaderboard** until data
+   lands (closed by `NEW-HONEST-LEADERBOARD`). The previous "8 tasks
+   shipped" claim is replaced with "4 eligible tasks (SGLB-01, -02,
+   -04, -08); 3 code-shipped awaiting data; 1 TOS-gated".
+3. **SGLB-08 v0.1 status is conditional on `SOLO-17` κ result.** If
+   any pairwise κ < 0.4, the task is reframed as
+   "Inter-Judge-Alignment" sub-track for v0.1 (`NEW-08-REFRAME-IF-LOW-KAPPA`).
+4. **Launch story is reframed.** Not "frontier models fail SG legal
+   reasoning" (which requires verified baselines we don't yet have).
+   Instead: "first SG legal benchmark with vendor-grade methodology —
+   contamination analysis, bootstrap CIs, published dispute process".
+5. **Anthropic + Gemini baseline gap.** Commits `414bb4b` + `9beb086`
+   claim baselines that don't appear in `runs/baselines/`. Audited and
+   either recovered or rerun via `NEW-VERIFY-BASELINES` + `NEW-BATCH-D`.
+6. **License + name decision** (`SOLO-10`) is promoted to Tier 1.
+   Affects PR acceptance policy + vendor adoption.
+7. **Reference copilot demoted to Tier 5.** Not load-bearing for the
+   benchmark thesis. The copilot demonstrates the benchmark; it does
+   not headline.
 
 ---
 
----
+## Fire order
 
-# Fire order (read this first)
-
-PROMPTS BELOW ARE LISTED IN EXECUTION ORDER. Top to bottom.
-
-The tier markers are ship-discipline, not arbitrary. Items within a
-tier can run in parallel; items in later tiers should wait until
-their tier's dependencies land. Hard-dependency notes are inline on
-each prompt.
-
-| Tier | Why this tier exists | Items |
+| Tier | Why | Items |
 |---|---|---|
-| **Tier 1 — Launch path** | Without these, there is no HN headline + no v0.1 ship | Batch D, SOLO-17, SOLO-9, Batch A, Batch B |
-| **Tier 2 — Post-numbers** | Need Tier-1 outputs to start | SOLO-8, SOLO-18, SOLO-10 |
-| **Tier 3 — Pre-launch polish** | Visible to launch-day visitors | Batch E, Batch C, SOLO-3, SOLO-1, SOLO-2, SOLO-5, SOLO-6, SOLO-4 |
-| **Tier 4 — Post-launch + v0.2** | Ships after launch | Batch G, Batch H, Batch F, SOLO-7, SOLO-11, SOLO-13, SOLO-15, SOLO-12, SOLO-14, SOLO-16, COPILOT-1..4 |
+| **Tier 1 — Methodology fundamentals** | Defensibility floor; gates every public number | `SOLO-17`, `SOLO-18`, `SOLO-10`, `SOLO-9`, `NEW-CI-RECEIPT`, `NEW-CONTAM`, `NEW-SAL-VALIDATION`, `NEW-EXTRACT-VERSION`, `NEW-HONEST-LEADERBOARD`, `NEW-NORM-SPEC`, `NEW-DISPUTE-PROCESS`, `NEW-VERIFY-BASELINES`, `NEW-BATCH-D`, `NEW-08-REFRAME-IF-LOW-KAPPA` (conditional) |
+| **Tier 2 — Data hardening** | Closes empty tasks + scales N | Batch A, Batch B, `NEW-SSO-EXPAND`, `NEW-SGLB-04-PROD` |
+| **Tier 3 — Vendor-facing infra** | Closes "use us for your evals" workflow | `NEW-VENDOR-GUIDE`, `NEW-LIB-PACKAGING`, `NEW-INDEPENDENT-REPRO`, Batch C, `SOLO-1`, `SOLO-2`, `SOLO-3`, `SOLO-4`, `SOLO-5`, `SOLO-6` |
+| **Tier 4 — Launch** | arXiv + launch assets | `SOLO-8`, Batch E |
+| **Tier 5 — Copilot + v0.2** | Post-launch | Batch G, Batch H, Batch F, `SOLO-7`, `SOLO-11`, `SOLO-12`, COPILOT-1..4 |
 
 ## Hard dependencies (do not violate)
 
-- **SOLO-17 before Batch D's SGLB-08 run** — otherwise the receipt
-  records single-judge labels with no κ.
-- **SOLO-9 before Batch G's G3 (SGLB-14)** — G3 needs PDPC Advisory
-  Guidelines data.
-- **SOLO-13 (#45 design) before SOLO-15 (#47 selector impl).**
-- **SOLO-7 (#35 copilot scope) before SOLO-11 (#42 templates).**
+- `NEW-VERIFY-BASELINES` before `NEW-BATCH-D` (audit informs which cells need rerun).
+- `NEW-CI-RECEIPT` before `NEW-BATCH-D` (receipts must emit CIs).
+- `NEW-CONTAM` before `NEW-BATCH-D` (receipts must record memorisation flags).
+- `NEW-EXTRACT-VERSION` before `NEW-BATCH-D` (receipts must include dataset extraction-rule SHA).
+- `SOLO-17` before `NEW-BATCH-D` (SGLB-08 needs κ-aware labels).
+- `SOLO-17` before `NEW-08-REFRAME-IF-LOW-KAPPA` (decision is gated on κ values).
+- `NEW-SAL-VALIDATION` before `NEW-SGLB-04-PROD` (production set assumes validated grammar).
+- `NEW-HONEST-LEADERBOARD` before any leaderboard surface is exposed.
+- `SOLO-9` before Tier 5 Batch G G3 (SGLB-14 needs Guidelines).
+- Batch A A1 → A2 → A3; Batch A A1 → A4.
+- Batch B B1 → B2 → B3; Batch B B1 → B4.
+- Batch A before SGLB-05 baseline runs (data dependency).
+- Batch B before SGLB-07 baseline runs (data dependency).
+- `NEW-SSO-EXPAND` before SGLB-06 baseline runs.
+- `NEW-CI-RECEIPT` + `NEW-CONTAM` + `NEW-NORM-SPEC` + `NEW-DISPUTE-PROCESS` before `NEW-VENDOR-GUIDE` (consolidating doc).
 
 ## Cost gates (read AGENT-RUNBOOK §8)
 
-- **Batch D D1 + Batch H H2/H3** call Azure gpt-5; estimator quotes
-  5-10x low because reasoning-token billing is not modelled. Get
-  explicit user approval before firing.
-- **SOLO-17 + every Anthropic/Gemini-only prompt** is cost-safe
-  (~$0.005/call); these can fire without escalation.
-
----
-## Tier 1 — Launch path
-
-_Fire these first; baselines are the whole launch story._
-
-# Batch D — Baseline Evaluations (#36), 4 parallel agents
-
-**Goal:** run real baselines across SGLB-01/02/04 (and SGLB-08 once
-synth-gen completes + promotes). Produces the headline numbers for
-the launch.
-
-**Hard prerequisite:** the user must approve the per-provider API
-spend. Each agent should default to a `--dry-run` that estimates
-spend BEFORE making any real call.
-
-**Coordination contract:** branch `feat/baselines-v0.1`. All four
-agents commit to the same branch. Receipts emit to
-`runs/baselines/<provider>/<task>/<timestamp>.json`. D4 aggregates
-into the leaderboard.
-
-## D1: OpenAI (Azure) baselines
-
-```text
-You are running issue #36 (baseline evaluations) for the OpenAI
-provider (via Azure OpenAI; the user has Azure credentials but not
-OpenAI direct). Read AGENT-RUNBOOK.md, runbook §8 about the gpt-5
-reasoning-token cost trap, and backend/benchmark/LLM_RUNNER.md.
-
-Your scope: for each shipped task (SGLB-01, SGLB-02, SGLB-04, and
-SGLB-08 ONLY if promoted candidates exist by the time you run),
-register an LLM-backed runner pointing at Azure OpenAI, run the
-harness, write the receipt.
-
-Files you own:
-- backend/benchmark/scripts/run_baselines_azure.py (new — a script,
-  not a test; lives in benchmark/scripts/ for clarity)
-- runs/baselines/azure/* (new — gitignored output)
-
-Files you must NOT touch:
-- D2/D3/D4's scripts (separate filenames per provider)
-- backend/benchmark/llm_runner.py (do not edit; this is consumer
-  code)
-
-Implementation:
-
-1. The script accepts --task, --dry-run, --max-cost-usd args.
-2. Use benchmark.llm_runner.register_llm_task() to wire the runner
-   with full provenance (prompt_version, prompt_sha, provider_label,
-   max_tokens).
-3. Run the harness via benchmark.runner.run(...).
-4. Emit a receipt JSON via benchmark.runner.write_summary().
-5. Estimate cost BEFORE running. For Azure reasoning models (gpt-5),
-   reasoning-token cost is unmodeled. Print a loud warning that
-   actual spend may be 5-10x the estimate. Refuse to run if
-   --max-cost-usd is exceeded by 1.5x the estimate.
-
-Tasks to run, in order:
-1. SGLB-04 first (smallest, 30 cases, cheapest sanity check).
-2. SGLB-01 (211 cases).
-3. SGLB-02 (78 cases).
-4. SGLB-08 (only if reviewed cases exist in
-   backend/benchmark/datasets/sglb_08_clause_tone_reviewed/).
-
-Branch: feat/baselines-v0.1. Commit:
-`feat(baselines): Azure OpenAI baselines across SGLB-01/02/04
-(advances #36)`.
-
-Acceptance: 3+ receipt JSONs under runs/baselines/azure/, each
-containing provenance + per-evaluator means. NO new test failures.
-
-Report back: per-task score, actual Azure invoice (read from
-response usage), any failures (JSON parse errors, rate limits, etc.).
-```
-
-## D2: Anthropic baselines
-
-```text
-Same as D1, but the provider is Anthropic. Use
-api.services.llm_client.AnthropicClient (set llm_provider=anthropic
-+ ANTHROPIC_API_KEY in .env). Default model: claude-sonnet-4-6 (the
-config default is claude-sonnet-4-20250514; use the most recent
-model the user has API access to — check
-backend/api/config.py::Settings for the default and the .env for
-override).
-
-Files you own:
-- backend/benchmark/scripts/run_baselines_anthropic.py (new)
-- runs/baselines/anthropic/* (gitignored)
-
-Coordinate with D1/D3/D4 only on the receipt schema (use the
-existing RunSummary.to_dict shape — don't add fields).
-
-Run the same task order as D1.
-
-Branch: feat/baselines-v0.1 (shared).
-Commit: `feat(baselines): Anthropic baselines across SGLB-01/02/04
-(advances #36)`.
-
-Report back: per-task score + comparison vs D1's Azure numbers if
-both are done by the time you write the report.
-```
-
-## D3: Google (Gemini) baselines
-
-```text
-Same as D1, but the provider is Google Gemini. Use
-api.services.chat_service.GeminiClient (delegate routes through
-get_llm_client when llm_provider=gemini). Model: gemini-2.0-flash
-(the config default).
-
-Files you own:
-- backend/benchmark/scripts/run_baselines_gemini.py (new)
-- runs/baselines/gemini/* (gitignored)
-
-If the user doesn't have a GEMINI_API_KEY set in .env, surface that
-in your --dry-run output and stop. Do not silently skip the run.
-
-Branch: feat/baselines-v0.1 (shared).
-Commit: `feat(baselines): Gemini baselines across SGLB-01/02/04
-(advances #36)`.
-
-Report back: per-task score, Gemini quirks (the API rejects some
-JSON-mode patterns; document any that bite).
-```
-
-## D4: Open-weight baselines + leaderboard aggregation
-
-```text
-You are running open-weight baselines + aggregating results across
-all four provider runs. Read AGENT-RUNBOOK.md and #36.
-
-Open-weight target: Ollama-hosted models (Llama 3 8B or Qwen 3 4B,
-whatever the user has pulled). Check `ollama list` first; do not
-trigger model downloads (large bandwidth + disk).
-
-Files you own:
-- backend/benchmark/scripts/run_baselines_ollama.py (new)
-- backend/benchmark/scripts/build_leaderboard.py (new — reads all
-  receipt JSONs under runs/baselines/*/ and emits a single
-  runs/baselines/leaderboard.json + a markdown table at
-  docs/leaderboard.md)
-- runs/baselines/ollama/* (gitignored)
-- docs/leaderboard.md (committed; the human-readable summary)
-
-WAIT until D1-D3 have at least one receipt each before running the
-leaderboard build (you can run Ollama baselines in parallel).
-
-Leaderboard format:
-
-| Task | Metric | OpenAI (Azure gpt-5) | Anthropic (claude-sonnet-4.6) | Gemini 2.0 | Llama 3 8B |
-|---|---|---|---|---|---|
-| SGLB-01 | obligation F1 | X.XX | X.XX | X.XX | X.XX |
-| SGLB-01 | penalty MAE | X.XX | X.XX | X.XX | X.XX |
-| SGLB-02 | citation match | X.XX | X.XX | X.XX | X.XX |
-| SGLB-02 | ROUGE-L | X.XX | X.XX | X.XX | X.XX |
-| SGLB-04 | label F1 | X.XX | X.XX | X.XX | X.XX |
-
-Include per-task 95% confidence interval (bootstrap n=1000) — this
-is per coverage-matrix §5 ("scores X.XX vs Y.YY on SGLB-NN (95%
-CI)").
-
-Branch: feat/baselines-v0.1 (shared).
-Commit: `feat(baselines): Ollama open-weight + leaderboard
-aggregation (closes #36 first pass)`.
-
-Acceptance: docs/leaderboard.md committed with real numbers; no
-"TBD" rows for any task with a shipped dataset.
-
-Report back: any task where every model scored ≥98% (per
-coverage-matrix §12, this triggers a "task too easy" review). Any
-task where every model scored ≤30% (instructive but suggests
-prompt-builder issues — check the system prompt before concluding
-the task is hard).
-```
+- `NEW-BATCH-D`: Azure gpt-5 reasoning-token billing 5-10x estimator quote. **Explicit user approval before firing each Azure cell.** Anthropic + Gemini + Ollama cells are cost-safe (~$0.005-$2/cell).
+- `NEW-CONTAM` against Azure baselines: doubles LLM calls → could add $10-20 per task. Cost-safe against Anthropic / Gemini / Ollama.
+- Batch H H2/H3 (Tier 5): same Azure gpt-5 cost class as `NEW-BATCH-D`.
+- All Tier 1 doc-only prompts (`NEW-NORM-SPEC`, `NEW-DISPUTE-PROCESS`, `NEW-VERIFY-BASELINES`, `NEW-08-REFRAME-IF-LOW-KAPPA`) are zero-cost.
 
 ---
 
-## SOLO-17: SGLB-08 multi-judge ensemble pass (methodology upgrade)
+# Tier 1 — Methodology fundamentals
+
+_Defensibility floor. Until these land, no public baseline number is shippable. Items within Tier 1 may run in parallel except where hard-dependency notes apply._
+
+## SOLO-17: SGLB-08 multi-judge ensemble pass (closes GAP-07)
 
 ```text
 You are upgrading SGLB-08's labelling methodology from single-judge
@@ -325,7 +162,7 @@ Provider environment: ANTHROPIC_API_KEY + GEMINI_API_KEY must be in
 
 Branch: feat/sglb-08-multi-judge.
 Commit: `feat(sglb-08): multi-judge ensemble + κ for clause-tone
-labels (advances #33)`.
+labels (advances #33; closes GAP-07)`.
 
 Acceptance:
 - judges.jsonl materialised with 400 × 2 vote rows.
@@ -338,11 +175,123 @@ agreement is dangerously low. Note any provider-specific JSON-parse
 failures (those are a quality signal too).
 ```
 
+## SOLO-18: SGLB-08 human-reviewed held-out subset (closes GAP-08)
+
+```text
+You are creating a human-reviewed held-out subset of SGLB-08 per
+coverage-matrix §4.1 ("human-spot-checked held-out subset"). This
+runs in PARALLEL with SOLO-17 (they touch different files).
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-08.md, the existing
+reviewed dataset, CONTRIBUTING.md.
+
+Goal: select 40 cases (10% sample, stratified across all 4 tones ×
+6 clause types) for human review. Produce a checklist artefact the
+user can fill in OFFLINE without touching the dataset YAML
+structure. Once the user returns the checklist, you apply the
+edits.
+
+Files you own:
+- backend/benchmark/datasets/sglb_08_clause_tone_reviewed/human_review_checklist.md
+  (new — a markdown table with 40 rows, the user marks each
+  "agree / disagree / unclear")
+- scripts/select_sglb_08_holdout.py (new — selects the 40 cases
+  deterministically with a seed)
+- docs/sglb_specs/SGLB-08.md (update the "Provisional-approval"
+  section once human checklist is returned; document the 40-case
+  held-out subset and any cases the human reviewer flagged as
+  incorrect)
+
+Files you must NOT touch:
+- The dataset.yaml itself — disputes from the human reviewer get
+  recorded as errata in a separate file (mirror the CONTRIBUTING.md
+  errata pattern).
+
+Selection algorithm:
+- Stratify: every (tone × clause_type) cell that has ≥1 case gets
+  at least 1 in the holdout; remaining slots fill proportionally
+  to cell size. seed=42.
+- Each row in the checklist shows: case_id, tone, clause_type,
+  first ~400 chars of clause_text, the gold label, an empty
+  "human_decision" column, an empty "notes" column.
+
+Branch: feat/sglb-08-human-holdout.
+Commit (initial): `feat(sglb-08): generate 40-case human-review
+checklist (advances #33; closes GAP-08 first half)`.
+Commit (after user returns checklist): `feat(sglb-08): apply human
+holdout decisions; flag disputes (closes GAP-08)`.
+
+Acceptance:
+- 40-row checklist generated, stratified across all cells.
+- Spec doc references the file.
+- A clear "user, please fill this in and report back" surfacing in
+  your final message so the human-in-the-loop step doesn't get lost.
+
+Report back: the stratification table (which cells got how many);
+your hand-off message to the user.
+```
+
+## SOLO-10: Name + license decision (closes GAP-11)
+
+```text
+You are working on issue #40 in the junas repo. Read AGENT-RUNBOOK.md,
+README2.md, the pivot history in git (commit a910403 and earlier),
+CONTRIBUTING.md.
+
+Goal: a 1-page decision record letting the user choose name +
+license in <10 min.
+
+Files you own:
+- docs/decisions/dr-001-name-and-license.md (new)
+
+Decision record sections:
+
+1. **Name candidates** (3 options, pros/cons + discoverability check):
+   - "SG-LegalBench" — clearest, matches LegalBench convention
+   - "SingLegalBench" — more distinct but unwieldy
+   - "LexSG-Eval" — academic-flavoured but loses brand
+   - Any other you researched (Google "sg legal benchmark" to verify
+     none collide)
+
+2. **Code license** (4 options, with real legal-tech precedent):
+   - MIT (LegalBench uses this)
+   - Apache 2.0 (patent grant)
+   - AGPL-3.0 (Mike OSS uses this; discourages closed-source forks)
+   - GPL-3.0
+
+3. **Dataset license** (4 options):
+   - CC-BY-4.0
+   - CC-BY-SA-4.0
+   - CC-BY-NC-4.0
+   - CC0
+
+4. **Your recommendation** with one-sentence rationale.
+
+Constraints:
+- Research brief, NOT legal advice. No author legal opinions.
+- Cite each license URL.
+- Note what real legal-tech projects use each license (Mike OSS,
+  LegalBench, Stanford CRFM benchmarks, OpenLegal, etc.).
+- Surface the AGPL-vs-MIT trade-off explicitly: AGPL protects against
+  closed-source competitor builds but reduces commercial-vendor
+  uptake (some companies refuse AGPL).
+
+Branch: docs/dr-001-name-license.
+Commit: `docs(decision): name + license research brief (advances
+#40; closes GAP-11)`. Co-Authored-By trailer.
+
+Acceptance: 1-page brief in markdown; user can make the call without
+asking follow-ups.
+Report back: your one-sentence recommendation; any surprising
+constraint you found.
+```
+
 ## SOLO-9: PDPC Advisory Guidelines scraper (#60)
 
 ```text
 You are implementing issue #60 in the junas repo: PDPC Advisory
-Guidelines scraper (unblocks SGLB-14 Statutory-Entailment data).
+Guidelines scraper (unblocks SGLB-14 Statutory-Entailment data;
+v0.2 task).
 
 Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-14.md, and
 backend/data/ingestion/pdpc.py (your structural template).
@@ -376,7 +325,615 @@ Report back: PDF text-extraction fidelity; some PDPC PDFs are
 scanned images — flag those.
 ```
 
+## NEW-CI-RECEIPT: Bootstrap CIs in every receipt (closes GAP-02)
+
+```text
+You are implementing GAP-02 closure in the junas repo: bootstrap CIs
+must land in every receipt JSON during the benchmark run, not as a
+post-hoc leaderboard step.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-02,
+backend/benchmark/runner.py, backend/benchmark/scripts/build_leaderboard.py
+(specifically `_bootstrap()` at lines 125-142), backend/benchmark/llm_runner.py.
+
+Goal: every receipt persisted by `benchmark.cli run --output ...`
+includes per-evaluator `ci_low`, `ci_high`, and `n_bootstrap` fields
+alongside the existing `per_evaluator_mean`. Move `_bootstrap()` to
+a shared helper so the leaderboard builder and the runner share one
+implementation.
+
+Files you own:
+- backend/benchmark/stats.py (NEW — extract `_bootstrap()` as
+  `bootstrap_ci(values, *, seed, n=1000)` returning a dataclass with
+  mean, ci_low, ci_high, n_bootstrap)
+- backend/benchmark/runner.py (modify `RunSummary` and assembly path
+  to call bootstrap_ci() per evaluator; persist into receipt)
+- backend/benchmark/scripts/build_leaderboard.py (replace local
+  `_bootstrap()` with import from `benchmark.stats`; behaviour-
+  preserving)
+- backend/benchmark/receipt_schema.md (NEW or updated — document the
+  CI fields + n_bootstrap + seed)
+- backend/tests/test_stats.py (NEW)
+- backend/tests/test_runner_ci.py (NEW — receipt JSON contains
+  ci_low + ci_high per evaluator after a mock run; seed determinism)
+
+Files you must NOT touch:
+- backend/benchmark/llm_runner.py prompt builders (out of scope)
+- Any dataset YAML
+
+Acceptance:
+- pytest -x -q backend/tests/test_stats.py backend/tests/test_runner_ci.py
+  passes.
+- An existing receipt regenerated under the new code contains
+  ci_low + ci_high + n_bootstrap per evaluator.
+- Leaderboard builder produces identical CI values (refactor is
+  behaviour-preserving).
+
+Branch: feat/ci-in-receipts.
+Commit: `feat(benchmark): bootstrap CIs in every receipt (closes
+GAP-02)`. Co-Authored-By trailer.
+
+Report back: receipt JSON schema diff before/after; any consumers
+of receipts that need a schema migration.
+```
+
+## NEW-CONTAM: Contamination probe per (task, model) (closes GAP-01)
+
+```text
+You are implementing GAP-01 closure in the junas repo: contamination
+probe per (task, model) so vendors can see which baselines memorised
+labels vs. reasoned from facts.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-01,
+docs/coverage-matrix.md §4.3, backend/benchmark/llm_runner.py.
+
+Goal: a separate probe pass per labelled case that asks the model
+to recall the labelled property verbatim WITHOUT giving it the input.
+Per-case `memorisation_flag` recorded; per-task contamination
+summary (mean memorisation rate, contamination-adjusted score)
+emitted on the receipt.
+
+Files you own:
+- backend/benchmark/contamination.py (NEW — probe runner; per-task
+  probe-prompt builder; flag scorer)
+- backend/benchmark/runner.py (extend `RunSummary` with
+  contamination_summary; gate behind `--contamination-probe` flag
+  default-off)
+- backend/benchmark/cli.py (add `--contamination-probe` flag)
+- backend/tests/test_contamination.py (NEW)
+- docs/methodology/contamination.md (NEW — vendor-facing doc
+  explaining the probe + interpretation)
+
+Files you must NOT touch:
+- Existing prompt builders in backend/benchmark/llm_runner.py — the
+  probe prompts are NEW + task-specific, defined in contamination.py.
+
+Probe design per task:
+- SGLB-01: "What was the outcome (obligation breached + penalty
+  band) of PDPC case <case_name>?" — match against gold; flag
+  per-case memorisation_score ∈ [0,1].
+- SGLB-02: "What is the text of <statute> section <N>?" — match
+  against gold answer fragment; flag accordingly.
+- SGLB-04: skip — the citation grammar is deterministic; memorisation
+  isn't the relevant question.
+- SGLB-08: "What is the tone label of clause <clause_id>?" —
+  memorisation here means the model has seen the synthetic dataset;
+  flag accordingly.
+
+Per-task summary fields persisted in receipt:
+- mean_memorisation_rate: float in [0,1]
+- contamination_adjusted_score: per-evaluator mean computed only on
+  cases with memorisation_score < 0.5
+
+Acceptance:
+- `python -m benchmark.cli run --workflow sglb_01 --dataset ...
+  --evaluator sglb_01_obligations_f1 --contamination-probe --output
+  receipt.json` produces a receipt with contamination_summary +
+  per-case memorisation_score.
+- The probe adds <2x runtime over the base run.
+- pytest passes.
+
+Cost gate: the probe doubles LLM calls. For SGLB-01 (N=211) at
+Anthropic pricing this is ~$1; at Azure gpt-5 with reasoning tokens
+this could be $10-20. Get explicit approval before firing the probe
+against Azure baselines.
+
+Branch: feat/contamination-probe.
+Commit: `feat(benchmark): contamination probe per task+model (closes
+GAP-01)`.
+
+Report back: which models showed the highest memorisation rate per
+task; any task where the probe formulation feels insufficient.
+```
+
+## NEW-SAL-VALIDATION: SAL grammar tested against published examples (closes GAP-05)
+
+```text
+You are implementing GAP-05 closure: SAL citation grammar must be
+validated against the SAL Style Guide's own published examples.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-05,
+backend/api/services/sal_citation.py (the grammar implementation),
+backend/tests/test_sal_citation.py (current tests, all synthetic).
+
+Goal: extract every worked citation example from
+SAL_Style_Guide_Quick_Reference_2007_Ed.pdf and
+SLR_Style_Guide_2021.pdf (locate under asset/, docs/references/, or
+similar — search first; flag if missing). Add a test that asserts
+each published example is parsed + validated correctly by the
+grammar. Any test failure is a grammar bug to fix before SGLB-04
+can be defended publicly.
+
+Files you own:
+- backend/tests/test_sal_citation_published_examples.py (NEW)
+- backend/tests/fixtures/sal_style_guide/examples.yaml (NEW — one
+  row per extracted example: example_text, expected_kind,
+  expected_components, source_section_in_guide)
+- backend/api/services/sal_citation.py (only if a published-example
+  test reveals a grammar bug; fix and document the bug in the
+  commit)
+
+Files you must NOT touch:
+- The PDF files themselves.
+- Existing tests in test_sal_citation.py (preserve as-is; this file
+  is additive).
+
+Process:
+1. Locate the two PDFs in the repo. If not present, escalate to the
+   user — do NOT fabricate examples.
+2. Extract every worked example by section. Cite the page + section
+   in the YAML.
+3. Each example: classify the kind (neutral citation, SLR(R),
+   statute Cap., etc.) and the expected validation result.
+4. Run the test suite. Any failure → either a grammar bug (fix the
+   grammar) or an extraction error (fix the YAML row, document why).
+
+Acceptance:
+- test_sal_citation_published_examples.py: all examples parse +
+  validate correctly.
+- At least 30 examples extracted from each guide.
+- If the grammar required fixing, the fix is described in the
+  commit message.
+
+Branch: feat/sal-grammar-published-examples.
+Commit: `test(sal): validate grammar against SAL Style Guide
+published examples (closes GAP-05)`.
+
+Report back: total examples extracted; any grammar bug found + fix
+applied; any example the published guide flagged as edge-case where
+v0.2 grammar work is warranted.
+```
+
+## NEW-EXTRACT-VERSION: Extraction-rule SHA in dataset metadata (closes GAP-06)
+
+```text
+You are implementing GAP-06 closure: extraction-rule SHA pinned in
+every dataset row + dataset YAML header.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-06,
+backend/data/ingestion/pdpc.py (lines 47-178 — taxonomy +
+extraction + emit), backend/data/ingestion/sso.py.
+
+Goal: every dataset row carries an `extraction_rule_sha` field
+(git rev of the ingestion module file at build time); every dataset
+YAML header carries an `extraction_rules` map enumerating the SHAs
+per module touched during build. A CI validator confirms presence.
+
+Files you own:
+- backend/data/ingestion/_provenance.py (NEW — helper that returns
+  the current git SHA of a given module file via `git log -n 1
+  --pretty=%H -- <path>`)
+- backend/data/ingestion/pdpc.py (modify emit path to include
+  extraction_rule_sha per row + write top-level extraction_rules map)
+- backend/data/ingestion/sso.py (same)
+- backend/data/ingestion/mom.py (if landed via Batch A; same)
+- backend/data/ingestion/commonlii_sg.py (if landed via Batch B; same)
+- backend/benchmark/dataset_builders/sglb_*.py (each builder writes
+  extraction_rules to the dataset YAML header)
+- .github/workflows/ci.yml (add a validator step that fails if any
+  dataset row lacks extraction_rule_sha)
+- backend/benchmark/dataset_validator.py (NEW — CI check)
+- backend/tests/test_provenance.py
+- backend/tests/test_dataset_validator.py
+- README2.md §Reproducibility (update to describe the new fields)
+
+Files you must NOT touch:
+- Live dataset YAMLs (regenerate via build, do not hand-edit).
+
+Schema additions:
+- Per row: `extraction_rule_sha: "<7-char git short SHA>"`
+- Top of YAML: `extraction_rules: { pdpc: <sha>, sso: <sha>, ... }`
+
+Acceptance:
+- Every freshly-built dataset has the new fields.
+- CI fails if a row is missing the field.
+- pytest passes.
+
+Branch: feat/extraction-rule-sha.
+Commit: `feat(data): pin extraction-rule SHA in dataset metadata
+(closes GAP-06)`.
+
+Report back: any dataset that couldn't be rebuilt cleanly + why.
+```
+
+## NEW-HONEST-LEADERBOARD: Drop empty tasks from v0.1 leaderboard (closes GAP-04)
+
+```text
+You are implementing GAP-04 closure: SGLB-05/06/07 must not appear
+on the v0.1 leaderboard with oracle-1.0 scores. Mirror the
+`benchmark_eligible = False` pattern used by ElitigationAdapter at
+backend/api/adapters/public/elitigation.py:36.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-04,
+backend/api/adapters/public/elitigation.py:36,
+backend/benchmark/scripts/build_leaderboard.py, README2.md task table.
+
+Goal:
+- Each of SGLB-05/06/07 carries `benchmark_eligible = False` on its
+  task registration until the data lands.
+- The leaderboard builder skips ineligible tasks.
+- README2.md task table shows the three tasks with status
+  "code-shipped, awaiting data" and a footnote per task linking to
+  the data dependency (Batch A for SGLB-05, NEW-SSO-EXPAND for
+  SGLB-06, Batch B for SGLB-07).
+- When the data lands (downstream prompts), flipping the flag back
+  to True is a one-line change.
+
+Files you own:
+- backend/benchmark/tasks/sglb_05.py
+- backend/benchmark/tasks/sglb_06.py
+- backend/benchmark/tasks/sglb_07.py
+- backend/benchmark/registry.py (add `benchmark_eligible` to the
+  Task registration; default True)
+- backend/benchmark/scripts/build_leaderboard.py (filter by
+  benchmark_eligible)
+- backend/api/routers/benchmarks.py (leaderboard API endpoint also
+  filters)
+- README2.md (update §Tasks table)
+- backend/tests/test_registry.py
+- backend/tests/test_leaderboard_eligibility.py (NEW)
+
+Files you must NOT touch:
+- The dataset_builders/* for these tasks; the builders are correct,
+  they just have no data to read.
+
+Acceptance:
+- The published leaderboard shows only SGLB-01, SGLB-02, SGLB-04,
+  SGLB-08 (the v0.1 eligible set).
+- README2 task table includes all 8 tasks with eligibility status.
+- Tests pass.
+
+Branch: feat/honest-leaderboard.
+Commit: `feat(benchmark): mark SGLB-05/06/07 ineligible until data
+lands (closes GAP-04)`.
+
+Report back: the README2 table you produced; the eligibility filter
+predicate; any place the harness silently swallowed an oracle 1.0
+score that the user should know about.
+```
+
+## NEW-NORM-SPEC: Citation/statute normalisation spec (closes GAP-09)
+
+```text
+You are implementing GAP-09 closure: a published normalisation spec
+covering citation + statute canonical forms.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-09,
+backend/benchmark/evaluators.py:520-536 (current section normaliser),
+backend/api/services/sal_citation.py (case citation parsing).
+
+Goal: a vendor-facing document at docs/normalisation-spec.md that
+describes (a) what gets normalised, (b) the canonical form, (c) the
+test corpus that proves the implementation matches the spec.
+
+Files you own:
+- docs/normalisation-spec.md (NEW)
+- backend/tests/fixtures/normalisation/corpus.yaml (NEW — labelled
+  pairs: raw_form → canonical_form per kind)
+- backend/tests/test_normalisation_spec.py (NEW — loads the corpus,
+  runs each normaliser, asserts canonical match)
+
+Files you must NOT touch:
+- The normaliser implementations themselves, unless the test
+  reveals a divergence (then fix the divergence and document in
+  the commit).
+
+Spec must cover:
+1. Section citation: input forms accepted (`s 13`, `section 13`,
+   `s. 13`, `Sec. 13 of the PDPA`, `Section 13 of the Personal Data
+   Protection Act 2012`); canonical form (`s 13 of the personal data
+   protection act 2012`); rationale.
+2. Statute short name: PDPA, EmA, PC, ROC2021; long-form mapping;
+   precedence rules.
+3. Case neutral citation: `[YYYY] SGCA NNN` format; allowed court
+   codes; year range.
+4. SLR / SLR(R) citation: format spec + edge cases.
+
+Each kind: list ≥10 canonical pairs in the test corpus, ≥3 negative
+cases (inputs that should not normalise).
+
+Acceptance:
+- The spec doc is readable by a vendor in <10 min.
+- Tests pass.
+- Anyone can submit a corpus addition via PR.
+
+Branch: docs/normalisation-spec.
+Commit: `docs(normalisation): publish canonical-form spec + test
+corpus (closes GAP-09)`.
+
+Report back: any normaliser behaviour the spec couldn't describe
+cleanly (those are bug-or-spec-gap candidates).
+```
+
+## NEW-DISPUTE-PROCESS: Published dispute/errata process (closes GAP-10)
+
+```text
+You are implementing GAP-10 closure: a published dispute/errata
+process so vendors and labelled-case subjects have a path to file
+disputes.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-10, CONTRIBUTING.md
+(any existing errata mention).
+
+Goal: a vendor-facing dispute process operationalised via GitHub.
+
+Files you own:
+- docs/dispute-process.md (NEW — vendor-facing; what to file, where,
+  what happens next, SLA, corrigenda cadence)
+- .github/ISSUE_TEMPLATE/label_dispute.yml (NEW — structured
+  template: which case, which label, evidence, suggested correction)
+- .github/ISSUE_TEMPLATE/methodology_concern.yml (NEW — separate
+  from label disputes; for systematic concerns)
+- CONTRIBUTING.md (link to docs/dispute-process.md from the existing
+  errata mention; do not duplicate content)
+- docs/versioning.md (NEW — dataset patch-version policy: every
+  accepted dispute bumps patch; minor versions for taxonomy changes;
+  major for methodology pivots)
+
+Files you must NOT touch:
+- Any dataset YAML (this prompt establishes the process; first
+  disputes are handled in follow-up PRs).
+
+Spec must cover:
+1. Triage SLA: 14 days from filing to triage label
+   (accepted/rejected/needs-evidence).
+2. Resolution cadence: corrigenda land at next minor release (every
+   ~4-8 weeks).
+3. Versioning: dataset patch version (sglb-01-v0.1.1) for accepted
+   disputes; minor version (sglb-01-v0.2) for taxonomy changes;
+   major (sglb-01-v1.0) for methodology pivots.
+4. Public errata log: link to data/sglb_NN/errata.md per task.
+5. Reviewer disclosure: if a maintainer was involved in labelling
+   the disputed case, they recuse from triage.
+
+Acceptance:
+- A vendor can find the dispute process in <2 clicks from the README.
+- A GitHub issue filed via the template includes all required
+  evidence fields.
+- The versioning spec is unambiguous about which version-bump
+  applies to which kind of change.
+
+Branch: docs/dispute-process.
+Commit: `docs(process): publish dispute + versioning process (closes
+GAP-10)`.
+
+Report back: any class of dispute the process doesn't cover; whether
+a public corrigenda mailing list is worth setting up for vendors who
+want push notifications.
+```
+
+## NEW-VERIFY-BASELINES: Audit Anthropic+Gemini baseline gap (closes GAP-03 audit half)
+
+```text
+You are implementing GAP-03 closure: audit the gap between commit
+messages claiming Anthropic + Gemini baselines and the actual
+contents of runs/baselines/.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-03.
+
+Goal: investigate commits 414bb4b ("Gemini baselines across
+SGLB-01/02/04") and 9beb086 (or the latest Anthropic baselines
+commit). Locate the receipt JSON files if they exist (in a feature
+branch, deleted accidentally, stored elsewhere). If unrecoverable,
+explicitly document the gap and queue the rerun under NEW-BATCH-D.
+
+Files you own:
+- runs/baselines/PROVENANCE.md (NEW — documents what was claimed,
+  what's on disk, what's recoverable, what needs rerunning)
+- runs/baselines/<provider>/<task>/<timestamp>.json (only if
+  recovering committed-but-missing receipts; do not fabricate)
+
+Files you must NOT touch:
+- Any existing receipt JSON.
+- Any code (this is an audit, not a code change).
+
+Process:
+1. `git show 414bb4b --stat` — see what the commit actually added.
+2. If the commit added receipt JSONs but they're missing from main:
+   `git show 414bb4b:runs/baselines/...` to recover. Do not force a
+   recovery if uncertain; document and escalate.
+3. Same for the Anthropic baseline commit.
+4. If receipts ARE on disk under a different path: locate them,
+   document the path in PROVENANCE.md.
+5. If receipts are NOT recoverable: explicitly note "rerun required;
+   see NEW-BATCH-D".
+
+Acceptance:
+- runs/baselines/PROVENANCE.md exists and is honest. For each
+  (provider × task) combination claimed by commit history, the doc
+  states one of: { receipt-present-here, receipt-missing-rerun-via-
+  BATCH-D }.
+- No fabricated receipts.
+
+Branch: docs/baseline-provenance-audit.
+Commit: `docs(baselines): audit provenance gap (closes GAP-03 audit
+half)`.
+
+Report back: what was claimed; what's recoverable; what needs
+rerunning. This output feeds directly into NEW-BATCH-D's task list.
+```
+
+## NEW-BATCH-D: Full frontier baseline run with new receipt format (closes GAP-03 + GAP-16)
+
+```text
+You are launching NEW-BATCH-D, the full frontier model baseline run
+across SG-LegalBench v0.1 eligible tasks. This REPLACES the stubbed
+"Batch D" from the pre-rewrite plan.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md (especially §GAP-01, §GAP-02,
+§GAP-03, §GAP-06 — all closures must be reflected in the receipts),
+docs/coverage-matrix.md §4.4, backend/benchmark/cli.py, AGENT-RUNBOOK.md
+§8 (cost gates).
+
+NEW-BATCH-D is a coordinator prompt; it spawns one agent per
+(provider × task) cell. Total cells: 4 providers × 4 v0.1-eligible
+tasks = 16 agents at maximum. Some cells are cost-gated.
+
+Eligible v0.1 tasks: SGLB-01, SGLB-02, SGLB-04, SGLB-08.
+SGLB-05/06/07 remain `benchmark_eligible=False` until data lands
+(per NEW-HONEST-LEADERBOARD).
+
+Providers + cost class:
+- anthropic (claude-opus-4-7 + claude-sonnet-4-6 + claude-haiku-4-5)
+  — cost-safe per task
+- google (gemini-2.0-flash + gemini-2.0-pro) — cost-safe
+- openai (gpt-5 via Azure) — cost-gated; ~$2-50 per task depending
+  on reasoning tokens
+- ollama (qwen2.5vl:7b for local-baseline floor) — cost-safe
+
+Pre-requisites (must land first):
+- NEW-CI-RECEIPT — every receipt must include CI fields.
+- NEW-CONTAM — every Batch D run uses --contamination-probe;
+  receipts must include contamination_summary.
+- NEW-EXTRACT-VERSION — receipts must include extraction_rule_sha.
+- NEW-VERIFY-BASELINES — must complete first so this prompt knows
+  which cells need rerunning vs which already have receipts.
+- SOLO-17 — SGLB-08 receipts must record the κ-aware label set.
+
+Coordination:
+- One agent per (provider × task) cell.
+- Each agent works in its own worktree (per AGENT-RUNBOOK §7).
+- Branch naming: feat/batch-d-<provider>-<task> (e.g.,
+  feat/batch-d-anthropic-sglb-01).
+- Each agent commits its receipt JSON + a one-line entry in
+  runs/baselines/INDEX.md.
+- The coordinator (this prompt) tracks progress via INDEX.md.
+
+Per-cell agent contract (the prompt to fire per cell):
+"""
+You are running baseline (provider=<P>, task=<T>) for NEW-BATCH-D.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-01/02/06, the
+per-task spec at docs/sglb_specs/<T>.md, and the receipt schema at
+backend/benchmark/receipt_schema.md.
+
+Cost gate (per AGENT-RUNBOOK §8): if provider is azure-gpt5, STOP
+and request explicit user approval before firing. Estimated cost
+for this cell: $<X> (anthropic ~$1, gemini ~$0.40, azure ~$10-50,
+ollama $0).
+
+Run:
+  python -m benchmark.cli run --workflow <task> --dataset \
+    backend/benchmark/datasets/<task>.yaml --evaluator <eval> \
+    --strict --contamination-probe \
+    --output runs/baselines/<P>/<T>/$(date +%Y%m%dT%H%M%SZ).json
+
+Verify the receipt includes:
+- per_evaluator_mean
+- ci_low, ci_high, n_bootstrap per evaluator (GAP-02)
+- contamination_summary with mean_memorisation_rate +
+  contamination_adjusted_score (GAP-01)
+- extraction_rule_sha (GAP-06)
+- prompt_sha + prompt_version (existing)
+
+Append a one-line entry to runs/baselines/INDEX.md.
+
+Branch: feat/batch-d-<provider>-<task>.
+Commit: `feat(baselines): <provider> baseline for <task> (advances
+NEW-BATCH-D)`.
+
+Report back: per_evaluator_mean + ci range + contamination rate.
+"""
+
+Coordinator (this prompt) responsibilities:
+1. Confirm pre-requisites have all landed.
+2. Decide which cells need running (per NEW-VERIFY-BASELINES audit).
+3. Fire cost-safe cells in parallel.
+4. Request explicit user approval before firing Azure cells.
+5. After all cells complete, run the leaderboard build:
+   `python -m benchmark.scripts.build_leaderboard --out
+   runs/leaderboard.csv`.
+6. Update README2.md with the new leaderboard reference.
+
+Acceptance:
+- All eligible cells have receipts on disk.
+- runs/baselines/INDEX.md is complete.
+- Leaderboard reflects the new runs.
+
+Report back: the leaderboard summary; any cell that failed or
+produced an anomalous result; total spend.
+```
+
+## NEW-08-REFRAME-IF-LOW-KAPPA (conditional, gated on SOLO-17)
+
+```text
+You are implementing the conditional fallback for SGLB-08 if
+SOLO-17's κ computation produces any judge-pair with κ < 0.4 (per
+docs/coverage-matrix.md §4.1 + §8). This prompt is GATED on
+SOLO-17 completing.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-07,
+docs/coverage-matrix.md §4.1 + §8, docs/sglb_specs/SGLB-08.md,
+the κ summary produced by SOLO-17.
+
+Decision:
+- If ALL pairwise κ ≥ 0.4 AND Fleiss' κ ≥ 0.4: this prompt is a
+  no-op. Document the κ values in the spec doc; close the prompt.
+- If ANY pair < 0.4: reframe SGLB-08 in v0.1 as
+  "Inter-Judge-Alignment" sub-track (the metric measures judge
+  agreement, not ground truth on tone). This is the honest framing
+  under low κ.
+
+If reframing:
+
+Files you own:
+- docs/sglb_specs/SGLB-08.md (rename task framing throughout; update
+  title from "Clause-Tone" to "Inter-Judge-Tone-Alignment"; rewrite
+  the §"What this measures" section to be explicit about the metric)
+- README2.md (update the §Tasks table for SGLB-08; note the reframing)
+- backend/benchmark/tasks/sglb_08.py (only docstrings; the metric
+  itself is unchanged — F1 of model prediction against the
+  ensemble-majority label)
+- docs/preprint/sglb-preprint.md (if SOLO-8 has landed, update §3)
+
+Files you must NOT touch:
+- The dataset itself; the labels are unchanged.
+- The evaluators; the F1 computation is unchanged.
+
+The reframing language (use exactly):
+"SGLB-08 measures alignment between a tested model's tone
+classification and the majority label across a 3-judge ensemble
+(Anthropic + Gemini + Azure gpt-5). It is NOT a measure of
+ground-truth tone correctness; LLM-judges may share systematic
+biases. Inter-judge Cohen's κ across all pairs is published with
+every leaderboard row."
+
+Branch: docs/sglb-08-reframe.
+Commit: `docs(sglb-08): reframe as Inter-Judge-Alignment under low κ
+(closes GAP-07 conditional half)`.
+
+Acceptance: framing is consistent across spec + README + preprint;
+no claim of ground-truth tone correctness remains.
+
+Report back: the κ values that triggered the reframe; whether v0.2
+should retire the task per coverage-matrix §8.
+```
+
 ---
+
+# Tier 2 — Data hardening
+
+_Closes empty tasks (SGLB-05/06/07) + scales N where possible. Gated on Tier 1 closure._
 
 # Batch A — MOM Scraper (#59), 4 parallel agents
 
@@ -605,8 +1162,6 @@ adapter's extra_schema (this is the kind of drift that causes future
 bugs).
 ```
 
----
-
 # Batch B — CommonLII SG Case Ingester (#34), 4 parallel agents
 
 **Goal:** unblock SGLB-07 Jurisdiction-Routing with real data.
@@ -829,362 +1384,293 @@ Report back: any contract divergence vs the JSONL schema agents
 produced.
 ```
 
----
-
-## Tier 2 — Post-numbers
-
-_Need Tier-1 results to fill placeholders / make decisions._
-
-## SOLO-8: arXiv preprint outline (#37)
+## NEW-SSO-EXPAND: SSO ingest beyond PDPA (closes GAP-04 partial)
 
 ```text
-You are starting issue #37 in the junas repo: SG-LegalBench preprint
-draft. Read AGENT-RUNBOOK.md, docs/coverage-matrix.md, and all of
-docs/sglb_specs/SGLB-NN.md.
+You are expanding SSO ingestion beyond PDPA to unblock SGLB-02
+scaling + SGLB-06 data.
 
-Scope: produce the preprint outline + draft §§1-3 (Introduction,
-Methodology, Tasks). Leave §§4-5 (Results, Limitations) as
-TODO-blocks gated on baselines (#36).
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-04 + §GAP-13,
+backend/data/ingestion/sso.py, docs/sglb_specs/SGLB-02.md +
+docs/sglb_specs/SGLB-06.md, Makefile (existing `ingest-sso` target).
 
-Files you own:
-- docs/preprint/sglb-preprint.tex (new; LaTeX, NLLP/EMNLP-friendly
-  template) OR docs/preprint/sglb-preprint.md (markdown if LaTeX is
-  too heavyweight for v0 — the user can convert later)
-- docs/preprint/figures/ (gitignored placeholders)
-
-Constraints (READ CAREFULLY):
-- The methodology section MUST lead with: "We make no legal
-  interpretive claims. We mechanically reformulate published
-  regulator and court outputs as evaluation tasks." This is
-  load-bearing for the doc's defensibility (pivot §11).
-- No "beats GPT-X" framing anywhere (coverage-matrix §5).
-- Each task gets its own subsection in §3, citing source +
-  extraction rule + scoring + limitations from the spec doc.
-- Related work: cite LegalBench, LexGLUE, LawBench, SARA, CUAD,
-  IFEval, FActScore, HaluEval per coverage-matrix §9.
-
-Target venue: NLLP workshop @ EMNLP 2026 (deadlines typically
-July-August 2026).
-
-Branch: docs/preprint-outline.
-Commit: `docs(#37): SG-LegalBench preprint outline + §§1-3 draft`.
-
-Acceptance: a reviewer reading the draft can answer "what does this
-benchmark test, on what data, how is it scored, and what's
-explicitly NOT tested" without asking.
-
-Report back: which sections you couldn't draft yet (it should be
-just §§4-5), any prior-work claims you'd like a second pair of eyes
-on, any spec-doc inconsistencies you noticed while writing.
-```
-
-## SOLO-18: SGLB-08 human-reviewed held-out subset
-
-```text
-You are creating a human-reviewed held-out subset of SGLB-08 per
-coverage-matrix §4.1 ("human-spot-checked held-out subset"). This
-runs in PARALLEL with SOLO-17 (they touch different files).
-
-Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-08.md, the existing
-reviewed dataset, CONTRIBUTING.md.
-
-Goal: select 40 cases (10% sample, stratified across all 4 tones ×
-6 clause types) for human review. Produce a checklist artefact the
-user can fill in OFFLINE without touching the dataset YAML
-structure. Once the user returns the checklist, you apply the
-edits.
+Goal: run SSO ingestion for EmA1968, ROC2021, and PC1871. Produce
+JSONL output that the existing builders can consume.
 
 Files you own:
-- backend/benchmark/datasets/sglb_08_clause_tone_reviewed/human_review_checklist.md
-  (new — a markdown table with 40 rows, the user marks each
-  "agree / disagree / unclear")
-- scripts/select_sglb_08_holdout.py (new — selects the 40 cases
-  deterministically with a seed)
-- docs/sglb_specs/SGLB-08.md (update the "Provisional-approval"
-  section once human checklist is returned; document the 40-case
-  held-out subset and any cases the human reviewer flagged as
-  incorrect)
+- vendor-data/sso/EmA1968.jsonl (output)
+- vendor-data/sso/ROC2021.jsonl (output)
+- vendor-data/sso/PC1871.jsonl (output)
+- backend/benchmark/datasets/sglb_02_statute_qa_full.yaml (NEW —
+  full 500-target dataset; preserve sglb_02_statute_qa.yaml as the
+  PDPA-only smoke for backward compat)
+- backend/benchmark/datasets/sglb_06_roc_2021.yaml (NEW)
+- docs/sglb_specs/SGLB-02.md (bump version + N once landed)
+- docs/sglb_specs/SGLB-06.md (bump from code-shipped to
+  0.1-shipped once landed)
 
 Files you must NOT touch:
-- The dataset.yaml itself — disputes from the human reviewer get
-  recorded as errata in a separate file (mirror the CONTRIBUTING.md
-  errata pattern).
+- backend/data/ingestion/sso.py (use as-is; if it has a bug, fix
+  separately)
 
-Selection algorithm:
-- Stratify: every (tone × clause_type) cell that has ≥1 case gets
-  at least 1 in the holdout; remaining slots fill proportionally
-  to cell size. seed=42.
-- Each row in the checklist shows: case_id, tone, clause_type,
-  first ~400 chars of clause_text, the gold label, an empty
-  "human_decision" column, an empty "notes" column.
-
-Branch: feat/sglb-08-human-holdout.
-Commit (initial): `feat(sglb-08): generate 40-case human-review
-checklist (advances #33)`.
-Commit (after user returns checklist): `feat(sglb-08): apply human
-holdout decisions; flag disputes`.
+Process:
+1. `make ingest-sso SSO_CODE=EmA1968` (cost: network only)
+2. `make ingest-sso SSO_CODE=ROC2021`
+3. `make ingest-sso SSO_CODE=PC1871`
+4. Run the SGLB-02 builder against the combined JSONL.
+5. Run the SGLB-06 builder against ROC2021.
+6. Verify case counts approximately match the targets (SGLB-02: 500;
+   SGLB-06: ~150).
+7. Flip `benchmark_eligible=True` on SGLB-06 (per
+   NEW-HONEST-LEADERBOARD's pattern).
 
 Acceptance:
-- 40-row checklist generated, stratified across all cells.
-- Spec doc references the file.
-- A clear "user, please fill this in and report back" surfacing in
-  your final message so the human-in-the-loop step doesn't get lost.
+- Three JSONL outputs land.
+- SGLB-02 dataset YAML is ~500 cases.
+- SGLB-06 dataset YAML is ~150 cases and is benchmark-eligible.
+- Existing PDPA-only SGLB-02 smoke remains unchanged for backward
+  compat.
 
-Report back: the stratification table (which cells got how many);
-your hand-off message to the user.
+Branch: feat/sso-expand-non-pdpa.
+Commit: `feat(sso): ingest EmA/ROC2021/PC1871 + expand SGLB-02 to
+500 + enable SGLB-06 (closes GAP-04 partial)`.
+
+Report back: actual case counts per source; any section the parser
+struggled with; total network requests + duration.
 ```
 
-## SOLO-10: #40 Final benchmark name + license research brief
+## NEW-SGLB-04-PROD: SGLB-04 production set (closes #32 + GAP-13)
 
 ```text
-You are working on issue #40 in the junas repo. Read AGENT-RUNBOOK.md,
-README2.md, the pivot history in git (commit a910403 and earlier),
-CONTRIBUTING.md.
+You are expanding SGLB-04 from the 30-case smoke dataset to the
+1000+ case production set (per the spec doc + issue #32).
 
-Goal: a 1-page decision record letting the user choose name +
-license in <10 min.
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-13,
+docs/sglb_specs/SGLB-04.md, backend/benchmark/dataset_builders/
+sglb_04.py, backend/api/services/sal_citation.py (the grammar).
 
-Files you own:
-- docs/decisions/dr-001-name-and-license.md (new)
+Prerequisite: NEW-SAL-VALIDATION must land first. The production
+set is only credible if the grammar has been validated against the
+SAL Style Guide's published examples.
 
-Decision record sections:
-
-1. **Name candidates** (3 options, pros/cons + discoverability check):
-   - "SG-LegalBench" — clearest, matches LegalBench convention
-   - "SingLegalBench" — more distinct but unwieldy
-   - "LexSG-Eval" — academic-flavoured but loses brand
-   - Any other you researched (Google "sg legal benchmark" to verify
-     none collide)
-
-2. **Code license** (4 options, with real legal-tech precedent):
-   - MIT (LegalBench uses this)
-   - Apache 2.0 (patent grant)
-   - AGPL-3.0 (Mike OSS uses this; discourages closed-source forks)
-   - GPL-3.0
-
-3. **Dataset license** (4 options):
-   - CC-BY-4.0
-   - CC-BY-SA-4.0
-   - CC-BY-NC-4.0
-   - CC0
-
-4. **Your recommendation** with one-sentence rationale.
-
-Constraints:
-- Research brief, NOT legal advice. No author legal opinions.
-- Cite each license URL.
-- Note what real legal-tech projects use each license (Mike OSS,
-  LegalBench, Stanford CRFM benchmarks, OpenLegal, etc.).
-- Surface the AGPL-vs-MIT trade-off explicitly: AGPL protects against
-  closed-source competitor builds but reduces commercial-vendor
-  uptake (some companies refuse AGPL).
-
-Branch: docs/dr-001-name-license.
-Commit: `docs(decision): name + license research brief (advances
-#40)`. Co-Authored-By trailer.
-
-Acceptance: 1-page brief in markdown; user can make the call without
-asking follow-ups.
-Report back: your one-sentence recommendation; any surprising
-constraint you found.
-```
-
-## Tier 3 — Pre-launch polish
-
-_Visible to launch-day visitors; queue after Tier 2._
-
-# Batch E — Launch Assets (#39), 4 parallel agents
-
-**Goal:** produce ship-ready launch assets so the moment #36 (baselines)
-lands, the launch can fire same-day. These run in parallel since they
-touch different files and require no shared state.
-
-**Coordination contract:** branch `feat/launch-assets-v0.1`. All four
-agents commit to the same branch; user reviews each commit
-independently. Where copy depends on baseline numbers, agents leave
-`<PLACEHOLDER>` tokens that a follow-up PR fills.
-
-## E1: HN Show HN post + landing-page hook
-
-```text
-You are working on issue #39 (launch assets) in the junas repo. Read
-AGENT-RUNBOOK.md, README2.md, docs/coverage-matrix.md §5 (anti-snake-
-oil checklist), and the existing landing page at frontend/app/page.tsx.
-
-Goal: HN Show HN submission draft + the landing-page <h1> hook that
-aligns with the recommended headline variant.
+Goal: generate ≥1000 stratified test cases mechanically from the
+grammar with the perturbation taxonomy (year_off, volume_off,
+page_off, case_name_swap, court_swap, wholesale_fabrication,
+composite) per the spec.
 
 Files you own:
-- docs/launch/hn-show-hn.md (new — the post draft)
-- docs/launch/headline-options.md (new — 3 candidate headlines with
-  evidentiary basis and which require baseline numbers)
-- frontend/app/page.tsx (only the <h1>; align with your recommended
-  variant in headline-options.md)
+- backend/benchmark/datasets/sglb_04_citation_verify_full.yaml (NEW
+  — production set; preserve the 30-case smoke as sglb_04_citation_
+  verify_smoke.yaml for fast local testing)
+- backend/benchmark/dataset_builders/sglb_04.py (extend with
+  stratification by perturbation kind + N per stratum)
+- docs/sglb_specs/SGLB-04.md (bump from "0.1-shipped (smoke)" to
+  "0.1-shipped"; document per-error breakdown)
 
 Files you must NOT touch:
-- docs/launch/twitter-thread.md (E2)
-- docs/launch/linkedin-post.md (E3)
-- docs/launch/outreach-templates.md (E3)
-- docs/launch/press-kit.md (E4)
-- docs/launch/press-emails.md (E4)
+- backend/api/services/sal_citation.py (no grammar changes here;
+  any bugs surface as NEW-SAL-VALIDATION concerns)
+- The smoke dataset (preserve for fast local testing)
 
-Constraints (read coverage-matrix §5 first):
-- No "beats GPT-X" framing. Use the substitute phrasings.
-- Lead with the SG-uniqueness gap (LegalBench=US, LexGLUE=US+EU,
-  LawBench=CN; SG is a clean gap).
-- "We make no legal interpretive claims" must appear.
-- 3 headline candidates: surprising-number variant (gated on #36),
-  capability-gap variant (no number needed), methodology variant
-  ("first SG benchmark with mechanical labels"). Mark which need #36.
+Stratification:
+- ≥100 cases per perturbation kind (year_off, volume_off, page_off,
+  case_name_swap, court_swap, wholesale_fabrication, composite).
+- ≥200 negative-cases (valid citations that should NOT be flagged).
+- Train/dev/test split: 80/10/10 by hash of the case.
 
-Post structure (suggested):
-- Title (≤80 chars)
-- Opening hook (2 sentences)
-- What it is (3 bullets, link to repo + spec dir)
-- What it isn't (1-2 bullets, defuses scope-overclaim)
-- Reproducibility (1 bullet — `make eval` and you get the same numbers)
-- Links section
+Acceptance:
+- 1000+ cases in the production YAML.
+- Per-error breakdown is reportable from the evaluator.
+- pytest passes.
 
-Branch: feat/launch-assets-v0.1.
-Commit: `docs(launch): HN Show HN draft + headline candidates
-(advances #39)`. Co-Authored-By trailer.
+Branch: feat/sglb-04-production-set.
+Commit: `feat(sglb-04): expand to 1000+ case production set (closes
+#32; advances GAP-13)`.
 
-Acceptance: 3 headline variants + 1 ready-to-paste HN draft + landing
-<h1> aligned. Each <PLACEHOLDER> token is documented.
-
-Report back: which headline you recommend and why; any claim you
-couldn't substantiate without baselines.
-```
-
-## E2: Twitter thread
-
-```text
-You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md
-and the SGLB spec docs under docs/sglb_specs/.
-
-Goal: 8-12 tweet thread for launch day. Mark every `<PLACEHOLDER>`
-that depends on baseline (#36) numbers.
-
-Files you own:
-- docs/launch/twitter-thread.md (new)
-
-Files you must NOT touch:
-- E1/E3/E4's files.
-
-Thread structure:
-1. Hook tweet — why this matters (no number needed)
-2. The gap (LegalBench=US, LexGLUE=US+EU, LawBench=CN, gap=SG)
-3. Methodology — mechanical extraction; the credibility substitute
-4-8. One surprising finding per tweet (each gated on #36; mark
-   <PLACEHOLDER>)
-9. Reproducibility — "anyone can rerun: make eval && cat receipt"
-10. Where to learn more (links)
-
-Constraints:
-- No emojis (user's CLAUDE.md disallows them).
-- No "beats GPT-X" framing.
-- Each tweet ≤270 chars (Twitter limit minus padding).
-- Numbered "n/N" prefixes for thread readability.
-
-Branch + commit: same as E1.
-Acceptance: 8-12 numbered tweets, ≤270 chars each.
-Report back: any claim you couldn't make in ≤270 chars; whether the
-thread reads cohesively without baselines (i.e. is the no-numbers
-variant viable).
-```
-
-## E3: LinkedIn SG legal-tech post + outreach templates
-
-```text
-You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md
-and README2.md.
-
-Goal: LinkedIn launch post + 6 DM templates targeted at SG
-legal-tech institutions.
-
-Files you own:
-- docs/launch/linkedin-post.md (the post)
-- docs/launch/outreach-templates.md (DM templates)
-
-Files you must NOT touch:
-- E1/E2/E4's files.
-
-Targets for DM templates (one each):
-1. SMU SOLID team (Singapore Open Legal Informatics Database project)
-2. NUS TRAIL (Tech and Responsible AI lab)
-3. SAL (Singapore Academy of Law) tech committee
-4. INTELLLEX (SG legal-tech company)
-5. Lupl (SG legal-tech company)
-6. LawTech.Asia (publication)
-
-Constraints:
-- LinkedIn post 200-400 words. Frame: "I built X because Y was
-  missing". Cite the LegalBench/LexGLUE/LawBench gap.
-- DMs ≤150 words each. State who they are + what we built + the
-  one-sentence ask. NO name-drops we can't substantiate (the user has
-  no prior contact unless evidence is in repo history).
-- Treat SAL as institutional (phone/email better than DM); flag this
-  in your report.
-
-Branch + commit: same as E1.
-Acceptance: 1 post + 6 personalised DMs.
-Report back: which targets warrant a phone call vs DM.
-```
-
-## E4: Press kit + journalist outreach
-
-```text
-You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md,
-README2.md, and (for tone reference) any coverage Mike OSS got from
-the same outlets (Google "willchen96 mike artificial lawyer").
-
-Goal: press kit + 5 personalised pitch emails.
-
-Files you own:
-- docs/launch/press-kit.md (1-page background + key facts + quote
-  block + contact)
-- docs/launch/press-emails.md (5 pitches: LawTech.Asia, Artificial
-  Lawyer, Legal IT Insider, Legal Futures, Straits Times Tech)
-
-Files you must NOT touch:
-- E1/E2/E3's files.
-
-Press kit must include:
-- 2-paragraph background suitable for direct quotation
-- Key facts (8 tasks, public-domain sources, mechanical labels,
-  multi-model baselines)
-- 50-80 word attributable quote from the solo dev (Gabriel) about the
-  SG-uniqueness gap
-- Where to find screenshots / demo GIF (placeholder paths)
-- Contact (TBD; surface to user)
-
-Each pitch email ≤200 words. Differentiate from Mike OSS coverage
-angle (benchmark, not product; SG, not generic).
-
-Branch + commit: same as E1.
-Acceptance: 1 press kit + 5 personalised pitches.
-Report back: which outlets covered Mike OSS recently and how we
-differentiate.
+Report back: per-stratum N; any perturbation kind that was hard to
+generate; whether v0.2 should add more perturbation kinds.
 ```
 
 ---
+
+# Tier 3 — Vendor-facing infrastructure
+
+_Closes the "use us for your evals" workflow. Gated on Tier 1; runs in parallel with Tier 2._
+
+## NEW-VENDOR-GUIDE: Vendor self-eval guide (closes GAP-14)
+
+```text
+You are writing GAP-14 closure: the vendor self-eval guide.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-14, backend/benchmark/
+cli.py, backend/benchmark/receipt_schema.md (must exist post-
+NEW-CI-RECEIPT), docs/normalisation-spec.md (must exist post-
+NEW-NORM-SPEC), docs/methodology/contamination.md (must exist post-
+NEW-CONTAM), docs/dispute-process.md (must exist post-
+NEW-DISPUTE-PROCESS).
+
+Prerequisites: NEW-CI-RECEIPT, NEW-CONTAM, NEW-NORM-SPEC, and
+NEW-DISPUTE-PROCESS must all have landed. This is the consolidating
+doc that ties them together for a vendor audience.
+
+Goal: docs/vendor-self-eval-guide.md takes a SG legal-tech vendor's
+ML engineer from zero to "I have receipts I can paste into a slide
+deck" in <10 minutes.
+
+Files you own:
+- docs/vendor-self-eval-guide.md (NEW)
+- docs/vendor-self-eval-guide/sample-receipt.json (NEW —
+  walkthrough fixture)
+- docs/vendor-self-eval-guide/sample-leaderboard-row.md (NEW —
+  what the published row looks like for the vendor's model)
+
+Files you must NOT touch:
+- backend/* (this is a doc-only prompt).
+
+Guide structure:
+1. Who this is for (SG legal-tech vendors / LLM-team engineers /
+   academic researchers).
+2. Install (`pip install -e .` or equivalent).
+3. Configure your provider (BYOK: Anthropic / OpenAI / Google /
+   Ollama).
+4. Select tasks. Note v0.1 eligible: SGLB-01, SGLB-02, SGLB-04,
+   SGLB-08. SGLB-05/06/07 are code-shipped, data pending.
+5. Run with `--strict` mode (rejects weak evaluators).
+6. Read the receipt: walk through the sample receipt's CI fields,
+   contamination summary, prompt_sha.
+7. Submit (optional): how to add your model to the leaderboard.
+8. If you disagree with a label: link to docs/dispute-process.md.
+
+Acceptance:
+- A vendor's ML engineer can follow the guide cold.
+- Sample receipt is accurate and current.
+- Cross-references to the methodology docs work.
+
+Branch: docs/vendor-self-eval-guide.
+Commit: `docs(vendor): self-eval guide for SG legal-tech vendors
+(closes GAP-14)`.
+
+Report back: which step is most likely to trip a vendor; what they
+ask in office hours.
+```
+
+## NEW-LIB-PACKAGING: Extract reusable components into sub-package (closes GAP-15)
+
+```text
+You are implementing GAP-15 closure: extract reusable components
+into an installable sub-package so SG legal-tech engineers can
+`pip install` parts of the stack.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-15, backend/api/
+services/sal_citation.py, backend/benchmark/evaluators.py:520-536
+(section normaliser), backend/api/adapters/public/base.py
+(LegalSourceAdapter protocol).
+
+Goal: a sub-package (working name: `sglb-tools`) installable via
+PyPI containing the SAL citation grammar, citation/statute
+normalisers, and the adapter base interface. Same licence as the
+main repo (decided in SOLO-10).
+
+Files you own:
+- packages/sglb-tools/ (NEW directory at repo root)
+- packages/sglb-tools/pyproject.toml (NEW — independent build config)
+- packages/sglb-tools/sglb_tools/__init__.py
+- packages/sglb-tools/sglb_tools/citation.py (re-export of
+  sal_citation; module path is rewritten so the consumer sees
+  `from sglb_tools.citation import validate_citation`)
+- packages/sglb-tools/sglb_tools/normalisation.py (extract from
+  benchmark/evaluators.py:520-536)
+- packages/sglb-tools/sglb_tools/adapters/base.py (extract the
+  LegalSourceAdapter protocol)
+- packages/sglb-tools/README.md (NEW — usage examples for engineers)
+- packages/sglb-tools/tests/ (mirror the relevant tests)
+- backend/api/services/sal_citation.py (replace implementation with
+  re-export from sglb_tools.citation; backward-compat)
+- backend/benchmark/evaluators.py (use sglb_tools.normalisation;
+  backward-compat)
+
+Files you must NOT touch:
+- Any dataset YAML.
+- The benchmark cli — it continues to work unchanged.
+
+Constraints:
+- No breaking changes to the main repo's import paths.
+- Sub-package is namespace-clean (only what's safe to expose as a
+  public API).
+- Tests in the sub-package run independently of the main repo.
+
+Acceptance:
+- `cd packages/sglb-tools && pip install -e . && pytest` works.
+- Main repo imports continue to work.
+- A consumer can `from sglb_tools.citation import validate_citation`
+  in their own project after installing.
+
+Branch: feat/sglb-tools-package.
+Commit: `feat(packaging): extract sglb-tools sub-package (closes
+GAP-15)`.
+
+Report back: PyPI publish path; any service that wanted to be in
+the package but couldn't be cleanly extracted (those go in a v0.2
+follow-up).
+```
+
+## NEW-INDEPENDENT-REPRO: Outreach kit for institutional reproduction (closes GAP-12)
+
+```text
+You are implementing GAP-12 closure: outreach kit + technical
+contract for an institutional partner to run the benchmark
+independently.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-12, README2.md.
+
+This is a docs+outreach prompt; no code.
+
+Goal: produce a kit that lets SMU SOLID, NUS TRAIL, or SAL data
+services run the suite, record the receipts, and publish them as an
+"independent reproduction" alongside ours.
+
+Files you own:
+- docs/outreach/independent-reproduction-kit.md (NEW)
+- docs/outreach/cover-letter-template.md (NEW — short letter to
+  attach to an email)
+- docs/outreach/three-targets.md (NEW — short briefs for SMU SOLID
+  / NUS TRAIL / SAL: who they are, what they care about, why
+  reproducing this benchmark serves their mandate, what we ask)
+
+Files you must NOT touch:
+- backend/* (this is outreach-only).
+
+Kit contents:
+1. Background (2 paragraphs).
+2. What we're asking for: run the v0.1 benchmark against the
+   institution's model of choice (or a frontier model); publish
+   the receipt + CI + contamination summary to runs/
+   external/<institution>/.
+3. Technical contract: install, run command, receipt format pointer
+   (NEW-VENDOR-GUIDE).
+4. What they get: co-authorship on the v0.2 preprint (if substantive
+   contribution); link from leaderboard; visibility.
+5. Compute estimate: token cost + wall-time per task.
+6. Timeline: 4-6 weeks from outreach to published receipt.
+
+Acceptance:
+- Three personalised outreach briefs.
+- Kit is sendable as a single PDF or markdown bundle.
+
+Branch: docs/independent-reproduction-kit.
+Commit: `docs(outreach): independent reproduction kit + three-target
+briefs (closes GAP-12)`.
+
+Report back: any obstacle that would make the institutional partner
+say no (institutional MOU? data-handling concerns?); whether the
+v0.2 timeline aligns with their academic year.
+```
 
 # Batch C — Frontend Audit Fixes, 4 parallel agents
 
 **Goal:** address the critical findings from `docs/audit/00_EXECUTIVE_AUDIT.md`
-that remain unfixed. The audit was 2026-04-02; some have since been
-resolved (predictions/, rome-statute/, compare-jurisdictions/ pages
-removed). What's left:
-
-- 3 GET-method forms with sensitive textareas (privacy risk;
-  browser-history leakage)
-- 2 `dangerouslySetInnerHTML` on user-supplied data
-- Duplicated API data-access (api-client.ts + api-server.ts + direct
-  `fetch` in pages)
-- Command palette `/home` dead link
-
-These four areas have **non-overlapping file targets** so they can
-run in parallel without rebase pain.
+that remain unfixed. These four areas have **non-overlapping file targets** so
+they can run in parallel without rebase pain.
 
 ## C1: GET → POST on sensitive textareas
 
@@ -1326,8 +1812,7 @@ returns only fetch calls that go through the unified client; the
 build succeeds; runtime behaviour unchanged.
 
 Report back: any backend endpoints that had inconsistent
-request/response shapes between callers (this is a real risk; the
-audit listed jurisdiction mismatch as one such case).
+request/response shapes between callers.
 ```
 
 ## C4: Sanitize dangerouslySetInnerHTML
@@ -1374,11 +1859,8 @@ Acceptance: tests pass; XSS payload blocked; existing valid HTML
 still renders correctly.
 
 Report back: any HTML features sanitisation accidentally strips
-that we relied on (e.g. iframes, MathML, style attributes — note
-them so the user can decide whether to whitelist).
+that we relied on.
 ```
-
----
 
 ## SOLO-3: Auth gate for hosted /benchmarks demo (#79)
 
@@ -1515,8 +1997,7 @@ Branch: ci/synthetic-promotion-guard.
 Commit: `ci(synthetic): block accidental promotion of pending
 candidates (closes #76)`.
 
-Report back: any synth-pipeline edge cases (the synth gen is
-running RIGHT NOW; don't break the in-flight gen).
+Report back: any synth-pipeline edge cases.
 ```
 
 ## SOLO-6: Synthetic-tier API marking (#77)
@@ -1543,8 +2024,7 @@ Acceptance: synthetic tasks (SGLB-08/12/15) render with a "synthetic"
 badge; regulator tasks (SGLB-01/02/04/05/06/07) render with a
 "regulator" badge.
 
-Report back: any task whose data_tier is ambiguous (e.g. a mixed
-dataset).
+Report back: any task whose data_tier is ambiguous.
 ```
 
 ## SOLO-4: Cold-start guide (#74)
@@ -1571,13 +2051,250 @@ Commit: `docs(#74): cold-start guide for new agent + first baseline`.
 Acceptance: another agent following the guide produces a working
 receipt JSON without asking the user any questions.
 
-Report back: any step that surprised you (i.e. anything not
-documented elsewhere that you needed to know).
+Report back: any step that surprised you.
 ```
 
-## Tier 4 — Post-launch + v0.2
+---
 
-_Fire after v0.1 ships; safe to defer._
+# Tier 4 — Launch
+
+_arXiv preprint + launch assets. Gated on Tier 1 (methodology) + Tier 2 (data) + Tier 3 (vendor infra) closing._
+
+## SOLO-8: arXiv preprint draft (#37)
+
+```text
+You are starting issue #37 in the junas repo: SG-LegalBench preprint
+draft. Read AGENT-RUNBOOK.md, docs/coverage-matrix.md,
+GAPS-TO-REMEDY.md, and all of docs/sglb_specs/SGLB-NN.md.
+
+Scope: produce the preprint outline + draft §§1-3 (Introduction,
+Methodology, Tasks). Leave §§4-5 (Results, Limitations) as
+TODO-blocks gated on NEW-BATCH-D baselines.
+
+Files you own:
+- docs/preprint/sglb-preprint.tex (new; LaTeX, NLLP/EMNLP-friendly
+  template) OR docs/preprint/sglb-preprint.md (markdown if LaTeX is
+  too heavyweight for v0 — the user can convert later)
+- docs/preprint/figures/ (gitignored placeholders)
+
+Constraints (READ CAREFULLY):
+- The methodology section MUST lead with: "We make no legal
+  interpretive claims. We mechanically reformulate published
+  regulator and court outputs as evaluation tasks." This is
+  load-bearing for the doc's defensibility (pivot §11).
+- No "beats GPT-X" framing anywhere (coverage-matrix §5).
+- §1 leads with the vendor-defensibility narrative: contamination
+  analysis, bootstrap CIs, published dispute process. NOT "frontier
+  models fail SG legal reasoning" — that framing is replaced.
+- Each task gets its own subsection in §3, citing source +
+  extraction rule + scoring + limitations from the spec doc.
+- Related work: cite LegalBench, LexGLUE, LawBench, SARA, CUAD,
+  IFEval, FActScore, HaluEval per coverage-matrix §9.
+
+Target venue: NLLP workshop @ EMNLP 2026 (deadlines typically
+July-August 2026).
+
+Branch: docs/preprint-outline.
+Commit: `docs(#37): SG-LegalBench preprint outline + §§1-3 draft`.
+
+Acceptance: a reviewer reading the draft can answer "what does this
+benchmark test, on what data, how is it scored, and what's
+explicitly NOT tested" without asking.
+
+Report back: which sections you couldn't draft yet (it should be
+just §§4-5), any prior-work claims you'd like a second pair of eyes
+on, any spec-doc inconsistencies you noticed while writing.
+```
+
+# Batch E — Launch Assets (#39), 4 parallel agents
+
+**Goal:** produce ship-ready launch assets so the moment NEW-BATCH-D
+lands, the launch can fire same-day.
+
+**Coordination contract:** branch `feat/launch-assets-v0.1`. All four
+agents commit to the same branch; user reviews each commit
+independently. Where copy depends on baseline numbers, agents leave
+`<PLACEHOLDER>` tokens that a follow-up PR fills.
+
+## E1: HN Show HN post + landing-page hook
+
+```text
+You are working on issue #39 (launch assets) in the junas repo. Read
+AGENT-RUNBOOK.md, README2.md, GAPS-TO-REMEDY.md, docs/coverage-matrix.md
+§5 (anti-snake-oil checklist), and the existing landing page at
+frontend/app/page.tsx.
+
+Goal: HN Show HN submission draft + the landing-page <h1> hook that
+aligns with the recommended headline variant.
+
+Files you own:
+- docs/launch/hn-show-hn.md (new — the post draft)
+- docs/launch/headline-options.md (new — 3 candidate headlines with
+  evidentiary basis and which require baseline numbers)
+- frontend/app/page.tsx (only the <h1>; align with your recommended
+  variant in headline-options.md)
+
+Files you must NOT touch:
+- docs/launch/twitter-thread.md (E2)
+- docs/launch/linkedin-post.md (E3)
+- docs/launch/outreach-templates.md (E3)
+- docs/launch/press-kit.md (E4)
+- docs/launch/press-emails.md (E4)
+
+Constraints (read coverage-matrix §5 first):
+- No "beats GPT-X" framing. Use the substitute phrasings.
+- Lead with vendor-defensibility methodology: "first SG legal
+  benchmark with contamination analysis + bootstrap CIs + published
+  dispute process". NOT "frontier models fail" (that's only one
+  optional sub-claim, and it's gated on NEW-BATCH-D).
+- The SG-uniqueness gap is the secondary hook (LegalBench=US,
+  LexGLUE=US+EU, LawBench=CN; SG is a clean gap).
+- "We make no legal interpretive claims" must appear.
+- 3 headline candidates: methodology variant (no number needed),
+  capability-gap variant (no number needed), surprising-number
+  variant (gated on NEW-BATCH-D). Mark which need baselines.
+
+Post structure (suggested):
+- Title (≤80 chars)
+- Opening hook (2 sentences)
+- What it is (3 bullets, link to repo + spec dir)
+- What it isn't (1-2 bullets, defuses scope-overclaim)
+- Reproducibility (1 bullet — `make eval` and you get the same
+  numbers; receipts include CIs + contamination flags)
+- Links section
+
+Branch: feat/launch-assets-v0.1.
+Commit: `docs(launch): HN Show HN draft + headline candidates
+(advances #39)`. Co-Authored-By trailer.
+
+Acceptance: 3 headline variants + 1 ready-to-paste HN draft + landing
+<h1> aligned. Each <PLACEHOLDER> token is documented.
+
+Report back: which headline you recommend and why; any claim you
+couldn't substantiate without baselines.
+```
+
+## E2: Twitter thread
+
+```text
+You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md
+and the SGLB spec docs under docs/sglb_specs/.
+
+Goal: 8-12 tweet thread for launch day. Mark every `<PLACEHOLDER>`
+that depends on NEW-BATCH-D baseline numbers.
+
+Files you own:
+- docs/launch/twitter-thread.md (new)
+
+Files you must NOT touch:
+- E1/E3/E4's files.
+
+Thread structure:
+1. Hook tweet — why this matters (no number needed)
+2. The gap (LegalBench=US, LexGLUE=US+EU, LawBench=CN, gap=SG)
+3. Methodology — mechanical extraction; contamination probe;
+   bootstrap CIs; dispute process (the credibility substitute)
+4-8. One surprising finding per tweet (each gated on NEW-BATCH-D;
+   mark <PLACEHOLDER>)
+9. Reproducibility — "anyone can rerun: make eval && cat receipt"
+10. Where to learn more (links)
+
+Constraints:
+- No emojis (user's CLAUDE.md disallows them).
+- No "beats GPT-X" framing.
+- Each tweet ≤270 chars (Twitter limit minus padding).
+- Numbered "n/N" prefixes for thread readability.
+
+Branch + commit: same as E1.
+Acceptance: 8-12 numbered tweets, ≤270 chars each.
+Report back: any claim you couldn't make in ≤270 chars; whether the
+thread reads cohesively without baselines (i.e. is the no-numbers
+variant viable).
+```
+
+## E3: LinkedIn SG legal-tech post + outreach templates
+
+```text
+You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md
+and README2.md.
+
+Goal: LinkedIn launch post + 6 DM templates targeted at SG
+legal-tech institutions.
+
+Files you own:
+- docs/launch/linkedin-post.md (the post)
+- docs/launch/outreach-templates.md (DM templates)
+
+Files you must NOT touch:
+- E1/E2/E4's files.
+
+Targets for DM templates (one each):
+1. SMU SOLID team (Singapore Open Legal Informatics Database project)
+2. NUS TRAIL (Tech and Responsible AI lab)
+3. SAL (Singapore Academy of Law) tech committee
+4. INTELLLEX (SG legal-tech company)
+5. Lupl (SG legal-tech company)
+6. LawTech.Asia (publication)
+
+Constraints:
+- LinkedIn post 200-400 words. Frame: "I built X because Y was
+  missing". Cite the LegalBench/LexGLUE/LawBench gap.
+- DMs ≤150 words each. State who they are + what we built + the
+  one-sentence ask. NO name-drops we can't substantiate (the user has
+  no prior contact unless evidence is in repo history).
+- Treat SAL as institutional (phone/email better than DM); flag this
+  in your report.
+- The institutional DMs (SMU SOLID, NUS TRAIL, SAL) should reference
+  NEW-INDEPENDENT-REPRO as the ask if it has landed.
+
+Branch + commit: same as E1.
+Acceptance: 1 post + 6 personalised DMs.
+Report back: which targets warrant a phone call vs DM.
+```
+
+## E4: Press kit + journalist outreach
+
+```text
+You are working on issue #39 in the junas repo. Read AGENT-RUNBOOK.md,
+README2.md, and (for tone reference) any coverage Mike OSS got from
+the same outlets.
+
+Goal: press kit + 5 personalised pitch emails.
+
+Files you own:
+- docs/launch/press-kit.md (1-page background + key facts + quote
+  block + contact)
+- docs/launch/press-emails.md (5 pitches: LawTech.Asia, Artificial
+  Lawyer, Legal IT Insider, Legal Futures, Straits Times Tech)
+
+Files you must NOT touch:
+- E1/E2/E3's files.
+
+Press kit must include:
+- 2-paragraph background suitable for direct quotation
+- Key facts (4 v0.1-eligible tasks, public-domain sources, mechanical
+  labels, contamination-aware methodology, multi-model baselines with
+  CIs and contamination flags)
+- 50-80 word attributable quote from the solo dev (Gabriel) about the
+  SG-uniqueness gap + vendor-grade methodology
+- Where to find screenshots / demo GIF (placeholder paths)
+- Contact (TBD; surface to user)
+
+Each pitch email ≤200 words. Differentiate from Mike OSS coverage
+angle (benchmark, not product; SG, not generic; methodology-rigorous,
+not just shipping).
+
+Branch + commit: same as E1.
+Acceptance: 1 press kit + 5 personalised pitches.
+Report back: which outlets covered Mike OSS recently and how we
+differentiate.
+```
+
+---
+
+# Tier 5 — Copilot + v0.2
+
+_Post-launch. Reference copilot polish + v0.2 task expansion. Gated on Tier 4 (launch)._
 
 # Batch G — v0.2 Task Wave 1 (#50, #54, #55, #57), 4 parallel agents
 
@@ -1592,14 +2309,21 @@ import) and `backend/benchmark/llm_runner.py::PROMPT_BUILDERS` (each
 appends one entry). Resolve via simple rebase; ordering G1 < G2 < G3
 < G4 by issue number works.
 
+**Methodology constraint for LLM-judge tasks:** any v0.2 task that
+uses LLM-judges (G1 SGLB-09 explicitly) MUST follow the same κ
+discipline as SGLB-08 — ≥3-judge ensemble, pairwise κ reported,
+human-validated holdout per coverage-matrix §4.1. Single-judge
+"acceptable with disclosure" is v0.1 smoke posture only; v0.2 is
+post-launch and held to higher standard.
+
 ## G1: SGLB-09 Summary-Faithfulness
 
 ```text
 You are working on issue #50 (SGLB-09 Summary-Faithfulness).
 
 Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-09.md, CONTRIBUTING.md
-"Adding a new task", and the FActScore paper (Min et al., EMNLP 2023,
-https://arxiv.org/abs/2305.14251).
+"Adding a new task", GAPS-TO-REMEDY.md §GAP-07/08, and the FActScore
+paper (Min et al., EMNLP 2023, https://arxiv.org/abs/2305.14251).
 
 Files you own:
 - backend/benchmark/dataset_builders/sglb_09.py
@@ -1622,23 +2346,28 @@ Task contract:
 - Input: `{"source_text": str, "summary": str}` — source from a PDPC
   decision; summary is what the model evaluates.
 - Output: JSON object `{"atomic_facts": [{"fact": str, "supported":
-  bool}]}` — list of atomic facts in the summary with per-fact
-  supported-by-source booleans.
+  bool}]}`.
 - Score: precision over `supported=true` facts that actually appear
   in source_text (deterministic substring or entailment check).
 
-Smoke seed (v0.1): ~20 cases built from existing PDPC JSONL.
-Generate 3 candidate summaries per source (faithful / mild hallucination
-/ wholesale fabrication) via an LLM call; the atomic-fact extraction
-uses an LLM-judge per coverage-matrix §4.1. For smoke, single judge
-acceptable WITH disclosure; v0.2 expansion uses ≥3-judge ensemble.
+Methodology contract (v0.2, NOT v0.1 smoke posture):
+- ≥3-judge ensemble for label generation (Anthropic + Gemini +
+  Azure gpt-5), matching SOLO-17's pattern for SGLB-08.
+- Pairwise κ + Fleiss' κ reported.
+- 20-case human-validated holdout (smaller than SOLO-18's 40-case
+  but same discipline).
+
+Smoke seed (v0.2 launch): ~20 cases built from existing PDPC JSONL,
+labelled via the 3-judge ensemble. Generate 3 candidate summaries
+per source (faithful / mild hallucination / wholesale fabrication)
+via an LLM call.
 
 Branch: feat/sglb-v0.2-wave-1.
 Commit: `feat(sglb-09): Summary-Faithfulness task (closes #50)`.
 
-Acceptance: 20-case smoke; oracle scores 1.0; tests pass.
-Report back: methodology compromises (single-judge); how to scale to
-N=200 in v0.2.
+Acceptance: 20-case smoke; oracle scores 1.0; tests pass; κ
+published.
+Report back: κ values; how to scale to N=200 in v0.2.1.
 ```
 
 ## G2: SGLB-13 Counterfactual-Outcome
@@ -1794,20 +2523,12 @@ Report back: defect-type coverage; any clause type where injection
 is hard.
 ```
 
----
-
 # Batch H — v0.2 Task Wave 2 (#51, #53, #56), 3 parallel agents
 
-**Goal:** close out the synthetic-data v0.2 tasks. SGLB-11 (#52) was
-already closed in v0.1.
-
-**Coordination contract:** branch `feat/sglb-v0.2-wave-2`. Same
-file-touchpoint discipline as Wave 1.
+**Coordination contract:** branch `feat/sglb-v0.2-wave-2`.
 
 **Synth-gen cost warning:** H2 and H3 need synthetic candidates.
-SGLB-08 synth gen is in flight right now at ~$0.05/candidate
-(reasoning-token cost). Get explicit user approval before kicking off
-new synth jobs that could spend another $20-50.
+Get explicit user approval before kicking off new synth jobs.
 
 ## H1: SGLB-10 Citation-Generation
 
@@ -1867,14 +2588,10 @@ synth files (taxonomy.yaml, compositions.yaml, sglb_12.py),
 backend/benchmark/synthetic/README.md.
 
 Files you own:
-- backend/benchmark/dataset_builders/sglb_12.py (NEW file if not
-  present — reads reviewed synthetic candidates into harness shape)
-- backend/benchmark/tasks/sglb_12.py (extend if needed; do not break
-  existing tests)
-- backend/benchmark/llm_runner.py (refine sglb_12 prompt if needed;
-  preserve version string semantics)
-- backend/benchmark/datasets/sglb_12_multi_issue_reviewed/ (output
-  dir; promote synthetic candidates here)
+- backend/benchmark/dataset_builders/sglb_12.py
+- backend/benchmark/tasks/sglb_12.py (extend if needed)
+- backend/benchmark/llm_runner.py (refine sglb_12 prompt if needed)
+- backend/benchmark/datasets/sglb_12_multi_issue_reviewed/
 - docs/sglb_specs/SGLB-12.md (bump to 0.1-shipped if you reach ≥50
   reviewed cases)
 - backend/tests/test_sglb_12_task.py (extend coverage)
@@ -1885,10 +2602,9 @@ Files you must NOT touch:
   pipeline; do not modify unless a real bug surfaces).
 
 Cost gate: if reviewed candidates don't exist yet, you'd need to run
-`make synth-gen TASK=sglb_12 N=200 ...`. The SGLB-08 synth gen is
-currently running and costing ~$0.05/example via Azure gpt-5. A 200-
-case SGLB-12 run would cost ~$10-20. STOP and get user approval before
-firing synth-gen.
+`make synth-gen TASK=sglb_12 N=200 ...`. The SGLB-08 synth gen
+costs ~$0.05/example via Azure gpt-5. A 200-case SGLB-12 run would
+cost ~$10-20. STOP and get user approval before firing synth-gen.
 
 Branch: feat/sglb-v0.2-wave-2.
 Commit: `feat(sglb-12): Multi-Issue-Spotting complete dataset (closes
@@ -1914,11 +2630,10 @@ Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-15.md, IFEval paper
 backend/benchmark/constraints.py.
 
 Files you own:
-- backend/benchmark/dataset_builders/sglb_15.py (new if not present)
+- backend/benchmark/dataset_builders/sglb_15.py
 - backend/benchmark/tasks/sglb_15.py (extend)
 - backend/benchmark/llm_runner.py (refine prompt)
-- backend/benchmark/constraints.py (add SG-context constraints; see
-  list below)
+- backend/benchmark/constraints.py (add SG-context constraints)
 - backend/benchmark/datasets/sglb_15_draft_constraints_reviewed/
 - docs/sglb_specs/SGLB-15.md (bump)
 - backend/tests/test_sglb_15_task.py
@@ -1946,14 +2661,11 @@ Report back: which constraint kinds are easy vs hard to verify
 deterministically.
 ```
 
----
-
 # Batch F — MCP Server (#48), 4 parallel agents
 
 **Goal:** expose junas as an MCP server so Claude Desktop / Claude
 Code users can run benchmarks + query SG legal sources without
-leaving chat. A "drop into Claude Desktop and get SG legal lookup +
-benchmark" demo is much more compelling than a static leaderboard.
+leaving chat.
 
 **Coordination contract:** branch `feat/mcp-server`. F1 lands first;
 F2/F3/F4 fan out off F1's branch.
@@ -1990,9 +2702,7 @@ Server requirements:
 Branch: feat/mcp-server.
 Commit: `feat(mcp): server scaffolding + transport (advances #48)`.
 
-Acceptance: `make mcp` boots without error; `health` tool responds;
-server starts under Claude Desktop config (test on the user's
-machine if possible).
+Acceptance: `make mcp` boots without error; `health` tool responds.
 
 Report back: MCP SDK version pinned; transport latency observations.
 ```
@@ -2016,8 +2726,7 @@ Files you own:
 - backend/mcp/tools/check_compliance.py
 
 Files you must NOT touch:
-- backend/mcp/server.py (F1; you register tools into it via a clean
-  import — append registrations after F1's stub list)
+- backend/mcp/server.py (F1)
 - backend/api/services/* (consumer code only)
 - docs/mcp/* (F3)
 - backend/tests/test_mcp_*.py (F4)
@@ -2059,8 +2768,7 @@ junas-mcp in <5 min.
 Files you own:
 - docs/mcp/setup.md
 - docs/mcp/example-prompts.md (10 prompts exercising each tool)
-- docs/mcp/troubleshooting.md (port collision, missing keys, SDK
-  version mismatch)
+- docs/mcp/troubleshooting.md
 
 Files you must NOT touch:
 - backend/mcp/* (F1/F2)
@@ -2075,15 +2783,13 @@ Setup doc:
 - Verification: ask Claude Desktop to call the `health` tool.
 
 Example prompts: 10 covering each tool individually + 2 chained
-workflows (e.g. "verify [2023] SGCA 5, then retrieve cases that cite
-it").
+workflows.
 
 Branch: feat/mcp-server.
 Commit: `docs(mcp): setup + example prompts + troubleshooting
 (advances #48)`.
 
-Acceptance: a fresh user (test on the user's machine or a clean VM)
-can install + use junas-mcp within 5 min.
+Acceptance: a fresh user can install + use junas-mcp within 5 min.
 
 Report back: brittle setup steps; OS-specific gotchas.
 ```
@@ -2097,8 +2803,8 @@ have landed. Read AGENT-RUNBOOK.md, F1's server, F2's tools.
 Goal: tests for the MCP server + tools.
 
 Files you own:
-- backend/tests/test_mcp_server.py (server boots + health works)
-- backend/tests/test_mcp_tools.py (each tool callable + shape)
+- backend/tests/test_mcp_server.py
+- backend/tests/test_mcp_tools.py
 
 Files you must NOT touch:
 - backend/mcp/* (F1/F2)
@@ -2106,8 +2812,7 @@ Files you must NOT touch:
 
 Requirements:
 - Mock the underlying api.services calls; do NOT make real LLM calls.
-- For run_benchmark, use the existing MockLLMClient pattern from
-  backend/tests/test_llm_runner.py.
+- For run_benchmark, use the existing MockLLMClient pattern.
 - Test the JSON-schema validation per tool input.
 - One integration test: spawn the server in a subprocess, send a
   `list_tools` request, assert 5 tools enumerated.
@@ -2115,23 +2820,17 @@ Requirements:
 Branch: feat/mcp-server.
 Commit: `test(mcp): server + tool tests (advances #48)`.
 
-Acceptance: `pytest -x -q backend/tests/test_mcp_*` passes; no
-network calls in test mode.
+Acceptance: pytest passes; no network calls in test mode.
 
-Report back: any tool hard to test deterministically (that's a smell
-to fix in F2).
+Report back: any tool hard to test deterministically.
 ```
-
----
 
 ## SOLO-7: Reference copilot scope cleanup (#35)
 
 ```text
 You are addressing issue #35 in the junas repo: keep only SG
 retrieval, citation, and compliance surfaces in the reference
-copilot. Read AGENT-RUNBOOK.md and the pivot history in git
-(commit a910403 is the SSO landing; earlier commits cut non-SG
-paths).
+copilot. Read AGENT-RUNBOOK.md and the pivot history in git.
 
 Audit which frontend routes and backend routers are still
 non-SG-relevant. The audit doc lists what should have been removed
@@ -2158,11 +2857,10 @@ dead links.
 
 Report back: a numbered audit list (this is the deliverable) +
 the actual cuts you made. If you want the user to make a
-keep-vs-cut call, surface the question; don't decide unilaterally
-on borderline items.
+keep-vs-cut call, surface the question.
 ```
 
-## SOLO-11: #42 Port SG-applicable contract templates
+## SOLO-11: Port SG-applicable contract templates (#42)
 
 ```text
 You are working on issue #42 in the junas repo.
@@ -2210,91 +2908,7 @@ Report back: any template where SG-source publicly-available
 drafting was thin.
 ```
 
-## SOLO-13: #45 Region-per-index naming + adapter pattern (design FIRST)
-
-```text
-You are working on issue #45 in the junas repo. Read AGENT-RUNBOOK.md,
-backend/api/services/{case_retrieval,statute_lookup,retrieval_orchestrator}.py,
-backend/api/indices.py.
-
-This is ARCHITECTURAL. Two-phase delivery:
-- PHASE 1: design doc (this prompt). STOP after committing.
-- PHASE 2: implementation (separate prompt the user will issue after
-  reviewing the design).
-
-Files you own (Phase 1 only):
-- docs/decisions/dr-002-region-per-index.md (new)
-
-Design doc sections:
-
-1. **Current state.** No region prefix; indices implicitly SG-only.
-   Document the cases this hurts.
-2. **Why we need this.** Future Commonwealth adjacency (MY); SOLID
-   partnership may want per-region routing; copilot may serve clients
-   with multi-region practice.
-3. **Proposed naming convention.** `sg.statutes`, `sg.cases`,
-   `my.statutes`, etc.
-4. **Adapter pattern.** Each LegalSourceAdapter declares
-   `metadata.region: str`; retrieval orchestrator routes by region
-   tag pulled from a request header (X-Junas-Region) or session
-   state.
-5. **Migration plan.** Backward-compat shim during the deprecation
-   cycle; how to reindex without downtime.
-6. **Risks.** Index reindex cost; query API breakage; downstream
-   evaluator assumptions.
-7. **Estimate.** Implementation effort post-approval (days/weeks).
-
-STOP after design. Do not begin implementation.
-
-Branch: docs/dr-002-region-per-index.
-Commit: `docs(decision): region-per-index design (advances #45)`.
-
-Acceptance: a design doc the user can approve in one read.
-Report back: your recommendation; implementation effort estimate.
-```
-
-## SOLO-15: #47 Jurisdiction selector UI
-
-```text
-You are working on issue #47 in the junas repo.
-
-**Honesty check first.** SG-only scope means a jurisdiction selector
-is forward-investment for the MY adjacency planned in SOLO-13 (#45).
-Do NOT implement a single-option dropdown. Either:
-- Wait for SOLO-13's design doc + Phase-2 impl, OR
-- Build the component now with MY visibly greyed out as "coming v0.3"
-  so the selector exists for future expansion.
-
-If proceeding:
-
-Read AGENT-RUNBOOK.md, frontend/components/*, frontend/lib/*,
-backend/api/services/jurisdiction_registry.py.
-
-Files in scope:
-- frontend/components/JurisdictionSelector.tsx (new — Radix Select)
-- frontend/lib/jurisdiction-state.ts (new — Zustand store or React
-  context; match whichever pattern the rest of the app uses)
-- frontend/app/layout.tsx (mount the selector in the global header)
-- frontend/tests/JurisdictionSelector.test.tsx
-
-Constraints:
-- Default: SG. Selected state persists across reload.
-- MY option greyed with tooltip "coming in v0.3".
-- Adding future jurisdictions requires only a registry entry, not
-  a component edit.
-- The selected jurisdiction is plumbed into every backend call as
-  X-Junas-Region header.
-
-Branch: feat/jurisdiction-selector.
-Commit: `feat(frontend): jurisdiction selector UI (closes #47)`.
-
-Acceptance: component renders; SG → MY toggle changes the API header
-(verify via network panel); tests pass.
-Report back: any backend endpoint that ignores the header (those are
-bugs to file separately).
-```
-
-## SOLO-12: #43 Logfire observability
+## SOLO-12: Logfire observability (#43)
 
 ```text
 You are working on issue #43 in the junas repo. Read AGENT-RUNBOOK.md
@@ -2319,8 +2933,6 @@ Constraints:
   Only structural metadata: workflow name, evaluator name, score,
   duration, error class. The harness's existing receipt JSON contains
   outputs; that's the right place for them, not telemetry.
-- A future contributor running `LOGFIRE_TOKEN=xxx make eval` should
-  see traces in their Logfire project.
 
 Branch: feat/logfire-observability.
 Commit: `feat(observability): opt-in Logfire instrumentation (closes
@@ -2331,89 +2943,6 @@ through 2-min setup.
 Report back: any signal Logfire surfaced that we should add as a
 permanent metric in our own receipts.
 ```
-
-## SOLO-14: #46 PydanticAI migration
-
-```text
-You are working on issue #46 in the junas repo.
-
-**Honesty check first.** PydanticAI migration is labelled "low
-priority" for a reason. Before starting, verify the migration adds
-clear value over the current shape in backend/api/services/legal_qa.py
-and backend/api/services/chat_service.py. If you can't articulate
-the upside in 2 bullets, STOP and surface to the user — there may
-be a better use of the agent slot.
-
-If proceeding:
-
-Read AGENT-RUNBOOK.md, PydanticAI docs (https://ai.pydantic.dev/),
-backend/api/services/legal_qa.py + chat_service.py.
-
-Files in scope:
-- backend/api/services/orchestration.py (new — agent graphs for RAG
-  + tool-use)
-- backend/api/services/legal_qa.py (refactor to use orchestration)
-- backend/api/services/chat_service.py (refactor)
-- backend/tests/test_orchestration.py (new)
-- backend/pyproject.toml: + `pydantic-ai`
-
-Constraints:
-- Existing chat + legal_qa endpoints must remain bit-identical
-  behaviourally.
-- The migration must be reversible (preserve the old code path behind
-  a JUNAS_USE_PYDANTIC_AI feature flag for one minor version).
-
-Branch: refactor/pydantic-ai-orchestration.
-Commit: `refactor(orchestration): migrate to PydanticAI (closes #46)`.
-
-Acceptance: tests pass; existing endpoints behave identically; flag
-toggles cleanly.
-Report back: the 2-bullet upside you found OR an explicit "stopped
-— could not justify the migration; recommend closing #46".
-```
-
-## SOLO-16: #73 Branching policy consolidation
-
-```text
-You are working on issue #73 in the junas repo. Read AGENT-RUNBOOK.md
-§7, CONTRIBUTING.md, PROMPTS-TO-RUN.md.
-
-Branching policy is spread across multiple files. Pick ONE canonical
-location and link from the others.
-
-Files you own:
-- CONTRIBUTING.md (add or expand a "Branching policy" section as the
-  canonical source)
-- AGENT-RUNBOOK.md (§7 → replace bulk content with one-line link to
-  CONTRIBUTING.md#branching-policy)
-- PROMPTS-TO-RUN.md (any branching content → one-line link)
-
-Policy content (canonical):
-- Branch naming: feat/<short>, fix/<short>, docs/<short>,
-  refactor/<short>, ci/<short>, test/<short>.
-- `main` is protected; never push --force.
-- Conventional Commits format.
-- Pre-commit hooks must pass (no --no-verify).
-- Shared interfaces (scorer registry, dataset format) → PR required;
-  low-risk fixes can land direct.
-- Worktrees for parallel agents; runbook §7 reference for the path
-  convention.
-
-Branch: docs/branching-policy-consolidation.
-Commit: `docs(policy): consolidate branching policy in CONTRIBUTING
-(closes #73)`.
-
-Acceptance: branching policy lives in exactly one place; other docs
-link to it.
-Report back: any policy mismatch between existing docs that you had
-to reconcile.
-```
-
----
-
-## Tier 4 (cont.) — Copilot product polish
-
-_Lifts the copilot from harness UI to a thing a SG legal-tech engineer would put in front of a real lawyer._
 
 ## COPILOT-1: Sessions + history persistence
 
@@ -2590,10 +3119,25 @@ chord suggested but not implementable.
 
 ---
 
+# Dropped from the rewrite
+
+These items appeared in the previous PROMPTS-TO-RUN.md but were
+removed during the 2026-06-05 methodology-first rewrite. Reopen
+only if the underlying premise changes.
+
+| Item | Reason for drop |
+|---|---|
+| **SOLO-13 region-per-index design doc (#45)** | SG-only scope per memory + project goals; multi-jurisdiction (MY adjacency) is not a v0.1 or v0.2 concern. Reopen if/when MY adjacency is concretely planned. |
+| **SOLO-15 jurisdiction selector UI (#47)** | Depends on SOLO-13; same drop rationale. A single-option dropdown is forward-investment with no current payoff. |
+| **SOLO-14 PydanticAI migration (#46)** | Low priority by author's own admission; off-thesis (orchestration refactor doesn't serve the benchmark or the vendor-eval thesis). Reopen as a separate refactor issue if needed. |
+| **SOLO-16 branching policy consolidation (#73)** | Doc hygiene only; not load-bearing. Merge into Tier 1 CONTRIBUTING.md updates if relevant during NEW-DISPUTE-PROCESS work. |
+
+---
+
 # Truly backlog (still not prompt-ready)
 
-These are the items left without prompts. They need user decisions
-or external dependencies before they can be specified:
+These are items left without prompts. They need user decisions or
+external dependencies before they can be specified:
 
 - **#58** — meta-tracking issue for the v0.2 expansion. All sub-issues
   (#50, #51, #53, #54, #55, #56, #57) are specified above (Batches G
