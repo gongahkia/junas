@@ -1,250 +1,338 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 60,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 145,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 2,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 60,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 145,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 2,000,000'"
+  ],
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 39,
+    "new_must_detect_count": 21,
+    "old_ideal_must_detect_count": 27,
+    "old_must_detect_count": 21,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
   "doc_id": "ae_special_category_term_sheet_adversarial_001",
   "document_type": "term_sheet",
-  "source_jurisdiction": "AE",
-  "destination_jurisdiction": "AE",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "TL-57-2049-FZX"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hana Al\u2011Shehri"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hana.al\u2011shehri@sandglow.ae"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+971-50-123-8890"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_emirates_id",
-      "matched_text": "784-22-9876-543210-9"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "disclosed controlled Type 1 diabetes"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "uses bio\u2011 metric facial-scan access"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kareem Al\u2011Jouri"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "H.E. Dr. Munir Al\u2011Barakah"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Al\u2011Jouri"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "membership in the Gulf Tech Workers Council (fictional union)"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minor-shareholder details (Ms. Layla bint Noura, born 2010, guardian Dr. Nasser Al\u2011Fadhli)"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Layla bint Noura"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "born 2010"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Nasser Al\u2011Fadhli"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public revenue pipeline"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "TL\u201157\u20112049\u2011FZX"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "IBAN AE12 3456 7890 1234 5678 901"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "TL-57-2049-FZX"
+      "matched_text": "TL-57-2049-FZX",
+      "rule": "ae_trade_licence"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hana Al\u2011Shehri"
+      "matched_text": "Ms. Hana Al\u2011Shehri",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hana.al\u2011shehri@sandglow.ae"
+      "matched_text": "hana.al\u2011shehri@sandglow.ae",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+971-50-123-8890"
+      "matched_text": "+971-50-123-8890",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "ae_emirates_id",
-      "matched_text": "784-22-9876-543210-9"
+      "matched_text": "784-22-9876-543210-9",
+      "rule": "ae_emirates_id"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "disclosed controlled Type 1 diabetes"
+      "matched_text": "disclosed controlled Type 1 diabetes",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "uses bio\u2011 metric facial-scan access"
+      "matched_text": "uses bio\u2011 metric facial-scan access",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kareem Al\u2011Jouri"
+      "matched_text": "Mr. Kareem Al\u2011Jouri",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "H.E. Dr. Munir Al\u2011Barakah"
+      "matched_text": "H.E. Dr. Munir Al\u2011Barakah",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Al\u2011Jouri"
+      "matched_text": "Mr. Al\u2011Jouri",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "membership in the Gulf Tech Workers Council (fictional union)"
+      "matched_text": "membership in the Gulf Tech Workers Council (fictional union)",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minor-shareholder details (Ms. Layla bint Noura, born 2010, guardian Dr. Nasser Al\u2011Fadhli)"
+      "matched_text": "minor-shareholder details (Ms. Layla bint Noura, born 2010, guardian Dr. Nasser Al\u2011Fadhli)",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Layla bint Noura"
+      "matched_text": "Ms. Layla bint Noura",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "born 2010"
+      "matched_text": "born 2010",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Nasser Al\u2011Fadhli"
+      "matched_text": "Dr. Nasser Al\u2011Fadhli",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public revenue pipeline"
+      "matched_text": "non\u2011public revenue pipeline",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "TL\u201157\u20112049\u2011FZX"
+      "matched_text": "TL\u201157\u20112049\u2011FZX",
+      "rule": "ae_trade_licence"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "IBAN AE12 3456 7890 1234 5678 901"
+      "matched_text": "IBAN AE12 3456 7890 1234 5678 901",
+      "rule": "bank_account"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non\u2011public"
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "Friday scheduling reflects his congregational commitments"
+      "matched_text": "Friday scheduling reflects his congregational commitments",
+      "rule": "religious_belief"
     },
     {
       "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "genetic test references unrelated to employment fitness"
+      "matched_text": "genetic test references unrelated to employment fitness",
+      "rule": "genetic_data"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data room will mask minor-shareholder details"
+      "matched_text": "data room will mask minor-shareholder details",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "guardian Dr. Nasser Al\u2011Fadhli"
+      "matched_text": "guardian Dr. Nasser Al\u2011Fadhli",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "admission to trading on the Gulf Crescent Exchange"
+      "matched_text": "admission to trading on the Gulf Crescent Exchange",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "shehri@sandglow.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Munir Al\u2011Barakah",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Layla",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic test",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Use of proceeds: manufacturing scale-up in Dubai Industrial City; product roadmap includes FalconShield v2.1 and a \u201cgenetic firewall\u201d analytics module (term used for software only), plus regional sales hires; this sentence is not market guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: No MAC closing condition and no MAE bring\u2011down at completion; PDPL audit within 120 days post\u2011close; founders\u2019 lock\u2011up 180 days from any listing; related\u2011party transactions limited to arms\u2019 length supply agreements.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Funds flow: Closing via escrow at Desert Pearl Bank PJSC (fictional), IBAN AE12 3456 7890 1234 5678 901 (fictional); payment of AED 2,000,000 break fee for willful breach of exclusivity only; no earn\u2011out tied to market price.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This document mentions health-checks for servers, biometric pipeline benchmarks, and a diversity & inclusion policy without referring to any individual\u2019s health, religion, sexual orientation, or politics; \u201cThe Red Nomads are on a winning streak\u201d is sports chatter and not transaction guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "145,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "shehri@sandglow.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+971-50-123-8890",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL\u201157\u20112049\u2011FZX",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hana Al\u2011Shehri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kareem Al\u2011Jouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Munir Al\u2011Barakah",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Al\u2011Jouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Layla",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Nasser Al\u2011Fadhli",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic test",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Use of proceeds: manufacturing scale-up in Dubai Industrial City; product roadmap includes FalconShield v2.1 and a \u201cgenetic firewall\u201d analytics module (term used for software only), plus regional sales hires; this sentence is not market guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: No MAC closing condition and no MAE bring\u2011down at completion; PDPL audit within 120 days post\u2011close; founders\u2019 lock\u2011up 180 days from any listing; related\u2011party transactions limited to arms\u2019 length supply agreements.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Funds flow: Closing via escrow at Desert Pearl Bank PJSC (fictional), IBAN AE12 3456 7890 1234 5678 901 (fictional); payment of AED 2,000,000 break fee for willful breach of exclusivity only; no earn\u2011out tied to market price.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Funds flow: Closing via escrow at Desert Pearl Bank PJSC (fictional), IBAN AE12 3456 7890 1234 5678 901 (fictional); payment of AED 2,000,000 break fee for willful breach of exclusivity only; no earn\u2011out tied to market price.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This document mentions health-checks for servers, biometric pipeline benchmarks, and a diversity & inclusion policy without referring to any individual\u2019s health, religion, sexual orientation, or politics; \u201cThe Red Nomads are on a winning streak\u201d is sports chatter and not transaction guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "145,000,000",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
@@ -285,40 +373,27 @@
       "reason": "Sports chatter, not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "AE",
   "uncertain": [
     {
-      "matched_text": "family-origin records",
       "concept": "origin/ethnicity data",
+      "matched_text": "family-origin records",
       "reason": "May imply sensitive origin data but not tied to a specific person within allowed categories"
     },
     {
-      "matched_text": "biometric templates stored onshore only",
       "concept": "biometric data policy/localisation",
+      "matched_text": "biometric templates stored onshore only",
       "reason": "Biometric data referenced in general, not identifiable to a person; not a clear allowed marker"
     },
     {
-      "matched_text": "PDPL consents",
       "concept": "consent requirement",
+      "matched_text": "PDPL consents",
       "reason": "Indicates consent collection under PDPL but allowed rules only include withdrawal markers"
     },
     {
-      "matched_text": "Shari\u2019a review",
       "concept": "religious compliance (non-personal)",
+      "matched_text": "Shari\u2019a review",
       "reason": "Relates to religious considerations but not to any identifiable person\u2019s beliefs"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 60,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 145,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 2,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 60,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 145,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 2,000,000'"
-  ],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

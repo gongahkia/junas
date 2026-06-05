@@ -1234,6 +1234,8 @@ _FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
     r"role[- ]only|role[- ]based|role\s+mailbox|functional\s+mailbox|"
     r"role/functional\s+mailbox|shared\s+inbox|treasury\s+contact|"
     r"generic\s+mailboxes?|public\s+contacts?|procedural\s+queries\s+only|"
+    r"placeholder\s+email|form\s+labels?|marketing\s+emails?|"
+    r"public,?\s+non[- ]transactional|"
     r"compliance\s+desk|deal\s+desk|contact\s+compliance|route\s+enquiries|"
     r"queries\s+(?:to|contact)|rout(?:e|ed)\s+to\s+legal|via\s+docroom|"
     r"public\s+(?:queries|enquiries)|regulatory\s+liaison|"
@@ -1252,6 +1254,7 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"public\s+hotline|public\s+line|public\s+service\s+line|"
     r"public\s+enquir(?:y|ies)\s+hotline|enquiries\s+line|procedural\s+queries\s+only|"
     r"public\s+(?:queries|enquiries)|"
+    r"service\s+line\s+only|"
     r"DSAR\s+hotline|"
     r"support\s+hotline|switchboard|reception|information\s+line|contact\s+centre|client\s+services|"
     r"(?:privacy|ethics)\s+helplines?|assistance\s+line|published\s+contacts?|"
@@ -1270,10 +1273,10 @@ _ALWAYS_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "admin", "ap", "ar", "billing", "capitalmarkets", "corpsec", "cosec",
     "compliance", "dealroom", "disclosure", "docroom", "dpo", "help", "helpdesk",
     "irmailbox", "listings", "media", "mna", "press", "privacy", "privacydesk",
-    "role", "room", "secretariat", "servicedesk", "support", "treasury", "walloffice",
+    "role", "room", "secretariat", "service", "servicedesk", "support", "treasury", "walloffice",
 })
 _CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
-    "contact", "info", "legal",
+    "contact", "info", "legal", "service",
 })
 _ROLE_MAILBOX_LOCAL_RE = re.compile(
     r"^(?:"
@@ -1306,6 +1309,7 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"Pag-?IBIG|PhilHealth|MID|doc\s*code|doccode|OCR|artifacts?|"
     r"Rp|IDR|harga|nilai|miliar|triliun|billion|million|RSU|"
     r"Aadhaar|PAN|GSTIN|placeholder|sample|specimen|test\s+fields?|training\s+placeholder|"
+    r"template\s+packet|form\s+labels?|"
     r"session\s+ref|vpn\s+ref|access\s+token|internal\s+user\s+id|ticket|"
     r"employee\s+nos?\.?|employee\s+id|payroll\s+ref|SSA\s+ref|job\s+ID|"
     r"asset\s+tag|badge)\b",
@@ -1395,6 +1399,7 @@ def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
     if _FUNCTIONAL_CONTACT_CONTEXT_RE.search(context):
         strong_public_context = re.search(
             r"\b(?:generic\s+mailboxes?|public\s+contacts?|procedural\s+queries\s+only|"
+            r"placeholder\s+email|form\s+labels?|marketing\s+emails?|"
             r"non[- ]PII|not\s+PII|public\s+helplines?|enquiries\s+line)\b",
             context,
             re.IGNORECASE,
@@ -1536,6 +1541,7 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         r"not\s+expected\s+to\s+constitute[^\n.;]{0,120}material\s+adverse\s+(?:change|effect)|"
         r"not\s+expected\s+to\s+have[^\n.;]{0,120}material\s+adverse\s+(?:change|effect)|"
         r"does\s+not\s+constitute[^\n.;]{0,140}material\s+adverse\s+(?:change|effect)|"
+        r"does\s+not\s+contain[^\n.;]{0,140}material\s+adverse\s+(?:change|effect)|"
         r"shall\s+not\s+constitute[^\n.;]{0,140}material\s+adverse\s+(?:change|effect)|"
         r"nothing\s+in\s+this\s+(?:notice|workflow|document|memo)[^\n.;]{0,120}"
         r"constitutes[^\n.;]{0,120}material\s+adverse\s+(?:change|effect)|"
@@ -1613,6 +1619,8 @@ def _is_benign_definitive_agreement_context(text: str, start: int, end: int) -> 
         r"routine\s+lease\s+renewal|disclosed\s+via\s+public\s+notice|"
         r"closed\s+in\s+\d{4}|fully\s+announced|"
         r"hkexnews|placeholder|"
+        r"does\s+not\s+modify\s+any\s+definitive\s+agreement|"
+        r"not\s+a\s+term\s+sheet|"
         r"as\s+disclosed[^\n.;]{0,80}executed\s+on\s+\d{4}|"
         r"as\s+announced[^\n]{0,160}no\s+binding\s+commercial\s+terms|"
         r"publicly\s+announced\s+mou[^\n]{0,180}no\s+binding\s+obligations|"
@@ -1638,6 +1646,7 @@ def _is_special_category_false_positive_context(rule_name: str, text: str, start
     if rule_name == "genetic_data" and re.search(
         r"\b(?:no\s+genetic\s+data[^\n.;]{0,80}(?:collected|stored|processed)|"
         r"no\s+genetic\s+data[^\n.;]{0,80}(?:kept|held|retained)|"
+        r"do\s+not\s+request[^\n.;]{0,140}genetic\s+data|"
         r"genetic\s+algorithms?|software\s+features?|not\s+about\s+any\s+person|"
         r"category\s+label\s+only|does\s+not\s+describe\s+any\s+person|"
         r"genetics?\s+of\s+innovation[^\n.;]{0,80}metaphors?|"
@@ -1716,6 +1725,7 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
         r"\b(?:"
         r"training\s+materials?\s+only|policy\s+training\s+examples?|"
         r"training\s+(?:weeks|decks|drills)|tabletop\s+drills|"
+        r"general\s+education\s+only|"
         r"definitions?\s+training|generic\s+compliance\s+education|"
         r"hanya\s+sebagai\s+definisi\s+pelatihan|"
         r"e[- ]?learning[^\n.;]{0,120}(?:insider\s+lists?|information\s+barriers?)|"
@@ -1727,6 +1737,9 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
         r"terms?\s+[\"“]?insider\s+list[\"”]?[^\n.;]{0,120}generic|"
         r"insider\s+list[^\n.;]{0,120}generic[^\n.;]{0,80}(?:policy|controls?)|"
         r"does\s+not\s+specify[^\n.;]{0,120}\binsider\s+lists?|"
+        r"insider\s+lists?[^\n.;]{0,80}illustrative\s+only|"
+        r"public\s+webinar[^\n.;]{0,160}\binsider\s+lists?|"
+        r"public\s+webinar[^\n.;]{0,160}generic\s+case\s+studies|"
         r"for\s+educational\s+purposes\s+only|"
         r"not\s+as\s+market[- ]moving\s+events?|educational\s+example\s+only|"
         r"educational\s+note[^\n.;]{0,120}purely\s+instructional"
@@ -1753,7 +1766,7 @@ def _is_spa_day_reference(text: str, start: int, end: int) -> bool:
         return True
     context = _line_context(text, start, end)
     return bool(re.search(
-        r"\b(?:wellness|voucher|pantry|conference\s+room|not\s+the\s+spa|book\s+the\s+spa)\b",
+        r"\b(?:wellness|voucher|pantry|conference\s+room|spa\s+day|not\s+the\s+spa|book\s+the\s+spa)\b",
         context,
         re.IGNORECASE,
     ))

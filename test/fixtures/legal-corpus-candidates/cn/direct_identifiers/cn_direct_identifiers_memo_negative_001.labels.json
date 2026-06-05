@@ -1,145 +1,227 @@
 {
-  "doc_id": "cn_direct_identifiers_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [
+  "_agent_review": {
+    "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+    "reviewer": "codex-gpt-assisted-strict-tier-review",
+    "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "strict_tier_cleaned_owner_approved"
+  },
+  "_agent_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@blueriver-robotics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "issuer@haiyuexchange.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "guardian consent"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Securities Law and MNPI: the issuer’s business metrics referenced here are drawn solely from the already-published preliminary listing announcement on the Haiyu Stock Exchange dated 2026-04-01; no undisclosed performance guidance is included."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "110101199003074329"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
+      "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
+      "reviewer": "codex-gpt-assisted-strict-tier-review",
+      "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
+      "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+      "status": "strict_tier_cleaned_owner_approved"
     }
   ],
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+    "reviewed_at_utc": "2026-05-31T05:18:26Z",
+    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+    "reviewer": "gongahkia-project-owner-chat-approval",
+    "status": "approved"
+  },
+  "_human_review_history": [
+    {
+      "decision": "approve",
+      "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
+      "reviewed_at_utc": "2026-05-31T05:18:26Z",
+      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
+      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
+      "reviewer": "gongahkia-project-owner-chat-approval",
+      "status": "approved"
+    }
+  ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "accepted_at_utc": "2026-05-31T05:18:26Z",
+    "accepted_by": "gongahkia",
+    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
+    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
+    "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 19,
+    "new_must_detect_count": 8,
+    "old_ideal_must_detect_count": 19,
+    "old_must_detect_count": 8,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_direct_identifiers_memo_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "cn_uscc",
-      "matched_text": "91TEST0000MA0XYZ12"
+      "matched_text": "91TEST0000MA0XYZ12",
+      "rule": "cn_uscc"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@blueriver-robotics.cn"
+      "matched_text": "legal@blueriver-robotics.cn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "issuer@haiyuexchange.cn"
+      "matched_text": "issuer@haiyuexchange.cn",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cn_resident_id",
-      "matched_text": "110101199003074329"
+      "matched_text": "110101199003074329",
+      "rule": "cn_resident_id"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer"
+      "matched_text": "Cross-border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list maintenance"
+      "matched_text": "Insider list maintenance",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "6222 8888 8888 888X"
+      "matched_text": "6222 8888 8888 888X",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "only de-identified fields will be exported"
+      "matched_text": "only de-identified fields will be exported",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "destined for offshore support"
+      "matched_text": "destined for offshore support",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "security assessment filing with the Jincheng Citywide Cyberspace Administration Commission (CAC)"
+      "matched_text": "security assessment filing with the Jincheng Citywide Cyberspace Administration Commission (CAC)",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Third-country processor"
+      "matched_text": "Third-country processor",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "outbound data contract"
+      "matched_text": "outbound data contract",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minors under 14"
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "guardian consent"
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Securities Law and MNPI: the issuer’s business metrics referenced here are drawn solely from the already-published preliminary listing announcement on the Haiyu Stock Exchange dated 2026-04-01; no undisclosed performance guidance is included."
+      "matched_text": "Securities Law and MNPI: the issuer\u2019s business metrics referenced here are drawn solely from the already-published preliminary listing announcement on the Haiyu Stock Exchange dated 2026-04-01; no undisclosed performance guidance is included.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "110101199003074329"
+      "matched_text": "110101199003074329",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@blueriver-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "issuer@haiyuexchange.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Securities Law and MNPI: the issuer\u2019s business metrics referenced here are drawn solely from the already-published preliminary listing announcement on the Haiyu Stock Exchange dated 2026-04-01; no undisclosed performance guidance is included.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "110101199003074329",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -188,79 +270,12 @@
       "reason": "Schema field label; not PII value"
     }
   ],
+  "source_jurisdiction": "CN",
   "uncertain": [
     {
-      "matched_text": "000000",
       "concept": "cn_postal_code",
+      "matched_text": "000000",
       "reason": "Looks like a 6-digit PRC postal code but appears as part of a company address and no explicit rule for CN postal codes in allowed set"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
-  "_agent_review": {
-    "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
-    "reviewer": "codex-gpt-assisted-strict-tier-review",
-    "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
-    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
-    "status": "strict_tier_cleaned_owner_approved"
-  },
-  "_agent_review_history": [
-    {
-      "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
-      "reviewer": "codex-gpt-assisted-strict-tier-review",
-      "run_dir": "/tmp/kaypoh-cn-stage-a-20260531",
-      "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
-      "status": "strict_tier_cleaned_owner_approved"
-    }
-  ],
-  "_human_review": {
-    "decision": "approve",
-    "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-    "reviewed_at_utc": "2026-05-31T05:18:26Z",
-    "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-    "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-    "reviewer": "gongahkia-project-owner-chat-approval",
-    "status": "approved"
-  },
-  "_human_review_history": [
-    {
-      "decision": "approve",
-      "notes": "Project owner approved CN Stage A for internal/project benchmarking based on Codex/GPT-assisted review; not legal advice or external procurement-grade legal approval.",
-      "reviewed_at_utc": "2026-05-31T05:18:26Z",
-      "reviewed_label_model": "azure:gpt-5-2; codex-gpt-assisted-strict-tier-review",
-      "reviewed_label_source": "azure:gpt-5-2-auto + codex-gpt-assisted-strict-tier-review",
-      "reviewer": "gongahkia-project-owner-chat-approval",
-      "status": "approved"
-    }
-  ],
-  "_owner_acceptance": {
-    "accepted_at_utc": "2026-05-31T05:18:26Z",
-    "accepted_by": "gongahkia",
-    "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
-    "source_report": "/tmp/kaypoh-cn-stage-a-reviewed.json",
-    "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
-  },
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

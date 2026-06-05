@@ -1,186 +1,4 @@
 {
-  "doc_id": "cn_universal_mnpi_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "comsec@fenlake.example"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cac standard contract"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "sse submissions should follow exchange style guidance and use the investor relations template; confirm chinese-first language with english courtesy translation"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "cn_uscc",
-      "matched_text": "99F0X0X0X0X0X0X0X0"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "comsec@fenlake.example"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not for distribution"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo date"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "2026-07-15 09:00 cst"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfer"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cac standard contract filing completed"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "retain for 6 months max"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not store full account numbers"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "should not collect id numbers or account details"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "masked format"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minors under 14"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not include draft or estimated figures from internal models"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cac standard contract"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "sse submissions should follow exchange style guidance and use the investor relations template; confirm chinese-first language with english courtesy translation"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "issuer",
-      "reason": "Defined role noun in parentheses, not PII/MNPI."
-    },
-    {
-      "matched_text": "uscc",
-      "reason": "Defined abbreviation, not the data value itself."
-    },
-    {
-      "matched_text": "spa day reminder",
-      "reason": "Spa-day bait; not Share Purchase Agreement."
-    },
-    {
-      "matched_text": "share purchase form",
-      "reason": "Generic form mention; not a definitive agreement label per rules."
-    },
-    {
-      "matched_text": "term sheet",
-      "reason": "Lowercase training sample; not a capitalised definitive-agreement marker."
-    },
-    {
-      "matched_text": "mac clause",
-      "reason": "Negated MAC language; excluded per rule 8."
-    },
-    {
-      "matched_text": "material adverse change",
-      "reason": "Appears in a negated context; excluded per rule 8."
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "collect consent per pipl",
-      "concept": "consent collection",
-      "reason": "Indicates consent requirement, but only consent withdrawal has an explicit rule."
-    },
-    {
-      "matched_text": "keep the signup sheet offline after the event",
-      "concept": "data storage limitation",
-      "reason": "Security/retention control; not an explicit allowed marker."
-    },
-    {
-      "matched_text": "important data",
-      "concept": "DSL important data",
-      "reason": "DSL category reference; not mapped to an allowed rule type."
-    },
-    {
-      "matched_text": "state secrets",
-      "concept": "DSL state secrets",
-      "reason": "DSL-sensitive category; not mapped to an allowed rule type."
-    },
-    {
-      "matched_text": "resident id field",
-      "concept": "CN resident ID reference",
-      "reason": "PII category referenced without an actual ID value."
-    },
-    {
-      "matched_text": "hashed ids",
-      "concept": "pseudonymised identifiers",
-      "reason": "PI technique reference; not an explicit allowed marker."
-    },
-    {
-      "matched_text": "bank account screenshot",
-      "concept": "financial account document",
-      "reason": "Refers to financial account evidence, but no account number present."
-    },
-    {
-      "matched_text": "before upload to sse disclosure platform",
-      "concept": "embargo distribution control",
-      "reason": "Indicates gating prior to public upload; not a standard embargo marker phrase."
-    },
-    {
-      "matched_text": "hr data to processors in testland",
-      "concept": "cross-border processing",
-      "reason": "Implies overseas processing location; coverage primarily keyed to explicit cross-border markers."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
   "_agent_review": {
     "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -217,6 +35,13 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T05:18:26Z",
     "accepted_by": "gongahkia",
@@ -225,21 +50,211 @@
     "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 15,
+    "new_must_detect_count": 3,
+    "old_ideal_must_detect_count": 15,
+    "old_must_detect_count": 3,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_universal_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "99F0X0X0X0X0X0X0X0",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "comsec@fenlake.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not for distribution",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo date",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2026-07-15 09:00 cst",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cac standard contract filing completed",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "retain for 6 months max",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not store full account numbers",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "should not collect id numbers or account details",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masked format",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not include draft or estimated figures from internal models",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cac standard contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sse submissions should follow exchange style guidance and use the investor relations template; confirm chinese-first language with english courtesy translation",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "comsec@fenlake.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cac standard contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sse submissions should follow exchange style guidance and use the investor relations template; confirm chinese-first language with english courtesy translation",
+      "rule": "material_event"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "issuer",
+      "reason": "Defined role noun in parentheses, not PII/MNPI."
+    },
+    {
+      "matched_text": "uscc",
+      "reason": "Defined abbreviation, not the data value itself."
+    },
+    {
+      "matched_text": "spa day reminder",
+      "reason": "Spa-day bait; not Share Purchase Agreement."
+    },
+    {
+      "matched_text": "share purchase form",
+      "reason": "Generic form mention; not a definitive agreement label per rules."
+    },
+    {
+      "matched_text": "term sheet",
+      "reason": "Lowercase training sample; not a capitalised definitive-agreement marker."
+    },
+    {
+      "matched_text": "mac clause",
+      "reason": "Negated MAC language; excluded per rule 8."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Appears in a negated context; excluded per rule 8."
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "consent collection",
+      "matched_text": "collect consent per pipl",
+      "reason": "Indicates consent requirement, but only consent withdrawal has an explicit rule."
+    },
+    {
+      "concept": "data storage limitation",
+      "matched_text": "keep the signup sheet offline after the event",
+      "reason": "Security/retention control; not an explicit allowed marker."
+    },
+    {
+      "concept": "DSL important data",
+      "matched_text": "important data",
+      "reason": "DSL category reference; not mapped to an allowed rule type."
+    },
+    {
+      "concept": "DSL state secrets",
+      "matched_text": "state secrets",
+      "reason": "DSL-sensitive category; not mapped to an allowed rule type."
+    },
+    {
+      "concept": "CN resident ID reference",
+      "matched_text": "resident id field",
+      "reason": "PII category referenced without an actual ID value."
+    },
+    {
+      "concept": "pseudonymised identifiers",
+      "matched_text": "hashed ids",
+      "reason": "PI technique reference; not an explicit allowed marker."
+    },
+    {
+      "concept": "financial account document",
+      "matched_text": "bank account screenshot",
+      "reason": "Refers to financial account evidence, but no account number present."
+    },
+    {
+      "concept": "embargo distribution control",
+      "matched_text": "before upload to sse disclosure platform",
+      "reason": "Indicates gating prior to public upload; not a standard embargo marker phrase."
+    },
+    {
+      "concept": "cross-border processing",
+      "matched_text": "hr data to processors in testland",
+      "reason": "Implies overseas processing location; coverage primarily keyed to explicit cross-border markers."
     }
   ]
 }

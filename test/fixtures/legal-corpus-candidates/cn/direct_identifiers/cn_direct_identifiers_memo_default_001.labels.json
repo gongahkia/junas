@@ -1,418 +1,4 @@
 {
-  "doc_id": "cn_direct_identifiers_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@hexi-biologics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "zhao.wenhai@hexi-biologics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "li.xiaoyu@hexi-biologics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "he.qing@hexi-biologics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ops@yunquncloud.example"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+86 199-3256-4802"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "158-7709-2044"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "E12345678"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "HB-0174"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purpose limitation"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimization"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_resident_id",
-      "matched_text": "11010519491231002X"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_uscc",
-      "matched_text": "91350100M000100Y43"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_phone",
-      "matched_text": "13800138000"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_passport",
-      "matched_text": "E12345678"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Zhao Wenhai"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Li Xiaoyu"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. He Qing"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "guardian consent"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "MNPI handling: draft H1 performance guidance and pending Nanyu Drug Bureau inspection results constitute inside information; trading window remains closed until public disclosure via the Nanyu Stock Exchange; maintain an insider list consistent with the Securities Law."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Post-IPO monitoring: the controlling shareholder’s employment-linked emails should be separated from issuer accounts before the listing; any selective guidance to analysts is prohibited and will be treated as MNPI leakage."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "510860"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "882701"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@hexi-biologics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_phone",
-      "matched_text": "+86 199-3256-4802"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "6222980012345678901"
-    },
-    {
-      "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "0689-4433-7721"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Zhao Wenhai"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "HB-0174"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_passport",
-      "matched_text": "E12345678"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "zhao.wenhai@hexi-biologics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minors’ data (<14)"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric gate logs"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "health check data"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border access"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading window remains closed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Li Xiaoyu"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "li.xiaoyu@hexi-biologics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_phone",
-      "matched_text": "158-7709-2044"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimization"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "he.qing@hexi-biologics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ops@yunquncloud.example"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective guidance to analysts"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@hexi-biologics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "employee bank numbers masked to last four digits"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not display full passport or resident ID in workflow tools"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "filing with the Jiangbei Cyberspace Administration"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Standard Contract"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "the standard contract"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "CAC filing"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "draft H1 performance guidance"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "pending Nanyu Drug Bureau inspection results"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider roster update"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "public disclosure"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+86 199-3256-4802"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "158-7709-2044"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "E12345678"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purpose limitation"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_resident_id",
-      "matched_text": "11010519491231002X"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_uscc",
-      "matched_text": "91350100M000100Y43"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_phone",
-      "matched_text": "13800138000"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. He Qing"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "guardian consent"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "MNPI handling: draft H1 performance guidance and pending Nanyu Drug Bureau inspection results constitute inside information; trading window remains closed until public disclosure via the Nanyu Stock Exchange; maintain an insider list consistent with the Securities Law."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Post-IPO monitoring: the controlling shareholder’s employment-linked emails should be separated from issuer accounts before the listing; any selective guidance to analysts is prohibited and will be treated as MNPI leakage."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "510860"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "882701"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "12315",
-      "reason": "Public hotline bait; not personal PII"
-    },
-    {
-      "matched_text": "ID: 000000000000000000",
-      "reason": "Generic placeholder string; not a real identifier"
-    },
-    {
-      "matched_text": "11000019990101999X",
-      "reason": "Invalid PRC resident ID example stated to be rejected"
-    },
-    {
-      "matched_text": "Auditor",
-      "reason": "Role-only reference; not a named natural person"
-    },
-    {
-      "matched_text": "+86 400-000-0000",
-      "reason": "Public service line; not a personal phone number"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "NEX-021901",
-      "concept": "exchange participant identifier",
-      "reason": "Likely a regulated participant code but not covered by current identifier rules"
-    },
-    {
-      "matched_text": "CN-JB-882701",
-      "concept": "vendor ticket identifier",
-      "reason": "Looks like an internal ticket/reference number; no matching allowed rule"
-    },
-    {
-      "matched_text": "Building 3, No. 12 Henggu Park, Xiayan Subdistrict, Nanyu City, Jiangbei Province 510860",
-      "concept": "postal address",
-      "reason": "Full CN address is legally identifying but no general CN address rule is available"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
   "_agent_review": {
     "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -449,6 +35,13 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T05:18:26Z",
     "accepted_by": "gongahkia",
@@ -457,21 +50,458 @@
     "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 47,
+    "new_must_detect_count": 28,
+    "old_ideal_must_detect_count": 47,
+    "old_must_detect_count": 28,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_direct_identifiers_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@hexi-biologics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 199-3256-4802",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "6222980012345678901",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0689-4433-7721",
+      "rule": "customer_account_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Wenhai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HB-0174",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E12345678",
+      "rule": "cn_passport"
+    },
+    {
+      "category": "PII",
+      "matched_text": "zhao.wenhai@hexi-biologics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors\u2019 data (<14)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric gate logs",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "health check data",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border access",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading window remains closed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Li Xiaoyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "li.xiaoyu@hexi-biologics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "158-7709-2044",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "he.qing@hexi-biologics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ops@yunquncloud.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective guidance to analysts",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@hexi-biologics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "employee bank numbers masked to last four digits",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not display full passport or resident ID in workflow tools",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "filing with the Jiangbei Cyberspace Administration",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Standard Contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "the standard contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC filing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "draft H1 performance guidance",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pending Nanyu Drug Bureau inspection results",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider roster update",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 199-3256-4802",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "158-7709-2044",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E12345678",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "11010519491231002X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "91350100M000100Y43",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13800138000",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. He Qing",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI handling: draft H1 performance guidance and pending Nanyu Drug Bureau inspection results constitute inside information; trading window remains closed until public disclosure via the Nanyu Stock Exchange; maintain an insider list consistent with the Securities Law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Post-IPO monitoring: the controlling shareholder\u2019s employment-linked emails should be separated from issuer accounts before the listing; any selective guidance to analysts is prohibited and will be treated as MNPI leakage.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "510860",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "882701",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "legal@hexi-biologics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "zhao.wenhai@hexi-biologics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "li.xiaoyu@hexi-biologics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "he.qing@hexi-biologics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ops@yunquncloud.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86 199-3256-4802",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "158-7709-2044",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E12345678",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HB-0174",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "11010519491231002X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "91350100M000100Y43",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "13800138000",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E12345678",
+      "rule": "cn_passport"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhao Wenhai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Li Xiaoyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. He Qing",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI handling: draft H1 performance guidance and pending Nanyu Drug Bureau inspection results constitute inside information; trading window remains closed until public disclosure via the Nanyu Stock Exchange; maintain an insider list consistent with the Securities Law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Post-IPO monitoring: the controlling shareholder\u2019s employment-linked emails should be separated from issuer accounts before the listing; any selective guidance to analysts is prohibited and will be treated as MNPI leakage.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Post-IPO monitoring: the controlling shareholder\u2019s employment-linked emails should be separated from issuer accounts before the listing; any selective guidance to analysts is prohibited and will be treated as MNPI leakage.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "510860",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "882701",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "12315",
+      "reason": "Public hotline bait; not personal PII"
+    },
+    {
+      "matched_text": "ID: 000000000000000000",
+      "reason": "Generic placeholder string; not a real identifier"
+    },
+    {
+      "matched_text": "11000019990101999X",
+      "reason": "Invalid PRC resident ID example stated to be rejected"
+    },
+    {
+      "matched_text": "Auditor",
+      "reason": "Role-only reference; not a named natural person"
+    },
+    {
+      "matched_text": "+86 400-000-0000",
+      "reason": "Public service line; not a personal phone number"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "exchange participant identifier",
+      "matched_text": "NEX-021901",
+      "reason": "Likely a regulated participant code but not covered by current identifier rules"
+    },
+    {
+      "concept": "vendor ticket identifier",
+      "matched_text": "CN-JB-882701",
+      "reason": "Looks like an internal ticket/reference number; no matching allowed rule"
+    },
+    {
+      "concept": "postal address",
+      "matched_text": "Building 3, No. 12 Henggu Park, Xiayan Subdistrict, Nanyu City, Jiangbei Province 510860",
+      "reason": "Full CN address is legally identifying but no general CN address rule is available"
     }
   ]
 }

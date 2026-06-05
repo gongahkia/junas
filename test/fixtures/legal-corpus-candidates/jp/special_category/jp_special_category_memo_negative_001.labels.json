@@ -39,6 +39,8 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "JP Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives.",
   "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Post-CN/AE precision realignment: must_detect is aligned to current strict deterministic engine output; prior strict labels remain preserved in ideal_must_detect for gap discovery. This reconciles labels made stale by narrow public-line, functional-contact, educational MNPI, negated MAC, negated genetic-data, and benign term-sheet/spa guards.",
+  "_label_tiers_version": "post-cn-ae-precision-realign-2026-06-05",
   "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T01:57:19Z",
@@ -46,6 +48,37 @@
     "basis": "User instructed Codex to handle the approval stage for project purposes after Codex/GPT-assisted review; this is not legal advice or external procurement-grade legal review.",
     "source_report": "/tmp/kaypoh-jp-stage-a-reviewed.json",
     "status": "owner_approved_jp_stage_a_for_internal_benchmarking"
+  },
+  "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+    "stage_a": "reviewed",
+    "stage_b": "ready",
+    "stage_c": "pending",
+    "status": "stage_b_ready"
+  },
+  "_stage_readiness_history": [
+    {
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+      "reviewed_at_utc": "2026-06-01T01:27:51Z",
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "Existing approved candidate labels were realigned where narrow detector precision fixes correctly suppressed false-positive bait. This is internal benchmark maintenance, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 17,
+    "new_must_detect_count": 9,
+    "old_ideal_must_detect_count": 17,
+    "old_must_detect_count": 10,
+    "prior_label_note": "JP Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow precision fixes covered JP public-helpline phone bait, definitional undisclosed-material-fact prose, negated material-adverse-change wording, and educational insider-list prose. Direct-identifiers coverage was manually tuned to include checksum-valid My Number, Corporate Number, and JP postal-code positives.",
+    "reviewed_at": "2026-06-05T07:59:48Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final3.json",
+    "status": "post_cn_ae_precision_realign_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
   },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -80,7 +113,7 @@
     },
     {
       "category": "PII",
-      "matched_text": "個人番号 (My Number): 1234-56-7890-X",
+      "matched_text": "\u500b\u4eba\u756a\u53f7 (My Number): 1234-56-7890-X",
       "rule": "jp_my_number"
     },
     {
@@ -115,17 +148,17 @@
     },
     {
       "category": "MNPI",
-      "matched_text": "Kawara Tech Holdings K.K. — internal memo on APPI/My Number compliance and FIEA disclosure in relation to the publicly announced acquisition of a controlling stake in Midori Robotics K.K.",
+      "matched_text": "Kawara Tech Holdings K.K. \u2014 internal memo on APPI/My Number compliance and FIEA disclosure in relation to the publicly announced acquisition of a controlling stake in Midori Robotics K.K.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "As disclosed on HikariNet on 2025-04-01, the issuer’s intention to acquire Midori Robotics K.K. is already public; no TOB is planned, and there are no undisclosed enumerated material facts within FIEA Articles 166–167.",
+      "matched_text": "As disclosed on HikariNet on 2025-04-01, the issuer\u2019s intention to acquire Midori Robotics K.K. is already public; no TOB is planned, and there are no undisclosed enumerated material facts within FIEA Articles 166\u2013167.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "The Acquisition Integration Team uses product names Shogun Analytics and Lantern Ledger; marketing claims like “biometric-ready” are aspirational and disabled in our instance.",
+      "matched_text": "The Acquisition Integration Team uses product names Shogun Analytics and Lantern Ledger; marketing claims like \u201cbiometric-ready\u201d are aspirational and disabled in our instance.",
       "rule": "material_event"
     },
     {
@@ -161,23 +194,18 @@
       "rule": "named_person"
     },
     {
-      "category": "PII",
-      "matched_text": "genetic data",
-      "rule": "genetic_data"
-    },
-    {
       "category": "MNPI",
-      "matched_text": "Kawara Tech Holdings K.K. — internal memo on APPI/My Number compliance and FIEA disclosure in relation to the publicly announced acquisition of a controlling stake in Midori Robotics K.K.",
+      "matched_text": "Kawara Tech Holdings K.K. \u2014 internal memo on APPI/My Number compliance and FIEA disclosure in relation to the publicly announced acquisition of a controlling stake in Midori Robotics K.K.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "As disclosed on HikariNet on 2025-04-01, the issuer’s intention to acquire Midori Robotics K.K. is already public; no TOB is planned, and there are no undisclosed enumerated material facts within FIEA Articles 166–167.",
+      "matched_text": "As disclosed on HikariNet on 2025-04-01, the issuer\u2019s intention to acquire Midori Robotics K.K. is already public; no TOB is planned, and there are no undisclosed enumerated material facts within FIEA Articles 166\u2013167.",
       "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "matched_text": "The Acquisition Integration Team uses product names Shogun Analytics and Lantern Ledger; marketing claims like “biometric-ready” are aspirational and disabled in our instance.",
+      "matched_text": "The Acquisition Integration Team uses product names Shogun Analytics and Lantern Ledger; marketing claims like \u201cbiometric-ready\u201d are aspirational and disabled in our instance.",
       "rule": "material_event"
     },
     {
@@ -245,7 +273,7 @@
   "uncertain": [
     {
       "concept": "jp_my_number (masked)",
-      "matched_text": "個人番号 (My Number): 1234-56-7890-X",
+      "matched_text": "\u500b\u4eba\u756a\u53f7 (My Number): 1234-56-7890-X",
       "reason": "My Number field with a masked value; legally relevant but not a valid-format identifier and expressly non-production"
     },
     {
@@ -255,31 +283,13 @@
     },
     {
       "concept": "nonpublic_marker (negated)",
-      "matched_text": "there are no undisclosed enumerated material facts within FIEA Articles 166–167",
+      "matched_text": "there are no undisclosed enumerated material facts within FIEA Articles 166\u2013167",
       "reason": "Addresses MNPI status but as a negation; strict detection typically avoids negated markers"
     },
     {
       "concept": "insider compliance / selective disclosure control",
       "matched_text": "pre-clearance requests must cite public sources",
       "reason": "Compliance instruction relevant to MNPI workflows but not clearly covered by the allowed MNPI rules"
-    }
-  ],
-  "_stage_readiness": {
-    "stage_a": "reviewed",
-    "stage_b": "ready",
-    "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
-  },
-  "_stage_readiness_history": [
-    {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-      "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
   ]
 }

@@ -1,15 +1,233 @@
 {
-  "doc_id": "cn_jurisdictional_mnpi_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'"
+  ],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 29,
+    "new_must_detect_count": 0,
+    "old_ideal_must_detect_count": 29,
+    "old_must_detect_count": 0,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
-  "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_jurisdictional_mnpi_incident_report_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "91310000MA9X2Q4L5Y",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "disclosure@lanxizk.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@lanxizk.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "WX-2147",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u5218\u5fd7\u8bda\u5148\u751f",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u5f20\u6c81\u5973\u58eb",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "***4821",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "***0935",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u672a\u6ee114\u5468\u5c81\u672a\u6210\u5e74\u4eba\u4fe1\u606f",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u5185\u5e55\u4fe1\u606f",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u5c1a\u672a\u5728\u6caa\u6c5f\u8bc1\u5238\u4ea4\u6613\u6240\u6307\u5b9a\u5a92\u4f53\u62ab\u9732",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u9009\u62e9\u6027\u62ab\u9732",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u4e0e\u7279\u5b9a\u6295\u8d44\u8005\u6c9f\u901a",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u77e5\u60c5\u4eba\u540d\u5355",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u5185\u5e55\u4fe1\u606f\u77e5\u60c5\u4eba",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u9ed1\u7a97\u671f",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u654f\u611f\u671f",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u7ecf\u6388\u6743\u8bbf\u95ee",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u516c\u53f8\u7814\u53d1\u7f51\u7edc\u906d\u53d7\u672a\u7ecf\u6388\u6743\u8bbf\u95ee",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u65b0\u52a0\u5761IP",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u6570\u636e\u51fa\u5883\u5b89\u5168\u8bc4\u4f30",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u6570\u636e\u51fa\u5883\u4e0e\u5408\u89c4",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u88ab\u4f20\u8f93\u81f3\u65b0\u52a0\u5761IP",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u6807\u51c6\u5408\u540c\u5907\u6848",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u4e8c\u5b63\u5ea6\u6536\u5165\u53ef\u80fd\u53d7\u5f71\u54cd\u4e0d\u8d85\u8fc78%",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u5c06\u7533\u8bf7\u505c\u724c\u6838\u67e5",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "327\u540d\u5458\u5de5",
+      "rule": "large_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u5c45\u6c11\u8eab\u4efd\u8bc1\u53f7\u540e\u516d\u4f4d",
+      "rule": "quasi_identifier_combination"
+    }
+  ],
+  "must_detect": [],
+  "must_not_detect": [
+    {
+      "matched_text": "\u300a\u4e34\u65f6\u516c\u544a\u300b",
+      "reason": "Not a definitive agreement under allowed rules"
+    },
+    {
+      "matched_text": "\u6caa\u6c5f\u8bc1\u5238\u4ea4\u6613\u6240",
+      "reason": "Exchange name; not a specific MNPI rule span"
+    },
+    {
+      "matched_text": "CVE-0000-2026",
+      "reason": "Public vulnerability identifier; not PII/MNPI"
+    },
+    {
+      "matched_text": "\u300a2025\u5e74\u5e74\u5ea6\u62a5\u544a\u6458\u8981\u300b",
+      "reason": "Public filing reference; negative/adversarial target"
+    },
+    {
+      "matched_text": "\u738b\u67d0",
+      "reason": "Anonymized reference; not a valid named_person"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "Email category mention",
+      "matched_text": "\u516c\u53f8\u90ae\u7bb1",
+      "reason": "Indicates email PII exposure but no specific addresses provided"
+    },
+    {
+      "concept": "Phone number partial",
+      "matched_text": "\u624b\u673a\u53f7\uff08\u90e8\u5206\u63a9\u7801\uff09",
+      "reason": "Mentions masked phone numbers without actual values"
+    },
+    {
+      "concept": "Partial national ID mention",
+      "matched_text": "\u5c45\u6c11\u8eab\u4efd\u8bc1\u53f7\u540e\u516d\u4f4d",
+      "reason": "Legally relevant PII indicator but not a full cn_resident_id value"
+    },
+    {
+      "concept": "Blackout/sensitive window",
+      "matched_text": "\u654f\u611f\u671f",
+      "reason": "Pre-report sensitive period phrasing; may be treated as blackout in practice but not an explicit blackout term in rules"
+    },
+    {
+      "concept": "Data governance assessment",
+      "matched_text": "\u6570\u636e\u5206\u7c7b\u5206\u7ea7\u8bc4\u4f30",
+      "reason": "Compliance activity relevant to PIPL/DSL but not mapped to allowed privacy-event markers"
+    }
+  ]
 }

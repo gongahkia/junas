@@ -1,229 +1,4 @@
 {
-  "doc_id": "cn_quasi_identifiers_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "listing-ir@yuedao.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr-bot@yuedao.example"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1990-04-17"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "DEV-TEST-0000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "cn_uscc",
-      "matched_text": "9ZZ00000000000000X"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@yuedao.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "listing-ir@yuedao.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr-bot@yuedao.example"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_phone",
-      "matched_text": "400-000-0000"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DOB 1990-04-17"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minors under 14"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border data transfer"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "de-identified system logs"
-    },
-    {
-      "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "DOB 1990-04-17, base location Haidian District, role Junior Firmware Engineer at Yuedao Robotics, device IMEI-like tag 86-000123-456789-0, enterprise IM login EWX-9081, and payroll sub-account suffix 4321"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "device IMEI-like tag 86-000123-456789-0"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "enterprise IM login EWX-9081"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "Bank Acct: ****4321 (masked)"
-    },
-    {
-      "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "payroll sub-account suffix 4321"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "Device SN DEV-TEST-0000"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "We do not store full Resident ID numbers; HR keeps salted hashes only (example hash h_zz00)"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "production identifiers are masked in analytics"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "exported to NebulaStack Pte. (SG)"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "outbound security assessment filing with the national cyberspace authority"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1990-04-17"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "DEV-TEST-0000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "passport",
-      "reason": "Generic keyword mention; no identifier value."
-    },
-    {
-      "matched_text": "bank",
-      "reason": "Generic keyword mention; no identifier value."
-    },
-    {
-      "matched_text": "SSN",
-      "reason": "Generic keyword mention; no identifier value."
-    },
-    {
-      "matched_text": "Acct No: 999",
-      "reason": "Explicit placeholder; not an identifying account number."
-    },
-    {
-      "matched_text": "Voucher ID: ABC-000",
-      "reason": "Explicit placeholder; not personal data."
-    },
-    {
-      "matched_text": "age band 30–39",
-      "reason": "Generic demographic; not identifying alone."
-    },
-    {
-      "matched_text": "“from a coastal province”",
-      "reason": "Generic demographic; not identifying alone."
-    },
-    {
-      "matched_text": "Resident ID",
-      "reason": "Field label only; no identifier value."
-    },
-    {
-      "matched_text": "no inside information remains undisclosed",
-      "reason": "Negated MNPI; indicates absence of nonpublic information."
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "enterprise IM login EWX-9081",
-      "concept": "employee/account identifier",
-      "reason": "Login handle likely identifies an employee but mapping to allowed rule types may be ambiguous."
-    },
-    {
-      "matched_text": "IMEI-like tag 86-000123-456789-0",
-      "concept": "device identifier",
-      "reason": "Described as IMEI-like and not in standard IMEI format; may or may not qualify as imei/device serial."
-    },
-    {
-      "matched_text": "Device SN DEV-TEST-0000",
-      "concept": "device serial (test)",
-      "reason": "Test/generic serial may not be personal but could be treated as device identifier."
-    },
-    {
-      "matched_text": "NebulaStack Pte. (SG)",
-      "concept": "overseas recipient identification",
-      "reason": "Entity identifies cross-border data recipient; relevant to CAC filings though not PII per se."
-    },
-    {
-      "matched_text": "without consent",
-      "concept": "consent requirement",
-      "reason": "Indicates consent gating but allowed rules only include consent_withdrawal_marker, not generic consent markers."
-    },
-    {
-      "matched_text": "example hash h_zz00",
-      "concept": "hashed/pseudonymized identifier",
-      "reason": "Hash may be derived from PII; not directly covered by listed rules."
-    },
-    {
-      "matched_text": "payroll sub-account suffix 4321",
-      "concept": "partial bank/account identifier",
-      "reason": "Partial account identifier may be treated as PII but coverage is ambiguous in allowed rules."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
   "_agent_review": {
     "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -260,6 +35,13 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T05:18:26Z",
     "accepted_by": "gongahkia",
@@ -268,21 +50,254 @@
     "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 22,
+    "new_must_detect_count": 5,
+    "old_ideal_must_detect_count": 22,
+    "old_must_detect_count": 5,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_quasi_identifiers_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "9ZZ00000000000000X",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@yuedao.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "listing-ir@yuedao.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr-bot@yuedao.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "400-000-0000",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1990-04-17",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border data transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "de-identified system logs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1990-04-17, base location Haidian District, role Junior Firmware Engineer at Yuedao Robotics, device IMEI-like tag 86-000123-456789-0, enterprise IM login EWX-9081, and payroll sub-account suffix 4321",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "device IMEI-like tag 86-000123-456789-0",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "enterprise IM login EWX-9081",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bank Acct: ****4321 (masked)",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll sub-account suffix 4321",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Device SN DEV-TEST-0000",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "We do not store full Resident ID numbers; HR keeps salted hashes only (example hash h_zz00)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "production identifiers are masked in analytics",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "exported to NebulaStack Pte. (SG)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "outbound security assessment filing with the national cyberspace authority",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-04-17",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DEV-TEST-0000",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "listing-ir@yuedao.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr-bot@yuedao.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1990-04-17",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DEV-TEST-0000",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "passport",
+      "reason": "Generic keyword mention; no identifier value."
+    },
+    {
+      "matched_text": "bank",
+      "reason": "Generic keyword mention; no identifier value."
+    },
+    {
+      "matched_text": "SSN",
+      "reason": "Generic keyword mention; no identifier value."
+    },
+    {
+      "matched_text": "Acct No: 999",
+      "reason": "Explicit placeholder; not an identifying account number."
+    },
+    {
+      "matched_text": "Voucher ID: ABC-000",
+      "reason": "Explicit placeholder; not personal data."
+    },
+    {
+      "matched_text": "age band 30\u201339",
+      "reason": "Generic demographic; not identifying alone."
+    },
+    {
+      "matched_text": "\u201cfrom a coastal province\u201d",
+      "reason": "Generic demographic; not identifying alone."
+    },
+    {
+      "matched_text": "Resident ID",
+      "reason": "Field label only; no identifier value."
+    },
+    {
+      "matched_text": "no inside information remains undisclosed",
+      "reason": "Negated MNPI; indicates absence of nonpublic information."
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "employee/account identifier",
+      "matched_text": "enterprise IM login EWX-9081",
+      "reason": "Login handle likely identifies an employee but mapping to allowed rule types may be ambiguous."
+    },
+    {
+      "concept": "device identifier",
+      "matched_text": "IMEI-like tag 86-000123-456789-0",
+      "reason": "Described as IMEI-like and not in standard IMEI format; may or may not qualify as imei/device serial."
+    },
+    {
+      "concept": "device serial (test)",
+      "matched_text": "Device SN DEV-TEST-0000",
+      "reason": "Test/generic serial may not be personal but could be treated as device identifier."
+    },
+    {
+      "concept": "overseas recipient identification",
+      "matched_text": "NebulaStack Pte. (SG)",
+      "reason": "Entity identifies cross-border data recipient; relevant to CAC filings though not PII per se."
+    },
+    {
+      "concept": "consent requirement",
+      "matched_text": "without consent",
+      "reason": "Indicates consent gating but allowed rules only include consent_withdrawal_marker, not generic consent markers."
+    },
+    {
+      "concept": "hashed/pseudonymized identifier",
+      "matched_text": "example hash h_zz00",
+      "reason": "Hash may be derived from PII; not directly covered by listed rules."
+    },
+    {
+      "concept": "partial bank/account identifier",
+      "matched_text": "payroll sub-account suffix 4321",
+      "reason": "Partial account identifier may be treated as PII but coverage is ambiguous in allowed rules."
     }
   ]
 }

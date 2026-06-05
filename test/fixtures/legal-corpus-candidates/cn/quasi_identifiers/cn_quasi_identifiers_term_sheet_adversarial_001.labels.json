@@ -1,15 +1,436 @@
 {
-  "doc_id": "cn_quasi_identifiers_term_sheet_adversarial_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 40,
+    "new_must_detect_count": 24,
+    "old_ideal_must_detect_count": 31,
+    "old_must_detect_count": 24,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
-  "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_quasi_identifiers_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 220,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 1,540,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "maintain insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Series C Preferred Share investment in Qishan Integrated Optoelectronics Co., Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Company targets STAR Market (SSE) filing within 18 months",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no A-share trading of issuer\u2019s suppliers or customers on the basis of this information until publicly disclosed via SSE",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. He Yuchen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "he.yuchen@qishan-opto.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1989-11-02",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 36",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Xiaoyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lin.xiaoyu@qishan-opto.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rao Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rao.min@harborview-delta.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer (if any) to Investor\u2019s counsel requires CAC security assessment or standard contract filing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Finance contact cluster \u2014 Mr. He Yuchen (DOB 1989-11-02, age 36), Role: VP Finance at Qishan; office: Building 3, Pudong New Area (fict.), Shanghai; device tag: CN-PD-Fin-RedMi-7A; payroll ref: GL-1130-HE-1102; internal a c c t: he.yuchen@qishan-opto.cn; res i d e n t I D (masked): 31 0X 1989 1 1 0 2 **** 12X3; s e s s: sh_pd_0034 via https://intranet.qishan-opto.cn/auth?s=he_1102&loc=PD",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "USCC: 91A0 8Z3Q 00X0 0X9Y 1",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "res i d e n t I D (masked): 31 0X 1989 1 1 0 2 **** 12X3",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll ref: GL-1130-HE-1102",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "s e s s: sh_pd_0034",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CN- B A N K - 88 4 5 - XX29",
+      "rule": "bank_customer_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "processing limited to transaction diligence",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no minors under 14 data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "any resident ID copies redacted",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "endpoint logging limited to pseudonymous IDs",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "device inventories tagged by role (e.g., \u201cFinance-Tablet-7A\u201d) not by name",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1989 1 1 0 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Listing: Company targets STAR Market (SSE) filing within 18 months; CSRC registration to follow; issuer will prepare prospectus drafts and maintain insider lists per CSRC guidance; no public marketing until approval.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing mechanics: funds to be wired to designated capital account at a fictitious bank upon CP satisfaction; for test purposes an obfuscated bank ref appears as CN- B A N K - 88 4 5 - XX29; VAT invoice workflow will be performed via e-fapiao portal; no beneficial ownership changes before closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,540,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "he.yuchen@qishan-opto.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "lin.xiaoyu@qishan-opto.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "rao.min@harborview-delta.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1989 1 1 0 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1989-11-02",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. He Yuchen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Xiaoyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Rao Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Listing: Company targets STAR Market (SSE) filing within 18 months; CSRC registration to follow; issuer will prepare prospectus drafts and maintain insider lists per CSRC guidance; no public marketing until approval.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing mechanics: funds to be wired to designated capital account at a fictitious bank upon CP satisfaction; for test purposes an obfuscated bank ref appears as CN- B A N K - 88 4 5 - XX29; VAT invoice workflow will be performed via e-fapiao portal; no beneficial ownership changes before closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing mechanics: funds to be wired to designated capital account at a fictitious bank upon CP satisfaction; for test purposes an obfuscated bank ref appears as CN- B A N K - 88 4 5 - XX29; VAT invoice workflow will be performed via e-fapiao portal; no beneficial ownership changes before closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 220,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 1,540,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "220,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,540,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Defined role term not PII/MNPI"
+    },
+    {
+      "matched_text": "Investor",
+      "reason": "Defined role term not PII/MNPI"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "Defined role term not PII/MNPI"
+    },
+    {
+      "matched_text": "Company",
+      "reason": "Defined role term not PII/MNPI"
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated MAC clause context; do not label as material_adverse_change"
+    },
+    {
+      "matched_text": "Material Adverse Change",
+      "reason": "Negated MAC clause context; do not label as material_adverse_change"
+    },
+    {
+      "matched_text": "M A C addresses",
+      "reason": "Generic/negated mention; no actual MAC address value provided"
+    },
+    {
+      "matched_text": "IMEI values",
+      "reason": "Generic/negated mention; no actual IMEI provided"
+    },
+    {
+      "matched_text": "IPs",
+      "reason": "Generic/negated mention; no actual IP address value provided"
+    },
+    {
+      "matched_text": "any cross-border log export paused pending CAC filing",
+      "reason": "Action is paused; not a live cross-border transfer event"
+    },
+    {
+      "matched_text": "QX-202",
+      "reason": "Separated weak device ID; not identifying alone"
+    },
+    {
+      "matched_text": "25\u201335-year-old engineers",
+      "reason": "Generic demographic range; not identifying alone"
+    },
+    {
+      "matched_text": "Nanshan District",
+      "reason": "Generic location; not identifying alone"
+    },
+    {
+      "matched_text": "SZ-R&D-02",
+      "reason": "Generic VPN pool name; not identifying alone"
+    },
+    {
+      "matched_text": "1993-05",
+      "reason": "Birth month only; separated weak identifier"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "retention_marker",
+      "matched_text": "data mapping retained for 3 years in PRC",
+      "reason": "Indicates retention duration but no explicit retention rule is available in the allowed labels"
+    },
+    {
+      "concept": "internal_url_with_identifiers",
+      "matched_text": "https://intranet.qishan-opto.cn/auth?s=he_1102&loc=PD",
+      "reason": "URL contains parameter values that may encode internal account/session identifiers not covered by a specific rule"
+    },
+    {
+      "concept": "internal_account_id",
+      "matched_text": "he_1102",
+      "reason": "Looks like an internal identifier for the individual but not clearly mapped to employee_id/customer_account_number in rules"
+    },
+    {
+      "concept": "device_identifier",
+      "matched_text": "CN-PD-Fin-RedMi-7A",
+      "reason": "Device tag may function as a device identifier but not clearly a serial number/IMEI per allowed rules"
+    }
+  ]
 }

@@ -1,70 +1,101 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 10,
+    "new_must_detect_count": 4,
+    "old_ideal_must_detect_count": 8,
+    "old_must_detect_count": 4,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
   "doc_id": "ae_special_category_incident_report_negative_001",
   "document_type": "memo",
-  "source_jurisdiction": "AE",
-  "destination_jurisdiction": "AE",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "security-operations@nakhla-harbour.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "pdpl@dataoffice.example"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template identifier"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "we applied minimisation"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "security-operations@nakhla-harbour.example"
+      "matched_text": "security-operations@nakhla-harbour.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "pdpl@dataoffice.example"
+      "matched_text": "pdpl@dataoffice.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template identifier"
+      "matched_text": "fingerprint template identifier",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "we applied minimisation"
+      "matched_text": "we applied minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Lina Qassimi"
+      "matched_text": "Lina Qassimi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "ae_emirates_id",
-      "matched_text": "784-XXXX-XXXXXXX-X"
+      "matched_text": "784-XXXX-XXXXXXX-X",
+      "rule": "ae_emirates_id"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "DIFC/ADGM cross-border data checks"
+      "matched_text": "DIFC/ADGM cross-border data checks",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purged the template from the sandbox"
+      "matched_text": "purged the template from the sandbox",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security-operations@nakhla-harbour.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "pdpl@dataoffice.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_not_detect": [
@@ -117,38 +148,32 @@
       "reason": "Place name, not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "AE",
   "uncertain": [
     {
-      "matched_text": "DIFC/ADGM cross-border data checks",
       "concept": "cross-border transfer check",
+      "matched_text": "DIFC/ADGM cross-border data checks",
       "reason": "Indicates cross-border assessments; may not be a live transfer but relevant to transfer compliance"
     },
     {
-      "matched_text": "784-XXXX-XXXXXXX-X",
       "concept": "redacted Emirates ID placeholder",
+      "matched_text": "784-XXXX-XXXXXXX-X",
       "reason": "Format suggests an Emirates ID but is redacted; unclear if it should be classified as ae_emirates_id"
     },
     {
-      "matched_text": "the biometric reference is special-category data",
       "concept": "special-category classification",
+      "matched_text": "the biometric reference is special-category data",
       "reason": "Declares biometric data category without an identifier value; relevant but not a specific biometric identifier span"
     },
     {
-      "matched_text": "customer notice not triggered",
       "concept": "breach notification threshold",
+      "matched_text": "customer notice not triggered",
       "reason": "Relates to PDPL notification obligations but not covered by a specific allowed marker"
     },
     {
-      "matched_text": "does not involve issuer MNPI",
       "concept": "MNPI negation",
+      "matched_text": "does not involve issuer MNPI",
       "reason": "References MNPI status in a negated form; not clearly mapped to a positive MNPI rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

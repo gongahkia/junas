@@ -1,15 +1,504 @@
 {
-  "doc_id": "cn_special_category_term_sheet_default_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 54,
+    "new_must_detect_count": 31,
+    "old_ideal_must_detect_count": 40,
+    "old_must_detect_count": 31,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
-  "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_special_category_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Mr. He Ming",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Employee ID JYO-0142",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "face-scan",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. He Ming (Factory Supervisor, Employee ID JYO-0142) has biometric templates (fingerprint and face-scan clock-in)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "controlled hypertension",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "occupational health record noting controlled hypertension",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "membership with Yuelan Optics Workers Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "his membership with Yuelan Optics Workers Union is also recorded",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 13",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Zhao Jing (age 13)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vaccination certificate",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "religious belief as Buddhist",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Ya (R&D) voluntarily listed her religious belief as Buddhist",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Zhao Fei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Ya",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Wang Xiu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ID ending 0007",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ren.kai@qiluo-capital.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "yuting.chen@jiangyuan-optics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-10-5550-0000",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "JYO-9Z31X-000TQ",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border transfer of personal information",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contract filing and a security assessment with the national cyberspace regulator",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "onward transfers require written approval",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation and minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Resident ID numbers are truncated",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "payroll bank accounts are tokenized",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackouts",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 320,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 40,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Innovation Board listing application",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed Acquisition of Control",
+      "rule": "material_event"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-10-5550-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "JYO-0142",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ren Kai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Chen Yuting",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Control of Jiangyuan Optics Co., Ltd. by Qiluo Capital Fund I, L.P., governed by PRC law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: compliance with PIPL, CSL, and DSL; for any cross-border transfer of personal information, standard contract filing and a security assessment with the national cyberspace regulator will be completed before closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pricing and closing mechanics: RMB 320,000,000 cash at closing less net debt, plus an earn-out of RMB 40,000,000 tied to 2027 audited net profit; closing targeted within 120 days of approvals by the national securities regulator and the provincial commerce department.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "320,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ren.kai@qiluo-capital.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "yuting.chen@jiangyuan-optics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-10-5550-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "JYO-0142",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "standard contractual clauses",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. He Ming",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Zhao Fei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lin Ya",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Wang Xiu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ren Kai",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Chen Yuting",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 13",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "guardian consent",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed Acquisition of Control of Jiangyuan Optics Co., Ltd. by Qiluo Capital Fund I, L.P., governed by PRC law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: compliance with PIPL, CSL, and DSL; for any cross-border transfer of personal information, standard contract filing and a security assessment with the national cyberspace regulator will be completed before closing.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pricing and closing mechanics: RMB 320,000,000 cash at closing less net debt, plus an earn-out of RMB 40,000,000 tied to 2027 audited net profit; closing targeted within 120 days of approvals by the national securities regulator and the provincial commerce department.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pricing and closing mechanics: RMB 320,000,000 cash at closing less net debt, plus an earn-out of RMB 40,000,000 tied to 2027 audited net profit; closing targeted within 120 days of approvals by the national securities regulator and the provincial commerce department.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Pricing and closing mechanics: RMB 320,000,000 cash at closing less net debt, plus an earn-out of RMB 40,000,000 tied to 2027 audited net profit; closing targeted within 120 days of approvals by the national securities regulator and the provincial commerce department.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 320,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 320,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 40,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "320,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "320,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "40,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Target",
+      "reason": "defined role term"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "defined role term"
+    },
+    {
+      "matched_text": "the Parties",
+      "reason": "defined role term"
+    },
+    {
+      "matched_text": "Azure Lantern middleware",
+      "reason": "product name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Yongcheng Blue Kites",
+      "reason": "sports team/charity name; not PII/MNPI"
+    },
+    {
+      "matched_text": "Lotus Gate Policy",
+      "reason": "policy name; not PII/MNPI"
+    },
+    {
+      "matched_text": "DEI charter",
+      "reason": "generic DEI reference; not PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "minor consent requirement",
+      "matched_text": "requiring guardian consent",
+      "reason": "Indicates consent requirement for processing a minor\u2019s personal information, but allowed rules list only consent_withdrawal_marker."
+    },
+    {
+      "concept": "minimisation/export restriction (negative phrasing)",
+      "matched_text": "no raw biometric templates or genetic data sets will be exported",
+      "reason": "Describes a future prohibition/control; rule 17 cautions against labeling negated/already-completed controls."
+    },
+    {
+      "concept": "trading prohibition language",
+      "matched_text": "must not be traded upon",
+      "reason": "MNPI compliance statement about trading; not clearly mapped to tipping_language/blackout markers in the allowed set."
+    }
+  ]
 }

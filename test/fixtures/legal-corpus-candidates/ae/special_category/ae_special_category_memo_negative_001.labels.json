@@ -1,181 +1,4 @@
 {
-  "doc_id": "ae_special_category_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "AE",
-  "destination_jurisdiction": "AE",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "1193"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data Minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "TL-5931-TEST"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "Trade Licence TL-5931-TEST"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "ORH-EMP-1193"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "Type 2 diabetes"
-    },
-    {
-      "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "ongoing treatment for Type 2 diabetes"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@oasisreef.example"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "Religion (do not ask)"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "PDPL Data Minimisation Standard v2.1"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "please do not include personal identifiers in open emails"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_emirates_id",
-      "matched_text": "EID-0000-XXXX-TEST"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "1193"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data Minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "TL-5931-TEST"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "Desert Falcon Code of Conduct",
-      "reason": "Policy/product name; not PII or MNPI."
-    },
-    {
-      "matched_text": "Oasis Safe Harbour Notice",
-      "reason": "Policy/product name; not PII or MNPI."
-    },
-    {
-      "matched_text": "Wadi Shield Anti-Harassment Policy",
-      "reason": "Policy/product name; not PII or MNPI."
-    },
-    {
-      "matched_text": "“Marina Strikers,”",
-      "reason": "Sports/metaphor tag; not person-linked data."
-    },
-    {
-      "matched_text": "“Liwa Playbook,”",
-      "reason": "Metaphor tag; not person-linked data."
-    },
-    {
-      "matched_text": "“Jebel Surf”",
-      "reason": "Metaphor tag; not person-linked data."
-    },
-    {
-      "matched_text": "union membership",
-      "reason": "Negated generic sensitive category mention; not collected."
-    },
-    {
-      "matched_text": "political opinions",
-      "reason": "Negated generic sensitive category mention; not collected."
-    },
-    {
-      "matched_text": "religious beliefs",
-      "reason": "Negated generic sensitive category mention; not collected."
-    },
-    {
-      "matched_text": "unpublished issuer information",
-      "reason": "Negated; explicitly not present so not MNPI."
-    },
-    {
-      "matched_text": "biometric timekeeping",
-      "reason": "Negated capability; not person-linked record."
-    },
-    {
-      "matched_text": "“biometric”",
-      "reason": "Generic term mention; not person-linked data."
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "Family origin (optional)",
-      "concept": "ethnic/family origin special-category",
-      "reason": "Potential special-category attribute under PDPL but not listed in allowed rules."
-    },
-    {
-      "matched_text": "nationality",
-      "concept": "nationality personal data",
-      "reason": "Personal data attribute but no specific allowed rule to tag standalone nationality."
-    },
-    {
-      "matched_text": "Emirates ID",
-      "concept": "government ID type mention",
-      "reason": "Indicates AE ID category without an actual identifier number; may be out of scope for strict detectors."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AE Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered UAE trade-licence precision/full-code capture, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, phone-like device/date fragments, and Arabic-style hyphenated names. Generated invalid/placeholder Emirates ID and trade-licence labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
   "_agent_review": {
     "notes": "Reconciled AE Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UAE trade-licence capture issues, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, and Arabic-style hyphenated names; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -212,6 +35,13 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AE Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered UAE trade-licence precision/full-code capture, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, phone-like device/date fragments, and Arabic-style hyphenated names. Generated invalid/placeholder Emirates ID and trade-licence labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T07:08:38Z",
     "accepted_by": "gongahkia",
@@ -220,21 +50,211 @@
     "status": "owner_approved_ae_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 14,
+    "new_must_detect_count": 6,
+    "old_ideal_must_detect_count": 14,
+    "old_must_detect_count": 6,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_special_category_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Trade Licence TL-5931-TEST",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ORH-EMP-1193",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Type 2 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ongoing treatment for Type 2 diabetes",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@oasisreef.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Religion (do not ask)",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PDPL Data Minimisation Standard v2.1",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "please do not include personal identifiers in open emails",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EID-0000-XXXX-TEST",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1193",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-5931-TEST",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "1193",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1193",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data Minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-5931-TEST",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Desert Falcon Code of Conduct",
+      "reason": "Policy/product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Oasis Safe Harbour Notice",
+      "reason": "Policy/product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Wadi Shield Anti-Harassment Policy",
+      "reason": "Policy/product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "\u201cMarina Strikers,\u201d",
+      "reason": "Sports/metaphor tag; not person-linked data."
+    },
+    {
+      "matched_text": "\u201cLiwa Playbook,\u201d",
+      "reason": "Metaphor tag; not person-linked data."
+    },
+    {
+      "matched_text": "\u201cJebel Surf\u201d",
+      "reason": "Metaphor tag; not person-linked data."
+    },
+    {
+      "matched_text": "union membership",
+      "reason": "Negated generic sensitive category mention; not collected."
+    },
+    {
+      "matched_text": "political opinions",
+      "reason": "Negated generic sensitive category mention; not collected."
+    },
+    {
+      "matched_text": "religious beliefs",
+      "reason": "Negated generic sensitive category mention; not collected."
+    },
+    {
+      "matched_text": "unpublished issuer information",
+      "reason": "Negated; explicitly not present so not MNPI."
+    },
+    {
+      "matched_text": "biometric timekeeping",
+      "reason": "Negated capability; not person-linked record."
+    },
+    {
+      "matched_text": "\u201cbiometric\u201d",
+      "reason": "Generic term mention; not person-linked data."
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "ethnic/family origin special-category",
+      "matched_text": "Family origin (optional)",
+      "reason": "Potential special-category attribute under PDPL but not listed in allowed rules."
+    },
+    {
+      "concept": "nationality personal data",
+      "matched_text": "nationality",
+      "reason": "Personal data attribute but no specific allowed rule to tag standalone nationality."
+    },
+    {
+      "concept": "government ID type mention",
+      "matched_text": "Emirates ID",
+      "reason": "Indicates AE ID category without an actual identifier number; may be out of scope for strict detectors."
     }
   ]
 }

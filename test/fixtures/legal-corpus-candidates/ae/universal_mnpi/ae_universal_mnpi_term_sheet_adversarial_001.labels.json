@@ -1,280 +1,376 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 900,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 80,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 180,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 7.50 per share equivalent'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 900,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 80,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 180,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 7.50 per share equivalent'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 1 , 2 0 0 , 0 0 0 , 0 0 0'"
+  ],
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 43,
+    "new_must_detect_count": 24,
+    "old_ideal_must_detect_count": 34,
+    "old_must_detect_count": 24,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
   "doc_id": "ae_universal_mnpi_term_sheet_adversarial_001",
   "document_type": "term_sheet",
-  "source_jurisdiction": "AE",
-  "destination_jurisdiction": "AE",
-  "must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Sand Kite"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non-Public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "For Board circulation only"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargoed until 2026-07-15 08:00 GST"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Shareholders\u2019 Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Subscription Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAC"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "62.5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12.5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "9%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "AED 7.50 per share equivalent"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Salman Q. Barakat"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "H.E. Dr. Layla Al Nouri"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sbarakat@redmangrove.capital"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "CL-ADGM-2A7Z9"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "TL-DXB-10XX-923847"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Sand Kite"
+      "matched_text": "Project Sand Kite",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non-Public"
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "For Board circulation only"
+      "matched_text": "For Board circulation only",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargoed until 2026-07-15 08:00 GST"
+      "matched_text": "Embargoed until 2026-07-15 08:00 GST",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Shareholders\u2019 Agreement"
+      "matched_text": "Shareholders\u2019 Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Subscription Agreement"
+      "matched_text": "Subscription Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Transitional Services"
+      "matched_text": "Transitional Services",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAC"
+      "matched_text": "MAC",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "62.5%"
+      "matched_text": "62.5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12.5%"
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "9%"
+      "matched_text": "9%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "AED 7.50 per share equivalent"
+      "matched_text": "AED 7.50 per share equivalent",
+      "rule": "contract_unit_price"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not for release"
+      "matched_text": "not for release",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "target signing 2026-07-20"
+      "matched_text": "target signing 2026-07-20",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Long Stop Date 2026-11-15"
+      "matched_text": "Long Stop Date 2026-11-15",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "45m"
+      "matched_text": "45m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "120m"
+      "matched_text": "120m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "no dealing in any securities of Sands Reef or affiliates"
+      "matched_text": "no dealing in any securities of Sands Reef or affiliates",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no public announcement before embargo"
+      "matched_text": "no public announcement before embargo",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "no RNS/ADX filings until embargo"
+      "matched_text": "no RNS/ADX filings until embargo",
+      "rule": "embargo_marker"
     },
     {
       "category": "PII",
-      "rule": "ae_emirates_id",
-      "matched_text": "Emirates ID masked only: 784-19**-****123-9"
+      "matched_text": "Emirates ID masked only: 784-19**-****123-9",
+      "rule": "ae_emirates_id"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@ s a n d s - r e e f . a e"
+      "matched_text": "privacy@ s a n d s - r e e f . a e",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "234 56 78"
+      "matched_text": "234 56 78",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "CL-ADGM-2A7Z9"
+      "matched_text": "CL-ADGM-2A7Z9",
+      "rule": "ae_trade_licence"
     },
     {
       "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "TL-DXB-10XX-923847"
+      "matched_text": "TL-DXB-10XX-923847",
+      "rule": "ae_trade_licence"
     },
     {
       "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "DIFC-LD-00AB19"
+      "matched_text": "DIFC-LD-00AB19",
+      "rule": "ae_trade_licence"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "trade licence/Emirates ID copies used for KYC only"
+      "matched_text": "trade licence/Emirates ID copies used for KYC only",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Salman Q. Barakat"
+      "matched_text": "Mr. Salman Q. Barakat",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "H.E. Dr. Layla Al Nouri"
+      "matched_text": "H.E. Dr. Layla Al Nouri",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sbarakat@redmangrove.capital"
+      "matched_text": "sbarakat@redmangrove.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Salman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Layla Al Nouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Nouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: acquisition of 62.5% of Sands Reef Hospitality Co. (DIFC-LD-00AB19) for cash and rollover; implied enterprise value AED 1 , 2 0 0 , 0 0 0 , 0 0 0",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sbarakat@redmangrove.capital",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "234 56 78",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CL-ADGM-2A7Z9",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-DXB-10XX-923847",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Salman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Layla Al Nouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Salman",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Nouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: acquisition of 62.5% of Sands Reef Hospitality Co. (DIFC-LD-00AB19) for cash and rollover; implied enterprise value AED 1 , 2 0 0 , 0 0 0 , 0 0 0",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Sand Kite",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "45m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "9%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "80,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180,000,000",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
@@ -303,43 +399,27 @@
       "reason": "False-positive bait; not PII/MNPI."
     }
   ],
+  "source_jurisdiction": "AE",
   "uncertain": [
     {
-      "matched_text": "Al Nouri\u2014Ajman/Levant roots",
       "concept": "family_origin/ethnic_origin",
+      "matched_text": "Al Nouri\u2014Ajman/Levant roots",
       "reason": "Sensitive origin information may be special-category personal data under PDPL, but not mapped to an allowed rule."
     },
     {
-      "matched_text": "personal data will be processed within DIFC/ADGM",
       "concept": "processing_location",
+      "matched_text": "personal data will be processed within DIFC/ADGM",
       "reason": "Privacy-relevant processing location; not clearly a cross-border transfer marker in the allowed rules."
     },
     {
-      "matched_text": "data subject rights",
       "concept": "DSAR/rights channel",
+      "matched_text": "data subject rights",
       "reason": "Indicates data subject rights handling; no specific DSAR rule provided in allowed markers."
     },
     {
-      "matched_text": "potential ADX Growth Market listing in 2027 subject to SCA approval",
       "concept": "pre-listing MNPI",
+      "matched_text": "potential ADX Growth Market listing in 2027 subject to SCA approval",
       "reason": "Material non-public listing intent; listing MNPI not explicitly covered in provided MNPI rule set (non-DPT)."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 900,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 80,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 180,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 7.50 per share equivalent'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 900,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 80,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 180,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 7.50 per share equivalent'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 1 , 2 0 0 , 0 0 0 , 0 0 0'"
-  ],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

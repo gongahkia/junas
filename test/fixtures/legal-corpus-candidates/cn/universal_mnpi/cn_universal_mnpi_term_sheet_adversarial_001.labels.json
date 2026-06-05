@@ -1,15 +1,498 @@
 {
-  "doc_id": "cn_universal_mnpi_term_sheet_adversarial_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 51,
+    "new_must_detect_count": 31,
+    "old_ideal_must_detect_count": 39,
+    "old_must_detect_count": 31,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
-  "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_universal_mnpi_term_sheet_adversarial_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "\u975e\u516c\u5f00",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "S t r i c t l y  C o n f i d e n t i a l",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lotos",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 2026\u201107\u201115 09:00 CST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list v0.3",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "distribution limited to issuer/ buyer counsel only",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shareholders\u2019 Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA/SHA signing planned for 2026\u201107\u201114 (after 18:00 CST)",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SSE \u4e34\u65f6\u516c\u544a to be filed only after embargo window opens",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 480,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 775,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 408,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 72,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 60,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 1.2b",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 10,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u5185\u5e55\u4fe1\u606f\u77e5\u60c5\u4eba\u540d\u5355",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "earn\u2011out up to RMB 60,000,000",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Qiming",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Zhao Lin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "han.qiming@orchidridge.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@orchidridge.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "treasury@blueferry\u2011cap.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "US C C: 91***BFC***00K8Q2",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "US C C: 91***ORR***000X7E",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86\u2011571\u2011***\u2011**68",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "62\u2011***\u2011***\u20110918",
+      "rule": "bank_account"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border HR/payroll data transfers",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross\u2011border transfer whitelist",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no cross\u2011border transfer of resident IDs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "stored outside PRC",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident ID digits masked",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "salted hash (SHA\u2011256) and last\u20114",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data of minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 62% of the issued share capital of Orchid Ridge Robotics for RMB 480,000,000 (implied pre\u2011money RMB 775,000,000); closing consideration mix: cash and deferred payments.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Definitive agreements include Share Purchase Agreement (SPA), Shareholders\u2019 Agreement (SHA), IP Assignment; governing law: PRC; closing targeted within T+65 days post\u2011signing; potential STAR Market path in 2027 subject to CSRC guidance and issuer readiness.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration & escrow: RMB 408,000,000 cash at closing; RMB 72,000,000 deferred (24 months); 10% escrow holdback for 18 months; earn\u2011out up to RMB 60,000,000 upon FY2027 revenue > RMB 1.2bn; working capital true\u2011up \u00b1RMB 10,000,000 collar.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: 3\u2011year non\u2011compete within PRC robotics sub\u2011segment; post\u2011closing IP assignment for \u201cOrchid Servo\u2011X\u201d and \u201cMOSS\u2011Edge\u201d product families; customer and supplier non\u2011solicit for 24 months; no dividends until net debt/EBITDA < 2.0x.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Compliance checklist: Issuer to prepare \u5185\u5e55\u4fe1\u606f\u77e5\u60c5\u4eba\u540d\u5355 by 2026\u201107\u201113; BlueFerry counsel to circulate definitive check\u2011list; if embargo is breached before 2026\u201107\u201115 09:00 CST, buyer may delay closing; no USCC or resident ID to be stored outside PRC except as masked/hashed as noted.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SHA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "480,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "775,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "han.qiming@orchidridge.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Qiming",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Zhao Lin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data of minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 62% of the issued share capital of Orchid Ridge Robotics for RMB 480,000,000 (implied pre\u2011money RMB 775,000,000); closing consideration mix: cash and deferred payments.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Buyer to acquire 62% of the issued share capital of Orchid Ridge Robotics for RMB 480,000,000 (implied pre\u2011money RMB 775,000,000); closing consideration mix: cash and deferred payments.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Definitive agreements include Share Purchase Agreement (SPA), Shareholders\u2019 Agreement (SHA), IP Assignment; governing law: PRC; closing targeted within T+65 days post\u2011signing; potential STAR Market path in 2027 subject to CSRC guidance and issuer readiness.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: Definitive agreements include Share Purchase Agreement (SPA), Shareholders\u2019 Agreement (SHA), IP Assignment; governing law: PRC; closing targeted within T+65 days post\u2011signing; potential STAR Market path in 2027 subject to CSRC guidance and issuer readiness.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Consideration & escrow: RMB 408,000,000 cash at closing; RMB 72,000,000 deferred (24 months); 10% escrow holdback for 18 months; earn\u2011out up to RMB 60,000,000 upon FY2027 revenue > RMB 1.2bn; working capital true\u2011up \u00b1RMB 10,000,000 collar.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Covenants: 3\u2011year non\u2011compete within PRC robotics sub\u2011segment; post\u2011closing IP assignment for \u201cOrchid Servo\u2011X\u201d and \u201cMOSS\u2011Edge\u201d product families; customer and supplier non\u2011solicit for 24 months; no dividends until net debt/EBITDA < 2.0x.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Compliance checklist: Issuer to prepare \u5185\u5e55\u4fe1\u606f\u77e5\u60c5\u4eba\u540d\u5355 by 2026\u201107\u201113; BlueFerry counsel to circulate definitive check\u2011list; if embargo is breached before 2026\u201107\u201115 09:00 CST, buyer may delay closing; no USCC or resident ID to be stored outside PRC except as masked/hashed as noted.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lotos",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SHA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SHA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SHA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargoed",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 480,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 775,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 408,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 72,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 60,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 10,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "480,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "775,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "10,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Seller/Issuer",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "SPA",
+      "reason": "Defined-term abbreviation; avoid tagging abbreviation itself"
+    },
+    {
+      "matched_text": "HePing Institute\u2019s 2023 Robotics Almanac",
+      "reason": "Public-source reference flagged as non-MNPI"
+    },
+    {
+      "matched_text": "project notes",
+      "reason": "Lowercase project-management prose; not a deal codename"
+    },
+    {
+      "matched_text": "spa\u2011day vouchers",
+      "reason": "False-positive bait unrelated to Share Purchase Agreement"
+    },
+    {
+      "matched_text": "IP Assignment",
+      "reason": "Agreement type not in the definitive_agreement rule list"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "consent documentation",
+      "matched_text": "consent records",
+      "reason": "Relevant to PIPL compliance but allowed rules list only consent_withdrawal_marker, not general consent records"
+    },
+    {
+      "concept": "data retention marker",
+      "matched_text": "retained 6 years",
+      "reason": "Retention is legally relevant under PIPL/CSL/DSL but no explicit retention_marker rule in allowed list"
+    },
+    {
+      "concept": "enterprise messenger handle",
+      "matched_text": "WeCom: corp://orchidridge/han.q",
+      "reason": "Potential unique identifier but not covered by allowed PII rules"
+    },
+    {
+      "concept": "bank SWIFT/BIC-like code",
+      "matched_text": "ADTR C N H Z XX",
+      "reason": "Financial identifier but not in allowed PII rule set"
+    }
+  ]
 }

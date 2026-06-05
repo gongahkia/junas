@@ -1,349 +1,4 @@
 {
-  "doc_id": "ae_universal_mnpi_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "AE",
-  "destination_jurisdiction": "AE",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "laila.rashid@al-noor.example"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Karim Haddad"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Laila Al Rashid"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Haddad"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Falcon"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "83.0%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "17.0%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "90%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "182,500,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "120,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "62,500,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "25,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Strictly Non‑Public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Inside Information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Falcon"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo until 17 July 2026 09:00 GST"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Issuer: Al Noor Logistics PJSC (ADGM registration ADGM–A1O3X), Target: Blue Palm Warehousing LLC (Dubai), definitive Share Purchase Agreement (SPA) scheduled for execution on 24 June 2026"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "These materials are non‑public and price‑sensitive"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no external circulation until ADX disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "IR draft to be staged only post‑embargo"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean‑team access"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "legal clean team only"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "do not discuss over non‑secure channels"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "maintain insider lists"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo notice posted 3 June 2026"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAC/MAE"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "83.0%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "17.0%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "±5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "earn‑out up to AED 25,000,000 tied to FY27 EBITDA"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Karim Haddad"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "H.E. Ms. Laila Al Rashid"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "laila.rashid@al-noor.example"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "TL–DXB–2O24–00I2"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_emirates_id",
-      "matched_text": "E I D: 7 8 4‑xx87‑13 34 567‑5"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "restrict access to Emirates ID scans, family‑origin notes for the Haddad household, and HR visa files to the legal clean team only"
-    },
-    {
-      "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "family‑origin notes for the Haddad household"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Laila Al Rashid"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Haddad"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "90%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "182,500,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "120,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "62,500,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "25,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "SPA",
-      "reason": "defined-term abbreviation in parentheses"
-    },
-    {
-      "matched_text": "Issuer",
-      "reason": "role-noun defined term"
-    },
-    {
-      "matched_text": "Target",
-      "reason": "role-noun defined term"
-    },
-    {
-      "matched_text": "the parties",
-      "reason": "role-noun defined term"
-    },
-    {
-      "matched_text": "lowercase project‑management",
-      "reason": "false-positive bait/non-MNPI"
-    },
-    {
-      "matched_text": "spa‑day vouchers",
-      "reason": "false-positive bait/non-MNPI"
-    },
-    {
-      "matched_text": "Public‑source context only",
-      "reason": "public-source reference; not MNPI"
-    },
-    {
-      "matched_text": "seller",
-      "reason": "role-noun defined term"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "ADGM registration ADGM–A1O3X",
-      "concept": "ADGM corporate registration number",
-      "reason": "jurisdiction-specific corporate identifier not covered by allowed rules"
-    },
-    {
-      "matched_text": "E I D: 7 8 4‑xx87‑13 34 567‑5",
-      "concept": "masked Emirates ID",
-      "reason": "personal identifier appears partially masked and may not match strict ae_emirates_id patterns"
-    },
-    {
-      "matched_text": "family‑origin notes for the Haddad household",
-      "concept": "ethnic/family origin data",
-      "reason": "PDPL special-category personal data notionally implicated but no explicit rule provided"
-    },
-    {
-      "matched_text": "Data room: https://vault.al-noor.example/falcon/index.html?emb=17-07-2026&uid=PRJ%2F-FALC0N%2FQ%CE%9FE",
-      "concept": "MNPI data room URL",
-      "reason": "sensitive access location; no specific MNPI category for URLs"
-    },
-    {
-      "matched_text": "pro forma net leverage 3.1x",
-      "concept": "sensitive financial metric",
-      "reason": "financial ratio not explicitly covered by financial_amount or financial_percentage rules"
-    },
-    {
-      "matched_text": "HR visa files",
-      "concept": "immigration/visa data",
-      "reason": "sensitive personal data category implied but not enumerated in allowed rules"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 182,500,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 120,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 62,500,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 25,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 182,500,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 120,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 62,500,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 25,000,000'"
-  ],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AE Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered UAE trade-licence precision/full-code capture, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, phone-like device/date fragments, and Arabic-style hyphenated names. Generated invalid/placeholder Emirates ID and trade-licence labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
   "_agent_review": {
     "notes": "Reconciled AE Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UAE trade-licence capture issues, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, and Arabic-style hyphenated names; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -380,6 +35,22 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AE Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered UAE trade-licence precision/full-code capture, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, phone-like device/date fragments, and Arabic-style hyphenated names. Generated invalid/placeholder Emirates ID and trade-licence labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 182,500,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 120,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 62,500,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 25,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 182,500,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 120,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 62,500,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 25,000,000'"
+  ],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T07:08:38Z",
     "accepted_by": "gongahkia",
@@ -388,21 +59,365 @@
     "status": "owner_approved_ae_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 36,
+    "new_must_detect_count": 15,
+    "old_ideal_must_detect_count": 36,
+    "old_must_detect_count": 15,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_universal_mnpi_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "Strictly Non\u2011Public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Inside Information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Falcon",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 17 July 2026 09:00 GST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Issuer: Al Noor Logistics PJSC (ADGM registration ADGM\u2013A1O3X), Target: Blue Palm Warehousing LLC (Dubai), definitive Share Purchase Agreement (SPA) scheduled for execution on 24 June 2026",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "These materials are non\u2011public and price\u2011sensitive",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no external circulation until ADX disclosure",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IR draft to be staged only post\u2011embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "clean\u2011team access",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "legal clean team only",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not discuss over non\u2011secure channels",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "maintain insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo notice posted 3 June 2026",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC/MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "83.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "17.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00b15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "earn\u2011out up to AED 25,000,000 tied to FY27 EBITDA",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Karim Haddad",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "H.E. Ms. Laila Al Rashid",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "laila.rashid@al-noor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL\u2013DXB\u20132O24\u201300I2",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "E I D: 7 8 4\u2011xx87\u201113 34 567\u20115",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "restrict access to Emirates ID scans, family\u2011origin notes for the Haddad household, and HR visa files to the legal clean team only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "family\u2011origin notes for the Haddad household",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Laila Al Rashid",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Haddad",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "90%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "182,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "laila.rashid@al-noor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Karim Haddad",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Laila Al Rashid",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Haddad",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Falcon",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "83.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "17.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "90%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "182,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62,500,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "25,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "defined-term abbreviation in parentheses"
+    },
+    {
+      "matched_text": "Issuer",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "the parties",
+      "reason": "role-noun defined term"
+    },
+    {
+      "matched_text": "lowercase project\u2011management",
+      "reason": "false-positive bait/non-MNPI"
+    },
+    {
+      "matched_text": "spa\u2011day vouchers",
+      "reason": "false-positive bait/non-MNPI"
+    },
+    {
+      "matched_text": "Public\u2011source context only",
+      "reason": "public-source reference; not MNPI"
+    },
+    {
+      "matched_text": "seller",
+      "reason": "role-noun defined term"
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "ADGM corporate registration number",
+      "matched_text": "ADGM registration ADGM\u2013A1O3X",
+      "reason": "jurisdiction-specific corporate identifier not covered by allowed rules"
+    },
+    {
+      "concept": "masked Emirates ID",
+      "matched_text": "E I D: 7 8 4\u2011xx87\u201113 34 567\u20115",
+      "reason": "personal identifier appears partially masked and may not match strict ae_emirates_id patterns"
+    },
+    {
+      "concept": "ethnic/family origin data",
+      "matched_text": "family\u2011origin notes for the Haddad household",
+      "reason": "PDPL special-category personal data notionally implicated but no explicit rule provided"
+    },
+    {
+      "concept": "MNPI data room URL",
+      "matched_text": "Data room: https://vault.al-noor.example/falcon/index.html?emb=17-07-2026&uid=PRJ%2F-FALC0N%2FQ%CE%9FE",
+      "reason": "sensitive access location; no specific MNPI category for URLs"
+    },
+    {
+      "concept": "sensitive financial metric",
+      "matched_text": "pro forma net leverage 3.1x",
+      "reason": "financial ratio not explicitly covered by financial_amount or financial_percentage rules"
+    },
+    {
+      "concept": "immigration/visa data",
+      "matched_text": "HR visa files",
+      "reason": "sensitive personal data category implied but not enumerated in allowed rules"
     }
   ]
 }

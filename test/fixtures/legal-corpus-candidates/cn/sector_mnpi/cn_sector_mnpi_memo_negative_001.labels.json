@@ -1,240 +1,4 @@
 {
-  "doc_id": "cn_sector_mnpi_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dealteam@ruiyuan.example"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Cyber incident preparedness: last week’s tabletop exercise simulated a breach scenario; there was no actual security incident, and no customer data was affected."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossing"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dealteam@ruiyuan.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@ruiyuan.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@ruiyuan.example"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_phone",
-      "matched_text": "4000-000-000"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border data transfer"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Hong Kong affiliate"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "PRC SCC templates"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "CAC-style security assessment"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "under 14"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "masking is enforced"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no submissions should include actual resident ID scans"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no production personal information will be sent until approval"
-    },
-    {
-      "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Resident ID: [________], Name: [________]"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "a draft insider list exists"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet announced by the Nanyu Stock Exchange"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "must not be shared externally"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "contemplated private placement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "terms are preliminary"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information-barrier refresh"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout periods"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "anti-tipping protocols"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider-list tooling"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "access remains limited to the legal group"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Cyber incident preparedness: last week’s tabletop exercise simulated a breach scenario; there was no actual security incident, and no customer data was affected."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossing"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "JadeCoin",
-      "reason": "Marketing sandbox points; not a crypto asset or MNPI/PII signal"
-    },
-    {
-      "matched_text": "there was no actual security incident",
-      "reason": "Negated cyber incident; do not tag as cyber_incident_pre_disclosure"
-    },
-    {
-      "matched_text": "there is no token issuance, exchange listing, or investment solicitation",
-      "reason": "Explicit negation of crypto/DPT event"
-    },
-    {
-      "matched_text": "publicly posted",
-      "reason": "Already public ESG disclosure; not pre-disclosure MNPI"
-    },
-    {
-      "matched_text": "Resident ID",
-      "reason": "Template field label; no actual PII value present"
-    },
-    {
-      "matched_text": "9Z99ZZ9Z9Z9999Z9",
-      "reason": "Invalid-length mock USCC; should not be tagged as cn_uscc"
-    },
-    {
-      "matched_text": "ZZ0000ZZ0000ZZ0Z",
-      "reason": "Invalid-length mock USCC; should not be tagged as cn_uscc"
-    },
-    {
-      "matched_text": "000-ABC-000",
-      "reason": "Sample/invalid account identifier; not a real bank account"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "private placement",
-      "concept": "material_event",
-      "reason": "A private placement by a subsidiary may be material inside information, but the phrase is generic; materiality depends on context and is not clearly covered by a strict rule"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
   "_agent_review": {
     "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -271,6 +35,13 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T05:18:26Z",
     "accepted_by": "gongahkia",
@@ -279,21 +50,265 @@
     "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 29,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 29,
+    "old_must_detect_count": 7,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_sector_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dealteam@ruiyuan.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@ruiyuan.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@ruiyuan.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "4000-000-000",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-border data transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Hong Kong affiliate",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "PRC SCC templates",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC-style security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "masking is enforced",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no submissions should include actual resident ID scans",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no production personal information will be sent until approval",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Resident ID: [________], Name: [________]",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a draft insider list exists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "not yet announced by the Nanyu Stock Exchange",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "must not be shared externally",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "contemplated private placement",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "terms are preliminary",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information-barrier refresh",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout periods",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "anti-tipping protocols",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider-list tooling",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "access remains limited to the legal group",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber incident preparedness: last week\u2019s tabletop exercise simulated a breach scenario; there was no actual security incident, and no customer data was affected.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dealteam@ruiyuan.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Cyber incident preparedness: last week\u2019s tabletop exercise simulated a breach scenario; there was no actual security incident, and no customer data was affected.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "JadeCoin",
+      "reason": "Marketing sandbox points; not a crypto asset or MNPI/PII signal"
+    },
+    {
+      "matched_text": "there was no actual security incident",
+      "reason": "Negated cyber incident; do not tag as cyber_incident_pre_disclosure"
+    },
+    {
+      "matched_text": "there is no token issuance, exchange listing, or investment solicitation",
+      "reason": "Explicit negation of crypto/DPT event"
+    },
+    {
+      "matched_text": "publicly posted",
+      "reason": "Already public ESG disclosure; not pre-disclosure MNPI"
+    },
+    {
+      "matched_text": "Resident ID",
+      "reason": "Template field label; no actual PII value present"
+    },
+    {
+      "matched_text": "9Z99ZZ9Z9Z9999Z9",
+      "reason": "Invalid-length mock USCC; should not be tagged as cn_uscc"
+    },
+    {
+      "matched_text": "ZZ0000ZZ0000ZZ0Z",
+      "reason": "Invalid-length mock USCC; should not be tagged as cn_uscc"
+    },
+    {
+      "matched_text": "000-ABC-000",
+      "reason": "Sample/invalid account identifier; not a real bank account"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "material_event",
+      "matched_text": "private placement",
+      "reason": "A private placement by a subsidiary may be material inside information, but the phrase is generic; materiality depends on context and is not clearly covered by a strict rule"
     }
   ]
 }

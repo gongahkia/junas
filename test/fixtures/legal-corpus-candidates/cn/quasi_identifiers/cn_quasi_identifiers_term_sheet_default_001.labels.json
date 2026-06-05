@@ -1,15 +1,406 @@
 {
-  "doc_id": "cn_quasi_identifiers_term_sheet_default_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 43,
+    "new_must_detect_count": 22,
+    "old_ideal_must_detect_count": 34,
+    "old_must_detect_count": 22,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
-  "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_quasi_identifiers_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "91320110MA2UX3T9A4",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "91440300MA5LD8Q2H7",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "corporate@baiyun-sys.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ning.hao@guangling-mp.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "qian.lu@tianhe-partners.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@guangling-mp.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ning Hao",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DOB 1991-11-08",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 34",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Qian Lu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhou Yifan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Personal information involved in due diligence to be minimized and de-identified",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "resident ID numbers shall not be collected (only salted verification hashes retained)",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors\u2019 data (<14)",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Cross-Border Transfer: Any export of personal information or important data (e.g., vendor diligence to Hong Kong/Singapore) will proceed only after executing the CAC Standard Contract or completing a CAC Security Assessment, with data mapping and localization measures documented",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GL\u2011SZ\u2011NH\u2011007",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "GLMP\u2011HR\u20114462",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SID\u20112026\u201106\u201105\u2011GLMP\u2011NH01",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SR\u2011GLMP\u2011TS\u20112026\u20110612",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ning Hao (DOB 1991-11-08, age 34), Head of Device Security at Target (Nanshan District, Shenzhen), to execute a 36\u2011month service and non-compete agreement; internal device ID GL\u2011SZ\u2011NH\u2011007, enterprise email ning.hao@guangling-mp.cn, payroll account code GLMP\u2011HR\u20114462, and VPN session reference SID\u20112026\u201106\u201105\u2011GLMP\u2011NH01 are recorded for access control and audit",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no transfer of source code repositories to third countries without updated data impact assessment and CAC-compliant measures",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Jade Spring",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 280,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 520,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information prior to public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The parties acknowledge that financial forecasts, pipeline orders, and term sheet status constitute inside information prior to public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no dealing in Target securities until information is publicly disclosed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "issuer trading window remains closed for insiders until notice of disclosure is filed",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "No external announcements until the Target\u2019s board authorizes disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material asset reorganization",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closing conditional upon SAMR clearance or no-filing confirmation",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "closing adjustments tied to audited FY2025 net profit",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC Standard Contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC Security Assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-11-08",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure & Consideration: Investor to acquire 35% of Target\u2019s enlarged share capital via mixed primary/secondary issuance for a total consideration of RMB 280,000,000; implied pre-money valuation RMB 520,000,000; closing adjustments tied to audited FY2025 net profit.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PRC Merger Control: SAMR anti-monopoly filing to be made if turnover thresholds are triggered; closing conditional upon SAMR clearance or no-filing confirmation.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational Integration: Post-closing, Investor to nominate 2 directors and 1 supervisor; R&D center expansion in Nanshan to be funded from primary proceeds; no transfer of source code repositories to third countries without updated data impact assessment and CAC-compliant measures.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "280,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "520,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "corporate@baiyun-sys.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ning.hao@guangling-mp.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "qian.lu@tianhe-partners.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC Standard Contract",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC Security Assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-11-08",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ning Hao",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Qian Lu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Zhou Yifan",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure & Consideration: Investor to acquire 35% of Target\u2019s enlarged share capital via mixed primary/secondary issuance for a total consideration of RMB 280,000,000; implied pre-money valuation RMB 520,000,000; closing adjustments tied to audited FY2025 net profit.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure & Consideration: Investor to acquire 35% of Target\u2019s enlarged share capital via mixed primary/secondary issuance for a total consideration of RMB 280,000,000; implied pre-money valuation RMB 520,000,000; closing adjustments tied to audited FY2025 net profit.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PRC Merger Control: SAMR anti-monopoly filing to be made if turnover thresholds are triggered; closing conditional upon SAMR clearance or no-filing confirmation.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "PRC Merger Control: SAMR anti-monopoly filing to be made if turnover thresholds are triggered; closing conditional upon SAMR clearance or no-filing confirmation.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Operational Integration: Post-closing, Investor to nominate 2 directors and 1 supervisor; R&D center expansion in Nanshan to be funded from primary proceeds; no transfer of source code repositories to third countries without updated data impact assessment and CAC-compliant measures.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Jade Spring",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 280,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 520,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "280,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "520,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Investor",
+      "reason": "Role-noun defined term, not a natural person or ID"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term, not a natural person or ID"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term, not a natural person or ID"
+    },
+    {
+      "matched_text": "average age 27",
+      "reason": "Generic demographic not tied to an individual"
+    },
+    {
+      "matched_text": "RD\u2011PD\u2011215 to RD\u2011PD\u2011233",
+      "reason": "Generic device range not associated with an identified person"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "DSL important data assessment",
+      "matched_text": "important data security assessments under DSL to be conducted if classification so requires",
+      "reason": "Compliance trigger relevant to data governance but not mapped to a defined detection rule"
+    },
+    {
+      "concept": "location quasi-identifier",
+      "matched_text": "Nanshan District, Shenzhen",
+      "reason": "Location can identify a person only when combined with other attributes"
+    },
+    {
+      "concept": "internal workflow identifier",
+      "matched_text": "SR\u2011GLMP\u2011TS\u20112026\u20110612",
+      "reason": "Could be treated as an internal_session_id, but classification may vary by system"
+    },
+    {
+      "concept": "device identifier",
+      "matched_text": "internal device ID GL\u2011SZ\u2011NH\u2011007",
+      "reason": "May be a device serial or internal asset tag; mapping to device_serial_number may be implementation-specific"
+    },
+    {
+      "concept": "employment identifier",
+      "matched_text": "payroll account code GLMP\u2011HR\u20114462",
+      "reason": "Could be an employee_id or an internal payroll account reference; rule mapping ambiguous"
+    }
+  ]
 }

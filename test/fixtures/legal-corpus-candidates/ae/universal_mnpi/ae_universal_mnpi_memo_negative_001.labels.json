@@ -1,143 +1,4 @@
 {
-  "doc_id": "ae_universal_mnpi_memo_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "AE",
-  "destination_jurisdiction": "AE",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr@marhabadunes.example"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "scope: routine board update on disclosure hygiene; references are to public materials (sca rulebook, dfm/adx manuals, adgm/difc data protection guidance)."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "mnpi"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non‑public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@marhabadunes.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr@marhabadunes.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@marhabadunes.example"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "project coral lantern"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "2026‑01‑20 09:00 gst"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric attributes"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "scope: routine board update on disclosure hygiene; references are to public materials (sca rulebook, dfm/adx manuals, adgm/difc data protection guidance)."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "mnpi"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "EID‑9999‑TEST",
-      "reason": "Placeholder test string; invalid Emirates ID sample and not real PII."
-    },
-    {
-      "matched_text": "TL‑ADGM‑000000X",
-      "reason": "Placeholder test string; invalid trade licence sample and not real PII."
-    },
-    {
-      "matched_text": "ACCT‑0000‑VOID",
-      "reason": "Placeholder test string; invalid investor account sample and not real PII."
-    },
-    {
-      "matched_text": "spa‑day",
-      "reason": "Not a Share Purchase Agreement; spa-day bait in lowercase admin text."
-    },
-    {
-      "matched_text": "material adverse change",
-      "reason": "Negated context (no MAC asserted); do not label as material_adverse_change."
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "embargo",
-      "concept": "embargo marker",
-      "reason": "Embargo label present but not using the enumerated trigger words (Embargoed/Press Hold)."
-    },
-    {
-      "matched_text": "family‑origin data",
-      "concept": "sensitive personal data (family origin)",
-      "reason": "Sensitive PDPL concept but not explicitly covered by the allowed PII rule list."
-    },
-    {
-      "matched_text": "vendor kyc",
-      "concept": "KYC processing of personal data",
-      "reason": "Implies handling of personal data but not mapped to a specific allowed PII rule."
-    },
-    {
-      "matched_text": "investor a/c",
-      "concept": "customer_account_number descriptor",
-      "reason": "Indicates an account identifier context without an actual number/value present."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AE Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered UAE trade-licence precision/full-code capture, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, phone-like device/date fragments, and Arabic-style hyphenated names. Generated invalid/placeholder Emirates ID and trade-licence labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
   "_agent_review": {
     "notes": "Reconciled AE Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UAE trade-licence capture issues, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, and Arabic-style hyphenated names; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -174,6 +35,13 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AE Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered UAE trade-licence precision/full-code capture, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, phone-like device/date fragments, and Arabic-style hyphenated names. Generated invalid/placeholder Emirates ID and trade-licence labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T07:08:38Z",
     "accepted_by": "gongahkia",
@@ -182,21 +50,168 @@
     "status": "owner_approved_ae_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 11,
+    "new_must_detect_count": 5,
+    "old_ideal_must_detect_count": 11,
+    "old_must_detect_count": 5,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_universal_mnpi_memo_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@marhabadunes.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "hr@marhabadunes.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@marhabadunes.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "project coral lantern",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2026\u201101\u201120 09:00 gst",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric attributes",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "scope: routine board update on disclosure hygiene; references are to public materials (sca rulebook, dfm/adx manuals, adgm/difc data protection guidance).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hr@marhabadunes.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "scope: routine board update on disclosure hygiene; references are to public materials (sca rulebook, dfm/adx manuals, adgm/difc data protection guidance).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "EID\u20119999\u2011TEST",
+      "reason": "Placeholder test string; invalid Emirates ID sample and not real PII."
+    },
+    {
+      "matched_text": "TL\u2011ADGM\u2011000000X",
+      "reason": "Placeholder test string; invalid trade licence sample and not real PII."
+    },
+    {
+      "matched_text": "ACCT\u20110000\u2011VOID",
+      "reason": "Placeholder test string; invalid investor account sample and not real PII."
+    },
+    {
+      "matched_text": "spa\u2011day",
+      "reason": "Not a Share Purchase Agreement; spa-day bait in lowercase admin text."
+    },
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated context (no MAC asserted); do not label as material_adverse_change."
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "embargo marker",
+      "matched_text": "embargo",
+      "reason": "Embargo label present but not using the enumerated trigger words (Embargoed/Press Hold)."
+    },
+    {
+      "concept": "sensitive personal data (family origin)",
+      "matched_text": "family\u2011origin data",
+      "reason": "Sensitive PDPL concept but not explicitly covered by the allowed PII rule list."
+    },
+    {
+      "concept": "KYC processing of personal data",
+      "matched_text": "vendor kyc",
+      "reason": "Implies handling of personal data but not mapped to a specific allowed PII rule."
+    },
+    {
+      "concept": "customer_account_number descriptor",
+      "matched_text": "investor a/c",
+      "reason": "Indicates an account identifier context without an actual number/value present."
     }
   ]
 }

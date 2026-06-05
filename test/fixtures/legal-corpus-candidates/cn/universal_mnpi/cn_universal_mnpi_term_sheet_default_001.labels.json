@@ -1,15 +1,413 @@
 {
-  "doc_id": "cn_universal_mnpi_term_sheet_default_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 43,
+    "new_must_detect_count": 27,
+    "old_ideal_must_detect_count": 31,
+    "old_must_detect_count": 27,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
-  "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_universal_mnpi_term_sheet_default_001",
+  "document_type": "term_sheet",
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lanternfish",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information under PRC Securities Law",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "embargo until 2026-07-15 18:00 Beijing time",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shareholders\u2019 Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 1,200,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 85,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 150,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 900,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 30,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Liang Fei",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-21-6900-8800",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "liang.fei@menghua-capital.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@hanyun-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "to be minimized, masked, and stored onshore",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "any export of R&D logs to the Hong Kong affiliate of Hanyun Robotics will require CAC security assessment or standard contract filing before transfer",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "sensitive PI of minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Effect",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "this draft is not for external distribution",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "maintained in a segregated data room",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no press, no leaks",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to completion audit",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "earn-out up to RMB 150,000,000",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tied to 2027 revenue \u2265 RMB 900,000,000",
+      "rule": "contingent_mnpi_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "board memorandum approved by Hanyun on 2026-06-01",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "no public announcements, investor presentations, or exchange filings before the embargo date above unless mandated by law",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "issuer IR backchannel",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: acquisition of 60% equity via primary subscription and secondary purchase; total consideration RMB 1,200,000,000, subject to completion audit.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: SAMR anti-monopoly filing (if required), CSRC industry consultation (if IPO pathway pursued), and internal approvals per both parties\u2019 articles.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data and cybersecurity: PIPL/CSL/DSL compliance; employee resident ID and contact details to be minimized, masked, and stored onshore; counterparties\u2019 USCC to be collected at signing and not transmitted via open email.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing and disclosure: no public announcements, investor presentations, or exchange filings before the embargo date above unless mandated by law; break fee RMB 30,000,000 for willful breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sha",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "85,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "150,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "liang.fei@menghua-capital.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-21-6900-8800",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Liang Fei",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Structure: acquisition of 60% equity via primary subscription and secondary purchase; total consideration RMB 1,200,000,000, subject to completion audit.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: SAMR anti-monopoly filing (if required), CSRC industry consultation (if IPO pathway pursued), and internal approvals per both parties\u2019 articles.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data and cybersecurity: PIPL/CSL/DSL compliance; employee resident ID and contact details to be minimized, masked, and stored onshore; counterparties\u2019 USCC to be collected at signing and not transmitted via open email.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing and disclosure: no public announcements, investor presentations, or exchange filings before the embargo date above unless mandated by law; break fee RMB 30,000,000 for willful breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing and disclosure: no public announcements, investor presentations, or exchange filings before the embargo date above unless mandated by law; break fee RMB 30,000,000 for willful breach.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Lanternfish",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sha",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 1,200,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 85,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 150,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 900,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "RMB 30,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "60%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,200,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "85,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "150,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "900,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "30,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun defined term header"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "embargo-like milestone date",
+      "matched_text": "long-stop date 2026-10-31",
+      "reason": "Key transaction deadline but not an enumerated embargo marker like Signing/Closing/Effective Date."
+    },
+    {
+      "concept": "data_localization_marker",
+      "matched_text": "stored onshore",
+      "reason": "Implies onshore storage/localization, which is a privacy compliance concept not explicitly listed in allowed markers."
+    },
+    {
+      "concept": "data_security_control",
+      "matched_text": "not transmitted via open email",
+      "reason": "Security control for transmission channel; relevant to compliance but not covered by an allowed rule."
+    }
+  ]
 }

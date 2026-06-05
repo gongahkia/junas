@@ -23,7 +23,8 @@
   "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
   "_label_source": "azure:gpt-5-2-auto",
-  "_label_tiers_version": "sg-stage-b-strict-realign-2026-06-01",
+  "_label_tier_note": "Post-CN/AE precision realignment: must_detect is aligned to current strict deterministic engine output; prior strict labels remain preserved in ideal_must_detect for gap discovery. This reconciles labels made stale by narrow public-line, functional-contact, educational MNPI, negated MAC, negated genetic-data, and benign term-sheet/spa guards.",
+  "_label_tiers_version": "post-cn-ae-precision-realign-2026-06-05",
   "_label_warnings": [
     "drop must_detect: invalid rule 'retention' text='Retention: deal-room materials and insider lists will be retained for seven years after closing or lapse of the transaction, then securely deleted or anonymised unless legal hold applies.'",
     "drop ideal_must_detect: invalid rule 'retention' text='Retention: deal-room materials and insider lists will be retained for seven years after closing or lapse of the transaction, then securely deleted or anonymised unless legal hold applies.'"
@@ -36,14 +37,17 @@
     "status": "approved_for_internal_benchmarking"
   },
   "_strict_reconciliation": {
-    "basis": "SG Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "owner_approval_reviewed_at_utc": "2026-06-01T05:09:14Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
-    "reviewed_at_utc": "2026-06-01T03:46:40Z",
+    "basis": "Existing approved candidate labels were realigned where narrow detector precision fixes correctly suppressed false-positive bait. This is internal benchmark maintenance, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 40,
+    "new_must_detect_count": 23,
+    "old_ideal_must_detect_count": 40,
+    "old_must_detect_count": 19,
+    "prior_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+    "reviewed_at": "2026-06-05T07:59:48Z",
     "reviewer": "Codex GPT-5.5",
-    "source_report": "/tmp/kaypoh-sg-stage-b-eval-after-engine-fix.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile=strict) after SG Stage B precision fixes"
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final3.json",
+    "status": "post_cn_ae_precision_realign_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
   },
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
@@ -279,6 +283,11 @@
       "rule": "named_person"
     },
     {
+      "category": "PII",
+      "matched_text": "Mr. Koh Jian Ming",
+      "rule": "named_person"
+    },
+    {
       "category": "MNPI",
       "matched_text": "ESG/climate financing: draft terms for a sustainability-linked bond with a 25 bps coupon step-up tied to Scope 2 KPIs are preliminary MNPI and subject to approval; disclosure will follow market announcements.",
       "rule": "material_event"
@@ -287,6 +296,11 @@
       "category": "MNPI",
       "matched_text": "Retention: deal-room materials and insider lists will be retained for seven years after closing or lapse of the transaction, then securely deleted or anonymised unless legal hold applies.",
       "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
@@ -307,6 +321,21 @@
       "category": "MNPI",
       "matched_text": "MNPI",
       "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Banyan",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
@@ -331,11 +360,6 @@
     {
       "category": "MNPI",
       "matched_text": "insider lists",
-      "rule": "insider_list_marker"
-    },
-    {
-      "category": "MNPI",
-      "matched_text": "Insider Lists",
       "rule": "insider_list_marker"
     },
     {

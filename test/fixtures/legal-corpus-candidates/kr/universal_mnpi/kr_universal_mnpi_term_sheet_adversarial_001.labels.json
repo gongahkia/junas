@@ -1,360 +1,376 @@
 {
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "Post-CN/AE precision realignment: must_detect is aligned to current strict deterministic engine output; prior strict labels remain preserved in ideal_must_detect for gap discovery. This reconciles labels made stale by narrow public-line, functional-contact, educational MNPI, negated MAC, negated genetic-data, and benign term-sheet/spa guards.",
+  "_label_tiers_version": "post-cn-ae-precision-realign-2026-06-05",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "Existing approved candidate labels were realigned where narrow detector precision fixes correctly suppressed false-positive bait. This is internal benchmark maintenance, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 45,
+    "new_must_detect_count": 24,
+    "old_ideal_must_detect_count": 45,
+    "old_must_detect_count": 25,
+    "prior_label_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+    "reviewed_at": "2026-06-05T07:59:48Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final3.json",
+    "status": "post_cn_ae_precision_realign_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after CN/AE precision guards"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
   "doc_id": "kr_universal_mnpi_term_sheet_adversarial_001",
   "document_type": "term_sheet",
-  "source_jurisdiction": "KR",
-  "destination_jurisdiction": "KR",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "jj-park@seorabeol-gf.com"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ara.choi@jeongjin-ceratech.co.kr"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@hwangdo-cap.com"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+82-2-555-1 2 3 7"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Park Jun"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Choi Ara"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Han Ji"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Yun So"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Employment/Retention: upon closing, CEO retention grant (phantom shares) vesting over 3 years; KYC onboarding to collect resident-number where legally required, but RRN will be masked (e.g., 940312-1★4★3★1) and processed in compliance with PIPA."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "NON-PUBLIC"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Dalnim"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "spa"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "sha"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 78,500,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 3,250"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 1,570,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "15.0%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "78,500,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "24,153,846"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "940312"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "1,000,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "1,570,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "851010"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "jj-park@seorabeol-gf.com"
+      "matched_text": "jj-park@seorabeol-gf.com",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ara.choi@jeongjin-ceratech.co.kr"
+      "matched_text": "ara.choi@jeongjin-ceratech.co.kr",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "legal@hwangdo-cap.com"
+      "matched_text": "legal@hwangdo-cap.com",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+82-2-555-1 2 3 7"
+      "matched_text": "+82-2-555-1 2 3 7",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Park Jun"
+      "matched_text": "Mr. Park Jun",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Choi Ara"
+      "matched_text": "Ms. Choi Ara",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Han Ji"
+      "matched_text": "Mr. Han Ji",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Yun So"
+      "matched_text": "Ms. Yun So",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Employment/Retention: upon closing, CEO retention grant (phantom shares) vesting over 3 years; KYC onboarding to collect resident-number where legally required, but RRN will be masked (e.g., 940312-1★4★3★1) and processed in compliance with PIPA."
+      "matched_text": "Employment/Retention: upon closing, CEO retention grant (phantom shares) vesting over 3 years; KYC onboarding to collect resident-number where legally required, but RRN will be masked (e.g., 940312-1\u26054\u26053\u26051) and processed in compliance with PIPA.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "NON-PUBLIC"
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Dalnim"
+      "matched_text": "Project Dalnim",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "spa"
+      "matched_text": "spa",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "sha"
+      "matched_text": "sha",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 78,500,000,000"
+      "matched_text": "KRW 78,500,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 3,250"
+      "matched_text": "KRW 3,250",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 1,570,000,000"
+      "matched_text": "KRW 1,570,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "15.0%"
+      "matched_text": "15.0%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "78,500,000,000"
+      "matched_text": "78,500,000,000",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "24,153,846"
+      "matched_text": "24,153,846",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "940312"
+      "matched_text": "940312",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "1,000,000,000"
+      "matched_text": "1,000,000,000",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "1,570,000,000"
+      "matched_text": "1,570,000,000",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "851010"
+      "matched_text": "851010",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo until 2026-07-15 09:00 KST"
+      "matched_text": "Embargo until 2026-07-15 09:00 KST",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Subscription Agreement"
+      "matched_text": "Share Subscription Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Shareholders’ Agreement"
+      "matched_text": "Shareholders\u2019 Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Investor Rights Agreement"
+      "matched_text": "Investor Rights Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Registration Rights Agreement"
+      "matched_text": "Registration Rights Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "24,153,846 shares"
+      "matched_text": "24,153,846 shares",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 1,000,000,000"
+      "matched_text": "KRW 1,000,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Park Jun-ho, CFA"
+      "matched_text": "Mr. Park Jun-ho, CFA",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Choi Ara (IR Head)"
+      "matched_text": "Ms. Choi Ara (IR Head)",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Han Ji-won"
+      "matched_text": "Mr. Han Ji-won",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Yun So-yeon, Partner"
+      "matched_text": "Ms. Yun So-yeon, Partner",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@jeongjin-ceratech.co.kr"
+      "matched_text": "ir@jeongjin-ceratech.co.kr",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "Material Adverse Effect"
+      "matched_text": "Material Adverse Effect",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAC"
+      "matched_text": "MAC",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "will not disclose this transaction until embargo lapse per FISCMA fair disclosure"
+      "matched_text": "will not disclose this transaction until embargo lapse per FISCMA fair disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "neither party is aware of undisclosed liabilities exceeding KRW 1,000,000,000"
+      "matched_text": "neither party is aware of undisclosed liabilities exceeding KRW 1,000,000,000",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "Resident No. 851010-2※※9※※4"
+      "matched_text": "Resident No. 851010-2\u203b\u203b9\u203b\u203b4",
+      "rule": "kr_rrn"
     },
     {
       "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "940312-1★4★3★1"
+      "matched_text": "940312-1\u26054\u26053\u26051",
+      "rule": "kr_rrn"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "RRN will be masked"
+      "matched_text": "RRN will be masked",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "a/c 110-23-••••-0098"
+      "matched_text": "a/c 110-23-\u2022\u2022\u2022\u2022-0098",
+      "rule": "bank_account"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "jj-park@seorabeol-gf.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ara.choi@jeongjin-ceratech.co.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "legal@hwangdo-cap.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+82-2-555-1 2 3 7",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Park Jun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Choi Ara",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Ji",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yun So",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Employment/Retention: upon closing, CEO retention grant (phantom shares) vesting over 3 years; KYC onboarding to collect resident-number where legally required, but RRN will be masked (e.g., 940312-1\u26054\u26053\u26051) and processed in compliance with PIPA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "NON-PUBLIC",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Dalnim",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "sha",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 78,500,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 3,250",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "KRW 1,570,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15.0%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "78,500,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "24,153,846",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "940312",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,000,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,570,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "851010",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
@@ -379,50 +395,32 @@
       "reason": "Unrelated phrase (wellness), not Share Purchase Agreement"
     }
   ],
+  "source_jurisdiction": "KR",
   "uncertain": [
     {
-      "matched_text": "KYC onboarding to collect resident-number where legally required",
       "concept": "sensitive identifier collection",
+      "matched_text": "KYC onboarding to collect resident-number where legally required",
       "reason": "Indicates planned collection of Korean resident numbers; relevant to PII processing but not directly mapped to an allowed marker except minimisation."
     },
     {
-      "matched_text": "processed in compliance with PIPA",
       "concept": "privacy compliance claim",
+      "matched_text": "processed in compliance with PIPA",
       "reason": "Regulatory compliance statement; not an allowed privacy-event marker under current rules."
     },
     {
-      "matched_text": "P r o j e c t   D a l n i m   S e r i e s   B",
       "concept": "transaction codename obfuscated",
+      "matched_text": "P r o j e c t   D a l n i m   S e r i e s   B",
       "reason": "Wire reference contains an obfuscated codename; does not match the strict 'Project <Name>' pattern."
     },
     {
-      "matched_text": "KSX filing within 3 business days",
       "concept": "regulatory filing timeline",
+      "matched_text": "KSX filing within 3 business days",
       "reason": "Potentially market-sensitive timing but not covered by current MNPI rule set."
     },
     {
-      "matched_text": "long-stop 2026-08-30",
       "concept": "deal timeline",
+      "matched_text": "long-stop 2026-08-30",
       "reason": "Key milestone date but not categorized under existing embargo/marker rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-04T04:34:12Z",
-    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

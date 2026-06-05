@@ -1,359 +1,4 @@
 {
-  "doc_id": "cn_special_category_memo_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimization"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Han Zelin"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Qiao Ruo"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. He Lanying"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "age 12"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Access to the MNPI above is limited to named roles; any tip or leak triggers trading bans; do not upload to personal drives; link: https://intra.luoquan.local/mnpi/view?rid=43012319900315123X&deal=IPO-SSE."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "DEI guidance remains generic: we value inclusion and equal opportunity; the phrase “sexual orientation policy” in the handbook is descriptive and does not list any person’s intimate life."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "mnpi"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "nonpublic"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "cn_resident_id",
-      "matched_text": "43012319900315123X"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@luoquan-robotics.example.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Han Zelin"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Qiao Ruo"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. He Lanying"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "Type 1 diabetes"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "face/fingerprint"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "religious belief"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 12"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "peanut allergy"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "union membership details"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "redact religion/union in routine reports"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "restrict Res.ID display to **** 0315 12 3X"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "store U S C C in hashed form"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information before public disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "tip or leak"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading bans"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "CAC Standard Contract filing"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "initiate CAC cross-border filing"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_uscc",
-      "matched_text": "91Q0 R3N8 K2L5 Z7Y0 X8"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_resident_id",
-      "matched_text": "43 0123 1990 0315 12 3X"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Master Han Yuchen"
-    },
-    {
-      "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "Type 1 diabetes treatment schedule and glucose logs"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biomet- ric templates (face/fingerprint)"
-    },
-    {
-      "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "temple observances"
-    },
-    {
-      "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "Bright Workers Union"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Overseas processing"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "mirrored to a testing node in Ningstrait Cloud, SG"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "do not export without CAC Standard Contract filing or security assessment"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "DSL data export risk scoring"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "limited to named roles"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "preliminary FY2026 revenue targets"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "the unsigned supply agreement with Qiyu Components Ltd"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "a potential land-use grant in Pingyun Science Park"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "ext 7723"
-    },
-    {
-      "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "documented peanut allergy"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Data minimization"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "age 12"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Access to the MNPI above is limited to named roles; any tip or leak triggers trading bans; do not upload to personal drives; link: https://intra.luoquan.local/mnpi/view?rid=43012319900315123X&deal=IPO-SSE."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "DEI guidance remains generic: we value inclusion and equal opportunity; the phrase “sexual orientation policy” in the handbook is descriptive and does not list any person’s intimate life."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "mnpi"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "nonpublic"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "Issuer",
-      "reason": "Defined role term; not PII itself"
-    },
-    {
-      "matched_text": "Board of Directors",
-      "reason": "Role noun; not an individual person’s name"
-    },
-    {
-      "matched_text": "RiverSpark Pro",
-      "reason": "Product name; not personal data"
-    },
-    {
-      "matched_text": "genetic algorithm",
-      "reason": "Technical term; not genetic data about a person"
-    },
-    {
-      "matched_text": "sexual orientation policy",
-      "reason": "Generic policy phrase; not tied to an identifiable person"
-    },
-    {
-      "matched_text": "Blue Dragon basketball club",
-      "reason": "Sports team reference; non-PII bait"
-    },
-    {
-      "matched_text": "Pingyun stadium",
-      "reason": "Place reference; non-PII bait"
-    },
-    {
-      "matched_text": "no MAC",
-      "reason": "Negated MAC mention; rule excludes labeling negated MAC"
-    },
-    {
-      "matched_text": "blue sky thinking",
-      "reason": "Metaphor; non-PII/MNPI"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "ext 7723",
-      "concept": "phone extension",
-      "reason": "Likely a telephone extension but format is short; may not meet strict phone_number patterns"
-    },
-    {
-      "matched_text": "UN-7H9-2Q4-0",
-      "concept": "membership_identifier",
-      "reason": "Appears to be a union card number; not mapped to an allowed identifier rule"
-    },
-    {
-      "matched_text": "limited to named roles",
-      "concept": "insider_access_control",
-      "reason": "Implies insider/insider list or information barrier but not explicitly named as such"
-    },
-    {
-      "matched_text": "Ningstrait Cloud, SG",
-      "concept": "cross_border_location",
-      "reason": "Indicates offshore processing location; cross-border relevance but not itself the filing/transfer action"
-    },
-    {
-      "matched_text": "R3F8",
-      "concept": "internal_session_or_audit_id",
-      "reason": "Looks like an internal audit/reference code; not clearly covered by allowed identifier rules"
-    },
-    {
-      "matched_text": "biomet- ric vendor logs",
-      "concept": "biometric_data_processing",
-      "reason": "Indicates biometric-related logs; hyphenation/spacing may prevent strict biometric detection"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
   "_agent_review": {
     "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -390,6 +35,13 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T05:18:26Z",
     "accepted_by": "gongahkia",
@@ -398,21 +50,384 @@
     "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 44,
+    "new_must_detect_count": 10,
+    "old_ideal_must_detect_count": 44,
+    "old_must_detect_count": 10,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_special_category_memo_adversarial_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "43012319900315123X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@luoquan-robotics.example.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Zelin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Qiao Ruo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. He Lanying",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Type 1 diabetes",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "face/fingerprint",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "religious belief",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "peanut allergy",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "union membership details",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "redact religion/union in routine reports",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "restrict Res.ID display to **** 0315 12 3X",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "store U S C C in hashed form",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information before public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "tip or leak",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading bans",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "CAC Standard Contract filing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "initiate CAC cross-border filing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "91Q0 R3N8 K2L5 Z7Y0 X8",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "43 0123 1990 0315 12 3X",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Master Han Yuchen",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Type 1 diabetes treatment schedule and glucose logs",
+      "rule": "medical_treatment"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biomet- ric templates (face/fingerprint)",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "temple observances",
+      "rule": "religious_belief"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bright Workers Union",
+      "rule": "trade_union_membership"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Overseas processing",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mirrored to a testing node in Ningstrait Cloud, SG",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "do not export without CAC Standard Contract filing or security assessment",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSL data export risk scoring",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "limited to named roles",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "preliminary FY2026 revenue targets",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "the unsigned supply agreement with Qiyu Components Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "a potential land-use grant in Pingyun Science Park",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ext 7723",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "documented peanut allergy",
+      "rule": "health_condition"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Access to the MNPI above is limited to named roles; any tip or leak triggers trading bans; do not upload to personal drives; link: https://intra.luoquan.local/mnpi/view?rid=43012319900315123X&deal=IPO-SSE.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DEI guidance remains generic: we value inclusion and equal opportunity; the phrase \u201csexual orientation policy\u201d in the handbook is descriptive and does not list any person\u2019s intimate life.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "Data minimization",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Han Zelin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Qiao Ruo",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. He Lanying",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 12",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Access to the MNPI above is limited to named roles; any tip or leak triggers trading bans; do not upload to personal drives; link: https://intra.luoquan.local/mnpi/view?rid=43012319900315123X&deal=IPO-SSE.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "DEI guidance remains generic: we value inclusion and equal opportunity; the phrase \u201csexual orientation policy\u201d in the handbook is descriptive and does not list any person\u2019s intimate life.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "mnpi",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "nonpublic",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer",
+      "reason": "Defined role term; not PII itself"
+    },
+    {
+      "matched_text": "Board of Directors",
+      "reason": "Role noun; not an individual person\u2019s name"
+    },
+    {
+      "matched_text": "RiverSpark Pro",
+      "reason": "Product name; not personal data"
+    },
+    {
+      "matched_text": "genetic algorithm",
+      "reason": "Technical term; not genetic data about a person"
+    },
+    {
+      "matched_text": "sexual orientation policy",
+      "reason": "Generic policy phrase; not tied to an identifiable person"
+    },
+    {
+      "matched_text": "Blue Dragon basketball club",
+      "reason": "Sports team reference; non-PII bait"
+    },
+    {
+      "matched_text": "Pingyun stadium",
+      "reason": "Place reference; non-PII bait"
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC mention; rule excludes labeling negated MAC"
+    },
+    {
+      "matched_text": "blue sky thinking",
+      "reason": "Metaphor; non-PII/MNPI"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "phone extension",
+      "matched_text": "ext 7723",
+      "reason": "Likely a telephone extension but format is short; may not meet strict phone_number patterns"
+    },
+    {
+      "concept": "membership_identifier",
+      "matched_text": "UN-7H9-2Q4-0",
+      "reason": "Appears to be a union card number; not mapped to an allowed identifier rule"
+    },
+    {
+      "concept": "insider_access_control",
+      "matched_text": "limited to named roles",
+      "reason": "Implies insider/insider list or information barrier but not explicitly named as such"
+    },
+    {
+      "concept": "cross_border_location",
+      "matched_text": "Ningstrait Cloud, SG",
+      "reason": "Indicates offshore processing location; cross-border relevance but not itself the filing/transfer action"
+    },
+    {
+      "concept": "internal_session_or_audit_id",
+      "matched_text": "R3F8",
+      "reason": "Looks like an internal audit/reference code; not clearly covered by allowed identifier rules"
+    },
+    {
+      "concept": "biometric_data_processing",
+      "matched_text": "biomet- ric vendor logs",
+      "reason": "Indicates biometric-related logs; hyphenation/spacing may prevent strict biometric detection"
     }
   ]
 }

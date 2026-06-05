@@ -480,6 +480,19 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         phones = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "phone_number"]
         self.assertNotIn("+800 555 1212", phones)
 
+    def test_ae_service_line_only_does_not_fire_as_phone(self):
+        text = "A separate ADGM counsel line is listed as +971 600 123 000 (service line only)."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="AE") if r == "phone_number"]
+        self.assertNotIn("+971 600 123 000", phones)
+
+    def test_cn_400_template_service_number_does_not_fire_as_phone(self):
+        text = (
+            "The template packet has placeholders: Name: [Employee], "
+            "Mobile: 400-000-0000; these are form labels, not records."
+        )
+        phones = [m for r, m in _rules_matched(text, jurisdiction="CN") if r == "phone_number"]
+        self.assertNotIn("400-000-0000", phones)
+
     def test_phone_does_not_fire_inside_filing_reference(self):
         text = "Regulatory chronology: OCMA filing ref OCM-26-000000 submitted."
         phones = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "phone_number"]
@@ -784,6 +797,19 @@ class FunctionalContactGuards(unittest.TestCase):
         emails = [m for r, m in _rules_matched(text) if r == "email_address"]
         self.assertNotIn("sgx-enquiries@public.example.com", emails)
 
+    def test_cn_placeholder_form_email_does_not_fire(self):
+        text = "System forms may display placeholder Email: form@example.test; this is not a data subject channel."
+        emails = [m for r, m in _rules_matched(text, jurisdiction="CN") if r == "email_address"]
+        self.assertNotIn("form@example.test", emails)
+
+    def test_cn_public_service_mailbox_does_not_fire(self):
+        text = (
+            "Public, non-transactional hotlines and marketing emails are not notice channels: "
+            "service@city.gov.example (fictional)."
+        )
+        emails = [m for r, m in _rules_matched(text, jurisdiction="CN") if r == "email_address"]
+        self.assertNotIn("service@city.gov.example", emails)
+
 
 class BankAccountGuards(unittest.TestCase):
     def test_bank_account_proof_sentence_does_not_eat_prose(self):
@@ -930,6 +956,11 @@ class FinancialAmountGuards(unittest.TestCase):
         findings = [m for r, m in _rules_matched(text) if r == "genetic_data"]
         self.assertNotIn("genetic data", findings)
 
+    def test_ae_do_not_request_genetic_data_does_not_fire(self):
+        text = "We do not request union membership, political opinions, religious beliefs, genetic data, or sex-life details."
+        findings = [m for r, m in _rules_matched(text, jurisdiction="AE") if r == "genetic_data"]
+        self.assertNotIn("genetic data", findings)
+
     def test_no_material_nonpublic_information_does_not_fire_marker(self):
         text = "No material non-public information under the SRC should be circulated outside the blackout list."
         markers = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "nonpublic_marker"]
@@ -959,6 +990,19 @@ class FinancialAmountGuards(unittest.TestCase):
         )
         rules = _rules_matched(text, jurisdiction="MY")
         self.assertNotIn(("insider_list_marker", "insider lists"), rules)
+
+    def test_ae_illustrative_insider_lists_do_not_fire(self):
+        text = "References to insider lists are illustrative only and do not include live issuer data."
+        rules = _rules_matched(text, jurisdiction="AE")
+        self.assertNotIn(("insider_list_marker", "insider lists"), rules)
+
+    def test_ae_public_webinar_insider_list_does_not_fire(self):
+        text = (
+            "Educational note: our public webinar uses generic case studies and does not "
+            "reference any live issuer, insider list, or blackout information."
+        )
+        rules = _rules_matched(text, jurisdiction="AE")
+        self.assertNotIn(("insider_list_marker", "insider list"), rules)
 
     def test_ph_mnpi_control_and_bait_lines_do_not_fire_marker(self):
         text = (
@@ -992,6 +1036,26 @@ class FinancialAmountGuards(unittest.TestCase):
         )
         agreements = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "definitive_agreement"]
         self.assertNotIn("term sheet", agreements)
+
+    def test_cn_not_a_term_sheet_does_not_fire(self):
+        text = "This memo is not a term sheet and does not contain any proposal for equity, debt, or M&A."
+        agreements = [m for r, m in _rules_matched(text, jurisdiction="CN") if r == "definitive_agreement"]
+        self.assertNotIn("term sheet", agreements)
+
+    def test_ae_does_not_modify_definitive_agreement_does_not_fire(self):
+        text = "This note does not modify any definitive agreement or disclosure obligations."
+        agreements = [m for r, m in _rules_matched(text, jurisdiction="AE") if r == "definitive_agreement"]
+        self.assertNotIn("definitive agreement", agreements)
+
+    def test_ae_lowercase_spa_logistics_does_not_fire(self):
+        text = "Todo: circulate clean spa to counsel by EOD and book team spa day post-closing."
+        agreements = [m for r, m in _rules_matched(text, jurisdiction="AE") if r == "definitive_agreement"]
+        self.assertNotIn("spa", agreements)
+
+    def test_ae_does_not_contain_material_adverse_change_language_does_not_fire(self):
+        text = "This notice does not contain MNPI or material adverse change language."
+        rules = _rules_matched(text, jurisdiction="AE")
+        self.assertNotIn(("material_adverse_change", "material adverse change"), rules)
 
     def test_negated_special_category_list_does_not_fire(self):
         text = (

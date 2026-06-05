@@ -1,220 +1,349 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 120,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 950,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 140,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 1,050,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 5,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 2,000,000-AED 5,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 120,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 950,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 140,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 1,050,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 5,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 2,000,000-AED 5,000,000'"
+  ],
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 39,
+    "new_must_detect_count": 22,
+    "old_ideal_must_detect_count": 25,
+    "old_must_detect_count": 21,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
   "doc_id": "ae_quasi_identifiers_term_sheet_default_001",
   "document_type": "term_sheet",
-  "source_jurisdiction": "AE",
-  "destination_jurisdiction": "AE",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "Dubai DET Trade Licence TL-DXB-912345"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "deals@meraf-ventures.com"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@zaharalogistics.ae"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "s.rafi@zaharalogistics.ae"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Sami Al Rafi"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DOB 14 March 1990"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "ZL-CFO-Tab-0192"
-    },
-    {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "UAETS-2026-06-01-0915"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation applies to any Emirates ID or residency-related fields"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfers to ADGM/DIFC or EU-equivalent jurisdictions only via appropriate safeguards"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "7.00%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "AED 3.80 per share"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "the trading window for insiders remains closed"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "Dubai DET Trade Licence TL-DXB-912345"
+      "matched_text": "Dubai DET Trade Licence TL-DXB-912345",
+      "rule": "ae_trade_licence"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "deals@meraf-ventures.com"
+      "matched_text": "deals@meraf-ventures.com",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@zaharalogistics.ae"
+      "matched_text": "ir@zaharalogistics.ae",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "s.rafi@zaharalogistics.ae"
+      "matched_text": "s.rafi@zaharalogistics.ae",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Sami Al Rafi"
+      "matched_text": "Mr. Sami Al Rafi",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DOB 14 March 1990"
+      "matched_text": "DOB 14 March 1990",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "ZL-CFO-Tab-0192"
+      "matched_text": "ZL-CFO-Tab-0192",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "UAETS-2026-06-01-0915"
+      "matched_text": "UAETS-2026-06-01-0915",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation applies to any Emirates ID or residency-related fields"
+      "matched_text": "data minimisation applies to any Emirates ID or residency-related fields",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfers to ADGM/DIFC or EU-equivalent jurisdictions only via appropriate safeguards"
+      "matched_text": "cross-border transfers to ADGM/DIFC or EU-equivalent jurisdictions only via appropriate safeguards",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "7.00%"
+      "matched_text": "7.00%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "AED 3.80 per share"
+      "matched_text": "AED 3.80 per share",
+      "rule": "contract_unit_price"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "the trading window for insiders remains closed"
+      "matched_text": "the trading window for insiders remains closed",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Mr. Sami Al Rafi (CFO, Zahara Logistics PJSC), DOB 14 March 1990, office location Dubai Investment Park Phase 2, corporate email s.rafi@zaharalogistics.ae, device ID ZL-CFO-Tab-0192 (DL-Tab A15), meeting venue DIFC Gate Village 8 Room GV8-402, treasury sub-ledger TL-09342, and session reference UAETS-2026-06-01-0915"
+      "matched_text": "Mr. Sami Al Rafi (CFO, Zahara Logistics PJSC), DOB 14 March 1990, office location Dubai Investment Park Phase 2, corporate email s.rafi@zaharalogistics.ae, device ID ZL-CFO-Tab-0192 (DL-Tab A15), meeting venue DIFC Gate Village 8 Room GV8-402, treasury sub-ledger TL-09342, and session reference UAETS-2026-06-01-0915",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Intention to list ordinary shares on ADX Main Market within 12\u201318 months"
+      "matched_text": "Intention to list ordinary shares on ADX Main Market within 12\u201318 months",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "market sounding"
+      "matched_text": "market sounding",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "until public disclosure"
+      "matched_text": "until public disclosure",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "unaudited Q2 FY2026 revenue uplift and customer pipeline referenced herein constitute inside information"
+      "matched_text": "unaudited Q2 FY2026 revenue uplift and customer pipeline referenced herein constitute inside information",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Processing of personal data under UAE PDPL shall be limited to deal execution and regulatory compliance"
+      "matched_text": "Processing of personal data under UAE PDPL shall be limited to deal execution and regulatory compliance",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading restrictions until public disclosure"
+      "matched_text": "trading restrictions until public disclosure",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no copies retained"
+      "matched_text": "no copies retained",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-06-01-0915",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-DXB-912345",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14 March 1990",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed AED 120,000,000 Convertible Sukuk Financing for Zahara Logistics PJSC by Meraf Ventures Ltd (ADGM), non-binding save for confidentiality, exclusivity, costs, and governing law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Instrument: 5-year unsecured convertible sukuk, profit rate 7.00% per annum, conversion price AED 3.80 per share, with anti-dilution customary for ADX-listed issuers; target closing within 45 days of SCA no-objection.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "950,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "140,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,050,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "deals@meraf-ventures.com",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "s.rafi@zaharalogistics.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-06-01-0915",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-DXB-912345",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14 March 1990",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Sami Al Rafi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed AED 120,000,000 Convertible Sukuk Financing for Zahara Logistics PJSC by Meraf Ventures Ltd (ADGM), non-binding save for confidentiality, exclusivity, costs, and governing law.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Instrument: 5-year unsecured convertible sukuk, profit rate 7.00% per annum, conversion price AED 3.80 per share, with anti-dilution customary for ADX-listed issuers; target closing within 45 days of SCA no-objection.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "7.00%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "950,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "140,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1,050,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -255,56 +384,37 @@
       "reason": "Corporate regulatory entity number, not personal data"
     }
   ],
+  "source_jurisdiction": "AE",
   "uncertain": [
     {
-      "matched_text": "internal account ref: ZL-RCF-042",
       "concept": "customer_account_number",
+      "matched_text": "internal account ref: ZL-RCF-042",
       "reason": "Internal facility/account reference appears corporate and not clearly personal; not mapped to a specific allowed ID rule"
     },
     {
-      "matched_text": "treasury sub-ledger TL-09342",
       "concept": "customer_account_number",
+      "matched_text": "treasury sub-ledger TL-09342",
       "reason": "Internal sub-ledger code may function as an account identifier but is corporate and not clearly personal or covered by a specific rule"
     },
     {
-      "matched_text": "Dubai Investment Park Phase 2",
       "concept": "work_location_quasi_identifier",
+      "matched_text": "Dubai Investment Park Phase 2",
       "reason": "Work location can contribute to identifiability when combined but no explicit address rule for UAE is listed"
     },
     {
-      "matched_text": "DIFC Gate Village 8 Room GV8-402",
       "concept": "meeting_location_quasi_identifier",
+      "matched_text": "DIFC Gate Village 8 Room GV8-402",
       "reason": "Specific meeting-room location can aid identification but is not covered by a dedicated rule"
     },
     {
-      "matched_text": "family-origin from Fujairah",
       "concept": "family_origin",
+      "matched_text": "family-origin from Fujairah",
       "reason": "Familial/heritage context may be sensitive in context but not listed among special-category rules or clear PII under allowed set"
     },
     {
-      "matched_text": "MV-2019-77F",
       "concept": "regulatory_licence_number",
+      "matched_text": "MV-2019-77F",
       "reason": "FSRA entity number is a regulatory identifier; potentially useful for compliance taxonomy but not covered by allowed rules"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 120,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 950,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 140,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 1,050,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 5,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 2,000,000-AED 5,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 120,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 950,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 140,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 1,050,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 5,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 2,000,000-AED 5,000,000'"
-  ],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

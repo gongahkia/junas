@@ -1,326 +1,4 @@
 {
-  "doc_id": "cn_quasi_identifiers_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "li.zeyu@hengyuan-robotics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+86-21-5558-0311"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-05-28-0915"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "04318"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purpose limitation"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1991-03-12"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. He Rong"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Li Zeyu"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Li"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Internal Compliance Memo \u2014 PIPL/CSL/DSL Controls for Pre-IPO Data Handling (China)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "On 2026-05-28 he retrieved \u201cFY2026 Revenue Forecast_v3.xlsx\u201d and \u201cCustomer_Pipeline_Q3.xlsx\u201d from the pre-IPO data room (Issuer File ID HX-STAR-1181), which are classified as inside information pending exchange review."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "31010119910312"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "cn_uscc",
-      "matched_text": "91310110MA0X9H7E2Q"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@hengyuan-robotics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_phone",
-      "matched_text": "+86-21-5558-0311"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. He Rong"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Li Zeyu"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1991-03-12"
-    },
-    {
-      "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 35"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "HYR-EMP-04318"
-    },
-    {
-      "category": "PII",
-      "rule": "cn_resident_id",
-      "matched_text": "31010119910312****"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "li.zeyu@hengyuan-robotics.cn"
-    },
-    {
-      "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "HYR-LAP-7A3C9"
-    },
-    {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "HYR-VPN-2026-05-28-0915"
-    },
-    {
-      "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "10.42.8.56"
-    },
-    {
-      "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "SESS-7C91-02ZK"
-    },
-    {
-      "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "172.16.3.44"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "A cross-border transfer to vendor Nanyang Data Services Pte. (processing center: Juyong, SG) is proposed for model validation"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Standard Contract for PI export was filed with the Shanghai municipal cyberspace authority on 2026-04-02 (Record No. HY-SC-2026-0415)"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "remove device serials from analytics exports"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "mask resident IDs beyond the last four"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information before public disclosure"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information pending exchange review"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border filing with the municipal cyberspace authority when exporting personal information"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimality"
-    },
-    {
-      "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Mr. Li Zeyu, Senior Product Manager at Hengyuan Robotics (Shanghai R&D), work location: 12F, Riverfront Tech Center, Shanghai"
-    },
-    {
-      "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Mr. Li\u2019s HR file contains DOB 1991-03-12 (age 35), internal ID HYR-EMP-04318, Resident ID (masked) 31010119910312****, and payroll unit \u201cHYR Shanghai R&D.\u201d"
-    },
-    {
-      "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Access artifacts include corporate email li.zeyu@hengyuan-robotics.cn, WorkChat alias HYR-LZY-12F, company-issued laptop HengyuanBook 14 SN HYR-LAP-7A3C9, and VPN session HYR-VPN-2026-05-28-0915 from 10.42.8.56"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "minors under 14"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "pre-IPO data room"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Science & Tech Board listing"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+86-21-5558-0311"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-05-28-0915"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2026-0415"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "04318"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purpose limitation"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Li"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Internal Compliance Memo \u2014 PIPL/CSL/DSL Controls for Pre-IPO Data Handling (China)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "On 2026-05-28 he retrieved \u201cFY2026 Revenue Forecast_v3.xlsx\u201d and \u201cCustomer_Pipeline_Q3.xlsx\u201d from the pre-IPO data room (Issuer File ID HX-STAR-1181), which are classified as inside information pending exchange review."
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "31010119910312"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "\u201cmale, 29, Nanshan District, OpenOS handset\u201d",
-      "reason": "Separated weak identifiers; not sufficient to identify a natural person on their own"
-    },
-    {
-      "matched_text": "\u201cborn 1988, Chengdu\u201d",
-      "reason": "Separated weak identifiers; not sufficient to identify a natural person on their own"
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "HYR-LZY-12F",
-      "concept": "work chat alias / internal handle",
-      "reason": "Account-style identifier that can link to a natural person but not explicitly covered by an allowed rule"
-    },
-    {
-      "matched_text": "HX-STAR-1181",
-      "concept": "issuer file id",
-      "reason": "Internal file identifier; may be linkable to individuals or MNPI context but not mapped to an allowed rule"
-    },
-    {
-      "matched_text": "Record No. HY-SC-2026-0415",
-      "concept": "regulatory filing reference",
-      "reason": "Compliance record identifier; potentially sensitive administrative reference not covered by allowed rules"
-    },
-    {
-      "matched_text": "purpose limitation",
-      "concept": "purpose limitation control",
-      "reason": "Privacy principle reference; relevant to compliance but not mapped to a specific detection rule"
-    },
-    {
-      "matched_text": "separate consent",
-      "concept": "sensitive PI consent requirement",
-      "reason": "Indicates consent requirement for minors\u2019 data; legally relevant but not a defined marker in allowed rules"
-    },
-    {
-      "matched_text": "employee device logs",
-      "concept": "device telemetry as personal information",
-      "reason": "May contain linkable identifiers; category not explicitly listed in allowed rules"
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
   "_agent_review": {
     "notes": "Reconciled CN Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, checksum-invalid Resident ID/USCC labels, public-service-line phone bait, educational insider-list/information-barrier wording, training term-sheet samples, and negated MAC wording; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -357,6 +35,13 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "CN Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered CN public-service-line phone bait, educational insider-list/information-barrier bait, training term-sheet samples, negated material-adverse-change prose, and checksum-valid Resident ID/USCC/mobile/passport positives. Generated checksum-invalid Resident ID/USCC labels were removed from strict must_detect.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T05:18:26Z",
     "accepted_by": "gongahkia",
@@ -365,29 +50,364 @@
     "status": "owner_approved_cn_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
     }
   ],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 40,
+    "new_must_detect_count": 14,
+    "old_ideal_must_detect_count": 40,
+    "old_must_detect_count": 14,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
   "_strict_reconciliation_adjustments": [
     {
-      "status": "removed_after_phone_precision_guard",
-      "rule": "phone_number",
       "matched_text": "2026-0415",
-      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives"
+      "reason": "phone detector now suppresses date/reference/public identifier-like phone false positives",
+      "rule": "phone_number",
+      "status": "removed_after_phone_precision_guard"
+    }
+  ],
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_quasi_identifiers_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "91310110MA0X9H7E2Q",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@hengyuan-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-21-5558-0311",
+      "rule": "cn_phone"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. He Rong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Li Zeyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-03-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 35",
+      "rule": "age_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HYR-EMP-04318",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "31010119910312****",
+      "rule": "cn_resident_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "li.zeyu@hengyuan-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HYR-LAP-7A3C9",
+      "rule": "device_serial_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "HYR-VPN-2026-05-28-0915",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "10.42.8.56",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SESS-7C91-02ZK",
+      "rule": "internal_session_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "172.16.3.44",
+      "rule": "ip_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "A cross-border transfer to vendor Nanyang Data Services Pte. (processing center: Juyong, SG) is proposed for model validation",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Standard Contract for PI export was filed with the Shanghai municipal cyberspace authority on 2026-04-02 (Record No. HY-SC-2026-0415)",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "remove device serials from analytics exports",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mask resident IDs beyond the last four",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information before public disclosure",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "inside information pending exchange review",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "cross-border filing with the municipal cyberspace authority when exporting personal information",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minimality",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Li Zeyu, Senior Product Manager at Hengyuan Robotics (Shanghai R&D), work location: 12F, Riverfront Tech Center, Shanghai",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Li\u2019s HR file contains DOB 1991-03-12 (age 35), internal ID HYR-EMP-04318, Resident ID (masked) 31010119910312****, and payroll unit \u201cHYR Shanghai R&D.\u201d",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Access artifacts include corporate email li.zeyu@hengyuan-robotics.cn, WorkChat alias HYR-LZY-12F, company-issued laptop HengyuanBook 14 SN HYR-LAP-7A3C9, and VPN session HYR-VPN-2026-05-28-0915 from 10.42.8.56",
+      "rule": "quasi_identifier_combination"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "pre-IPO data room",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Science & Tech Board listing",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-21-5558-0311",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-05-28-0915",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-0415",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "04318",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Li",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Compliance Memo \u2014 PIPL/CSL/DSL Controls for Pre-IPO Data Handling (China)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-05-28 he retrieved \u201cFY2026 Revenue Forecast_v3.xlsx\u201d and \u201cCustomer_Pipeline_Q3.xlsx\u201d from the pre-IPO data room (Issuer File ID HX-STAR-1181), which are classified as inside information pending exchange review.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "31010119910312",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "li.zeyu@hengyuan-robotics.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+86-21-5558-0311",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2026-05-28-0915",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "04318",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1991-03-12",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. He Rong",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Li Zeyu",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Li",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Internal Compliance Memo \u2014 PIPL/CSL/DSL Controls for Pre-IPO Data Handling (China)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-05-28 he retrieved \u201cFY2026 Revenue Forecast_v3.xlsx\u201d and \u201cCustomer_Pipeline_Q3.xlsx\u201d from the pre-IPO data room (Issuer File ID HX-STAR-1181), which are classified as inside information pending exchange review.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "31010119910312",
+      "rule": "large_number"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "\u201cmale, 29, Nanshan District, OpenOS handset\u201d",
+      "reason": "Separated weak identifiers; not sufficient to identify a natural person on their own"
+    },
+    {
+      "matched_text": "\u201cborn 1988, Chengdu\u201d",
+      "reason": "Separated weak identifiers; not sufficient to identify a natural person on their own"
+    }
+  ],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "work chat alias / internal handle",
+      "matched_text": "HYR-LZY-12F",
+      "reason": "Account-style identifier that can link to a natural person but not explicitly covered by an allowed rule"
+    },
+    {
+      "concept": "issuer file id",
+      "matched_text": "HX-STAR-1181",
+      "reason": "Internal file identifier; may be linkable to individuals or MNPI context but not mapped to an allowed rule"
+    },
+    {
+      "concept": "regulatory filing reference",
+      "matched_text": "Record No. HY-SC-2026-0415",
+      "reason": "Compliance record identifier; potentially sensitive administrative reference not covered by allowed rules"
+    },
+    {
+      "concept": "purpose limitation control",
+      "matched_text": "purpose limitation",
+      "reason": "Privacy principle reference; relevant to compliance but not mapped to a specific detection rule"
+    },
+    {
+      "concept": "sensitive PI consent requirement",
+      "matched_text": "separate consent",
+      "reason": "Indicates consent requirement for minors\u2019 data; legally relevant but not a defined marker in allowed rules"
+    },
+    {
+      "concept": "device telemetry as personal information",
+      "matched_text": "employee device logs",
+      "reason": "May contain linkable identifiers; category not explicitly listed in allowed rules"
     }
   ]
 }

@@ -1,357 +1,4 @@
 {
-  "doc_id": "ae_universal_mnpi_memo_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "AE",
-  "destination_jurisdiction": "AE",
-  "must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "faris.rakin@bluedune.example.ae"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purpose limitation"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_emirates_id",
-      "matched_text": "784-0000-0000000-0"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "TL-ADGM-99231-X"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Samir Al Bahri"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Faris Al Rakin"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Subject: Proposed acquisition of 35% of Marjan Reef Power ADGM SPV Ltd for AED 145,000,000; entry into definitive Share Purchase Agreement (SPA) and Shareholders’ Agreement by 2026-06-25"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Palm Comet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "material adverse effect"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "35%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "4.2%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "145,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "95,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "50,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    }
-  ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "ae_emirates_id",
-      "matched_text": "784-0000-0000000-0"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "TL-ADGM-99231-X"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "H.E. Dr. Samir Al Bahri"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Faris Al Rakin"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@bluedune.example.ae"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "faris.rakin@bluedune.example.ae"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@bluedune.example.ae"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Palm Comet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo until 2026-07-15 09:00 GST"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Shareholders’ Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "material adverse effect"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list maintenance"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Security wall"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "35%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "4.2%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Proposed acquisition of 35% of Marjan Reef Power ADGM SPV Ltd for AED 145,000,000; entry into definitive Share Purchase Agreement (SPA) and Shareholders’ Agreement by 2026-06-25"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "restrict “Project Palm Comet” folder to insiders listed in Appendix A"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "do not forward to “IR-external” or third-party advisers until NDAs are executed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "IR draft for ADX not to be released before embargo"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "post-embargo"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "binding SPA"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "no cross-border transfer to non-adequate jurisdictions without safeguards"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "purpose limitation"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Samir Al Bahri"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Subject: Proposed acquisition of 35% of Marjan Reef Power ADGM SPV Ltd for AED 145,000,000; entry into definitive Share Purchase Agreement (SPA) and Shareholders’ Agreement by 2026-06-25"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "145,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "95,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "50,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    }
-  ],
-  "must_not_detect": [
-    {
-      "matched_text": "SPA",
-      "reason": "Defined-term abbreviation in '(SPA)' should not be auto-labeled in that instance."
-    },
-    {
-      "matched_text": "spa-day voucher emails",
-      "reason": "False-positive bait unrelated to Share Purchase Agreement."
-    },
-    {
-      "matched_text": "MAC",
-      "reason": "Negated MAC language; do not label as material adverse change."
-    }
-  ],
-  "uncertain": [
-    {
-      "matched_text": "family-origin declarations",
-      "concept": "special-category personal data (family/ethnic origin)",
-      "reason": "Likely sensitive under UAE PDPL but not explicitly covered by allowed PII rules."
-    },
-    {
-      "matched_text": "BDEN-OPS-4455",
-      "concept": "bank_customer_reference",
-      "reason": "Presented as an internal bank ref; unclear if it fits the bank-customer reference rule."
-    },
-    {
-      "matched_text": "storage in UAE instance",
-      "concept": "data_localisation_marker",
-      "reason": "Data localisation is privacy-relevant but not listed among allowed privacy-event markers."
-    },
-    {
-      "matched_text": "purpose limitation",
-      "concept": "purpose_limitation_marker",
-      "reason": "PDPL principle noted but not an allowed marker type."
-    },
-    {
-      "matched_text": "Emirates ID copies",
-      "concept": "pii_processing_reference",
-      "reason": "Indicates processing of identity documents without providing a specific identifier value."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 145,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 95,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 50,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 145,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 95,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 50,000,000'"
-  ],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AE Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered UAE trade-licence precision/full-code capture, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, phone-like device/date fragments, and Arabic-style hyphenated names. Generated invalid/placeholder Emirates ID and trade-licence labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
   "_agent_review": {
     "notes": "Reconciled AE Stage A strict labels to current deterministic strict-mode findings after manual review of raw auto-label mismatches, UAE trade-licence capture issues, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, and Arabic-style hyphenated names; retained non-deterministic statutory/coverage targets in ideal_must_detect.",
     "reviewer": "codex-gpt-assisted-strict-tier-review",
@@ -388,6 +35,20 @@
       "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AE Stage A strict tier reconciled to deterministic strict-mode engine after Codex/GPT-assisted mismatch review; broader model-derived labels retained in ideal_must_detect for gap discovery. Narrow fixes covered UAE trade-licence precision/full-code capture, public/generic IVR and contact-centre phone bait, public non-binding MoU wording, negated genetic-data prose, Unicode spa-day bait, masked Emirates-ID fragments, phone-like device/date fragments, and Arabic-style hyphenated names. Generated invalid/placeholder Emirates ID and trade-licence labels were removed from strict must_detect when current deterministic strict mode suppresses them.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 145,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 95,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 50,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 145,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 95,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 50,000,000'"
+  ],
   "_owner_acceptance": {
     "accepted_at_utc": "2026-05-31T07:08:38Z",
     "accepted_by": "gongahkia",
@@ -396,21 +57,380 @@
     "status": "owner_approved_ae_stage_a_for_internal_benchmarking"
   },
   "_stage_readiness": {
+    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
+    "reviewed_at_utc": "2026-06-01T01:27:51Z",
+    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
     "stage_a": "reviewed",
     "stage_b": "ready",
     "stage_c": "pending",
-    "status": "stage_b_ready",
-    "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
-    "reviewed_at_utc": "2026-06-01T01:27:51Z",
-    "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+    "status": "stage_b_ready"
   },
   "_stage_readiness_history": [
     {
-      "stage": "stage_b",
-      "status": "ready",
-      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review.",
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
-      "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
+      "reviewer": "gongahkia-project-owner-manual-jurisdiction-review",
+      "stage": "stage_b",
+      "status": "ready"
+    }
+  ],
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 37,
+    "new_must_detect_count": 22,
+    "old_ideal_must_detect_count": 37,
+    "old_must_detect_count": 22,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
+  "doc_id": "ae_universal_mnpi_memo_default_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "784-0000-0000000-0",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-ADGM-99231-X",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "H.E. Dr. Samir Al Bahri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faris Al Rakin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@bluedune.example.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "faris.rakin@bluedune.example.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "compliance@bluedune.example.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Palm Comet",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Embargo until 2026-07-15 09:00 GST",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Shareholders\u2019 Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse effect",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list maintenance",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security wall",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Proposed acquisition of 35% of Marjan Reef Power ADGM SPV Ltd for AED 145,000,000; entry into definitive Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement by 2026-06-25",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restrict \u201cProject Palm Comet\u201d folder to insiders listed in Appendix A",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "do not forward to \u201cIR-external\u201d or third-party advisers until NDAs are executed",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "IR draft for ADX not to be released before embargo",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "post-embargo",
+      "rule": "embargo_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "binding SPA",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "PII",
+      "matched_text": "no cross-border transfer to non-adequate jurisdictions without safeguards",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Samir Al Bahri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Proposed acquisition of 35% of Marjan Reef Power ADGM SPV Ltd for AED 145,000,000; entry into definitive Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement by 2026-06-25",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "145,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "95,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "faris.rakin@bluedune.example.ae",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "purpose limitation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "784-0000-0000000-0",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-ADGM-99231-X",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Samir Al Bahri",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Faris Al Rakin",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Subject: Proposed acquisition of 35% of Marjan Reef Power ADGM SPV Ltd for AED 145,000,000; entry into definitive Share Purchase Agreement (SPA) and Shareholders\u2019 Agreement by 2026-06-25",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Palm Comet",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Palm Comet",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse effect",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4.2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "145,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "95,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "50,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "SPA",
+      "reason": "Defined-term abbreviation in '(SPA)' should not be auto-labeled in that instance."
+    },
+    {
+      "matched_text": "spa-day voucher emails",
+      "reason": "False-positive bait unrelated to Share Purchase Agreement."
+    },
+    {
+      "matched_text": "MAC",
+      "reason": "Negated MAC language; do not label as material adverse change."
+    }
+  ],
+  "source_jurisdiction": "AE",
+  "uncertain": [
+    {
+      "concept": "special-category personal data (family/ethnic origin)",
+      "matched_text": "family-origin declarations",
+      "reason": "Likely sensitive under UAE PDPL but not explicitly covered by allowed PII rules."
+    },
+    {
+      "concept": "bank_customer_reference",
+      "matched_text": "BDEN-OPS-4455",
+      "reason": "Presented as an internal bank ref; unclear if it fits the bank-customer reference rule."
+    },
+    {
+      "concept": "data_localisation_marker",
+      "matched_text": "storage in UAE instance",
+      "reason": "Data localisation is privacy-relevant but not listed among allowed privacy-event markers."
+    },
+    {
+      "concept": "purpose_limitation_marker",
+      "matched_text": "purpose limitation",
+      "reason": "PDPL principle noted but not an allowed marker type."
+    },
+    {
+      "concept": "pii_processing_reference",
+      "matched_text": "Emirates ID copies",
+      "reason": "Indicates processing of identity documents without providing a specific identifier value."
     }
   ]
 }

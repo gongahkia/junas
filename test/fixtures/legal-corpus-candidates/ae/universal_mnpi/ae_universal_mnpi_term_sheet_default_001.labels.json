@@ -1,260 +1,393 @@
 {
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "AE Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 185,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 528,000,000'",
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 90,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 185,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 528,000,000'",
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 90,000,000'"
+  ],
+  "_strict_reconciliation": {
+    "basis": "AE Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 43,
+    "new_must_detect_count": 28,
+    "old_ideal_must_detect_count": 29,
+    "old_must_detect_count": 27,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "AE",
   "doc_id": "ae_universal_mnpi_term_sheet_default_001",
   "document_type": "term_sheet",
-  "source_jurisdiction": "AE",
-  "destination_jurisdiction": "AE",
-  "must_detect": [
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UAE MARKET ABUSE INSIDE INFORMATION"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Palm Oasis"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo until 30 Sep 2026, 08:00 GST"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "35%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "Material Adverse Change"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Subscription Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Shareholders\u2019 Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "2%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not for external distribution"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "15%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "1.5%"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "Trade Licence TL-982317"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Leila Naser"
-    },
-    {
-      "category": "PII",
-      "rule": "ae_emirates_id",
-      "matched_text": "Emirates ID 784-1987-1234567-1"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "leila.naser@alrimalholdings.example"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jamil Al-Bajouri"
-    }
-  ],
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "CONFIDENTIAL"
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "UAE MARKET ABUSE INSIDE INFORMATION"
+      "matched_text": "UAE MARKET ABUSE INSIDE INFORMATION",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Palm Oasis"
+      "matched_text": "Project Palm Oasis",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo until 30 Sep 2026, 08:00 GST"
+      "matched_text": "embargo until 30 Sep 2026, 08:00 GST",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "35%"
+      "matched_text": "35%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "Material Adverse Change"
+      "matched_text": "Material Adverse Change",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Subscription Agreement"
+      "matched_text": "Subscription Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Shareholders\u2019 Agreement"
+      "matched_text": "Shareholders\u2019 Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "2%"
+      "matched_text": "2%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not for external distribution"
+      "matched_text": "not for external distribution",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "12%"
+      "matched_text": "12%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "15%"
+      "matched_text": "15%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "1.5%"
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "signing 20 Oct 2026"
+      "matched_text": "signing 20 Oct 2026",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "long-stop date 31 Jan 2027"
+      "matched_text": "long-stop date 31 Jan 2027",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "embargo"
+      "matched_text": "embargo",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "preliminary research note (internal)"
+      "matched_text": "preliminary research note (internal)",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "inside information governance"
+      "matched_text": "inside information governance",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "EIBOR+350 bps"
+      "matched_text": "EIBOR+350 bps",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "Trade Licence TL-982317"
+      "matched_text": "Trade Licence TL-982317",
+      "rule": "ae_trade_licence"
     },
     {
       "category": "PII",
-      "rule": "ae_trade_licence",
-      "matched_text": "TL-771204"
+      "matched_text": "TL-771204",
+      "rule": "ae_trade_licence"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Leila Naser"
+      "matched_text": "Ms. Leila Naser",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "ae_emirates_id",
-      "matched_text": "Emirates ID 784-1987-1234567-1"
+      "matched_text": "Emirates ID 784-1987-1234567-1",
+      "rule": "ae_emirates_id"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "leila.naser@alrimalholdings.example"
+      "matched_text": "leila.naser@alrimalholdings.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Jamil Al-Bajouri"
+      "matched_text": "Mr. Jamil Al-Bajouri",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "for due diligence only"
+      "matched_text": "for due diligence only",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "784-1987-1234567-1",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-982317",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Acquisition of 35% of Crescent Dunes Utilities PJSC for AED 185,000,000 cash; proceeds to fund Phase II desalination capex; indicative valuation implies AED 528,000,000 post-money.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive agreements: Share Purchase Agreement, Subscription Agreement, and Shareholders\u2019 Agreement (collectively the \u201cDefinitive Agreements\u201d); target signing 20 Oct 2026, long-stop date 31 Jan 2027; 2% reverse break fee if cornerstone financing fails.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing/Checklist: KYC for all shareholders (including Emirates ID verification and trade licence extracts), completion of environmental permits transfer, and registration of pledge over subscription shares; closing mechanics per Annex A (internal checklist).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "todo: circulate clean spa to counsel by eod; align signing room logistics; and yes, book team spa day post-closing (not a transaction cost).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Palm Oasis Term",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180k",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "771204",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "185,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "528,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "90,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "leila.naser@alrimalholdings.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "784-1987-1234567-1",
+      "rule": "ae_emirates_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "TL-982317",
+      "rule": "ae_trade_licence"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Leila Naser",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Jamil Al-Bajouri",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Transaction: Acquisition of 35% of Crescent Dunes Utilities PJSC for AED 185,000,000 cash; proceeds to fund Phase II desalination capex; indicative valuation implies AED 528,000,000 post-money.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Definitive agreements: Share Purchase Agreement, Subscription Agreement, and Shareholders\u2019 Agreement (collectively the \u201cDefinitive Agreements\u201d); target signing 20 Oct 2026, long-stop date 31 Jan 2027; 2% reverse break fee if cornerstone financing fails.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing/Checklist: KYC for all shareholders (including Emirates ID verification and trade licence extracts), completion of environmental permits transfer, and registration of pledge over subscription shares; closing mechanics per Annex A (internal checklist).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing/Checklist: KYC for all shareholders (including Emirates ID verification and trade licence extracts), completion of environmental permits transfer, and registration of pledge over subscription shares; closing mechanics per Annex A (internal checklist).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "todo: circulate clean spa to counsel by eod; align signing room logistics; and yes, book team spa day post-closing (not a transaction cost).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "CONFIDENTIAL",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Palm Oasis Term",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "180k",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "35%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "2%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "12%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "15%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "771204",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "185,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "528,000,000",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "90,000,000",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
@@ -287,55 +420,42 @@
       "reason": "Intentional false-positive bait; not an agreement"
     }
   ],
+  "source_jurisdiction": "AE",
   "uncertain": [
     {
-      "matched_text": "TL-771204",
       "concept": "ae_trade_licence",
+      "matched_text": "TL-771204",
       "reason": "Looks like a UAE trade licence number but not explicitly anchored by 'Trade Licence' text"
     },
     {
-      "matched_text": "EIBOR+350 bps",
       "concept": "financial_percentage",
+      "matched_text": "EIBOR+350 bps",
       "reason": "Interest margin expressed in bps rather than %; may not be caught by strict percent regex"
     },
     {
-      "matched_text": "signing 20 Oct 2026",
       "concept": "embargo/timeline marker",
+      "matched_text": "signing 20 Oct 2026",
       "reason": "Signing milestone without explicit 'Signing Date' label"
     },
     {
-      "matched_text": "long-stop date 31 Jan 2027",
       "concept": "embargo/timeline marker",
+      "matched_text": "long-stop date 31 Jan 2027",
       "reason": "Closing-related milestone not in the enumerated embargo keywords"
     },
     {
-      "matched_text": "inside information governance",
       "concept": "information_barrier_marker",
+      "matched_text": "inside information governance",
       "reason": "Indicates MAR-style controls but lacks explicit 'insider list'/'information barrier' phrasing"
     },
     {
-      "matched_text": "preliminary research note (internal)",
       "concept": "nonpublic_marker",
+      "matched_text": "preliminary research note (internal)",
       "reason": "Signals non-public status via 'internal' but may be too contextual for strict detection"
     },
     {
-      "matched_text": "family-origin disclosure",
       "concept": "special-category personal data",
+      "matched_text": "family-origin disclosure",
       "reason": "References personal origin of a founding family; sensitive but not clearly mapped to an allowed special-category rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 185,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 528,000,000'",
-    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='AED 90,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 185,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 528,000,000'",
-    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='AED 90,000,000'"
-  ],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  ]
 }

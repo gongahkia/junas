@@ -1,15 +1,180 @@
 {
-  "doc_id": "cn_jurisdictional_mnpi_incident_report_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "CN",
-  "destination_jurisdiction": "CN",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "_human_review_status": "pending",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "CN Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. New Stage B labels remain pending project-owner approval for internal benchmarking; ideal_must_detect is not a locked recall baseline.",
+  "_label_tiers_version": "cn-ae-stage-b-strict-realign-2026-06-05",
+  "_label_warnings": [],
+  "_strict_reconciliation": {
+    "basis": "CN Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "new_ideal_must_detect_count": 19,
+    "new_must_detect_count": 7,
+    "old_ideal_must_detect_count": 13,
+    "old_must_detect_count": 7,
+    "removed_must_not_detect": [],
+    "reviewed_at": "2026-06-05T07:58:20Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-cn-ae-stage-b-eval-final2.json",
+    "status": "codex_reconciled_pending_stage_b_owner_approval",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrowed CN/AE Stage B detector precision fixes"
+  },
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
-  "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "destination_jurisdiction": "CN",
+  "doc_id": "cn_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "9132TEST0000X9A12Q",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9144FAKE0000M2B56Y",
+      "rule": "cn_uscc"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ir@lianhai-smart.cn",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "blackout window (2025-02-28 to 2025-03-15)",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "selective disclosure concern",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u5185\u5e55\u4fe1\u606f\u77e5\u60c5\u4eba\u767b\u8bb0",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u91cd\u5927\u4e8b\u9879",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u9009\u62e9\u6027\u4fe1\u606f\u62ab\u9732",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prior to the 09:30 public posting, at 08:12 CST an operations manager posted a brief incident note",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted supplier portal (access controlled to 12 suppliers)",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "dissemination of insider information",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "minors under 14 years of age",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data of minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lianhai Smart Logistics Co., Ltd. (Unified Social Credit Code: 9132TEST0000X9A12Q; stock short name \u201cLianhai Zhi Yun\u201d, code DHE:02188 on the Donghai Stock Exchange) \u2014 Cybersecurity Incident Summary (stale disclosure referenced).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prior to the 09:30 public posting, at 08:12 CST an operations manager posted a brief incident note to a restricted supplier portal (access controlled to 12 suppliers) during the standard pre-annual report blackout window (2025-02-28 to 2025-03-15), creating a potential selective disclosure concern under GSRC guidance; this was logged and addressed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This report does not update earnings guidance and does not relate to production capacity, customer churn, or other KPIs; it reflects a contained operational matter already addressed and publicly reported.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "data of minors",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Lianhai Smart Logistics Co., Ltd. (Unified Social Credit Code: 9132TEST0000X9A12Q; stock short name \u201cLianhai Zhi Yun\u201d, code DHE:02188 on the Donghai Stock Exchange) \u2014 Cybersecurity Incident Summary (stale disclosure referenced).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Prior to the 09:30 public posting, at 08:12 CST an operations manager posted a brief incident note to a restricted supplier portal (access controlled to 12 suppliers) during the standard pre-annual report blackout window (2025-02-28 to 2025-03-15), creating a potential selective disclosure concern under GSRC guidance; this was logged and addressed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This report does not update earnings guidance and does not relate to production capacity, customer churn, or other KPIs; it reflects a contained operational matter already addressed and publicly reported.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "This report does not update earnings guidance and does not relate to production capacity, customer churn, or other KPIs; it reflects a contained operational matter already addressed and publicly reported.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "CN",
+  "uncertain": [
+    {
+      "concept": "cn_resident_id (masked placeholder)",
+      "matched_text": "99************123X",
+      "reason": "Masked placeholder resembles a PRC Resident ID format but is not an actual identifier."
+    },
+    {
+      "concept": "cross-border transfer (negated)",
+      "matched_text": "No cross-border transfers occurred",
+      "reason": "Relevant to cross-border compliance under PIPL/CAC but explicitly negated, which is excluded by detection rules."
+    },
+    {
+      "concept": "public-status marker",
+      "matched_text": "the information is considered publicly known",
+      "reason": "Indicates post-disclosure public status relevant to MNPI status, but there is no explicit 'public marker' rule to label."
+    }
+  ]
 }
