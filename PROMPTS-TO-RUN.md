@@ -94,6 +94,71 @@ Read that file alongside this one.
 - Batch H H2/H3 (Tier 5): same Azure gpt-5 cost class as `NEW-BATCH-D`.
 - All Tier 1 doc-only prompts (`NEW-NORM-SPEC`, `NEW-DISPUTE-PROCESS`, `NEW-VERIFY-BASELINES`, `NEW-08-REFRAME-IF-LOW-KAPPA`) are zero-cost.
 
+## Suggested fire sequence (paste-friendly)
+
+Strict top-down also works — but you'll leave parallelism on the table. Below is the dependency-aware sequence that minimises wall-time while respecting every hard-dependency above.
+
+### Wave 1 — Tier 1, parallel-safe (fire these together in separate worktrees)
+
+All 12 items touch disjoint files and have no inter-dependencies. None is cost-gated (except `NEW-CONTAM` if you later fire its probe against Azure baselines):
+
+1. `SOLO-17` — multi-judge κ for SGLB-08 (~$2.40)
+2. `SOLO-18` — 40-case human holdout (zero cost; needs your fill-in at end)
+3. `SOLO-10` — license + name decision brief (zero cost; needs your call at end)
+4. `SOLO-9` — PDPC Guidelines scraper (network only)
+5. `NEW-CI-RECEIPT` — bootstrap CIs in receipts
+6. `NEW-CONTAM` — contamination probe code (firing the probe is cost-gated; scaffolding is not)
+7. `NEW-SAL-VALIDATION` — validate grammar against SAL Style Guide PDFs
+8. `NEW-EXTRACT-VERSION` — extraction-rule SHA in metadata
+9. `NEW-HONEST-LEADERBOARD` — mark SGLB-05/06/07 ineligible
+10. `NEW-NORM-SPEC` — normalisation spec doc
+11. `NEW-DISPUTE-PROCESS` — dispute/errata process docs
+12. `NEW-VERIFY-BASELINES` — audit Anthropic/Gemini baseline gap
+
+### Decision point (user)
+
+- `SOLO-10` returns a 1-page brief; you pick name + licence before any Tier 3 vendor-facing infra fires.
+
+### Wave 2 — Tier 1, gated single fire
+
+13. `NEW-BATCH-D` — coordinator for frontier baselines. **Prerequisites: SOLO-17, NEW-CI-RECEIPT, NEW-CONTAM, NEW-EXTRACT-VERSION, NEW-VERIFY-BASELINES all landed.** Azure cells inside Batch D are cost-gated per cell — explicit approval before firing each.
+
+### Wave 2 conditional
+
+14. `NEW-08-REFRAME-IF-LOW-KAPPA` — fire only if `SOLO-17` reports any pairwise κ < 0.4. If all κ ≥ 0.4, skip entirely.
+
+### Wave 3 — Tier 2 (parallel with Wave 2)
+
+Tier 2 produces data, not methodology, so it can run alongside `NEW-BATCH-D` once Tier 1 wave 1 lands:
+
+15. Batch A (4 agents, internal A1→A2→A3, A1→A4) — MOM scraper
+16. Batch B (4 agents, internal B1→B2→B3, B1→B4) — CommonLII SG ingester
+17. `NEW-SSO-EXPAND` — SSO ingest beyond PDPA
+18. `NEW-SGLB-04-PROD` — gated on `NEW-SAL-VALIDATION`
+
+### Wave 4 — Tier 3 (parallel; gated on Tier 1 closing)
+
+19. `NEW-VENDOR-GUIDE` — gated on `NEW-CI-RECEIPT` + `NEW-CONTAM` + `NEW-NORM-SPEC` + `NEW-DISPUTE-PROCESS`
+20. `NEW-LIB-PACKAGING` — gated on `SOLO-10` (licence decided)
+21. `NEW-INDEPENDENT-REPRO` — docs only; can start any time after Wave 1 + 2
+22. Batch C (4 parallel-safe agents) — frontend audit fixes
+23. `SOLO-1` through `SOLO-6` — independent of each other; parallel-safe
+
+### Wave 5 — Tier 4 (launch)
+
+24. `SOLO-8` — arXiv preprint (gated on Wave 2 baselines for §§4-5)
+25. Batch E (4 parallel agents) — launch assets
+
+### Wave 6 — Tier 5 (post-launch)
+
+26+. Batch G, Batch H, Batch F, SOLO-7, SOLO-11, SOLO-12, COPILOT-1..4 — see per-tier dependency notes inline.
+
+### Operational rules (re-stated)
+
+- **Each prompt = fresh Claude Code session.** Spawn with `isolation: "worktree"`. Do not paste multiple prompts into one session — context will collapse.
+- **Cost gates are real.** Anthropic / Gemini / Ollama cells are cost-safe; Azure gpt-5 cells need explicit per-fire approval.
+- **You are the merge authority.** Agents commit on feature branches; never merge to `main` without your review.
+
 ---
 
 # Tier 1 — Methodology fundamentals
