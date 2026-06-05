@@ -30,16 +30,20 @@ across frontier and open-weight models.
 
 ## Tasks (v0.1)
 
-| ID | Task | Source | N | Metric |
-|---|---|---|---|---|
-| SGLB-01 | PDPA-Outcome | PDPC enforcement decisions | ~210 | macro-F1 (obligation), MAE (penalty log-band) |
-| SGLB-02 | Statute-QA | SSO statutes | ~500 | exact-match (citation), ROUGE-L (answer) |
-| SGLB-03 | Case-Holding | eLitigation public judgments (TOS-gated) | ~300 | exact-match on MCQ holding |
-| SGLB-04 | Citation-Verify | SAL Style Guide grammar + perturbations | ~1000 | accuracy + per-error breakdown |
-| SGLB-05 | Employment-Issue | MOM guidance + Employment Act | ~150 | multi-label F1 |
-| SGLB-06 | Rules-of-Court-2021 | Rules of Court 2021 (SSO) | ~200 | exact-match (order:rule), top-3 acc |
-| SGLB-07 | Jurisdiction-Routing | SG cases citing UK/AU/HK precedent | ~250 | accuracy |
-| SGLB-08 | Clause-Tone | Junas SG clause library + LLM-judge | ~400 | macro-F1 |
+| ID | Task | Source | N | Metric | Leaderboard status |
+|---|---|---|---|---|---|
+| SGLB-01 | PDPA-Outcome | PDPC enforcement decisions | 211 | macro-F1 (obligation), MAE (penalty log-band) | eligible |
+| SGLB-02 | Statute-QA | SSO statutes | 78 PDPA seed; target ~500 | exact-match (citation), ROUGE-L (answer) | eligible |
+| SGLB-03 | Case-Holding | eLitigation public judgments (TOS-gated) | deferred | exact-match on MCQ holding | ineligible - TOS-gated |
+| SGLB-04 | Citation-Verify | SAL Style Guide grammar + perturbations | 30 smoke; production target ~1000 | accuracy + per-error breakdown | eligible |
+| SGLB-05 | Employment-Issue | MOM guidance + Employment Act | pending | multi-label F1 | code-shipped, awaiting data[^sglb05-data] |
+| SGLB-06 | Rules-of-Court-2021 | Rules of Court 2021 (SSO) | pending | exact-match (order:rule), top-3 acc | code-shipped, awaiting data[^sglb06-data] |
+| SGLB-07 | Jurisdiction-Routing | SG cases citing UK/AU/HK precedent | pending | accuracy | code-shipped, awaiting data[^sglb07-data] |
+| SGLB-08 | Clause-Tone | Junas SG clause library + LLM-judge | 400 | macro-F1 | eligible |
+
+[^sglb05-data]: Data dependency: [Batch A](PROMPTS-TO-RUN.md#batch-a--mom-scraper-59-4-parallel-agents) for the MOM scraper / SGLB-05 data.
+[^sglb06-data]: Data dependency: [`NEW-SSO-EXPAND`](PROMPTS-TO-RUN.md#new-sso-expand-sso-ingest-beyond-pdpa-closes-gap-04-partial) for Rules of Court 2021 SSO ingest.
+[^sglb07-data]: Data dependency: [Batch B](PROMPTS-TO-RUN.md#batch-b--commonlii-sg-case-ingester-34-4-parallel-agents) for the CommonLII SG case ingester / SGLB-07 data.
 
 Phase-2 candidates: SGLB-09 (Hansard-grounded statutory interpretation),
 SGLB-10 (IRAS Tax Ruling reasoning).

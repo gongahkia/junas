@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -20,7 +19,7 @@ from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, ConfigDict, Field
 
 from benchmark.evaluators import EVALUATORS
-from benchmark.registry import TASKS
+from benchmark.registry import TASKS, is_benchmark_eligible
 from benchmark.runner import RunSummary, run as runner_run, write_summary
 
 router = APIRouter(prefix="/benchmarks")
@@ -116,6 +115,14 @@ def _run_id(summary: RunSummary) -> str:
     return f"{started[:15]}-{summary.workflow}"
 
 
+def _receipt_benchmark_eligible(payload: dict[str, Any]) -> bool:
+    values = (
+        str(payload.get("workflow") or ""),
+        str(payload.get("dataset") or ""),
+    )
+    return all(is_benchmark_eligible(value) for value in values if value)
+
+
 @router.get("/tasks", response_model=list[TaskInfo])
 async def list_tasks() -> list[TaskInfo]:
     return [TaskInfo(name=name) for name in sorted(TASKS)]
@@ -185,6 +192,8 @@ async def leaderboard() -> LeaderboardResponse:
             try:
                 payload: dict[str, Any] = json.loads(receipt.read_text(encoding="utf-8"))
             except json.JSONDecodeError:
+                continue
+            if not _receipt_benchmark_eligible(payload):
                 continue
             entries.append(
                 LeaderboardEntry(
