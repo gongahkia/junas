@@ -1,5 +1,17 @@
 # DR-001: Name and license
 
+## Decision (2026-06-05)
+
+- **Project name:** `Junas` (no rename; the existing repo + brand stays). The benchmark is `SG-LegalBench` only as the dataset/eval-suite identifier inside the project — not the project name.
+- **Code licence:** [MIT](https://opensource.org/license/mit/). Optimises for maximum vendor adoption + research reuse; matches the "use us for your evals" thesis. Diverges from the brief's Apache-2.0 recommendation; rationale: MIT is the lowest-friction option for SG legal-tech vendor integration and Apache's patent grant is not load-bearing for a benchmark + small-grammar codebase.
+- **Dataset licence:** [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/). Matches LegalBench / CUAD / SG-LegalCite precedent. Attribution-only — does not block commercial dataset reuse (CC-BY-NC was rejected for this reason) and does not force share-alike licence-compat headaches downstream (CC-BY-SA rejected).
+
+Implementation: `LICENSE` file (MIT) at repo root; per-dataset CC-BY-4.0 declaration in each dataset YAML header + `docs/dataset-license.md`. Updates land via the same PR that closes Round 1 of the methodology-fundamentals tier.
+
+---
+
+## Brief (for reference)
+
 This is a research brief, not legal advice. It records observed naming collisions and open-source precedent so the maintainer can choose quickly; it does not give author legal opinions.
 
 ## 1. Name candidates

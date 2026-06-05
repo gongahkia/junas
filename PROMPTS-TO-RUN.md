@@ -204,7 +204,24 @@ The 14 prompts below are ordered to match the **Suggested fire sequence** above.
 
 ---
 
-**ROUND 1 — fire these 6 in parallel; disjoint files; zero cost (network-only for `SOLO-9`)**
+**ROUND 1 — DONE ✅ (2026-06-05, PRs #84-89). All 6 closed.**
+
+| Prompt | Closes | PR | Branch |
+|---|---|---|---|
+| `SOLO-10` | GAP-11 (name + licence brief) | #84 | docs/dr-001-name-license |
+| `SOLO-9` | enables SGLB-14 (Tier 5) | #86 | feat/pdpc-guidelines-scraper |
+| `NEW-SAL-VALIDATION` | GAP-05 (grammar validation, 280 examples) | #89 | feat/sal-grammar-published-examples |
+| `NEW-NORM-SPEC` | GAP-09 (normalisation spec) | #87 | docs/normalisation-spec |
+| `NEW-DISPUTE-PROCESS` | GAP-10 (dispute + versioning process) | #88 | docs/dispute-process-clean |
+| `NEW-VERIFY-BASELINES` | GAP-03 audit half (baseline provenance) | #85 | docs/baseline-provenance-audit |
+
+**Decision point closed (2026-06-05):** project name = `Junas`; code licence = MIT; dataset licence = CC-BY-4.0. See `LICENSE`, `docs/decisions/dr-001-name-and-license.md`, `docs/dataset-license.md`.
+
+The 6 prompt bodies below are preserved verbatim for reproducibility and re-runs. They are no longer pending work.
+
+---
+
+**ROUND 1 (original prompt bodies — preserved for reproducibility)**
 
 ## SOLO-10: Name + license decision (closes GAP-11)
 
