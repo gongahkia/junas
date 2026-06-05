@@ -1,0 +1,99 @@
+name: Label dispute
+description: Dispute a released SG-LegalBench case label or case-level field.
+title: "[Label dispute]: "
+labels:
+  - dispute:label
+  - triage:pending
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for one released case. For concerns about taxonomy, scoring, extraction rules, or methodology across multiple cases, use the methodology concern form instead.
+  - type: input
+    id: task_id
+    attributes:
+      label: Task ID
+      description: The SG-LegalBench task containing the disputed case.
+      placeholder: SGLB-01
+    validations:
+      required: true
+  - type: input
+    id: case_id
+    attributes:
+      label: Case ID
+      description: The stable case/example ID from the released dataset.
+      placeholder: sglb_01_...
+    validations:
+      required: true
+  - type: input
+    id: dataset_version
+    attributes:
+      label: Dataset version observed
+      description: The dataset version where you found the disputed label.
+      placeholder: sglb-01-v0.1
+    validations:
+      required: true
+  - type: input
+    id: disputed_label
+    attributes:
+      label: Disputed label or field
+      description: Name the exact gold label, answer, citation, penalty band, source URL, or case metadata field.
+      placeholder: obligation_label
+    validations:
+      required: true
+  - type: textarea
+    id: current_value
+    attributes:
+      label: Current released value
+      description: Paste the released value you believe is wrong.
+      placeholder: The released value is ...
+    validations:
+      required: true
+  - type: textarea
+    id: evidence_urls
+    attributes:
+      label: Public evidence URL(s)
+      description: Link to the regulator, court, statute, or other public source proving the correction.
+      placeholder: https://...
+    validations:
+      required: true
+  - type: textarea
+    id: evidence_summary
+    attributes:
+      label: Evidence summary
+      description: Explain the relevant passage, page, paragraph, table, or extraction rule. Do not include confidential or paywalled material.
+      placeholder: The public source shows ...
+    validations:
+      required: true
+  - type: textarea
+    id: suggested_correction
+    attributes:
+      label: Suggested correction
+      description: State the exact value the dataset should use instead.
+      placeholder: The corrected value should be ...
+    validations:
+      required: true
+  - type: dropdown
+    id: filer_relationship
+    attributes:
+      label: Filer relationship
+      description: Tell maintainers whether you are connected to the disputed case.
+      options:
+        - Vendor or benchmark user
+        - Labelled-case subject or representative
+        - Source publisher or regulator
+        - Independent researcher
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I have provided public evidence that maintainers can verify.
+          required: true
+        - label: I have not included confidential, privileged, sealed, or paywalled material.
+          required: true
+        - label: I understand this process only decides whether the benchmark record should change.
+          required: true

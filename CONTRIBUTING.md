@@ -13,7 +13,7 @@ This document is how a new task gets added.
 |---|---|---|
 | **New task** | "SGLB-NN Tax-Ruling-QA on IRAS published rulings" | Open a tracking issue, then a PR per §"Adding a new task" |
 | **New dataset items** | More PDPC decisions, EmA/PC/ROC sections, etc. | Re-run the relevant ingestion script (`make ingest-pdpc`, `make ingest-sso SSO_CODE=…`) and open a PR with the updated JSONL splits + a one-line changelog |
-| **Errata** | A wrong gold label, a malformed citation | PR against `data/sglb_NN/errata.md` (one row per fix; we apply errata at the next minor release with attribution) |
+| **Errata** | A wrong gold label, a malformed citation | File through the [dispute process](docs/dispute-process.md); accepted fixes are recorded in `data/sglb_NN/errata.md` |
 | **Scorer fix** | Edge-case in `_normalise_section_citation` | PR with a failing test + the fix; bumps the dataset version |
 | **Adapter** | New public-source adapter (e.g. AustLII SG section) | Implement under `backend/api/adapters/public/`; add fixtures + tests; do **not** add anything paywalled or session-cookie-authenticated |
 
@@ -112,17 +112,10 @@ The existing tasks are reference implementations:
 
 ## Adding errata
 
-PR against `data/sglb_NN/errata.md` with one row per fix:
-
-```
-- id: sglb_NN_<hash>
-  reason: gold citation "[2024] SGCA 5" should be "[2024] SGCA 5A"
-  source_url: <link to the regulator/court page proving the fix>
-  contributor: <github username>
-```
-
-Errata land at the next minor release (`v0.MAJOR.MINOR`) and bump the
-dataset version on the affected task.
+File label disputes and systematic methodology concerns through the
+[dispute process](docs/dispute-process.md). Accepted fixes are recorded in
+`data/sglb_NN/errata.md` and released under the
+[dataset versioning policy](docs/versioning.md).
 
 ## Adding a public-source adapter
 
