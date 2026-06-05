@@ -1,0 +1,16 @@
+Incident Report: Zahrat Najd Information Holding (CR 1012345678, Tax Reg. No. 300123456789012)
+Detected on 2026-02-19 10:24 AST by SOC after anomalous SSO tokens from 37.111.45.19; Rimal Exchange issuer portal workspace affected.
+Data potentially accessed includes personal data under KSA PDPL and confidential issuer materials relevant to securities markets (MNPI).
+Identified records: Mr. Faisal Al‑Hakim (Iqama No. 2103 45 6789; mobile +966 55 125 8890; e m a i l: m . hakeem@zahratnajd.example).
+Identified records: Dr. Lina Al‑Mutairi (Passport No. QF1234567; desk line +966 11 777 3344; lina.mutairi@zahratnajd.example).
+MNPI element included a draft pre‑earnings guidance for issuer “Najd Agritech Co.” and a Rimal Exchange listing timetable attached to Board minutes.
+Forensics found a link with embedded IDs: https://portal.znjd.example/issuer/case?cr=1012345678&uid=2103456789 and a stored IBAN SA34 8000 1234 5678 9012 3456 for fee refunds.
+Registered address on affected files: Al‑Misk Plaza, Plot 7, Al‑Leytha Quarter, Al Qimma City 11999, KSA.
+Public or generic items that are not sensitive: building helpline 9200‑00000 and sample label “Passport: AA0000000” appearing on a blank form.
+Precision note: logs also contain role‑only labels (“the Treasurer”, “Compliance Officer”) and boilerplate policy text; these do not identify a natural person.
+Negative control: we did not capture any media access control values and no Wikipedia extracts in the archive contain customer details.
+PDPL actions taken: data minimised, breach contained, and cross‑border transfer halted pending State Data & AI Authority – Kingdom Sector (SDAA‑KS) permit TRF‑2026‑0099.
+Market‑conduct follow‑up: preliminary notice sent to Desert Securities Authority, Market Integrity Unit, referencing case DSA‑MC‑2026‑144.
+Additional obfuscation observed in OCR: “Iq a ma: 2 1 0 3 4 5 6 7 8 9” and “m-hakeem[at]zahratnajd[dot]example” in scanned PDFs.
+Invalid checksum bait located in training screenshot: IBAN “SA00 0000 0000 0000 0000 0000” and TRN “300000000000000”; excluded from scope.
+Contact for this incident: security@zahratnajd.example and +966 11 555 9090; for public inquiries only, use 800‑000‑0000.

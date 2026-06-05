@@ -1,0 +1,14 @@
+Incident Report — Email Misdelivery (Operational) — Nafudh Paper Manufacturing Co., 2026-05-31 09:40 AST
+Summary: During a routine investor-relations workflow, an IR officer sent a market update already posted on the Saudi exchange disclosure portal to an external relay address outside KSA.
+The message went to a vendor relay domain operated by a third-party processor in Manama used for test routing, invoking PDPL transfer review under the SDAIA framework.
+Included attachments were a supplier on-boarding template with placeholders only (Name: ___, ID: ___, Account: ___) and an outdated vendor fact sheet.
+Example fields observed: CR No. 101234567X (checksum invalid), IBAN: SA00 0000 0000 0000 0000 0000 (invalid), Passport: KSA-PASS-0000000 (dummy).
+Email headers show sender/recipient role mailboxes: ir@nafudhco.example to relay.support@waslbridge.example (test), cc: privacy@nafudhco.example; no personal inboxes.
+One audit-trail line contained a Saudi National ID: 1023456789 for a former courier badge issuance, inadvertently appended to the template; no name was present.
+No customer records, payroll data, phone numbers, or emails of natural persons were transmitted; public helplines (CMA 9200-000-000, Company 800-111-000) appear only in the footer.
+MNPI assessment: content matched an announcement already published via the exchange portal at 08:55 AST; no draft results, guidance, or undisclosed contracts included.
+CMA market-conduct follow-up was notified through the usual channel; preliminary view: no non-public issuer information was shared and no trading risk is expected.
+PDPL assessment: Nafudh Paper (Controller) and WaslBridge Relay (Processor) logged the event; transfer outside KSA occurred but contained only template data and the single ID above.
+Mitigations implemented: recall attempted; processor purged the message; autocomplete restrictions enabled; IR checklist updated to prohibit attaching forms with ID-shaped fields.
+Ongoing steps: formal SDAIA Data Transfer Assessment to document minimal exposure; vendor contract to add KSA-specific SCCs; staff refresher on PDPL Articles 29–31.
+Contact for queries: Data Protection Office (privacy@nafudhco.example); for market disclosure queries, refer to the CMA public helpline 9200-000-000 and the issuer relations mailbox (ir@nafudhco.example).
