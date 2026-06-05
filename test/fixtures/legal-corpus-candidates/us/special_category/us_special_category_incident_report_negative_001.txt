@@ -1,0 +1,15 @@
+SolaceRiver HealthBank, Inc. — Operational/Cyber Incident Report (US issuer listed on the Granite Stock Exchange).
+2026-06-04 13:20 ET; Ohio Data Center; systems implicated: BlueCedar Core (payments) and Hearth HSA Portal (consumer HSAs).
+Summary: a misrouted compliance bulletin and an SFTP permission misconfiguration resulted in a routine capacity report being sent to a role mailbox at PineSpan Research LLC (sell-side).
+The bulletin referenced internal policy names (Biometric Sign-In Standard v3, GenomeSafe Analytics Pilot) and used benign “playbook” and “endzone” metaphors common to our training materials.
+Content review: the file held stale, public performance metrics already posted in our 05/01 website update and reflected in a Form 8-K furnished at that time.
+Reg FD assessment: the communication mirrored public disclosures and was sent to an open analyst list; no selective disclosure of material non-public information as defined under Rule 10b-5.
+GLBA/HIPAA/CCPA review: customer headers appeared as Acct#: 0000-XYZ-1234 and Name: Xxxxxx, with no SSNs, DOBs, addresses, or card PANs present.
+However, one appended chat line stated, “Patient Naya Elling is scheduled for dialysis on 06/12,” which is PHI linked to a named individual and should not have been included.
+Containment: recall request issued within 12 minutes; PineSpan confirmed deletion; SFTP keys rotated and write-only roles enforced.
+Cyber checks: no unauthorized access detected; Brookline Edge gateway logs show zero exfil anomalies; CopperShield endpoint scans clean.
+Operations: banking and HSA services remained available; our Marathon City branch re-opened at 10:00 ET as planned.
+Notifications: HIPAA low-volume incident risk assessment initiated; GLBA/CCPA thresholds not met for consumer notice; SEC reporting and IR teams logged the event under Reg FD controls.
+Remediation: “Clean Desk & Clean Share” control refreshed; de-identified exports now default; analyst distribution lists restricted to public-only briefs.
+ESG/DEI note: our Open Field Initiative continues supporting inclusive hiring and community wellness programming unrelated to trading, risk, or patient care.
+Contacts: privacy@solaceriver.example and ir@solaceriver.example (role mailboxes) for further information.

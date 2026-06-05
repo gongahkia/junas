@@ -1,0 +1,16 @@
+Wellbank Therapeutics, Inc. — DPA Schedule 4: Cross‑Border Transfers & DSAR Processing (US issuer; Reg FD context)
+Contact: Ms. Pilar Stone, AVP Privacy & Reg FD Liaison; privacy@wellbank-therapeutics.example; 1‑555‑0142
+Scope: PHI and consumer financial data processed under HIPAA BAAs and GLBA workflows; PII per CCPA includes household‑level device IDs, but de‑identified telemetry is out of scope (we do not store MAC addresses)
+Cross‑border transfer: approved 2026‑04‑28 for analytics to Lunaris Analytics LLP (Dublin) and CyanPeak Services Pvt Ltd (Hyderabad) under SCCs; data encrypted at rest; SSNs are not collected in this workflow
+Data minimisation: payroll and patient fields reduced to last‑4 account digits (A c c t : **27), zip3, and hashed email (sha256: e3b0c4…); DataSafe‑Edge filters verified
+Retention: employee equity grant files (non‑MNPI vesting schedules) retained 7 yrs; clinical trial screening logs 2 yrs; R eg  F D blackout calendars 4 yrs
+Consent withdrawal: completed 2026‑05‑02 for Dr. Allan Reeves regarding marketing emails; tokens revoked; no further outreach scheduled
+DSAR: received 2026‑05‑15 from Mr. Jamal Craye (E M P ‑ I D : WBT‑0 1 9 2 F); authenticated via https://portal.wbt.example/dsar?req=7f3c‑9d1e&u=EMP; fulfilled 2026‑05‑22 with access + deletion of redundant call logs
+Erasure: system‑of‑record purge ticket SR‑8842 closed; backups subject to 30‑day rolling overwrite; audit hash ref: 0x00af_913d; MDM inventory shows no active devices tied to this record
+Banking data: GLBA safeguards applied to Wellbank Credit Union sandbox only; card PANs never ingested (synthetic tokens e.g., 4xxx **** **** 1111 were used in testing and removed)
+Analyst workflow: no selective disclosure; MNPI scrub completed before furnishing the Q2 preview deck to sell‑side analysts; CEO remarks posted publicly within 24h to comply with Reg FD; Rule 10b‑5 insider trading controls affirmed
+Policy‑only control: if material clinical outcomes were to be included in KPIs, they would be embargoed until Form 8‑K filing; this condition is not currently triggered
+Public‑source enrichment: provider directories and OpenCare Registry datasets (public) used for geotargeting; no patient‑level claims ingested
+Exception report 06‑2026: no cross‑border exports contained PHI; EU processor logs show only de‑identified operational metrics; the prior alert was a false‑positive caused by OCR of “P H I” in artwork
+internal note: todo: deprecate “LegacyVault” connectors in q3; owner: p.stone; nighth eron agent unaffected
+Help: call 1‑555‑0177 or email dsar@wellbank-therapeutics.example; we may, from time to time, update this schedule without changing your substantive rights

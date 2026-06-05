@@ -1,0 +1,16 @@
+Data Processing Addendum (US) — Pinehaven Therapeutics, Inc. (an Orchard Exchange issuer) — Privacy and Reg FD Controls Schedule.
+Scope: CCPA-covered “personal information,” HIPAA PHI under BAAs, and GLBA nonpublic personal information; this Schedule also addresses MNPI controls under Rule 10b-5 and Regulation FD for IR and analyst workflows.
+Data categories: patient support contacts, bank customer service metadata, and employee IR contact details; support tickets are minimised to last-4 account references only and exclude diagnosis narratives and full SSNs.
+Employee onboarding forms (HR-ONB-17) collect identity and tax-withholding details for payroll with subprocessor Redwood Screening Co.; sensitive fields are encrypted at rest and are not exported to analytics.
+DSAR intake: requests accepted at dsar@pinehaven-thera.example.com and via https://privacy.pinehaven-thera.example.com; identity verification uses a two-step email code and never requires full SSN or driver’s license numbers.
+Erasure: upon verified request, consumer profile fields and marketing tags are deleted within 30 days; exceptions apply for HIPAA/GLBA records and securities-retention obligations, after which deletion is queued and logged.
+Retention: HIPAA-designated records retained 6 years; GLBA customer records 7 years; investor-relations communications retained 7 years; logs with partial IPs are truncated and aged out at 18 months.
+Cross-border transfers: until 2026-05-01, limited EEA processing occurred via Larch Cloud Services (Dublin) under 2021 SCCs; that pipeline is now decommissioned and no active bulk exports to the EEA are in place.
+Consent withdrawal: marketing consent may be withdrawn at privacy@pinehaven-thera.example.com and is honored within 10 days; clinical consent withdrawal stops nonessential outreach without affecting required safety or billing notices.
+Reg FD/MNPI: IR data exports to sell-side analysts exclude draft clinical endpoints, unannounced pricing, and not-yet-public revenue; any material updates are released simultaneously via public channels, not selective emails.
+This memo does not authorize any new processing purpose or transfer and documents completed controls as of 2026-06-01.
+Subprocessors: Aurora Metrics Analytics (US) for aggregated reporting with de-identified data; Larch Cloud Services (US/EU) for hosting; current list maintained at https://subproc.pinehaven-thera.example.com; DTIA completed 2026-02-14.
+Security/minimisation: production PHI and GLBA data are segmented; test and development environments use synthetic datasets only; clinical trial files carry coded study IDs and no direct identifiers.
+Analyst and employee workflows: only employees trained on Reg FD may join analyst briefings; pre-clearance by Compliance is required for slides and speaking notes; a quiet-period policy applies around quarter-end.
+Contact: Ms. Aria Lang, Chief Privacy Officer, aria.lang@pinehaven-thera.example.com, +1-555-0124; complaints may also be filed with the state AG where the consumer resides.
+Audit note: the Q2 privacy control review closed with no critical findings; prior cross-border remediations are complete and not subject to ongoing corrective action.
