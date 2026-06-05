@@ -29,6 +29,9 @@ from typing import Iterator
 
 import yaml
 
+from data.ingestion import sso
+from data.ingestion._provenance import extraction_rule_sha
+
 DATASET_VERSION = "sglb-06-v0.1"
 ROC_CHAPTER_NUMBER = "ROC2021"
 _MIN_SCENARIO_LEN = 100
@@ -50,11 +53,13 @@ class Sglb06Case:
     source_url: str
     version_id: str
     valid_start_date: str
+    extraction_rule_sha: str
     split: str = ""
 
     def as_dict(self) -> dict:
         return {
             "name": self.case_id,
+            "extraction_rule_sha": self.extraction_rule_sha,
             "inputs": {"scenario": self.scenario},
             "expected_output": {"labels": [self.label]},
             "metadata": {
@@ -117,6 +122,19 @@ def _assign_split(idx: int) -> str:
     return "test"
 
 
+def _source_rule_sha(row: dict) -> str:
+    return str(row.get("extraction_rule_sha") or "").strip() or extraction_rule_sha(sso.EXTRACTION_MODULE)
+
+
+def _extraction_rules(cases: list[Sglb06Case]) -> dict[str, str]:
+    shas = {case.extraction_rule_sha for case in cases if case.extraction_rule_sha}
+    if not shas:
+        shas = {extraction_rule_sha(sso.EXTRACTION_MODULE)}
+    if len(shas) != 1:
+        raise ValueError(f"mixed SSO extraction_rule_sha values: {sorted(shas)}")
+    return {sso.EXTRACTION_RULE_NAME: next(iter(shas))}
+
+
 def iter_cases(jsonl_path: Path) -> Iterator[Sglb06Case]:
     if not jsonl_path.exists():
         raise FileNotFoundError(f"SSO JSONL not found: {jsonl_path}")
@@ -157,6 +175,7 @@ def iter_cases(jsonl_path: Path) -> Iterator[Sglb06Case]:
                 source_url=str(row.get("source_url") or ""),
                 version_id=version_id,
                 valid_start_date=str(row.get("valid_start_date") or ""),
+                extraction_rule_sha=_source_rule_sha(row),
             )
             case.split = _assign_split(idx)
             idx += 1
@@ -180,7 +199,10 @@ def write_outputs(cases: list[Sglb06Case], yaml_path: Path, jsonl_dir: Path) -> 
     yaml_path.parent.mkdir(parents=True, exist_ok=True)
     yaml_path.write_text(
         yaml.safe_dump(
-            {"cases": [c.as_dict() for c in cases]},
+            {
+                "extraction_rules": _extraction_rules(cases),
+                "cases": [c.as_dict() for c in cases],
+            },
             sort_keys=False,
             default_flow_style=False,
             width=120,

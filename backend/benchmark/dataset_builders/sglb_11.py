@@ -26,6 +26,7 @@ from typing import Any
 
 import yaml
 
+from data.ingestion._provenance import extraction_rule_sha
 from benchmark.perturbations import (
     Citation,
     PERTURBATION_TYPES,
@@ -41,6 +42,8 @@ DEFAULT_POOL_PATH = (
     / "datasets"
     / "sglb_11_real_pool.yaml"
 )
+EXTRACTION_RULE_NAME = "sglb_11"
+EXTRACTION_MODULE = Path(__file__)
 
 
 # A small bank of passage scaffolds; each placeholder ``{C0}…{Cn}`` is
@@ -220,6 +223,7 @@ def build_dataset(*, seed: int, n_passages: int) -> dict[str, Any]:
     rng = random.Random(seed)
     real_pool = load_real_pool()
     fake_gen = FakeGenerator(real_pool, rng)
+    rule_sha = extraction_rule_sha(EXTRACTION_MODULE)
 
     cases: list[PassageCase] = []
     # Round-robin to guarantee coverage of every perturbation class.
@@ -241,9 +245,11 @@ def build_dataset(*, seed: int, n_passages: int) -> dict[str, Any]:
         cases.append(case)
 
     serialised = {
+        "extraction_rules": {EXTRACTION_RULE_NAME: rule_sha},
         "cases": [
             {
                 "name": c.name,
+                "extraction_rule_sha": rule_sha,
                 "inputs": {"passage": c.passage},
                 "expected_output": {"fakes": sorted(c.fakes)},
                 "metadata": {

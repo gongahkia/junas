@@ -68,11 +68,13 @@ class Sglb07Case:
     court_code: str
     decision_date: str
     source_url: str
+    extraction_rule_sha: str
     split: str = ""
 
     def as_dict(self) -> dict:
         return {
             "name": self.case_id,
+            "extraction_rule_sha": self.extraction_rule_sha,
             "inputs": {"question": self.question},
             "expected_output": {"labels": [self.label]},
             "metadata": {
@@ -122,6 +124,23 @@ def _normalise_label(raw: str) -> str:
     return s if s in VALID_LABELS else ""
 
 
+def _extraction_rules(cases: list[Sglb07Case]) -> dict[str, str]:
+    shas = {case.extraction_rule_sha for case in cases if case.extraction_rule_sha}
+    if not shas:
+        return {}
+    if len(shas) != 1:
+        raise ValueError(f"mixed CommonLII SG extraction_rule_sha values: {sorted(shas)}")
+    return {"commonlii_sg": next(iter(shas))}
+
+
+def _source_rule_sha(row: dict) -> str:
+    sha = str(row.get("extraction_rule_sha") or "").strip()
+    if not sha:
+        row_id = row.get("case_id") or row.get("citation") or "<unknown>"
+        raise ValueError(f"CommonLII SG row {row_id!r} missing extraction_rule_sha")
+    return sha
+
+
 def iter_cases(jsonl_path: Path) -> Iterator[Sglb07Case]:
     if not jsonl_path.exists():
         raise FileNotFoundError(f"SG case JSONL not found: {jsonl_path}")
@@ -161,6 +180,7 @@ def iter_cases(jsonl_path: Path) -> Iterator[Sglb07Case]:
                 court_code=str(row.get("court_code") or ""),
                 decision_date=str(row.get("decision_date") or ""),
                 source_url=str(row.get("source_url") or ""),
+                extraction_rule_sha=_source_rule_sha(row),
             )
             case.split = _assign_split(idx)
             idx += 1
@@ -184,7 +204,10 @@ def write_outputs(cases: list[Sglb07Case], yaml_path: Path, jsonl_dir: Path) -> 
     yaml_path.parent.mkdir(parents=True, exist_ok=True)
     yaml_path.write_text(
         yaml.safe_dump(
-            {"cases": [c.as_dict() for c in cases]},
+            {
+                "extraction_rules": _extraction_rules(cases),
+                "cases": [c.as_dict() for c in cases],
+            },
             sort_keys=False,
             default_flow_style=False,
             width=120,

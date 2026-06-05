@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 import pytest
+import yaml
 
 from benchmark.dataset_builders import sglb_02 as builder
 from benchmark.evaluators import EVALUATORS, EvaluatorContext, EvaluatorStrength, _rouge_l
@@ -144,6 +145,8 @@ def test_build_pdpa_emits_cases(materialised_sso_jsonl):
     assert payload["expected_output"]["citation"].startswith("s ")
     assert "of the Personal Data Protection Act 2012" in payload["expected_output"]["citation"]
     assert len(payload["expected_output"]["answer_span"]) >= builder._MIN_TEXT_LEN
+    assert payload["extraction_rule_sha"]
+    assert len(payload["extraction_rule_sha"]) == 7
     assert payload["metadata"]["dataset_version"] == builder.DATASET_VERSION
     assert payload["metadata"]["label_provenance"].startswith("mechanical-extraction")
 
@@ -159,6 +162,15 @@ def test_build_drops_short_title_and_repealed(materialised_sso_jsonl):
     headings = {c.section_heading.lower() for c in cases}
     assert not any(h.startswith("short title") for h in headings)
     assert not any("[repealed]" in h for h in headings)
+
+
+def test_write_yaml_includes_extraction_rules(materialised_sso_jsonl, tmp_path: Path):
+    cases = builder.build(materialised_sso_jsonl)
+    out = tmp_path / "sglb_02.yaml"
+    builder.write_yaml(cases, out)
+    payload = yaml.safe_load(out.read_text(encoding="utf-8"))
+    assert payload["extraction_rules"]["sso"] == cases[0].extraction_rule_sha
+    assert payload["cases"][0]["extraction_rule_sha"] == cases[0].extraction_rule_sha
 
 
 # --- evaluator unit ---

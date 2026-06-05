@@ -94,11 +94,13 @@ def test_build_emits_case_from_minimal_row(tmp_path: Path):
         "subject_organisation": "Acme Pte Ltd",
         "pub_date": "2024-01-15",
         "source_url": "https://www.mom.gov.sg/example",
+        "extraction_rule_sha": "abcdef1",
     }
     jsonl.write_text(json.dumps(row), encoding="utf-8")
     cases = builder.build(jsonl)
     assert len(cases) == 1
     payload = cases[0].as_dict()
+    assert payload["extraction_rule_sha"] == "abcdef1"
     assert payload["expected_output"]["labels"] == ["notice_period_breach", "cpf_non_contribution"]
     assert payload["metadata"]["dataset_version"] == builder.DATASET_VERSION
     assert payload["metadata"]["label_provenance"].startswith("mechanical-extraction")
@@ -133,9 +135,22 @@ def test_build_deduplicates_doc_ids(tmp_path: Path):
         "body_plain": "X" * 300,
         "stated_breaches": ["notice_period_breach"],
         "pub_date": "2024-01-01",
+        "extraction_rule_sha": "abcdef1",
     }
     jsonl.write_text("\n".join(json.dumps(row) for _ in range(3)), encoding="utf-8")
     assert len(builder.build(jsonl)) == 1
+
+
+def test_build_rejects_valid_rows_without_extraction_rule_sha(tmp_path: Path):
+    jsonl = tmp_path / "mom.jsonl"
+    row = {
+        "doc_id": "mom-press-2024-01-15-abc",
+        "body_plain": "X" * 300,
+        "stated_breaches": ["notice_period_breach"],
+    }
+    jsonl.write_text(json.dumps(row), encoding="utf-8")
+    with pytest.raises(ValueError, match="missing extraction_rule_sha"):
+        builder.build(jsonl)
 
 
 # --- task + scorer integration ---

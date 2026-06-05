@@ -119,6 +119,13 @@ python -m backend.benchmark run --task SGLB-01 --model claude-sonnet-4-6
 python -m backend.benchmark run-all --output runs/<run_name>
 ```
 
+Every regenerated benchmark dataset carries extraction-rule provenance:
+each case row has `extraction_rule_sha`, and each harness YAML has a
+top-level `extraction_rules` map such as `{pdpc: <sha>, sso: <sha>}`.
+The SHA is the 7-character git revision of the ingestion or builder module
+that last changed the mechanical extraction rule. CI validates these fields
+for datasets that declare extraction rules.
+
 ## Data provenance
 
 All benchmark instances trace to a public-domain SG source. Public adapters

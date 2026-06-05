@@ -40,7 +40,11 @@ from typing import Iterable, Iterator
 
 import yaml
 
+from data.ingestion._provenance import extraction_rule_sha
+
 DATASET_VERSION = "sglb-01-v0.1"  # bump when ingestion logic changes
+EXTRACTION_MODULE = Path(__file__)
+EXTRACTION_RULE_NAME = "pdpc"
 
 # Closed PDPC obligation taxonomy (incl. Accountability — observed in xlsx
 # but missing from the original SGLB-01 spec draft).
@@ -151,9 +155,11 @@ class PdpcCase:
     raw_penalty: str = ""
     excluded_reason: str = ""
 
-    def as_jsonl_row(self) -> dict:
+    def as_jsonl_row(self, rule_sha: str | None = None) -> dict:
+        sha = rule_sha or extraction_rule_sha(EXTRACTION_MODULE)
         return {
             "id": self.case_id,
+            "extraction_rule_sha": sha,
             "inputs": {"fact_summary": self.fact_summary},
             "expected_output": {
                 "obligations": self.obligations,
@@ -345,6 +351,7 @@ def load_cases(xlsx_path: Path) -> tuple[list[PdpcCase], list[tuple[str, str]]]:
 def write_jsonl(cases: Iterable[PdpcCase], output_dir: Path) -> dict[str, int]:
     output_dir.mkdir(parents=True, exist_ok=True)
     by_split: dict[str, list[PdpcCase]] = {"train": [], "dev": [], "test": []}
+    rule_sha = extraction_rule_sha(EXTRACTION_MODULE)
     for case in cases:
         by_split.setdefault(case.split, []).append(case)
     counts: dict[str, int] = {}
@@ -352,7 +359,7 @@ def write_jsonl(cases: Iterable[PdpcCase], output_dir: Path) -> dict[str, int]:
         path = output_dir / f"{split}.jsonl"
         with path.open("w", encoding="utf-8") as fp:
             for case in items:
-                fp.write(json.dumps(case.as_jsonl_row(), sort_keys=True) + "\n")
+                fp.write(json.dumps(case.as_jsonl_row(rule_sha), sort_keys=True) + "\n")
         counts[split] = len(items)
     return counts
 
@@ -360,10 +367,13 @@ def write_jsonl(cases: Iterable[PdpcCase], output_dir: Path) -> dict[str, int]:
 def write_harness_yaml(cases: Iterable[PdpcCase], yaml_path: Path) -> int:
     yaml_path.parent.mkdir(parents=True, exist_ok=True)
     case_list = list(cases)
+    rule_sha = extraction_rule_sha(EXTRACTION_MODULE)
     payload = {
+        "extraction_rules": {EXTRACTION_RULE_NAME: rule_sha},
         "cases": [
             {
                 "name": c.case_id,
+                "extraction_rule_sha": rule_sha,
                 "inputs": {"fact_summary": c.fact_summary},
                 "expected_output": {
                     "obligations": c.obligations,
