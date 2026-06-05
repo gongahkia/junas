@@ -1,6 +1,25 @@
 # SGLB-08 Clause-Tone
 
-Version: 0.1-shipped (single-judge provisional). Tracking issue: [#33](https://github.com/gongahkia/junas/issues/33).
+Version: 0.1-shipped (single-judge provisional; multi-judge κ pending Anthropic + Gemini API keys). Tracking issue: [#33](https://github.com/gongahkia/junas/issues/33).
+
+## Multi-judge κ status (2026-06-05)
+
+The multi-judge ensemble code (Anthropic + Gemini votes + pairwise + Fleiss' κ computation) is shipped in `backend/benchmark/synthetic/multi_judge.py` and `agreement.py`, with mocked unit tests passing.
+
+**Pending:** the actual κ run requires `ANTHROPIC_API_KEY` and `GEMINI_API_KEY` in `.env`. Cost when fired: ~$2.40 (400 Anthropic + 400 Gemini calls).
+
+To complete:
+
+```sh
+# 1. Add ANTHROPIC_API_KEY + GEMINI_API_KEY to .env
+# 2. Fire the run
+python -m benchmark.synthetic.multi_judge \
+  --dataset backend/benchmark/datasets/sglb_08_clause_tone_reviewed/dataset.yaml
+# 3. Outputs judges.jsonl + judges.summary.json next to the dataset
+# 4. Update this section with the κ values; if any pair < 0.4, fire NEW-08-REFRAME-IF-LOW-KAPPA
+```
+
+Until the run lands: the leaderboard cannot publish "κ = X.XX (n=400, 3 judges)" and `NEW-08-REFRAME-IF-LOW-KAPPA` remains conditionally gated. SGLB-08 remains single-judge provisional.
 
 ## Capability
 
