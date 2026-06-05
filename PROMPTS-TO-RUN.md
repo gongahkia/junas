@@ -822,9 +822,17 @@ score that the user should know about.
 
 ---
 
-**ROUND 3 — fire these 2 sequentially after Round 2 lands:**
-- `NEW-CONTAM` rebases on `NEW-CI-RECEIPT` (both modify `backend/benchmark/runner.py`).
-- `NEW-EXTRACT-VERSION` rebases on `NEW-HONEST-LEADERBOARD` (both touch `README2.md`).
+**ROUND 3 — DONE ✅ (2026-06-05, PRs #97-98). Both closed.**
+
+| Prompt | Closes | PR | Notes |
+|---|---|---|---|
+| `NEW-CONTAM` | GAP-01 (contamination probe per task+model) | #97 | Probe scaffolded + `--contamination-probe` CLI flag (default-off); 5 mocked tests passed. Firing the probe against Azure baselines is cost-gated (~$10-20 per task). |
+| `NEW-EXTRACT-VERSION` | GAP-06 (extraction-rule SHA in dataset metadata) | #98 | Rebased onto #97. CI validator wired so no dataset can land without `extraction_rule_sha`. 9 tests passed. |
+
+The 2 prompt bodies below are preserved verbatim for reproducibility.
+
+<details>
+<summary><strong>ROUND 3 — DONE.</strong> 2 prompt bodies preserved verbatim for re-runs. Click to expand.</summary>
 
 ## NEW-CONTAM: Contamination probe per (task, model) (closes GAP-01)
 
@@ -946,6 +954,8 @@ Commit: `feat(data): pin extraction-rule SHA in dataset metadata
 
 Report back: any dataset that couldn't be rebuilt cleanly + why.
 ```
+
+</details>
 
 ---
 
