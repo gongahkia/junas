@@ -198,138 +198,13 @@ Can start once `NEW-CI-RECEIPT` + `NEW-CONTAM` + `NEW-NORM-SPEC` + `NEW-DISPUTE-
 
 # Tier 1 — Methodology fundamentals
 
-_Defensibility floor. Until these land, no public baseline number is shippable. Items within Tier 1 may run in parallel except where hard-dependency notes apply._
+_Defensibility floor. Until these land, no public baseline number is shippable._
 
-## SOLO-17: SGLB-08 multi-judge ensemble pass (closes GAP-07)
+The 14 prompts below are ordered to match the **Suggested fire sequence** above. Scroll top-down: Round 1 → Decision point → Round 2 → Round 3 → Wave 2 → Conditional.
 
-```text
-You are upgrading SGLB-08's labelling methodology from single-judge
-(currently Azure gpt-5) to a ≥3-judge ensemble per coverage-matrix
-§4.1. The 400-case reviewed dataset already exists at
-backend/benchmark/datasets/sglb_08_clause_tone_reviewed/dataset.yaml.
+---
 
-Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-08.md (the "Provisional-
-approval caveat" section), docs/coverage-matrix.md §4.1, and
-backend/benchmark/synthetic/sglb_08.py.
-
-Goal: re-label each of the 400 cases with Anthropic + Gemini votes;
-compute Cohen's κ per (generator, judge) pair AND per-cell agreement;
-emit the artefacts that let the leaderboard publish "κ = X.XX
-(n=400, 3 judges)".
-
-Files you own:
-- backend/benchmark/synthetic/multi_judge.py (new — runs the 2
-  additional judges over the existing reviewed dataset)
-- backend/benchmark/synthetic/agreement.py (new — Cohen's κ
-  computation; pure stdlib + numpy where present)
-- backend/benchmark/datasets/sglb_08_clause_tone_reviewed/judges.jsonl
-  (new artefact — per-case vote per judge + κ summary)
-- docs/sglb_specs/SGLB-08.md (update the "Provisional-approval"
-  section once κ is known; if κ ≥ 0.4 across all judge pairs, bump
-  version to "0.1-shipped"; if any pair drops below 0.4, file a
-  follow-up issue per coverage-matrix §8)
-- backend/tests/test_multi_judge.py + test_agreement.py
-
-Files you must NOT touch:
-- backend/benchmark/synthetic/sglb_08.py (existing pipeline)
-- backend/benchmark/synthetic/generator.py (existing)
-- The dataset.yaml itself — judges' votes live in judges.jsonl,
-  alongside it. The gold label stays as-is in dataset.yaml; future
-  v0.2 can flip a case if 2+ judges disagree with the gold.
-
-Implementation:
-
-1. For each case in dataset.yaml, dispatch the same prompt that
-   benchmark.llm_runner.sglb_08_prompt_builder produces — i.e.
-   re-use the existing prompt template; don't author a new one.
-2. Send to both Anthropic (claude-sonnet-4.6 or whatever the user
-   has) AND Gemini (gemini-2.0-flash).
-3. Record per-case votes in judges.jsonl with the case_id +
-   provider + model + raw output + parsed label + JSON-parse-success
-   flag.
-4. Compute pairwise Cohen's κ (gpt-5 ↔ Anthropic; gpt-5 ↔ Gemini;
-   Anthropic ↔ Gemini). Also compute Fleiss' κ across all 3.
-5. Per-cell breakdown: report κ for each (tone × clause_type)
-   stratum so the user can see if any cell is below the 0.4 floor.
-
-Cost gate: Anthropic ~$0.005/call × 400 = $2; Gemini ~$0.001/call
-× 400 = $0.40. Total ~$2.40 — much cheaper than the original gpt-5
-gen. Confirm with the user before firing if you're in any doubt; the
-SGLB-08 synth gen already cost ~$20-50.
-
-Provider environment: ANTHROPIC_API_KEY + GEMINI_API_KEY must be in
-.env. If missing, --dry-run reports which keys are needed and stops.
-
-Branch: feat/sglb-08-multi-judge.
-Commit: `feat(sglb-08): multi-judge ensemble + κ for clause-tone
-labels (advances #33; closes GAP-07)`.
-
-Acceptance:
-- judges.jsonl materialised with 400 × 2 vote rows.
-- κ printed to stdout + persisted in a summary JSON.
-- All κ pairs ≥ 0.4 (or, if any drop below, an issue is filed +
-  spec doc updated to reflect retirement risk per coverage matrix §8).
-
-Report back: the 3 pairwise κ values + Fleiss' κ + any cell where
-agreement is dangerously low. Note any provider-specific JSON-parse
-failures (those are a quality signal too).
-```
-
-## SOLO-18: SGLB-08 human-reviewed held-out subset (closes GAP-08)
-
-```text
-You are creating a human-reviewed held-out subset of SGLB-08 per
-coverage-matrix §4.1 ("human-spot-checked held-out subset"). This
-runs in PARALLEL with SOLO-17 (they touch different files).
-
-Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-08.md, the existing
-reviewed dataset, CONTRIBUTING.md.
-
-Goal: select 40 cases (10% sample, stratified across all 4 tones ×
-6 clause types) for human review. Produce a checklist artefact the
-user can fill in OFFLINE without touching the dataset YAML
-structure. Once the user returns the checklist, you apply the
-edits.
-
-Files you own:
-- backend/benchmark/datasets/sglb_08_clause_tone_reviewed/human_review_checklist.md
-  (new — a markdown table with 40 rows, the user marks each
-  "agree / disagree / unclear")
-- scripts/select_sglb_08_holdout.py (new — selects the 40 cases
-  deterministically with a seed)
-- docs/sglb_specs/SGLB-08.md (update the "Provisional-approval"
-  section once human checklist is returned; document the 40-case
-  held-out subset and any cases the human reviewer flagged as
-  incorrect)
-
-Files you must NOT touch:
-- The dataset.yaml itself — disputes from the human reviewer get
-  recorded as errata in a separate file (mirror the CONTRIBUTING.md
-  errata pattern).
-
-Selection algorithm:
-- Stratify: every (tone × clause_type) cell that has ≥1 case gets
-  at least 1 in the holdout; remaining slots fill proportionally
-  to cell size. seed=42.
-- Each row in the checklist shows: case_id, tone, clause_type,
-  first ~400 chars of clause_text, the gold label, an empty
-  "human_decision" column, an empty "notes" column.
-
-Branch: feat/sglb-08-human-holdout.
-Commit (initial): `feat(sglb-08): generate 40-case human-review
-checklist (advances #33; closes GAP-08 first half)`.
-Commit (after user returns checklist): `feat(sglb-08): apply human
-holdout decisions; flag disputes (closes GAP-08)`.
-
-Acceptance:
-- 40-row checklist generated, stratified across all cells.
-- Spec doc references the file.
-- A clear "user, please fill this in and report back" surfacing in
-  your final message so the human-in-the-loop step doesn't get lost.
-
-Report back: the stratification table (which cells got how many);
-your hand-off message to the user.
-```
+**ROUND 1 — fire these 6 in parallel; disjoint files; zero cost (network-only for `SOLO-9`)**
 
 ## SOLO-10: Name + license decision (closes GAP-11)
 
@@ -425,127 +300,6 @@ Report back: PDF text-extraction fidelity; some PDPC PDFs are
 scanned images — flag those.
 ```
 
-## NEW-CI-RECEIPT: Bootstrap CIs in every receipt (closes GAP-02)
-
-```text
-You are implementing GAP-02 closure in the junas repo: bootstrap CIs
-must land in every receipt JSON during the benchmark run, not as a
-post-hoc leaderboard step.
-
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-02,
-backend/benchmark/runner.py, backend/benchmark/scripts/build_leaderboard.py
-(specifically `_bootstrap()` at lines 125-142), backend/benchmark/llm_runner.py.
-
-Goal: every receipt persisted by `benchmark.cli run --output ...`
-includes per-evaluator `ci_low`, `ci_high`, and `n_bootstrap` fields
-alongside the existing `per_evaluator_mean`. Move `_bootstrap()` to
-a shared helper so the leaderboard builder and the runner share one
-implementation.
-
-Files you own:
-- backend/benchmark/stats.py (NEW — extract `_bootstrap()` as
-  `bootstrap_ci(values, *, seed, n=1000)` returning a dataclass with
-  mean, ci_low, ci_high, n_bootstrap)
-- backend/benchmark/runner.py (modify `RunSummary` and assembly path
-  to call bootstrap_ci() per evaluator; persist into receipt)
-- backend/benchmark/scripts/build_leaderboard.py (replace local
-  `_bootstrap()` with import from `benchmark.stats`; behaviour-
-  preserving)
-- backend/benchmark/receipt_schema.md (NEW or updated — document the
-  CI fields + n_bootstrap + seed)
-- backend/tests/test_stats.py (NEW)
-- backend/tests/test_runner_ci.py (NEW — receipt JSON contains
-  ci_low + ci_high per evaluator after a mock run; seed determinism)
-
-Files you must NOT touch:
-- backend/benchmark/llm_runner.py prompt builders (out of scope)
-- Any dataset YAML
-
-Acceptance:
-- pytest -x -q backend/tests/test_stats.py backend/tests/test_runner_ci.py
-  passes.
-- An existing receipt regenerated under the new code contains
-  ci_low + ci_high + n_bootstrap per evaluator.
-- Leaderboard builder produces identical CI values (refactor is
-  behaviour-preserving).
-
-Branch: feat/ci-in-receipts.
-Commit: `feat(benchmark): bootstrap CIs in every receipt (closes
-GAP-02)`. Co-Authored-By trailer.
-
-Report back: receipt JSON schema diff before/after; any consumers
-of receipts that need a schema migration.
-```
-
-## NEW-CONTAM: Contamination probe per (task, model) (closes GAP-01)
-
-```text
-You are implementing GAP-01 closure in the junas repo: contamination
-probe per (task, model) so vendors can see which baselines memorised
-labels vs. reasoned from facts.
-
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-01,
-docs/coverage-matrix.md §4.3, backend/benchmark/llm_runner.py.
-
-Goal: a separate probe pass per labelled case that asks the model
-to recall the labelled property verbatim WITHOUT giving it the input.
-Per-case `memorisation_flag` recorded; per-task contamination
-summary (mean memorisation rate, contamination-adjusted score)
-emitted on the receipt.
-
-Files you own:
-- backend/benchmark/contamination.py (NEW — probe runner; per-task
-  probe-prompt builder; flag scorer)
-- backend/benchmark/runner.py (extend `RunSummary` with
-  contamination_summary; gate behind `--contamination-probe` flag
-  default-off)
-- backend/benchmark/cli.py (add `--contamination-probe` flag)
-- backend/tests/test_contamination.py (NEW)
-- docs/methodology/contamination.md (NEW — vendor-facing doc
-  explaining the probe + interpretation)
-
-Files you must NOT touch:
-- Existing prompt builders in backend/benchmark/llm_runner.py — the
-  probe prompts are NEW + task-specific, defined in contamination.py.
-
-Probe design per task:
-- SGLB-01: "What was the outcome (obligation breached + penalty
-  band) of PDPC case <case_name>?" — match against gold; flag
-  per-case memorisation_score ∈ [0,1].
-- SGLB-02: "What is the text of <statute> section <N>?" — match
-  against gold answer fragment; flag accordingly.
-- SGLB-04: skip — the citation grammar is deterministic; memorisation
-  isn't the relevant question.
-- SGLB-08: "What is the tone label of clause <clause_id>?" —
-  memorisation here means the model has seen the synthetic dataset;
-  flag accordingly.
-
-Per-task summary fields persisted in receipt:
-- mean_memorisation_rate: float in [0,1]
-- contamination_adjusted_score: per-evaluator mean computed only on
-  cases with memorisation_score < 0.5
-
-Acceptance:
-- `python -m benchmark.cli run --workflow sglb_01 --dataset ...
-  --evaluator sglb_01_obligations_f1 --contamination-probe --output
-  receipt.json` produces a receipt with contamination_summary +
-  per-case memorisation_score.
-- The probe adds <2x runtime over the base run.
-- pytest passes.
-
-Cost gate: the probe doubles LLM calls. For SGLB-01 (N=211) at
-Anthropic pricing this is ~$1; at Azure gpt-5 with reasoning tokens
-this could be $10-20. Get explicit approval before firing the probe
-against Azure baselines.
-
-Branch: feat/contamination-probe.
-Commit: `feat(benchmark): contamination probe per task+model (closes
-GAP-01)`.
-
-Report back: which models showed the highest memorisation rate per
-task; any task where the probe formulation feels insufficient.
-```
-
 ## NEW-SAL-VALIDATION: SAL grammar tested against published examples (closes GAP-05)
 
 ```text
@@ -602,114 +356,6 @@ published examples (closes GAP-05)`.
 Report back: total examples extracted; any grammar bug found + fix
 applied; any example the published guide flagged as edge-case where
 v0.2 grammar work is warranted.
-```
-
-## NEW-EXTRACT-VERSION: Extraction-rule SHA in dataset metadata (closes GAP-06)
-
-```text
-You are implementing GAP-06 closure: extraction-rule SHA pinned in
-every dataset row + dataset YAML header.
-
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-06,
-backend/data/ingestion/pdpc.py (lines 47-178 — taxonomy +
-extraction + emit), backend/data/ingestion/sso.py.
-
-Goal: every dataset row carries an `extraction_rule_sha` field
-(git rev of the ingestion module file at build time); every dataset
-YAML header carries an `extraction_rules` map enumerating the SHAs
-per module touched during build. A CI validator confirms presence.
-
-Files you own:
-- backend/data/ingestion/_provenance.py (NEW — helper that returns
-  the current git SHA of a given module file via `git log -n 1
-  --pretty=%H -- <path>`)
-- backend/data/ingestion/pdpc.py (modify emit path to include
-  extraction_rule_sha per row + write top-level extraction_rules map)
-- backend/data/ingestion/sso.py (same)
-- backend/data/ingestion/mom.py (if landed via Batch A; same)
-- backend/data/ingestion/commonlii_sg.py (if landed via Batch B; same)
-- backend/benchmark/dataset_builders/sglb_*.py (each builder writes
-  extraction_rules to the dataset YAML header)
-- .github/workflows/ci.yml (add a validator step that fails if any
-  dataset row lacks extraction_rule_sha)
-- backend/benchmark/dataset_validator.py (NEW — CI check)
-- backend/tests/test_provenance.py
-- backend/tests/test_dataset_validator.py
-- README2.md §Reproducibility (update to describe the new fields)
-
-Files you must NOT touch:
-- Live dataset YAMLs (regenerate via build, do not hand-edit).
-
-Schema additions:
-- Per row: `extraction_rule_sha: "<7-char git short SHA>"`
-- Top of YAML: `extraction_rules: { pdpc: <sha>, sso: <sha>, ... }`
-
-Acceptance:
-- Every freshly-built dataset has the new fields.
-- CI fails if a row is missing the field.
-- pytest passes.
-
-Branch: feat/extraction-rule-sha.
-Commit: `feat(data): pin extraction-rule SHA in dataset metadata
-(closes GAP-06)`.
-
-Report back: any dataset that couldn't be rebuilt cleanly + why.
-```
-
-## NEW-HONEST-LEADERBOARD: Drop empty tasks from v0.1 leaderboard (closes GAP-04)
-
-```text
-You are implementing GAP-04 closure: SGLB-05/06/07 must not appear
-on the v0.1 leaderboard with oracle-1.0 scores. Mirror the
-`benchmark_eligible = False` pattern used by ElitigationAdapter at
-backend/api/adapters/public/elitigation.py:36.
-
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-04,
-backend/api/adapters/public/elitigation.py:36,
-backend/benchmark/scripts/build_leaderboard.py, README2.md task table.
-
-Goal:
-- Each of SGLB-05/06/07 carries `benchmark_eligible = False` on its
-  task registration until the data lands.
-- The leaderboard builder skips ineligible tasks.
-- README2.md task table shows the three tasks with status
-  "code-shipped, awaiting data" and a footnote per task linking to
-  the data dependency (Batch A for SGLB-05, NEW-SSO-EXPAND for
-  SGLB-06, Batch B for SGLB-07).
-- When the data lands (downstream prompts), flipping the flag back
-  to True is a one-line change.
-
-Files you own:
-- backend/benchmark/tasks/sglb_05.py
-- backend/benchmark/tasks/sglb_06.py
-- backend/benchmark/tasks/sglb_07.py
-- backend/benchmark/registry.py (add `benchmark_eligible` to the
-  Task registration; default True)
-- backend/benchmark/scripts/build_leaderboard.py (filter by
-  benchmark_eligible)
-- backend/api/routers/benchmarks.py (leaderboard API endpoint also
-  filters)
-- README2.md (update §Tasks table)
-- backend/tests/test_registry.py
-- backend/tests/test_leaderboard_eligibility.py (NEW)
-
-Files you must NOT touch:
-- The dataset_builders/* for these tasks; the builders are correct,
-  they just have no data to read.
-
-Acceptance:
-- The published leaderboard shows only SGLB-01, SGLB-02, SGLB-04,
-  SGLB-08 (the v0.1 eligible set).
-- README2 task table includes all 8 tasks with eligibility status.
-- Tests pass.
-
-Branch: feat/honest-leaderboard.
-Commit: `feat(benchmark): mark SGLB-05/06/07 ineligible until data
-lands (closes GAP-04)`.
-
-Report back: the README2 table you produced; the eligibility filter
-predicate; any place the harness silently swallowed an oracle 1.0
-score that the user should know about.
 ```
 
 ## NEW-NORM-SPEC: Citation/statute normalisation spec (closes GAP-09)
@@ -873,6 +519,382 @@ Report back: what was claimed; what's recoverable; what needs
 rerunning. This output feeds directly into NEW-BATCH-D's task list.
 ```
 
+---
+
+**ROUND 2 — fire these 4 in parallel; sequence the conflict pairs:**
+- Land `SOLO-17` before `SOLO-18` (both touch `docs/sglb_specs/SGLB-08.md`).
+- Land `NEW-CI-RECEIPT` before `NEW-HONEST-LEADERBOARD` (both touch `backend/benchmark/scripts/build_leaderboard.py`).
+
+## SOLO-17: SGLB-08 multi-judge ensemble pass (closes GAP-07)
+
+```text
+You are upgrading SGLB-08's labelling methodology from single-judge
+(currently Azure gpt-5) to a ≥3-judge ensemble per coverage-matrix
+§4.1. The 400-case reviewed dataset already exists at
+backend/benchmark/datasets/sglb_08_clause_tone_reviewed/dataset.yaml.
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-08.md (the "Provisional-
+approval caveat" section), docs/coverage-matrix.md §4.1, and
+backend/benchmark/synthetic/sglb_08.py.
+
+Goal: re-label each of the 400 cases with Anthropic + Gemini votes;
+compute Cohen's κ per (generator, judge) pair AND per-cell agreement;
+emit the artefacts that let the leaderboard publish "κ = X.XX
+(n=400, 3 judges)".
+
+Files you own:
+- backend/benchmark/synthetic/multi_judge.py (new — runs the 2
+  additional judges over the existing reviewed dataset)
+- backend/benchmark/synthetic/agreement.py (new — Cohen's κ
+  computation; pure stdlib + numpy where present)
+- backend/benchmark/datasets/sglb_08_clause_tone_reviewed/judges.jsonl
+  (new artefact — per-case vote per judge + κ summary)
+- docs/sglb_specs/SGLB-08.md (update the "Provisional-approval"
+  section once κ is known; if κ ≥ 0.4 across all judge pairs, bump
+  version to "0.1-shipped"; if any pair drops below 0.4, file a
+  follow-up issue per coverage-matrix §8)
+- backend/tests/test_multi_judge.py + test_agreement.py
+
+Files you must NOT touch:
+- backend/benchmark/synthetic/sglb_08.py (existing pipeline)
+- backend/benchmark/synthetic/generator.py (existing)
+- The dataset.yaml itself — judges' votes live in judges.jsonl,
+  alongside it. The gold label stays as-is in dataset.yaml; future
+  v0.2 can flip a case if 2+ judges disagree with the gold.
+
+Implementation:
+
+1. For each case in dataset.yaml, dispatch the same prompt that
+   benchmark.llm_runner.sglb_08_prompt_builder produces — i.e.
+   re-use the existing prompt template; don't author a new one.
+2. Send to both Anthropic (claude-sonnet-4.6 or whatever the user
+   has) AND Gemini (gemini-2.0-flash).
+3. Record per-case votes in judges.jsonl with the case_id +
+   provider + model + raw output + parsed label + JSON-parse-success
+   flag.
+4. Compute pairwise Cohen's κ (gpt-5 ↔ Anthropic; gpt-5 ↔ Gemini;
+   Anthropic ↔ Gemini). Also compute Fleiss' κ across all 3.
+5. Per-cell breakdown: report κ for each (tone × clause_type)
+   stratum so the user can see if any cell is below the 0.4 floor.
+
+Cost gate: Anthropic ~$0.005/call × 400 = $2; Gemini ~$0.001/call
+× 400 = $0.40. Total ~$2.40 — much cheaper than the original gpt-5
+gen. Confirm with the user before firing if you're in any doubt; the
+SGLB-08 synth gen already cost ~$20-50.
+
+Provider environment: ANTHROPIC_API_KEY + GEMINI_API_KEY must be in
+.env. If missing, --dry-run reports which keys are needed and stops.
+
+Branch: feat/sglb-08-multi-judge.
+Commit: `feat(sglb-08): multi-judge ensemble + κ for clause-tone
+labels (advances #33; closes GAP-07)`.
+
+Acceptance:
+- judges.jsonl materialised with 400 × 2 vote rows.
+- κ printed to stdout + persisted in a summary JSON.
+- All κ pairs ≥ 0.4 (or, if any drop below, an issue is filed +
+  spec doc updated to reflect retirement risk per coverage matrix §8).
+
+Report back: the 3 pairwise κ values + Fleiss' κ + any cell where
+agreement is dangerously low. Note any provider-specific JSON-parse
+failures (those are a quality signal too).
+```
+
+## SOLO-18: SGLB-08 human-reviewed held-out subset (closes GAP-08)
+
+```text
+You are creating a human-reviewed held-out subset of SGLB-08 per
+coverage-matrix §4.1 ("human-spot-checked held-out subset"). This
+runs in PARALLEL with SOLO-17 (they touch different files).
+
+Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-08.md, the existing
+reviewed dataset, CONTRIBUTING.md.
+
+Goal: select 40 cases (10% sample, stratified across all 4 tones ×
+6 clause types) for human review. Produce a checklist artefact the
+user can fill in OFFLINE without touching the dataset YAML
+structure. Once the user returns the checklist, you apply the
+edits.
+
+Files you own:
+- backend/benchmark/datasets/sglb_08_clause_tone_reviewed/human_review_checklist.md
+  (new — a markdown table with 40 rows, the user marks each
+  "agree / disagree / unclear")
+- scripts/select_sglb_08_holdout.py (new — selects the 40 cases
+  deterministically with a seed)
+- docs/sglb_specs/SGLB-08.md (update the "Provisional-approval"
+  section once human checklist is returned; document the 40-case
+  held-out subset and any cases the human reviewer flagged as
+  incorrect)
+
+Files you must NOT touch:
+- The dataset.yaml itself — disputes from the human reviewer get
+  recorded as errata in a separate file (mirror the CONTRIBUTING.md
+  errata pattern).
+
+Selection algorithm:
+- Stratify: every (tone × clause_type) cell that has ≥1 case gets
+  at least 1 in the holdout; remaining slots fill proportionally
+  to cell size. seed=42.
+- Each row in the checklist shows: case_id, tone, clause_type,
+  first ~400 chars of clause_text, the gold label, an empty
+  "human_decision" column, an empty "notes" column.
+
+Branch: feat/sglb-08-human-holdout.
+Commit (initial): `feat(sglb-08): generate 40-case human-review
+checklist (advances #33; closes GAP-08 first half)`.
+Commit (after user returns checklist): `feat(sglb-08): apply human
+holdout decisions; flag disputes (closes GAP-08)`.
+
+Acceptance:
+- 40-row checklist generated, stratified across all cells.
+- Spec doc references the file.
+- A clear "user, please fill this in and report back" surfacing in
+  your final message so the human-in-the-loop step doesn't get lost.
+
+Report back: the stratification table (which cells got how many);
+your hand-off message to the user.
+```
+
+## NEW-CI-RECEIPT: Bootstrap CIs in every receipt (closes GAP-02)
+
+```text
+You are implementing GAP-02 closure in the junas repo: bootstrap CIs
+must land in every receipt JSON during the benchmark run, not as a
+post-hoc leaderboard step.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-02,
+backend/benchmark/runner.py, backend/benchmark/scripts/build_leaderboard.py
+(specifically `_bootstrap()` at lines 125-142), backend/benchmark/llm_runner.py.
+
+Goal: every receipt persisted by `benchmark.cli run --output ...`
+includes per-evaluator `ci_low`, `ci_high`, and `n_bootstrap` fields
+alongside the existing `per_evaluator_mean`. Move `_bootstrap()` to
+a shared helper so the leaderboard builder and the runner share one
+implementation.
+
+Files you own:
+- backend/benchmark/stats.py (NEW — extract `_bootstrap()` as
+  `bootstrap_ci(values, *, seed, n=1000)` returning a dataclass with
+  mean, ci_low, ci_high, n_bootstrap)
+- backend/benchmark/runner.py (modify `RunSummary` and assembly path
+  to call bootstrap_ci() per evaluator; persist into receipt)
+- backend/benchmark/scripts/build_leaderboard.py (replace local
+  `_bootstrap()` with import from `benchmark.stats`; behaviour-
+  preserving)
+- backend/benchmark/receipt_schema.md (NEW or updated — document the
+  CI fields + n_bootstrap + seed)
+- backend/tests/test_stats.py (NEW)
+- backend/tests/test_runner_ci.py (NEW — receipt JSON contains
+  ci_low + ci_high per evaluator after a mock run; seed determinism)
+
+Files you must NOT touch:
+- backend/benchmark/llm_runner.py prompt builders (out of scope)
+- Any dataset YAML
+
+Acceptance:
+- pytest -x -q backend/tests/test_stats.py backend/tests/test_runner_ci.py
+  passes.
+- An existing receipt regenerated under the new code contains
+  ci_low + ci_high + n_bootstrap per evaluator.
+- Leaderboard builder produces identical CI values (refactor is
+  behaviour-preserving).
+
+Branch: feat/ci-in-receipts.
+Commit: `feat(benchmark): bootstrap CIs in every receipt (closes
+GAP-02)`. Co-Authored-By trailer.
+
+Report back: receipt JSON schema diff before/after; any consumers
+of receipts that need a schema migration.
+```
+
+## NEW-HONEST-LEADERBOARD: Drop empty tasks from v0.1 leaderboard (closes GAP-04)
+
+```text
+You are implementing GAP-04 closure: SGLB-05/06/07 must not appear
+on the v0.1 leaderboard with oracle-1.0 scores. Mirror the
+`benchmark_eligible = False` pattern used by ElitigationAdapter at
+backend/api/adapters/public/elitigation.py:36.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-04,
+backend/api/adapters/public/elitigation.py:36,
+backend/benchmark/scripts/build_leaderboard.py, README2.md task table.
+
+Goal:
+- Each of SGLB-05/06/07 carries `benchmark_eligible = False` on its
+  task registration until the data lands.
+- The leaderboard builder skips ineligible tasks.
+- README2.md task table shows the three tasks with status
+  "code-shipped, awaiting data" and a footnote per task linking to
+  the data dependency (Batch A for SGLB-05, NEW-SSO-EXPAND for
+  SGLB-06, Batch B for SGLB-07).
+- When the data lands (downstream prompts), flipping the flag back
+  to True is a one-line change.
+
+Files you own:
+- backend/benchmark/tasks/sglb_05.py
+- backend/benchmark/tasks/sglb_06.py
+- backend/benchmark/tasks/sglb_07.py
+- backend/benchmark/registry.py (add `benchmark_eligible` to the
+  Task registration; default True)
+- backend/benchmark/scripts/build_leaderboard.py (filter by
+  benchmark_eligible)
+- backend/api/routers/benchmarks.py (leaderboard API endpoint also
+  filters)
+- README2.md (update §Tasks table)
+- backend/tests/test_registry.py
+- backend/tests/test_leaderboard_eligibility.py (NEW)
+
+Files you must NOT touch:
+- The dataset_builders/* for these tasks; the builders are correct,
+  they just have no data to read.
+
+Acceptance:
+- The published leaderboard shows only SGLB-01, SGLB-02, SGLB-04,
+  SGLB-08 (the v0.1 eligible set).
+- README2 task table includes all 8 tasks with eligibility status.
+- Tests pass.
+
+Branch: feat/honest-leaderboard.
+Commit: `feat(benchmark): mark SGLB-05/06/07 ineligible until data
+lands (closes GAP-04)`.
+
+Report back: the README2 table you produced; the eligibility filter
+predicate; any place the harness silently swallowed an oracle 1.0
+score that the user should know about.
+```
+
+---
+
+**ROUND 3 — fire these 2 sequentially after Round 2 lands:**
+- `NEW-CONTAM` rebases on `NEW-CI-RECEIPT` (both modify `backend/benchmark/runner.py`).
+- `NEW-EXTRACT-VERSION` rebases on `NEW-HONEST-LEADERBOARD` (both touch `README2.md`).
+
+## NEW-CONTAM: Contamination probe per (task, model) (closes GAP-01)
+
+```text
+You are implementing GAP-01 closure in the junas repo: contamination
+probe per (task, model) so vendors can see which baselines memorised
+labels vs. reasoned from facts.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-01,
+docs/coverage-matrix.md §4.3, backend/benchmark/llm_runner.py.
+
+Goal: a separate probe pass per labelled case that asks the model
+to recall the labelled property verbatim WITHOUT giving it the input.
+Per-case `memorisation_flag` recorded; per-task contamination
+summary (mean memorisation rate, contamination-adjusted score)
+emitted on the receipt.
+
+Files you own:
+- backend/benchmark/contamination.py (NEW — probe runner; per-task
+  probe-prompt builder; flag scorer)
+- backend/benchmark/runner.py (extend `RunSummary` with
+  contamination_summary; gate behind `--contamination-probe` flag
+  default-off)
+- backend/benchmark/cli.py (add `--contamination-probe` flag)
+- backend/tests/test_contamination.py (NEW)
+- docs/methodology/contamination.md (NEW — vendor-facing doc
+  explaining the probe + interpretation)
+
+Files you must NOT touch:
+- Existing prompt builders in backend/benchmark/llm_runner.py — the
+  probe prompts are NEW + task-specific, defined in contamination.py.
+
+Probe design per task:
+- SGLB-01: "What was the outcome (obligation breached + penalty
+  band) of PDPC case <case_name>?" — match against gold; flag
+  per-case memorisation_score ∈ [0,1].
+- SGLB-02: "What is the text of <statute> section <N>?" — match
+  against gold answer fragment; flag accordingly.
+- SGLB-04: skip — the citation grammar is deterministic; memorisation
+  isn't the relevant question.
+- SGLB-08: "What is the tone label of clause <clause_id>?" —
+  memorisation here means the model has seen the synthetic dataset;
+  flag accordingly.
+
+Per-task summary fields persisted in receipt:
+- mean_memorisation_rate: float in [0,1]
+- contamination_adjusted_score: per-evaluator mean computed only on
+  cases with memorisation_score < 0.5
+
+Acceptance:
+- `python -m benchmark.cli run --workflow sglb_01 --dataset ...
+  --evaluator sglb_01_obligations_f1 --contamination-probe --output
+  receipt.json` produces a receipt with contamination_summary +
+  per-case memorisation_score.
+- The probe adds <2x runtime over the base run.
+- pytest passes.
+
+Cost gate: the probe doubles LLM calls. For SGLB-01 (N=211) at
+Anthropic pricing this is ~$1; at Azure gpt-5 with reasoning tokens
+this could be $10-20. Get explicit approval before firing the probe
+against Azure baselines.
+
+Branch: feat/contamination-probe.
+Commit: `feat(benchmark): contamination probe per task+model (closes
+GAP-01)`.
+
+Report back: which models showed the highest memorisation rate per
+task; any task where the probe formulation feels insufficient.
+```
+
+## NEW-EXTRACT-VERSION: Extraction-rule SHA in dataset metadata (closes GAP-06)
+
+```text
+You are implementing GAP-06 closure: extraction-rule SHA pinned in
+every dataset row + dataset YAML header.
+
+Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-06,
+backend/data/ingestion/pdpc.py (lines 47-178 — taxonomy +
+extraction + emit), backend/data/ingestion/sso.py.
+
+Goal: every dataset row carries an `extraction_rule_sha` field
+(git rev of the ingestion module file at build time); every dataset
+YAML header carries an `extraction_rules` map enumerating the SHAs
+per module touched during build. A CI validator confirms presence.
+
+Files you own:
+- backend/data/ingestion/_provenance.py (NEW — helper that returns
+  the current git SHA of a given module file via `git log -n 1
+  --pretty=%H -- <path>`)
+- backend/data/ingestion/pdpc.py (modify emit path to include
+  extraction_rule_sha per row + write top-level extraction_rules map)
+- backend/data/ingestion/sso.py (same)
+- backend/data/ingestion/mom.py (if landed via Batch A; same)
+- backend/data/ingestion/commonlii_sg.py (if landed via Batch B; same)
+- backend/benchmark/dataset_builders/sglb_*.py (each builder writes
+  extraction_rules to the dataset YAML header)
+- .github/workflows/ci.yml (add a validator step that fails if any
+  dataset row lacks extraction_rule_sha)
+- backend/benchmark/dataset_validator.py (NEW — CI check)
+- backend/tests/test_provenance.py
+- backend/tests/test_dataset_validator.py
+- README2.md §Reproducibility (update to describe the new fields)
+
+Files you must NOT touch:
+- Live dataset YAMLs (regenerate via build, do not hand-edit).
+
+Schema additions:
+- Per row: `extraction_rule_sha: "<7-char git short SHA>"`
+- Top of YAML: `extraction_rules: { pdpc: <sha>, sso: <sha>, ... }`
+
+Acceptance:
+- Every freshly-built dataset has the new fields.
+- CI fails if a row is missing the field.
+- pytest passes.
+
+Branch: feat/extraction-rule-sha.
+Commit: `feat(data): pin extraction-rule SHA in dataset metadata
+(closes GAP-06)`.
+
+Report back: any dataset that couldn't be rebuilt cleanly + why.
+```
+
+---
+
+**WAVE 2 — gated coordinator. Prerequisites (all must have landed): `SOLO-17`, `NEW-CI-RECEIPT`, `NEW-CONTAM`, `NEW-EXTRACT-VERSION`, `NEW-VERIFY-BASELINES`. Azure cells inside Batch D are cost-gated per cell — explicit approval before firing each.**
+
 ## NEW-BATCH-D: Full frontier baseline run with new receipt format (closes GAP-03 + GAP-16)
 
 ```text
@@ -974,6 +996,10 @@ Report back: the leaderboard summary; any cell that failed or
 produced an anomalous result; total spend.
 ```
 
+---
+
+**CONDITIONAL — fire only if `SOLO-17` reports any pairwise κ < 0.4. If all κ ≥ 0.4, skip entirely.**
+
 ## NEW-08-REFRAME-IF-LOW-KAPPA (conditional, gated on SOLO-17)
 
 ```text
@@ -1028,6 +1054,8 @@ no claim of ground-truth tone correctness remains.
 Report back: the κ values that triggered the reframe; whether v0.2
 should retire the task per coverage-matrix §8.
 ```
+
+---
 
 ---
 
@@ -1962,50 +1990,6 @@ Report back: any HTML features sanitisation accidentally strips
 that we relied on.
 ```
 
-## SOLO-3: Auth gate for hosted /benchmarks demo (#79)
-
-```text
-You are implementing issue #79 in the junas repo: launch blocker.
-
-The /benchmarks route in the frontend is publicly visible. Before
-the user puts a hosted demo behind a public URL, it needs an auth
-gate so we don't expose the harness to anonymous fuzzers.
-
-Read AGENT-RUNBOOK.md and backend/api/security.py (the existing
-auth shape).
-
-Decision required from the user before you start: which auth
-mechanism?
-
-Option A: simple shared-secret header (existing API_KEYS env
-list; cheapest).
-Option B: GitHub OAuth (better UX for researchers, more setup).
-Option C: a basic auth proxy at the deploy edge (Vercel password
-protection; zero code change).
-
-If the user doesn't specify, default to Option A + add a clearly
-visible comment that this is the launch-day minimum and Option C
-(Vercel password) is recommended for the hosted demo specifically.
-
-Files in scope (Option A):
-- backend/api/security.py (likely already supports this; just
-  enforce on /benchmarks routes)
-- frontend/app/benchmarks/page.tsx (gate the page; on 401, render
-  a "this demo requires an access key" message with the env-var
-  name the user should set)
-
-Branch: feat/auth-gate-benchmarks.
-Commit: `feat(auth): gate /benchmarks behind shared secret (closes
-#79)`.
-
-Acceptance: hitting /benchmarks without the header returns 401; with
-it returns 200; the existing CLI eval path is unaffected (only the
-HTTP surface gates).
-
-Report back: which option you chose, any auth boilerplate the
-existing codebase has that we should consolidate around.
-```
-
 ## SOLO-1: Retrieval R1 + R2 audit fixes (#75)
 
 ```text
@@ -2073,6 +2057,76 @@ Report back: any UX concerns (large per-case tables for 200+ case
 runs need pagination — call it out if so).
 ```
 
+## SOLO-3: Auth gate for hosted /benchmarks demo (#79)
+
+```text
+You are implementing issue #79 in the junas repo: launch blocker.
+
+The /benchmarks route in the frontend is publicly visible. Before
+the user puts a hosted demo behind a public URL, it needs an auth
+gate so we don't expose the harness to anonymous fuzzers.
+
+Read AGENT-RUNBOOK.md and backend/api/security.py (the existing
+auth shape).
+
+Decision required from the user before you start: which auth
+mechanism?
+
+Option A: simple shared-secret header (existing API_KEYS env
+list; cheapest).
+Option B: GitHub OAuth (better UX for researchers, more setup).
+Option C: a basic auth proxy at the deploy edge (Vercel password
+protection; zero code change).
+
+If the user doesn't specify, default to Option A + add a clearly
+visible comment that this is the launch-day minimum and Option C
+(Vercel password) is recommended for the hosted demo specifically.
+
+Files in scope (Option A):
+- backend/api/security.py (likely already supports this; just
+  enforce on /benchmarks routes)
+- frontend/app/benchmarks/page.tsx (gate the page; on 401, render
+  a "this demo requires an access key" message with the env-var
+  name the user should set)
+
+Branch: feat/auth-gate-benchmarks.
+Commit: `feat(auth): gate /benchmarks behind shared secret (closes
+#79)`.
+
+Acceptance: hitting /benchmarks without the header returns 401; with
+it returns 200; the existing CLI eval path is unaffected (only the
+HTTP surface gates).
+
+Report back: which option you chose, any auth boilerplate the
+existing codebase has that we should consolidate around.
+```
+
+## SOLO-4: Cold-start guide (#74)
+
+```text
+You are implementing issue #74 in the junas repo: a cold-start guide
+showing a new agent how to register an LLM-backed task + run the
+first real baseline.
+
+Read AGENT-RUNBOOK.md, backend/benchmark/LLM_RUNNER.md, CONTRIBUTING.md.
+
+Files you own:
+- docs/cold-start-guide.md (new)
+
+Content: a 200-line walkthrough that takes the agent from
+"I am dropped into this repo" to "I have produced a receipt JSON
+with provenance fields for SGLB-04 via gpt-4o-mini". Use the
+existing SGLB-04 smoke dataset; mock the LLM client first; then show
+how to swap in a real provider.
+
+Branch: docs/cold-start-guide.
+Commit: `docs(#74): cold-start guide for new agent + first baseline`.
+
+Acceptance: another agent following the guide produces a working
+receipt JSON without asking the user any questions.
+
+Report back: any step that surprised you.
+```
 ## SOLO-5: Synthetic candidates CI guard (#76)
 
 ```text
@@ -2125,33 +2179,6 @@ badge; regulator tasks (SGLB-01/02/04/05/06/07) render with a
 "regulator" badge.
 
 Report back: any task whose data_tier is ambiguous.
-```
-
-## SOLO-4: Cold-start guide (#74)
-
-```text
-You are implementing issue #74 in the junas repo: a cold-start guide
-showing a new agent how to register an LLM-backed task + run the
-first real baseline.
-
-Read AGENT-RUNBOOK.md, backend/benchmark/LLM_RUNNER.md, CONTRIBUTING.md.
-
-Files you own:
-- docs/cold-start-guide.md (new)
-
-Content: a 200-line walkthrough that takes the agent from
-"I am dropped into this repo" to "I have produced a receipt JSON
-with provenance fields for SGLB-04 via gpt-4o-mini". Use the
-existing SGLB-04 smoke dataset; mock the LLM client first; then show
-how to swap in a real provider.
-
-Branch: docs/cold-start-guide.
-Commit: `docs(#74): cold-start guide for new agent + first baseline`.
-
-Acceptance: another agent following the guide produces a working
-receipt JSON without asking the user any questions.
-
-Report back: any step that surprised you.
 ```
 
 ---
