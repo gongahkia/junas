@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 import pytest
+import yaml
 
 from data.ingestion import pdpc
 
@@ -163,6 +164,8 @@ def test_jsonl_row_shape_matches_harness_contract():
     assert payload["inputs"]["fact_summary"]
     assert payload["expected_output"]["obligations"] == ["protection", "accountability"]
     assert payload["expected_output"]["penalty_band"] == "mid"
+    assert payload["extraction_rule_sha"]
+    assert len(payload["extraction_rule_sha"]) == 7
     assert payload["metadata"]["task"] == "SGLB-01"
     assert payload["metadata"]["dataset_version"] == pdpc.DATASET_VERSION
     assert payload["metadata"]["label_provenance"].startswith("mechanical-extraction")
@@ -189,3 +192,7 @@ def test_full_ingest_writes_splits_and_yaml(tmp_path: Path):
     assert "fact_summary" in row["inputs"]
     assert "obligations" in row["expected_output"]
     assert "penalty_band" in row["expected_output"]
+    assert row["extraction_rule_sha"]
+    payload = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+    assert payload["extraction_rules"]["pdpc"] == row["extraction_rule_sha"]
+    assert payload["cases"][0]["extraction_rule_sha"] == row["extraction_rule_sha"]

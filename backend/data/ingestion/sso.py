@@ -32,6 +32,7 @@ from typing import Iterator
 
 import httpx
 
+from data.ingestion._provenance import extraction_rule_sha
 from data.parsers.sso_parser import SsoAct, SsoSection, parse_sso_html, parse_toc
 
 logger = logging.getLogger(__name__)
@@ -55,6 +56,8 @@ ACT_CODES: tuple[tuple[str, str, str], ...] = (
 
 DEFAULT_OUTPUT = Path("vendor-data/sso/statutes.jsonl")
 PROVS_PER_REQUEST = 60  # cap for ProvIds URL length; SSO accepts at least this many
+EXTRACTION_MODULE = Path(__file__)
+EXTRACTION_RULE_NAME = "sso"
 
 
 def _sleep_with_jitter(delay: float) -> None:
@@ -199,10 +202,11 @@ def ingest_act(
     return aggregate
 
 
-def _section_to_row(section: SsoSection) -> dict[str, object]:
+def _section_to_row(section: SsoSection, rule_sha: str | None = None) -> dict[str, object]:
     row = asdict(section)
     # stable section id: <version_id>:<number>, idempotent across reruns
     row["section_id"] = f"{section.version_id}:{section.number}"
+    row["extraction_rule_sha"] = rule_sha or extraction_rule_sha(EXTRACTION_MODULE)
     return row
 
 
@@ -227,10 +231,11 @@ def write_jsonl(
                 sid = row.get("section_id")
                 if sid:
                     seen.add(sid)
+    rule_sha = extraction_rule_sha(EXTRACTION_MODULE)
     with output_path.open(mode, encoding="utf-8") as handle:
         for act in acts:
             for section in act.sections:
-                row = _section_to_row(section)
+                row = _section_to_row(section, rule_sha)
                 sid = str(row["section_id"])
                 if sid in seen:
                     continue

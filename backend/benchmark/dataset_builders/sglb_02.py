@@ -41,6 +41,9 @@ from typing import Iterable, Iterator
 
 import yaml
 
+from data.ingestion import sso
+from data.ingestion._provenance import extraction_rule_sha
+
 DATASET_VERSION = "sglb-02-v0.1"
 
 # Mapping chapter_number (SSO short code) → short alias surfaced to the model.
@@ -80,11 +83,13 @@ class Sglb02Case:
     source_url: str
     version_id: str
     valid_start_date: str
+    extraction_rule_sha: str
     split: str = ""
 
     def as_dict(self) -> dict:
         return {
             "name": self.case_id,
+            "extraction_rule_sha": self.extraction_rule_sha,
             "inputs": {
                 "question": self.question,
                 "act_short_name": self.act_short_name,
@@ -172,6 +177,19 @@ def _assign_split(idx: int) -> str:
     return "test"
 
 
+def _source_rule_sha(row: dict) -> str:
+    return str(row.get("extraction_rule_sha") or "").strip() or extraction_rule_sha(sso.EXTRACTION_MODULE)
+
+
+def _extraction_rules(cases: list[Sglb02Case]) -> dict[str, str]:
+    shas = {case.extraction_rule_sha for case in cases if case.extraction_rule_sha}
+    if not shas:
+        shas = {extraction_rule_sha(sso.EXTRACTION_MODULE)}
+    if len(shas) != 1:
+        raise ValueError(f"mixed SSO extraction_rule_sha values: {sorted(shas)}")
+    return {sso.EXTRACTION_RULE_NAME: next(iter(shas))}
+
+
 def iter_cases(jsonl_path: Path) -> Iterator[Sglb02Case]:
     if not jsonl_path.exists():
         raise FileNotFoundError(f"SSO JSONL not found: {jsonl_path}")
@@ -212,6 +230,7 @@ def iter_cases(jsonl_path: Path) -> Iterator[Sglb02Case]:
                 source_url=str(row.get("source_url") or ""),
                 version_id=version_id,
                 valid_start_date=str(row.get("valid_start_date") or ""),
+                extraction_rule_sha=_source_rule_sha(row),
             )
             case.split = _assign_split(idx)
             idx += 1
@@ -234,7 +253,10 @@ def build(jsonl_path: Path) -> list[Sglb02Case]:
 def write_yaml(cases: Iterable[Sglb02Case], yaml_path: Path) -> int:
     yaml_path.parent.mkdir(parents=True, exist_ok=True)
     case_list = list(cases)
-    payload = {"cases": [c.as_dict() for c in case_list]}
+    payload = {
+        "extraction_rules": _extraction_rules(case_list),
+        "cases": [c.as_dict() for c in case_list],
+    }
     yaml_path.write_text(
         yaml.safe_dump(payload, sort_keys=False, default_flow_style=False, width=120, allow_unicode=True),
         encoding="utf-8",

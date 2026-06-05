@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 import pytest
+import yaml
 
 from benchmark.dataset_builders import sglb_06 as builder
 from benchmark.evaluators import (
@@ -185,6 +186,31 @@ def test_builder_filters_non_roc2021_rows(tmp_path: Path):
     assert payload["metadata"]["order"] == "9"
     assert payload["metadata"]["rule"] == "1"
     assert payload["metadata"]["dataset_version"] == builder.DATASET_VERSION
+    assert payload["extraction_rule_sha"]
+    assert len(payload["extraction_rule_sha"]) == 7
+
+
+def test_write_outputs_includes_extraction_rules(tmp_path: Path):
+    jsonl = tmp_path / "statutes.jsonl"
+    row = {
+        "chapter_number": "ROC2021",
+        "name": "Commencement of action",
+        "number": "1",
+        "part": "Order 9 PRE-ACTION PROTOCOLS AND ORIGINATING PROCESSES",
+        "text_plain": "1. Subject to this Order, every action in the General Division must be commenced by an originating claim. The originating claim must comply with Form 7 of the Forms.",
+        "source_url": "https://x/roc#pr1-",
+        "version_id": "ROC2021@2021-12-31",
+        "valid_start_date": "2021-12-31",
+        "extraction_rule_sha": "abcdef1",
+    }
+    jsonl.write_text(json.dumps(row), encoding="utf-8")
+    cases = builder.build(jsonl)
+    yaml_path = tmp_path / "sglb_06.yaml"
+    out_dir = tmp_path / "splits"
+    builder.write_outputs(cases, yaml_path, out_dir)
+    payload = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+    assert payload["extraction_rules"] == {"sso": "abcdef1"}
+    assert payload["cases"][0]["extraction_rule_sha"] == "abcdef1"
 
 
 def test_builder_drops_rows_without_order_header(tmp_path: Path):

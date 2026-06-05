@@ -68,6 +68,7 @@ def _row(**overrides):
         "decision_date": "2018-04-10",
         "source_url": "http://www.commonlii.org/sg/cases/SGCA/2018/14.html",
         "question": "Whether the doctrine of laches applies in equity claims at common law in Singapore.",
+        "extraction_rule_sha": "abcdef1",
         "jurisdiction_statements": [
             {"label": "uk_persuasive", "quote": "Applying the principle in Donoghue v Stevenson", "paragraph": 14}
         ],
@@ -82,6 +83,7 @@ def test_build_emits_case_from_single_source_statement(tmp_path: Path):
     cases = builder.build(jsonl)
     assert len(cases) == 1
     payload = cases[0].as_dict()
+    assert payload["extraction_rule_sha"] == "abcdef1"
     assert payload["expected_output"]["labels"] == ["uk_persuasive"]
     assert payload["metadata"]["dataset_version"] == builder.DATASET_VERSION
     assert payload["metadata"]["label_provenance"].startswith("mechanical-extraction")
@@ -130,6 +132,15 @@ def test_build_accepts_catchwords_fallback(tmp_path: Path):
     cases = builder.build(jsonl)
     assert len(cases) == 1
     assert "laches" in cases[0].question.lower()
+
+
+def test_build_rejects_valid_rows_without_extraction_rule_sha(tmp_path: Path):
+    jsonl = tmp_path / "cases.jsonl"
+    row = _row()
+    row.pop("extraction_rule_sha")
+    jsonl.write_text(json.dumps(row), encoding="utf-8")
+    with pytest.raises(ValueError, match="missing extraction_rule_sha"):
+        builder.build(jsonl)
 
 
 # --- task + scorer integration ---

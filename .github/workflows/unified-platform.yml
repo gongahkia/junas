@@ -48,7 +48,10 @@ jobs:
             lxml \
             python-multipart \
             sse-starlette \
+            pyyaml \
             pytest \
             pytest-asyncio
+      - name: Validate dataset extraction provenance
+        run: python -m benchmark.dataset_validator
       - name: Run backend router tests
         run: pytest -q tests/test_*router.py

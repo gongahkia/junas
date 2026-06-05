@@ -91,10 +91,11 @@ def test_jsonl_row_carries_required_fields(parsed_act, tmp_path) -> None:
     for field in (
         "number", "name", "chapter_number", "act_title", "part", "edition",
         "kind", "text_html", "text_plain", "source_url", "version_id",
-        "valid_start_date", "section_id",
+        "valid_start_date", "section_id", "extraction_rule_sha",
     ):
         assert field in s13_row, f"missing {field}"
     assert s13_row["section_id"] == "PDPA2012@2020:13"
+    assert len(s13_row["extraction_rule_sha"]) == 7
     assert "Personal Data Protection Act" in s13_row["act_title"]
 
 

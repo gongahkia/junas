@@ -3,8 +3,11 @@
 YAML format is intentionally compatible with the pydantic-evals layout:
 
 ```yaml
+extraction_rules:
+  pdpc: abc1234
 cases:
   - name: case_id_1
+    extraction_rule_sha: abc1234
     inputs:
       query: "..."
     expected_output:
@@ -29,6 +32,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 class Case(BaseModel):
     name: str
+    extraction_rule_sha: str = ""
     inputs: dict[str, Any] = Field(default_factory=dict)
     expected_output: dict[str, Any] | None = None
     metadata: dict[str, Any] = Field(default_factory=dict)
@@ -37,6 +41,7 @@ class Case(BaseModel):
 
 
 class Dataset(BaseModel):
+    extraction_rules: dict[str, str] = Field(default_factory=dict)
     cases: list[Case]
 
     model_config = ConfigDict(extra="forbid")
