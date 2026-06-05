@@ -124,8 +124,12 @@ adapters only**; the copilot can additionally use user-credentialed adapters
 
 ## Licensing
 
-`[Unverified]` License decision pending (issue #40). Likely AGPL-3.0 for code,
-CC-BY 4.0 for datasets.
+- **Code: MIT** — see `LICENSE`.
+- **Datasets: CC-BY-4.0** — see `docs/dataset-license.md` and `LICENSE`
+  §"Dataset licence".
+- Rationale + alternatives considered: `docs/decisions/dr-001-name-and-license.md`.
+
+When citing this benchmark: `SG-LegalBench (Junas), CC-BY-4.0, <repo URL>`.
 
 ## Roadmap
 
