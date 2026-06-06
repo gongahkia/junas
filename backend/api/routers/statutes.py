@@ -4,6 +4,7 @@ from typing import Any, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request
 
+from api.indices import PaginationCursor
 from api.services.statute_lookup import StatuteService
 
 router = APIRouter(prefix="/statutes")
@@ -24,10 +25,21 @@ async def search_statutes(
     mode: Literal["hybrid", "keyword", "semantic"] = Query("hybrid"),
     page: int = Query(1, ge=1),
     per_page: int = Query(20, ge=1, le=100),
+    cursor: str | None = Query(None),
     service: StatuteService = Depends(get_statute_service),
 ) -> dict[str, Any]:
     try:
-        return await service.search(q=q, chapter=chapter, mode=mode, page=page, per_page=per_page)
+        parsed_cursor = PaginationCursor.from_token(cursor) if cursor else None
+        return await service.search(
+            q=q,
+            chapter=chapter,
+            mode=mode,
+            page=page,
+            per_page=per_page,
+            cursor=parsed_cursor,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     except RuntimeError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
 

@@ -3,7 +3,20 @@
 These guarantee the region-prefixed naming convention does not drift
 back to ad-hoc strings.
 """
-from api.indices import ES, QDRANT, REGION, all_es_indices, all_qdrant_collections
+import pytest
+
+from api.indices import (
+    ES,
+    LEGIS_ID_COLLAPSE,
+    LEGIS_ID_FIELD,
+    LEGAL_SEARCH_SORT,
+    QDRANT,
+    REGION,
+    SORT_DATE_FIELD,
+    PaginationCursor,
+    all_es_indices,
+    all_qdrant_collections,
+)
 
 
 def test_region_is_sg():
@@ -45,3 +58,22 @@ def test_no_legacy_names_present():
         assert name != "junas_statutes"
         assert name != "junas_glossary"
         assert name != "junas_cases"
+
+
+def test_legal_search_sort_uses_a_stable_search_after_key():
+    assert LEGAL_SEARCH_SORT == [
+        {SORT_DATE_FIELD: {"order": "desc", "missing": "_last", "unmapped_type": "date"}},
+        {LEGIS_ID_FIELD: {"order": "asc", "missing": "_last", "unmapped_type": "keyword"}},
+    ]
+    assert LEGIS_ID_COLLAPSE == {"field": LEGIS_ID_FIELD}
+
+
+def test_pagination_cursor_round_trips_search_after_values():
+    cursor = PaginationCursor(sort_values=["2026-06-01", "PDPA2012:13"])
+    token = cursor.to_token()
+    assert PaginationCursor.from_token(token) == cursor
+
+
+def test_pagination_cursor_rejects_invalid_tokens():
+    with pytest.raises(ValueError):
+        PaginationCursor.from_token("not-json")

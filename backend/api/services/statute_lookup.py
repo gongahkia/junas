@@ -18,7 +18,15 @@ import re
 from pathlib import Path
 from typing import Any
 
-from api.indices import ES, QDRANT
+from api.indices import (
+    ES,
+    LEGIS_ID_COLLAPSE,
+    LEGIS_ID_FIELD,
+    LEGAL_SEARCH_SORT,
+    PaginationCursor,
+    QDRANT,
+    SORT_DATE_FIELD,
+)
 
 INDEX_NAME = ES.statutes
 COLLECTION_NAME = QDRANT.statutes
@@ -72,7 +80,13 @@ class StatuteService:
         cls._embedder = sentence_transformer_cls(EMBEDDING_MODEL_NAME)
         return cls._embedder
 
-    async def _keyword_hits(self, query: str, chapter: str | None, size: int) -> tuple[list[dict], int]:
+    async def _keyword_hits(
+        self,
+        query: str,
+        chapter: str | None,
+        size: int,
+        cursor: PaginationCursor | None = None,
+    ) -> tuple[list[dict], int, PaginationCursor | None]:
         filters: list[dict[str, Any]] = []
         if chapter:
             filters.append({"term": {"chapter_number": chapter}})
@@ -93,7 +107,12 @@ class StatuteService:
                 }
             },
             "size": size,
+            "collapse": LEGIS_ID_COLLAPSE,
+            "sort": LEGAL_SEARCH_SORT,
+            "track_total_hits": True,
         }
+        if cursor is not None:
+            body["search_after"] = cursor.sort_values
         response = await self.es.search(index=INDEX_NAME, body=body)
         hits = response.get("hits", {}).get("hits", [])
         total = response.get("hits", {}).get("total", {}).get("value", 0)
@@ -109,12 +128,37 @@ class StatuteService:
                     "text_html": source.get("text_html", ""),
                     "text_plain": source.get("text_plain", ""),
                     "cross_references": source.get("cross_references", []),
+                    LEGIS_ID_FIELD: _legis_id_from_statute_source(source),
+                    SORT_DATE_FIELD: _sort_date_from_source(source),
+                    "version_id": source.get("version_id", ""),
                     "score": float(hit.get("_score", 0.0)),
                     "search_mode": "keyword",
                 }
             )
 
-        return result, total
+        return result, total, _next_cursor_from_hits(hits, size)
+
+    async def _keyword_page(
+        self,
+        query: str,
+        chapter: str | None,
+        size: int,
+        page: int,
+        cursor: PaginationCursor | None = None,
+    ) -> tuple[list[dict], int, PaginationCursor | None]:
+        if cursor is not None:
+            return await self._keyword_hits(query, chapter, size, cursor)
+
+        current_cursor: PaginationCursor | None = None
+        total = 0
+        for page_index in range(page):
+            hits, total, next_cursor = await self._keyword_hits(query, chapter, size, current_cursor)
+            if page_index == page - 1:
+                return hits, total, next_cursor
+            if next_cursor is None:
+                return [], total, None
+            current_cursor = next_cursor
+        return [], total, None
 
     async def _semantic_hits(self, query: str, chapter: str | None, size: int) -> list[dict]:
         if self.qdrant is None:
@@ -158,6 +202,8 @@ class StatuteService:
             results.append(
                 {
                     **section,
+                    LEGIS_ID_FIELD: _legis_id_from_statute_source(section),
+                    SORT_DATE_FIELD: _sort_date_from_source(section),
                     "score": scored_by_number.get(number, 0.0),
                     "search_mode": "semantic",
                 }
@@ -172,6 +218,8 @@ class StatuteService:
         body = {
             "query": {"terms": {"number": numbers}},
             "size": len(numbers),
+            "collapse": LEGIS_ID_COLLAPSE,
+            "sort": LEGAL_SEARCH_SORT,
         }
         response = await self.es.search(index=INDEX_NAME, body=body)
         hits = response.get("hits", {}).get("hits", [])
@@ -208,22 +256,29 @@ class StatuteService:
         mode: str,
         page: int,
         per_page: int,
+        cursor: PaginationCursor | None = None,
     ) -> dict[str, Any]:
+        if cursor is not None and page != 1:
+            raise ValueError("cursor cannot be combined with page > 1")
         fetch_size = page * per_page
 
         if mode == "keyword":
-            keyword_hits, total = await self._keyword_hits(q, chapter, fetch_size)
-            selected = keyword_hits[(page - 1) * per_page : page * per_page]
-            return {"total": total, "results": selected}
+            keyword_hits, total, next_cursor = await self._keyword_page(q, chapter, per_page, page, cursor)
+            return _search_response(total, page, per_page, keyword_hits, next_cursor)
 
         if mode == "semantic":
+            if cursor is not None:
+                raise ValueError("cursor pagination is not supported for semantic-only search")
             semantic_hits = await self._semantic_hits(q, chapter, fetch_size)
             selected = semantic_hits[(page - 1) * per_page : page * per_page]
-            return {"total": len(semantic_hits), "results": selected}
+            return _search_response(len(semantic_hits), page, per_page, selected, None)
 
-        keyword_hits, _ = await self._keyword_hits(q, chapter, fetch_size * 2)
-        semantic_hits = await self._semantic_hits(q, chapter, fetch_size * 2)
-        ranked = self._rrf_merge(keyword_hits, semantic_hits, fetch_size)
+        if page > 1 and cursor is None:
+            raise ValueError("hybrid pagination requires cursor; pass next_cursor from the previous response")
+
+        keyword_hits, _, next_cursor = await self._keyword_page(q, chapter, per_page * 2, 1, cursor)
+        semantic_hits = await self._semantic_hits(q, chapter, per_page * 2)
+        ranked = self._rrf_merge(keyword_hits, semantic_hits, per_page)
         numbers = [number for number, _ in ranked]
         sections = await self._fetch_sections(numbers)
         score_by_number = {number: score for number, score in ranked}
@@ -234,13 +289,15 @@ class StatuteService:
             fused.append(
                 {
                     **section,
+                    LEGIS_ID_FIELD: _legis_id_from_statute_source(section),
+                    SORT_DATE_FIELD: _sort_date_from_source(section),
                     "score": score_by_number.get(number, 0.0),
                     "search_mode": "hybrid",
                 }
             )
 
-        selected = fused[(page - 1) * per_page : page * per_page]
-        return {"total": len(fused), "results": selected}
+        fused = _dedupe_rows_by_legis_id(fused)
+        return _search_response(len(fused), page, per_page, fused[:per_page], next_cursor)
 
     async def get_section(self, number: str) -> dict[str, Any] | None:
         body = {
@@ -372,6 +429,61 @@ def _resolve_chapter(token: str) -> str | None:
     return None
 
 
+def _legis_id_from_statute_source(source: dict[str, Any]) -> str:
+    value = str(source.get(LEGIS_ID_FIELD) or "").strip()
+    if value:
+        return value
+    chapter = str(source.get("chapter_number") or "").strip()
+    number = str(source.get("number") or "").strip()
+    return f"{chapter}:{number}" if chapter and number else number
+
+
+def _sort_date_from_source(source: dict[str, Any]) -> str:
+    return str(source.get(SORT_DATE_FIELD) or source.get("valid_start_date") or "").strip()
+
+
+def _next_cursor_from_hits(hits: list[dict[str, Any]], size: int) -> PaginationCursor | None:
+    if len(hits) < size or not hits:
+        return None
+    sort_values = hits[-1].get("sort")
+    if not isinstance(sort_values, list) or not sort_values:
+        return None
+    return PaginationCursor(sort_values=sort_values)
+
+
+def _search_response(
+    total: int,
+    page: int,
+    per_page: int,
+    results: list[dict[str, Any]],
+    next_cursor: PaginationCursor | None,
+) -> dict[str, Any]:
+    return {
+        "total": total,
+        "page": page,
+        "per_page": per_page,
+        "next_cursor": next_cursor.to_token() if next_cursor is not None else None,
+        "results": results,
+    }
+
+
+def _dedupe_rows_by_legis_id(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    best: dict[str, dict[str, Any]] = {}
+    order: list[str] = []
+    for row in rows:
+        key = _legis_id_from_statute_source(row) or str(row.get("number") or "")
+        if not key:
+            continue
+        previous = best.get(key)
+        if previous is None:
+            best[key] = row
+            order.append(key)
+            continue
+        if float(row.get("score", 0.0) or 0.0) > float(previous.get("score", 0.0) or 0.0):
+            best[key] = row
+    return [best[key] for key in order]
+
+
 def load_sso_jsonl(path: str | Path) -> list[dict[str, Any]]:
     """Offline helper: load the SSO JSONL into a list of section dicts.
 
@@ -417,4 +529,3 @@ def resolve_citation_offline(citation: str, rows: list[dict[str, Any]]) -> dict[
         if str(row.get("number", "")) == number and str(row.get("chapter_number", "")) == chapter:
             return row
     return None
-

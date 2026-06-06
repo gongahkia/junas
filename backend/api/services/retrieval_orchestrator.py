@@ -5,7 +5,15 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any, Iterable
 
-from api.indices import ES, QDRANT
+from api.indices import (
+    ES,
+    LEGIS_ID_COLLAPSE,
+    LEGIS_ID_FIELD,
+    LEGAL_SEARCH_SORT,
+    PaginationCursor,
+    QDRANT,
+    SORT_DATE_FIELD,
+)
 
 
 class SourceType(str, Enum):
@@ -49,12 +57,13 @@ class RetrievalOrchestrator:
         query: str,
         sources: list[SourceType] | None = None,
         top_k: int = 10,
+        cursor: PaginationCursor | None = None,
     ) -> list[RetrievedChunk]:
         selected_sources = sources or [SourceType.STATUTE, SourceType.GLOSSARY]
         chunks: list[RetrievedChunk] = []
 
         if SourceType.STATUTE in selected_sources:
-            es_hits = await self._search_statutes_es(query, top_k * 2)
+            es_hits = await self._search_statutes_es(query, top_k * 2, cursor=cursor)
             vector_hits = await self._search_statutes_vector(query, top_k * 2)
             chunks.extend(self._rrf_merge(es_hits, vector_hits, top_k * 2))
 
@@ -68,7 +77,12 @@ class RetrievalOrchestrator:
         unique_chunks.sort(key=lambda item: item.score, reverse=True)
         return unique_chunks[:top_k]
 
-    async def _search_statutes_es(self, query: str, limit: int) -> list[RetrievedChunk]:
+    async def _search_statutes_es(
+        self,
+        query: str,
+        limit: int,
+        cursor: PaginationCursor | None = None,
+    ) -> list[RetrievedChunk]:
         if self.es is None:
             return []
 
@@ -81,7 +95,12 @@ class RetrievalOrchestrator:
                 }
             },
             "size": limit,
+            "collapse": LEGIS_ID_COLLAPSE,
+            "sort": LEGAL_SEARCH_SORT,
+            "track_total_hits": True,
         }
+        if cursor is not None:
+            body["search_after"] = cursor.sort_values
         response = await self.es.search(index=ES.statutes, body=body)
         hits = response.get("hits", {}).get("hits", [])
 
@@ -101,6 +120,9 @@ class RetrievalOrchestrator:
                         "number": number,
                         "name": source.get("name", ""),
                         "chapter": source.get("chapter_number", ""),
+                        LEGIS_ID_FIELD: _legis_id_from_statute_source(source),
+                        SORT_DATE_FIELD: _sort_date_from_source(source),
+                        "version_id": source.get("version_id", ""),
                     },
                     score=float(hit.get("_score", 0.0)),
                 )
@@ -158,6 +180,8 @@ class RetrievalOrchestrator:
                         "number": number,
                         "name": payload.get("name", ""),
                         "chapter": payload.get("chapter_number", ""),
+                        LEGIS_ID_FIELD: _legis_id_from_statute_source(payload),
+                        SORT_DATE_FIELD: _sort_date_from_source(payload),
                     },
                     score=float(getattr(hit, "score", 0.0)),
                 )
@@ -240,6 +264,8 @@ class RetrievalOrchestrator:
                                 "case_name": row.get("case_name", ""),
                                 "charges": row.get("charges", []),
                                 "retrieval_stage": row.get("retrieval_stage", ""),
+                                LEGIS_ID_FIELD: str(row.get(LEGIS_ID_FIELD) or case_id),
+                                SORT_DATE_FIELD: row.get(SORT_DATE_FIELD, ""),
                             },
                             score=float(row.get("relevance_score", 0.0) or 0.0),
                         )
@@ -293,6 +319,8 @@ class RetrievalOrchestrator:
                     source_id=case_id,
                     metadata={
                         "case_name": payload.get("ajName", ""),
+                        LEGIS_ID_FIELD: str(payload.get(LEGIS_ID_FIELD) or case_id),
+                        SORT_DATE_FIELD: payload.get(SORT_DATE_FIELD, ""),
                     },
                     score=float(getattr(hit, "score", 0.0)),
                 )
@@ -303,14 +331,15 @@ class RetrievalOrchestrator:
     @staticmethod
     def _rrf_merge(es_hits: list[RetrievedChunk], vector_hits: list[RetrievedChunk], top_k: int) -> list[RetrievedChunk]:
         rrf_k = 60
-        scores: dict[str, float] = {}
-        chunks_by_id: dict[str, RetrievedChunk] = {}
+        scores: dict[tuple[str, str], float] = {}
+        chunks_by_key: dict[tuple[str, str], RetrievedChunk] = {}
 
         def _apply(hits: Iterable[RetrievedChunk]) -> None:
             for rank, chunk in enumerate(hits):
+                key = RetrievalOrchestrator._dedupe_key(chunk)
                 score = 1.0 / (rrf_k + rank + 1)
-                scores[chunk.source_id] = scores.get(chunk.source_id, 0.0) + score
-                chunks_by_id[chunk.source_id] = chunk
+                scores[key] = scores.get(key, 0.0) + score
+                chunks_by_key[key] = chunk
 
         _apply(es_hits)
         _apply(vector_hits)
@@ -318,21 +347,41 @@ class RetrievalOrchestrator:
         merged = sorted(scores.items(), key=lambda item: item[1], reverse=True)[:top_k]
         return [
             RetrievedChunk(
-                text=chunks_by_id[source_id].text,
-                source_type=chunks_by_id[source_id].source_type,
-                source_id=source_id,
-                metadata=chunks_by_id[source_id].metadata,
+                text=chunks_by_key[key].text,
+                source_type=chunks_by_key[key].source_type,
+                source_id=chunks_by_key[key].source_id,
+                metadata=chunks_by_key[key].metadata,
                 score=float(score),
             )
-            for source_id, score in merged
+            for key, score in merged
         ]
 
     @staticmethod
     def _dedupe_keep_best(chunks: list[RetrievedChunk]) -> list[RetrievedChunk]:
         best: dict[tuple[str, str], RetrievedChunk] = {}
         for chunk in chunks:
-            key = (chunk.source_type.value, chunk.source_id)
+            key = RetrievalOrchestrator._dedupe_key(chunk)
             previous = best.get(key)
             if previous is None or chunk.score > previous.score:
                 best[key] = chunk
         return list(best.values())
+
+    @staticmethod
+    def _dedupe_key(chunk: RetrievedChunk) -> tuple[str, str]:
+        legis_id = str(chunk.metadata.get(LEGIS_ID_FIELD) or "").strip()
+        if legis_id and chunk.source_type in {SourceType.STATUTE, SourceType.CASE_LAW}:
+            return (chunk.source_type.value, legis_id)
+        return (chunk.source_type.value, chunk.source_id)
+
+
+def _legis_id_from_statute_source(source: dict[str, Any]) -> str:
+    value = str(source.get(LEGIS_ID_FIELD) or "").strip()
+    if value:
+        return value
+    chapter = str(source.get("chapter_number") or "").strip()
+    number = str(source.get("number") or "").strip()
+    return f"{chapter}:{number}" if chapter and number else number
+
+
+def _sort_date_from_source(source: dict[str, Any]) -> str:
+    return str(source.get(SORT_DATE_FIELD) or source.get("valid_start_date") or "").strip()
