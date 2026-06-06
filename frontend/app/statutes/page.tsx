@@ -1,5 +1,12 @@
+"use client";
+
 import Link from "next/link";
-import { searchSSO, searchStatutes, listStatuteChapters } from "../../lib/api-server";
+import type { FormEvent } from "react";
+import { useEffect, useState } from "react";
+import { listStatuteChapters, searchSSO, searchStatutes } from "../../lib/api-client";
+
+type SearchMode = "hybrid" | "keyword" | "semantic";
+type Jurisdiction = "us" | "sg";
 
 type SgResult = { title: string; url: string; snippet: string; source: string };
 
@@ -29,34 +36,107 @@ type ChaptersResponse = {
   chapters: ChapterItem[];
 };
 
-export default async function StatutesPage({
-  searchParams,
-}: {
-  searchParams?: {
-    q?: string;
-    chapter?: string;
-    mode?: "hybrid" | "keyword" | "semantic";
-    jurisdiction?: string;
-    page?: string;
-    per_page?: string;
-  };
-}) {
-  const q = searchParams?.q ?? "";
-  const chapter = searchParams?.chapter ?? "";
-  const mode = searchParams?.mode ?? "hybrid";
-  const jurisdiction = searchParams?.jurisdiction ?? "us";
-  const page = Number(searchParams?.page ?? "1") || 1;
-  const perPage = Number(searchParams?.per_page ?? "20") || 20;
+const emptySearch: StatuteSearchResponse = { total: 0, results: [] };
+
+function isSearchMode(value: string): value is SearchMode {
+  return value === "hybrid" || value === "keyword" || value === "semantic";
+}
+
+function isChaptersResponse(data: unknown): data is ChaptersResponse {
+  return typeof data === "object" && data !== null && Array.isArray((data as ChaptersResponse).chapters);
+}
+
+function isStatuteSearchResponse(data: unknown): data is StatuteSearchResponse {
+  return typeof data === "object" && data !== null && Array.isArray((data as StatuteSearchResponse).results);
+}
+
+function apiError(data: unknown): string | null {
+  if (typeof data !== "object" || data === null || !("error" in data)) return null;
+  const error = (data as { error?: unknown }).error;
+  return error ? String(error) : null;
+}
+
+export default function StatutesPage() {
+  const [q, setQ] = useState("");
+  const [chapter, setChapter] = useState("");
+  const [mode, setMode] = useState<SearchMode>("hybrid");
+  const [jurisdiction, setJurisdiction] = useState<Jurisdiction>("us");
+  const [search, setSearch] = useState<StatuteSearchResponse>(emptySearch);
+  const [chapters, setChapters] = useState<ChaptersResponse>({ chapters: [] });
+  const [sgResults, setSgResults] = useState<SgResult[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    let isActive = true;
+    (async () => {
+      try {
+        const data = await listStatuteChapters();
+        if (!isActive || !isChaptersResponse(data)) return;
+        setChapters(data);
+      } catch {
+        if (isActive) setChapters({ chapters: [] });
+      }
+    })();
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   const isSg = jurisdiction === "sg";
-  const [searchRaw, chaptersRaw, sgResultsRaw] = await Promise.all([
-    isSg ? Promise.resolve({ total: 0, results: [] }) : q.trim() ? searchStatutes(q, chapter, mode, page, perPage) : Promise.resolve({ total: 0, results: [] }),
-    isSg ? Promise.resolve({ chapters: [] }) : listStatuteChapters(),
-    isSg && q.trim() ? searchSSO(q) : Promise.resolve([]),
-  ]);
-  const search = searchRaw as StatuteSearchResponse;
-  const chapters = chaptersRaw as ChaptersResponse;
-  const sgResults = sgResultsRaw as SgResult[];
+  const visibleChapters = isSg ? [] : chapters.chapters;
+
+  const onJurisdictionChange = (value: string) => {
+    setJurisdiction(value === "sg" ? "sg" : "us");
+    setSearch(emptySearch);
+    setSgResults([]);
+    setError(null);
+  };
+
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const query = q.trim();
+    setError(null);
+    if (!query) {
+      setSearch(emptySearch);
+      setSgResults([]);
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      if (jurisdiction === "sg") {
+        const data = await searchSSO(query);
+        if (!Array.isArray(data)) {
+          setError(apiError(data) ?? "Singapore statute search failed.");
+          setSgResults([]);
+          return;
+        }
+        setSgResults(data);
+        setSearch(emptySearch);
+        return;
+      }
+
+      const data = await searchStatutes(query, chapter.trim(), mode, 1, 20);
+      const searchError = apiError(data);
+      if (searchError) {
+        setError(searchError);
+        setSearch(emptySearch);
+      } else if (isStatuteSearchResponse(data)) {
+        setSearch({ total: Number(data.total ?? 0) || 0, results: data.results });
+      } else {
+        setSearch(emptySearch);
+      }
+      setSgResults([]);
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : "Statute search request failed.");
+      setSearch(emptySearch);
+      setSgResults([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <section className="statute-grid">
@@ -64,41 +144,69 @@ export default async function StatutesPage({
         <h2>Statute Browser</h2>
         <p>Search statutes across jurisdictions</p>
 
-        <form method="get" action="/statutes" className="glossary-form">
+        <form method="post" className="glossary-form" onSubmit={onSubmit}>
           <label htmlFor="jurisdiction">Jurisdiction</label>
-          <select id="jurisdiction" name="jurisdiction" defaultValue={jurisdiction}>
+          <select id="jurisdiction" name="jurisdiction" value={jurisdiction} onChange={(event) => onJurisdictionChange(event.target.value)}>
             <option value="us">Oregon (US)</option>
             <option value="sg">Singapore (SSO)</option>
           </select>
 
           <label htmlFor="q">Search statutes</label>
-          <input id="q" name="q" defaultValue={q} placeholder={isSg ? "employment act" : "naturopathic physician"} />
+          <input
+            id="q"
+            name="q"
+            value={q}
+            onChange={(event) => setQ(event.target.value)}
+            placeholder={isSg ? "employment act" : "naturopathic physician"}
+          />
 
-          {!isSg && <>
-            <label htmlFor="mode">Mode</label>
-            <select id="mode" name="mode" defaultValue={mode}>
-              <option value="hybrid">hybrid</option>
-              <option value="keyword">keyword</option>
-              <option value="semantic">semantic</option>
-            </select>
-            <label htmlFor="chapter">Chapter filter</label>
-            <input id="chapter" name="chapter" defaultValue={chapter} placeholder="685" />
-          </>}
+          {!isSg && (
+            <>
+              <label htmlFor="mode">Mode</label>
+              <select
+                id="mode"
+                name="mode"
+                value={mode}
+                onChange={(event) => setMode(isSearchMode(event.target.value) ? event.target.value : "hybrid")}
+              >
+                <option value="hybrid">hybrid</option>
+                <option value="keyword">keyword</option>
+                <option value="semantic">semantic</option>
+              </select>
+              <label htmlFor="chapter">Chapter filter</label>
+              <input
+                id="chapter"
+                name="chapter"
+                value={chapter}
+                onChange={(event) => setChapter(event.target.value)}
+                placeholder="685"
+              />
+            </>
+          )}
 
-          <button type="submit">Search</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? "Searching..." : "Search"}
+          </button>
         </form>
+
+        {error ? (
+          <article className="result-card">
+            <h3>Search unavailable</h3>
+            <p>{error}</p>
+          </article>
+        ) : null}
 
         {isSg ? (
           <>
             <h3>Singapore Statutes ({sgResults.length})</h3>
             <ul className="results-list">
               {sgResults.map((row: SgResult, i: number) => (
-                <li key={i} className="result-card">
+                <li key={`${row.url}-${i}`} className="result-card">
                   <div className="result-header">
                     <a href={row.url} target="_blank" rel="noopener noreferrer"><strong>{row.title}</strong></a>
                     <span className="badge muted">{row.source}</span>
                   </div>
-                  {row.snippet && <p className="meta-line">{row.snippet}</p>}
+                  {row.snippet ? <p className="meta-line">{row.snippet}</p> : null}
                 </li>
               ))}
             </ul>
@@ -126,7 +234,7 @@ export default async function StatutesPage({
       <aside>
         <h3>Chapters</h3>
         <ul className="chapter-list">
-          {chapters.chapters.map((item: ChapterItem) => (
+          {visibleChapters.map((item: ChapterItem) => (
             <li key={item.chapter_number}>
               <Link href={`/statutes/chapter/${encodeURIComponent(item.chapter_number)}`}>
                 {item.chapter_number}

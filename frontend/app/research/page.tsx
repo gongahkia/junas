@@ -1,5 +1,9 @@
+"use client";
+
 import Link from "next/link";
-import { askResearch, getResearchConversation, getResearchConfig } from "../../lib/api-server";
+import type { FormEvent } from "react";
+import { useEffect, useState } from "react";
+import { askResearch, getResearchConversation, getResearchConfig } from "../../lib/api-client";
 
 type SourceType = "statute" | "glossary" | "case_law";
 
@@ -11,42 +15,34 @@ type CitationItem = {
   position: [number, number];
 };
 
+type SourceChunk = {
+  source_id: string;
+  source_type: string;
+  text_snippet: string;
+  metadata: Record<string, unknown>;
+  relevance_score: number;
+};
+
+type CitationReport = {
+  citations?: CitationItem[];
+  total_citations?: number;
+  verified_citations?: number;
+  hallucinated_citations?: CitationItem[];
+  citation_rate?: number;
+};
+
 type AskResponse = {
   answer: string;
-  sources: Array<{
-    source_id: string;
-    source_type: string;
-    text_snippet: string;
-    metadata: Record<string, unknown>;
-    relevance_score: number;
-  }>;
-  citations: {
-    citations: CitationItem[];
-    total_citations: number;
-    verified_citations: number;
-    hallucinated_citations: CitationItem[];
-    citation_rate: number;
-  };
+  sources: SourceChunk[];
+  citations: CitationReport;
   conversation_id: string;
 };
 
 type ConversationTurn = {
   role: string;
   content: string;
-  sources?: Array<{
-    source_id: string;
-    source_type: string;
-    text_snippet: string;
-    metadata: Record<string, unknown>;
-    relevance_score: number;
-  }>;
-  citations?: {
-    citations?: CitationItem[];
-    total_citations?: number;
-    verified_citations?: number;
-    hallucinated_citations?: CitationItem[];
-    citation_rate?: number;
-  };
+  sources?: SourceChunk[];
+  citations?: CitationReport;
   created_at?: string;
 };
 
@@ -68,15 +64,22 @@ function isSourceType(value: string): value is SourceType {
   return value === "statute" || value === "glossary" || value === "case_law";
 }
 
-function normalizeSources(raw: string | string[] | undefined): SourceType[] {
-  if (Array.isArray(raw)) {
-    const values = raw.filter((item): item is SourceType => isSourceType(item));
-    return values.length > 0 ? values : defaultSources;
-  }
-  if (typeof raw === "string" && isSourceType(raw)) {
-    return [raw];
-  }
-  return defaultSources;
+function isConfigResponse(data: unknown): data is ConfigResponse {
+  return typeof data === "object" && data !== null && Array.isArray((data as ConfigResponse).available_sources);
+}
+
+function isAskResponse(data: unknown): data is AskResponse {
+  return typeof data === "object" && data !== null && typeof (data as AskResponse).conversation_id === "string";
+}
+
+function isConversationResponse(data: unknown): data is ConversationResponse {
+  return typeof data === "object" && data !== null && Array.isArray((data as ConversationResponse).turns);
+}
+
+function apiError(data: unknown): string | null {
+  if (typeof data !== "object" || data === null || !("error" in data)) return null;
+  const error = (data as { error?: unknown }).error;
+  return error ? String(error) : null;
 }
 
 function citationHref(citation: string): string | null {
@@ -93,54 +96,122 @@ function citationHref(citation: string): string | null {
   return null;
 }
 
-async function askQuestion(
-  question: string,
-  sources: SourceType[],
-  topK: number,
-  conversationId: string | null,
-): Promise<{ result: AskResponse | null; error: string | null }> {
-  const res = await askResearch(question, sources, topK, conversationId ?? undefined);
-  if (res?.error) return { result: null, error: res.error };
-  return { result: res as AskResponse, error: null };
-}
+export default function ResearchPage() {
+  const [question, setQuestion] = useState("");
+  const [topK, setTopK] = useState(8);
+  const [selectedSources, setSelectedSources] = useState<SourceType[]>(defaultSources);
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [conversation, setConversation] = useState<ConversationResponse | null>(null);
+  const [config, setConfig] = useState<ConfigResponse | null>(null);
+  const [latestSources, setLatestSources] = useState<SourceChunk[]>([]);
+  const [latestCitations, setLatestCitations] = useState<CitationReport | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-export default async function ResearchPage({
-  searchParams,
-}: {
-  searchParams?: {
-    question?: string;
-    conversation_id?: string;
-    sources?: string | string[];
-    top_k?: string;
-    run?: "0" | "1";
-  };
-}) {
-  const question = (searchParams?.question ?? "").trim();
-  const conversationIdInput = (searchParams?.conversation_id ?? "").trim();
-  const topK = Math.min(12, Math.max(1, Number(searchParams?.top_k ?? "8") || 8));
-  const selectedSources = normalizeSources(searchParams?.sources);
-  const shouldRun = searchParams?.run === "1";
+  useEffect(() => {
+    let isActive = true;
+    (async () => {
+      try {
+        const data = await getResearchConfig();
+        if (!isActive || !isConfigResponse(data)) return;
+        setConfig(data);
+      } catch {
+        if (isActive) setConfig(null);
+      }
+    })();
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
-  const askResult =
-    shouldRun && question
-      ? await askQuestion(question, selectedSources, topK, conversationIdInput || null)
-      : { result: null as AskResponse | null, error: null as string | null };
-
-  const activeConversationId = askResult.result?.conversation_id ?? (conversationIdInput || null);
-  const [conversation, config]: [ConversationResponse | null, ConfigResponse | null] = await Promise.all([
-    activeConversationId
-      ? (getResearchConversation(activeConversationId) as Promise<ConversationResponse | null>)
-      : Promise.resolve(null),
-    getResearchConfig() as Promise<ConfigResponse | null>,
-  ]);
-
-  const availableSources = (config?.available_sources ?? ["statute", "glossary", "case_law", "treaty"]).filter(
-    (source: string): source is SourceType => isSourceType(source),
+  const availableSources = (config?.available_sources ?? ["statute", "glossary", "case_law"]).filter(
+    (source): source is SourceType => isSourceType(source),
   );
   const turns = conversation?.turns ?? [];
   const latestAssistant = [...turns].reverse().find((turn) => turn.role === "assistant") ?? null;
-  const latestSources = askResult.result?.sources ?? latestAssistant?.sources ?? [];
-  const latestCitations = askResult.result?.citations ?? latestAssistant?.citations ?? null;
+  const renderedSources = latestSources.length > 0 ? latestSources : latestAssistant?.sources ?? [];
+  const renderedCitations = latestCitations ?? latestAssistant?.citations ?? null;
+
+  const toggleSource = (source: SourceType) => {
+    setSelectedSources((current) =>
+      current.includes(source) ? current.filter((item) => item !== source) : [...current, source],
+    );
+  };
+
+  const resetConversation = () => {
+    setQuestion("");
+    setTopK(8);
+    setSelectedSources(defaultSources);
+    setConversationId(null);
+    setConversation(null);
+    setLatestSources([]);
+    setLatestCitations(null);
+    setError(null);
+  };
+
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const normalizedQuestion = question.trim();
+    if (!normalizedQuestion) {
+      setError("Enter a question before asking the research assistant.");
+      setConversation(null);
+      setLatestSources([]);
+      setLatestCitations(null);
+      return;
+    }
+
+    const requestSources = selectedSources.filter((source) => availableSources.includes(source));
+    if (requestSources.length === 0) {
+      setError("Select at least one source.");
+      return;
+    }
+
+    const boundedTopK = Math.min(12, Math.max(1, Number(topK) || 8));
+    setTopK(boundedTopK);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const data = await askResearch(
+        normalizedQuestion,
+        requestSources,
+        boundedTopK,
+        conversationId ?? undefined,
+      );
+      const askError = apiError(data);
+      if (askError) {
+        setError(askError);
+        return;
+      }
+      if (!isAskResponse(data)) {
+        setError("Research request failed.");
+        return;
+      }
+
+      const nextConversationId = data.conversation_id;
+      setConversationId(nextConversationId);
+      setLatestSources(data.sources ?? []);
+      setLatestCitations(data.citations ?? null);
+
+      const fetched = await getResearchConversation(nextConversationId);
+      if (isConversationResponse(fetched)) {
+        setConversation(fetched);
+      } else {
+        setConversation({
+          conversation_id: nextConversationId,
+          turns: [
+            { role: "user", content: normalizedQuestion },
+            { role: "assistant", content: data.answer, sources: data.sources, citations: data.citations },
+          ],
+        });
+      }
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : "Research request failed.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <section className="research-grid">
@@ -148,21 +219,27 @@ export default async function ResearchPage({
         <h2>Legal Research Assistant</h2>
         <p>Ask legal questions grounded in statutes, glossary definitions, case law, and Rome Statute treaty text.</p>
 
-        <form method="get" action="/research" className="ner-form">
-          <input type="hidden" name="run" value="1" />
-          {activeConversationId ? <input type="hidden" name="conversation_id" value={activeConversationId} /> : null}
-
+        <form method="post" className="ner-form" onSubmit={onSubmit}>
           <label htmlFor="question">Question</label>
           <textarea
             id="question"
             name="question"
             rows={5}
-            defaultValue={question}
+            value={question}
+            onChange={(event) => setQuestion(event.target.value)}
             placeholder="What constitutes genocide under the Rome Statute?"
           />
 
           <label htmlFor="top_k">Context chunks</label>
-          <input id="top_k" name="top_k" type="number" min={1} max={12} defaultValue={topK} />
+          <input
+            id="top_k"
+            name="top_k"
+            type="number"
+            min={1}
+            max={12}
+            value={topK}
+            onChange={(event) => setTopK(Number(event.target.value) || 8)}
+          />
 
           <div className="chip-row">
             {availableSources.includes("statute") ? (
@@ -171,7 +248,8 @@ export default async function ResearchPage({
                   type="checkbox"
                   name="sources"
                   value="statute"
-                  defaultChecked={selectedSources.includes("statute")}
+                  checked={selectedSources.includes("statute")}
+                  onChange={() => toggleSource("statute")}
                 />
                 Statutes
               </label>
@@ -182,7 +260,8 @@ export default async function ResearchPage({
                   type="checkbox"
                   name="sources"
                   value="glossary"
-                  defaultChecked={selectedSources.includes("glossary")}
+                  checked={selectedSources.includes("glossary")}
+                  onChange={() => toggleSource("glossary")}
                 />
                 Glossary
               </label>
@@ -193,36 +272,39 @@ export default async function ResearchPage({
                   type="checkbox"
                   name="sources"
                   value="case_law"
-                  defaultChecked={selectedSources.includes("case_law")}
+                  checked={selectedSources.includes("case_law")}
+                  onChange={() => toggleSource("case_law")}
                 />
                 Case law
-              </label>
-            ) : null}
-            {availableSources.includes("treaty") ? (
-              <label className="checkbox-row">
-                <input
-                  type="checkbox"
-                  name="sources"
-                  value="treaty"
-                  defaultChecked={selectedSources.includes("treaty")}
-                />
-                Rome Statute
               </label>
             ) : null}
           </div>
 
           <div className="chip-row">
-            <button type="submit">Ask</button>
-            <Link href="/research" className="chip">
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Asking..." : "Ask"}
+            </button>
+            <button
+              type="button"
+              className="chip"
+              onClick={resetConversation}
+              style={{
+                background: "transparent",
+                border: "1px solid #D6D3D1",
+                borderRadius: "999px",
+                color: "inherit",
+                padding: "0.2rem 0.6rem",
+              }}
+            >
               New Conversation
-            </Link>
+            </button>
           </div>
         </form>
 
-        {askResult.error ? (
+        {error ? (
           <article className="result-card">
             <h3>Request failed</h3>
-            <p>{askResult.error}</p>
+            <p>{error}</p>
           </article>
         ) : null}
 
@@ -246,22 +328,22 @@ export default async function ResearchPage({
       <aside>
         <h3>Conversation</h3>
         <ul className="chapter-list">
-          <li>conversation_id: {activeConversationId ?? "-"}</li>
+          <li>conversation_id: {conversationId ?? "-"}</li>
           <li>turns: {turns.length}</li>
           <li>llm: {config ? `${config.provider} / ${config.model}` : "-"}</li>
         </ul>
 
         <h3>Citation Report</h3>
-        {latestCitations ? (
+        {renderedCitations ? (
           <>
             <ul className="chapter-list">
-              <li>total: {latestCitations.total_citations ?? 0}</li>
-              <li>verified: {latestCitations.verified_citations ?? 0}</li>
-              <li>hallucinated: {(latestCitations.hallucinated_citations ?? []).length}</li>
+              <li>total: {renderedCitations.total_citations ?? 0}</li>
+              <li>verified: {renderedCitations.verified_citations ?? 0}</li>
+              <li>hallucinated: {(renderedCitations.hallucinated_citations ?? []).length}</li>
             </ul>
 
             <ul className="chapter-list">
-              {(latestCitations.citations ?? []).map((item, index) => {
+              {(renderedCitations.citations ?? []).map((item, index) => {
                 const href = citationHref(item.citation);
                 const statusClass =
                   item.exists_in_index && item.in_context
@@ -283,11 +365,11 @@ export default async function ResearchPage({
         )}
 
         <h3>Retrieved Sources</h3>
-        {latestSources.length === 0 ? (
+        {renderedSources.length === 0 ? (
           <p>No source chunks yet.</p>
         ) : (
           <ul className="results-list">
-            {latestSources.map((source) => (
+            {renderedSources.map((source) => (
               <li key={`${source.source_type}-${source.source_id}`} className="result-card">
                 <div className="result-header">
                   <strong>{source.source_id}</strong>
