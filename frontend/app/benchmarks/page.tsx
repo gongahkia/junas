@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { headers } from "next/headers";
 import {
   getBenchmarkLeaderboard,
   listBenchmarkEvaluators,
@@ -101,6 +102,23 @@ function entryTier(entry: LeaderboardEntry): DataTier {
   return "regulator";
 }
 
+function AccessKeyRequired() {
+  return (
+    <main style={{ maxWidth: "680px", margin: "0 auto", padding: "2rem 1.25rem", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <Link href="/" style={{ fontSize: "0.8rem", color: "#64748b", textDecoration: "none" }}>&larr; Back</Link>
+      <section style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #fecaca", borderRadius: "0.5rem", background: "#fef2f2", color: "#7f1d1d" }}>
+        <h1 style={{ fontSize: "1.2rem", margin: "0 0 0.5rem 0", fontWeight: 600 }}>This demo requires an access key.</h1>
+        <p style={{ fontSize: "0.9rem", margin: "0 0 0.5rem 0", color: "#991b1b" }}>
+          Set <code>API_KEYS</code> on the deployment, then send the shared secret in the <code>X-API-Key</code> header.
+        </p>
+        <p style={{ fontSize: "0.78rem", margin: 0, color: "#b91c1c" }}>
+          Option A is the launch-day minimum. For the hosted demo, Vercel password protection is still recommended at the deploy edge.
+        </p>
+      </section>
+    </main>
+  );
+}
+
 function TierBadge({ tier }: { tier: DataTier }) {
   const c = TIER_COLORS[tier];
   return (
@@ -179,28 +197,37 @@ function LeaderboardTable({
 export const dynamic = "force-dynamic";
 
 export default async function BenchmarksLanding() {
+  const apiKey = headers().get("X-API-Key") ?? "";
   const [tasks, evaluators, leaderboard]: [
-    TaskInfo[],
-    EvaluatorInfo[],
-    LeaderboardResponse,
+    Awaited<ReturnType<typeof listBenchmarkTasks<TaskInfo[]>>>,
+    Awaited<ReturnType<typeof listBenchmarkEvaluators<EvaluatorInfo[]>>>,
+    Awaited<ReturnType<typeof getBenchmarkLeaderboard<LeaderboardResponse>>>,
   ] = await Promise.all([
-    listBenchmarkTasks(),
-    listBenchmarkEvaluators(),
-    getBenchmarkLeaderboard(),
+    listBenchmarkTasks<TaskInfo[]>(apiKey),
+    listBenchmarkEvaluators<EvaluatorInfo[]>(apiKey),
+    getBenchmarkLeaderboard<LeaderboardResponse>(apiKey),
   ]);
 
-  const registeredWorkflows = new Set(tasks.map((t) => t.name));
+  if ([tasks.status, evaluators.status, leaderboard.status].includes(401)) {
+    return <AccessKeyRequired />;
+  }
+
+  const taskItems = tasks.data ?? [];
+  const evaluatorItems = evaluators.data ?? [];
+  const leaderboardData = leaderboard.data ?? { entries: [], aggregated_per_workflow: {} };
+
+  const registeredWorkflows = new Set(taskItems.map((t) => t.name));
   const evaluatorNames = Array.from(
-    new Set(leaderboard.entries.flatMap((e) => Object.keys(e.per_evaluator_mean))),
+    new Set(leaderboardData.entries.flatMap((e) => Object.keys(e.per_evaluator_mean))),
   ).sort();
 
   // Partition leaderboard entries by tier so the two cannot be compared by eye.
   // Per docs/coverage-matrix.md §4.1: regulator-tier and synthetic-tier scores
   // are not directly comparable. Mechanical-extraction labels (regulator) carry
   // a stronger defensibility claim than instruction-derived labels (synthetic).
-  const regulatorEntries = leaderboard.entries.filter((e) => entryTier(e) === "regulator");
-  const syntheticEntries = leaderboard.entries.filter((e) => entryTier(e) === "synthetic");
-  const mixedEntries = leaderboard.entries.filter((e) => entryTier(e) === "mixed");
+  const regulatorEntries = leaderboardData.entries.filter((e) => entryTier(e) === "regulator");
+  const syntheticEntries = leaderboardData.entries.filter((e) => entryTier(e) === "synthetic");
+  const mixedEntries = leaderboardData.entries.filter((e) => entryTier(e) === "mixed");
 
   const regulatorTasks = TASKS.filter((t) => t.tier === "regulator");
   const syntheticTasks = TASKS.filter((t) => t.tier === "synthetic");
@@ -220,7 +247,7 @@ export default async function BenchmarksLanding() {
 
       <section style={{ marginBottom: "2rem" }}>
         <h2 style={{ fontSize: "1.05rem", fontWeight: 600, margin: "0 0 0.5rem 0" }}>Leaderboard</h2>
-        {leaderboard.entries.length === 0 ? (
+        {leaderboardData.entries.length === 0 ? (
           <p style={{ color: "#64748b", fontSize: "0.85rem", margin: 0 }}>
             No runs yet. Start one with <code>make eval WORKFLOW=sglb_04 DATASET=benchmark/datasets/sglb_04_citation_verify.yaml EVALUATORS=&quot;multi_label_f1&quot;</code> or <code>POST /api/v1/benchmarks/run</code>.
           </p>
@@ -251,11 +278,11 @@ export default async function BenchmarksLanding() {
           </>
         )}
 
-        {Object.keys(leaderboard.aggregated_per_workflow).length > 0 && (
+        {Object.keys(leaderboardData.aggregated_per_workflow).length > 0 && (
           <details style={{ marginTop: "0.75rem" }}>
             <summary style={{ fontSize: "0.8rem", color: "#475569", cursor: "pointer" }}>Per-workflow mean across all runs (raw)</summary>
             <pre style={{ fontSize: "0.75rem", background: "#f8fafc", padding: "0.5rem", borderRadius: "0.25rem", overflowX: "auto" }}>
-              {JSON.stringify(leaderboard.aggregated_per_workflow, null, 2)}
+              {JSON.stringify(leaderboardData.aggregated_per_workflow, null, 2)}
             </pre>
             <p style={{ fontSize: "0.7rem", color: "#94a3b8", margin: "0.4rem 0 0 0", fontStyle: "italic" }}>
               The aggregated values above collapse across tiers and should be read with the per-tier tables above.
@@ -283,7 +310,7 @@ export default async function BenchmarksLanding() {
       <section style={{ marginBottom: "1rem" }}>
         <h2 style={{ fontSize: "1.05rem", fontWeight: 600, margin: "0 0 0.5rem 0" }}>Available evaluators</h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
-          {evaluators.map((e) => (
+          {evaluatorItems.map((e) => (
             <span key={e.name} style={{ fontSize: "0.72rem", padding: "0.2rem 0.5rem", borderRadius: "0.25rem", background: e.strength === "strong" ? "#dcfce7" : "#fee2e2", color: "#0f172a" }}>
               {e.name} [{e.strength}]
             </span>

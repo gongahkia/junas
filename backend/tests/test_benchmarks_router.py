@@ -8,14 +8,49 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
-from api.main import create_app
+from api.main import create_app, settings
+
+
+AUTH_HEADERS = {"X-API-Key": "test-key"}
+
+
+def _configure_benchmark_auth(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(settings, "api_keys", ["test-key"])
+    monkeypatch.setattr(settings, "require_auth", False)
 
 
 @pytest.fixture
 def client(tmp_path, monkeypatch) -> TestClient:
     monkeypatch.setenv("JUNAS_BENCHMARK_RUNS_DIR", str(tmp_path / "runs"))
+    _configure_benchmark_auth(monkeypatch)
+    app = create_app()
+    client = TestClient(app)
+    client.headers.update(AUTH_HEADERS)
+    return client
+
+
+@pytest.fixture
+def unauth_client(tmp_path, monkeypatch) -> TestClient:
+    monkeypatch.setenv("JUNAS_BENCHMARK_RUNS_DIR", str(tmp_path / "runs"))
+    _configure_benchmark_auth(monkeypatch)
     app = create_app()
     return TestClient(app)
+
+
+def test_benchmark_routes_require_api_key(unauth_client: TestClient) -> None:
+    resp = unauth_client.get("/api/v1/benchmarks/tasks")
+    assert resp.status_code == 401
+    assert resp.json()["detail"] == "Invalid API key"
+
+
+def test_benchmark_routes_accept_api_key(unauth_client: TestClient) -> None:
+    resp = unauth_client.get("/api/v1/benchmarks/tasks", headers=AUTH_HEADERS)
+    assert resp.status_code == 200
+
+
+def test_benchmark_gate_does_not_enable_global_auth(unauth_client: TestClient) -> None:
+    resp = unauth_client.get("/api/v1/health")
+    assert resp.status_code == 200
 
 
 def test_list_tasks_includes_sglb_04(client: TestClient) -> None:
