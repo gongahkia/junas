@@ -1717,7 +1717,7 @@ generate; whether v0.2 should add more perturbation kinds.
 
 _Closes the "use us for your evals" workflow._
 
-**TIER 3 — 12 OF 13 DONE ✅ (2026-06-06, PRs #107-119). Only SOLO-6 remains.**
+**TIER 3 — DONE ✅ (2026-06-06, PRs #107-121). All 13 work units closed.**
 
 | Work unit | Closes | PR | Notes |
 |---|---|---|---|
@@ -1733,10 +1733,9 @@ _Closes the "use us for your evals" workflow._
 | Batch C `C2` | audit #3, #4 | #117 | Command palette nav-home fix + dead-command audit (rebased). |
 | Batch C `C3` | audit #5 | #118 | Single `createApiClient` surface; `api-server.ts` uses it (rebased + 1 conflict resolved on `api-server.ts`). |
 | Batch C `C4` | audit #7 | #119 | DOMPurify on `dangerouslySetInnerHTML` paths (rebased + 3 conflicts resolved on `package.json`/`vitest.config.ts`/`package-lock.json`). |
+| `SOLO-6` | #77 | #121 | Per-task `data_tier` badge on /benchmarks page. Backend `RunResponse` + `LeaderboardEntry` + tests already in place from prior groundwork; this PR adds the row-level badge to complete the spec's "as a badge per task" wording. |
 
-**Still pending: `SOLO-6` (Synthetic-tier API marking, #77).** Small — adds `data_tier` field to the `/benchmarks` API response shape + renders "synthetic" vs "regulator" badge per task. 3 files. Zero LLM-key cost.
-
-The 3 first-tier-3 prompt bodies are preserved verbatim below.
+All 13 prompt bodies preserved verbatim below in nested `<details>` blocks for re-runs.
 
 <details>
 <summary><strong>TIER 3 (first 3) — DONE.</strong> 3 prompt bodies preserved for re-runs. Click to expand.</summary>
@@ -2288,6 +2287,9 @@ Report back: any synth-pipeline edge cases.
 
 ---
 
+<details>
+<summary><strong>SOLO-6 — DONE.</strong> Prompt body preserved for re-runs. Click to expand.</summary>
+
 ## SOLO-6: Synthetic-tier API marking (#77)
 
 ```text
@@ -2315,11 +2317,13 @@ badge; regulator tasks (SGLB-01/02/04/05/06/07) render with a
 Report back: any task whose data_tier is ambiguous.
 ```
 
+</details>
+
 ---
 
 # Tier 4 — Launch
 
-_arXiv preprint + launch assets. Gated on Tier 1 (methodology) + Tier 2 (data) + Tier 3 (vendor infra) closing._
+_arXiv preprint + launch assets. Tier 3 closed (PRs #107-121); Tier 1 mostly closed (SOLO-17 κ run + downstream deferred pending Anthropic + Gemini keys); Tier 2 closed._
 
 ## SOLO-8: arXiv preprint draft (#37)
 
