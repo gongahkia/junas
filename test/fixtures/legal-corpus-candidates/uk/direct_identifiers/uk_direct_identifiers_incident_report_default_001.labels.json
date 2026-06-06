@@ -3,13 +3,293 @@
   "document_type": "memo",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@stonemerecap.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 20 3456 7890"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@portfordclearing.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@stonemerecap.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "990234567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Benton"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Alan Keats"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Owen Rathbone"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "19-84-72"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "23847612"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "GB94 ZXCV 1984 7223 8476 12"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProject Hawthorn\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced secondary placing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no RNS released yet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list updated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-close period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "credential-stuffing attack"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "precise non-public information likely to significantly affect the price"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not transmit MNPI via voicemail"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "to be scrubbed from test templates"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "incident@stonemerecap.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 20 3456 7890"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@portfordclearing.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@stonemerecap.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "990234567"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "UK Passport No. 990234567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Benton"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Alan Keats"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Owen Rathbone"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "19-84-72"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "23847612"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "GB94 ZXCV 1984 7223 8476 12"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "to be scrubbed from test templates"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProject Hawthorn\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced secondary placing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "no RNS released yet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "information treated as inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list updated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "pre-close period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "restricted dealing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "credential-stuffing attack"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "precise non-public information likely to significantly affect the price"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "do not transmit MNPI via voicemail"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0800 000 0000",
+      "reason": "Public helpline number; intentionally non-sensitive bait"
+    },
+    {
+      "matched_text": "GB 787 6543 10",
+      "reason": "Invalid UK VAT number (checksum failed) used as bait in text"
+    },
+    {
+      "matched_text": "Client NI No: QQ 12 34 56 C",
+      "reason": "Demo National Insurance number; not a live record"
+    },
+    {
+      "matched_text": "Employee ID: 00000000",
+      "reason": "Generic placeholder label; not identifying a natural person"
+    },
+    {
+      "matched_text": "the Trader-in-Charge",
+      "reason": "Role-only designation; not a named person"
+    },
+    {
+      "matched_text": "the Treasurer",
+      "reason": "Role-only designation; not a named person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Companies House Reg. No. ZZ123456",
+      "concept": "UK company registration number",
+      "reason": "Corporate identifier; outside enumerated PII/MNPI rules"
+    },
+    {
+      "matched_text": "FCA FRN 942001",
+      "concept": "FCA firm reference number",
+      "reason": "Regulatory identifier; not covered by allowed rules"
+    },
+    {
+      "matched_text": "PAYE ref: 123/AB12345",
+      "concept": "UK PAYE reference",
+      "reason": "Employer tax identifier potentially sensitive; not in allowed rule set"
+    },
+    {
+      "matched_text": "14 Ledger Wharf, London E1Q 3TP",
+      "concept": "UK postal address",
+      "reason": "Direct address potentially identifying; UK address/postcode not enumerated in rules"
+    },
+    {
+      "matched_text": "2nd floor, Tower B, Dockside Business Park, Manchester M1Q 2AA",
+      "concept": "UK workplace address",
+      "reason": "Location of staff may be personal data contextually; UK address/postcode not in allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

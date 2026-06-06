@@ -3,13 +3,391 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Selene Ardent"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Corin Feldar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. \u00c9loi Tarsen"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Sir Alar Vexholm"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealteam@orbinova.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint templates"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "iris-scan geometry"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "member of the Lydovia Techworkers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "receives treatment for a managed cardiac condition"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "receives treatment for a managed cardiac condition"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "prior genetic carrier screening"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "declared political party membership (Green Horizon Lydovia)"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "dependent child"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 16"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation and security"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists will be maintained until a public announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists must include identity, role, and contact details with time stamps and reasons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "PDMR dealing blackouts apply"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "wall-crossing confirmations are required"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac128m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "4.5m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac90m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac50m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "100%"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Selene Ardent"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Corin Feldar"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. \u00c9loi Tarsen"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Sir Alar Vexholm"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dealteam@orbinova.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint templates"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "iris-scan geometry"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric access control and timekeeping"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "member of the Lydovia Techworkers Union"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "receives treatment for a managed cardiac condition"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "receives treatment for a managed cardiac condition"
+    },
+    {
+      "category": "PII",
+      "rule": "genetic_data",
+      "matched_text": "prior genetic carrier screening"
+    },
+    {
+      "category": "PII",
+      "rule": "political_opinion",
+      "matched_text": "declared political party membership (Green Horizon Lydovia)"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "dependent child"
+    },
+    {
+      "category": "PII",
+      "rule": "age_reference",
+      "matched_text": "age 16"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation and security"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "SCCs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unreleased \u201cAurora Mesh\u201d pilot results"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "preliminary Q3 revenue shortfall"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists will be maintained until a public announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists must include identity, role, and contact details with time stamps and reasons"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "PDMR dealing blackouts apply"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "wall-crossing confirmations are required"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "wall-crossing notices"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac128m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "4.5m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac90m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac50m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "100%"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Aurora Mesh",
+      "reason": "Product name; not PII or MNPI by allowed rules"
+    },
+    {
+      "matched_text": "Polaris Cloud",
+      "reason": "Product suite name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Bluehammer Policy",
+      "reason": "Internal policy nickname; not PII or MNPI"
+    },
+    {
+      "matched_text": "Velstadt Lions",
+      "reason": "Sports team; not PII or MNPI"
+    },
+    {
+      "matched_text": "Novagrad",
+      "reason": "Place name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Velstadt",
+      "reason": "Place name; not PII or MNPI"
+    },
+    {
+      "matched_text": "inclusive culture",
+      "reason": "Generic DEI wording; not PII or MNPI"
+    },
+    {
+      "matched_text": "equal opportunity",
+      "reason": "Generic DEI wording; not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "occupational health files",
+      "concept": "health data record",
+      "reason": "GDPR Art 9 health data about a person but not directly mapped to an allowed rule like medical_record_number"
+    },
+    {
+      "matched_text": "Transfer Impact Assessment",
+      "concept": "cross-border transfer safeguard",
+      "reason": "Privacy compliance marker relevant to SCCs/TIA but not explicitly covered by allowed cross-border markers for strict detection"
+    },
+    {
+      "matched_text": "pseudonymised with least-privilege access",
+      "concept": "security/minimisation control",
+      "reason": "Indicates data protection controls but not an enumerated privacy-event marker"
+    },
+    {
+      "matched_text": "will remain within the EU unless strictly necessary for support by OrbiNova\u2019s Azuristan centre",
+      "concept": "data localisation/cross-border condition",
+      "reason": "Cross-border handling condition relevant to GDPR but detection may rely on explicit keywords like \u2018transfer\u2019 or \u2018SCCs\u2019"
+    },
+    {
+      "matched_text": "identity, role, and contact details with time stamps and reasons",
+      "concept": "insider list PII fields",
+      "reason": "Specifies personal data types required on insider lists without containing concrete PII values for detection"
+    },
+    {
+      "matched_text": "explicit consent and legal basis will cover",
+      "concept": "consent/legal basis",
+      "reason": "Indicates lawful basis for special-category processing; not an allowed consent_withdrawal_marker for strict detection"
+    },
+    {
+      "matched_text": "lawful deferral of disclosure under MAR",
+      "concept": "MAR disclosure deferral",
+      "reason": "Market disclosure control relevant to MNPI but not one of the enumerated embargo markers"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

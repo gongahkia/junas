@@ -3,13 +3,151 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@novalune.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "vendor due diligence to pseudonymise trial workforce logs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "internal embargo window ends 2026-09-30 08:00 cet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintained"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "confirm insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "share purchase agreement"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@novalune.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "vendor due diligence to pseudonymise trial workforce logs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "internal embargo window ends 2026-09-30 08:00 cet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintained"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "confirm insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "share purchase agreement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "project larch"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "sfdr pai indicators to be provided on website before close"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "any cross-border transfer outside eea to use sccs and dpas"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "any processor outside eea to be onboarded under scc module 2"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day",
+      "reason": "Wellness context; not the SPA (Share Purchase Agreement)."
+    },
+    {
+      "matched_text": "draft confidential",
+      "reason": "Quoted stamp reference slated for deletion; not an active nonpublic marker."
+    },
+    {
+      "matched_text": "ZZ-FAKE-123456",
+      "reason": "Explicit placeholder code for testing; not a real identifier."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "project larch",
+      "concept": "transaction codename (lowercase)",
+      "reason": "Codename present but does not match strict 'Project <CapitalizedName>' pattern."
+    },
+    {
+      "matched_text": "no material adverse change clause",
+      "concept": "negated MAC language",
+      "reason": "MAC/MAE mentioned but expressly negated; rule excludes negated MAC in strict detection."
+    },
+    {
+      "matched_text": "any cross-border transfer outside eea to use sccs and dpas",
+      "concept": "cross-border transfer marker (conditional)",
+      "reason": "Prospective/conditional control statement; may not indicate a live transfer under strict rules."
+    },
+    {
+      "matched_text": "sfdr pai indicators to be provided on website before close",
+      "concept": "ESG pre-disclosure planning",
+      "reason": "Compliance pre-disclosure noted; relevance to MNPI depends on materiality and timing."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

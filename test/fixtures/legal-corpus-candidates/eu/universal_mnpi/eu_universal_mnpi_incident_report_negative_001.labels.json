@@ -3,13 +3,149 @@
   "document_type": "memo",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it-ops@quendris.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@quendris.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@quendris.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+00 000 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 2026-07-15 08:00 cet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it-ops@quendris.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@quendris.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@quendris.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+00 000 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "security logs mirrored to a processor in lydria (non-eea) under sccs v2.1"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 2026-07-15 08:00 cet"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "spa-day voucher",
+      "reason": "False-positive bait; not a Share Purchase Agreement or definitive agreement"
+    },
+    {
+      "matched_text": "mac/mae",
+      "reason": "Negated MAC/MAE language; do not label per material_adverse_change rule"
+    },
+    {
+      "matched_text": "isin ZZ0000000000",
+      "reason": "Placeholder identifier noted as invalid; not PII or MNPI"
+    },
+    {
+      "matched_text": "lei 000000FAKELEI42",
+      "reason": "Placeholder identifier noted as invalid; not PII or MNPI"
+    },
+    {
+      "matched_text": "account id 1234-XXXX-0000",
+      "reason": "Placeholder; not a real bank or customer account number"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "purpose limitation and storage limitation observed",
+      "concept": "GDPR principle compliance marker",
+      "reason": "Indicates GDPR principles but not clearly mapped to an available detection rule like data_minimisation_marker"
+    },
+    {
+      "matched_text": "transfer impact assessment logged",
+      "concept": "TIA marker",
+      "reason": "Cross-border assessment is legally relevant under GDPR but not an explicit allowed rule"
+    },
+    {
+      "matched_text": "local dpa informed via standard portal form (routine notification)",
+      "concept": "Regulatory notification",
+      "reason": "Supervisory authority notification is relevant to GDPR but not covered by the allowed rule set"
+    },
+    {
+      "matched_text": "information assessed as not precise and not likely to significantly affect price; no delay decision required",
+      "concept": "MAR delay/precision determination",
+      "reason": "Relates to MAR assessment but not captured by a specific MNPI rule"
+    },
+    {
+      "matched_text": "internal distribution limited to comms and legal",
+      "concept": "Selective disclosure control",
+      "reason": "Distribution restriction touches selective disclosure risk but is not an explicit allowed rule"
+    },
+    {
+      "matched_text": "vx rulebook thresholds for disclosure not met",
+      "concept": "Exchange disclosure threshold",
+      "reason": "Listing-rule materiality assessment is relevant but not mapped to an allowed MNPI rule"
+    },
+    {
+      "matched_text": "national cyber bulletin ccb-26-112 (public, fictional)",
+      "concept": "Public-source reference",
+      "reason": "External bulletin identifier provides context but is outside the allowed detection rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "universal_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

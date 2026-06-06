@@ -3,13 +3,234 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@halcyonterra.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@brighthold.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee Ref EZ-0441"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "HR Record Employee Ref EZ-0441 (R&D technician) has a documented oncology treatment accommodation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "special-category data will be minimised and redacted"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers outside the EEA"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "non\u2011EEA processing"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "SCCs"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "SCCs Module 2"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@halcyonterra.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor.relations@brighthold.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee Ref EZ-0441"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "HR Record Employee Ref EZ-0441 (R&D technician) has a documented oncology treatment accommodation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "special-category data will be minimised and redacted"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "functional anonymisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no personal emails or mobile numbers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal data processing limited to deal execution"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfers outside the EEA"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "non\u2011EEA processing"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "SCCs"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "SCCs Module 2"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer impact assessment"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "delayed disclosure under Article 17"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "cleansed wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LumenEdge",
+      "reason": "Product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "AuroraFlux cells",
+      "reason": "Product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "LumenEdge platform",
+      "reason": "Product name; not PII or MNPI."
+    },
+    {
+      "matched_text": "Rainbow Inclusion Charter",
+      "reason": "Policy/DEI reference; not PII or MNPI."
+    },
+    {
+      "matched_text": "Open Doors Volunteer Policy",
+      "reason": "Policy reference; not PII or MNPI."
+    },
+    {
+      "matched_text": "North Star Playbook",
+      "reason": "Internal policy title; not PII or MNPI."
+    },
+    {
+      "matched_text": "Harborlight Wellness Protocol",
+      "reason": "Internal policy title; not PII or MNPI."
+    },
+    {
+      "matched_text": "Veldhaven Meteors FC",
+      "reason": "Sports team; not PII or MNPI."
+    },
+    {
+      "matched_text": "Riverport Innovation Week",
+      "reason": "Event name/place; not PII or MNPI."
+    },
+    {
+      "matched_text": "Atlas GreenBond Framework",
+      "reason": "Framework/policy name; not PII or MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "LEI: LYX-000HALCYON-FAKE",
+      "concept": "entity financial identifier (LEI)",
+      "reason": "Legally relevant identifier but not covered by allowed PII/MNPI rules."
+    },
+    {
+      "matched_text": "ISIN: ZZ0000000000",
+      "concept": "security identifier (ISIN)",
+      "reason": "Security identifier is relevant context but not an allowed PII/MNPI rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

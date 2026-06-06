@@ -3,13 +3,186 @@
   "document_type": "memo",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Latchford"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Owen Kells"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Sir Rowan Hargate"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure risk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "MAR Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "2m"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Latchford"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Owen Kells"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Sir Rowan Hargate"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "23 555 9900"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "This constitutes inside information under UK MAR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Delay to disclosure: We rely on UK MAR Art. 17(4)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure risk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "distribution restricted to Board and PDMRs only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "acknowledged receipt of inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "under NDA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Closed period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "MAR Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "2m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "~12,4OO"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse change"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Board",
+      "reason": "Role noun; not PII or MNPI by itself."
+    },
+    {
+      "matched_text": "PDMRs",
+      "reason": "Role/acronym; not personal data."
+    },
+    {
+      "matched_text": "CFO",
+      "reason": "Job title only; not PII under rule."
+    },
+    {
+      "matched_text": "CISO",
+      "reason": "Job title only; not PII under rule."
+    },
+    {
+      "matched_text": "Audit & Risk Committee",
+      "reason": "Organisational body; not PII."
+    },
+    {
+      "matched_text": "Hawthorn",
+      "reason": "Not a transaction codename per rule 6."
+    },
+    {
+      "matched_text": "silver fern",
+      "reason": "Not a transaction codename per rule 6."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "ff:3a:4b:0l",
+      "concept": "device identifier hash",
+      "reason": "Looks like a MAC/hash but malformed; not clearly mac_address."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: text not verbatim rule='email_address' text='security@bramblegate\\x10finance.example'",
+    "drop must_detect: text not verbatim rule='nonpublic_marker' text='non\\x10public pending permitted delay'",
+    "drop must_detect: text not verbatim rule='nonpublic_marker' text='Not yet disclosed via R N S\\x10B'",
+    "drop must_detect: text not verbatim rule='information_barrier_marker' text='wall\\x10crossing limited to two lenders under NDA on 0 6 / 0 6 / 2 0 2 6.'",
+    "drop must_detect: text not verbatim rule='information_barrier_marker' text='wall\\x10crossed'",
+    "drop must_detect: text not verbatim rule='blackout_period_reference' text='30\\x10day blackout'",
+    "drop must_detect: text not verbatim rule='financial_percentage' text='0.6\\x100.8%'",
+    "drop ideal_must_detect: text not verbatim rule='email_address' text='security@bramblegate\\x10finance.example'",
+    "drop ideal_must_detect: text not verbatim rule='nonpublic_marker' text='non\\x10public pending permitted delay'",
+    "drop ideal_must_detect: text not verbatim rule='nonpublic_marker' text='Not yet disclosed via R N S\\x10B'",
+    "drop ideal_must_detect: text not verbatim rule='information_barrier_marker' text='wall\\x10crossing limited to two lenders under NDA on 0 6 / 0 6 / 2 0 2 6.'",
+    "drop ideal_must_detect: text not verbatim rule='information_barrier_marker' text='wall\\x10crossed'",
+    "drop ideal_must_detect: text not verbatim rule='blackout_period_reference' text='30\\x10day blackout'",
+    "drop ideal_must_detect: text not verbatim rule='financial_percentage' text='0.6\\x100.8%'",
+    "drop ideal_must_detect: text not verbatim rule='cyber_incident_pre_disclosure' text='Incident Report: Operational/Cyber Event \\x04 Bramblegate Financial Services plc (BSE\\x10UK: BGF0)'",
+    "drop ideal_must_detect: text not verbatim rule='material_event' text='outage on \\x06Hawthorn\\x07 payments platform from 03:14\\x1008:52 BST due to third\\x10party patch regression'",
+    "drop must_not_detect: text not verbatim text='BSE\\x10UK: BGF0'",
+    "drop uncertain: text not verbatim text='INC\\x102O26\\x100l9B'",
+    "drop uncertain: text not verbatim text='7X\\x104l3\\x10UK'",
+    "drop uncertain: text not verbatim text='UKMOO/17/4/0\\x100\\x100\\x100\\x100\\x107'",
+    "drop uncertain: text not verbatim text='bgf\\x10mar\\x10l1st'",
+    "drop uncertain: text not verbatim text='H4W\\x10981'",
+    "drop uncertain: text not verbatim text='uk\\x10haw\\x101a/1b'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

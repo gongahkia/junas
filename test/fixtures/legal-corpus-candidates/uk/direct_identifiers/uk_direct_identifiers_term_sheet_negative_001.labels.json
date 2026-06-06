@@ -3,13 +3,135 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "uk_nin",
+      "matched_text": "QQ 12 34 56 C"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "000000000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "GB00 ZXZX 0000 0000 0000 00"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "020 0000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor-relations@wexfordharbour.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "uk_nin",
+      "matched_text": "QQ 12 34 56 C"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "000000000"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "GB00 ZXZX 0000 0000 0000 00"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "020 0000 0000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "investor-relations@wexfordharbour.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Heads of Terms \u2014 Recommended Acquisition of Northmoor Capital plc by Wexford Harbour Group Ltd (UK)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Investor queries should go to investor-relations@wexfordharbour.example (role mailbox) or the public helpline 0800 000 000; do not contact unnamed deal team members directly"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "KYC placeholders (do not submit real data)"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Buyer",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "0800 000 000",
+      "reason": "Public helpline number, not personal data"
+    },
+    {
+      "matched_text": "RNS 00/0000",
+      "reason": "Public regulatory citation, not PII/MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Heads of Terms \u2014 Recommended Acquisition of Northmoor Capital plc by Wexford Harbour Group Ltd (UK)",
+      "concept": "definitive_agreement (Heads of Terms)",
+      "reason": "Heads of Terms functions like a Term Sheet in UK practice but is not explicitly listed in the definitive_agreement examples."
+    },
+    {
+      "matched_text": "no individual personal data is requested at this stage",
+      "concept": "data_minimisation_marker (negated)",
+      "reason": "Indicates a data minimisation stance but phrased as a negation which may fall outside the rule to avoid negated controls."
+    },
+    {
+      "matched_text": "UK Passport No.: 000000000",
+      "concept": "passport_number placeholder validity",
+      "reason": "All-zero passport number is a placeholder and may fail strict validation; detector behavior may vary."
+    },
+    {
+      "matched_text": "NI No.: QQ 12 34 56 C",
+      "concept": "uk_nin placeholder prefix",
+      "reason": "QQ prefix denotes a dummy NIN used for testing; some engines may exclude it."
+    },
+    {
+      "matched_text": "investor-relations@wexfordharbour.example",
+      "concept": "role mailbox vs personal data",
+      "reason": "Role-based mailbox may not relate to an identifiable natural person under GDPR depending on context."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

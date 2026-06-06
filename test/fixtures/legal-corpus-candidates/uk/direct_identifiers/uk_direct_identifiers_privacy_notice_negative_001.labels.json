@@ -3,13 +3,167 @@
   "document_type": "generic",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@northwoldcapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@northwoldcapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "941234567"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "UK IDTA/Addendum"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@northwoldcapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dsar@northwoldcapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "941234567"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "UK IDTA/Addendum"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "CloudBridge EU S.\u00e0 r.l. (EEA)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "must not be emailed"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not send ID scans to personal email addresses"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "do not include full card numbers or security codes"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "MNPI"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "0800 010 1234",
+      "reason": "Public helpline number (non-PII example)"
+    },
+    {
+      "matched_text": "[Full name]",
+      "reason": "Generic form label / placeholder"
+    },
+    {
+      "matched_text": "[Address]",
+      "reason": "Generic form label / placeholder"
+    },
+    {
+      "matched_text": "[NI Number]",
+      "reason": "Generic form label / placeholder"
+    },
+    {
+      "matched_text": "[Passport Number]",
+      "reason": "Generic form label / placeholder"
+    },
+    {
+      "matched_text": "[Account Number]",
+      "reason": "Generic form label / placeholder"
+    },
+    {
+      "matched_text": "OO 12 34 56 D",
+      "reason": "Invalid UK NI example; not live data"
+    },
+    {
+      "matched_text": "123 456 7890",
+      "reason": "Invalid NHS number example; not live data"
+    },
+    {
+      "matched_text": "0000000000",
+      "reason": "Placeholder UTR; not live data"
+    },
+    {
+      "matched_text": "00-00-00",
+      "reason": "Invalid example sort code"
+    },
+    {
+      "matched_text": "00000000",
+      "reason": "Invalid example account number"
+    },
+    {
+      "matched_text": "GB00 NWC0 0000 0000 00",
+      "reason": "Invalid example IBAN"
+    },
+    {
+      "matched_text": "[DL No]",
+      "reason": "Generic form label / placeholder"
+    },
+    {
+      "matched_text": "CTX-000000-00",
+      "reason": "Format example only; not live data"
+    },
+    {
+      "matched_text": "[department]",
+      "reason": "Generic form label / placeholder"
+    },
+    {
+      "matched_text": "[Compliance Operations]",
+      "reason": "Example value / placeholder"
+    },
+    {
+      "matched_text": "[optional]",
+      "reason": "Generic instruction label; not PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "retained for five years after a public announcement",
+      "concept": "retention_marker",
+      "reason": "Indicates personal-data retention duration; legally relevant but no explicit 'retention_marker' rule in the allowed list"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

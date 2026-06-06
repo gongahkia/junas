@@ -3,13 +3,339 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list inclusion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not forward outside the clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a384,750,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a37,500,000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Thomas Haversham"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms Evelyn Cartwright"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "UK Passport No: 341234567"
+    },
+    {
+      "category": "PII",
+      "rule": "uk_nin",
+      "matched_text": "QQ 12 34 56 C"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 20 3984 7711"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 7398 112233"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@alderwick.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "info@northbank.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "settlements@westminster-trust.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "t.haversham@northbank.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "e.cartwright@alderwick.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpdev@alderwick.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kyc@alderwick.example"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN: GB 81 MOSG 4001 2345 6789 01"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN: GB00 MOSG 4012 8999 9911 99"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "sort code 20-0 0- 3 3"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "account 0065 8901"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Otter-Lime"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition of Northbank Analytics Ltd by Alderwick Capital plc"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list inclusion"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "clean team protocol"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "do not forward outside the clean team"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "wall-crossing of select investors"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a384,750,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a37,500,000"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Thomas Haversham"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms Evelyn Cartwright"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "UK Passport No: 341234567"
+    },
+    {
+      "category": "PII",
+      "rule": "uk_nin",
+      "matched_text": "QQ 12 34 56 C"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 20 3984 7711"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 7398 112233"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@alderwick.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "info@northbank.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "settlements@westminster-trust.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "t.haversham@northbank.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "e.cartwright@alderwick.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corpdev@alderwick.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "kyc@alderwick.example"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN: GB 81 MOSG 4001 2345 6789 01"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN: GB00 MOSG 4012 8999 9911 99"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "sort code 20-0 0- 3 3"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "account 0065 8901"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "GB81-ALDR-4001-2345-6789-01"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "0800 000 0000"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Buyer",
+      "reason": "role/defined term, not a person or identifier"
+    },
+    {
+      "matched_text": "Target",
+      "reason": "role/defined term, not a person or identifier"
+    },
+    {
+      "matched_text": "Group Treasurer",
+      "reason": "role-only reference, not a named person"
+    },
+    {
+      "matched_text": "Passport No: ______",
+      "reason": "generic form label with no personal value"
+    },
+    {
+      "matched_text": "0800 000 0000",
+      "reason": "public helpline number, not deal contact PII"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Companies House reg no: 0 9 1 2 3 4 5 6",
+      "concept": "company_registration_number",
+      "reason": "company identifiers are legally relevant but no explicit allowed rule for UK company numbers"
+    },
+    {
+      "matched_text": "CRN 09345670",
+      "concept": "company_registration_number",
+      "reason": "UK company number; not covered by allowed PII rules"
+    },
+    {
+      "matched_text": "VAT GB 812 3456 22",
+      "concept": "tax_identifier",
+      "reason": "VAT numbers are tax IDs but not included in allowed rules list"
+    },
+    {
+      "matched_text": "VAT GB 764 0001 19",
+      "concept": "tax_identifier",
+      "reason": "VAT numbers are tax IDs but not included in allowed rules list"
+    },
+    {
+      "matched_text": "FCA FRN 921345",
+      "concept": "regulatory_firm_reference_number",
+      "reason": "Regulatory firm reference is sensitive but not in allowed rules"
+    },
+    {
+      "matched_text": "registered office: 7 Larchgate, London EC2V 7ZX",
+      "concept": "postal_address",
+      "reason": "Address is PII-like but there is no general UK address rule in allowed list"
+    },
+    {
+      "matched_text": "registered office: 12 Quarry Fold, Manchester M2 5XZ",
+      "concept": "postal_address",
+      "reason": "Address is PII-like but there is no general UK address rule in allowed list"
+    },
+    {
+      "matched_text": "SWIFT: MOSGGB2LXXX",
+      "concept": "bank_identifier_code",
+      "reason": "Bank BIC code is financial routing data but not explicitly covered by allowed rules"
+    },
+    {
+      "matched_text": "facility reference: MS G/2026/ACQ/001",
+      "concept": "customer_account_number",
+      "reason": "Could be an internal account/reference number but not clearly covered by allowed rules"
+    },
+    {
+      "matched_text": "cid=GB12-ALDW-09123456",
+      "concept": "customer_account_number",
+      "reason": "May be an internal client ID in URL; not clearly within allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
