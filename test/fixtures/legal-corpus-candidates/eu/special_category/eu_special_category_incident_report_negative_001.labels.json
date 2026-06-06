@@ -3,13 +3,165 @@
   "document_type": "memo",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it-security@orildera.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ops_team@orildera.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@orildera.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer logged and paused"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Employee: Mara Ilion \u2014 occupational health clearance dated 2025-11-02 indicating cardiac rehabilitation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "it-security@orildera.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ops_team@orildera.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@orildera.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer logged and paused"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "Employee: Mara Ilion \u2014 occupational health clearance dated 2025-11-02 indicating cardiac rehabilitation"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Employee: Mara Ilion"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "Employee: Mara Ilion \u2014 occupational health clearance dated 2025-11-02 indicating cardiac rehabilitation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "replicated to our processor Aurora Data Grid Ltd. in Verdania under SCCs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "no inside information list was opened"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Incident report \u2014 Orildera Renewables SE (EU issuer) \u2014 cyber and operational data handling event dated 14 May 2026"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "AuroraShield XDR",
+      "reason": "product name (false-positive bait)"
+    },
+    {
+      "matched_text": "Riverline Vault",
+      "reason": "product name (false-positive bait)"
+    },
+    {
+      "matched_text": "GreenPulse KPI Engine",
+      "reason": "product name (false-positive bait)"
+    },
+    {
+      "matched_text": "Vesperia Blue Kites",
+      "reason": "sports club name (false-positive bait)"
+    },
+    {
+      "matched_text": "Nordleaf Inclusion Playbook",
+      "reason": "policy/template name (generic DEI, not PII)"
+    },
+    {
+      "matched_text": "Run Together",
+      "reason": "generic wellbeing slogan (not PII)"
+    },
+    {
+      "matched_text": "Meridian Exchange Luxembourg",
+      "reason": "exchange/place name (not PII/MNPI)"
+    },
+    {
+      "matched_text": "Verdania",
+      "reason": "place name (not PII)"
+    },
+    {
+      "matched_text": "stadium floodlight failure",
+      "reason": "metaphor (not PII/MNPI)"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Employee: Mara Ilion",
+      "concept": "named_person without honorific",
+      "reason": "Person is named but lacks honorific/signature; may not meet strict named_person rule though anchored to 'Employee:'"
+    },
+    {
+      "matched_text": "EMP_ID: 0000-XX",
+      "concept": "employee_id placeholder",
+      "reason": "Looks like an employee ID field but is a placeholder and not tied to an identifiable person"
+    },
+    {
+      "matched_text": "no inside information list was opened",
+      "concept": "insider_list_marker (negated)",
+      "reason": "Insider list reference is negated; relevant to MAR workflows but not a positive marker of MNPI handling"
+    },
+    {
+      "matched_text": "deleted within 2 hours",
+      "concept": "erasure action",
+      "reason": "Indicates deletion after breach; relevant to GDPR lifecycle but not mapped to an explicit allowed marker"
+    },
+    {
+      "matched_text": "logs retained under Art 5(1)(f)",
+      "concept": "retention/legal-basis note",
+      "reason": "Indicates retention/security principle; no explicit allowed rule for retention in list"
+    },
+    {
+      "matched_text": "watch note was filed with the Baltic Capital Markets Authority (BCMA)",
+      "concept": "regulatory notification / selective disclosure",
+      "reason": "Regulator notification may touch selective disclosure controls but no clear rule match"
+    },
+    {
+      "matched_text": "replication blocked by a geo-fence after 12 minutes",
+      "concept": "cross-border transfer control",
+      "reason": "Control related to cross-border replication; detection rule focuses on transfer occurrence rather than control block"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

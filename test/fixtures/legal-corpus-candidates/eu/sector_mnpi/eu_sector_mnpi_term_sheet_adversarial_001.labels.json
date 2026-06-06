@@ -3,13 +3,357 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cPolaris\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for public distribution"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac300m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac180m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac12m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "validator key compromise"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "Selective disclosure/tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "market soundings"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Stefan Olander (CFO)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Dr. Ines Kral (DPO)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "stefan.olander@auroragrid.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ines.kral@auroragrid.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+32 2 555 0199"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN: ZZ21 NOVA 0000 13X4 7420"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric access logs"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "occupational health"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border processors in RO\u2011PL\u2011UK engaged under SCCs and UK IDTA addendum"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only pseudonymised, purpose\u2011limited datasets to be transferred"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cPolaris\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for public distribution"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac480,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac300m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac180m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac12m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "10%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "validator key compromise"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "Selective disclosure/tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "market soundings"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Stefan Olander (CFO)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Dr. Ines Kral (DPO)"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "stefan.olander@auroragrid.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ines.kral@auroragrid.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+32 2 555 0199"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN: ZZ21 NOVA 0000 13X4 7420"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric access logs"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "occupational health"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border processors in RO\u2011PL\u2011UK engaged under SCCs and UK IDTA addendum"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only pseudonymised, purpose\u2011limited datasets to be transferred"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "acquisition of HelioBlock SA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "CSRD Scope 1\u20133 intensity reduction"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "ESRS E1/E2/E4"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "climate KPIs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restricted list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "EU MAR Article 7 precise information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "no research or sales commentary"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Issuer/Buyer",
+      "reason": "Role-noun defined term; not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "Seller",
+      "reason": "Role-noun defined term; not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "Target",
+      "reason": "Role-noun defined term; not PII/MNPI by itself."
+    },
+    {
+      "matched_text": "\u201ccrypto wallets\u201d",
+      "reason": "Educational/marketing benign example; no market sensitivity."
+    },
+    {
+      "matched_text": "\u201cinsider lists\u201d",
+      "reason": "Educational/marketing benign example; no market sensitivity."
+    },
+    {
+      "matched_text": "\u201cinformation barriers\u201d",
+      "reason": "Educational/marketing benign example; no market sensitivity."
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated MAC; do not label Material Adverse Change per rule 8."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DPIA and transfer risk assessment pre\u2011signing",
+      "concept": "DPIA/TRA compliance",
+      "reason": "Legally relevant privacy controls, but not in allowed marker list."
+    },
+    {
+      "matched_text": "MiCA CASP authorisation and passporting",
+      "concept": "MiCA authorization condition",
+      "reason": "Crypto regulatory approval could be material, but not mapped to a listed MNPI rule."
+    },
+    {
+      "matched_text": "token warrant kicker",
+      "concept": "Crypto warrant commercial term",
+      "reason": "Potentially price-sensitive term not covered by enumerated MNPI rules."
+    },
+    {
+      "matched_text": "https://dataroom.auroragrid.eu/r/tx?inv=AUR%2DHB%2D2026&l=0x9af",
+      "concept": "Non-public dataroom URL",
+      "reason": "Sensitive access link; no explicit allowed rule for URLs."
+    },
+    {
+      "matched_text": "BIC: NOVAFRPP",
+      "concept": "Bank identifier code",
+      "reason": "Financial routing identifier not covered by allowed PII rules."
+    },
+    {
+      "matched_text": "E U N i o n   M a r k e t s   A u t h o r i t y   d r a f t   f i l i n g  # 4",
+      "concept": "Draft regulatory filing",
+      "reason": "Implies confidentiality/embargo but not one of the enumerated embargo markers."
+    },
+    {
+      "matched_text": "long\u2011stop date 31.12.2026",
+      "concept": "Deal timing signal",
+      "reason": "Material timing but not a listed embargo marker."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

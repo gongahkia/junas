@@ -3,13 +3,196 @@
   "document_type": "memo",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@novaterra.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@novaterra.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@novaterra.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Personal data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "mirroring to approved processors in Karsenia and Sagora under SCCs"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "resume cross-border mirroring after SCC validation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no\u2011tipping reminders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list.csv"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information-barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not-yet-announced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "not-yet-announced deferral of the interim ESG KPI annex"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@novaterra.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "security@novaterra.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@novaterra.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Personal data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "mirroring to approved processors in Karsenia and Sagora under SCCs"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "resume cross-border mirroring after SCC validation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "no\u2011tipping reminders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list.csv"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information-barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not-yet-announced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "not-yet-announced deferral of the interim ESG KPI annex"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "SFTP outage"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no communication with analysts beyond public FAQs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may interact"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "EcoChain Trace",
+      "reason": "Marketing descriptor for a pilot tool; no token issuance/listing or deal context."
+    },
+    {
+      "matched_text": "GreenLedger Token",
+      "reason": "Marketing descriptor; explicitly states no token issuance or listing."
+    },
+    {
+      "matched_text": "DEV-AXX-001",
+      "reason": "Example of pseudonymous device telemetry; not personal data in this context."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "data retention 30 days",
+      "concept": "retention_marker",
+      "reason": "Retention duration is a privacy-event signal but no explicit allowed rule exists for retention markers."
+    },
+    {
+      "matched_text": "no Art 33 notification to the competent authority required under current criteria",
+      "concept": "breach_notification_reference",
+      "reason": "References GDPR Art 33 notification threshold; legally relevant but not covered by an allowed rule."
+    },
+    {
+      "matched_text": "do not forward internally beyond the incident channel",
+      "concept": "internal_distribution_restriction",
+      "reason": "Confidentiality/containment instruction suggests information control but not an explicit information-barrier term."
+    },
+    {
+      "matched_text": "pseudonymous device telemetry",
+      "concept": "pseudonymised_data_reference",
+      "reason": "Indicates pseudonymised data status under GDPR; relevant but not covered by an allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

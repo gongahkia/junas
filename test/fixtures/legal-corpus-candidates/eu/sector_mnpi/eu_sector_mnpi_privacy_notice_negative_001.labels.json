@@ -3,13 +3,173 @@
   "document_type": "generic",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@riverglass.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation and security"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not-yet-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "a not-yet-public vendor breach affecting our renewable certificates registry connector is under assessment"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "an event insider list is active pending disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Draft CSRD Scope 2 recalculation that may alter prior KPIs is in internal review and not approved for external release"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@riverglass.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation and security"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not-yet-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "a not-yet-public vendor breach affecting our renewable certificates registry connector is under assessment"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "an event insider list is active pending disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Draft CSRD Scope 2 recalculation that may alter prior KPIs is in internal review and not approved for external release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list entries preserved for 5 years after last update per Union market abuse rules"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "simulated blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "anti-tipping practices"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not approved for external release"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider-List Essentials"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barrier"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "account IDs are masked (e.g., 0000-XXX-0000)"
+    }
+  ],
   "must_not_detect": [],
-  "uncertain": [],
+  "uncertain": [
+    {
+      "matched_text": "DSAR: to access, rectify, or erase data",
+      "concept": "DSAR/erasure rights",
+      "reason": "DSAR and erasure are privacy-event markers but no explicit DSAR rule is listed in allowed PII rules"
+    },
+    {
+      "matched_text": "insider-list entries preserved for 5 years after last update",
+      "concept": "retention marker",
+      "reason": "Retention is relevant under GDPR but not enumerated as a specific detectable rule in the provided list"
+    },
+    {
+      "matched_text": "explicit consent",
+      "concept": "consent basis",
+      "reason": "Consent is referenced but only withdrawal is defined as a detectable marker in allowed rules"
+    },
+    {
+      "matched_text": "pending disclosure",
+      "concept": "embargo/pending disclosure",
+      "reason": "Indicates disclosure timing but the allowed embargo_marker list is limited to specific phrases not present here"
+    },
+    {
+      "matched_text": "P.O. Box 410, 1000 AB Eurocity",
+      "concept": "postal address (EU)",
+      "reason": "Postal address is PII but only specific country postal-address rules are provided; no EU-general rule listed"
+    },
+    {
+      "matched_text": "cryptographic seed phrases are never stored in production logs",
+      "concept": "storage limitation/security control",
+      "reason": "Security/storage-limitation control is privacy-relevant but not a listed detectable marker beyond data minimisation"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

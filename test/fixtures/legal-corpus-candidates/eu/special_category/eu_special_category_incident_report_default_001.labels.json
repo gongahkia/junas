@@ -3,13 +3,262 @@
   "document_type": "memo",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Isla Kovarik"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "employee ID IK-4472"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "a hashed facial template used for turnstile access (biometric data)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "a GP referral for stress-related treatment dated 12 May 2026 (health data)"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "self-declared sexual orientation"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "voluntary union membership"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@arcturon-mobility.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+31 20 555 0190"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Oona Vermeer"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@arcturon-mobility.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "to a US subprocessor, CloudHelm Labs LLC, under legacy SCCs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "event insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing approvals are suspended"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3\u20135%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information under EU MAR"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Isla Kovarik"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "employee ID IK-4472"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "a hashed facial template used for turnstile access (biometric data)"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "a GP referral for stress-related treatment dated 12 May 2026 (health data)"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "self-declared sexual orientation"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "voluntary union membership"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@arcturon-mobility.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+31 20 555 0190"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Oona Vermeer"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@arcturon-mobility.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "to a US subprocessor, CloudHelm Labs LLC, under legacy SCCs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "event insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing approvals are suspended"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "3\u20135%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information under EU MAR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "reports a cyber incident detected on 04 June 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "delay public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "filed a delay justification"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "dealing is prohibited"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Systems affected included the CSRD ESRS-S1 workforce metrics and SFDR PAI mappings, with a projected one-quarter delay to assurance and potential capex reallocation to resilience"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "role-based redaction"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "genetic algorithm",
+      "reason": "Not genetic personal data; explicitly unrelated to personal data"
+    },
+    {
+      "matched_text": "orientation",
+      "reason": "Refers to induction training field, not sexual orientation"
+    },
+    {
+      "matched_text": "Equal Horizons Policy",
+      "reason": "Policy name; generic DEI statement not about an individual"
+    },
+    {
+      "matched_text": "religion and sexual orientation",
+      "reason": "Generic DEI prose; not tied to any identifiable person"
+    },
+    {
+      "matched_text": "Ravensbridge Tigers",
+      "reason": "Sports team name; not PII or MNPI"
+    },
+    {
+      "matched_text": "Nimbus Tablet",
+      "reason": "Product name; not PII or MNPI"
+    },
+    {
+      "matched_text": "move the goalposts",
+      "reason": "Metaphor; not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "cross-border notifications will follow for employees resident in Nordmark and Valestria",
+      "concept": "cross-border notification",
+      "reason": "Legally relevant privacy compliance action across jurisdictions but not clearly a data transfer event per allowed markers"
+    },
+    {
+      "matched_text": "We notified the Low Countries Data Supervisor within 72 hours",
+      "concept": "supervisory authority notification",
+      "reason": "Breach notification timing is legally significant but not covered by listed markers"
+    },
+    {
+      "matched_text": "a transfer impact assessment will be updated",
+      "concept": "TIA update",
+      "reason": "GDPR transfer governance is relevant but not an explicit allowed marker"
+    },
+    {
+      "matched_text": "supplementary encryption enforced per GDPR guidance",
+      "concept": "supplementary measures",
+      "reason": "Security measure for cross-border transfers is relevant but not in allowed rule list"
+    },
+    {
+      "matched_text": "will consult the supervisory authority on proposed mitigation",
+      "concept": "supervisory consultation",
+      "reason": "Regulatory consultation is legally significant but not mapped to a listed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

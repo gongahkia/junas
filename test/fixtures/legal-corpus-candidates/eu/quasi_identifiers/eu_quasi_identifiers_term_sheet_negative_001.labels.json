@@ -3,13 +3,156 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintenance"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance.office@valterra.example.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 11/1990"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer to Cloudporto Ltd (processor, Lusoria) under Art. 46 SCCs and TIAs"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list maintenance"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance.office@valterra.example.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DOB 11/1990"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer to Cloudporto Ltd (processor, Lusoria) under Art. 46 SCCs and TIAs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "data subject requests via compliance.office@valterra.example.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "redaction and minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "clinical data coordinator (role) at Valterra BioSystems NV, DOB 11/1990, location Lyon (FR), contractor code CT\u20119081, device asset tag LYN\u2011845, payroll account suffix 4821"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "contractor code CT\u20119081"
+    },
+    {
+      "category": "PII",
+      "rule": "device_serial_number",
+      "matched_text": "device asset tag LYN\u2011845"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "payroll account suffix 4821"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Insider",
+      "reason": "Role-defined term in quotes, not a natural person\u2019s name"
+    },
+    {
+      "matched_text": "vbs\u2011usr\u20110000",
+      "reason": "Placeholder pseudonymous user ID example, not an actual identifier"
+    },
+    {
+      "matched_text": "NEXM:VBSX",
+      "reason": "Non-live internal ticker placeholder, not PII/MNPI"
+    },
+    {
+      "matched_text": "ISIN XZ0000000000",
+      "reason": "Invalid ISIN placeholder, not PII/MNPI"
+    },
+    {
+      "matched_text": "LEI 0000000VALTERRA00000",
+      "reason": "Invalid LEI placeholder, not PII/MNPI"
+    },
+    {
+      "matched_text": "Street Name 12, 00000 City",
+      "reason": "Masked placeholder address, not a real address/PII"
+    },
+    {
+      "matched_text": "Device ID: ______",
+      "reason": "Unpopulated placeholder field, no PII value present"
+    },
+    {
+      "matched_text": "Account last\u20114: ____",
+      "reason": "Unpopulated placeholder field, no PII value present"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Article 9 data",
+      "concept": "GDPR special-category reference",
+      "reason": "References special-category data generally without naming a specific category from the allowed rules"
+    },
+    {
+      "matched_text": "Pseudonymous users",
+      "concept": "Pseudonymisation marker",
+      "reason": "Indicates GDPR pseudonymisation but not mapped to a specific allowed PII rule"
+    },
+    {
+      "matched_text": "wall\u2011crossed external counsel",
+      "concept": "Wall-crossed/tipping reference",
+      "reason": "Indicates selective disclosure/wall-crossing participant but not a specific marker in the allowed list"
+    },
+    {
+      "matched_text": "aggregated DEI metrics",
+      "concept": "Sensitive diversity metrics (aggregate)",
+      "reason": "Could imply sensitive-category inferences but not enumerated under allowed special-category rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "quasi_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

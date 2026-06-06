@@ -3,13 +3,347 @@
   "document_type": "generic",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nordichelix.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nordichelix.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "armin.devela@nordichelix.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+330\u20110000\u20119911"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tira Rains\u2011\u00d8st"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. D. \u0160olt"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Selina Harvonen"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Armin de V\u00e9la"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "trade\u2011union membership"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list workflow"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information\u2011barrier controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project FIRN"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window 2026\u201107\u201101\u20132026\u201107\u201115"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber incident note"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@nordichelix.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@nordichelix.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "armin.devela@nordichelix.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+330\u20110000\u20119911"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tira Rains\u2011\u00d8st"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. D. \u0160olt"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Selina Harvonen"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Armin de V\u00e9la"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "trade\u2011union membership"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "NHX:EID=E U\u201149 3 1\u2011x"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "birth date"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "4 Quay Lane, Lysmark, LY\u20111042"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "home address"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "pseudonymisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "limited personal data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list workflow"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "in si der list fields"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider\u2011list data"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider\u2011list concepts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Information\u2011barrier controls"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "info rmation\u2011ba rri er"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restricted VDR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project FIRN"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window 2026\u201107\u201101\u20132026\u201107\u201115"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "tipping_language",
+      "matched_text": "tipping"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "pre\u2011announcement evaluation of the HelixNote tokenisation pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "green\u2011convertible term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "HelixNote tokenisation pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "draft double\u2011materiality screens and Scope\u20113 baselines for CSRD"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "non\u2011public supplier code audit"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "Cyber incident note"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "incident status is non\u2011public until regulator LY\u2011CMA notification completes"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change clause",
+      "reason": "Negated reference; do not label per rule 8 (no MAC)."
+    },
+    {
+      "matched_text": "sel e c ti v e disclosure",
+      "reason": "Obfuscated spacing and negated context in a negative assurance; avoid false positives."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "device IDs",
+      "concept": "device identifier",
+      "reason": "Generic mention of device identifiers without any concrete value."
+    },
+    {
+      "matched_text": "crypto\u2011wallet aliases",
+      "concept": "crypto wallet address",
+      "reason": "Mentions wallet aliases but no actual wallet address is provided."
+    },
+    {
+      "matched_text": "P R O J\u2011S N \u00d8",
+      "concept": "transaction codename-like",
+      "reason": "Nonstandard codename formatting; does not match the 'Project <Name>' pattern."
+    },
+    {
+      "matched_text": "NHX\u2011SVC\u2011**07**",
+      "concept": "customer/service code",
+      "reason": "Internal service desk code; unclear if it maps to a customer_account_number PII rule."
+    },
+    {
+      "matched_text": "personal phone",
+      "concept": "phone number PII mention",
+      "reason": "Describes collection of personal phone numbers but no actual number is given."
+    },
+    {
+      "matched_text": "fee rebates",
+      "concept": "commercial term signal",
+      "reason": "Implies a discount structure but no concrete rate or amount is provided."
+    },
+    {
+      "matched_text": "m a r k e t\u2011m a ke r spreads",
+      "concept": "market-making spread sensitivity",
+      "reason": "Refers to spreads that could be sensitive but no numeric values are provided."
+    },
+    {
+      "matched_text": "LY\u20111042",
+      "concept": "postal code",
+      "reason": "Looks like a postal code within an address; no specific EU postal rule available."
+    },
+    {
+      "matched_text": "timestamps",
+      "concept": "PII metadata",
+      "reason": "Mentions timestamp collection but no specific timestamp values are present."
+    },
+    {
+      "matched_text": "IP hashes",
+      "concept": "IP address derivative",
+      "reason": "Refers to hashed IPs, which may still be personal data but are not plain IP addresses."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,345 @@
   "document_type": "generic",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aurorameridian.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+999 1200 4500"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Sofia Lenz"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Livia Petrescu"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "AM-4142"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "provided a facial\u2011recognition template"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "certified sick\u2011leave"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Oskar Vale"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "declared union membership"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Sir Cillian Drummond"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "erasure of a fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "a note linking his vegetarian meals to religious observance"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@aurorameridian.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hana Kov\u00e1cs"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "self\u2011identified as bisexual"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers rely on SCCs with supplementary encryption and a transfer impact assessment"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "strictly limited to necessity"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimal audit logs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public terms of a contemplated private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossed insiders"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aurorameridian.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+999 1200 4500"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Sofia Lenz"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Livia Petrescu"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "AM-4142"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "employee ID AM-4142"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "provided a facial\u2011recognition template"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "facial\u2011recognition template"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "certified sick\u2011leave"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Oskar Vale"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "declared union membership"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Sir Cillian Drummond"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "erasure of a fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "fingerprint template"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "a note linking his vegetarian meals to religious observance"
+    },
+    {
+      "category": "PII",
+      "rule": "religious_belief",
+      "matched_text": "religious observance"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@aurorameridian.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hana Kov\u00e1cs"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "self\u2011identified as bisexual"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "bisexual"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers rely on SCCs with supplementary encryption and a transfer impact assessment"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "third country"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "strictly limited to necessity"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "special\u2011category data strictly limited to necessity"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we pseudonymise and archive minimal audit logs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "MAR Art 18 insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public terms of a contemplated private placement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossed insiders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restricted repositories"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider\u2011list versioning"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "LatticeSpark",
+      "reason": "Product name, not PII/MNPI."
+    },
+    {
+      "matched_text": "genetic\u2011algorithm module",
+      "reason": "Algorithm/product feature; not personal genetic data."
+    },
+    {
+      "matched_text": "Riverton Meteors",
+      "reason": "Sports team; not PII/MNPI."
+    },
+    {
+      "matched_text": "Euronexia Growth Market of Novaria",
+      "reason": "Market/place name; not PII/MNPI."
+    },
+    {
+      "matched_text": "Series B Green Notes",
+      "reason": "Security/product name; not PII/MNPI."
+    },
+    {
+      "matched_text": "biometric precision",
+      "reason": "Metaphor per text; not a data element."
+    },
+    {
+      "matched_text": "DEI",
+      "reason": "Generic policy acronym; not PII."
+    },
+    {
+      "matched_text": "sexual orientation, religion, or health information",
+      "reason": "Negated policy statement; not about an identifiable person."
+    },
+    {
+      "matched_text": "genetic data",
+      "reason": "Negated generic reference; not personal data in this context."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "processing was restricted pending legal hold",
+      "concept": "restriction_marker",
+      "reason": "GDPR Art 18 restriction of processing is privacy-relevant but no explicit allowed rule provided."
+    },
+    {
+      "matched_text": "Data are retained for five years after the last update of an insider list, two years for access control biometrics, and as required by the Labour Code of Novaria for whistleblowing files",
+      "concept": "retention_marker",
+      "reason": "Retention durations are privacy-relevant but not listed as an allowed rule key."
+    },
+    {
+      "matched_text": "DSAR portal",
+      "concept": "dsar_request_marker",
+      "reason": "Indicates a data subject rights submission channel; not mapped to a specific allowed rule."
+    },
+    {
+      "matched_text": "no solely automated decisions with legal or similarly significant effects are taken",
+      "concept": "automated_decision_marker",
+      "reason": "Art 22 automated-decision statement is privacy-relevant but not covered by allowed rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

@@ -3,13 +3,278 @@
   "document_type": "generic",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Marius Petrov"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aureliagrid.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Special category personal data will be minimised"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Larch"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may be MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "tipping or selective disclosure"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Marius Petrov"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aureliagrid.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Special category personal data will be minimised"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "information barriers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Larch"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "Non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "may be MNPI"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "tipping or selective disclosure"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "names, roles, private contact details"
+    },
+    {
+      "category": "PII",
+      "rule": "crypto_wallet_address",
+      "matched_text": "wallet hashes"
+    },
+    {
+      "category": "PII",
+      "rule": "crypto_wallet_address",
+      "matched_text": "crypto wallet telemetry"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transferred to third countries"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Internal carbon price assumptions for 2027 are non-public until the CSRD report is filed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "contained cyber incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_pre_listing_marker",
+      "matched_text": "tokenisation pilot"
+    },
+    {
+      "category": "MNPI",
+      "rule": "dpt_protocol_event_marker",
+      "matched_text": "crypto token liquidity discussions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "outside authorised channels is prohibited and monitored"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "unannounced green PPA renegotiation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider-list entries"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "marketing webinar",
+      "reason": "Educational/operational context; not MNPI."
+    },
+    {
+      "matched_text": "purely for education",
+      "reason": "Explicit non-sensitive educational disclaimer."
+    },
+    {
+      "matched_text": "no confidential or deal-stage information",
+      "reason": "Explicit negation of MNPI/deal context."
+    },
+    {
+      "matched_text": "project codenames",
+      "reason": "Generic phrase; not a 'Project <Name>' codename."
+    },
+    {
+      "matched_text": "ELE-listed issuer",
+      "reason": "Public listing descriptor; not MNPI/PII."
+    },
+    {
+      "matched_text": "Digital Assets Lab",
+      "reason": "Organisational unit; not PII/MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "wallet hashes",
+      "concept": "crypto_wallet_identifier",
+      "reason": "Hash of wallets can be personal identifiers but does not match the 'address' rule exactly."
+    },
+    {
+      "matched_text": "network telemetry",
+      "concept": "network_identifiers",
+      "reason": "May include IP/device identifiers but not explicitly enumerated."
+    },
+    {
+      "matched_text": "retained for five years",
+      "concept": "retention_marker",
+      "reason": "Retention period is privacy-relevant but no explicit allowed rule key provided."
+    },
+    {
+      "matched_text": "for eight years",
+      "concept": "retention_marker",
+      "reason": "Retention period is privacy-relevant but no explicit allowed rule key provided."
+    },
+    {
+      "matched_text": "for ten years",
+      "concept": "retention_marker",
+      "reason": "Retention period is privacy-relevant but no explicit allowed rule key provided."
+    },
+    {
+      "matched_text": "for 180 days",
+      "concept": "retention_marker",
+      "reason": "Retention period is privacy-relevant but no explicit allowed rule key provided."
+    },
+    {
+      "matched_text": "Data subjects may request access, rectification, or restriction",
+      "concept": "dsar_rights",
+      "reason": "DSAR rights are privacy-event markers but not listed as an allowed rule key."
+    },
+    {
+      "matched_text": "responses may be deferred with reasons",
+      "concept": "dsar_delay",
+      "reason": "Investigation deferral of DSAR is privacy-relevant but not an allowed rule key."
+    },
+    {
+      "matched_text": "health data",
+      "concept": "special_category_health",
+      "reason": "Refers to Art 9 health-related data but does not match specific health condition/treatment rules."
+    },
+    {
+      "matched_text": "aggregated before disclosure",
+      "concept": "aggregation_control",
+      "reason": "Aggregation is a privacy safeguard but not an explicit allowed marker rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

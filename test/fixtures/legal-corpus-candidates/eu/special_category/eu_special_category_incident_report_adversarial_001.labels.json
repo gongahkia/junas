@@ -3,13 +3,327 @@
   "document_type": "memo",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Toma\u0161 Varek"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID: ORL-eID tvarek\u201494.\u2423\u2423"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "hospital oncology treatment schedule"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union membership in the \u201cEnergia Workers Council\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric facial template hash (fmt v2 a6:9b:\u2026:ff)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Leona Schaffner"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "the note \u201cpartner is male\u201d in a wellness form for Dr. Leona Schaffner, R&D lead, indicating sexual orientation"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@orlena-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer to a forensics vendor in Kaledon (non-EEA) under SCC Module 2"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ops-lead@orlena-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ana\u00efs K\u00fchnert"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+00 000 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ana.kuehnert@orlena-se.example"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cPINEWIND\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7\u20139%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "list ID INS-ORL/2026-06-PINEWIND"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "dealing restricted from 06.06.2026 20:30 CET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber incident affecting HR and R&D drives"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "provisional ESRS E1-1 emission-intensity shift"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Toma\u0161 Varek"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "Employee ID: ORL-eID tvarek\u201494.\u2423\u2423"
+    },
+    {
+      "category": "PII",
+      "rule": "medical_treatment",
+      "matched_text": "hospital oncology treatment schedule"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "hospital oncology treatment schedule"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union membership in the \u201cEnergia Workers Council\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "biometric_identifier",
+      "matched_text": "biometric facial template hash (fmt v2 a6:9b:\u2026:ff)"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Leona Schaffner"
+    },
+    {
+      "category": "PII",
+      "rule": "sexual_orientation",
+      "matched_text": "the note \u201cpartner is male\u201d in a wellness form for Dr. Leona Schaffner, R&D lead, indicating sexual orientation"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@orlena-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer to a forensics vendor in Kaledon (non-EEA) under SCC Module 2"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ops-lead@orlena-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Ana\u00efs K\u00fchnert"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+00 000 000 000"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ana.kuehnert@orlena-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "id=9e7a%2Dq1%2D884"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "case=CSRD-OPS-2026-112"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cPINEWIND\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "unannounced delay of Project \u201cPINEWIND\u201d turbines (250MW) by \u22659 months"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "1,240"
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "250MW"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "7\u20139%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "expected to reduce FY2026 EBITDA guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "likely to significantly affect the price"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insiders identified"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "list ID INS-ORL/2026-06-PINEWIND"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "dealing restricted from 06.06.2026 20:30 CET"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber incident affecting HR and R&D drives"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "provisional ESRS E1-1 emission-intensity shift"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "material adverse change",
+      "reason": "Negated reference; explicitly states it does not constitute a MAC."
+    },
+    {
+      "matched_text": "Veltor City FC",
+      "reason": "Sports team name; false-positive bait not PII/MNPI."
+    },
+    {
+      "matched_text": "Blue Meadow CRM",
+      "reason": "Product name; false-positive bait not PII/MNPI."
+    },
+    {
+      "matched_text": "Inclusion & Fairness Charter",
+      "reason": "Policy name; false-positive bait not PII/MNPI."
+    },
+    {
+      "matched_text": "Nordmerc Exchange",
+      "reason": "Exchange/venue name; not itself MNPI/PII."
+    },
+    {
+      "matched_text": "Orlena Renewables SE",
+      "reason": "Company name; not PII under the given rules."
+    },
+    {
+      "matched_text": "Kaledon",
+      "reason": "Place name; not PII."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "No genetic data were collected for Mr. Varek",
+      "concept": "genetic_data (negated)",
+      "reason": "References special-category data anchored to a named person but explicitly negated."
+    },
+    {
+      "matched_text": "4F-29 b1- R3D c\u2014br o k e n",
+      "concept": "api key / credential",
+      "reason": "Sensitive secret credential; not covered by allowed rules."
+    },
+    {
+      "matched_text": "A3:44:1d: 0c:fa",
+      "concept": "cryptographic key fingerprint",
+      "reason": "Security-sensitive fingerprint; not covered by allowed rules."
+    },
+    {
+      "matched_text": "ORL-SE-INC/\u03c0-17",
+      "concept": "internal reference identifier",
+      "reason": "Looks like an internal incident or case ID; could be treated as an internal_session_id but pattern is nonstandard."
+    },
+    {
+      "matched_text": "\u22659 months",
+      "concept": "material timeline detail",
+      "reason": "Precise non-public delay duration; MNPI-relevant but not clearly mapped to a numeric rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "special_category",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
