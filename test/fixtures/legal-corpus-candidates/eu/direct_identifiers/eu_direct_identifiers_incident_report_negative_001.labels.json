@@ -3,13 +3,138 @@
   "document_type": "memo",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "passport number PL QQ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@vistalite-energi.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "transferdesk@nimbusstor.cloud"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "replicated to a non\u2011EU region"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Standard Contractual Clauses (Module 2)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "role\u2011only names are used intentionally for privacy"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "passport number PL QQ1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@vistalite-energi.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "transferdesk@nimbusstor.cloud"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "replicated to a non\u2011EU region"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Standard Contractual Clauses (Module 2)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "role\u2011only names are used intentionally for privacy"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "misconfigured SFTP endpoint"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed period dates"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "00800 0000 2244",
+      "reason": "public helpline number (non-personal)"
+    },
+    {
+      "matched_text": "VAT: DE000000000",
+      "reason": "invalid/template identifier; not linked to a natural person"
+    },
+    {
+      "matched_text": "EORI: EU0CLMF000000",
+      "reason": "invalid/template identifier; not linked to a natural person"
+    },
+    {
+      "matched_text": "IBAN: DE00 5000 0000 0000 0000 00",
+      "reason": "invalid/template bank account; non-personal placeholder"
+    },
+    {
+      "matched_text": "BIC: PXZZDEFFXXX",
+      "reason": "template SWIFT code; non-personal"
+    },
+    {
+      "matched_text": "BE\u20110000.000.000",
+      "reason": "company registry template; non-personal"
+    },
+    {
+      "matched_text": "IT\u2011REA\u2011ZZ000000",
+      "reason": "company registry template; non-personal"
+    },
+    {
+      "matched_text": "EUID EU-VIST-0000000123X",
+      "reason": "entity identifier (non-PII)"
+    },
+    {
+      "matched_text": "LEI 999900VISTALITE0000X",
+      "reason": "entity identifier (non-PII)"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "role-only reference; not a named person"
+    },
+    {
+      "matched_text": "CISO",
+      "reason": "role-only reference; not a named person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "OAM Notice ID PEX/2026/IR/000123",
+      "concept": "regulatory notice identifier",
+      "reason": "regulatory filing reference; not covered by current MNPI rules but relevant to disclosure context"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
