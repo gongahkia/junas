@@ -10,6 +10,7 @@ from api.adapters import (
     AdapterTier,
     DocType,
     LegalSourceAdapter,
+    SourceAdapterError,
     SourceDocument,
     benchmark_safe_adapters,
     derive_legis_id,
@@ -242,6 +243,50 @@ def test_each_adapter_declares_non_empty_extra_schema():
     ]:
         schema = getattr(cls, "extra_schema", {})
         assert schema and isinstance(schema, dict), f"{cls.__name__} extra_schema empty/invalid"
+
+
+def test_mom_adapter(tmp_path):
+    adapter = MomAdapter(jsonl_path=tmp_path / "mom.jsonl")
+    record = {
+        "doc_id": "mom_fixture_001",
+        "source_url": "https://www.mom.gov.sg/newsroom/press-releases/2026/0528-test",
+        "subsource": "press_release",
+        "title": "MOM enforcement fixture",
+        "body_plain": "MOM charged parties for Employment Act offences.",
+        "stated_breaches": ["Employment Act offence"],
+        "act_references": ["Employment Act 1968"],
+        "subject_organisation": "Example Agency Pte Ltd",
+        "pub_date": "2026-05-28",
+    }
+    adapter.jsonl_path.write_text(
+        json.dumps(record, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+    assert adapter.metadata.source_id == "mom"
+    assert adapter.metadata.display_name
+    assert adapter.metadata.base_url == "https://www.mom.gov.sg"
+    assert adapter.metadata.licence_summary
+    assert adapter.metadata.crawl_delay_seconds == 3.0
+    assert adapter.metadata.requires_attribution is True
+    assert set(adapter.extra_schema) == set(record)
+
+    docs = list(adapter.fetch_all())
+    assert len(docs) == 1
+    doc = docs[0]
+    assert doc.document_id == record["doc_id"]
+    assert doc.source_url == record["source_url"]
+    assert doc.title == record["title"]
+    assert doc.body == record["body_plain"]
+    assert doc.published_date == date(2026, 5, 28)
+    assert doc.doc_type == DocType.PRESS_RELEASE.value
+    assert doc.extra == record
+    assert adapter.fetch_by_id(record["doc_id"]) == doc
+    assert adapter.fetch_by_id("missing") is None
+
+    missing = MomAdapter(jsonl_path=tmp_path / "missing.jsonl")
+    with pytest.raises(SourceAdapterError, match="MOM JSONL fixture not found"):
+        list(missing.fetch_all())
 
 
 def test_commonlii_sg_adapter_delegates_to_ingester(monkeypatch, tmp_path: Path):

@@ -30,6 +30,14 @@ const LEGAL_SOURCES: SourceEntry[] = [
     attribution: "Attribution required to CommonLII and the original court source.",
     crawlDelay: "crawl_delay: 5s",
   },
+  {
+    id: "mom",
+    name: "Ministry of Manpower Singapore",
+    url: "https://www.mom.gov.sg",
+    scope: "Employment-practices guidance, FAQs, advisories, and enforcement press releases.",
+    attribution: "Attribution required to the Ministry of Manpower Singapore.",
+    crawlDelay: "crawl_delay: 3s",
+  },
 ];
 
 export default function LegalSourcesPage() {
