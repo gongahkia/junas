@@ -3,13 +3,170 @@
   "document_type": "generic",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@moorhavencapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@moorhavencapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@moorhavencapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "not personal social media or home device telemetry"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "subject to UK-approved transfer safeguards"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "during the 30 calendar days before publication of our half-year or full-year results, dealing by PDMRs and closely associated persons is prohibited unless an exemption applies and approval is granted via compliance@moorhavencapital.co.uk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "We avoid selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished precise information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProject Alder\u201d"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@moorhavencapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@moorhavencapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@moorhavencapital.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "not personal social media or home device telemetry"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "subject to UK-approved transfer safeguards"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "during the 30 calendar days before publication of our half-year or full-year results, dealing by PDMRs and closely associated persons is prohibited unless an exemption applies and approval is granted via compliance@moorhavencapital.co.uk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "We avoid selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unpublished precise information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "\u201cProject Alder\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "unpublished precise information is not shared with analysts or counterparties"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "market sounding"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "would delay disclosure only where permitted and subject to confidentiality controls"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "XX00MHCPL000",
+      "reason": "Placeholder code explicitly stated not to be a securities identifier or sensitive data"
+    },
+    {
+      "matched_text": "SEC-ZZ-0000",
+      "reason": "Placeholder code explicitly stated not to be a securities identifier or sensitive data"
+    },
+    {
+      "matched_text": "Moorhaven Capital plc",
+      "reason": "Company name, not a natural person PII"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "Role title, not an identifiable natural person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Data subjects may submit a DSAR via privacy@moorhavencapital.co.uk or by post to Data Protection Officer, Moorhaven Capital plc, 4 Kelmer Yard, London W1A 4ZZ",
+      "concept": "DSAR/right-of-access marker",
+      "reason": "Data subject access request workflow is a privacy-event marker but there is no explicit DSAR rule in the allowed set"
+    },
+    {
+      "matched_text": "Retention: HR files are retained for up to six years after employment ends, trading surveillance records for five years per FCA requirements, and aggregated metrics may be held longer in anonymised form",
+      "concept": "retention policy marker",
+      "reason": "Retention controls are legally relevant but there is no explicit retention_marker in the allowed rules"
+    },
+    {
+      "matched_text": "London W1A 4ZZ",
+      "concept": "UK postal address/postcode",
+      "reason": "UK postcode/address is PII but no UK postal address/postcode rule is provided in the allowed set"
+    },
+    {
+      "matched_text": "we do not sell personal data",
+      "concept": "sale-of-data policy",
+      "reason": "Privacy policy statement relevant to data rights but not mapped to any allowed PII rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

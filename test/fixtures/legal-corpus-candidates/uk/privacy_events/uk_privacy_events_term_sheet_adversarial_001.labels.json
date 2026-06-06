@@ -3,13 +3,239 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Forton"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rhea.forton@larkmere.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Idris Keane"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "idris.keane@grayshore.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 020 0000 0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a384,750,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "100%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Clean Team access only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists maintained"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a34,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list per MAR Art. 18"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed period restrictions"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. N. Vale"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Rhea Forton"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "rhea.forton@larkmere.example"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Idris Keane"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "idris.keane@grayshore.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 020 0000 0000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a384,750,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "100%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "Clean Team access only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists maintained"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a34,000,000"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list per MAR Art. 18"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed period restrictions"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. N. Vale"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Data\u2011Export Approval DEA\u2011GB/SG\u2011003"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed acquisition of Grayshore Capital Markets Ltd by Larkmere Analytics plc"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "C o n f i d e n t i a l"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "intended LSE Main Market announcement post\u2011signing subject to FCA guidance"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Seller",
+      "reason": "Role noun; not PII or MNPI by itself"
+    },
+    {
+      "matched_text": "Company Secretary",
+      "reason": "Role noun; not a person identifier"
+    },
+    {
+      "matched_text": "Head of Corp Dev",
+      "reason": "Job title only; not PII alone"
+    },
+    {
+      "matched_text": "no MAC",
+      "reason": "Negated; should not trigger material_adverse_change"
+    },
+    {
+      "matched_text": "shall not trigger MAC",
+      "reason": "Negated clause; not a live material_adverse_change"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR\u201119273",
+      "concept": "DSAR marker",
+      "reason": "DSAR/subject access events are relevant privacy handling but not enumerated as a valid rule in this taxonomy and are closed"
+    },
+    {
+      "matched_text": "erasure request ER\u2011117",
+      "concept": "erasure marker",
+      "reason": "Erasure events are privacy handling but not listed as an allowed rule here and are completed"
+    },
+    {
+      "matched_text": "6\u2011year retention",
+      "concept": "retention marker",
+      "reason": "Records retention is a privacy compliance marker but no explicit retention rule is listed"
+    },
+    {
+      "matched_text": "employee onboarding form OF\u20112026\u201117 captured optional marketing consent",
+      "concept": "consent capture",
+      "reason": "Consent capture is relevant but only consent withdrawal is defined as a valid rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

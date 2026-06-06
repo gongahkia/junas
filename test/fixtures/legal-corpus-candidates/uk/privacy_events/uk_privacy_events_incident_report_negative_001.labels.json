@@ -3,13 +3,105 @@
   "document_type": "memo",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ops-support@northbridgemeridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer (intentional positive)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Retention and minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ops-support@northbridgemeridian.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer (intentional positive)"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Retention and minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "pseudonymised and fields truncated to labels"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "diagnostic exports limited to required fields only"
+    },
+    {
+      "category": "PII",
+      "rule": "uk_nin",
+      "matched_text": "National Insurance number"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "Sort code"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "GB00ZZZZ0000",
+      "reason": "Training placeholder identifier not linked to any listed security; not MNPI."
+    },
+    {
+      "matched_text": "project names",
+      "reason": "Generic phrase; not a 'Project <Name>' codename pattern."
+    },
+    {
+      "matched_text": "no inside information or price-sensitive details",
+      "reason": "Negated statement confirming absence of MNPI."
+    },
+    {
+      "matched_text": "STOR",
+      "reason": "Mentioned as not required; not an MNPI event."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "UK Addendum to the EU SCCs",
+      "concept": "transfer safeguards",
+      "reason": "Cross-border transfer safeguard instrument; relevant to transfers but not an explicit marker in allowed rules."
+    },
+    {
+      "matched_text": "DPIA DP-OPS-41",
+      "concept": "privacy impact assessment reference",
+      "reason": "Indicates privacy governance documentation; not covered by a specific allowed rule."
+    },
+    {
+      "matched_text": "Data Export RQ-784",
+      "concept": "data export approval reference",
+      "reason": "Evidence of a governed cross-border export; not a defined marker in allowed rules."
+    },
+    {
+      "matched_text": "HR onboarding form templates",
+      "concept": "employment data context",
+      "reason": "Indicates categories of personal data handled in templates; not directly mapped to a specific allowed rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

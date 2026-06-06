@@ -3,13 +3,177 @@
   "document_type": "generic",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@northalbioncapital.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider\u2011list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@northalbioncapital.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider\u2011list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer controls"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdraw consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "we do not collect personal phone numbers for onboarding"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "exclude message content"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing records"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role noun/defined term; not PII or MNPI"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role noun/defined term; not PII or MNPI"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Retention",
+      "concept": "retention marker",
+      "reason": "Retention policy is a privacy handling event but no explicit rule for retention markers exists in the allowed set."
+    },
+    {
+      "matched_text": "Data subject rights",
+      "concept": "DSAR intake",
+      "reason": "Rights/DSAR processing is privacy-relevant but no DSAR marker rule is provided."
+    },
+    {
+      "matched_text": "https://privacy.northalbioncapital.example/dsar",
+      "concept": "DSAR portal URL",
+      "reason": "Indicates a DSAR submission endpoint; privacy-relevant but not covered by current rules."
+    },
+    {
+      "matched_text": "DSAR/erasure handling",
+      "concept": "DSAR and erasure marker",
+      "reason": "Completed DSAR/erasure handling is relevant but not mapped to a specific allowed marker rule."
+    },
+    {
+      "matched_text": "completed a DSAR and associated erasure",
+      "concept": "DSAR and erasure event",
+      "reason": "Describes request completion and deletion; privacy-relevant but not in allowed marker list."
+    },
+    {
+      "matched_text": "DSAR\u20112026\u2011077",
+      "concept": "internal case ID",
+      "reason": "Ticket/reference identifier may be personal-data-adjacent but not clearly mapped to an allowed PII rule."
+    },
+    {
+      "matched_text": "Deletion workflows",
+      "concept": "erasure operations",
+      "reason": "Deletion scheduling is privacy-relevant but there is no explicit erasure marker rule."
+    },
+    {
+      "matched_text": "erasure jobs run monthly",
+      "concept": "erasure schedule",
+      "reason": "Deletion cadence is a privacy handling event but not covered by allowed marker rules."
+    },
+    {
+      "matched_text": "Approval Ref NAEX\u2011DXR\u20112026\u2011014",
+      "concept": "internal approval reference",
+      "reason": "Internal approval ID may be an identifier but not mapped to any allowed PII rule."
+    },
+    {
+      "matched_text": "recruitment records are held 12 months then anonymised",
+      "concept": "retention duration",
+      "reason": "Retention policy is privacy-relevant but not covered by an allowed marker rule."
+    },
+    {
+      "matched_text": "insider lists are retained for five years from the date the relevant information is made public",
+      "concept": "retention duration",
+      "reason": "Retention policy is privacy-relevant but not covered by an allowed marker rule."
+    },
+    {
+      "matched_text": "generic deal\u2011room access logs are held 24 months",
+      "concept": "retention duration",
+      "reason": "Retention policy is privacy-relevant but not covered by an allowed marker rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

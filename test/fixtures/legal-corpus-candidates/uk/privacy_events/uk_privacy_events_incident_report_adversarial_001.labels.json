@@ -3,13 +3,181 @@
   "document_type": "memo",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Darius Ruskin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ruskin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tamsin Greaves"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@northshard.capital"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@northshard.capital"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 7000 900900"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Darius Ruskin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Ruskin"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Tamsin Greaves"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@northshard.capital"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@northshard.capital"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 7000 900900"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross\u2011border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr%20Ruskin"
+    },
+    {
+      "category": "PII",
+      "rule": "date_of_birth",
+      "matched_text": "DoB"
+    },
+    {
+      "category": "PII",
+      "rule": "uk_nin",
+      "matched_text": "NI placeholders (NI\u2011***\u2011**\u2011**)"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "eID:R1-7 4Z9"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "non\u2011required fields suppressed"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "MAC clause",
+      "reason": "Negated mention; no Material Adverse Change event occurred."
+    },
+    {
+      "matched_text": "no MNPI",
+      "reason": "Explicit negation; should not be labeled as MNPI."
+    },
+    {
+      "matched_text": "no STOR",
+      "reason": "Negated regulatory report; not an MNPI or market abuse trigger."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "Subject access request is a privacy event but DSAR marker is not an allowed rule name."
+    },
+    {
+      "matched_text": "DSAR #RSK\u201188",
+      "concept": "DSAR identifier",
+      "reason": "DSAR tracking ID is privacy-relevant but no explicit DSAR rule exists."
+    },
+    {
+      "matched_text": "were erased",
+      "concept": "erasure/deletion marker",
+      "reason": "Erasure is privacy-relevant but no erasure marker rule exists."
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "retention marker",
+      "reason": "Data retention is privacy-relevant but no retention marker rule exists."
+    },
+    {
+      "matched_text": "retained per schedule HR\u2011RET\u20115Y",
+      "concept": "retention schedule",
+      "reason": "Indicates retention basis/duration but no retention marker rule exists."
+    },
+    {
+      "matched_text": "auto\u2011purge ran 02/04/2026",
+      "concept": "automated deletion event",
+      "reason": "Purge/deletion is privacy-relevant but no erasure/retention marker rule exists."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

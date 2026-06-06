@@ -3,13 +3,195 @@
   "document_type": "generic",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@northvaleplc.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 20 0000 1122"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hester Cole"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aadil Royce"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E-7X9  3 1"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. J. Rooke"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. D. Kerr"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@northvaleplc.example"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+44 20 0000 1122"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Hester Cole"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Aadil Royce"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "E-7X9  3 1"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. J. Rooke"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. D. Kerr"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "CL/0-7-1-A"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "OPR-7f"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "TR/2026/09a"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "DS/2026-117"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "ERA/26/0041"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "NI* 2 9 *** 4Z"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "hashed NI proxy"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "Mr. Aadil Royce (emp ref E-7X9  3 1)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing controls"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "m.a.c. addresses",
+      "reason": "Explicitly negated: \"no m.a.c. addresses ... are stored\"; avoid MAC address false positive."
+    },
+    {
+      "matched_text": "device serials",
+      "reason": "Explicitly negated: \"no ... device serials are stored\"; avoid device_serial_number false positive."
+    },
+    {
+      "matched_text": "inside information",
+      "reason": "Explicitly negated by \"contains no inside information\"; avoid MNPI false positive."
+    },
+    {
+      "matched_text": "data breach notification",
+      "reason": "Explicitly negated by \"not a data breach notification\"; avoid breach-notice false positive."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "dsar_marker",
+      "reason": "DSAR privacy-event marker is relevant but not among the allowed rule labels."
+    },
+    {
+      "matched_text": "Erasure",
+      "concept": "erasure_marker",
+      "reason": "Erasure/deletion event marker is relevant but not in allowed rule list."
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "retention_marker",
+      "reason": "Retention policy marker is relevant but not in allowed rule list."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

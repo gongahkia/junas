@@ -3,13 +3,234 @@
   "document_type": "generic",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border export"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "onward transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation control"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation/segregation"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@thornhavencap.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Delmere"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Edmund Kersey"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Isla Penwright"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "THV-TK-1172"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "THV-AUD-001"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "THV-AUD-004"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 18"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border export"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "onward transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation control"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation/segregation"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@thornhavencap.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Priya Delmere"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Edmund Kersey"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Isla Penwright"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "THV-TK-1172"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "THV-AUD-001"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "THV-AUD-004"
+    },
+    {
+      "category": "PII",
+      "rule": "minor_data_reference",
+      "matched_text": "under 18"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfer mechanism"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transparency"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "no live transfers occur to the United States"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no customer financial account data"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "employee home addresses are not collected"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed Rivermere Exchange secondary listing"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "bank details",
+      "reason": "Generic mention of a data type; no actual account information present."
+    },
+    {
+      "matched_text": "national identifier fields",
+      "reason": "Generic reference to identifiers without any values."
+    },
+    {
+      "matched_text": "TraderIDs",
+      "reason": "Generic identifier label, not a specific personal identifier."
+    },
+    {
+      "matched_text": "vendor",
+      "reason": "Role noun/party reference, not personal data or MNPI."
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role title only; not PII on its own."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "Data subject access request event is relevant but not covered by an explicit allowed rule."
+    },
+    {
+      "matched_text": "were erased on 10 May 2026",
+      "concept": "erasure marker",
+      "reason": "Erasure event is a privacy handling control but there is no explicit erasure rule in the allowed set."
+    },
+    {
+      "matched_text": "retained 90 days then auto-deleted",
+      "concept": "retention marker",
+      "reason": "Retention/deletion duration is a privacy control but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "12 months for surveillance chat; 6 years for payroll",
+      "concept": "retention policy",
+      "reason": "Specific retention periods are legally relevant but not in the allowed rules."
+    },
+    {
+      "matched_text": "names pseudonymised to hashed TraderIDs",
+      "concept": "pseudonymisation",
+      "reason": "Privacy-preserving technique relevant to GDPR, not covered by an allowed rule."
+    },
+    {
+      "matched_text": "signed on 18 May 2026",
+      "concept": "signing date",
+      "reason": "Date of agreement execution is relevant timing but does not match the explicit Embargo/Signing Date tokens in allowed rules."
+    },
+    {
+      "matched_text": "with only non-identifiable aggregates retained for reporting",
+      "concept": "aggregation/minimisation",
+      "reason": "Data minimisation via aggregation is relevant but not explicitly enumerated beyond generic minimisation rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

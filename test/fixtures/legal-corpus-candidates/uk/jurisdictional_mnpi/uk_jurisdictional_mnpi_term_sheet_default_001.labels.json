@@ -3,13 +3,238 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "UK",
   "destination_jurisdiction": "UK",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Eliza Hawthorn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "eliza.hawthorn@britanniafinserv.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@britanniafinserv.co.uk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "wall-crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a33.2 million"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Eliza Hawthorn"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "eliza.hawthorn@britanniafinserv.co.uk"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@britanniafinserv.co.uk"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Proposed Recommended Acquisition of Northbridge Payments plc by Britannia FinServ plc"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "wall-crossed"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no selective disclosure outside wall-crossed investors and advisers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "wall-crossed recipients only"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "SPA"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "term sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "MAC definitions"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "Target signing of a definitive SPA by 28 June 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "cleansing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "court-sanctioned scheme of arrangement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Fully underwritten bridge and term facilities"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Exclusivity until 15 July 2026"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "1.5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u00a33.2 million"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "break fee"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "public and not MNPI",
+      "reason": "Explicitly stated as public information; not MNPI per document."
+    },
+    {
+      "matched_text": "public and not issuer-specific",
+      "reason": "Broad public press-release reference; not issuer-specific MNPI."
+    },
+    {
+      "matched_text": "18.2% EBITDA margin",
+      "reason": "Stale public information from published Annual Report; not MNPI."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "long-stop date 30 September 2026",
+      "concept": "timeline gate",
+      "reason": "Material transaction milestone but not an enumerated embargo marker term."
+    },
+    {
+      "matched_text": "PDMRs",
+      "concept": "PDMR dealing restrictions",
+      "reason": "UK MAR-relevant role designation; no explicit rule category provided."
+    },
+    {
+      "matched_text": "Issuer Announcement Service (IAS)",
+      "concept": "UK disclosure mechanism",
+      "reason": "Regulatory disclosure channel; relevant to public/non-public status but not an explicit rule."
+    },
+    {
+      "matched_text": "Heads of Terms",
+      "concept": "definitive agreement label variant",
+      "reason": "Document-type indicator akin to a term sheet but not listed in definitive agreement rule variants."
+    },
+    {
+      "matched_text": "pricing grid",
+      "concept": "financing covenant MNPI",
+      "reason": "Precise financing terms are inside information but not mapped to a specific MNPI sub-rule."
+    },
+    {
+      "matched_text": "leverage covenants",
+      "concept": "financing covenant MNPI",
+      "reason": "Covenant terms are inside information but not mapped to a specific MNPI sub-rule."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop ideal_must_detect: unsupported financial amount shape rule='financial_amount' text='212 pence'"
+  ],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
