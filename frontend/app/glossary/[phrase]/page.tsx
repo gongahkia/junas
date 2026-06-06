@@ -1,5 +1,9 @@
 import Link from "next/link";
+import createDOMPurify from "dompurify";
+import { JSDOM } from "jsdom";
 import { getGlossaryTerm, compareGlossaryTerm } from "../../../lib/api-server";
+
+const DOMPurify = createDOMPurify(new JSDOM("").window);
 
 type Definition = {
   jurisdiction: string;
@@ -47,23 +51,31 @@ export default async function GlossaryTermPage({ params }: { params: { phrase: s
       {term.definitions.length === 0 ? <p>No definitions found for this term.</p> : null}
 
       <div className="result-grid">
-        {term.definitions.map((definition) => (
-          <article
-            key={`${definition.jurisdiction}-${definition.domain}-${definition.source_url}`}
-            className="result-card"
-          >
-            <h3>
-              {definition.jurisdiction} <span className="badge muted">{definition.domain}</span>
-            </h3>
-            <div
-              className="definition-html"
-              dangerouslySetInnerHTML={{ __html: definition.definition_html }}
-            />
-            <p className="meta-line">
-              Source: <a href={definition.source_url}>{definition.source_title || definition.source_url}</a>
-            </p>
-          </article>
-        ))}
+        {term.definitions.map((definition) => {
+          /*
+           * audit finding #7: glossary HTML is user-influenceable through ingestion.
+           * keep DOMPurify on this dangerouslySetInnerHTML source.
+           */
+          const sanitizedDefinitionHtml = DOMPurify.sanitize(definition.definition_html);
+
+          return (
+            <article
+              key={`${definition.jurisdiction}-${definition.domain}-${definition.source_url}`}
+              className="result-card"
+            >
+              <h3>
+                {definition.jurisdiction} <span className="badge muted">{definition.domain}</span>
+              </h3>
+              <div
+                className="definition-html"
+                dangerouslySetInnerHTML={{ __html: sanitizedDefinitionHtml }}
+              />
+              <p className="meta-line">
+                Source: <a href={definition.source_url}>{definition.source_title || definition.source_url}</a>
+              </p>
+            </article>
+          );
+        })}
       </div>
 
       <h3>Comparison View</h3>
