@@ -5,6 +5,7 @@ import asyncio
 import hashlib
 import json
 import logging
+import time
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -21,6 +22,16 @@ from benchmark.contamination import (
     contamination_summary,
     run_probe,
 )
+
+try:  # telemetry is optional; runner must work without backend.api
+    from api.telemetry import span as _telemetry_span
+except Exception:  # noqa: BLE001
+    from contextlib import contextmanager, nullcontext
+
+    @contextmanager
+    def _telemetry_span(name: str, **attributes: Any):  # type: ignore[misc]
+        with nullcontext() as ctx:
+            yield ctx
 
 logger = logging.getLogger(__name__)
 
@@ -121,76 +132,120 @@ async def _run_case(
     case: Case,
     evaluators: list[str],
 ) -> list[EvalCaseResult]:
-    task_runner = TASKS.get(workflow)
-    if task_runner is None:
-        return [
-            EvalCaseResult(
-                case_name=case.name,
-                evaluator=ev,
-                score=0.0,
-                error=f"unknown workflow {workflow!r}",
-            )
-            for ev in evaluators
-        ]
-
-    try:
-        output = await task_runner(case)
-    except Exception as exc:  # noqa: BLE001
-        return [
-            EvalCaseResult(
-                case_name=case.name,
-                evaluator=ev,
-                score=0.0,
-                error=f"task failed: {exc}",
-            )
-            for ev in evaluators
-        ]
-
-    results: list[EvalCaseResult] = []
-    for ev_name in evaluators:
-        evaluator = EVALUATORS.get(ev_name)
-        if evaluator is None:
-            results.append(
+    # span: structural metadata only — case name, workflow, evaluator names.
+    # we DO NOT emit case.inputs, output, or expected_output. those live in
+    # the receipt JSON; telemetry is for shape, not content.
+    with _telemetry_span(
+        "benchmark.case",
+        workflow=workflow,
+        case_name=case.name,
+        evaluators=list(evaluators),
+    ):
+        task_runner = TASKS.get(workflow)
+        if task_runner is None:
+            return [
                 EvalCaseResult(
                     case_name=case.name,
-                    evaluator=ev_name,
+                    evaluator=ev,
                     score=0.0,
-                    output=output,
-                    error=f"unknown evaluator {ev_name!r}",
+                    error=f"unknown workflow {workflow!r}",
                 )
-            )
-            continue
-        try:
-            outcome = await evaluator.evaluate(
-                EvaluatorContext(
-                    case_name=case.name,
-                    inputs=case.inputs,
-                    expected_output=case.expected_output,
-                    metadata=case.metadata,
-                    output=output,
-                )
-            )
-            results.append(
-                EvalCaseResult(
-                    case_name=case.name,
-                    evaluator=ev_name,
-                    score=outcome.score,
-                    output=output,
-                    metadata=outcome.detail,
-                )
-            )
-        except Exception as exc:  # noqa: BLE001
-            results.append(
-                EvalCaseResult(
-                    case_name=case.name,
-                    evaluator=ev_name,
-                    score=0.0,
-                    output=output,
-                    error=f"evaluator failed: {exc}",
-                )
-            )
+                for ev in evaluators
+            ]
 
-    return results
+        task_start = time.perf_counter()
+        with _telemetry_span("benchmark.task", workflow=workflow, case_name=case.name):
+            try:
+                output = await task_runner(case)
+            except Exception as exc:  # noqa: BLE001
+                task_duration_ms = round((time.perf_counter() - task_start) * 1000, 2)
+                error_class = type(exc).__name__
+                with _telemetry_span(
+                    "benchmark.task.error",
+                    workflow=workflow,
+                    case_name=case.name,
+                    error_class=error_class,
+                    duration_ms=task_duration_ms,
+                ):
+                    pass
+                return [
+                    EvalCaseResult(
+                        case_name=case.name,
+                        evaluator=ev,
+                        score=0.0,
+                        error=f"task failed: {exc}",
+                    )
+                    for ev in evaluators
+                ]
+        task_duration_ms = round((time.perf_counter() - task_start) * 1000, 2)
+
+        results: list[EvalCaseResult] = []
+        for ev_name in evaluators:
+            evaluator = EVALUATORS.get(ev_name)
+            if evaluator is None:
+                results.append(
+                    EvalCaseResult(
+                        case_name=case.name,
+                        evaluator=ev_name,
+                        score=0.0,
+                        output=output,
+                        error=f"unknown evaluator {ev_name!r}",
+                    )
+                )
+                continue
+            ev_start = time.perf_counter()
+            try:
+                outcome = await evaluator.evaluate(
+                    EvaluatorContext(
+                        case_name=case.name,
+                        inputs=case.inputs,
+                        expected_output=case.expected_output,
+                        metadata=case.metadata,
+                        output=output,
+                    )
+                )
+                ev_duration_ms = round((time.perf_counter() - ev_start) * 1000, 2)
+                with _telemetry_span(
+                    "benchmark.evaluator",
+                    workflow=workflow,
+                    case_name=case.name,
+                    evaluator=ev_name,
+                    score=float(outcome.score),
+                    duration_ms=ev_duration_ms,
+                    task_duration_ms=task_duration_ms,
+                ):
+                    pass
+                results.append(
+                    EvalCaseResult(
+                        case_name=case.name,
+                        evaluator=ev_name,
+                        score=outcome.score,
+                        output=output,
+                        metadata=outcome.detail,
+                    )
+                )
+            except Exception as exc:  # noqa: BLE001
+                ev_duration_ms = round((time.perf_counter() - ev_start) * 1000, 2)
+                with _telemetry_span(
+                    "benchmark.evaluator.error",
+                    workflow=workflow,
+                    case_name=case.name,
+                    evaluator=ev_name,
+                    error_class=type(exc).__name__,
+                    duration_ms=ev_duration_ms,
+                ):
+                    pass
+                results.append(
+                    EvalCaseResult(
+                        case_name=case.name,
+                        evaluator=ev_name,
+                        score=0.0,
+                        output=output,
+                        error=f"evaluator failed: {exc}",
+                    )
+                )
+
+        return results
 
 
 async def run(
@@ -229,6 +284,14 @@ async def run(
         )
 
     dataset = load_dataset(dataset_path)
+    run_span = _telemetry_span(
+        "benchmark.run",
+        workflow=workflow,
+        dataset=str(dataset_path),
+        total_cases=len(dataset.cases),
+        evaluators=list(evaluators),
+        strict=strict,
+    )
     # Prefer per-runner provenance (set via register_task(..., provenance=...));
     # fall back to a runner.provenance attribute attached by llm_task_for.
     provenance = get_provenance(workflow)
@@ -253,24 +316,25 @@ async def run(
         async with semaphore:
             return await _run_case(workflow, case, evaluators)
 
-    all_results = await asyncio.gather(*[_bounded(c) for c in dataset.cases])
-    for per_case in all_results:
-        summary.results.extend(per_case)
+    with run_span:
+        all_results = await asyncio.gather(*[_bounded(c) for c in dataset.cases])
+        for per_case in all_results:
+            summary.results.extend(per_case)
 
-    if contamination_probe:
-        probe_results, method = await run_probe(
-            workflow,
-            dataset.cases,
-            max_concurrency=max_concurrency,
-        )
-        attach_probe_metadata(summary.results, probe_results)
-        summary.contamination_summary = contamination_summary(
-            workflow,
-            evaluators,
-            summary.results,
-            probe_results,
-            method=method,
-        )
+        if contamination_probe:
+            probe_results, method = await run_probe(
+                workflow,
+                dataset.cases,
+                max_concurrency=max_concurrency,
+            )
+            attach_probe_metadata(summary.results, probe_results)
+            summary.contamination_summary = contamination_summary(
+                workflow,
+                evaluators,
+                summary.results,
+                probe_results,
+                method=method,
+            )
 
     summary.finished_at = datetime.now(timezone.utc).isoformat()
     return summary
