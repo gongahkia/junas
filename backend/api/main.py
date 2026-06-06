@@ -17,6 +17,7 @@ from api.routers import (
     compliance_router,
     contracts_router,
     documents_router,
+    exports_router,
     glossary_router,
     health_router,
     jurisdictions_router,
@@ -70,6 +71,7 @@ tags_metadata = [
     {"name": "jurisdictions", "description": "Singapore jurisdiction registry"},
     {"name": "ner", "description": "Legal named entity extraction"},
     {"name": "benchmarks", "description": "SG-LegalBench evaluation runs and leaderboard"},
+    {"name": "exports", "description": "DOCX exports for receipts and chat sessions"},
 ]
 
 
@@ -227,6 +229,7 @@ def create_app() -> FastAPI:
     app.include_router(legal_sources_router, prefix="/api/v1", tags=["legal-sources"])
     app.include_router(jurisdictions_router, prefix="/api/v1", tags=["jurisdictions"])
     app.include_router(benchmarks_router, prefix="/api/v1", tags=["benchmarks"])
+    app.include_router(exports_router, prefix="/api/v1", tags=["exports"])
     _telemetry_instrument_fastapi(app)  # no-op unless LOGFIRE_TOKEN is set
     return app
 

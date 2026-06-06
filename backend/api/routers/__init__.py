@@ -4,6 +4,7 @@ from api.routers.clauses import router as clauses_router
 from api.routers.compliance import router as compliance_router
 from api.routers.contracts import router as contracts_router
 from api.routers.documents import router as documents_router
+from api.routers.exports import router as exports_router
 from api.routers.glossary import router as glossary_router
 from api.routers.health import router as health_router
 from api.routers.jurisdictions import router as jurisdictions_router
@@ -28,6 +29,7 @@ __all__ = [
     "templates_router",
     "compliance_router",
     "documents_router",
+    "exports_router",
     "legal_sources_router",
     "jurisdictions_router",
 ]
