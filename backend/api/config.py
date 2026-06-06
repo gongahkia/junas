@@ -1,8 +1,9 @@
 import json
 from functools import lru_cache
+from typing import Annotated
 
 from pydantic import Field, field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -38,12 +39,12 @@ class Settings(BaseSettings):
     azure_openai_deployment: str = ""
     allow_byok: bool = True
     require_auth: bool = False
-    api_keys: list[str] = Field(default_factory=list)
+    api_keys: Annotated[list[str], NoDecode] = Field(default_factory=list)
     rate_limit_enabled: bool = True
     rate_limit_default_per_minute: int = 120
     rate_limit_research_per_minute: int = 10
     rate_limit_search_per_minute: int = 30
-    cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
+    cors_origins: Annotated[list[str], NoDecode] = Field(default_factory=lambda: ["http://localhost:3000"])
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

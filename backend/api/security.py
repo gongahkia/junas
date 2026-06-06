@@ -20,10 +20,12 @@ def _path_is_exempt(path: str) -> bool:
     }
 
 
-def authorize_request(request: Request, settings: Settings) -> str | None:
-    if not settings.require_auth:
-        return None
+def _path_requires_benchmark_auth(path: str) -> bool:
+    # launch-day minimum: API_KEYS gate; use Vercel password protection for the hosted demo too.
+    return path == "/api/v1/benchmarks" or path.startswith("/api/v1/benchmarks/")
 
+
+def authorize_request(request: Request, settings: Settings) -> str | None:
     path = request.url.path
     if _path_is_exempt(path):
         return None
@@ -31,7 +33,12 @@ def authorize_request(request: Request, settings: Settings) -> str | None:
     if not path.startswith("/api/v1"):
         return None
 
+    if not settings.require_auth and not _path_requires_benchmark_auth(path):
+        return None
+
     api_key = request.headers.get("X-API-Key", "").strip()
+    if not settings.api_keys:
+        raise HTTPException(status_code=401, detail="API key required; set API_KEYS")
     if not api_key or api_key not in settings.api_keys:
         raise HTTPException(status_code=401, detail="Invalid API key")
     return api_key

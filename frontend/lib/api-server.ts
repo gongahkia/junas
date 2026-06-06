@@ -4,6 +4,7 @@
  */
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 function apiUrl(path: string): string { return `${API_BASE}/api/v1${path}`; }
+export type ApiResult<T> = { status: number; data: T | null; error?: string };
 
 async function get(path: string) {
   try {
@@ -12,9 +13,25 @@ async function get(path: string) {
     return resp.json();
   } catch { return null; }
 }
-async function post(path: string, body: any) {
+async function getResult<T>(path: string, headers?: Record<string, string>): Promise<ApiResult<T>> {
   try {
-    const resp = await fetch(apiUrl(path), { method: "POST", cache: "no-store", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    const resp = await fetch(apiUrl(path), { cache: "no-store", headers });
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      return { status: resp.status, data: null, error: (err as any).detail || `HTTP ${resp.status}` };
+    }
+    return { status: resp.status, data: await resp.json() as T };
+  } catch (e: any) {
+    return { status: 0, data: null, error: e.message || "Network error" };
+  }
+}
+function apiKeyHeaders(apiKey?: string): Record<string, string> | undefined {
+  const trimmed = apiKey?.trim();
+  return trimmed ? { "X-API-Key": trimmed } : undefined;
+}
+async function post(path: string, body: any, headers?: Record<string, string>) {
+  try {
+    const resp = await fetch(apiUrl(path), { method: "POST", cache: "no-store", headers: { "Content-Type": "application/json", ...headers }, body: JSON.stringify(body) });
     if (!resp.ok) { const err = await resp.json().catch(() => ({})); return { error: (err as any).detail || `HTTP ${resp.status}` }; }
     return resp.json();
   } catch (e: any) { return { error: e.message || "Network error" }; }
@@ -25,17 +42,17 @@ export async function getReady() { return (await get("/ready")) ?? { services: {
 export async function getMetrics() { return await get("/metrics"); }
 
 // benchmarks (SG-LegalBench)
-export async function listBenchmarkTasks() {
-  return (await get("/benchmarks/tasks")) ?? [];
+export async function listBenchmarkTasks<T = unknown[]>(apiKey?: string): Promise<ApiResult<T>> {
+  return await getResult<T>("/benchmarks/tasks", apiKeyHeaders(apiKey));
 }
-export async function listBenchmarkEvaluators() {
-  return (await get("/benchmarks/evaluators")) ?? [];
+export async function listBenchmarkEvaluators<T = unknown[]>(apiKey?: string): Promise<ApiResult<T>> {
+  return await getResult<T>("/benchmarks/evaluators", apiKeyHeaders(apiKey));
 }
-export async function getBenchmarkLeaderboard() {
-  return (await get("/benchmarks/leaderboard")) ?? { entries: [], aggregated_per_workflow: {} };
+export async function getBenchmarkLeaderboard<T = unknown>(apiKey?: string): Promise<ApiResult<T>> {
+  return await getResult<T>("/benchmarks/leaderboard", apiKeyHeaders(apiKey));
 }
-export async function runBenchmark(payload: { workflow: string; dataset: string; evaluators: string[]; max_concurrency?: number; strict?: boolean }) {
-  return await post("/benchmarks/run", payload);
+export async function runBenchmark(payload: { workflow: string; dataset: string; evaluators: string[]; max_concurrency?: number; strict?: boolean }, apiKey?: string) {
+  return await post("/benchmarks/run", payload, apiKeyHeaders(apiKey));
 }
 
 // glossary
