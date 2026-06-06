@@ -37,10 +37,12 @@ Read that file alongside this one.
    No baseline, leaderboard, or launch asset is shippable until Tier 1
    lands. Specific blockers tracked in `GAPS-TO-REMEDY.md` as
    BLOCKER/HIGH severity.
-2. **SGLB-05/06/07 are removed from the v0.1 leaderboard** until data
-   lands (closed by `NEW-HONEST-LEADERBOARD`). The previous "8 tasks
-   shipped" claim is replaced with "4 eligible tasks (SGLB-01, -02,
-   -04, -08); 3 code-shipped awaiting data; 1 TOS-gated".
+2. **SGLB-05/06/07 eligibility status (updated 2026-06-06 after Tier 2):**
+   - SGLB-06: now `benchmark_eligible=True` (PR #100 landed SSO ROC2021 data + dataset YAML).
+   - SGLB-05: code + integration smoke shipped (PRs #102 + #104 + #105); `benchmark_eligible=False` until `make ingest-mom LIVE=1` lands the production dataset.
+   - SGLB-07: code + jurisdiction extractor shipped (PR #103); `benchmark_eligible=False` until `make ingest-commonlii-sg` lands the production dataset.
+   - SGLB-03: TOS-gated (eLitigation); stays `benchmark_eligible=False`.
+   - v0.1 currently-eligible set: SGLB-01, -02, -04, -06, -08 (5 tasks).
 3. **SGLB-08 v0.1 status is conditional on `SOLO-17` κ result.** If
    any pairwise κ < 0.4, the task is reframed as
    "Inter-Judge-Alignment" sub-track for v0.1 (`NEW-08-REFRAME-IF-LOW-KAPPA`).
@@ -1131,7 +1133,25 @@ should retire the task per coverage-matrix §8.
 
 # Tier 2 — Data hardening
 
-_Closes empty tasks (SGLB-05/06/07) + scales N where possible. Gated on Tier 1 closure._
+_Closes empty tasks (SGLB-05/06/07) + scales N where possible._
+
+**TIER 2 — DONE ✅ (2026-06-06, PRs #100-105). All 6 work units closed.**
+
+| Work unit | Closes | PR | Notes |
+|---|---|---|---|
+| `NEW-SSO-EXPAND` | GAP-04 partial | #100 | SSO ingest for EmA1968 + ROC2021 + PC1871; SGLB-02 dataset expanded to ~500; SGLB-06 RoC dataset ~150; `benchmark_eligible=True` flipped for SGLB-06. `vendor-data/sso/*.jsonl` NOT committed (gitignored — regenerate via `make ingest-sso SSO_CODE=...`). |
+| `NEW-SGLB-04-PROD` | #32 + GAP-13 | #101 | SGLB-04 expanded from 30-case smoke to 1000+ production set with per-error stratification. Prereq `NEW-SAL-VALIDATION` (PR #89) ensured grammar matched the SAL Style Guide. |
+| Batch A A1 + A2 | advances #59 | #102 | MOM ingester network layer + HTML parser + 2 fixture HTML pages. Required force-push after rebase. |
+| Batch B B1 + B2 + B3 + B4 | advances #34 | #103 | CommonLII SG case ingester chain: fetcher (B1), parser (B2), adapter (B4), jurisdiction-statement extractor (B3 — load-bearing for SGLB-07 gold labels). Rebased to drop a duplicate SSO commit during cleanup. |
+| Batch A A4 | advances #59 | #104 | MOM adapter contract + frontend `legal-sources/page.tsx` entry. Recovered from `/tmp/a4-backup` after the agent left it uncommitted on the wrong branch during parallel execution. |
+| Batch A A3 | closes A3; advances #59 | #105 | SGLB-05 end-to-end integration smoke (3 tests; fixture round-trips through parser → JSONL → builder → harness → multi_label_f1 oracle, scores 1.0). Spec bumped from `0.1-code-shipped` to `0.1-shipped (smoke)`. Authored separately because the A3 agent never started. |
+
+**SGLB-05 + SGLB-06 + SGLB-07 status after Tier 2:** all three are code-shipped and have at least smoke data. **SGLB-06** is `benchmark_eligible=True` (flipped in #100). **SGLB-05** and **SGLB-07** stay `benchmark_eligible=False` until live ingest runs land (`make ingest-mom LIVE=1` for SGLB-05; `make ingest-commonlii-sg` for SGLB-07; both default to `--dry-run` for network safety).
+
+The 10 prompt bodies below are preserved verbatim for re-runs.
+
+<details>
+<summary><strong>TIER 2 — DONE.</strong> 10 prompt bodies preserved (Batch A A1-A4, Batch B B1-B4, NEW-SSO-EXPAND, NEW-SGLB-04-PROD). Click to expand.</summary>
 
 # Batch A — MOM Scraper (#59), 4 parallel agents
 
@@ -1688,6 +1708,8 @@ Commit: `feat(sglb-04): expand to 1000+ case production set (closes
 Report back: per-stratum N; any perturbation kind that was hard to
 generate; whether v0.2 should add more perturbation kinds.
 ```
+
+</details>
 
 ---
 
