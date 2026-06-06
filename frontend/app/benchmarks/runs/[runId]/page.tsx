@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { headers } from "next/headers";
+import { getBenchmarkRun } from "../../../../lib/api-server";
 
 type EvaluatorScore = {
   score: number;
@@ -33,22 +34,10 @@ type RunDetail = {
 
 type SortDir = "asc" | "desc";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-
 export const dynamic = "force-dynamic";
 
 async function getRun(runId: string, apiKey: string): Promise<RunDetail | null> {
-  const requestHeaders = apiKey.trim() ? { "X-API-Key": apiKey.trim() } : undefined;
-  try {
-    const resp = await fetch(
-      `${API_BASE}/api/v1/benchmarks/runs/${encodeURIComponent(runId)}`,
-      { cache: "no-store", headers: requestHeaders },
-    );
-    if (!resp.ok) return null;
-    return (await resp.json()) as RunDetail;
-  } catch {
-    return null;
-  }
+  return (await getBenchmarkRun(runId, apiKey)) as RunDetail | null;
 }
 
 function paramValue(value: string | string[] | undefined): string {

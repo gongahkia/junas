@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import { listTemplates, renderTemplate } from "../../lib/api-client";
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 type Variable = { name: string; label: string; placeholder: string; type: string };
 type Template = { id: string; title: string; category: string; jurisdiction: string; description: string; variables: Variable[]; content: string };
 
@@ -12,7 +12,7 @@ export default function TemplatesPage() {
   const [rendered, setRendered] = useState("");
 
   useEffect(() => {
-    fetch(`${API}/api/v1/templates`).then((r) => r.json()).then(setTemplates).catch(() => {});
+    listTemplates().then(setTemplates).catch(() => {});
   }, []);
 
   const selectTemplate = (t: Template) => {
@@ -23,12 +23,7 @@ export default function TemplatesPage() {
 
   const renderDoc = async () => {
     if (!selected) return;
-    const resp = await fetch(`${API}/api/v1/templates/${selected.id}/render`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ values }),
-    });
-    const data = await resp.json();
+    const data = await renderTemplate(selected.id, values);
     setRendered(data.rendered || "");
   };
 

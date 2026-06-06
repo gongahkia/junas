@@ -1,22 +1,21 @@
 "use client";
 import { useState, useRef, useEffect, useCallback, lazy, Suspense } from "react";
-import type { NodeMap, TreeMessage, MessageRole } from "../lib/chat-tree";
-import { createId, getLinearHistory, getBranchSiblings, addChild, findLeaves } from "../lib/chat-tree";
-import { parseDocument } from "../lib/api-client";
-import { handleCommand } from "../lib/commands/command-handler";
-import { saveConversation, loadConversation, generateConversationId, listConversations } from "../lib/conversation-store";
-import { useKeyboardShortcuts } from "../lib/use-keyboard-shortcuts";
-import TokenCounter from "../components/chat/TokenCounter";
-import CommandSuggestions, { COMMANDS } from "../components/chat/CommandSuggestions";
-import { addNotification } from "../lib/notification-store";
-import ProviderSelector from "../components/provider-selector";
-import ArtifactsPanel, { extractArtifacts } from "../components/artifacts-panel";
+import type { NodeMap, TreeMessage, MessageRole } from "../../lib/chat-tree";
+import { createId, getLinearHistory, getBranchSiblings, addChild, findLeaves } from "../../lib/chat-tree";
+import { chatStream, parseDocument } from "../../lib/api-client";
+import { handleCommand } from "../../lib/commands/command-handler";
+import { saveConversation, loadConversation, generateConversationId, listConversations } from "../../lib/conversation-store";
+import { useKeyboardShortcuts } from "../../lib/use-keyboard-shortcuts";
+import TokenCounter from "../../components/chat/TokenCounter";
+import CommandSuggestions, { COMMANDS } from "../../components/chat/CommandSuggestions";
+import { addNotification } from "../../lib/notification-store";
+import ProviderSelector from "../../components/provider-selector";
+import ArtifactsPanel, { extractArtifacts } from "../../components/artifacts-panel";
 
-const LegalMarkdownRenderer = lazy(() => import("../components/chat/LegalMarkdownRenderer"));
-const ForceGraph = lazy(() => import("../components/chat/ForceGraph"));
-const CommandPalette = lazy(() => import("../components/chat/CommandPalette"));
+const LegalMarkdownRenderer = lazy(() => import("../../components/chat/LegalMarkdownRenderer"));
+const ForceGraph = lazy(() => import("../../components/chat/ForceGraph"));
+const CommandPalette = lazy(() => import("../../components/chat/CommandPalette"));
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 type Tab = "chat" | "tree";
 
 export default function HomePage() {
@@ -176,39 +175,18 @@ export default function HomePage() {
     abortRef.current = controller;
     try {
       const history = getLinearHistory(map, asstId).slice(0, -1);
-      const resp = await fetch(`${API_BASE}/api/v1/chat/stream`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          provider, model: model || undefined,
-          messages: history.map(m => ({ role: m.role, content: m.content })),
-          api_key: apiKey || localStorage.getItem(`junas_apikey_${provider}`) || "",
-          system_prompt: systemPrompt || undefined, max_tokens: 4096,
-        }),
+      let accumulated = "";
+      for await (const delta of chatStream({
+        provider,
+        model: model || undefined,
+        messages: history.map(m => ({ role: m.role, content: m.content })),
+        apiKey: apiKey || localStorage.getItem(`junas_apikey_${provider}`) || "",
+        systemPrompt: systemPrompt || undefined,
+        maxTokens: 4096,
         signal: controller.signal,
-      });
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      const reader = resp.body?.getReader();
-      if (!reader) return;
-      const decoder = new TextDecoder();
-      let buffer = "", accumulated = "";
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split("\n");
-        buffer = lines.pop() || "";
-        for (const line of lines) {
-          if (!line.startsWith("data: ")) continue;
-          try {
-            const ev = JSON.parse(line.slice(6));
-            if (ev.error) throw new Error(ev.error);
-            if (ev.delta) {
-              accumulated += ev.delta;
-              setNodeMap(prev => ({ ...prev, [asstId]: { ...prev[asstId], content: accumulated, responseTimeMs: Date.now() - startTimeRef.current } }));
-            }
-          } catch {}
-        }
+      })) {
+        accumulated += delta;
+        setNodeMap(prev => ({ ...prev, [asstId]: { ...prev[asstId], content: accumulated, responseTimeMs: Date.now() - startTimeRef.current } }));
       }
       setNodeMap(prev => ({ ...prev, [asstId]: { ...prev[asstId], content: accumulated, responseTimeMs: Date.now() - startTimeRef.current } }));
     } catch (err: any) {

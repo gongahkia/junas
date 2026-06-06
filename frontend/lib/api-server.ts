@@ -1,109 +1,63 @@
 /**
- * Server-safe API client for Next.js server components.
- * Mirrors api-client.ts but uses process.env and {cache: "no-store"}.
+ * server api boundary
+ *
+ * server components and route-time code import from here so every request uses
+ * the same endpoint contract as api-client.ts with Next.js SSR/RSC no-store
+ * fetch semantics. add endpoints in createApiClient only.
  */
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
-function apiUrl(path: string): string { return `${API_BASE}/api/v1${path}`; }
-export type ApiResult<T> = { status: number; data: T | null; error?: string };
+import { apiUrl, createApiClient, type ApiTransport } from "./api-client";
 
-async function get(path: string) {
-  try {
-    const resp = await fetch(apiUrl(path), { cache: "no-store" });
-    if (!resp.ok) return null;
-    return resp.json();
-  } catch { return null; }
-}
-async function getResult<T>(path: string, headers?: Record<string, string>): Promise<ApiResult<T>> {
-  try {
-    const resp = await fetch(apiUrl(path), { cache: "no-store", headers });
-    if (!resp.ok) {
-      const err = await resp.json().catch(() => ({}));
-      return { status: resp.status, data: null, error: (err as any).detail || `HTTP ${resp.status}` };
-    }
-    return { status: resp.status, data: await resp.json() as T };
-  } catch (e: any) {
-    return { status: 0, data: null, error: e.message || "Network error" };
-  }
-}
-function apiKeyHeaders(apiKey?: string): Record<string, string> | undefined {
-  const trimmed = apiKey?.trim();
-  return trimmed ? { "X-API-Key": trimmed } : undefined;
-}
-async function post(path: string, body: any, headers?: Record<string, string>) {
-  try {
-    const resp = await fetch(apiUrl(path), { method: "POST", cache: "no-store", headers: { "Content-Type": "application/json", ...headers }, body: JSON.stringify(body) });
-    if (!resp.ok) { const err = await resp.json().catch(() => ({})); return { error: (err as any).detail || `HTTP ${resp.status}` }; }
-    return resp.json();
-  } catch (e: any) { return { error: e.message || "Network error" }; }
-}
+const serverTransport: ApiTransport = (path, init = {}) => fetch(apiUrl(path), {
+  ...init,
+  cache: init.cache ?? "no-store",
+});
 
-// health
-export async function getReady() { return (await get("/ready")) ?? { services: {} }; }
-export async function getMetrics() { return await get("/metrics"); }
+export const apiServer = createApiClient(serverTransport);
 
-// benchmarks (SG-LegalBench)
-export async function listBenchmarkTasks<T = unknown[]>(apiKey?: string): Promise<ApiResult<T>> {
-  return await getResult<T>("/benchmarks/tasks", apiKeyHeaders(apiKey));
-}
-export async function listBenchmarkEvaluators<T = unknown[]>(apiKey?: string): Promise<ApiResult<T>> {
-  return await getResult<T>("/benchmarks/evaluators", apiKeyHeaders(apiKey));
-}
-export async function getBenchmarkLeaderboard<T = unknown>(apiKey?: string): Promise<ApiResult<T>> {
-  return await getResult<T>("/benchmarks/leaderboard", apiKeyHeaders(apiKey));
-}
-export async function runBenchmark(payload: { workflow: string; dataset: string; evaluators: string[]; max_concurrency?: number; strict?: boolean }, apiKey?: string) {
-  return await post("/benchmarks/run", payload, apiKeyHeaders(apiKey));
-}
-
-// glossary
-export async function searchGlossary(q: string, jurisdiction = "", domain = "", page = 1, perPage = 20) {
-  const params = new URLSearchParams({ q, page: String(page), per_page: String(perPage) });
-  if (jurisdiction) params.set("jurisdiction", jurisdiction);
-  if (domain) params.set("domain", domain);
-  return (await get(`/glossary/search?${params}`)) ?? { results: [], total: 0 };
-}
-export async function getGlossaryTerm(phrase: string) { return await get(`/glossary/term/${encodeURIComponent(phrase)}`); }
-export async function compareGlossaryTerm(term: string, jurisdictions?: string[]) {
-  const params = new URLSearchParams({ term });
-  if (jurisdictions) jurisdictions.forEach((j) => params.append("jurisdictions", j));
-  return (await get(`/glossary/compare?${params}`)) ?? { comparisons: [] };
-}
-export async function suggestGlossary(prefix: string, size = 10) { return (await get(`/glossary/suggest?prefix=${encodeURIComponent(prefix)}&size=${size}`)) ?? { suggestions: [] }; }
-export async function listGlossaryJurisdictions() { return (await get("/glossary/jurisdictions")) ?? { jurisdictions: [] }; }
-
-// statutes
-export async function searchStatutes(q: string, chapter = "", mode = "hybrid", page = 1, perPage = 20) {
-  const params = new URLSearchParams({ q, mode, page: String(page), per_page: String(perPage) });
-  if (chapter) params.set("chapter", chapter);
-  return (await get(`/statutes/search?${params}`)) ?? { results: [], total: 0 };
-}
-export async function getStatuteSection(number: string) { return await get(`/statutes/section/${encodeURIComponent(number)}`); }
-export async function listStatuteChapters() { return (await get("/statutes/chapters")) ?? { chapters: [] }; }
-export async function getChapterSections(chapterNumber: string) { return await get(`/statutes/chapter/${encodeURIComponent(chapterNumber)}`); }
-
-// search
-export async function searchCases(query: string, topK = 10, stages = ["bm25", "dense", "rerank"], includeScores = true) {
-  return await post("/search/cases", { query, top_k: topK, stages, include_scores: includeScores });
-}
-export async function listCharges() { return (await get("/search/charges")) ?? { charges: [] }; }
-export async function getSearchMetrics() { return await get("/search/metrics"); }
-
-// NER
-export async function extractEntities(text: string, language = "en", granularity = "fine", useGazetteer = false) {
-  return await post("/ner/extract", { text, language, granularity, use_gazetteer: useGazetteer });
-}
-export async function listEntityTypes() { return (await get("/ner/entity-types")) ?? { fine: {}, coarse: {} }; }
-
-// contracts
-export async function classifyContract(text: string, topK = 5) { return await post("/contracts/classify", { text, top_k_types: topK }); }
-export async function scanToS(text: string, threshold = 0.5) { return await post("/contracts/scan-tos", { text, threshold }); }
-
-// research
-export async function askResearch(question: string, sources?: string[], topK = 8, conversationId?: string) {
-  return await post("/research/ask", { question, sources, top_k: topK, conversation_id: conversationId });
-}
-export async function getResearchConversation(conversationId: string) { return await get(`/research/conversations/${conversationId}`); }
-export async function getResearchConfig() { return (await get("/research/config")) ?? { sources: [], model: "" }; }
-
-// legal sources (SSO/CommonLII)
-export async function searchSSO(query: string) { return (await get(`/legal-sources/sso?query=${encodeURIComponent(query)}`)) ?? []; }
+export const {
+  chatStream,
+  chatSend,
+  listProviders,
+  listClauses,
+  getClause,
+  getClauseTone,
+  listTemplates,
+  getTemplate,
+  renderTemplate,
+  checkCompliance,
+  listComplianceRules,
+  parseDocument,
+  listJurisdictions,
+  searchSSO,
+  searchCommonLII,
+  searchGlossary,
+  getGlossaryTerm,
+  compareGlossaryTerm,
+  suggestGlossary,
+  listGlossaryJurisdictions,
+  searchStatutes,
+  getStatuteSection,
+  listStatuteChapters,
+  getChapterSections,
+  searchCases,
+  getCaseDetails,
+  listCharges,
+  getSearchMetrics,
+  extractEntities,
+  batchExtractEntities,
+  listEntityTypes,
+  classifyContract,
+  scanToS,
+  askResearch,
+  getResearchConversation,
+  deleteResearchConversation,
+  getResearchConfig,
+  getReady,
+  getMetrics,
+  getHealth,
+  listBenchmarkTasks,
+  listBenchmarkEvaluators,
+  getBenchmarkLeaderboard,
+  runBenchmark,
+  getBenchmarkRun,
+} = apiServer;

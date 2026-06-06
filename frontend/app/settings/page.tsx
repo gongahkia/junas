@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { listJurisdictions } from "../../lib/api-client";
+import { getMetrics, getReady, listJurisdictions } from "../../lib/api-client";
 import { LOCAL_MODELS } from "../../lib/ml/model-registry";
 import { getAllModelStatus, downloadModel, deleteModel, deleteAllModels, clearAllSiteData, type ModelMeta } from "../../lib/ml/model-cache";
 import { addNotification } from "../../lib/notification-store";
@@ -20,8 +20,6 @@ type Tab = "providers" | "server" | "local" | "display";
 type ServerStatus = { services: Record<string, boolean> } | null;
 type ServerMetrics = { uptime_seconds: number; models_loaded: string[]; benchmark_runs: number; conversations: number } | null;
 type DownloadState = Record<string, { progress: number; abort?: AbortController }>;
-
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 export default function SettingsPage() {
   const { colorTheme, darkMode, focusMode, setColorTheme, setDarkMode, setFocusMode } = useTheme();
@@ -59,8 +57,8 @@ export default function SettingsPage() {
     setServerError("");
     try {
       const [readyResp, metricsResp] = await Promise.all([
-        fetch(`${API}/api/v1/ready`).then(r => r.json()),
-        fetch(`${API}/api/v1/metrics`).then(r => r.json()),
+        getReady(),
+        getMetrics(),
       ]);
       setServerStatus(readyResp);
       setServerMetrics(metricsResp);
