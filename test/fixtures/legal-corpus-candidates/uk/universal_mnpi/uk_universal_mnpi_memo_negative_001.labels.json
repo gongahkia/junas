@@ -55,95 +55,95 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "matched_text": "ir@northbridgeholdings.co.uk",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "ir@northbridgeholdings.co.uk"
     },
     {
       "category": "PII",
-      "matched_text": "compliance@northbridgeholdings.co.uk",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "compliance@northbridgeholdings.co.uk"
     },
     {
       "category": "MNPI",
-      "matched_text": "selective disclosure",
-      "rule": "selective_disclosure_risk"
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
     },
     {
       "category": "MNPI",
-      "matched_text": "inside information",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
     },
     {
       "category": "MNPI",
-      "matched_text": "embargo until 07:00 bst on 02 sep 2026",
-      "rule": "embargo_marker"
+      "rule": "embargo_marker",
+      "matched_text": "embargo until 07:00 bst on 02 sep 2026"
     },
     {
       "category": "MNPI",
-      "matched_text": "project meadow",
-      "rule": "transaction_codename"
+      "rule": "transaction_codename",
+      "matched_text": "project meadow"
     },
     {
       "category": "MNPI",
-      "matched_text": "definitive agreement",
-      "rule": "definitive_agreement"
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement"
     },
     {
       "category": "MNPI",
-      "matched_text": "non-public",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
     },
     {
       "category": "MNPI",
-      "matched_text": "scope: uk mar, fca disclosure guidance and transparency rules, listing rules; employment and market-abuse workflows",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "scope: uk mar, fca disclosure guidance and transparency rules, listing rules; employment and market-abuse workflows"
     },
     {
       "category": "MNPI",
-      "matched_text": "no amounts, forecasts, or guidance are included in the draft; wording aligns with prior rns and avoids selective disclosure",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "no amounts, forecasts, or guidance are included in the draft; wording aligns with prior rns and avoids selective disclosure"
     },
     {
       "category": "MNPI",
-      "matched_text": "deal checklist (legacy): greenline services ltd acquisition closed in 2024 and is fully announced; no live offer or inside information is being circulated",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "deal checklist (legacy): greenline services ltd acquisition closed in 2024 and is fully announced; no live offer or inside information is being circulated"
     },
     {
       "category": "MNPI",
-      "matched_text": "governance: if a definitive agreement were to be signed in future, notify company secretary and consider mar inside information assessment before drafting rns",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "governance: if a definitive agreement were to be signed in future, notify company secretary and consider mar inside information assessment before drafting rns"
     }
   ],
   "must_detect": [
     {
       "category": "MNPI",
-      "matched_text": "scope: uk mar, fca disclosure guidance and transparency rules, listing rules; employment and market-abuse workflows",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "scope: uk mar, fca disclosure guidance and transparency rules, listing rules; employment and market-abuse workflows"
     },
     {
       "category": "MNPI",
-      "matched_text": "no amounts, forecasts, or guidance are included in the draft; wording aligns with prior rns and avoids selective disclosure",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "no amounts, forecasts, or guidance are included in the draft; wording aligns with prior rns and avoids selective disclosure"
     },
     {
       "category": "MNPI",
-      "matched_text": "deal checklist (legacy): greenline services ltd acquisition closed in 2024 and is fully announced; no live offer or inside information is being circulated",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "deal checklist (legacy): greenline services ltd acquisition closed in 2024 and is fully announced; no live offer or inside information is being circulated"
     },
     {
       "category": "MNPI",
-      "matched_text": "governance: if a definitive agreement were to be signed in future, notify company secretary and consider mar inside information assessment before drafting rns",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "governance: if a definitive agreement were to be signed in future, notify company secretary and consider mar inside information assessment before drafting rns"
     },
     {
       "category": "MNPI",
-      "matched_text": "non-public",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
     },
     {
       "category": "MNPI",
-      "matched_text": "definitive agreement",
-      "rule": "definitive_agreement"
+      "rule": "definitive_agreement",
+      "matched_text": "definitive agreement"
     }
   ],
   "must_not_detect": [
@@ -201,5 +201,24 @@
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
-  ]
+  ],
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_strict_reconciliation": {
+    "status": "codex_reconciled_preserving_existing_owner_approval",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0
+  },
+  "_strict_reconciliation_adjustments": {
+    "previous_must_detect_count": 6,
+    "current_must_detect_count": 6,
+    "previous_ideal_must_detect_count": 12,
+    "current_ideal_must_detect_count": 12,
+    "previous_must_not_detect_count": 2,
+    "current_must_not_detect_count": 2
+  }
 }

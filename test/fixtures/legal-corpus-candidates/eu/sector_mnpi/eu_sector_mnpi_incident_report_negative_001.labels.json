@@ -7,67 +7,17 @@
     {
       "category": "PII",
       "rule": "email_address",
-      "matched_text": "dpo@novaterra.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
       "matched_text": "security@novaterra.example"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@novaterra.example"
-    },
-    {
-      "category": "PII",
       "rule": "data_minimisation_marker",
-      "matched_text": "Personal data minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "mirroring to approved processors in Karsenia and Sagora under SCCs"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "resume cross-border mirroring after SCC validation"
+      "matched_text": "data minimisation"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "no\u2011tipping reminders"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list.csv"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information-barrier"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not-yet-announced"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "not-yet-announced deferral of the interim ESG KPI annex"
+      "rule": "material_event",
+      "matched_text": "Preliminary internal forecast indicates a not-yet-announced deferral of the interim ESG KPI annex by up to one week, which may interact with a sustainability-linked facility covenant currently in testing."
     }
   ],
   "ideal_must_detect": [
@@ -109,7 +59,7 @@
     {
       "category": "MNPI",
       "rule": "tipping_language",
-      "matched_text": "no\u2011tipping reminders"
+      "matched_text": "no‑tipping reminders"
     },
     {
       "category": "MNPI",
@@ -150,6 +100,16 @@
       "category": "MNPI",
       "rule": "contingent_mnpi_language",
       "matched_text": "may interact"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Preliminary internal forecast indicates a not-yet-announced deferral of the interim ESG KPI annex by up to one week, which may interact with a sustainability-linked facility covenant currently in testing."
     }
   ],
   "must_not_detect": [
@@ -194,5 +154,24 @@
   "_taxonomy_concept": "sector_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_strict_reconciliation": {
+    "status": "codex_reconciled_pending_owner_review",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0
+  },
+  "_strict_reconciliation_adjustments": {
+    "previous_must_detect_count": 13,
+    "current_must_detect_count": 3,
+    "previous_ideal_must_detect_count": 16,
+    "current_ideal_must_detect_count": 18,
+    "previous_must_not_detect_count": 3,
+    "current_must_not_detect_count": 3
+  }
 }

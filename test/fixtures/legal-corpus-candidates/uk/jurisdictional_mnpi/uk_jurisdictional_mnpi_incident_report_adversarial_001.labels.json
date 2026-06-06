@@ -15,24 +15,34 @@
       "matched_text": "Mr. Owen Kells"
     },
     {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Sir Rowan Hargate"
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Immediate impact: potential H1 fee income deferral of 0.6–0.8% if backlog not cleared by month‑end; consistent with guidance in our 30 April RNS‑B trading update (RNSB/26/0099)."
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Selective disclosure risk"
+      "rule": "material_event",
+      "matched_text": "Non‑issues: legacy onboarding project “silver fern” is unaffected; the travel policy email sent last week is routine; this note is not a profit warning nor a change to previously stated outlook."
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "MAR Insider List"
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
     },
     {
       "category": "MNPI",
       "rule": "financial_amount",
-      "matched_text": "2m"
+      "matched_text": "£1.2m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.8%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider List"
     }
   ],
   "ideal_must_detect": [
@@ -115,6 +125,31 @@
       "category": "MNPI",
       "rule": "material_adverse_change",
       "matched_text": "material adverse change"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Immediate impact: potential H1 fee income deferral of 0.6–0.8% if backlog not cleared by month‑end; consistent with guidance in our 30 April RNS‑B trading update (RNSB/26/0099)."
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Non‑issues: legacy onboarding project “silver fern” is unaffected; the travel policy email sent last week is routine; this note is not a profit warning nor a change to previously stated outlook."
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "restricted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "£1.2m"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "0.8%"
     }
   ],
   "must_not_detect": [
@@ -156,33 +191,28 @@
   ],
   "_label_source": "azure:gpt-5-2-auto",
   "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [
-    "drop must_detect: text not verbatim rule='email_address' text='security@bramblegate\\x10finance.example'",
-    "drop must_detect: text not verbatim rule='nonpublic_marker' text='non\\x10public pending permitted delay'",
-    "drop must_detect: text not verbatim rule='nonpublic_marker' text='Not yet disclosed via R N S\\x10B'",
-    "drop must_detect: text not verbatim rule='information_barrier_marker' text='wall\\x10crossing limited to two lenders under NDA on 0 6 / 0 6 / 2 0 2 6.'",
-    "drop must_detect: text not verbatim rule='information_barrier_marker' text='wall\\x10crossed'",
-    "drop must_detect: text not verbatim rule='blackout_period_reference' text='30\\x10day blackout'",
-    "drop must_detect: text not verbatim rule='financial_percentage' text='0.6\\x100.8%'",
-    "drop ideal_must_detect: text not verbatim rule='email_address' text='security@bramblegate\\x10finance.example'",
-    "drop ideal_must_detect: text not verbatim rule='nonpublic_marker' text='non\\x10public pending permitted delay'",
-    "drop ideal_must_detect: text not verbatim rule='nonpublic_marker' text='Not yet disclosed via R N S\\x10B'",
-    "drop ideal_must_detect: text not verbatim rule='information_barrier_marker' text='wall\\x10crossing limited to two lenders under NDA on 0 6 / 0 6 / 2 0 2 6.'",
-    "drop ideal_must_detect: text not verbatim rule='information_barrier_marker' text='wall\\x10crossed'",
-    "drop ideal_must_detect: text not verbatim rule='blackout_period_reference' text='30\\x10day blackout'",
-    "drop ideal_must_detect: text not verbatim rule='financial_percentage' text='0.6\\x100.8%'",
-    "drop ideal_must_detect: text not verbatim rule='cyber_incident_pre_disclosure' text='Incident Report: Operational/Cyber Event \\x04 Bramblegate Financial Services plc (BSE\\x10UK: BGF0)'",
-    "drop ideal_must_detect: text not verbatim rule='material_event' text='outage on \\x06Hawthorn\\x07 payments platform from 03:14\\x1008:52 BST due to third\\x10party patch regression'",
-    "drop must_not_detect: text not verbatim text='BSE\\x10UK: BGF0'",
-    "drop uncertain: text not verbatim text='INC\\x102O26\\x100l9B'",
-    "drop uncertain: text not verbatim text='7X\\x104l3\\x10UK'",
-    "drop uncertain: text not verbatim text='UKMOO/17/4/0\\x100\\x100\\x100\\x100\\x107'",
-    "drop uncertain: text not verbatim text='bgf\\x10mar\\x10l1st'",
-    "drop uncertain: text not verbatim text='H4W\\x10981'",
-    "drop uncertain: text not verbatim text='uk\\x10haw\\x101a/1b'"
-  ],
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_strict_reconciliation": {
+    "status": "codex_reconciled_pending_owner_review",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0
+  },
+  "_strict_reconciliation_adjustments": {
+    "previous_must_detect_count": 6,
+    "current_must_detect_count": 8,
+    "previous_ideal_must_detect_count": 16,
+    "current_ideal_must_detect_count": 21,
+    "previous_must_not_detect_count": 7,
+    "current_must_not_detect_count": 7
+  }
 }

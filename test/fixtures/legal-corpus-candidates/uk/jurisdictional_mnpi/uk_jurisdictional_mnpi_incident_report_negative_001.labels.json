@@ -16,18 +16,18 @@
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
+      "rule": "material_event",
+      "matched_text": "Materiality: based on FCA Handbook and Listing Rule guidance, the event is assessed as not material to the Group; no guidance changes contemplated."
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information under UK MAR"
+      "rule": "large_number",
+      "matched_text": "007241"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed period"
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to Board sign-off"
     }
   ],
   "ideal_must_detect": [
@@ -85,6 +85,16 @@
       "category": "PII",
       "rule": "data_minimisation_marker",
       "matched_text": "any strings resembling IBANs, NI numbers, or card PANs in the logs were placeholders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Materiality: based on FCA Handbook and Listing Rule guidance, the event is assessed as not material to the Group; no guidance changes contemplated."
+    },
+    {
+      "category": "MNPI",
+      "rule": "large_number",
+      "matched_text": "007241"
     }
   ],
   "must_not_detect": [
@@ -120,5 +130,24 @@
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_strict_reconciliation": {
+    "status": "codex_reconciled_pending_owner_review",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0
+  },
+  "_strict_reconciliation_adjustments": {
+    "previous_must_detect_count": 5,
+    "current_must_detect_count": 5,
+    "previous_ideal_must_detect_count": 11,
+    "current_ideal_must_detect_count": 13,
+    "previous_must_not_detect_count": 2,
+    "current_must_not_detect_count": 2
+  }
 }

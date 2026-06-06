@@ -43,6 +43,16 @@ class MacMaePrecisionGuards(unittest.TestCase):
             self.assertNotEqual(rule, "material_adverse_change",
                                 f"negated MAC clause should be suppressed; got {matched!r}")
 
+    def test_mac_clause_not_invoked_does_not_fire(self):
+        text = "Policy-only note: the MAC clause in the facility agreement was not invoked."
+        rules = _rules_matched(text, jurisdiction="UK")
+        self.assertNotIn(("material_adverse_change", "MAC clause"), rules)
+
+    def test_do_not_assess_as_material_adverse_change_does_not_fire(self):
+        text = "We do not currently assess this incident as a material adverse change under the draft agreement."
+        rules = _rules_matched(text, jurisdiction="UK")
+        self.assertNotIn(("material_adverse_change", "material adverse change"), rules)
+
     def test_bare_mae_in_unrelated_context_does_not_fire(self):
         text = "Our MAE Asia office sent the report."
         for rule, _ in _rules_matched(text):
@@ -671,6 +681,11 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         phones = [m for r, m in _rules_matched(text, jurisdiction="VN") if r == "phone_number"]
         self.assertNotIn("1900 772 233", phones)
 
+    def test_eu_public_uifn_hotline_does_not_fire(self):
+        text = "For clarity, the consumer hotline +800 123 4567 is public and unrelated."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "phone_number"]
+        self.assertNotIn("+800 123 4567", phones)
+
     def test_vietnamese_mobile_still_fires(self):
         text = "Personal mobile for employee follow-up: +84 90 123 4567."
         phones = [m for r, m in _rules_matched(text, jurisdiction="VN") if r == "phone_number"]
@@ -687,6 +702,11 @@ class DeviceIdentifierPrecisionGuards(unittest.TestCase):
         text = "Device MAC: aa-bb-cc-dd-ee-ff."
         macs = [m for r, m in _rules_matched(text, jurisdiction="IN") if r == "mac_address"]
         self.assertIn("aa-bb-cc-dd-ee-ff", macs)
+
+    def test_non_attributive_device_serial_does_not_fire(self):
+        text = "Separated weak identifiers (non-attributable): training laptop serial FT-009182 is an example only."
+        serials = [m for r, m in _rules_matched(text, jurisdiction="UK") if r == "device_serial_number"]
+        self.assertNotIn("FT-009182", serials)
 
 
 class PhilippinesPrivacyAndTaxGuards(unittest.TestCase):
@@ -717,6 +737,16 @@ class PhilippinesPrivacyAndTaxGuards(unittest.TestCase):
             if r == "consent_withdrawal_marker"
         ]
         self.assertNotIn("DSARs", markers)
+
+    def test_no_outstanding_uk_rights_requests_does_not_fire(self):
+        text = "Privacy status: no outstanding DSARs, erasure requests, or consent withdrawal notices affect Target systems."
+        markers = [
+            m for r, m in _rules_matched(text, jurisdiction="UK")
+            if r == "consent_withdrawal_marker"
+        ]
+        self.assertNotIn("DSARs", markers)
+        self.assertNotIn("erasure requests", markers)
+        self.assertNotIn("consent withdrawal", markers)
 
     def test_ph_tin_inside_bank_account_line_does_not_fire(self):
         text = "Temporary Account No.: 0012-345-678-901 for settlement testing."
@@ -832,6 +862,26 @@ class FunctionalContactGuards(unittest.TestCase):
         text = "Public contacts that are non-PII: careers@example.sg and generic form labels."
         emails = [m for r, m in _rules_matched(text) if r == "email_address"]
         self.assertNotIn("careers@example.sg", emails)
+
+    def test_eu_generic_name_placeholder_email_does_not_fire(self):
+        text = "Role contact only: Data Protection Officer; generic intake email: name@example.com."
+        emails = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "email_address"]
+        self.assertNotIn("name@example.com", emails)
+
+    def test_uk_public_cybersecurity_mailbox_does_not_fire(self):
+        text = "Contacts: public incident helpline 0800 000 0000 and mailbox cybersecurity@northwayft.example."
+        emails = [m for r, m in _rules_matched(text, jurisdiction="UK") if r == "email_address"]
+        self.assertNotIn("cybersecurity@northwayft.example", emails)
+
+    def test_uk_company_traders_mailbox_does_not_fire(self):
+        text = "We also record company emails such as traders@larkhavencapital.co.uk."
+        emails = [m for r, m in _rules_matched(text, jurisdiction="UK") if r == "email_address"]
+        self.assertNotIn("traders@larkhavencapital.co.uk", emails)
+
+    def test_uk_project_enquiries_mailbox_does_not_fire(self):
+        text = "Contact and data room: enquiries: project.wren@highfell.co.uk."
+        emails = [m for r, m in _rules_matched(text, jurisdiction="UK") if r == "email_address"]
+        self.assertNotIn("project.wren@highfell.co.uk", emails)
 
     def test_generic_mailbox_channel_does_not_fire(self):
         text = "Submission channels prefer generic mailboxes such as mna-team@example.sg."
@@ -1005,6 +1055,11 @@ class FinancialAmountGuards(unittest.TestCase):
     def test_ae_do_not_request_genetic_data_does_not_fire(self):
         text = "We do not request union membership, political opinions, religious beliefs, genetic data, or sex-life details."
         findings = [m for r, m in _rules_matched(text, jurisdiction="AE") if r == "genetic_data"]
+        self.assertNotIn("genetic data", findings)
+
+    def test_synthetic_dataset_genetic_data_does_not_fire(self):
+        text = "The analytics product uses synthetic datasets and does not process genetic data about individuals."
+        findings = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "genetic_data"]
         self.assertNotIn("genetic data", findings)
 
     def test_no_material_nonpublic_information_does_not_fire_marker(self):
@@ -1212,6 +1267,11 @@ class EuCandidatePrecisionGuards(unittest.TestCase):
         amounts = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "financial_amount"]
         self.assertNotIn("7b", amounts)
 
+    def test_non_attributive_sample_birth_date_does_not_fire(self):
+        text = "Separated weak identifiers (non-attributive examples): sample birth date 1978-02-05 appears in templates only."
+        dobs = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "date_of_birth"]
+        self.assertNotIn("1978-02-05", dobs)
+
 
 class EducationalMnpiMarkerGuards(unittest.TestCase):
     def test_training_insider_list_reference_does_not_fire(self):
@@ -1255,6 +1315,11 @@ class EducationalMnpiMarkerGuards(unittest.TestCase):
         text = "E-learning covers insider lists, information barriers, blackout windows, and anti-tipping obligations."
         rules = [r for r, _ in _rules_matched(text, jurisdiction="TH")]
         self.assertNotIn("information_barrier_marker", rules)
+        self.assertNotIn("insider_list_marker", rules)
+
+    def test_primarily_educational_insider_list_reference_does_not_fire(self):
+        text = "References to blackout windows, insider lists, crypto, and commercial terms are primarily educational and not price sensitive."
+        rules = [r for r, _ in _rules_matched(text, jurisdiction="UK")]
         self.assertNotIn("insider_list_marker", rules)
 
 

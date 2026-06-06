@@ -55,100 +55,100 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "matched_text": "insiderlist@auroracarbon.eu",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "insiderlist@auroracarbon.eu"
     },
     {
       "category": "PII",
-      "matched_text": "Cross-border data transfer",
-      "rule": "cross_border_transfer_marker"
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border data transfer"
     },
     {
       "category": "PII",
-      "matched_text": "data minimisation",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
     },
     {
       "category": "MNPI",
-      "matched_text": "Insider list maintenance",
-      "rule": "insider_list_marker"
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list maintenance"
     },
     {
       "category": "MNPI",
-      "matched_text": "MAR closed period",
-      "rule": "blackout_period_reference"
+      "rule": "blackout_period_reference",
+      "matched_text": "MAR closed period"
     },
     {
       "category": "PII",
-      "matched_text": "transfer impact assessment completed 2026-03-01",
-      "rule": "cross_border_transfer_marker"
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer impact assessment completed 2026-03-01"
     },
     {
       "category": "PII",
-      "matched_text": "role-only titles are to be used (no personal emails)",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "role-only titles are to be used (no personal emails)"
     },
     {
       "category": "PII",
-      "matched_text": "whistleblowing health data",
-      "rule": "health_condition"
+      "rule": "health_condition",
+      "matched_text": "whistleblowing health data"
     },
     {
       "category": "MNPI",
-      "matched_text": "undisclosed price-sensitive details",
-      "rule": "selective_disclosure_risk"
+      "rule": "selective_disclosure_risk",
+      "matched_text": "undisclosed price-sensitive details"
     },
     {
       "category": "PII",
-      "matched_text": "Standard Contractual Clauses",
-      "rule": "cross_border_transfer_marker"
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Standard Contractual Clauses"
     },
     {
       "category": "MNPI",
-      "matched_text": "non-public",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
     },
     {
       "category": "MNPI",
-      "matched_text": "undisclosed",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
     },
     {
       "category": "MNPI",
-      "matched_text": "Insider list",
-      "rule": "insider_list_marker"
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list"
     }
   ],
   "must_detect": [
     {
       "category": "PII",
-      "matched_text": "insiderlist@auroracarbon.eu",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "insiderlist@auroracarbon.eu"
     },
     {
       "category": "PII",
-      "matched_text": "Standard Contractual Clauses",
-      "rule": "cross_border_transfer_marker"
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Standard Contractual Clauses"
     },
     {
       "category": "PII",
-      "matched_text": "data minimisation",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "data minimisation"
     },
     {
       "category": "MNPI",
-      "matched_text": "non-public",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "non-public"
     },
     {
       "category": "MNPI",
-      "matched_text": "undisclosed",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "undisclosed"
     },
     {
       "category": "MNPI",
-      "matched_text": "Insider list",
-      "rule": "insider_list_marker"
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list"
     }
   ],
   "must_not_detect": [
@@ -231,5 +231,24 @@
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
-  ]
+  ],
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_strict_reconciliation": {
+    "status": "codex_reconciled_preserving_existing_owner_approval",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0
+  },
+  "_strict_reconciliation_adjustments": {
+    "previous_must_detect_count": 6,
+    "current_must_detect_count": 6,
+    "previous_ideal_must_detect_count": 13,
+    "current_ideal_must_detect_count": 13,
+    "previous_must_not_detect_count": 12,
+    "current_must_not_detect_count": 12
+  }
 }

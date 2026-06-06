@@ -1233,14 +1233,17 @@ _FUNCTIONAL_CONTACT_CONTEXT_RE = re.compile(
     r"\b(?:"
     r"role[-\u2010-\u2015 ]only|role[-\u2010-\u2015 ]based|role\s+mailbox|functional\s+mailbox|"
     r"role/functional\s+mailbox|shared\s+inbox|treasury\s+contact|"
-    r"generic\s+mailboxes?|public\s+contacts?|procedural\s+queries\s+only|"
+    r"generic\s+mailboxes?|generic\s+organi[sz]ational\s+mailbox|"
+    r"generic\s+supplier\s+contact(?:s|\s+examples?)?|generic\s+intake\s+email|"
+    r"public\s+contacts?|procedural\s+queries\s+only|"
     r"placeholder\s+email|form\s+labels?|marketing\s+emails?|"
     r"public,?\s+non[- ]transactional|"
     r"compliance\s+desk|deal\s+desk|contact\s+compliance|route\s+enquiries|"
     r"queries\s+(?:to|contact)|rout(?:e|ed)\s+to\s+legal|via\s+docroom|"
-    r"public\s+(?:queries|enquiries)|regulatory\s+liaison|"
+    r"public\s+(?:queries|enquiries)|enquiries\s*:|regulatory\s+liaison|"
     r"generic\s+help\s*desk|public(?:-facing)?\s+help\s*desk|public\s+helpdesk|"
-    r"secretariat\s+mailbox|public\s+helplines?|general\s+(?:queries|enquiries)|"
+    r"secretariat\s+mailbox|public\s+helplines?|public[^\n.;]{0,60}helplines?|"
+    r"general\s+(?:queries|enquiries)|"
     r"not\s+personal\s+data|"
     r"non[- ]PII|not\s+PII|"
     r"not\s+linked\s+to\s+an?\s+identifiable\s+individual"
@@ -1253,6 +1256,7 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"public(?:-facing)?\s+help\s*desk|public\s+helpdesk|public\s+helplines?|"
     r"public[^\n.;]{0,60}helplines?|"
     r"public\s+hotline|public\s+line|public\s+service\s+line|"
+    r"consumer\s+hotline|"
     r"public\s+enquir(?:y|ies)\s+hotline|enquiries\s+line|procedural\s+queries\s+only|"
     r"public\s+(?:queries|enquiries)|"
     r"service\s+line\s+only|"
@@ -1267,6 +1271,7 @@ _PUBLIC_PHONE_CONTEXT_RE = re.compile(
     r"general\s+(?:queries|enquiries)|queries\s+contact|general\s+hotline|label\s+only|"
     r"not\s+be\s+captured\s+as\s+PII|"
     r"not\s+personal\s+data|"
+    r"public,?\s+non[- ]personal|"
     r"not\s+a\s+deal\s+contact|not\s+MNPI"
     r")\b",
     re.IGNORECASE,
@@ -1278,7 +1283,7 @@ _ALWAYS_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
     "role", "room", "secretariat", "service", "servicedesk", "support", "treasury", "walloffice",
 })
 _CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS = frozenset({
-    "contact", "info", "legal", "service",
+    "contact", "cybersecurity", "info", "legal", "project", "service", "traders",
 })
 _ROLE_MAILBOX_LOCAL_RE = re.compile(
     r"^(?:"
@@ -1358,9 +1363,19 @@ _PRIVACY_REQUEST_CLOSED_CONTEXT_RE = re.compile(
     r"fulfilled|closed|completed|executed|resolved|"
     r"zero\s+open\s+tickets|0\s+open\s+tickets|"
     r"no\s+(?:data\s+subject\s+access\s+request|DSAR)[^\n.;]{0,80}(?:received|needed|triggered)|"
+    r"no\s+outstanding[^\n.;]{0,120}(?:DSARs?|erasure\s+requests?|consent\s+withdrawal)|"
     r"no\s+DSARs?\s+are\s+pending|no\s+open\s+DSARs?|"
     r"no\s+(?:request|requests)\s+for\s+correction|"
     r"currently\s+in\s+flight|not\s+a\s+live\s+DSAR|no\s+residual\s+processing"
+    r")\b",
+    re.IGNORECASE,
+)
+_NON_ATTRIBUTIVE_IDENTIFIER_CONTEXT_RE = re.compile(
+    r"\b(?:"
+    r"non[- ]attribut(?:ive|able)|"
+    r"(?:separated|unlinked)\s+weak\s+identifiers?|"
+    r"sample\s+birth\s+date|"
+    r"not\s+linked\s+to\s+(?:any\s+)?(?:an?\s+)?(?:identified\s+person|identifiable\s+individual|named\s+individual)"
     r")\b",
     re.IGNORECASE,
 )
@@ -1397,13 +1412,22 @@ def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
     right = min(right_candidates) if right_candidates else len(text)
     context = text[left:right].strip()
     local_part = text[start:end].split("@", 1)[0].casefold()
-    if local_part in {"firstname.lastname", "first.last", "name.surname", "given.family"}:
+    if local_part in {"firstname.lastname", "first.last", "name", "name.surname", "given.family"}:
+        return True
+    role_like = local_part in _CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS or bool(
+        re.match(r"^(?:project|room|dealroom|docroom)[._-]", local_part)
+    )
+    if role_like and re.search(r"\benquiries\s*:\s*", context, re.IGNORECASE):
+        return True
+    if local_part == "traders" and re.search(r"\bcompany\s+emails?\s+such\s+as\b", context, re.IGNORECASE):
         return True
     if _FUNCTIONAL_CONTACT_CONTEXT_RE.search(context):
         strong_public_context = re.search(
             r"\b(?:generic\s+mailboxes?|public\s+contacts?|procedural\s+queries\s+only|"
-            r"placeholder\s+email|form\s+labels?|marketing\s+emails?|"
-            r"non[- ]PII|not\s+PII|public\s+helplines?|enquiries\s+line)\b",
+            r"generic\s+organi[sz]ational\s+mailbox|generic\s+supplier\s+contact(?:s|\s+examples?)?|"
+            r"generic\s+intake\s+email|placeholder\s+email|form\s+labels?|"
+            r"marketing\s+emails?|non[- ]PII|not\s+PII|public\s+helplines?|"
+            r"public[^\n.;]{0,60}helplines?|enquiries\s*:|enquiries\s+line)\b",
             context,
             re.IGNORECASE,
         )
@@ -1416,7 +1440,6 @@ def _is_functional_contact_context(text: str, start: int, end: int) -> bool:
         or bool(_ROLE_MAILBOX_LOCAL_RE.fullmatch(local_part))
     ):
         return True
-    role_like = local_part in _CONTEXTUAL_ROLE_MAILBOX_LOCAL_PARTS
     if role_like and _FUNCTIONAL_CONTACT_CONTEXT_RE.search(context):
         return True
     next_clause = text[end:min(len(text), end + 120)]
@@ -1471,6 +1494,8 @@ def _is_public_or_generic_phone_context(text: str, start: int, end: int) -> bool
     if local_digits.startswith(("1800", "0800", "00800")):
         return True
     context = _line_context(text, start, end)
+    if text[start:end].lstrip().startswith("+") and local_digits.startswith("800"):
+        return bool(_PUBLIC_PHONE_CONTEXT_RE.search(context))
     return bool(_PUBLIC_PHONE_CONTEXT_RE.search(context))
 
 
@@ -1505,7 +1530,10 @@ def _is_non_phone_numeric_context(text: str, start: int, end: int) -> bool:
 def _is_closed_or_historical_privacy_request_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
     if re.search(
-        r"\bno\s+(?:data\s+subject\s+access\s+request|DSAR)[^\n.;]{0,80}(?:received|needed|triggered)\b",
+        r"\b(?:"
+        r"no\s+(?:data\s+subject\s+access\s+request|DSAR)[^\n.;]{0,80}(?:received|needed|triggered)|"
+        r"no\s+outstanding[^\n.;]{0,120}(?:DSARs?|erasure\s+requests?|consent\s+withdrawal)"
+        r")\b",
         context,
         re.IGNORECASE,
     ):
@@ -1526,6 +1554,11 @@ def _is_ph_tin_non_tax_context(text: str, start: int, end: int) -> bool:
 def _is_negated_mac_address_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
     return bool(re.search(r"\bnot\s+(?:a\s+|an\s+|the\s+)?MAC\s+address\b", context, re.IGNORECASE))
+
+
+def _is_non_attributive_identifier_context(text: str, start: int, end: int) -> bool:
+    context = _line_context(text, start, end)
+    return bool(_NON_ATTRIBUTIVE_IDENTIFIER_CONTEXT_RE.search(context))
 
 
 def _is_negated_material_adverse_change_context(text: str, start: int, end: int) -> bool:
@@ -1563,7 +1596,9 @@ def _is_negated_material_adverse_change_context(text: str, start: int, end: int)
         r"\b(?:"
         r"no\s+[\"“]?material\s+adverse\s+effect[\"”]?\s+occurred|"
         r"(?:mac|mae)\s+clause[^\n.;]{0,80}has\s+not\s+been\s+triggered|"
+        r"(?:mac|mae)\s+clause[^\n.;]{0,80}(?:was\s+not\s+invoked|not\s+invoked)|"
         r"material\s+adverse\s+change[^\n.;]{0,80}not\s+triggered|"
+        r"do\s+not\s+(?:currently\s+)?assess[^\n.;]{0,120}material\s+adverse\s+change|"
         r"does\s+not\s+include\s+any[^\n.;]{0,120}material\s+adverse\s+change(?:\s+trigger)?|"
         r"(?:mac|mae)[- ]?like\s+clause[^\n.;]{0,100}material\s+adverse\s+change(?:\s+trigger)?|"
         r"mac\s+clause[^\n.;]{0,160}(?:is\s+negated|does\s+not\s+by\s+itself\s+signal)"
@@ -1666,6 +1701,8 @@ def _is_special_category_false_positive_context(rule_name: str, text: str, start
     if rule_name == "genetic_data" and re.search(
         r"\b(?:no\s+genetic\s+data[^\n.;]{0,80}(?:collected|stored|processed)|"
         r"no\s+genetic\s+data[^\n.;]{0,80}(?:kept|held|retained)|"
+        r"does\s+not\s+process[^\n.;]{0,120}genetic\s+data|"
+        r"synthetic\s+datasets[^\n.;]{0,120}genetic\s+data|"
         r"do\s+not\s+request[^\n.;]{0,140}genetic\s+data|"
         r"genetic\s+algorithms?|software\s+features?|not\s+about\s+any\s+person|"
         r"category\s+label\s+only|does\s+not\s+describe\s+any\s+person|"
@@ -1753,6 +1790,9 @@ def _is_educational_mnpi_marker_context(text: str, start: int, end: int) -> bool
         r"(?:insider[- ]list\s+management|information\s+barriers?|blackout\s+windows)|"
         r"(?:marketing|education|educational)\s+only[^\n.;]{0,120}do\s+not\s+announce|"
         r"(?:information\s+barriers?|insider\s+lists?)[^\n.;]{0,120}generic\s+compliance\s+education|"
+        r"references?\s+to[^\n.;]{0,160}(?:insider\s+lists?|blackout\s+windows)[^\n.;]{0,120}"
+        r"primarily\s+educational|"
+        r"primarily\s+educational[^\n.;]{0,80}not\s+price\s+sensitive|"
         r"(?:information\s+barriers?|insider\s+lists?)[^\n.;]{0,120}only\s+as\s+definitions?\s+training|"
         r"educational\s+and\s+not\s+transaction[- ]related|training\s+rosters?|"
         r"training[^\n.;]{0,120}generic\s+examples?|"
@@ -1914,6 +1954,8 @@ def _detect_core_identifier_findings(
         value = match.group(1)
         if not _valid_dob_date(value):
             continue
+        if _is_non_attributive_identifier_context(text, match.start(1), match.end(1)):
+            continue
         out.append(
             _new_finding(
                 idx=idx,
@@ -2056,6 +2098,8 @@ def _detect_core_identifier_findings(
         idx += 1
 
     for match in DEVICE_SERIAL_RE.finditer(text):
+        if _is_non_attributive_identifier_context(text, match.start(1), match.end(1)):
+            continue
         out.append(
             _new_finding(
                 idx=idx,

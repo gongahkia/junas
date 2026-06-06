@@ -55,70 +55,70 @@
   "ideal_must_detect": [
     {
       "category": "PII",
-      "matched_text": "compliance@marstonridge.example",
-      "rule": "email_address"
+      "rule": "email_address",
+      "matched_text": "compliance@marstonridge.example"
     },
     {
       "category": "MNPI",
-      "matched_text": "Unannounced RSS filing",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "Unannounced RSS filing"
     },
     {
       "category": "MNPI",
-      "matched_text": "until released",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "until released"
     },
     {
       "category": "MNPI",
-      "matched_text": "inside information under UK MAR",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information under UK MAR"
     },
     {
       "category": "MNPI",
-      "matched_text": "No selective briefings should occur",
-      "rule": "selective_disclosure_risk"
+      "rule": "selective_disclosure_risk",
+      "matched_text": "No selective briefings should occur"
     },
     {
       "category": "MNPI",
-      "matched_text": "all external queries should be routed via compliance@marstonridge.example and the Company Secretariat",
-      "rule": "information_barrier_marker"
+      "rule": "information_barrier_marker",
+      "matched_text": "all external queries should be routed via compliance@marstonridge.example and the Company Secretariat"
     },
     {
       "category": "MNPI",
-      "matched_text": "blackout",
-      "rule": "blackout_period_reference"
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
     },
     {
       "category": "MNPI",
-      "matched_text": "close period",
-      "rule": "blackout_period_reference"
+      "rule": "blackout_period_reference",
+      "matched_text": "close period"
     },
     {
       "category": "MNPI",
-      "matched_text": "the Board has resolved to discontinue preliminary discussions with Eastbridge Lending plc",
-      "rule": "material_event"
+      "rule": "material_event",
+      "matched_text": "the Board has resolved to discontinue preliminary discussions with Eastbridge Lending plc"
     },
     {
       "category": "MNPI",
-      "matched_text": "publication is targeted for 08:30 BST on 15 July",
-      "rule": "embargo_marker"
+      "rule": "embargo_marker",
+      "matched_text": "publication is targeted for 08:30 BST on 15 July"
     },
     {
       "category": "PII",
-      "matched_text": "avoid names, home addresses, and individual HR notes to remain compliant with UK GDPR",
-      "rule": "data_minimisation_marker"
+      "rule": "data_minimisation_marker",
+      "matched_text": "avoid names, home addresses, and individual HR notes to remain compliant with UK GDPR"
     },
     {
       "category": "MNPI",
-      "matched_text": "confidential",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
     }
   ],
   "must_detect": [
     {
       "category": "MNPI",
-      "matched_text": "confidential",
-      "rule": "nonpublic_marker"
+      "rule": "nonpublic_marker",
+      "matched_text": "confidential"
     }
   ],
   "must_not_detect": [
@@ -198,5 +198,24 @@
       "reviewed_at_utc": "2026-06-01T01:27:51Z",
       "basis": "Project owner stated they manually reviewed all jurisdiction generated Stage A tests and approved the sets as ready for Stage B corpus expansion. This is internal/project benchmark readiness, not recall-lock promotion, legal advice, or procurement-grade legal review."
     }
-  ]
+  ],
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_strict_reconciliation": {
+    "status": "codex_reconciled_preserving_existing_owner_approval",
+    "reviewer": "Codex GPT-5.5",
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0
+  },
+  "_strict_reconciliation_adjustments": {
+    "previous_must_detect_count": 1,
+    "current_must_detect_count": 1,
+    "previous_ideal_must_detect_count": 12,
+    "current_ideal_must_detect_count": 12,
+    "previous_must_not_detect_count": 10,
+    "current_must_not_detect_count": 10
+  }
 }
