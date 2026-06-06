@@ -1,80 +1,125 @@
 {
-  "doc_id": "jp_privacy_events_incident_report_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy-office@kaguya.example.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "MNPI confirmation: tender-offer details relating to the already-announced acquisition of Sumikaze Analytics K.K. were not stored in the affected system, and no undisclosed enumerated material facts were accessed."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_privacy_events_incident_report_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy-office@kaguya.example.jp"
+      "matched_text": "privacy-office@kaguya.example.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "MNPI confirmation: tender-offer details relating to the already-announced acquisition of Sumikaze Analytics K.K. were not stored in the affected system, and no undisclosed enumerated material facts were accessed."
+      "matched_text": "MNPI confirmation: tender-offer details relating to the already-announced acquisition of Sumikaze Analytics K.K. were not stored in the affected system, and no undisclosed enumerated material facts were accessed.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border processing: Data Export Approval DEX-2026-07 was granted to transfer hashed employee identifiers to Kaede Systems Pte. Ltd. (SG) for pre-announced payroll testing, with APPI Article 28 notices provided"
+      "matched_text": "Cross-border processing: Data Export Approval DEX-2026-07 was granted to transfer hashed employee identifiers to Kaede Systems Pte. Ltd. (SG) for pre-announced payroll testing, with APPI Article 28 notices provided",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation was applied (only role IDs and pseudonymous tokens were cached)"
+      "matched_text": "data minimisation was applied (only role IDs and pseudonymous tokens were cached)",
+      "rule": "data_minimisation_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "privacy-office@kaguya.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI confirmation: tender-offer details relating to the already-announced acquisition of Sumikaze Analytics K.K. were not stored in the affected system, and no undisclosed enumerated material facts were accessed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     }
   ],
   "must_not_detect": [
@@ -99,45 +144,27 @@
       "reason": "Form title mentions My Number but contains no personal code or identifier."
     }
   ],
+  "source_jurisdiction": "JP",
   "uncertain": [
     {
-      "matched_text": "one DSAR (employee access request) received earlier in May for the onboarding system was fulfilled on 2026-05-20; no follow-up erasure was requested",
       "concept": "DSAR marker (completed)",
+      "matched_text": "one DSAR (employee access request) received earlier in May for the onboarding system was fulfilled on 2026-05-20; no follow-up erasure was requested",
       "reason": "DSAR events are privacy handling markers, but no explicit DSAR rule is provided and the control is completed/negated."
     },
     {
-      "matched_text": "retention timers on the sandbox tenant remained at 7 days and had not reached expiry",
       "concept": "retention marker",
+      "matched_text": "retention timers on the sandbox tenant remained at 7 days and had not reached expiry",
       "reason": "Retention settings are relevant compliance markers, but no explicit retention rule is in the allowed list."
     },
     {
-      "matched_text": "test artifacts from the cache were deleted during remediation",
       "concept": "erasure marker (completed)",
+      "matched_text": "test artifacts from the cache were deleted during remediation",
       "reason": "Erasure/deletion is a privacy handling event, but no explicit erasure rule is provided and the control is completed."
     },
     {
-      "matched_text": "no consent withdrawal for My Number handling has been recorded for the affected employee cohort",
       "concept": "consent withdrawal (negated)",
+      "matched_text": "no consent withdrawal for My Number handling has been recorded for the affected employee cohort",
       "reason": "Consent withdrawal is a relevant marker, but here it is negated and thus not labeled under the explicit consent_withdrawal_marker rule."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-04T04:34:12Z",
-    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

@@ -1,215 +1,260 @@
 {
-  "doc_id": "jp_jurisdictional_mnpi_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hanako Mori"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Daichi Kameda"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Seishin Mobility Holdings Kabushiki Kaisha (STX Growth) — Privacy & MNPI Handling Note for Board/Acquisition Workflows (JP)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Personal data transfer: intra-group transfers to Seishin Mobility Europe GmbH are based on data-subject consent and adequacy status; outsourcing to Sato Data Processing G.K. is under 委託 with appropriate supervision per APPI, no third-party provision without consent."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Negative covenant note: this note expressly states that the contemplated acquisition is not expected to result in a material adverse change, and routine supplier price updates are handled under normal procurement policy."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "material adverse change"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hanako Mori"
+      "matched_text": "Ms. Hanako Mori",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Daichi Kameda"
+      "matched_text": "Mr. Daichi Kameda",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Seishin Mobility Holdings Kabushiki Kaisha (STX Growth) — Privacy & MNPI Handling Note for Board/Acquisition Workflows (JP)"
+      "matched_text": "Seishin Mobility Holdings Kabushiki Kaisha (STX Growth) \u2014 Privacy & MNPI Handling Note for Board/Acquisition Workflows (JP)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Personal data transfer: intra-group transfers to Seishin Mobility Europe GmbH are based on data-subject consent and adequacy status; outsourcing to Sato Data Processing G.K. is under 委託 with appropriate supervision per APPI, no third-party provision without consent."
+      "matched_text": "Personal data transfer: intra-group transfers to Seishin Mobility Europe GmbH are based on data-subject consent and adequacy status; outsourcing to Sato Data Processing G.K. is under \u59d4\u8a17 with appropriate supervision per APPI, no third-party provision without consent.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Negative covenant note: this note expressly states that the contemplated acquisition is not expected to result in a material adverse change, and routine supplier price updates are handled under normal procurement policy."
+      "matched_text": "Negative covenant note: this note expressly states that the contemplated acquisition is not expected to result in a material adverse change, and routine supplier price updates are handled under normal procurement policy.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "material adverse change"
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
+      "matched_text": "5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hanako Mori-san"
+      "matched_text": "Ms. Hanako Mori-san",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EmpID: SY-0Q-9__7"
+      "matched_text": "EmpID: SY-0Q-9__7",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EmpID SY-0Q-9__7"
+      "matched_text": "EmpID SY-0Q-9__7",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@seishin-mobility.co.jp"
+      "matched_text": "dpo@seishin-mobility.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project “Shiosai”"
+      "matched_text": "Project \u201cShiosai\u201d",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "未公表重要事実"
+      "matched_text": "\u672a\u516c\u8868\u91cd\u8981\u4e8b\u5b9f",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "未公表"
+      "matched_text": "\u672a\u516c\u8868",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "draft TOB docs"
+      "matched_text": "draft TOB docs",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "draft TOB calculations"
+      "matched_text": "draft TOB calculations",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure ban"
+      "matched_text": "selective disclosure ban",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure risk"
+      "matched_text": "selective disclosure risk",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Blackout window"
+      "matched_text": "Blackout window",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "203.0.113.*"
+      "matched_text": "203.0.113.*",
+      "rule": "ip_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "My Number is not stored in raw form"
+      "matched_text": "My Number is not stored in raw form",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "mn_token mappings—deleted without delay after legal basis lapses"
+      "matched_text": "mn_token mappings\u2014deleted without delay after legal basis lapses",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "intra-group transfers to Seishin Mobility Europe GmbH are based on data-subject consent and adequacy status"
+      "matched_text": "intra-group transfers to Seishin Mobility Europe GmbH are based on data-subject consent and adequacy status",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Ms. Hanako Mori-san (EmpID SY-0Q-9__7)"
+      "matched_text": "Ms. Hanako Mori-san (EmpID SY-0Q-9__7)",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "project shiosai"
+      "matched_text": "project shiosai",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "offer price brackets"
+      "matched_text": "offer price brackets",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "board voting intentions"
+      "matched_text": "board voting intentions",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no pre-briefing to analysts or major shareholders"
+      "matched_text": "no pre-briefing to analysts or major shareholders",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "private NDAs do not cure this restriction"
+      "matched_text": "private NDAs do not cure this restriction",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "知る者"
+      "matched_text": "\u77e5\u308b\u8005",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hanako Mori",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daichi Kameda",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Seishin Mobility Holdings Kabushiki Kaisha (STX Growth) \u2014 Privacy & MNPI Handling Note for Board/Acquisition Workflows (JP)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Personal data transfer: intra-group transfers to Seishin Mobility Europe GmbH are based on data-subject consent and adequacy status; outsourcing to Sato Data Processing G.K. is under \u59d4\u8a17 with appropriate supervision per APPI, no third-party provision without consent.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Negative covenant note: this note expressly states that the contemplated acquisition is not expected to result in a material adverse change, and routine supplier price updates are handled under normal procurement policy.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
     }
   ],
   "must_not_detect": [
@@ -218,60 +263,42 @@
       "reason": "Defined-term abbreviation introduced in parentheses; not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "JP",
   "uncertain": [
     {
-      "matched_text": "DSAR: to request disclosure/correction/deletion",
       "concept": "DSAR/erasure marker",
+      "matched_text": "DSAR: to request disclosure/correction/deletion",
       "reason": "Data-subject rights are legally relevant but there is no explicit allowed rule name for DSAR in the list"
     },
     {
-      "matched_text": "Retention: board minutes and resolutions—10 years; draft TOB calculations—destroy within 30 days after 公表 or abort; payroll archives—7 years; mn_token mappings—deleted without delay after legal basis lapses; backups purge on a 90-day rolling cycle",
       "concept": "Retention schedule",
+      "matched_text": "Retention: board minutes and resolutions\u201410 years; draft TOB calculations\u2014destroy within 30 days after \u516c\u8868 or abort; payroll archives\u20147 years; mn_token mappings\u2014deleted without delay after legal basis lapses; backups purge on a 90-day rolling cycle",
       "reason": "Retention controls are privacy-event markers but no specific retention rule name is provided in allowed rules"
     },
     {
-      "matched_text": "audit hash: 1f:2a: 9c :b4 (OCR-like)",
       "concept": "Pseudonymous identifier",
+      "matched_text": "audit hash: 1f:2a: 9c :b4 (OCR-like)",
       "reason": "Hash values can be personal data if linkable; not mapped to a specific allowed PII rule"
     },
     {
-      "matched_text": "ka.mori",
       "concept": "Account username",
+      "matched_text": "ka.mori",
       "reason": "Login/user IDs are personal data but not mapped to a specific allowed PII rule"
     },
     {
-      "matched_text": "MN-****-A1B2",
       "concept": "Pseudonymised token for My Number",
+      "matched_text": "MN-****-A1B2",
       "reason": "Tokenised My Number reference is privacy-relevant but not an allowed specific ID rule"
     },
     {
-      "matched_text": "a9f3…",
       "concept": "Hash fragment",
+      "matched_text": "a9f3\u2026",
       "reason": "Illustrative hash of identifier; privacy-relevant but no specific allowed rule"
     },
     {
-      "matched_text": "seq=00012",
       "concept": "Internal log/sequence identifier",
+      "matched_text": "seq=00012",
       "reason": "Could be an internal session/log ID; not clearly covered by allowed PII rules"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-04T04:34:12Z",
-    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

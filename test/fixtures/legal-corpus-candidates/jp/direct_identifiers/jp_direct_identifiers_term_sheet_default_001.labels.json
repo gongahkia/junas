@@ -1,295 +1,340 @@
 {
-  "doc_id": "jp_direct_identifiers_term_sheet_default_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sec@hikari-adv.example.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "a.tsukada@hikari-adv.example.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "finance@kurose-tech.example.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "board@kurose-tech.example.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "9012345678901"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1312345678902"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "070-9000-1122"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "ZT1234568"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Aya Tsukada"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Riku Moriyama"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Strategic Acquisition Term Sheet — Project Hinode; subject to FIEA and confidential treatment of undisclosed enumerated material facts and tender-offer facts."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing: Bridge facility to be provided by Seishin Capital Finance G.K.; drawdown proceeds to Acquirer Designated Account at Koganei Future Bank (fictional), Kanda Branch 321, Futsū 0088123; account name: Kurose Tech Holdings K.K."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Closing Conditions: Clearance of tender-offer notice by Chūō Securities Authority, acceptance threshold ≥51%, and Kanto Main Exchange notification; these tender-offer facts remain undisclosed to the public until statutory filings."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Hinode"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "0088123"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_direct_identifiers_term_sheet_default_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "sec@hikari-adv.example.jp"
+      "matched_text": "sec@hikari-adv.example.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "a.tsukada@hikari-adv.example.jp"
+      "matched_text": "a.tsukada@hikari-adv.example.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "finance@kurose-tech.example.jp"
+      "matched_text": "finance@kurose-tech.example.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "board@kurose-tech.example.jp"
+      "matched_text": "board@kurose-tech.example.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "9012345678901"
+      "matched_text": "9012345678901",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "1312345678902"
+      "matched_text": "1312345678902",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "070-9000-1122"
+      "matched_text": "070-9000-1122",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "ZT1234568"
+      "matched_text": "ZT1234568",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Aya Tsukada"
+      "matched_text": "Ms. Aya Tsukada",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Riku Moriyama"
+      "matched_text": "Mr. Riku Moriyama",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Strategic Acquisition Term Sheet — Project Hinode; subject to FIEA and confidential treatment of undisclosed enumerated material facts and tender-offer facts."
+      "matched_text": "Strategic Acquisition Term Sheet \u2014 Project Hinode; subject to FIEA and confidential treatment of undisclosed enumerated material facts and tender-offer facts.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing: Bridge facility to be provided by Seishin Capital Finance G.K.; drawdown proceeds to Acquirer Designated Account at Koganei Future Bank (fictional), Kanda Branch 321, Futsū 0088123; account name: Kurose Tech Holdings K.K."
+      "matched_text": "Financing: Bridge facility to be provided by Seishin Capital Finance G.K.; drawdown proceeds to Acquirer Designated Account at Koganei Future Bank (fictional), Kanda Branch 321, Futs\u016b 0088123; account name: Kurose Tech Holdings K.K.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Closing Conditions: Clearance of tender-offer notice by Chūō Securities Authority, acceptance threshold ≥51%, and Kanto Main Exchange notification; these tender-offer facts remain undisclosed to the public until statutory filings."
+      "matched_text": "Closing Conditions: Clearance of tender-offer notice by Ch\u016b\u014d Securities Authority, acceptance threshold \u226551%, and Kanto Main Exchange notification; these tender-offer facts remain undisclosed to the public until statutory filings.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Hinode"
+      "matched_text": "Project Hinode",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "51%"
+      "matched_text": "51%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "0088123"
+      "matched_text": "0088123",
+      "rule": "large_number"
     },
     {
       "category": "PII",
-      "rule": "jp_corporate_number",
-      "matched_text": "9012345678901"
+      "matched_text": "9012345678901",
+      "rule": "jp_corporate_number"
     },
     {
       "category": "PII",
-      "rule": "jp_corporate_number",
-      "matched_text": "1312345678902"
+      "matched_text": "1312345678902",
+      "rule": "jp_corporate_number"
     },
     {
       "category": "PII",
-      "rule": "jp_postal_code",
-      "matched_text": "104-9999"
+      "matched_text": "104-9999",
+      "rule": "jp_postal_code"
     },
     {
       "category": "PII",
-      "rule": "jp_postal_code",
-      "matched_text": "112-8888"
+      "matched_text": "112-8888",
+      "rule": "jp_postal_code"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@kurose-tech.example.jp"
+      "matched_text": "ir@kurose-tech.example.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "050-8812-3344"
+      "matched_text": "050-8812-3344",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "jp_my_number",
-      "matched_text": "1234-5678-9012"
+      "matched_text": "1234-5678-9012",
+      "rule": "jp_my_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Aya Tsukada-san"
+      "matched_text": "Ms. Aya Tsukada-san",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "0088123"
+      "matched_text": "0088123",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "jp_corporate_number",
-      "matched_text": "0000000000000"
+      "matched_text": "0000000000000",
+      "rule": "jp_corporate_number"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "tender offer"
+      "matched_text": "tender offer",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "JPY 1,250"
+      "matched_text": "JPY 1,250",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet publicly announced"
+      "matched_text": "not yet publicly announced",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "Futsū 0088123"
+      "matched_text": "Futs\u016b 0088123",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "shall not be exchanged except as legally required for payroll/withholding"
+      "matched_text": "shall not be exchanged except as legally required for payroll/withholding",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "pre-disclosure procedures"
+      "matched_text": "pre-disclosure procedures",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "no press releases prior to 2026-07-15 JST"
+      "matched_text": "no press releases prior to 2026-07-15 JST",
+      "rule": "blackout_period_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "sec@hikari-adv.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "a.tsukada@hikari-adv.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "finance@kurose-tech.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "board@kurose-tech.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9012345678901",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1312345678902",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "070-9000-1122",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "ZT1234568",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Aya Tsukada",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Riku Moriyama",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Strategic Acquisition Term Sheet \u2014 Project Hinode; subject to FIEA and confidential treatment of undisclosed enumerated material facts and tender-offer facts.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Bridge facility to be provided by Seishin Capital Finance G.K.; drawdown proceeds to Acquirer Designated Account at Koganei Future Bank (fictional), Kanda Branch 321, Futs\u016b 0088123; account name: Kurose Tech Holdings K.K.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Closing Conditions: Clearance of tender-offer notice by Ch\u016b\u014d Securities Authority, acceptance threshold \u226551%, and Kanto Main Exchange notification; these tender-offer facts remain undisclosed to the public until statutory filings.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Hinode",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "51%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "0088123",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
@@ -322,50 +367,32 @@
       "reason": "Generic form placeholder label"
     }
   ],
+  "source_jurisdiction": "JP",
   "uncertain": [
     {
-      "matched_text": "SHR-14-77219",
       "concept": "local government business registry code",
+      "matched_text": "SHR-14-77219",
       "reason": "Likely a local business registry identifier; no explicit JP local registry/tax rule in allowed set"
     },
     {
-      "matched_text": "HSP-CE-778-2042",
       "concept": "local enterprise tax number",
+      "matched_text": "HSP-CE-778-2042",
       "reason": "Local tax identifier; not covered by allowed PII rules"
     },
     {
-      "matched_text": "AOB-2026-04567",
       "concept": "local business tax ID",
+      "matched_text": "AOB-2026-04567",
       "reason": "Local tax identifier; not covered by allowed PII rules"
     },
     {
-      "matched_text": "Kanda Branch 321",
       "concept": "bank branch identifier",
+      "matched_text": "Kanda Branch 321",
       "reason": "Bank branch code may be sensitive but not covered by allowed rules"
     },
     {
-      "matched_text": "no press releases prior to 2026-07-15 JST",
       "concept": "press embargo/blackout",
+      "matched_text": "no press releases prior to 2026-07-15 JST",
       "reason": "Embargo-like disclosure blackout; not explicitly mapped to allowed embargo terms"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-04T04:34:12Z",
-    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

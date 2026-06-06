@@ -1,252 +1,279 @@
 {
-  "doc_id": "jp_jurisdictional_mnpi_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "csirt@tsukikage.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "thirdpartyrisk@tsukikage.example"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Daichi Morita"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ayaka Nishi"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "On 2026-06-02, our payroll vendor Kanashiro Payroll G.K. reported unauthorized SFTP access; one archive included employee rosters with names, work emails, and 個人番号 (My Number) for 142 employees, triggering APPI breach assessment."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "The archive also contained a draft Board pack (“Project Hikari”) referencing a contemplated acquisition of Kabushiki Kaisha Hokaze Motors, with an indicative consideration range (approx. 28% of consolidated assets) and a draft 公開買付け開始予定日 of 2026-07-01; this is 未公表 and may constitute a 重要事実 under FIEA if/when the Board adopts a 決定事実."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "APPI response: under the amended 個人情報保護法 and PPC guidance, we will notify the Personal Information Protection Commission and affected employees within the prescribed period; all salary transfers have been re-tokenized through our internal gateway."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Next steps: complete PPC notice, issue employee notices, continue dark-web monitoring, finalize Board briefing on FIEA 重要事実 thresholds and TD-Link timing, and review vendor contracts for encryption-at-rest and breach notification SLAs."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Hikari"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Hikari"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "28%"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_jurisdictional_mnpi_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "csirt@tsukikage.example"
+      "matched_text": "csirt@tsukikage.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "thirdpartyrisk@tsukikage.example"
+      "matched_text": "thirdpartyrisk@tsukikage.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Daichi Morita"
+      "matched_text": "Mr. Daichi Morita",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ayaka Nishi"
+      "matched_text": "Ms. Ayaka Nishi",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "On 2026-06-02, our payroll vendor Kanashiro Payroll G.K. reported unauthorized SFTP access; one archive included employee rosters with names, work emails, and 個人番号 (My Number) for 142 employees, triggering APPI breach assessment."
+      "matched_text": "On 2026-06-02, our payroll vendor Kanashiro Payroll G.K. reported unauthorized SFTP access; one archive included employee rosters with names, work emails, and \u500b\u4eba\u756a\u53f7 (My Number) for 142 employees, triggering APPI breach assessment.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "The archive also contained a draft Board pack (“Project Hikari”) referencing a contemplated acquisition of Kabushiki Kaisha Hokaze Motors, with an indicative consideration range (approx. 28% of consolidated assets) and a draft 公開買付け開始予定日 of 2026-07-01; this is 未公表 and may constitute a 重要事実 under FIEA if/when the Board adopts a 決定事実."
+      "matched_text": "The archive also contained a draft Board pack (\u201cProject Hikari\u201d) referencing a contemplated acquisition of Kabushiki Kaisha Hokaze Motors, with an indicative consideration range (approx. 28% of consolidated assets) and a draft \u516c\u958b\u8cb7\u4ed8\u3051\u958b\u59cb\u4e88\u5b9a\u65e5 of 2026-07-01; this is \u672a\u516c\u8868 and may constitute a \u91cd\u8981\u4e8b\u5b9f under FIEA if/when the Board adopts a \u6c7a\u5b9a\u4e8b\u5b9f.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "APPI response: under the amended 個人情報保護法 and PPC guidance, we will notify the Personal Information Protection Commission and affected employees within the prescribed period; all salary transfers have been re-tokenized through our internal gateway."
+      "matched_text": "APPI response: under the amended \u500b\u4eba\u60c5\u5831\u4fdd\u8b77\u6cd5 and PPC guidance, we will notify the Personal Information Protection Commission and affected employees within the prescribed period; all salary transfers have been re-tokenized through our internal gateway.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Next steps: complete PPC notice, issue employee notices, continue dark-web monitoring, finalize Board briefing on FIEA 重要事実 thresholds and TD-Link timing, and review vendor contracts for encryption-at-rest and breach notification SLAs."
+      "matched_text": "Next steps: complete PPC notice, issue employee notices, continue dark-web monitoring, finalize Board briefing on FIEA \u91cd\u8981\u4e8b\u5b9f thresholds and TD-Link timing, and review vendor contracts for encryption-at-rest and breach notification SLAs.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Hikari"
+      "matched_text": "Project Hikari",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "28%"
+      "matched_text": "28%",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@tsukikage.example"
+      "matched_text": "ir@tsukikage.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "“Project Hikari”"
+      "matched_text": "\u201cProject Hikari\u201d",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "未公表"
+      "matched_text": "\u672a\u516c\u8868",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "選択的開示"
+      "matched_text": "\u9078\u629e\u7684\u958b\u793a",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Blackout windows"
+      "matched_text": "Blackout windows",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "取引禁止期間"
+      "matched_text": "\u53d6\u5f15\u7981\u6b62\u671f\u9593",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "jp_my_number",
-      "matched_text": "個人番号 (My Number)"
+      "matched_text": "\u500b\u4eba\u756a\u53f7 (My Number)",
+      "rule": "jp_my_number"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "employee rosters with names, work emails, and 個人番号 (My Number)"
+      "matched_text": "employee rosters with names, work emails, and \u500b\u4eba\u756a\u53f7 (My Number)",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "external access logs show 19 downloads from offshore IPs"
+      "matched_text": "external access logs show 19 downloads from offshore IPs",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "certify data deletion"
+      "matched_text": "certify data deletion",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "contemplated acquisition of Kabushiki Kaisha Hokaze Motors"
+      "matched_text": "contemplated acquisition of Kabushiki Kaisha Hokaze Motors",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "公開買付け開始予定日 of 2026-07-01"
+      "matched_text": "\u516c\u958b\u8cb7\u4ed8\u3051\u958b\u59cb\u4e88\u5b9a\u65e5 of 2026-07-01",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "重要事実"
+      "matched_text": "\u91cd\u8981\u4e8b\u5b9f",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "if/when the Board adopts a 決定事実"
+      "matched_text": "if/when the Board adopts a \u6c7a\u5b9a\u4e8b\u5b9f",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "フェア・ディスクロージャー・ルール"
+      "matched_text": "\u30d5\u30a7\u30a2\u30fb\u30c7\u30a3\u30b9\u30af\u30ed\u30fc\u30b8\u30e3\u30fc\u30fb\u30eb\u30fc\u30eb",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "please refrain from comment beyond the approved holding statement"
+      "matched_text": "please refrain from comment beyond the approved holding statement",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "until the scheduled Q1 決算発表 (2026-06-14 15:00 JST)"
+      "matched_text": "until the scheduled Q1 \u6c7a\u7b97\u767a\u8868 (2026-06-14 15:00 JST)",
+      "rule": "blackout_period_reference"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "csirt@tsukikage.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "thirdpartyrisk@tsukikage.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Daichi Morita",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ayaka Nishi",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "On 2026-06-02, our payroll vendor Kanashiro Payroll G.K. reported unauthorized SFTP access; one archive included employee rosters with names, work emails, and \u500b\u4eba\u756a\u53f7 (My Number) for 142 employees, triggering APPI breach assessment.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The archive also contained a draft Board pack (\u201cProject Hikari\u201d) referencing a contemplated acquisition of Kabushiki Kaisha Hokaze Motors, with an indicative consideration range (approx. 28% of consolidated assets) and a draft \u516c\u958b\u8cb7\u4ed8\u3051\u958b\u59cb\u4e88\u5b9a\u65e5 of 2026-07-01; this is \u672a\u516c\u8868 and may constitute a \u91cd\u8981\u4e8b\u5b9f under FIEA if/when the Board adopts a \u6c7a\u5b9a\u4e8b\u5b9f.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "APPI response: under the amended \u500b\u4eba\u60c5\u5831\u4fdd\u8b77\u6cd5 and PPC guidance, we will notify the Personal Information Protection Commission and affected employees within the prescribed period; all salary transfers have been re-tokenized through our internal gateway.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Next steps: complete PPC notice, issue employee notices, continue dark-web monitoring, finalize Board briefing on FIEA \u91cd\u8981\u4e8b\u5b9f thresholds and TD-Link timing, and review vendor contracts for encryption-at-rest and breach notification SLAs.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Hikari",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Hikari",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "28%",
+      "rule": "financial_percentage"
     }
   ],
   "must_not_detect": [],
+  "source_jurisdiction": "JP",
   "uncertain": [
     {
-      "matched_text": "external access logs show 19 downloads from offshore IPs",
       "concept": "cross-border exposure",
+      "matched_text": "external access logs show 19 downloads from offshore IPs",
       "reason": "Implies cross-border downloads of a PII-containing archive; phrasing does not explicitly say 'transfer' and may be missed by strict detectors."
     },
     {
-      "matched_text": "公開買付け開始予定日 of 2026-07-01",
       "concept": "tender-offer planned start date",
+      "matched_text": "\u516c\u958b\u8cb7\u4ed8\u3051\u958b\u59cb\u4e88\u5b9a\u65e5 of 2026-07-01",
       "reason": "A FIEA tender-offer fact; current rule list lacks a dedicated tender-offer fact label and may rely on broad material_event."
     },
     {
-      "matched_text": "個人番号 (My Number)",
       "concept": "JP My Number category mention",
+      "matched_text": "\u500b\u4eba\u756a\u53f7 (My Number)",
       "reason": "Mentions presence of My Number data without an actual numeric identifier; some engines flag only numeric formats."
     },
     {
-      "matched_text": "designated insiders",
       "concept": "insider governance",
+      "matched_text": "designated insiders",
       "reason": "Indicates insider designation in a blackout context but does not explicitly reference an 'insider list'."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-04T04:34:12Z",
-    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

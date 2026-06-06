@@ -1,272 +1,299 @@
 {
-  "doc_id": "kr_jurisdictional_mnpi_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "KR",
-  "destination_jurisdiction": "KR",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "8 3 0 1 0 1 - 1 2"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2024.04.18"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "02-0000-8217"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "비공개 상태 자료 예: 내부코드 PJ-CHEONGHAE, q2 guidance draft, gantt.xlsx — 외부 공유 금지; 본 항은 어떠한 material adverse change 선언도 아님."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "material adverse change"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "000987"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_jurisdictional_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "8 3 0 1 0 1 - 1 2"
+      "matched_text": "8 3 0 1 0 1 - 1 2",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2024.04.18"
+      "matched_text": "2024.04.18",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "02-0000-8217"
+      "matched_text": "02-0000-8217",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "비공개 상태 자료 예: 내부코드 PJ-CHEONGHAE, q2 guidance draft, gantt.xlsx — 외부 공유 금지; 본 항은 어떠한 material adverse change 선언도 아님."
+      "matched_text": "\ube44\uacf5\uac1c \uc0c1\ud0dc \uc790\ub8cc \uc608: \ub0b4\ubd80\ucf54\ub4dc PJ-CHEONGHAE, q2 guidance draft, gantt.xlsx \u2014 \uc678\ubd80 \uacf5\uc720 \uae08\uc9c0; \ubcf8 \ud56d\uc740 \uc5b4\ub5a0\ud55c material adverse change \uc120\uc5b8\ub3c4 \uc544\ub2d8.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "material adverse change"
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
+      "matched_text": "5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3%"
+      "matched_text": "3%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "000987"
+      "matched_text": "000987",
+      "rule": "large_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@seongwu-chemitech.co.kr"
+      "matched_text": "privacy@seongwu-chemitech.co.kr",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "박 서 현 부장님"
+      "matched_text": "\ubc15 \uc11c \ud604 \ubd80\uc7a5\ub2d8",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "이한결 팀장님"
+      "matched_text": "\uc774\ud55c\uacb0 \ud300\uc7a5\ub2d8",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "사번 SW-19A3-xx7"
+      "matched_text": "\uc0ac\ubc88 SW-19A3-xx7",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "국외 이전"
+      "matched_text": "\uad6d\uc678 \uc774\uc804",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "마스킹(******)"
+      "matched_text": "\ub9c8\uc2a4\ud0b9(******)",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "열람·정정·삭제·이동권 요청시"
+      "matched_text": "\uc5f4\ub78c\u00b7\uc815\uc815\u00b7\uc0ad\uc81c\u00b7\uc774\ub3d9\uad8c \uc694\uccad\uc2dc",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "공시 전 비공개 정보"
+      "matched_text": "\uacf5\uc2dc \uc804 \ube44\uacf5\uac1c \uc815\ubcf4",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selective disclosure 금지"
+      "matched_text": "selective disclosure \uae08\uc9c0",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "외부 공유 금지"
+      "matched_text": "\uc678\ubd80 \uacf5\uc720 \uae08\uc9c0",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "공개용 아님"
+      "matched_text": "\uacf5\uac1c\uc6a9 \uc544\ub2d8",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "블랙아웃"
+      "matched_text": "\ube14\ub799\uc544\uc6c3",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "주민등록번호 8 3 0 1 0 1 - 1 2 * * * * *"
+      "matched_text": "\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638 8 3 0 1 0 1 - 1 2 * * * * *",
+      "rule": "kr_rrn"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "급여계좌 11-***-***-0021"
+      "matched_text": "\uae09\uc5ec\uacc4\uc88c 11-***-***-0021",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR 처리"
+      "matched_text": "DSAR \ucc98\ub9ac",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "임직원 자사주 매매 금지"
+      "matched_text": "\uc784\uc9c1\uc6d0 \uc790\uc0ac\uc8fc \ub9e4\ub9e4 \uae08\uc9c0",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "내부코드 PJ-CHEONGHAE"
+      "matched_text": "\ub0b4\ubd80\ucf54\ub4dc PJ-CHEONGHAE",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "q2 guidance draft"
+      "matched_text": "q2 guidance draft",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "gantt.xlsx"
+      "matched_text": "gantt.xlsx",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "분기 가이던스 초안"
+      "matched_text": "\ubd84\uae30 \uac00\uc774\ub358\uc2a4 \ucd08\uc548",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "미체결 단일판매·공급계약"
+      "matched_text": "\ubbf8\uccb4\uacb0 \ub2e8\uc77c\ud310\ub9e4\u00b7\uacf5\uae09\uacc4\uc57d",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "비공개 정보 언급 금지"
+      "matched_text": "\ube44\uacf5\uac1c \uc815\ubcf4 \uc5b8\uae09 \uae08\uc9c0",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "공시 승인 전 배포 불가"
+      "matched_text": "\uacf5\uc2dc \uc2b9\uc778 \uc804 \ubc30\ud3ec \ubd88\uac00",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "사전 보도자료 배포 금지"
+      "matched_text": "\uc0ac\uc804 \ubcf4\ub3c4\uc790\ub8cc \ubc30\ud3ec \uae08\uc9c0",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "영향 예상 시 ‘중요’로 판단하여 즉시 공시 검토"
+      "matched_text": "\uc601\ud5a5 \uc608\uc0c1 \uc2dc \u2018\uc911\uc694\u2019\ub85c \ud310\ub2e8\ud558\uc5ec \uc989\uc2dc \uacf5\uc2dc \uac80\ud1a0",
+      "rule": "contingent_mnpi_language"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "8 3 0 1 0 1 - 1 2",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2024.04.18",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "02-0000-8217",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\ube44\uacf5\uac1c \uc0c1\ud0dc \uc790\ub8cc \uc608: \ub0b4\ubd80\ucf54\ub4dc PJ-CHEONGHAE, q2 guidance draft, gantt.xlsx \u2014 \uc678\ubd80 \uacf5\uc720 \uae08\uc9c0; \ubcf8 \ud56d\uc740 \uc5b4\ub5a0\ud55c material adverse change \uc120\uc5b8\ub3c4 \uc544\ub2d8.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material adverse change",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "3%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "000987",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [],
+  "source_jurisdiction": "KR",
   "uncertain": [
     {
-      "matched_text": "계약번호 AG-24-09",
       "concept": "contract_identifier",
+      "matched_text": "\uacc4\uc57d\ubc88\ud638 AG-24-09",
       "reason": "Internal contract numbers may be sensitive but are not covered by allowed PII rules"
     },
     {
-      "matched_text": "DART rcpNo=2024 F I C T 001234",
       "concept": "public_filing_identifier",
+      "matched_text": "DART rcpNo=2024 F I C T 001234",
       "reason": "Regulatory filing reference is public/status info rather than MNPI/PII under allowed rules"
     },
     {
-      "matched_text": "rcpNo=2 0 2 4 F I C T 000987",
       "concept": "public_filing_identifier",
+      "matched_text": "rcpNo=2 0 2 4 F I C T 000987",
       "reason": "Regulatory filing reference is public/status info rather than MNPI/PII under allowed rules"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-04T04:34:12Z",
-    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

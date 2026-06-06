@@ -1,286 +1,313 @@
 {
-  "doc_id": "jp_sector_mnpi_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hotline@kirishima-ng.example.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "106-8 0 3 0"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kenji Hoshina"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "65%"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
-  "ideal_must_detect": [
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hotline@kirishima-ng.example.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "106-8 0 3 0"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kenji Hoshina"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "65%"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "星名健司氏"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@kirishima-ng.example.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@kirishima-ng.example.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "社員ID: e7a-**-93jp"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "越境移転"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "7年超の保存を行いません"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "インサイダーリスト"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "情報遮断"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "チャイニーズウォール"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "info-barrier"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "情報遮断下"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "未公表事実"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "未公表"
-    },
-    {
-      "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "ティッピング"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "選別的開示"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "ブラックアウト期間"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "役員売買禁止期間"
-    },
-    {
-      "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "ブラックアウト規程"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "サイバーインシデント"
-    },
-    {
-      "category": "PII",
-      "rule": "jp_postal_code",
-      "matched_text": "〒106-8 0 3 0"
-    },
-    {
-      "category": "PII",
-      "rule": "jp_my_number",
-      "matched_text": "個人番号(マイナンバー: ****-****-****)"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "開示等請求(DSAR)"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "同意取得"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "復号鍵を破棄"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "SCC相当"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "対外発表前"
-    },
-    {
-      "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "私募型セキュリティトークン発行計画"
-    },
-    {
-      "category": "MNPI",
-      "rule": "dpt_pre_listing_marker",
-      "matched_text": "暗号資産/DPT"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "開示前のMNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "リーク"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "情報隔壁101"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "情報遮断下のチーム"
-    }
-  ],
-  "must_not_detect": [],
-  "uncertain": [
-    {
-      "matched_text": "a9:df:**:ff",
-      "concept": "mac_address/hash fragment",
-      "reason": "Colon-delimited hex resembles a MAC address but is incomplete and described as a hash, so not clearly covered by device/network ID rules."
-    },
-    {
-      "matched_text": "締結予定日",
-      "concept": "embargo_marker",
-      "reason": "Japanese equivalent of Signing/Closing date; not one of the explicit English embargo markers listed in the rule."
-    },
-    {
-      "matched_text": "Shizuku Token",
-      "concept": "dpt_protocol_event_marker",
-      "reason": "Token name indicates a crypto asset involved in a private issuance plan; name alone may not meet strict DPT event marker criteria."
-    }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
   "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
   "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
   "_resolved_label_warnings": [
     {
       "basis": "Warnings were emitted by the Azure auto-label normalization pass before strict-tier realignment. The pending Stage B strict tier was rebuilt from deterministic engine output; broader model-derived coverage remains in ideal_must_detect.",
       "resolved_at": "2026-06-04T04:34:12Z",
       "warnings": [
-        "drop uncertain: text not verbatim text='案件 コ ー ド: G-L e a f/29A'"
+        "drop uncertain: text not verbatim text='\u6848\u4ef6 \u30b3 \u30fc \u30c9: G-L e a f/29A'"
       ]
     }
   ],
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
   "_strict_reconciliation": {
     "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
     "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
     "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
     "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_sector_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hotline@kirishima-ng.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "106-8 0 3 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenji Hoshina",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "65%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u661f\u540d\u5065\u53f8\u6c0f",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "privacy@kirishima-ng.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dpo@kirishima-ng.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u793e\u54e1ID: e7a-**-93jp",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u8d8a\u5883\u79fb\u8ee2",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "7\u5e74\u8d85\u306e\u4fdd\u5b58\u3092\u884c\u3044\u307e\u305b\u3093",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u30a4\u30f3\u30b5\u30a4\u30c0\u30fc\u30ea\u30b9\u30c8",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider-list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u60c5\u5831\u906e\u65ad",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u30c1\u30e3\u30a4\u30cb\u30fc\u30ba\u30a6\u30a9\u30fc\u30eb",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "info-barrier",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u60c5\u5831\u906e\u65ad\u4e0b",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u8868\u4e8b\u5b9f",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u672a\u516c\u8868",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u30c6\u30a3\u30c3\u30d4\u30f3\u30b0",
+      "rule": "tipping_language"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u9078\u5225\u7684\u958b\u793a",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u30d6\u30e9\u30c3\u30af\u30a2\u30a6\u30c8\u671f\u9593",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u5f79\u54e1\u58f2\u8cb7\u7981\u6b62\u671f\u9593",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u30d6\u30e9\u30c3\u30af\u30a2\u30a6\u30c8\u898f\u7a0b",
+      "rule": "blackout_period_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u30b5\u30a4\u30d0\u30fc\u30a4\u30f3\u30b7\u30c7\u30f3\u30c8",
+      "rule": "cyber_incident_pre_disclosure"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u3012106-8 0 3 0",
+      "rule": "jp_postal_code"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u500b\u4eba\u756a\u53f7(\u30de\u30a4\u30ca\u30f3\u30d0\u30fc: ****-****-****)",
+      "rule": "jp_my_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u958b\u793a\u7b49\u8acb\u6c42(DSAR)",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u540c\u610f\u53d6\u5f97",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "\u5fa9\u53f7\u9375\u3092\u7834\u68c4",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "SCC\u76f8\u5f53",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u5bfe\u5916\u767a\u8868\u524d",
+      "rule": "esg_climate_pre_disclosure"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u79c1\u52df\u578b\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u30c8\u30fc\u30af\u30f3\u767a\u884c\u8a08\u753b",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u6697\u53f7\u8cc7\u7523/DPT",
+      "rule": "dpt_pre_listing_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u958b\u793a\u524d\u306eMNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u30ea\u30fc\u30af",
+      "rule": "selective_disclosure_risk"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u60c5\u5831\u9694\u58c1101",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u60c5\u5831\u906e\u65ad\u4e0b\u306e\u30c1\u30fc\u30e0",
+      "rule": "information_barrier_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "hotline@kirishima-ng.example.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "106-8 0 3 0",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kenji Hoshina",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "65%",
+      "rule": "financial_percentage"
+    }
+  ],
+  "must_not_detect": [],
+  "source_jurisdiction": "JP",
+  "uncertain": [
+    {
+      "concept": "mac_address/hash fragment",
+      "matched_text": "a9:df:**:ff",
+      "reason": "Colon-delimited hex resembles a MAC address but is incomplete and described as a hash, so not clearly covered by device/network ID rules."
+    },
+    {
+      "concept": "embargo_marker",
+      "matched_text": "\u7de0\u7d50\u4e88\u5b9a\u65e5",
+      "reason": "Japanese equivalent of Signing/Closing date; not one of the explicit English embargo markers listed in the rule."
+    },
+    {
+      "concept": "dpt_protocol_event_marker",
+      "matched_text": "Shizuku Token",
+      "reason": "Token name indicates a crypto asset involved in a private issuance plan; name alone may not meet strict DPT event marker criteria."
+    }
+  ]
 }

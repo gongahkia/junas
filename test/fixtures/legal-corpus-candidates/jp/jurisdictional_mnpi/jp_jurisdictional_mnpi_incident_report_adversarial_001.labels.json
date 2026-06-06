@@ -1,150 +1,195 @@
 {
-  "doc_id": "jp_jurisdictional_mnpi_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "csirt@hinode-systems.co.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2 0 2 6 0 5 1 8-01"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "03-0000-0000"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Hiroto Kagawa"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "1%"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_jurisdictional_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "csirt@hinode-systems.co.jp"
+      "matched_text": "csirt@hinode-systems.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "2 0 2 6 0 5 1 8-01"
+      "matched_text": "2 0 2 6 0 5 1 8-01",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "03-0000-0000"
+      "matched_text": "03-0000-0000",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Hiroto Kagawa"
+      "matched_text": "Mr. Hiroto Kagawa",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "1%"
+      "matched_text": "1%",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@hinode-systems.co.jp"
+      "matched_text": "privacy@hinode-systems.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@hinode-systems.co.jp"
+      "matched_text": "ir@hinode-systems.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "6.1%"
+      "matched_text": "6.1%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "決算前ブラックアウト"
+      "matched_text": "\u6c7a\u7b97\u524d\u30d6\u30e9\u30c3\u30af\u30a2\u30a6\u30c8",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "TOB関連ブラックアウト"
+      "matched_text": "TOB\u95a2\u9023\u30d6\u30e9\u30c3\u30af\u30a2\u30a6\u30c8",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "未公表"
+      "matched_text": "\u672a\u516c\u8868",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "重要事実"
+      "matched_text": "\u91cd\u8981\u4e8b\u5b9f",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "サイバーインシデント第1報"
+      "matched_text": "\u30b5\u30a4\u30d0\u30fc\u30a4\u30f3\u30b7\u30c7\u30f3\u30c8\u7b2c1\u5831",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "選択的開示禁止"
+      "matched_text": "\u9078\u629e\u7684\u958b\u793a\u7981\u6b62",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "公開買付け事実"
+      "matched_text": "\u516c\u958b\u8cb7\u4ed8\u3051\u4e8b\u5b9f",
+      "rule": "material_event"
     },
     {
       "category": "PII",
-      "rule": "jp_my_number",
-      "matched_text": "9 1**-**7 2-0*13"
+      "matched_text": "9 1**-**7 2-0*13",
+      "rule": "jp_my_number"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "社員ID E-7 1 3 9"
+      "matched_text": "\u793e\u54e1ID E-7 1 3 9",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "DEV-JP-**048"
+      "matched_text": "DEV-JP-**048",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "LOG-2 2-7 A"
+      "matched_text": "LOG-2 2-7 A",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "マスキング方針"
+      "matched_text": "\u30de\u30b9\u30ad\u30f3\u30b0\u65b9\u91dd",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "****-****-**12"
+      "matched_text": "****-****-**12",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "リークが生じた場合"
+      "matched_text": "\u30ea\u30fc\u30af\u304c\u751f\u3058\u305f\u5834\u5408",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "口外禁止"
+      "matched_text": "\u53e3\u5916\u7981\u6b62",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "csirt@hinode-systems.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "2 0 2 6 0 5 1 8-01",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "03-0000-0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Hiroto Kagawa",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "1%",
+      "rule": "financial_percentage"
     }
   ],
   "must_not_detect": [
@@ -157,50 +202,32 @@
       "reason": "Parenthetical abbreviation/defined term; not PII/MNPI."
     }
   ],
+  "source_jurisdiction": "JP",
   "uncertain": [
     {
-      "matched_text": "山瀬玲奈さん",
       "concept": "named_person",
-      "reason": "Japanese honorific ‘さん’ indicates an individual, but named_person rule restricts to Mr/Ms etc or signature block."
+      "matched_text": "\u5c71\u702c\u73b2\u5948\u3055\u3093",
+      "reason": "Japanese honorific \u2018\u3055\u3093\u2019 indicates an individual, but named_person rule restricts to Mr/Ms etc or signature block."
     },
     {
-      "matched_text": "DEV-JP-**048",
       "concept": "device_serial_number",
+      "matched_text": "DEV-JP-**048",
       "reason": "Device identifier/asset tag; format is nonstandard and may not be covered by current detectors."
     },
     {
-      "matched_text": "LOG-2 2-7 A",
       "concept": "internal_session_id",
+      "matched_text": "LOG-2 2-7 A",
       "reason": "Audit log reference works as an internal tracking ID; mapping to the internal_session_id rule is ambiguous."
     },
     {
-      "matched_text": "****-****-**12",
       "concept": "jp_my_number",
+      "matched_text": "****-****-**12",
       "reason": "Masked My Number example; may be treated as minimisation rather than PII; detection boundary unclear."
     },
     {
-      "matched_text": "社員ID E-7 1 3 9",
       "concept": "employee_id",
+      "matched_text": "\u793e\u54e1ID E-7 1 3 9",
       "reason": "Employee ID with spaces could challenge strict pattern detectors; semantically an employee identifier."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-04T04:34:12Z",
-    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

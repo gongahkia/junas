@@ -1,195 +1,240 @@
 {
-  "doc_id": "jp_direct_identifiers_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "m.sato@hirashima-industries.co.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "security@hirashima-industries.co.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "kameda.h@hirashima-industries.co.jp"
-    },
-    {
-      "category": "PII",
-      "rule": "jp_corporate_number",
-      "matched_text": "9076543210987"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Haru Kameda"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kameda"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Email thread references “pre‑integration” credential mapping and a URL https://intra.hirashima-industries.co.jp/ticket?case=ACQ%2F2026%2F06%2FTOB, indicating acquisition workflow materials were commingled with HR data."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Planned next steps: isolate HR share, rotate VPN certs, and prepare board resolution for disclosure sequencing should the acquisition proceed."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "4567890"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_direct_identifiers_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "m.sato@hirashima-industries.co.jp"
+      "matched_text": "m.sato@hirashima-industries.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "security@hirashima-industries.co.jp"
+      "matched_text": "security@hirashima-industries.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "kameda.h@hirashima-industries.co.jp"
+      "matched_text": "kameda.h@hirashima-industries.co.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "jp_corporate_number",
-      "matched_text": "9076543210987"
+      "matched_text": "9076543210987",
+      "rule": "jp_corporate_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Haru Kameda"
+      "matched_text": "Mr. Haru Kameda",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kameda"
+      "matched_text": "Mr. Kameda",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Email thread references “pre‑integration” credential mapping and a URL https://intra.hirashima-industries.co.jp/ticket?case=ACQ%2F2026%2F06%2FTOB, indicating acquisition workflow materials were commingled with HR data."
+      "matched_text": "Email thread references \u201cpre\u2011integration\u201d credential mapping and a URL https://intra.hirashima-industries.co.jp/ticket?case=ACQ%2F2026%2F06%2FTOB, indicating acquisition workflow materials were commingled with HR data.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Planned next steps: isolate HR share, rotate VPN certs, and prepare board resolution for disclosure sequencing should the acquisition proceed."
+      "matched_text": "Planned next steps: isolate HR share, rotate VPN certs, and prepare board resolution for disclosure sequencing should the acquisition proceed.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "4567890"
+      "matched_text": "4567890",
+      "rule": "large_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "090‑8123‑4470"
+      "matched_text": "090\u20118123\u20114470",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "03‑6425‑8888"
+      "matched_text": "03\u20116425\u20118888",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "jp_postal_code",
-      "matched_text": "〒199‑9999"
+      "matched_text": "\u3012199\u20119999",
+      "rule": "jp_postal_code"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "T A 1 2 3 4 5 6 7"
+      "matched_text": "T A 1 2 3 4 5 6 7",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "jp_my_number",
-      "matched_text": "1234‑5678‑9012"
+      "matched_text": "1234\u20115678\u20119012",
+      "rule": "jp_my_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "4567890"
+      "matched_text": "4567890",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "mac_address",
-      "matched_text": "00:11:22:33:44:55"
+      "matched_text": "00:11:22:33:44:55",
+      "rule": "mac_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Haru Kameda 様 (CISO)"
+      "matched_text": "Mr. Haru Kameda \u69d8 (CISO)",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "tender offer"
+      "matched_text": "tender offer",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "insider‑trading blackout"
+      "matched_text": "insider\u2011trading blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "no public announcement has been made"
+      "matched_text": "no public announcement has been made",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "a.kameda"
+      "matched_text": "a.kameda",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "アカウントID a.k a m e d a"
+      "matched_text": "\u30a2\u30ab\u30a6\u30f3\u30c8ID a.k a m e d a",
+      "rule": "employee_id"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "friendly tender offer"
+      "matched_text": "friendly tender offer",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "unauthorized VPN access led to exfiltration of HR payroll extracts"
+      "matched_text": "unauthorized VPN access led to exfiltration of HR payroll extracts",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "subject to timely disclosure protocols (TDnet) once approved"
+      "matched_text": "subject to timely disclosure protocols (TDnet) once approved",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "m.sato@hirashima-industries.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "security@hirashima-industries.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "kameda.h@hirashima-industries.co.jp",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "9076543210987",
+      "rule": "jp_corporate_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Haru Kameda",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kameda",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Email thread references \u201cpre\u2011integration\u201d credential mapping and a URL https://intra.hirashima-industries.co.jp/ticket?case=ACQ%2F2026%2F06%2FTOB, indicating acquisition workflow materials were commingled with HR data.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Planned next steps: isolate HR share, rotate VPN certs, and prepare board resolution for disclosure sequencing should the acquisition proceed.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "4567890",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
     {
-      "matched_text": "0120‑000‑000",
+      "matched_text": "0120\u2011000\u2011000",
       "reason": "Public helpline/toll-free number, not personal PII"
     },
     {
@@ -221,65 +266,47 @@
       "reason": "File name is not a transaction codename per rule"
     }
   ],
+  "source_jurisdiction": "JP",
   "uncertain": [
     {
-      "matched_text": "住民票コード 7 6 5 4 3 2 1 0 9（印字欠落）",
       "concept": "resident record code",
+      "matched_text": "\u4f4f\u6c11\u7968\u30b3\u30fc\u30c9 7 6 5 4 3 2 1 0 9\uff08\u5370\u5b57\u6b20\u843d\uff09",
       "reason": "Japanese resident record code is an individual code under APPI but not covered by a specific allowed rule"
     },
     {
-      "matched_text": "Kirasaki‑ken Hoshimi‑shi Minami‑Azami 2‑4‑7",
       "concept": "postal address",
+      "matched_text": "Kirasaki\u2011ken Hoshimi\u2011shi Minami\u2011Azami 2\u20114\u20117",
       "reason": "Full street address is PII under APPI but there is no explicit general address rule beyond jp_postal_code"
     },
     {
-      "matched_text": "特定個人情報",
       "concept": "My Number special-category classification",
-      "reason": "Indicates sensitive My Number category; classification itself isn’t an identifier value in allowed rules"
+      "matched_text": "\u7279\u5b9a\u500b\u4eba\u60c5\u5831",
+      "reason": "Indicates sensitive My Number category; classification itself isn\u2019t an identifier value in allowed rules"
     },
     {
-      "matched_text": "要配慮個人情報",
       "concept": "sensitive personal data marker",
+      "matched_text": "\u8981\u914d\u616e\u500b\u4eba\u60c5\u5831",
       "reason": "Japanese term for special-care personal information; no direct allowed rule"
     },
     {
-      "matched_text": "店番 183",
       "concept": "bank branch code",
+      "matched_text": "\u5e97\u756a 183",
       "reason": "Bank branch identifier appears in financial PII context but not mapped to an allowed rule"
     },
     {
-      "matched_text": "TDnet",
       "concept": "disclosure system reference",
+      "matched_text": "TDnet",
       "reason": "Relates to MNPI disclosure protocols but not a specific allowed marker"
     },
     {
-      "matched_text": "Namikaze Components K.K",
       "concept": "target company identity",
+      "matched_text": "Namikaze Components K.K",
       "reason": "Identifies contemplated tender-offer target; material in MNPI context but not an allowed rule term"
     },
     {
-      "matched_text": "https://intra.hirashima-industries.co.jp/ticket?case=ACQ%2F2026%2F06%2FTOB",
       "concept": "internal MNPI workflow URL",
+      "matched_text": "https://intra.hirashima-industries.co.jp/ticket?case=ACQ%2F2026%2F06%2FTOB",
       "reason": "Internal URL evidences acquisition workflow; URLs are not covered by allowed rules"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-04T04:34:12Z",
-    "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

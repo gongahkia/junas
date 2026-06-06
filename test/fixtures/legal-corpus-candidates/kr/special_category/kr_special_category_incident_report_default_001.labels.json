@@ -1,240 +1,285 @@
 {
-  "doc_id": "kr_special_category_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "KR",
-  "destination_jurisdiction": "KR",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "security@haneulinstruments.example.kr"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "830512-1876543"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Park Jun"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Park"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lee So"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Seo Min"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Na Hye"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "MNPI involved: unaudited Q2 revenue forecast +17% YoY and an indicative private placement of KRW 35bn with Cheongmae Growth Partners SPC at a preliminary price floor of KRW 18,000, not yet publicly disclosed on the HanRiver Exchange Growth Board."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "18,000"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_special_category_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "security@haneulinstruments.example.kr"
+      "matched_text": "security@haneulinstruments.example.kr",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "830512-1876543"
+      "matched_text": "830512-1876543",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Park Jun"
+      "matched_text": "Mr. Park Jun",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Park"
+      "matched_text": "Mr. Park",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lee So"
+      "matched_text": "Ms. Lee So",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Seo Min"
+      "matched_text": "Mr. Seo Min",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Na Hye"
+      "matched_text": "Dr. Na Hye",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "MNPI involved: unaudited Q2 revenue forecast +17% YoY and an indicative private placement of KRW 35bn with Cheongmae Growth Partners SPC at a preliminary price floor of KRW 18,000, not yet publicly disclosed on the HanRiver Exchange Growth Board."
+      "matched_text": "MNPI involved: unaudited Q2 revenue forecast +17% YoY and an indicative private placement of KRW 35bn with Cheongmae Growth Partners SPC at a preliminary price floor of KRW 18,000, not yet publicly disclosed on the HanRiver Exchange Growth Board.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "18,000"
+      "matched_text": "18,000",
+      "rule": "large_number"
     },
     {
       "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "830512-1876543"
+      "matched_text": "830512-1876543",
+      "rule": "kr_rrn"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Park Jun-ho"
+      "matched_text": "Mr. Park Jun-ho",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lee So-min"
+      "matched_text": "Ms. Lee So-min",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Seo Min-gyu"
+      "matched_text": "Mr. Seo Min-gyu",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Na Hye-jin"
+      "matched_text": "Dr. Na Hye-jin",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@haneulinstruments.example.kr"
+      "matched_text": "ir@haneulinstruments.example.kr",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "203.0.113.54"
+      "matched_text": "203.0.113.54",
+      "rule": "ip_address"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "peanut allergy"
+      "matched_text": "peanut allergy",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "requiring EpiPen"
+      "matched_text": "requiring EpiPen",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "active membership in Haneul Tech Union Local 77"
+      "matched_text": "active membership in Haneul Tech Union Local 77",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template hash"
+      "matched_text": "fingerprint template hash",
+      "rule": "biometric_identifier"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "not yet publicly disclosed"
+      "matched_text": "not yet publicly disclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "+17%"
+      "matched_text": "+17%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 35b"
+      "matched_text": "KRW 35b",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "KRW 18,000"
+      "matched_text": "KRW 18,000",
+      "rule": "financial_amount"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "Mr. Park’s fingerprint template hash"
+      "matched_text": "Mr. Park\u2019s fingerprint template hash",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "resident registration numbers"
+      "matched_text": "resident registration numbers",
+      "rule": "kr_rrn"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "unaudited Q2 revenue forecast"
+      "matched_text": "unaudited Q2 revenue forecast",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "indicative private placement"
+      "matched_text": "indicative private placement",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "Cyber Incident Report"
+      "matched_text": "Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "investor update withheld pending assessment"
+      "matched_text": "investor update withheld pending assessment",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Deal/PrivatePlacement/TermSheet_Cheongmae_Growth_SPC.docx"
+      "matched_text": "Deal/PrivatePlacement/TermSheet_Cheongmae_Growth_SPC.docx",
+      "rule": "definitive_agreement"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@haneulinstruments.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "830512-1876543",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Park Jun",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Park",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lee So",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Seo Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Na Hye",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI involved: unaudited Q2 revenue forecast +17% YoY and an indicative private placement of KRW 35bn with Cheongmae Growth Partners SPC at a preliminary price floor of KRW 18,000, not yet publicly disclosed on the HanRiver Exchange Growth Board.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18,000",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
@@ -259,30 +304,12 @@
       "reason": "Internal policy codename not matching Project <Name> pattern"
     }
   ],
+  "source_jurisdiction": "KR",
   "uncertain": [
     {
-      "matched_text": "clinic_reimbursements.xlsx",
       "concept": "health data indicator",
+      "matched_text": "clinic_reimbursements.xlsx",
       "reason": "Implies potential exfiltration of health-related reimbursement data but not directly mapped to a specific special-category rule or individual"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-04T04:34:12Z",
-    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

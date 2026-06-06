@@ -1,110 +1,174 @@
 {
-  "doc_id": "jp_privacy_events_term_sheet_negative_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "JP",
-  "destination_jurisdiction": "JP",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "DSAR and Erasure: No outstanding DSARs; a prior erasure request for a legacy recruitment profile (Ref CR-09A) was completed and logged pursuant to APPI guidance."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline. Current strict tier was realigned after UK/EU precision guards; removed strict spans are preserved in ideal_must_detect for gap review.",
+  "_label_tiers_version": "post-uk-eu-precision-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "Strict tier was realigned after the UK/EU precision guard pass suppressed closed, public/generic, or non-attributive examples. Original strict labels are preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:44:27Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-reconciled-narrowed.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU precision guards"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 15,
+    "current_must_detect_count": 5,
+    "current_must_not_detect_count": 3,
+    "previous_ideal_must_detect_count": 15,
+    "previous_must_detect_count": 8,
+    "previous_must_not_detect_count": 3
+  },
+  "_strict_reconciliation_history": [
+    {
+      "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+      "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+      "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "reviewed_at": "2026-06-04T04:34:12Z",
+      "reviewer": "Codex GPT-5.5",
+      "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
+      "status": "codex_reconciled_owner_approved_internal_benchmark",
+      "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+    }
+  ],
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "JP",
+  "doc_id": "jp_privacy_events_term_sheet_negative_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "erasure request"
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "DSAR and Erasure: No outstanding DSARs; a prior erasure request for a legacy recruitment profile (Ref CR-09A) was completed and logged pursuant to APPI guidance."
+      "matched_text": "DSAR and Erasure: No outstanding DSARs; a prior erasure request for a legacy recruitment profile (Ref CR-09A) was completed and logged pursuant to APPI guidance.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@midori-dynamics.example.jp"
+      "matched_text": "ir@midori-dynamics.example.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@shiori-nexus.example.jp"
+      "matched_text": "compliance@shiori-nexus.example.jp",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfer"
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation restricts fields to role, department, and work alias only"
+      "matched_text": "minimisation restricts fields to role, department, and work alias only",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "jp_my_number",
-      "matched_text": "My Number (個人番号)"
+      "matched_text": "My Number (\u500b\u4eba\u756a\u53f7)",
+      "rule": "jp_my_number"
     },
     {
       "category": "PII",
-      "rule": "jp_my_number",
-      "matched_text": "My Number"
+      "matched_text": "My Number",
+      "rule": "jp_my_number"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Third-Party Allotment of new common shares"
+      "matched_text": "Third-Party Allotment of new common shares",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "tender-offer facts"
+      "matched_text": "tender-offer facts",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "matched_text": "DSAR and Erasure: No outstanding DSARs; a prior erasure request for a legacy recruitment profile (Ref CR-09A) was completed and logged pursuant to APPI guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     }
   ],
   "must_not_detect": [
@@ -121,84 +185,47 @@
       "reason": "Role noun/defined term, not a person name or identifier"
     }
   ],
+  "source_jurisdiction": "JP",
   "uncertain": [
     {
-      "matched_text": "Employee consents for ancillary analytics are optional and revocable",
       "concept": "consent_withdrawal_marker",
+      "matched_text": "Employee consents for ancillary analytics are optional and revocable",
       "reason": "Mentions revocability (withdrawal right) but not a live withdrawal event; marker may be out of scope for strict detection."
     },
     {
-      "matched_text": "No outstanding DSARs",
       "concept": "DSAR",
+      "matched_text": "No outstanding DSARs",
       "reason": "DSAR status is legally relevant but DSAR markers are not in allowed rules and this is negated."
     },
     {
-      "matched_text": "erasure request for a legacy recruitment profile (Ref CR-09A) was completed",
       "concept": "erasure_marker",
+      "matched_text": "erasure request for a legacy recruitment profile (Ref CR-09A) was completed",
       "reason": "Erasure completion is relevant but completed control and erasure markers are not in allowed rules."
     },
     {
-      "matched_text": "Retention schedule for onboarding forms is two years from start date",
       "concept": "retention_marker",
+      "matched_text": "Retention schedule for onboarding forms is two years from start date",
       "reason": "Retention policy is relevant but retention markers are not enumerated in allowed rules."
     },
     {
-      "matched_text": "automated purge completed for records past term",
       "concept": "erasure/retention",
+      "matched_text": "automated purge completed for records past term",
       "reason": "Completed purge relates to retention/erasure but completed controls are excluded from detection rules."
     },
     {
-      "matched_text": "no offshore PII flows occur other than as approved by DEX-045",
       "concept": "cross_border_transfer_marker",
+      "matched_text": "no offshore PII flows occur other than as approved by DEX-045",
       "reason": "Cross-border flow control is mentioned but stated as a negation/limitation, which should not be labeled as a live marker."
     },
     {
-      "matched_text": "no My Number (個人番号) will be collected or processed for this transaction",
       "concept": "jp_my_number",
+      "matched_text": "no My Number (\u500b\u4eba\u756a\u53f7) will be collected or processed for this transaction",
       "reason": "References a sensitive identifier class but as a negated control with no actual ID value present."
     },
     {
-      "matched_text": "no live production My Number repositories are exposed to the Investor",
       "concept": "jp_my_number",
+      "matched_text": "no live production My Number repositories are exposed to the Investor",
       "reason": "Mentions My Number contextually in a negated exposure statement; relevant but not a live PII instance."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "post-uk-eu-precision-strict-realign-2026-06-06",
-  "_label_tier_note": "JP Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. JP Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline. Current strict tier was realigned after UK/EU precision guards; removed strict spans are preserved in ideal_must_detect for gap review.",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:44:27Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-reconciled-narrowed.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU precision guards",
-    "basis": "Strict tier was realigned after the UK/EU precision guard pass suppressed closed, public/generic, or non-attributive examples. Original strict labels are preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_history": [
-    {
-      "basis": "JP Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-      "reviewer": "Codex GPT-5.5",
-      "reviewed_at": "2026-06-04T04:34:12Z",
-      "source_report": "/tmp/kaypoh-jp-stage-b-eval-raw.json",
-      "status": "codex_reconciled_owner_approved_internal_benchmark",
-      "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-      "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-      "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-    }
-  ],
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 8,
-    "current_must_detect_count": 5,
-    "previous_ideal_must_detect_count": 15,
-    "current_ideal_must_detect_count": 15,
-    "previous_must_not_detect_count": 3,
-    "current_must_not_detect_count": 3
-  }
+  ]
 }

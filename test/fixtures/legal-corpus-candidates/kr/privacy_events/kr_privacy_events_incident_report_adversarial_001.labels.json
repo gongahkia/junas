@@ -1,115 +1,160 @@
 {
-  "doc_id": "kr_privacy_events_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "KR",
-  "destination_jurisdiction": "KR",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "0 1 9 2 8"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Seung"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ji"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Doryeong"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "0 1 9 2 8"
+      "matched_text": "0 1 9 2 8",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Seung"
+      "matched_text": "Mr. Seung",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ji"
+      "matched_text": "Ms. Ji",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Doryeong"
+      "matched_text": "Project Doryeong",
+      "rule": "transaction_codename"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@hanseoinfra.example"
+      "matched_text": "dpo@hanseoinfra.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Seung-ho Chae"
+      "matched_text": "Mr. Seung-ho Chae",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Ji‑eun Park"
+      "matched_text": "Ms. Ji\u2011eun Park",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EmpID H I M - 0 1 9 2 8"
+      "matched_text": "EmpID H I M - 0 1 9 2 8",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "field “temp_resno” removed from forms effective immediately"
+      "matched_text": "field \u201ctemp_resno\u201d removed from forms effective immediately",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Schedule 1 (Minimisation) to DPA-2026-004 updated"
+      "matched_text": "Schedule 1 (Minimisation) to DPA-2026-004 updated",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent for overseas processing"
+      "matched_text": "withdrew consent for overseas processing",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "names (romanized), work emails, joining dates"
+      "matched_text": "names (romanized), work emails, joining dates",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "u-at:INC/24/117a"
+      "matched_text": "u-at:INC/24/117a",
+      "rule": "internal_session_id"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "0 1 9 2 8",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Seung",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Ji",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Doryeong",
+      "rule": "transaction_codename"
     }
   ],
   "must_not_detect": [
@@ -118,60 +163,42 @@
       "reason": "Role-noun used as a defined party; not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "KR",
   "uncertain": [
     {
-      "matched_text": "DSAR DS-003/24",
       "concept": "DSAR marker",
+      "matched_text": "DSAR DS-003/24",
       "reason": "Data-subject request event is legally relevant but no explicit DSAR rule in allowed list"
     },
     {
-      "matched_text": "Vendor confirmed erasure from primary and backups at 2026-06-02 18:00 KST",
       "concept": "erasure marker",
+      "matched_text": "Vendor confirmed erasure from primary and backups at 2026-06-02 18:00 KST",
       "reason": "Erasure event is privacy-relevant but no explicit erasure rule in allowed list"
     },
     {
-      "matched_text": "Retention for onboarding test data is reduced from 30 to 7 days",
       "concept": "retention marker",
+      "matched_text": "Retention for onboarding test data is reduced from 30 to 7 days",
       "reason": "Retention change is privacy-relevant but no explicit retention rule in allowed list"
     },
     {
-      "matched_text": "A cross-border transfer to Hanseo Infra Singapore Pte. under Data Export Approval DEX-19 was queued but auto-halted by policy at 07:12 KST; the export remained in ‘pending’ and did not transmit",
       "concept": "cross-border transfer (halted)",
+      "matched_text": "A cross-border transfer to Hanseo Infra Singapore Pte. under Data Export Approval DEX-19 was queued but auto-halted by policy at 07:12 KST; the export remained in \u2018pending\u2019 and did not transmit",
       "reason": "Cross-border context present but transfer did not occur; excluded per rule against negated/completed controls"
     },
     {
-      "matched_text": "Cross-border transfer approvals remain suspended for Sunpine HR until completion of DPA Schedule 3 audit",
       "concept": "cross-border governance control",
+      "matched_text": "Cross-border transfer approvals remain suspended for Sunpine HR until completion of DPA Schedule 3 audit",
       "reason": "Completed/suspended control referenced; excluded from strict tagging per rule"
     },
     {
-      "matched_text": "73 06-1*****",
       "concept": "masked kr_rrn",
+      "matched_text": "73 06-1*****",
       "reason": "Masked fragment suggests RRN pattern but not a full identifier under strict rule"
     },
     {
-      "matched_text": "C-LOG#cw/058",
       "concept": "internal_tracking_id",
+      "matched_text": "C-LOG#cw/058",
       "reason": "Internal log reference may be a tracking identifier but not clearly an internal_session_id"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-04T04:34:12Z",
-    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

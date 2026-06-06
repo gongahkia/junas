@@ -1,155 +1,200 @@
 {
-  "doc_id": "kr_privacy_events_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "KR",
-  "destination_jurisdiction": "KR",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Seo Hye"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Choi Min"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Vendor governance: the DPA with CloudPeaks Korea LLC includes Annex A transfer impact assessment, encryption at rest, and breach notification within 24 hours to dpo@wonseongmaterials.example."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_privacy_events_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Seo Hye"
+      "matched_text": "Ms. Seo Hye",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Choi Min"
+      "matched_text": "Mr. Choi Min",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Vendor governance: the DPA with CloudPeaks Korea LLC includes Annex A transfer impact assessment, encryption at rest, and breach notification within 24 hours to dpo@wonseongmaterials.example."
+      "matched_text": "Vendor governance: the DPA with CloudPeaks Korea LLC includes Annex A transfer impact assessment, encryption at rest, and breach notification within 24 hours to dpo@wonseongmaterials.example.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@wonseongmaterials.example"
+      "matched_text": "privacy@wonseongmaterials.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@wonseongmaterials.example"
+      "matched_text": "dpo@wonseongmaterials.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Seo Hye-jin"
+      "matched_text": "Ms. Seo Hye-jin",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Choi Min-kyu"
+      "matched_text": "Mr. Choi Min-kyu",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent for cross-border payroll processing"
+      "matched_text": "withdrew consent for cross-border payroll processing",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "limited HR data transfer to BlueHarbor Pensions Pte. Ltd. (SG)"
+      "matched_text": "limited HR data transfer to BlueHarbor Pensions Pte. Ltd. (SG)",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation policy (HR-PII-MIN v2.1)"
+      "matched_text": "minimisation policy (HR-PII-MIN v2.1)",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Minimisation controls"
+      "matched_text": "Minimisation controls",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "주민등록번호"
+      "matched_text": "\uc8fc\ubbfc\ub4f1\ub85d\ubc88\ud638",
+      "rule": "kr_rrn"
     },
     {
       "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "resident-number"
+      "matched_text": "resident-number",
+      "rule": "kr_rrn"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "employee-ID"
+      "matched_text": "employee-ID",
+      "rule": "employee_id"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "a misconfigured SFTP permission exposed a staging investor-relations folder for 47 minutes"
+      "matched_text": "a misconfigured SFTP permission exposed a staging investor-relations folder for 47 minutes",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border payroll processing"
+      "matched_text": "cross-border payroll processing",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Data Export Approval WM-DEX-2026-014 authorized limited HR data transfer to BlueHarbor Pensions Pte. Ltd. (SG) for benefits enrollment"
+      "matched_text": "Data Export Approval WM-DEX-2026-014 authorized limited HR data transfer to BlueHarbor Pensions Pte. Ltd. (SG) for benefits enrollment",
+      "rule": "cross_border_transfer_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Seo Hye",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Choi Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Vendor governance: the DPA with CloudPeaks Korea LLC includes Annex A transfer impact assessment, encryption at rest, and breach notification within 24 hours to dpo@wonseongmaterials.example.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     }
   ],
   "must_not_detect": [
@@ -178,55 +223,37 @@
       "reason": "States absence of public disclosure; not a nonpublic marker"
     }
   ],
+  "source_jurisdiction": "KR",
   "uncertain": [
     {
-      "matched_text": "A DSAR from Ms. Seo Hye-jin (candidate) was received on 2026-05-27 and fulfilled on 2026-05-29",
       "concept": "DSAR marker",
+      "matched_text": "A DSAR from Ms. Seo Hye-jin (candidate) was received on 2026-05-27 and fulfilled on 2026-05-29",
       "reason": "DSAR events are privacy-handling markers but there is no explicit allowed rule name for DSAR"
     },
     {
-      "matched_text": "erased from the sandbox",
       "concept": "erasure marker",
+      "matched_text": "erased from the sandbox",
       "reason": "Indicates erasure as part of DSAR fulfillment; no explicit allowed erasure rule"
     },
     {
-      "matched_text": "Retention controls: IR draft files are on a 90-day retention schedule (PR-07)",
       "concept": "retention marker",
+      "matched_text": "Retention controls: IR draft files are on a 90-day retention schedule (PR-07)",
       "reason": "Retention schedules are privacy markers but no explicit allowed retention rule"
     },
     {
-      "matched_text": "auto-deleted on 2026-05-28",
       "concept": "retention/deletion marker",
+      "matched_text": "auto-deleted on 2026-05-28",
       "reason": "Automatic deletion indicates retention enforcement; no explicit allowed retention rule"
     },
     {
-      "matched_text": "resident-number fields were never captured due to 2025 minimisation policy (HR-PII-MIN v2.1)",
       "concept": "KR RRN data category mention",
+      "matched_text": "resident-number fields were never captured due to 2025 minimisation policy (HR-PII-MIN v2.1)",
       "reason": "Mentions KR RRN data category but no actual identifier value; borderline for kr_rrn rule"
     },
     {
-      "matched_text": "a courtesy notice was emailed to the Korean Financial Surveillance Service (KFSS) and Korea Securities Exchange Board (KSEB)",
       "concept": "regulator notice/nonpublic handling",
+      "matched_text": "a courtesy notice was emailed to the Korean Financial Surveillance Service (KFSS) and Korea Securities Exchange Board (KSEB)",
       "reason": "Could imply nonpublic handling/limited disclosure but not clearly covered by an allowed MNPI marker"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-04T04:34:12Z",
-    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }

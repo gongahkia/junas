@@ -1,300 +1,345 @@
 {
-  "doc_id": "kr_special_category_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "KR",
-  "destination_jurisdiction": "KR",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:36:11Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ara@fam.example.kr"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "han.sj@soraeqm.example.kr"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kang Do"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Choi Yeon"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Yoon Ara"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Park Min"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Minor data"
-    },
-    {
-      "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "age 17"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "We process employee, investor‑relations, and deal‑room data to meet F S C / F S S guidance and KRX Fair Disclosure Rules, including insider list maintenance per FSCMA Art. 174."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "decision": "approve",
+      "notes": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:36:11Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
+  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner previously stated they manually reviewed the JP/KR Stage B generated/reconciled tests and approved them for internal/project benchmarking. This metadata normalization adds structured reviewer provenance for the existing approved status; it is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
+    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "reviewed_at": "2026-06-04T04:34:12Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
+    "status": "codex_reconciled_owner_approved_internal_benchmark",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA"
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "KR",
+  "doc_id": "kr_special_category_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ara@fam.example.kr"
+      "matched_text": "ara@fam.example.kr",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "han.sj@soraeqm.example.kr"
+      "matched_text": "han.sj@soraeqm.example.kr",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kang Do"
+      "matched_text": "Mr. Kang Do",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Choi Yeon"
+      "matched_text": "Ms. Choi Yeon",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Yoon Ara"
+      "matched_text": "Ms. Yoon Ara",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Park Min"
+      "matched_text": "Ms. Park Min",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "Minor data"
+      "matched_text": "Minor data",
+      "rule": "minor_data_reference"
     },
     {
       "category": "PII",
-      "rule": "minor_data_reference",
-      "matched_text": "age 17"
+      "matched_text": "age 17",
+      "rule": "minor_data_reference"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "We process employee, investor‑relations, and deal‑room data to meet F S C / F S S guidance and KRX Fair Disclosure Rules, including insider list maintenance per FSCMA Art. 174."
+      "matched_text": "We process employee, investor\u2011relations, and deal\u2011room data to meet F S C / F S S guidance and KRX Fair Disclosure Rules, including insider list maintenance per FSCMA Art. 174.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kang Do‑hyun"
+      "matched_text": "Mr. Kang Do\u2011hyun",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Choi Yeon‑seul"
+      "matched_text": "Ms. Choi Yeon\u2011seul",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Park Min‑ji, Esq"
+      "matched_text": "Ms. Park Min\u2011ji, Esq",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "mr. han seok‑jin"
+      "matched_text": "mr. han seok\u2011jin",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "EM‑44A29"
+      "matched_text": "EM\u201144A29",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "ST‑0C77"
+      "matched_text": "ST\u20110C77",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "IN‑0D12"
+      "matched_text": "IN\u20110D12",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "postoperative physiotherapy records (health)"
+      "matched_text": "postoperative physiotherapy records (health)",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "Metalworkers’ Union dues status (union)"
+      "matched_text": "Metalworkers\u2019 Union dues status (union)",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template hash f1a9:**** (biometric)"
+      "matched_text": "fingerprint template hash f1a9:**** (biometric)",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "g‑ara@fam.example.kr"
+      "matched_text": "g\u2011ara@fam.example.kr",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@soraeqm.example.kr"
+      "matched_text": "dpo@soraeqm.example.kr",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+82‑080‑123‑9876"
+      "matched_text": "+82\u2011080\u2011123\u20119876",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "age 17"
+      "matched_text": "age 17",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "is minimized by design"
+      "matched_text": "is minimized by design",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "identity checks avoid storing full resident‑numbers"
+      "matched_text": "identity checks avoid storing full resident\u2011numbers",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross‑border alerts"
+      "matched_text": "Cross\u2011border alerts",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "We may transfer IR and deal data to Onyx‑Ledger VDR (apac‑node) and HanaroCloud‑Edge (KR‑cluster)"
+      "matched_text": "We may transfer IR and deal data to Onyx\u2011Ledger VDR (apac\u2011node) and HanaroCloud\u2011Edge (KR\u2011cluster)",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "https://soraeqm.example.kr/dsar?id=USR‑0x3A9&lang=ko‑KR"
+      "matched_text": "https://soraeqm.example.kr/dsar?id=USR\u20110x3A9&lang=ko\u2011KR",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Data subject rights (PIPA Arts. 35‑37): access, correction, deletion, and processing suspension may be requested via"
+      "matched_text": "Data subject rights (PIPA Arts. 35\u201137): access, correction, deletion, and processing suspension may be requested via",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list maintenance"
+      "matched_text": "insider list maintenance",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "kr_rrn",
-      "matched_text": "res i dent‑number: 8 3 1 2 0 1‑1 2 3 4 * * *"
+      "matched_text": "res i dent\u2011number: 8 3 1 2 0 1\u20111 2 3 4 * * *",
+      "rule": "kr_rrn"
     },
     {
       "category": "PII",
-      "rule": "political_opinion",
-      "matched_text": "political‑party activity is not collected"
+      "matched_text": "political\u2011party activity is not collected",
+      "rule": "political_opinion"
     },
     {
       "category": "PII",
-      "rule": "sexual_orientation",
-      "matched_text": "sexual orientation is not recorded"
+      "matched_text": "sexual orientation is not recorded",
+      "rule": "sexual_orientation"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "transfer logs embed URL tokens like https://soraeqm.example.kr/dsar?id=USR‑0x3A9&lang=ko‑KR"
+      "matched_text": "transfer logs embed URL tokens like https://soraeqm.example.kr/dsar?id=USR\u20110x3A9&lang=ko\u2011KR",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "USR‑0x3A9"
+      "matched_text": "USR\u20110x3A9",
+      "rule": "internal_session_id"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "block‑trade timetables"
+      "matched_text": "block\u2011trade timetables",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "pre‑announcement valuations"
+      "matched_text": "pre\u2011announcement valuations",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "no MNPI is shared with the white tiger baseball club sponsors"
+      "matched_text": "no MNPI is shared with the white tiger baseball club sponsors",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "We do not share MAC‑sensitive forecasts with investors ahead of KRX postings"
+      "matched_text": "We do not share MAC\u2011sensitive forecasts with investors ahead of KRX postings",
+      "rule": "selective_disclosure_risk"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "ara@fam.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "han.sj@soraeqm.example.kr",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kang Do",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Choi Yeon",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Yoon Ara",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Park Min",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Minor data",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "PII",
+      "matched_text": "age 17",
+      "rule": "minor_data_reference"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We process employee, investor\u2011relations, and deal\u2011room data to meet F S C / F S S guidance and KRX Fair Disclosure Rules, including insider list maintenance per FSCMA Art. 174.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -319,7 +364,7 @@
       "reason": "Negated MAC in context; rule excludes negated MAC"
     },
     {
-      "matched_text": "“sky lantern”",
+      "matched_text": "\u201csky lantern\u201d",
       "reason": "Metaphor; not PII/MNPI"
     },
     {
@@ -327,35 +372,17 @@
       "reason": "Generic DEI prose; not tied to an identifiable person"
     }
   ],
+  "source_jurisdiction": "KR",
   "uncertain": [
     {
-      "matched_text": "res i dent‑number: 8 3 1 2 0 1‑1 2 3 4 * * *",
       "concept": "kr_rrn (masked/spaced)",
+      "matched_text": "res i dent\u2011number: 8 3 1 2 0 1\u20111 2 3 4 * * *",
       "reason": "Appears to be a Korean resident number with spaces and redaction; may not match standard kr_rrn regex"
     },
     {
-      "matched_text": "USR‑0x3A9",
       "concept": "internal_session_id",
+      "matched_text": "USR\u20110x3A9",
       "reason": "Looks like a unique user/token ID in a DSAR URL; format not clearly mapped to a specific allowed identifier type"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "approved",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tiers_version": "jp-kr-stage-b-strict-realign-2026-06-04",
-  "_label_tier_note": "KR Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. KR Stage B labels are project-owner approved for internal benchmarking; ideal_must_detect remains a broader gap-discovery tier, not a locked recall baseline.",
-  "_strict_reconciliation": {
-    "basis": "KR Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at": "2026-06-04T04:34:12Z",
-    "source_report": "/tmp/kaypoh-kr-stage-b-eval-raw.json",
-    "status": "codex_reconciled_owner_approved_internal_benchmark",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after JP/KR Stage B raw autolabel QA",
-    "owner_approval_reviewed_at_utc": "2026-06-04T04:43:57Z",
-    "owner_approval_reviewer": "gongahkia-project-owner-manual-stage-b-review"
-  }
+  ]
 }
