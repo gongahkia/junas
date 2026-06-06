@@ -1715,7 +1715,22 @@ generate; whether v0.2 should add more perturbation kinds.
 
 # Tier 3 — Vendor-facing infrastructure
 
-_Closes the "use us for your evals" workflow. Gated on Tier 1; runs in parallel with Tier 2._
+_Closes the "use us for your evals" workflow._
+
+**TIER 3 — FIRST 3 DONE ✅ (2026-06-06, PRs #107-109). 7 prompts remain (Batch C + SOLO-1..6).**
+
+| Work unit | Closes | PR | Notes |
+|---|---|---|---|
+| `NEW-VENDOR-GUIDE` | GAP-14 | #107 | 10-minute vendor self-eval guide + sample receipt JSON + sample leaderboard row. Consolidates the Tier 1 methodology infra (CI receipts + contamination probe + normalisation spec + dispute process). |
+| `NEW-INDEPENDENT-REPRO` | GAP-12 | #108 | Outreach kit + per-institution briefs for SMU SOLID / NUS TRAIL / SAL data services to run SG-LegalBench independently. |
+| `NEW-LIB-PACKAGING` | GAP-15 | #109 | `sglb-tools` sub-package at `packages/sglb-tools/` (citation grammar, normalisers, adapter base protocol). 19 sub-package tests + 104 backend tests passing after refactor. PyPI publish path documented; publish itself is a follow-up. |
+
+Still-pending in Tier 3: Batch C (C1-C4 frontend audit fixes, parallel-safe) + SOLO-1 through SOLO-6 (independent single-prompt items).
+
+The 3 completed prompt bodies are preserved verbatim below.
+
+<details>
+<summary><strong>TIER 3 (first 3) — DONE.</strong> 3 prompt bodies preserved for re-runs. Click to expand.</summary>
 
 ## NEW-VENDOR-GUIDE: Vendor self-eval guide (closes GAP-14)
 
@@ -1885,6 +1900,10 @@ Report back: any obstacle that would make the institutional partner
 say no (institutional MOU? data-handling concerns?); whether the
 v0.2 timeline aligns with their academic year.
 ```
+
+</details>
+
+---
 
 # Batch C — Frontend Audit Fixes, 4 parallel agents
 
