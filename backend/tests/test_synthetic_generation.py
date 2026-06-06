@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import shutil
 from pathlib import Path
 
 import pytest
@@ -30,6 +31,7 @@ from benchmark.synthetic.sglb_08 import load_tone_taxonomy
 from benchmark.synthetic.sglb_12 import issue_prompt_context, load_issue_compositions, load_issue_taxonomy
 from benchmark.synthetic.sglb_15 import load_constraint_taxonomy
 from benchmark.synthetic.taxonomy import cells_for, supported_tasks
+from benchmark.synthetic.validator import validate_synthetic_promotion_guard
 
 
 def _read_case(path: Path) -> dict:
@@ -421,6 +423,26 @@ def test_validate_task_accepts_pending_candidate_and_reviewed_aggregate(tmp_path
     result = validate_task(task="sglb_08", base_dir=tmp_path)
     assert result["ok"] is True
     assert result["reviewed_count"] == 1
+
+
+def test_promotion_guard_rejects_pending_candidate_referenced_by_reviewed_yaml(tmp_path: Path) -> None:
+    item = build_plan(task="sglb_08", n=1, providers="mock", seed=1, base_dir=tmp_path)[0]
+    path = asyncio.run(generate_candidate(item=item, seed=1, generator=SyntheticGenerator()))
+    reviewed_dir = tmp_path / "sglb_08_clause_tone_reviewed"
+    reviewed_dir.mkdir()
+    shutil.copy2(path, reviewed_dir / path.name)
+    result = validate_synthetic_promotion_guard(base_dir=tmp_path)
+    assert result["ok"] is False
+    assert any("non-approved synthetic candidate" in issue["message"] for issue in result["issues"])
+
+
+def test_promotion_guard_accepts_correctly_promoted_candidate(tmp_path: Path) -> None:
+    item = build_plan(task="sglb_08", n=1, providers="mock", seed=1, base_dir=tmp_path)[0]
+    path = asyncio.run(generate_candidate(item=item, seed=1, generator=SyntheticGenerator()))
+    record_decision(fixture_path=path, decision="approve", reviewer="reviewer-a")
+    promote_task(task="sglb_08", base_dir=tmp_path)
+    result = validate_synthetic_promotion_guard(base_dir=tmp_path)
+    assert result["ok"] is True
 
 
 def test_validate_task_rejects_missing_audit_metadata(tmp_path: Path) -> None:

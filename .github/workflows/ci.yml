@@ -1,0 +1,25 @@
+name: Synthetic Promotion Guard
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  synthetic-promotion-guard:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: backend/pyproject.toml
+      - name: Install promotion guard dependencies
+        run: python -m pip install pyyaml
+      - name: Validate synthetic promotion state
+        run: python -m benchmark.synthetic.validator
