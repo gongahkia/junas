@@ -1,5 +1,9 @@
 import Link from "next/link";
+import createDOMPurify from "dompurify";
+import { JSDOM } from "jsdom";
 import { getStatuteSection } from "../../../../lib/api-server";
+
+const DOMPurify = createDOMPurify(new JSDOM("").window);
 
 type SectionResponse = {
   number: string;
@@ -28,6 +32,12 @@ export default async function SectionPage({ params }: { params: { number: string
     );
   }
 
+  /*
+   * audit finding #7: SSO HTML is user-influenceable through ingestion.
+   * keep DOMPurify on this dangerouslySetInnerHTML source.
+   */
+  const sanitizedTextHtml = DOMPurify.sanitize(section.text_html);
+
   return (
     <section>
       <p>
@@ -44,7 +54,7 @@ export default async function SectionPage({ params }: { params: { number: string
       <p>Edition: {section.edition}</p>
 
       <article className="result-card">
-        <div className="definition-html" dangerouslySetInnerHTML={{ __html: section.text_html }} />
+        <div className="definition-html" dangerouslySetInnerHTML={{ __html: sanitizedTextHtml }} />
       </article>
 
       {section.amendment_history ? (
