@@ -667,6 +667,44 @@ class PenaltyBandMae(Evaluator):
         )
 
 
+class Sglb13OutcomeAccuracy(Evaluator):
+    """SGLB-13 binary-accuracy scorer.
+
+    Parses model output as a JSON object with key ``outcome_changes``
+    (bool). Compares against ``expected_output["outcome_changes"]``.
+    Returns 1.0 on exact match, 0.0 otherwise (incl. malformed output).
+    """
+
+    name = "sglb_13_outcome_accuracy"
+    strength = EvaluatorStrength.STRONG
+
+    @staticmethod
+    def _parse_bool(value: Any) -> bool | None:
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            s = value.strip().lower()
+            if s in ("true", "1", "yes"):
+                return True
+            if s in ("false", "0", "no"):
+                return False
+        return None
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        expected = (ctx.expected_output or {}).get("outcome_changes")
+        if not isinstance(expected, bool):
+            return EvaluationResult(score=0.0, detail={"error": "missing expected outcome_changes"})
+        parsed = _parse_json_object(ctx.output)
+        predicted = self._parse_bool(parsed.get("outcome_changes"))
+        if predicted is None:
+            return EvaluationResult(score=0.0, detail={"predicted": None})
+        score = 1.0 if predicted is expected else 0.0
+        return EvaluationResult(
+            score=score,
+            detail={"expected": expected, "predicted": predicted},
+        )
+
+
 class ConstraintSatisfaction(Evaluator):
     """Runs a list of constraint functions (IFEval-style).
 
@@ -768,6 +806,7 @@ EVALUATORS: dict[str, Evaluator] = {
     RougeLAnswer.name: RougeLAnswer(),
     OrderRuleLabelF1.name: OrderRuleLabelF1(),
     OrderRuleTop3.name: OrderRuleTop3(),
+    Sglb13OutcomeAccuracy.name: Sglb13OutcomeAccuracy(),
     ConstraintSatisfaction.name: ConstraintSatisfaction(),
     # weak (back-compat)
     ContainsKeyword.name: ContainsKeyword(),

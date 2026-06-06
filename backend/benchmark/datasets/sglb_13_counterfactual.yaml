@@ -1,0 +1,3731 @@
+extraction_rules:
+  pdpc_counterfactual: pending
+cases:
+- name: sglb_13_019f9faa05b0
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: regulatory action was taken to SLF Green Maid Agency for failing to make reasonable security arrangements
+      to prevent the unauthorised disclosure of individuals’ personal data. Click here to find out more.
+    perturbation: regulatory action was taken to SLF Green Maid Agency. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_b283322a52fd
+    source_citation: '[2018] SGPDPC 27'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/12/breach-of-protection-obligation-by-slf-green-maid-agency
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of individuals’ personal
+      data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_023e62502d7e
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Propnex Realty for failing to make reasonable security arrangements
+      to prevent unauthorised access of individuals’ personal data stored online. Propnex was also directed to cease the storage
+      of documents containing personal data via its system until a security scan had been conducted.
+    perturbation: An enforcement outcome resulted for Propnex Realty. Propnex was also directed to cease the storage of documents
+      containing personal data via its system until a security scan had been conducted.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_2db41e9aae2c
+    source_citation: '[2017] SGPDPC 1'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/01/breach-of-protection-obligation-by-propnex-realty
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent unauthorised access of individuals’ personal data
+      stored online
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_02f2d09e9ad5
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A enforcement outcome of [AMOUNT_REDACTED] was imposed and directions issued to the Institution of Engineers,
+      Singapore for failing to implement proper and adequate protective measures to secure its IT system, resulting in unauthorised
+      disclosure of the personal data of more than 4,000 members.
+    perturbation: A enforcement outcome of [AMOUNT_REDACTED] was imposed and directions issued to the Institution of Engineers,
+      Singapore resulting in unauthorised disclosure of the personal data of more than 4,000 members.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_68c8a97cfc32
+    source_citation: '[2016] SGPDPC 2'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/04/breach-of-protection-obligation-by-institution-of-engineers--singapore
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to implement proper and adequate protective measures to secure its IT system
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_03bb17578328
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for People Central Pte Ltd for failing to put in place reasonable security
+      arrangements to protect the personal data in its possession or under its control.
+    perturbation: An enforcement outcome resulted for People Central Pte Ltd.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: test
+    jurisdiction: SG
+    source_case_id: sglb_01_880ab21e2653
+    source_citation: '[2025] SGPDPCS 4'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2026/01/breach-of-the-protection-obligation-by-people-central-pte-ltd
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession or under
+      its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_04d72e644742
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Matthew Chiong Partnership for breaches of the PDPA. The organisation
+      did not make reasonable security arrangements to prevent the unauthorised disclosure of its clients’ personal data and
+      failed to put in place data protection policies to comply with the provisions of the PDPA.
+    perturbation: An enforcement outcome resulted for Matthew Chiong Partnership for breaches of the PDPA. The organisation
+      did not make reasonable security arrangements to prevent the unauthorised disclosure of its clients’ personal data.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_856edef2025a
+    source_citation: '[2019] SGPDPC 7'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/06/breach-of-the-openness-and-protection-obligations-by-matthew-chiong-partnership
+    perturbed_obligation: accountability
+    source_obligations:
+    - accountability
+    - protection
+    cue_span: failed to put in place data protection policies to comply with the provisions of the PDPA
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_05f2d9bfc20a
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Advance Home Tutors for failing to put in place reasonable security
+      arrangements to protect the personal data collected from its tutors and for not developing and implementing data protection
+      policies and practices necessary to ensure its compliance with PDPA.
+    perturbation: An enforcement outcome resulted for Advance Home Tutors for not developing and implementing data protection
+      policies and practices necessary to ensure its compliance with PDPA.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_e34262322c72
+    source_citation: '[2019] SGPDPC 35'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/10/breach-of-the-protection-and-accountability-obligations-by-advance-home-tutors
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    - accountability
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data collected from its tutors
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_06bb9b7202e2
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for SCAL Academy for failing to put in place reasonable security arrangements
+      to protect the personal data of individuals on its website. These individuals had provided their personal data to SCAL
+      Academy for registration purposes to attend its courses, seminars or workshops.
+    perturbation: An enforcement outcome resulted for SCAL Academy. These individuals had provided their personal data to
+      SCAL Academy for registration purposes to attend its courses, seminars or workshops.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_54a9c61377c9
+    source_citation: '[2020] SGPDPC 2'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/02/breach-of-the-protection-obligation-by-scal-academy
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of individuals on its
+      website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_09301727a347
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Singapore Accountancy Commission for failing to put in place reasonable
+      security arrangements to prevent the unauthorised access of 6,541 Singapore Chartered Accountant Qualification programme
+      personnel and candidates’ personal data. Click here to find out more.
+    perturbation: An enforcement outcome resulted for Singapore Accountancy Commission for,541 Singapore Chartered Accountant
+      Qualification programme personnel and candidates’ personal data. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_2eacfe4bac6f
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/08/breach-of-the-protection-obligation-by-singapore-accountancy-commission
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised access of 6
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_09372081c890
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Singtel for failing to put in place reasonable security arrangements
+      to protect the personal data of users on its My Singtel mobile application.
+    perturbation: An enforcement outcome resulted for Singtel.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_7c1736e74b86
+    source_citation: '[2019] SGPDPC 36'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/11/breach-of-the-protection-obligation-by-singtel
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of users on its My Singtel
+      mobile application
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_096a97be819e
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for COURTS for failing to put in place reasonable security arrangements
+      to protect the personal data of its members from unauthorised disclosure on its website. Some members were able to gain
+      access to personal data of another member via a link in an email sent by COURTS. Click here to find out more.
+    perturbation: An enforcement outcome resulted for COURTS. Some members were able to gain access to personal data of another
+      member via a link in an email sent by COURTS. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_c28e7de71602
+    source_citation: '[2020] SGPDPC 17'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/10/breach-of-the-protection-obligation-by-courts
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of its members from unauthorised
+      disclosure on its website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_09feffe5879d
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for SAP Asia for failing to put in place reasonable security arrangements
+      to protect personal data of its former employees. This resulted in an unauthorised disclosure of the personal data to
+      unintended recipients.
+    perturbation: An enforcement outcome resulted for SAP Asia. This resulted in an unauthorised disclosure of the personal
+      data to unintended recipients.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_f2135fffc9f3
+    source_citation: '[2021] SGPDPC 6'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/09/breach-of-the-protection-obligation-by-sap-asia
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect personal data of its former employees
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_0a31eba31c81
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: Directions, including a enforcement outcome of [AMOUNT_REDACTED] were imposed on Chizzle for failing to
+      put in place reasonable security arrangements to protect the personal data of users of its mobile application in Re
+      Chizzle Pte Ltd [2019] SGPDPC 44 . The organisation was also directed to develop an IT security policy, review and revise
+      its developmental processes in order to adopt a data protection by design approach for future enhancements to its mobile
+      application.
+    perturbation: Directions, including a enforcement outcome of [AMOUNT_REDACTED] were imposed on Chizzle. The organisation
+      was also directed to develop an IT security policy, review and revise its developmental processes in order to adopt
+      a data protection by design approach for future enhancements to its mobile application.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_61d93a50be94
+    source_citation: '[2019] SGPDPC 44'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/12/breach-of-the-protection-obligation-by-chizzle
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: 'failing to put in place reasonable security arrangements to protect the personal data of users of its mobile
+      application in Re Chizzle Pte Ltd [2019] SGPDPC 44 '
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_0acdd6605f67
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for JP Pepperdine for failing to make reasonable security arrangements to
+      prevent unauthorised access of individuals’ personal data through its membership portal.
+    perturbation: An enforcement outcome resulted for JP Pepperdine.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_c098c389dd1c
+    source_citation: '[2017] SGPDPC 2'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/01/breach-of-protection-obligation-by-jp-pepperdine
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent unauthorised access of individuals’ personal data
+      through its membership portal
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_0b1eb074ad42
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for The Travel Corporation (2011) for breaches of the PDPA. The Organisation
+      failed to appoint a data protection officer and did not put in place reasonable security arrangements to protect its
+      customers’ personal data stored in portable storage devices.
+    perturbation: An enforcement outcome resulted for The Travel Corporation (2011) for breaches of the PDPA. The Organisation
+      failed to appoint a data protection officer.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_5ba565a113e2
+    source_citation: '[2019] SGPDPC 42'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/12/breach-of-the-protection-and-accountability-obligations-by-the-travel-corporation-(2011)
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    - accountability
+    cue_span: did not put in place reasonable security arrangements to protect its customers’ personal data stored in portable
+      storage devices
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_1010c1aae997
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Trinity Christian Centre for failing to put in place reasonable security
+      arrangements to prevent the unauthorised access of individuals' personal data hosted in its database servers. Click
+      here to find out more.
+    perturbation: An enforcement outcome resulted for Trinity Christian Centre. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_6705b74c7742
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2022/03/breach-of-the-protection-obligation-by-trinity-christian-centre
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised access of individuals'
+      personal data hosted in its database servers
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_10b09b7bcd9c
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Credit Counselling Singapore for failing to make reasonable security
+      arrangements to protect personal data of its debt management programme clients when sending out email. Click here to
+      find out more.
+    perturbation: An enforcement outcome resulted for Credit Counselling Singapore. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_83105ec73c1a
+    source_citation: '[2017] SGPDPC 18'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/12/breach-of-the-protection-obligation-by-credit-counselling-singapore
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to protect personal data of its debt management programme clients
+      when sending out email
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_12769b787f89
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on The Cellar Door and its data
+      intermediary, Global Interactive Works, for failing to make reasonable security arrangements to prevent unauthorised
+      access of its customers’ personal data. The Cellar Door was also issued directions to conduct a security audit and to
+      patch all identified vulnerabilities on its website.
+    perturbation: enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on The Cellar Door and its data
+      intermediary, Global Interactive Works,. The Cellar Door was also issued directions to conduct a security audit and
+      to patch all identified vulnerabilities on its website.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_ec02b38ae315
+    source_citation: '[2016] SGPDPC 22'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/12/breach-of-protection-obligation-by-the-cellar-door-and-global-interactive-works
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent unauthorised access of its customers’ personal data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_1496b3c748cf
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Eatigo International for failing to put in place reasonable security
+      arrangements to protect users' personal data in its possession or under its control.
+    perturbation: An enforcement outcome resulted for Eatigo International.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_c72846728626
+    source_citation: '[2022] SGPDPC 9'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2023/03/breach-of-the-protection-obligation-by-eatigo-international
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect users' personal data in its possession or
+      under its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_14a03b62a394
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: 'An enforcement outcome resulted for Times Software, a data intermediary, for: (i) failing to make reasonable
+      security arrangements to prevent the unauthorised disclosure of personal data belonging to the employees of its clients;
+      and (ii) retaining personal data which was no longer necessary for legal or business purposes. Separately, Dentons and
+      TMF were each issued a warning for failing to put in place reasonable security arrangements with Times Software to prevent
+      unauthorised disclosure of the personal data belonging to their employees.'
+    perturbation: 'An enforcement outcome resulted for Times Software, a data intermediary, for: (i) failing to make reasonable
+      security arrangements to prevent the unauthorised disclosure of personal data belonging to the employees of its clients;
+      and (ii). Separately, Dentons and TMF were each issued a warning for failing to put in place reasonable security arrangements
+      with Times Software to prevent unauthorised disclosure of the personal data belonging to their employees.'
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_07e09695966f
+    source_citation: '[2020] SGPDPC 18'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/11/breach-of-the-protection-and-retention-limitation-obligations-by-times-software-breach-of-the-protection-obligation-by-dentons-and-tmf
+    perturbed_obligation: retention_limitation
+    source_obligations:
+    - protection
+    - retention_limitation
+    cue_span: retaining personal data which was no longer necessary for legal or business purposes
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_15b8289de6bb
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Jade E-Services for failing to make reasonable security arrangements to prevent
+      webpages containing customers’ personal data from being cached and displayed to other customers.
+    perturbation: A warning was issued to Jade E-Services for and displayed to other customers.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_fbf6f892a54b
+    source_citation: '[2018] SGPDPC 21'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/09/breach-of-protection-obligation-by-jade-e-services-singapore
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent webpages containing customers’ personal data from
+      being cached
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_183e4477fa81
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Commeasure for failing to put in place reasonable security arrangements
+      to prevent the unauthorised access and exfiltration of customers’ personal data hosted in a cloud database. Click here
+      to find out more.
+    perturbation: An enforcement outcome resulted for Commeasure for and exfiltration of customers’ personal data hosted in
+      a cloud database. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_fa12cd235a35
+    source_citation: '[2021] SGPDPC 11'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/11/breach-of-the-protection-obligation-by-commeasure
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised access
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_18a082c12a92
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to R.I.S.E Aerospace for failing to put in place reasonable security arrangements to
+      protect the personal data of its employees from unauthorised disclosure. The incident resulted in the personal data
+      being subjected to a ransomware attack. Click here to find out more.
+    perturbation: A warning was issued to R.I.S.E Aerospace. The incident resulted in the personal data being subjected to
+      a ransomware attack. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_97871c12bc45
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/12/breach-of-the-protection-obligation-by-rise-aerospace
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of its employees from
+      unauthorised disclosure
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_1931f7dc514c
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Terra Systems for failing to put in place reasonable security arrangements
+      to protect the personal data of individuals in its customer relationship management portal in Re Terra Systems Pte Ltd
+      [2021] SGPDPC 7.
+    perturbation: An enforcement outcome resulted for Terra Systems.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_ee6add364a7a
+    source_citation: '[2021] SGPDPC 7'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2022/07/breach-of-the-protection-obligation-by-terra-systems
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of individuals in its
+      customer relationship management portal in Re Terra Systems Pte Ltd [2021] SGPDPC 7
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_194dd1bc8bd2
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to NTUC Income for failing to put in place reasonable security arrangements to prevent
+      the unauthorised disclosure of personal data to users making enquiries through its website. 123 users received automated
+      acknowledgement emails attached with files containing personal data belonging to 17 individuals.
+    perturbation: A warning was issued to NTUC Income. 123 users received automated acknowledgement emails attached with files
+      containing personal data belonging to 17 individuals.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_6578e670ffc7
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/02/breach-of-the-protection-obligation-by-ntuc-income
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of personal
+      data to users making enquiries through its website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_1afd0c3ab2d8
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for InfoCorp for failing to put in place reasonable security arrangements
+      to protect the personal data of individuals. Personal data of some individuals participating in a registration exercise
+      via InfoCorp’s website were disclosed to other participants in the course of the registration exercise. Click here to
+      find out more.
+    perturbation: An enforcement outcome resulted for InfoCorp. Personal data of some individuals participating in a registration
+      exercise via InfoCorp’s website were disclosed to other participants in the course of the registration exercise. Click
+      here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_e2292edf2b2c
+    source_citation: '[2019] SGPDPC 17'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/06/breach-of-protection-obligation-by-infocorp
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of individuals
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_1cae66726734
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Dimsum Property for failing to make reasonable security arrangements to prevent
+      unauthorised access of individuals’ personal data stored in web directories. Click here to find out more.
+    perturbation: A warning was issued to Dimsum Property. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_3bea3604a17e
+    source_citation: '[2018] SGPDPC 20'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/08/breach-of-protection-obligation-by-dimsum-property
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent unauthorised access of individuals’ personal data
+      stored in web directories
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_1eb2ae403af5
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: regulatory action was taken to Avant Logistic Service for failing to make reasonable security arrangements
+      to prevent the unauthorised disclosure of customers' personal data. The lapses resulted in personal data of customers
+      being disclosed by an employee. Click here to find out more.
+    perturbation: regulatory action was taken to Avant Logistic Service. The lapses resulted in personal data of customers
+      being disclosed by an employee. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_f42912bd25c3
+    source_citation: '[2019] SGPDPC 28'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/08/breach-of-the-protection-obligation-by-avant-logistic-service
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of customers' personal
+      data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_20c98ccd2680
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Singapore Computer Society for failing to put in place reasonable security measures
+      to prevent the accidental disclosure of the personal data of 214 registrants of an event via email.
+    perturbation: A warning was issued to Singapore Computer Society.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_207d7d515c2d
+    source_citation: '[2016] SGPDPC 9'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/04/breach-of-protection-obligation-by-singapore-computer-society
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security measures to prevent the accidental disclosure of the personal data
+      of 214 registrants of an event via email
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_23a46906b5aa
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for GrabCar for failing to put in place reasonable security arrangements
+      to protect the personal data of its customers from unauthorised disclosure. Personal data of a customer was disclosed
+      to one other customer via an email sent out by GrabCar. Click here to find out more.
+    perturbation: An enforcement outcome resulted for GrabCar. Personal data of a customer was disclosed to one other customer
+      via an email sent out by GrabCar. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_ee3d6f234534
+    source_citation: '[2019] SGPDPC 15'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/06/breach-of-protection-obligation-by-grabcar-financial-penalty
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of its customers from
+      unauthorised disclosure
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_24745849c247
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Horizon Fast Ferry for failing to put in place reasonable security arrangements
+      to protect the personal data in the Organisation’s email account. Click here to find out more.
+    perturbation: A warning was issued to Horizon Fast Ferry. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_1fb33a253898
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/10/breach-of-the-protection-obligation-by-horizon-fast-ferry
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in the Organisation’s
+      email account
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_250355cbae41
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Funding Societies for failing to make reasonable security arrangements
+      to prevent the unauthorised disclosure of the personal data of its members. Click here to find out more.
+    perturbation: An enforcement outcome resulted for Funding Societies. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_181e86bb8c47
+    source_citation: '[2018] SGPDPC 29'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/12/breach-of-protection-obligation-by-funding-societies
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of the personal data
+      of its members
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_27375831b70d
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Orchard Turn Developments for failing to make reasonable security arrangements
+      to protect personal data of its members that was stored on its server. Orchard Turn Developments was also issued directions
+      to patch all system vulnerabilities already identified, conduct a penetration test and rectify new weaknesses identified,
+      as well as implement a password management policy and conduct training for staff on password management best practices.
+    perturbation: An enforcement outcome resulted for Orchard Turn Developments. Orchard Turn Developments was also issued
+      directions to patch all system vulnerabilities already identified, conduct a penetration test and rectify new weaknesses
+      identified, as well as implement a password management policy and conduct training for staff on password management
+      best practices.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_ea257b484aec
+    source_citation: '[2017] SGPDPC 12'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/07/breach-of-protection-obligation-by-orchard-turn-developments
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to protect personal data of its members that was stored on
+      its server
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_2870368dc436
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Aviva for failing to make reasonable security arrangements to prevent
+      the unauthorised disclosure of the personal data of its insurance policyholder and his dependent.
+    perturbation: An enforcement outcome resulted for Aviva for and his dependent.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_ee33fe3d88c5
+    source_citation: '[2017] SGPDPC 14'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/10/breach-of-protection-obligation-by-aviva-oct
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of the personal data
+      of its insurance policyholder
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_29902ce4db60
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to the Singapore Medical Association for failing to put in place reasonable security
+      arrangements to prevent the unauthorised access of 68 individuals’ personal data which were forwarded to an external
+      email address without authorisation. Click here to find out more.
+    perturbation: A warning was issued to the Singapore Medical Association. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_098fd8565445
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/09/breach-of-the-protection-obligation-by-singapore-medical-association
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised access of 68 individuals’
+      personal data which were forwarded to an external email address without authorisation
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_2ba5a04f0b74
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: Global Outsource Solutions was found in breach of the PDPA for failing to put in place reasonable security
+      arrangements to protect the personal data collected by its website and for failing to develop and implement data protection
+      policies. This resulted in the disclosure of personal data of customers on the organisation’s online warranty registration
+      portal. Global Outsource Solutions was directed to develop and implement policies for data protection and staff training
+      in data protection, and to put all employees handling personal data through such training.
+    perturbation: Global Outsource Solutions was found in breach of the PDPA for failing to put in place reasonable security
+      arrangements to protect the personal data collected by its website. This resulted in the disclosure of personal data
+      of customers on the organisation’s online warranty registration portal. Global Outsource Solutions was directed to develop
+      and implement policies for data protection and staff training in data protection, and to put all employees handling
+      personal data through such training.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_7ee16ae566ac
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/12/breach-of-the-protection-and-accountability-obligations-by-global-outsource-solutions
+    perturbed_obligation: accountability
+    source_obligations:
+    - protection
+    - accountability
+    cue_span: failing to develop and implement data protection policies
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_2d98b462c126
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Galaxy Credit and Investments for failing to make reasonable security arrangements
+      to protect the personal data of its borrowers, and using personal data not for a purpose that a reasonable person would
+      consider appropriate in the circumstances. Click here to find out more.
+    perturbation: A warning was issued to Galaxy Credit and Investments for failing to make reasonable security arrangements
+      to protect the personal data of its borrowers. Click here to find out more.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_96029ebc49b2
+    source_citation: '[2018] SGPDPC 22'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/09/breach-of-the-protection-and-purpose-limitation-obligations-by-galaxy-credit-and-investments
+    perturbed_obligation: purpose_limitation
+    source_obligations:
+    - protection
+    - purpose_limitation
+    cue_span: using personal data not for a purpose that a reasonable person would consider appropriate in the circumstances
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_2e3afa85ea43
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Keppel Telecommunications & Transportation for failing to put in place
+      reasonable security arrangements to protect the personal data of employees, ex-employees, directors and shareholders
+      in its possession or under its control.
+    perturbation: An enforcement outcome resulted for Keppel Telecommunications & Transportation ex-employees, directors and
+      shareholders in its possession or under its control.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: dev
+    jurisdiction: SG
+    source_case_id: sglb_01_9c0ca40a293d
+    source_citation: '[2024] SGPDPC 3'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2024/07/breach-of-the-protection-obligation-by-keppel-telecommunications-transportation
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of employees
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_2f3e7d853ff6
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to AXA Insurance for failing to put in place reasonable security arrangements to prevent
+      the unauthorised disclosure of personal data of its policyholders. The personal data of 87 individuals was sent in an
+      email to an unintended recipient.
+    perturbation: A warning was issued to AXA Insurance. The personal data of 87 individuals was sent in an email to an unintended
+      recipient.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_1354533f591d
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/02/breach-of-the-protection-obligation-by-axa-insurance
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of personal
+      data of its policyholders
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_2f80b7cedef1
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Chan Brothers Travel for failing to put in place reasonable security arrangements
+      to protect the personal data of individuals on its website. The result was that the personal data of over 5,500 individuals
+      were accessible through online web search engines. Click here to find out more.
+    perturbation: A warning was issued to Chan Brothers Travel. The result was that the personal data of over 5,500 individuals
+      were accessible through online web search engines. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_272655911f02
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/10/breach-of-the-protection-obligation-by-chan-brothers-travel
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of individuals on its
+      website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_33644e4e2a79
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Singtel for failing to put in place reasonable security arrangements
+      to prevent the unauthorised disclosure of personal data of some of its customers via its My Singtel mobile application.
+    perturbation: An enforcement outcome resulted for Singtel.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_793e0e6db276
+    source_citation: '[2019] SGPDPC 49'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/02/breach-of-the-protection-obligation-by-singtel
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of personal
+      data of some of its customers via its My Singtel mobile application
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_33e5b0ba7d32
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on K Box Entertainment Group
+      (K Box) and its data intermediary, Finantech Holdings, for failing to implement proper and adequate protective measures
+      to secure its IT system, resulting in unauthorised disclosure of the personal data of 317,000 K Box members. K Box was
+      also issued directions and penalised for the absence of a Data Protection Officer.
+    perturbation: enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on K Box Entertainment Group
+      (K Box) and its data intermediary, Finantech Holdings, resulting in unauthorised disclosure of the personal data of
+      317,000 K Box members. K Box was also issued directions and penalised for the absence of a Data Protection Officer.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_57e1b200c377
+    source_citation: '[2016] SGPDPC 1'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/04/breach-of-protection-and-openness-obligations-by-k-box-entertainment-group-and-finantech-holdings
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    - accountability
+    cue_span: failing to implement proper and adequate protective measures to secure its IT system
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_3474cc262e29
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Bud Cosmetics for failing to put in place reasonable security arrangements
+      to protect the personal data of its customers from unauthorised disclosure. Directions were also issued to the organisation
+      to engage qualified personnel to conduct a security audit, develop an IT security policy, and implement a training policy.
+      Click here to find out more.
+    perturbation: An enforcement outcome resulted for Bud Cosmetics. Directions were also issued to the organisation to engage
+      qualified personnel to conduct a security audit, develop an IT security policy, and implement a training policy. Click
+      here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_023faabd096a
+    source_citation: '[2019] SGPDPC 1'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/01/breach-of-the-protection-obligation-by-bud-cosmetics
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of its customers from
+      unauthorised disclosure
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_375c4d0d6ea8
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Barnacles Pte. Ltd. for failing to put in place reasonable measures to protect the
+      personal data of individuals who had made dining reservations via its website; and retaining such personal data when
+      it no longer had any legal or business purpose to retain it.
+    perturbation: A warning was issued to Barnacles Pte. Ltd. for; and retaining such personal data when it no longer had
+      any legal or business purpose to retain it.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_9063b91a4651
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/10/breach-of-the-protection-obligation-by-barnacles
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable measures to protect the personal data of individuals who had made dining
+      reservations via its website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_38d589f22529
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for The Travel Corporation (2011) for breaches of the PDPA. The Organisation
+      failed to appoint a data protection officer and did not put in place reasonable security arrangements to protect its
+      customers’ personal data stored in portable storage devices.
+    perturbation: An enforcement outcome resulted for The Travel Corporation (2011) for breaches of the PDPA. The Organisation
+      and did not put in place reasonable security arrangements to protect its customers’ personal data stored in portable
+      storage devices.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_5ba565a113e2
+    source_citation: '[2019] SGPDPC 42'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/12/breach-of-the-protection-and-accountability-obligations-by-the-travel-corporation-(2011)
+    perturbed_obligation: accountability
+    source_obligations:
+    - protection
+    - accountability
+    cue_span: failed to appoint a data protection officer
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_39271e5f55f2
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to St. Joseph's Institution International for failing to put in place reasonable security
+      arrangements to protect the personal data in its possession. The incident resulted in the personal data being at risk
+      of unauthorised access.
+    perturbation: A warning was issued to St. Joseph's Institution International. The incident resulted in the personal data
+      being at risk of unauthorised access.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_bf4340d501f5
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/04/breach-of-the-protection-obligation-by-st-josephs-institution-international
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_3b220b9c6d60
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for DS Human Resource for breaches of the PDPA. The organisation failed
+      to put in place data protection policies. It also did not make reasonable security arrangements to prevent the unauthorised
+      disclosure of the personal data of job applicants. Click here to find out more.
+    perturbation: An enforcement outcome resulted for DS Human Resource for breaches of the PDPA. The organisation. It also
+      did not make reasonable security arrangements to prevent the unauthorised disclosure of the personal data of job applicants.
+      Click here to find out more.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_bd3cab87b972
+    source_citation: '[2019] SGPDPC 16'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/06/breach-of-the-openness-and-protection-obligations-by-ds-human-resource
+    perturbed_obligation: accountability
+    source_obligations:
+    - accountability
+    - protection
+    cue_span: failed to put in place data protection policies
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_3b9ec0ea2916
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for ChampionTutor for failing to put in place reasonable security arrangements
+      to protect personal data in its possession. The incident resulted in the personal data being exposed. Click here to
+      find out more.
+    perturbation: An enforcement outcome resulted for ChampionTutor. The incident resulted in the personal data being exposed.
+      Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_78b9932dede2
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/10/breach-of-the-protection-obligation-by-championtutor
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect personal data in its possession
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_3bb149957f8b
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Singapore Data Hub Pte Ltd for failing to put in place reasonable security
+      arrangements to protect the personal data in its possession or under its control.
+    perturbation: An enforcement outcome resulted for Singapore Data Hub Pte Ltd.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: test
+    jurisdiction: SG
+    source_case_id: sglb_01_77f7bffc3635
+    source_citation: '[2025] SGPDPC 2'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2026/01/breach-of-the-protection-obligation-by-singapore-data-hub-pte-ltd
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession or under
+      its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_3c0218f9c37e
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Vimalakirti Buddhist Centre for failing to put in place reasonable security
+      arrangements to protect the personal data of its members and non-members from unauthorised disclosure. The incident
+      resulted in the personal data being subjected to a ransomware attack. Click here to find out more.
+    perturbation: An enforcement outcome resulted for Vimalakirti Buddhist Centre for and non-members from unauthorised disclosure.
+      The incident resulted in the personal data being subjected to a ransomware attack. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_1c72119f1411
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/10/breach-of-the-protection-obligation-by-vimalakirti-buddhist-centre
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of its members
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_3c3dd8c46a04
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Watami Food Service Singapore for failing to make reasonable security arrangements
+      to prevent unauthorised access of employees’ personal data stored online. Click here to find out more.
+    perturbation: A warning was issued to Watami Food Service Singapore. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_3a0c6af597d3
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/05/breach-of-the-protection-obligation-by-watami-food-service-singapore
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent unauthorised access of employees’ personal data
+      stored online
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_3d37841e6af9
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to MRI Diagnostics for failing to put in place reasonable security arrangements to
+      prevent the unauthorised disclosure of personal data of approximately 4,099 individuals which were publicly available
+      via the internet. Directions were imposed on Clarity Radiology for failing to appoint a data protection officer and
+      not having policies and practices necessary to comply with the PDPA. Click here to find out more.
+    perturbation: A warning was issued to MRI Diagnostics for,099 individuals which were publicly available via the internet.
+      Directions were imposed on Clarity Radiology for failing to appoint a data protection officer and not having policies
+      and practices necessary to comply with the PDPA. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_92a6e8349cb4
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/10/breach-of-the-protection-obligation-by-mri-diagnostics-and-breach-of-the-accountability-obligation-by-clarity-radiology
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of personal
+      data of approximately 4
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_3d3c495c706e
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A enforcement outcome of [AMOUNT_REDACTED] was imposed and a direction was issued to Grabcar for failing
+      to put in place reasonable security arrangements to prevent the unauthorised access of GrabHitch drivers’ and passengers’
+      personal data via its mobile application. Click here to find out more.
+    perturbation: A enforcement outcome of [AMOUNT_REDACTED] was imposed and a direction was issued to Grabcar for and passengers’
+      personal data via its mobile application. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_0fa922e9e5d8
+    source_citation: '[2020] SGPDPC 14'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/09/breach-of-the-protection-obligation-by-grabcar
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised access of GrabHitch drivers’
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_3eb6d7868699
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for OrangeTee & Tie for failing to put in place reasonable security arrangements
+      to protect users' personal data in its possession or under its control.
+    perturbation: An enforcement outcome resulted for OrangeTee & Tie.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_570bd2882f59
+    source_citation: '[2023] SGPDPC 3'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2023/04/breach-of-the-protection-obligation-by-orangetee-and-tie
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect users' personal data in its possession or
+      under its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_3fd44e00b9fd
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Cognita Asia Holdings for failing to put in place reasonable security
+      arrangements to protect the personal data in its possession from a ransomware attack. Click here to find out more.
+    perturbation: An enforcement outcome resulted for Cognita Asia Holdings. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_c03d1e21186c
+    source_citation: '[2022] SGPDPCS 14'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2022/10/breach-of-the-protection-obligation-by-cognita-asia-holdings
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession from
+      a ransomware attack
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_40ac5198a64e
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for DataPost, as a data intermediary, for failing to make reasonable security
+      arrangements to prevent the unauthorised disclosure of the personal data of two customers of a bank. DataPost was also
+      directed to review its working procedures relating to data printing and enveloping operations, improve the training
+      of its staff, and review its personal data protection policy.
+    perturbation: An enforcement outcome resulted for DataPost, as a data intermediary,. DataPost was also directed to review
+      its working procedures relating to data printing and enveloping operations, improve the training of its staff, and review
+      its personal data protection policy.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_bd91af1ec664
+    source_citation: '[2017] SGPDPC 10'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/06/breach-of-protection-obligation-by-datapost
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of the personal data
+      of two customers of a bank
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_411b0fbf4930
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: regulatory action was taken to Security Masters for failing to put in place reasonable security arrangements
+      to prevent the unauthorised access of building visitors’ mobile numbers. A security personnel contacted the visitors
+      to request return of visitor passes and send them Chinese New Year greetings. Click here to find out more.
+    perturbation: regulatory action was taken to Security Masters. A security personnel contacted the visitors to request
+      return of visitor passes and send them Chinese New Year greetings. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_3b00fc0fd0b4
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/10/breach-of-the-protection-obligation-by-security-masters
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised access of building visitors’
+      mobile numbers
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_4285bbc85233
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for AIG for failing to make reasonable security arrangements to prevent
+      the unauthorised disclosure of personal data. This case involved an incorrect facsimile number used by AIG on its renewal
+      notices. Click here to find out more.
+    perturbation: An enforcement outcome resulted for AIG. This case involved an incorrect facsimile number used by AIG on
+      its renewal notices. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_ed11b99109ab
+    source_citation: '[2018] SGPDPC 8'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/05/breach-of-protection-obligation-by-aig
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of personal data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_4451485c60bc
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: regulatory action was taken to SME Motor for failing to make reasonable security arrangements to prevent
+      the unauthorised disclosure of individuals’ personal data. The lapses resulted in personal data of other customers being
+      disclosed on the reverse side of an invoice document. Click here to find out more.
+    perturbation: regulatory action was taken to SME Motor. The lapses resulted in personal data of other customers being
+      disclosed on the reverse side of an invoice document. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_94d8270c8909
+    source_citation: '[2019] SGPDPC 21'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/07/breach-of-the-protection-obligation-by-sme-motor
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of individuals’ personal
+      data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_44782318c9b1
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Tok Leng Leng t/a Top Mobile Gallery (BR) for failing to put in place
+      reasonable security arrangements to protect against the unauthorised use of and access to customers’ personal data for
+      registration of pre-paid SIM cards.
+    perturbation: An enforcement outcome resulted for Tok Leng Leng t/a Top Mobile Gallery (BR) for and access to customers’
+      personal data for registration of pre-paid SIM cards.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: dev
+    jurisdiction: SG
+    source_case_id: sglb_01_87daa6270ad0
+    source_citation: '[2024] SGPDPCS 1'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2024/06/protection-obligation-by-tok-leng-leng-ta-top-mobile-gallery
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect against the unauthorised use of
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_466522315e32
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for COURTS for failing to put in place reasonable security arrangements
+      to protect the personal data of its customers from unauthorised disclosure on its online portal. Click here to find
+      out more.
+    perturbation: An enforcement outcome resulted for COURTS. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_d51ef8165b79
+    source_citation: '[2019] SGPDPC 4'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/01/breach-of-the-protection-obligation-by-courts
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of its customers from
+      unauthorised disclosure on its online portal
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_4678e48f103b
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: BHG (Singapore) was found not in breach for failing to make reasonable security arrangements to prevent
+      the unauthorised disclosure of the personal data of its loyalty card account holders.
+    perturbation: BHG (Singapore) was found not in breach.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_f072caf38069
+    source_citation: '[2017] SGPDPC 16'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/11/no-breach-of-protection-obligation-by-bhg-(singapore)
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of the personal data
+      of its loyalty card account holders
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_4a376eb19fa1
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Flying Cape, a data intermediary, for failing to put in place reasonable security
+      arrangements to protect the personal data of 191 users of a website. Flying Cape was managing the website on behalf
+      of its client.
+    perturbation: A warning was issued to Flying Cape, a data intermediary,. Flying Cape was managing the website on behalf
+      of its client.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_b45bc83c17b1
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/04/breach-of-the-protection-obligation-by-flying-cape
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of 191 users of a website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_4c1a2fe9235f
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Carousell for failing to put in place reasonable security arrangements
+      to protect the personal data of its platform users in its possession or under its control. Carousell was also directed
+      to review its software testing procedures, processes and procedures for documenting functional and technical specifications
+      of software and rectify any gaps identified from the reviews.
+    perturbation: An enforcement outcome resulted for Carousell. Carousell was also directed to review its software testing
+      procedures, processes and procedures for documenting functional and technical specifications of software and rectify
+      any gaps identified from the reviews.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: dev
+    jurisdiction: SG
+    source_case_id: sglb_01_e4c35ef7abcf
+    source_citation: '[2023] SGPDPC 13'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2024/02/breach-of-the-protection-obligation-by-carousell
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of its platform users
+      in its possession or under its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_5218e15c770a
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Ecommerce Enablers for failing to put in place reasonable security arrangements
+      to protect users' personal data in its possession or under its control.
+    perturbation: An enforcement outcome resulted for Ecommerce Enablers.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_1011fdb2a316
+    source_citation: '[2023] SGPDPC 6'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2023/08/breach-of-the-protection-obligation-by-ecommerce-enablers
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect users' personal data in its possession or
+      under its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_52987a1cd230
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Larsen & Toubro Infotech for failing to put in place reasonable security
+      arrangements to prevent the unauthorised disclosure of personal data of job applicants, and for disclosing the personal
+      data of job applicants without their consent.
+    perturbation: An enforcement outcome resulted for Larsen & Toubro Infotech and for disclosing the personal data of job
+      applicants without their consent.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_f5fbc3c0d1d0
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/06/breach-of-the-protection-and-consent-obligation-by-larsen-toubro-infotech
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    - consent
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of personal
+      data of job applicants
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_5385dd200d5a
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Toppan Forms for failing to put in place reasonable security arrangements
+      to protect the personal data from unauthorised disclosure. Click here to find out more.
+    perturbation: An enforcement outcome resulted for Toppan Forms. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_a4db412652ce
+    source_citation: '[2019] SGPDPC 2'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/01/breach-of-the-protection-obligation-by-toppan-forms
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data from unauthorised disclosure
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_5404f92b947a
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Tan Tock Seng Hospital for failing to put in place reasonable security arrangements
+      to prevent the unauthorised disclosure of personal data of its patients. 85 Notification letters to patients to reschedule
+      appointments were sent to wrong addresses.
+    perturbation: A warning was issued to Tan Tock Seng Hospital. 85 Notification letters to patients to reschedule appointments
+      were sent to wrong addresses.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_76a4d28b41a3
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/11/breach-of-the-protection-obligation-by-tan-tock-seng-hospital
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of personal
+      data of its patients
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_541caaeed0ba
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Specialized Asia Pacific for failing to put in place reasonable security arrangements
+      to protect the personal data of 2,445 application users.
+    perturbation: A warning was issued to Specialized Asia Pacific for,445 application users.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_e37e85cba661
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/09/breach-of-the-protection-obligation-by-specialized-asia-pacific
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of 2
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_594c07870b76
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: regulatory action was taken to Habitat for Humanity Singapore for breaches of the PDPA. The organisation
+      did not make reasonable security arrangements to prevent unauthorised disclosure of its volunteers’ personal data, failed
+      to put in place data protection policies, and omitted to communicate data protection policies and practices to its staff.
+      Click here to find out more.
+    perturbation: regulatory action was taken to Habitat for Humanity Singapore for breaches of the PDPA. The organisation
+      did not make reasonable security arrangements to prevent unauthorised disclosure of its volunteers’ personal data,,
+      and omitted to communicate data protection policies and practices to its staff. Click here to find out more.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_166be4ea445e
+    source_citation: '[2018] SGPDPC 9'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/05/breach-of-openness-and-protection-obligations-by-habitat-for-humanity-singapore
+    perturbed_obligation: accountability
+    source_obligations:
+    - accountability
+    - protection
+    cue_span: failed to put in place data protection policies
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_596097d92e36
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for WTS Automotive Services for failing to make reasonable security arrangements
+      to prevent the unauthorised disclosure of its customers’ personal data. Click here to find out more.
+    perturbation: An enforcement outcome resulted for WTS Automotive Services. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_1d83ae864614
+    source_citation: '[2018] SGPDPC 26'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/12/breach-of-protection-obligation-by-wts-automotive-services
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of its customers’ personal
+      data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_5c0691a4168c
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Tripartite Alliance for failing to put in place reasonable security
+      arrangements to prevent the unauthorised access of approximately 20,000 individuals’ and companies’ data stored in its
+      customer relationship system database.
+    perturbation: An enforcement outcome resulted for Tripartite Alliance for,000 individuals’ and companies’ data stored
+      in its customer relationship system database.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_e23fd9e19bf0
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/04/breach-of-the-protection-obligation-by-tripartite-alliance
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised access of approximately
+      20
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_5f40f0f9ab06
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Academy of Medicine Singapore for failing to put in place reasonable
+      security arrangements to protect the personal data of current and former members of the institution.
+    perturbation: An enforcement outcome resulted for Academy of Medicine Singapore for and former members of the institution.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: dev
+    jurisdiction: SG
+    source_case_id: sglb_01_0948b5e667c9
+    source_citation: '[2024] SGPDPCS 4'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2024/07/breach-of-the-protection-obligation-by-academy-of-medicine-singapore
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of current
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_604f04b00a81
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Farrer Park Hospital for failing to put in place reasonable security
+      arrangements to protect the personal data in its possession or under its control. Click here to find out more.
+    perturbation: An enforcement outcome resulted for Farrer Park Hospital. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_e4868b1bd35a
+    source_citation: '[2022] SGPDPC 6'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2022/11/breach-of-the-protection-obligation-by-farrer-park-hospital
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession or under
+      its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_6248bcdd4592
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for RedMart for failing to put in place reasonable security arrangements
+      to protect the personal data in its possession or under its control.
+    perturbation: An enforcement outcome resulted for RedMart.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_f9a8af10bde1
+    source_citation: '[2022] SGPDPC 8'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2022/11/breach-of-the-protection-obligation-by-redmart
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession or under
+      its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_625820db76c6
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: regulatory action was taken to Habitat for Humanity Singapore for breaches of the PDPA. The organisation
+      did not make reasonable security arrangements to prevent unauthorised disclosure of its volunteers’ personal data, failed
+      to put in place data protection policies, and omitted to communicate data protection policies and practices to its staff.
+      Click here to find out more.
+    perturbation: regulatory action was taken to Habitat for Humanity Singapore for breaches of the PDPA. The organisation,
+      failed to put in place data protection policies, and omitted to communicate data protection policies and practices to
+      its staff. Click here to find out more.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_166be4ea445e
+    source_citation: '[2018] SGPDPC 9'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/05/breach-of-openness-and-protection-obligations-by-habitat-for-humanity-singapore
+    perturbed_obligation: protection
+    source_obligations:
+    - accountability
+    - protection
+    cue_span: did not make reasonable security arrangements to prevent unauthorised disclosure of its volunteers’ personal
+      data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_63403b866aa5
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for SESAMi (Singapore) Pte Ltd for failing to put in place reasonable security
+      arrangements to protect the personal data in its possession or under its control. PDPC also issued directions to SESAMi
+      (Singapore) Pte Ltd's subsidiary, Abecha Pte Ltd, for similar reasons.
+    perturbation: An enforcement outcome resulted for SESAMi (Singapore) Pte Ltd. PDPC also issued directions to SESAMi (Singapore)
+      Pte Ltd's subsidiary, Abecha Pte Ltd, for similar reasons.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: test
+    jurisdiction: SG
+    source_case_id: sglb_01_7b673113fa30
+    source_citation: '[2025] SGPDPCS 1'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2026/02/breach-of-the-protection-obligation-by-sesami-singapore-pte-ltd-and-abecha-pte-ltd
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession or under
+      its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_67ae1fc40b80
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for The Future of Cooking for failing to put in place reasonable security
+      arrangements to prevent the unauthorised disclosure of its customers’ personal data on its website. Click here to find
+      out more.
+    perturbation: An enforcement outcome resulted for The Future of Cooking. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_9bc84b9df99d
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/01/breach-of-the-protection-obligation-by-the-future-of-cooking
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of its customers’
+      personal data on its website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_6c19b6c48228
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: regulatory action was taken to Asia-Pacific Star, as a data intermediary, for failing to make reasonable
+      security arrangements to prevent the disclosure of the personal data of Tiger Airways Singapore's passengers.
+    perturbation: regulatory action was taken to Asia-Pacific Star, as a data intermediary.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_75553359e23d
+    source_citation: '[2017] SGPDPC 6'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/05/breach-of-protection-obligation-by-asia-pacific-star
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the disclosure of the personal data of Tiger Airways
+      Singapore's passengers
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_6f28f79a9138
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: regulatory action was taken to GrabCar for failing to put in place reasonable security arrangements for
+      GrabHitch drivers to protect the personal data of passengers that used GrabHitch services. Personal data of some GrabHitch
+      passengers were disclosed by GrabHitch drivers without consent on social media. Click here to find out more.
+    perturbation: regulatory action was taken to GrabCar. Personal data of some GrabHitch passengers were disclosed by GrabHitch
+      drivers without consent on social media. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_0c088056e814
+    source_citation: '[2019] SGPDPC 14'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/06/breach-of-protection-obligation-by-grabcar-directions
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements for GrabHitch drivers to protect the personal data
+      of passengers that used GrabHitch services
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_6fccee5564b1
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for HMI Institute of Health Science for failing to put in place reasonable
+      security arrangements to protect the personal data of former students.
+    perturbation: An enforcement outcome resulted for HMI Institute of Health Science.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: dev
+    jurisdiction: SG
+    source_case_id: sglb_01_bb9f0ab48aa9
+    source_citation: '[2024] SGPDPCS 5'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2024/11/breach-of-the-protection-obligation-by-hmi-institute-of-health-science
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of former students
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_704cfccca587
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Tutor City for failing to make reasonable security arrangements to prevent the unauthorised
+      access of individuals’ personal data stored in web directories. Click here to find out more.
+    perturbation: A warning was issued to Tutor City. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_4c6d659ca039
+    source_citation: '[2019] SGPDPC 5'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/04/breach-of-the-protection-obligation-by-tutor-city
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised access of individuals’ personal
+      data stored in web directories
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_706ff22317ae
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for HMI Institute for failing to put in place reasonable security arrangements
+      to protect personal data stored in its server. This resulted in the data being subjected to a ransomware attack.
+    perturbation: An enforcement outcome resulted for HMI Institute. This resulted in the data being subjected to a ransomware
+      attack.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_6eb2611f1adc
+    source_citation: '[2021] SGPDPC 4'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/06/breach-of-the-protection-obligation-by-hmi-institute-of-health-sciences
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect personal data stored in its server
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_73ad4a1908d3
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for CH Offshore for failing to put in place reasonable security arrangements
+      to protect customers' personal data in its possession or under its control.
+    perturbation: An enforcement outcome resulted for CH Offshore.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: dev
+    jurisdiction: SG
+    source_case_id: sglb_01_b52318d5a4cd
+    source_citation: '[2024] SGPDPC 2'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2024/06/breach-of-the-protection-obligation-by-ch-offshore
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect customers' personal data in its possession
+      or under its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_769a43568a6f
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to CampVision for failing to put in place reasonable security arrangements to prevent
+      the unauthorised disclosure of personal data of individuals. As a result, the personal data of 106 individuals were
+      compromised through a data breach from an online survey platform.
+    perturbation: A warning was issued to CampVision. As a result, the personal data of 106 individuals were compromised through
+      a data breach from an online survey platform.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_b55328b5a959
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/11/breach-of-the-protection-obligation-by-campvision
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of personal
+      data of individuals
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_7726442b1770
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Century Evergreen for failing to put in place reasonable security arrangements
+      to protect the personal data of jobseekers in its possession or under its control.
+    perturbation: An enforcement outcome resulted for Century Evergreen.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_f4137e303baa
+    source_citation: '[2023] SGPDPCS 5'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2023/09/breach-of-the-protection-obligation-by-century-evergreen
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of jobseekers in its possession
+      or under its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_77451c9247c5
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: regulatory action was taken to Furnituremart for failing to make reasonable security arrangements to prevent
+      the disclosure of the personal data of a customer.
+    perturbation: regulatory action was taken to Furnituremart.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_b5404c1a2281
+    source_citation: '[2017] SGPDPC 7'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/05/breach-of-protection-obligation-by-furnituremart
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the disclosure of the personal data of a customer
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_792d2cced7c6
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Civil Service Club for failing to put in place reasonable security arrangements
+      to protect its members’ personal data. A web directory containing members’ profile photographs and their respective
+      NRIC/FIN numbers was found to be publicly accessible.
+    perturbation: An enforcement outcome resulted for Civil Service Club. A web directory containing members’ profile photographs
+      and their respective NRIC/FIN numbers was found to be publicly accessible.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_85573877aaff
+    source_citation: '[2020] SGPDPC 15'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/09/breach-of-the-protection-obligation-by-civil-service-club
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect its members’ personal data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_7e667b932fea
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Tokyo Century Leasing for failing to put in place reasonable security
+      arrangements to protect individuals' personal data in its possession or under its control.
+    perturbation: An enforcement outcome resulted for Tokyo Century Leasing.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_64dc47539f6e
+    source_citation: '[2023] SGPDPC 9'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2023/10/breach-of-the-protection-obligation-by-tokyo-century-leasing
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect individuals' personal data in its possession
+      or under its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_7e95e96bc9c7
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Hazel Florist & Gifts for failing to make reasonable security arrangements to prevent
+      the unauthorised disclosure of customers' personal data.
+    perturbation: A warning was issued to Hazel Florist & Gifts.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_8f5f262ba67a
+    source_citation: '[2017] SGPDPC 9'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/06/breach-of-protection-obligation-by-hazel-florist-and-gifts
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of customers' personal
+      data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_7f61e32eedc5
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Audio House for failing to put in place reasonable security arrangements
+      to protect the personal data in its possession from a ransomware attack.
+    perturbation: An enforcement outcome resulted for Audio House.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_cae347cee994
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2022/07/breach-of-the-protection-obligation-by-audio-house
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession from
+      a ransomware attack
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_821b9643e3f9
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Quoine for failing to put in place reasonable security arrangements
+      to protect the personal data in its possession.
+    perturbation: An enforcement outcome resulted for Quoine.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_d591ab4f83dd
+    source_citation: '[2022] SGPDPC 2'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2022/07/breach-of-the-protection-obligation-by-quoine
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_82f25c7bf789
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Tanah Merah Country Club for failing to put in place reasonable security
+      arrangements to protect the personal data of individuals stored on its electronic direct mail (“EDM”) system. The common
+      password for login to the EDM system was weak and had not been changed since 2010. There were also no arrangements in
+      place to ensure and enforce password strength, expiry and protection. An application for reconsideration was filed against
+      the decision Re Tanah Merah Country Club. Upon review and careful consideration of the application, directions in the
+      de
+    perturbation: An enforcement outcome resulted for Tanah Merah Country Club. The common password for login to the EDM system
+      was weak and had not been changed since 2010. There were also no arrangements in place to ensure and enforce password
+      strength, expiry and protection. An application for reconsideration was filed against the decision Re Tanah Merah Country
+      Club. Upon review and careful consideration of the application, directions in the de.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_d3ec66aeaed8
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/10/breach-of-the-protection-obligation-by-tanah-merah-country-club
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of individuals stored
+      on its electronic direct mail (“EDM”) system
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_83434b4daa07
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Whiz Communications for failing to put in place reasonable security
+      arrangements to protect customers' personal data in its possession or under its control.
+    perturbation: An enforcement outcome resulted for Whiz Communications.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: dev
+    jurisdiction: SG
+    source_case_id: sglb_01_c88637eb5666
+    source_citation: '[2023] SGPDPCS 7'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2024/03/breach-of-the-protection-obligation-by-whiz-communications
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect customers' personal data in its possession
+      or under its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_839d636a7025
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Marshall Cavendish Education for failing to put in place reasonable
+      measures to protect the personal data of users of its learning management system.
+    perturbation: An enforcement outcome resulted for Marshall Cavendish Education.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_011bd9913046
+    source_citation: '[2019] SGPDPC 34'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/11/breach-of-the-protection-obligation-by-marshall-cavendish-education
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable measures to protect the personal data of users of its learning management
+      system
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_840f3d538f3e
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] was imposed on Fullerton Healthcare and
+      Agape CP Holdings respectively for failing to put in place reasonable security arrangements to protect personal data
+      belonging to Fullerton Healthcare’s corporate clients and direct patients. Directions were also issued to both organisations
+      to review and enhance processes relating to data handling processes, security audits and access controls to bolster
+      their data protection arrangements.
+    perturbation: A enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] was imposed on Fullerton Healthcare and
+      Agape CP Holdings respectively for and direct patients. Directions were also issued to both organisations to review
+      and enhance processes relating to data handling processes, security audits and access controls to bolster their data
+      protection arrangements.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_5bc0508e0863
+    source_citation: '[2023] SGPDPC 5'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2023/06/breach-of-the-protection-obligation-by-fullerton-healthcare-and-agape-cp-holdings
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect personal data belonging to Fullerton Healthcare’s
+      corporate clients
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_84404453b81d
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to PAP Community Foundation for failing to make reasonable security arrangements to
+      prevent the unauthorised disclosure of personal data.
+    perturbation: A warning was issued to PAP Community Foundation.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_50ec6d4bbf30
+    source_citation: '[2019] SGPDPC 6'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/04/breach-of-protection-obligation-by-pap-community-foundation
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of personal data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_8a7c576a9be9
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Advance Home Tutors for failing to put in place reasonable security
+      arrangements to protect the personal data collected from its tutors and for not developing and implementing data protection
+      policies and practices necessary to ensure its compliance with PDPA.
+    perturbation: An enforcement outcome resulted for Advance Home Tutors for failing to put in place reasonable security
+      arrangements to protect the personal data collected from its tutors and and practices necessary to ensure its compliance
+      with PDPA.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_e34262322c72
+    source_citation: '[2019] SGPDPC 35'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/10/breach-of-the-protection-and-accountability-obligations-by-advance-home-tutors
+    perturbed_obligation: accountability
+    source_obligations:
+    - protection
+    - accountability
+    cue_span: for not developing and implementing data protection policies
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_8a9f065baf87
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Iapps for failing to put in place reasonable security arrangements to
+      prevent the unauthorised disclosure of personal data of some users of the ActiveSG mobile application. Click here to
+      find out more.
+    perturbation: An enforcement outcome resulted for Iapps. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_1058dacd1d4d
+    source_citation: '[2021] SGPDPC 1'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/03/breach-of-the-protection-obligation-by-iapps
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of personal
+      data of some users of the ActiveSG mobile application
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_8b431e8dd837
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Seriously Keto for failing to put in place reasonable security arrangements
+      to protect the personal data stored in its server. This resulted in the data being subjected to a ransomware attack.
+    perturbation: An enforcement outcome resulted for Seriously Keto. This resulted in the data being subjected to a ransomware
+      attack.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_cf5a9a708f64
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/09/breach-of-the-protection-obligation-by-seriously-keto
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data stored in its server
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_8b4552c9b445
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Institute of Singapore Chartered Accountants for failing to make reasonable
+      security arrangements to prevent the unauthorised disclosure of the personal data of its members. Click here to find
+      out more.
+    perturbation: An enforcement outcome resulted for Institute of Singapore Chartered Accountants. Click here to find out
+      more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_c07afb31dc1c
+    source_citation: '[2018] SGPDPC 28'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/12/breach-of-protection-obligation-by-institute-of-singapore-chartered-accountants
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of the personal data
+      of its members
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_8c21523e7edd
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Larsen & Toubro Infotech for failing to put in place reasonable security
+      arrangements to prevent the unauthorised disclosure of personal data of job applicants, and for disclosing the personal
+      data of job applicants without their consent.
+    perturbation: An enforcement outcome resulted for Larsen & Toubro Infotech for failing to put in place reasonable security
+      arrangements to prevent the unauthorised disclosure of personal data of job applicants.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_f5fbc3c0d1d0
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/06/breach-of-the-protection-and-consent-obligation-by-larsen-toubro-infotech
+    perturbed_obligation: consent
+    source_obligations:
+    - protection
+    - consent
+    cue_span: disclosing the personal data of job applicants without their consent
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_8cd3457f6aea
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: Directions, including a enforcement outcome of [AMOUNT_REDACTED] were imposed on SAFRA for failing to put
+      in place reasonable security arrangements to protect the personal data of the members of its Shooting Club. SAFRA was
+      also directed to review its internal processes to put in place process safeguards and written internal standard operating
+      procedures to protect the personal data of its members.
+    perturbation: Directions, including a enforcement outcome of [AMOUNT_REDACTED] were imposed on SAFRA. SAFRA was also directed
+      to review its internal processes to put in place process safeguards and written internal standard operating procedures
+      to protect the personal data of its members.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_dbadfe6db099
+    source_citation: '[2019] SGPDPC 45'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/01/breach-of-the-protection-obligation-by-safra-national-service-association
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of the members of its
+      Shooting Club
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_910fe8988cca
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Globalsign.in for failing to put in place reasonable security arrangements
+      to protect the personal data supplied by its clients. Globalsign.in, which sends mass marketing emails on behalf of
+      its clients to their respective customers, was also found to be holding personal data which was no longer necessary
+      for legal or business purposes.
+    perturbation: An enforcement outcome resulted for Globalsign.in for failing to put in place reasonable security arrangements
+      to protect the personal data supplied by its clients. Globalsign.in, which sends mass marketing emails on behalf of
+      its clients to their respective customers, was also found to be.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_f9df8dc68976
+    source_citation: '[2019] SGPDPC 43'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/01/breach-of-the-protection-and-retention-obligations-by-globalsignin-pte-ltd
+    perturbed_obligation: retention_limitation
+    source_obligations:
+    - protection
+    - retention_limitation
+    cue_span: holding personal data which was no longer necessary for legal or business purposes
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_92602d224180
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for National Healthcare Group for failing to put in place reasonable security
+      arrangements to protect a list containing the personal data of partner doctors and members of the public from being
+      publicly accessible online.
+    perturbation: An enforcement outcome resulted for National Healthcare Group for and members of the public from being publicly
+      accessible online.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_96d6edabc18e
+    source_citation: '[2019] SGPDPC 46'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/01/breach-of-the-protection-obligation-by-national-healthcare-group
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect a list containing the personal data of partner
+      doctors
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_9304030c5acf
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Information Technology Management Association (Singapore) for failing to put in
+      place reasonable security measures to prevent the accidental disclosure of the personal data of 28 individuals via email.
+      Click here to find out more.
+    perturbation: A warning was issued to Information Technology Management Association (Singapore). Click here to find out
+      more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_071dd849c637
+    source_citation: '[2018] SGPDPC 11'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/05/breach-of-the-protection-obligation-by-information-technology-management-association-singapore
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security measures to prevent the accidental disclosure of the personal data
+      of 28 individuals via email
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_93e832ebe041
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for SMU Alumni Association for failing to put in place reasonable security
+      arrangements to protect the personal data of membership applicants from unauthorised disclosure. Click here to find
+      out more.
+    perturbation: An enforcement outcome resulted for SMU Alumni Association. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_6d816e56c28d
+    source_citation: '[2018] SGPDPC 6'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/04/breach-of-the-protection-obligation-by-smu-alumni-association
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of membership applicants
+      from unauthorised disclosure
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_970542f62ec7
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for PeopleSearch for failing to put in place reasonable security arrangements
+      to protect personal data of its clients. The incident resulted in the data being subjected to a ransomware attack.
+    perturbation: An enforcement outcome resulted for PeopleSearch. The incident resulted in the data being subjected to a
+      ransomware attack.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_37f5f9f90200
+    source_citation: '[2019] SGPDPC 47'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/01/breach-of-the-protection-obligation-by-peoplesearch
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect personal data of its clients
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_97d01c472e44
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to FWD Singapore for failing to put in place reasonable security arrangements to prevent
+      the unauthorised disclosure of 71 individuals’ personal data contained in payment advice letters which were sent to
+      incorrect recipients. Click here to find out more.
+    perturbation: A warning was issued to FWD Singapore. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_e19565bcc482
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/08/breach-of-the-protection-obligation-by-fwd-singapore
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of 71 individuals’
+      personal data contained in payment advice letters which were sent to incorrect recipients
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_99703c4322ff
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: regulatory action was taken to Cortina Watch for failing to put in place reasonable security arrangements
+      to protect individuals' personal data in its possession or under its control.
+    perturbation: regulatory action was taken to Cortina Watch.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: dev
+    jurisdiction: SG
+    source_case_id: sglb_01_275b28ff1b5a
+    source_citation: '[2024] SGPDPCS 3'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2024/05/breach-of-the-protection-obligation-by-cortina-watch
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect individuals' personal data in its possession
+      or under its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_9cc4852f2fef
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for SPH Magazines for failing to put in place reasonable security arrangements
+      to prevent the unauthorised access of personal data of members of HardwareZone forum site.
+    perturbation: An enforcement outcome resulted for SPH Magazines.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_71032c6e6ace
+    source_citation: '[2020] SGPDPC 3'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/02/breach-of-the-protection-obligation-by-sph-magazines
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised access of personal data
+      of members of HardwareZone forum site
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_9d8090bfe034
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Aviva for failing to make reasonable security arrangements to prevent
+      the unauthorised disclosure of personal data of policyholders. This is a second case within a period of 12 months. Click
+      here to find out more.
+    perturbation: An enforcement outcome resulted for Aviva. This is a second case within a period of 12 months. Click here
+      to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_b8e5a16d3cf9
+    source_citation: '[2018] SGPDPC 4'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/04/breach-of-protection-obligation-by-aviva-apr
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of personal data of
+      policyholders
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_a1bc44681491
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for SearchAsia Consulting for failing to put in place reasonable security
+      arrangements to protect jobseekers’ resumes from unauthorised disclosure via its online website.
+    perturbation: An enforcement outcome resulted for SearchAsia Consulting.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_3ba75c663255
+    source_citation: '[2019] SGPDPC 40'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/11/breach-of-the-protection-obligation-by-searchasia-consulting
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect jobseekers’ resumes from unauthorised disclosure
+      via its online website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_a4963a1ec254
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Jean Yip Salon for failing to put in place reasonable security arrangements to prevent
+      the unauthorised disclosure of personal data of its employees. As a result, the personal data of 28 individuals were
+      accessible over the Internet. Click here to find out more.
+    perturbation: A warning was issued to Jean Yip Salon. As a result, the personal data of 28 individuals were accessible
+      over the Internet. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_ad11278829dc
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/08/breach-of-the-protection-obligation-by--jean-yip-salon
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of personal
+      data of its employees
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_a7b93effbbda
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Novelship for failing to put in place reasonable security arrangements
+      to protect the personal data collected from its sellers from unauthorised access on its website.
+    perturbation: An enforcement outcome resulted for Novelship.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_752d0ca0e1df
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/11/breach-of-the-protection-obligation-by-novelship
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data collected from its sellers
+      from unauthorised access on its website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_a9d83523ca11
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for MyRepublic for failing to put in place reasonable security arrangements
+      to protect the personal data in its possession. Click here to find out more.
+    perturbation: An enforcement outcome resulted for MyRepublic. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_dbcacf8cd03f
+    source_citation: '[2022] SGPDPC 5'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2022/09/breach-of-the-protection-obligation-by-myrepublic
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_addbc3ca71d6
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for DS Human Resource for breaches of the PDPA. The organisation failed
+      to put in place data protection policies. It also did not make reasonable security arrangements to prevent the unauthorised
+      disclosure of the personal data of job applicants. Click here to find out more.
+    perturbation: An enforcement outcome resulted for DS Human Resource for breaches of the PDPA. The organisation failed
+      to put in place data protection policies. It also. Click here to find out more.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_bd3cab87b972
+    source_citation: '[2019] SGPDPC 16'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/06/breach-of-the-openness-and-protection-obligations-by-ds-human-resource
+    perturbed_obligation: protection
+    source_obligations:
+    - accountability
+    - protection
+    cue_span: did not make reasonable security arrangements to prevent the unauthorised disclosure of the personal data of
+      job applicants
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_aeb8873bc177
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Fortytwo for failing to put in place reasonable security arrangements
+      to protect the personal data in its possession. Fortytwo was also issued directions to complete the upgrading of its
+      website to a supported software version, including vulnerability assessment and penetration testing.
+    perturbation: An enforcement outcome resulted for Fortytwo. Fortytwo was also issued directions to complete the upgrading
+      of its website to a supported software version, including vulnerability assessment and penetration testing.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_045148dbc699
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2023/05/breach-of-the-protection-obligation-by-fortytwo
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_b01a33673066
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for CDP for failing to put in place reasonable security arrangements to
+      prevent the unauthorised disclosure of individuals’ personal data. Mail sent by CDP were addressed to incorrect recipients.
+    perturbation: An enforcement outcome resulted for CDP. Mail sent by CDP were addressed to incorrect recipients.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_5cd72a2e87fb
+    source_citation: '[2020] SGPDPC 12'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/08/breach-of-the-protection-obligation-by-cdp
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of individuals’
+      personal data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_b081853731dd
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Learnaholic for failing to put in place reasonable measures to protect
+      the personal data of students, students’ parents and staff of various schools.
+    perturbation: An enforcement outcome resulted for Learnaholic students’ parents and staff of various schools.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_0bbbe752943c
+    source_citation: '[2019] SGPDPC 31'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/12/breach-of-the-protection-obligation-by-learnaholic
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable measures to protect the personal data of students
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_b0c8bfc0ca8d
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for BLS International Services Singapore for failing to put in place reasonable
+      security arrangements to prevent the unauthorised disclosure of the personal data of individuals who had submitted a
+      booking for an appointment on its website. Click here to find out more.
+    perturbation: An enforcement outcome resulted for BLS International Services Singapore. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_872c03f5459b
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/01/breach-of-the-protection-obligation-by-bls-international-services-singapore
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of the personal
+      data of individuals who had submitted a booking for an appointment on its website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_b7e56ee67c98
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Globalsign.in for failing to put in place reasonable security arrangements
+      to protect the personal data supplied by its clients. Globalsign.in, which sends mass marketing emails on behalf of
+      its clients to their respective customers, was also found to be holding personal data which was no longer necessary
+      for legal or business purposes.
+    perturbation: An enforcement outcome resulted for Globalsign.in. Globalsign.in, which sends mass marketing emails on behalf
+      of its clients to their respective customers, was also found to be holding personal data which was no longer necessary
+      for legal or business purposes.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_f9df8dc68976
+    source_citation: '[2019] SGPDPC 43'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/01/breach-of-the-protection-and-retention-obligations-by-globalsignin-pte-ltd
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    - retention_limitation
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data supplied by its clients
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_bde4868cf58b
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Grabcar for failing to make reasonable security arrangements to prevent
+      the unauthorised disclosure of GrabHitch drivers’ personal data. Click here to find out more.
+    perturbation: An enforcement outcome resulted for Grabcar. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_da77623e8763
+    source_citation: '[2018] SGPDPC 23'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/10/breach-of-protection-obligation-by-grabcar
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of GrabHitch drivers’
+      personal data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_be5b76257be9
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for GeniusU for failing to put in place reasonable security arrangements
+      to prevent the unauthorised access and exfiltration of individuals' personal data stored in its staging database. Click
+      here to find out more.
+    perturbation: An enforcement outcome resulted for GeniusU for and exfiltration of individuals' personal data stored in
+      its staging database. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_0f034f792e22
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2022/03/breach-of-the-protection-obligation-by-geniusu
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised access
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_c14f8254fc22
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Ezynetic for failing to put in place reasonable security arrangements
+      to protect the personal data in its possession or under its control.
+    perturbation: An enforcement outcome resulted for Ezynetic.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: dev
+    jurisdiction: SG
+    source_case_id: sglb_01_8d728f749900
+    source_citation: '[2025] SGPDPCS 2'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2025/06/breach-of-the-protection-obligation-by-ezynetic
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession or under
+      its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_c19fc81b3f52
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Ascentis for failing to put in place reasonable security arrangements
+      to protect individuals' personal data in its possession or under its control.
+    perturbation: An enforcement outcome resulted for Ascentis.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_7995d6d294cd
+    source_citation: '[2023] SGPDPC 10'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2023/10/breach-of-the-protection-obligation-by-ascentis
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect individuals' personal data in its possession
+      or under its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_c70a0faa8af1
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: regulatory action was taken to Flight Raja Travels for failing to make reasonable security arrangements
+      to prevent unauthorised disclosure of individuals’ personal data on its online travel booking system. Click here to
+      find out more.
+    perturbation: regulatory action was taken to Flight Raja Travels. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_90f40f0beb2b
+    source_citation: '[2018] SGPDPC 16'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/06/breach-of-protection-obligation-by-flight-raja-travels
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent unauthorised disclosure of individuals’ personal
+      data on its online travel booking system
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_c7a4d269a767
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for i-vic International (i-vic) for failing to put in place reasonable security
+      arrangements to protect the personal data of individuals which it had processed on another organisation’s behalf. i-vic
+      as the data intermediary did not put in place diligent and properly scoped testing of software which led to the disclosure
+      of personal data of individuals via email.
+    perturbation: An enforcement outcome resulted for i-vic International (i-vic). i-vic as the data intermediary did not
+      put in place diligent and properly scoped testing of software which led to the disclosure of personal data of individuals
+      via email.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_e95e44d90d8e
+    source_citation: '[2019] SGPDPC 41'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/12/breach-of-the-protection-obligation-by-i-vic-international
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of individuals which it
+      had processed on another organisation’s behalf
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_c7f2b0b71e3b
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Zero1 and IP Tribe respectively for failing to put in place reasonable security
+      arrangements to prevent the unauthorised disclosure of 118 individuals’ personal data contained in invoices which were
+      sent to incorrect recipients. Click here to find out more.
+    perturbation: A warning was issued to Zero1 and IP Tribe respectively. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_63a7ae70c2ba
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/08/breach-of-the-protection-obligation-by-zero1-and-ip-tribe
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of 118 individuals’
+      personal data contained in invoices which were sent to incorrect recipients
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_c8b08ddb358c
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Ncode Consultant for failing to put in place reasonable security arrangements
+      to prevent unauthorised access and modification to an IT system provided to a school. The failure resulted in unauthorised
+      access and modification of students’ personal data.
+    perturbation: An enforcement outcome resulted for Ncode Consultant for and modification to an IT system provided to a
+      school. The failure resulted in unauthorised access and modification of students’ personal data.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_ccadf15a4f99
+    source_citation: '[2019] SGPDPC 11'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/06/breach-of-protection-obligation-by-ncode-consultant
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent unauthorised access
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_cb9be0bd7b3a
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for PPLingo for (i) failing to put in place reasonable security arrangements
+      to protect individuals' personal data in its possession or under its control; and (ii) not appointing any individual
+      to ensure its compliance with PDPA.
+    perturbation: An enforcement outcome resulted for PPLingo for (i); and (ii) not appointing any individual to ensure its
+      compliance with PDPA.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: dev
+    jurisdiction: SG
+    source_case_id: sglb_01_6d650ed9571a
+    source_citation: '[2023] SGPDPC 12'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2024/05/breach-of-the-accountability-and-protection-obligations-by-pplingo
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect individuals' personal data in its possession
+      or under its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_cf5111ae0860
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for MDIS Corporation for failing to put in place reasonable security arrangements
+      to protect the personal data of individuals on its website. These individuals had provided their personal data to MDIS
+      Corporation for registration purposes to attend its courses.
+    perturbation: An enforcement outcome resulted for MDIS Corporation. These individuals had provided their personal data
+      to MDIS Corporation for registration purposes to attend its courses.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_5ab9c657858a
+    source_citation: '[2020] SGPDPC 11'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/08/breach-of-the-protection-obligation-by-mdis-corporation
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of individuals on its
+      website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_cfe5956d685b
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Royal Caribbean Cruises (Asia) for failing to put in place reasonable
+      security arrangements to protect the personal data of its customers. The personal data was subjected to a ransomware
+      attack.
+    perturbation: An enforcement outcome resulted for Royal Caribbean Cruises (Asia). The personal data was subjected to a
+      ransomware attack.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_877bbd1e4352
+    source_citation: '[2020] SGPDPC 5'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/02/breach-of-the-protection-obligation-by-royal-caribbean-cruises-(asia)
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of its customers
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_d0ec9dcee3b6
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to SSA Group International for failing to put in place reasonable security arrangements
+      to prevent the unauthorised access of 53 individuals’ course registration information which were publicly available
+      via its webpage.
+    perturbation: A warning was issued to SSA Group International.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_29d5164d7d3e
+    source_citation: '[2018] SGPDPC 21'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/03/breach-of-the-protection-obligation-by-ssa-group-international
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised access of 53 individuals’
+      course registration information which were publicly available via its webpage
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_d1a4948d5400
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Full House Communications for failing to make reasonable security arrangements to
+      prevent unauthorised disclosure of personal data on its computers at a furniture fair, which collected the data for
+      a lucky draw.
+    perturbation: A warning was issued to Full House Communications which collected the data for a lucky draw.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_6d32eecde46c
+    source_citation: '[2016] SGPDPC 8'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/04/breach-of-protection-obligation-by-full-house-communications
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent unauthorised disclosure of personal data on its
+      computers at a furniture fair
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_d3a4f3614b94
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on K Box Entertainment Group
+      (K Box) and its data intermediary, Finantech Holdings, for failing to implement proper and adequate protective measures
+      to secure its IT system, resulting in unauthorised disclosure of the personal data of 317,000 K Box members. K Box was
+      also issued directions and penalised for the absence of a Data Protection Officer.
+    perturbation: enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on K Box Entertainment Group
+      (K Box) and its data intermediary, Finantech Holdings, for failing to implement proper and adequate protective measures
+      to secure its IT system, resulting in unauthorised disclosure of the personal data of 317,000 K Box members. K Box was
+      also issued directions and penalised.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_57e1b200c377
+    source_citation: '[2016] SGPDPC 1'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/04/breach-of-protection-and-openness-obligations-by-k-box-entertainment-group-and-finantech-holdings
+    perturbed_obligation: accountability
+    source_obligations:
+    - protection
+    - accountability
+    cue_span: the absence of a Data Protection Officer
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_d44124a730f2
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: Global Outsource Solutions was found in breach of the PDPA for failing to put in place reasonable security
+      arrangements to protect the personal data collected by its website and for failing to develop and implement data protection
+      policies. This resulted in the disclosure of personal data of customers on the organisation’s online warranty registration
+      portal. Global Outsource Solutions was directed to develop and implement policies for data protection and staff training
+      in data protection, and to put all employees handling personal data through such training.
+    perturbation: Global Outsource Solutions was found in breach of the PDPA for failing to develop and implement data protection
+      policies. This resulted in the disclosure of personal data of customers on the organisation’s online warranty registration
+      portal. Global Outsource Solutions was directed to develop and implement policies for data protection and staff training
+      in data protection, and to put all employees handling personal data through such training.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_7ee16ae566ac
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/12/breach-of-the-protection-and-accountability-obligations-by-global-outsource-solutions
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    - accountability
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data collected by its website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_dac347d89f2e
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Water + Plants Lab for failing to put in place reasonable security arrangements
+      to protect the personal data of its employees. The incident resulted in the personal data being subjected to a ransomware
+      attack. Click here to find out more.
+    perturbation: A warning was issued to Water + Plants Lab. The incident resulted in the personal data being subjected to
+      a ransomware attack. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_51a8e1adb2ed
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/12/breach-of-the-protection-obligation-by-water--plants-lab
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of its employees
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_ddf42ce000d5
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: regulatory action was taken to the National University of Singapore for failing to make reasonable security
+      arrangements to prevent the disclosure of the personal data of some of its students.
+    perturbation: regulatory action was taken to the National University of Singapore.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_e759da11f06e
+    source_citation: '[2017] SGPDPC 5'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2017/04/breach-of-protection-obligation-by-the-national-university-of-singapore
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the disclosure of the personal data of some of its
+      students
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_e1c7743ad047
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for ST Logistics for failing to put in place reasonable security arrangements
+      to prevent the unauthorised access of 2,400 MINDEF and SAF personnel's personal data.
+    perturbation: An enforcement outcome resulted for ST Logistics for,400 MINDEF and SAF personnel's personal data.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_be7844e6c9bb
+    source_citation: '[2020] SGPDPC 19'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/06/breach-of-the-protection-obligation-by-st-logistics
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised access of 2
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_e25fc397c18a
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to L’Oreal Singapore for failing to put in place reasonable security arrangements to
+      prevent the unauthorised disclosure of personal data of individuals on its website. The personal data of 7 individuals
+      were compromised from a data breach incident involving its website.
+    perturbation: A warning was issued to L’Oreal Singapore. The personal data of 7 individuals were compromised from a data
+      breach incident involving its website.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_d3d653b2318d
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/01/breach-of-the-protection-obligation-by-l-oreal-singapore
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of personal
+      data of individuals on its website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_e434d46c5050
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Creative for failing to put in place reasonable security arrangements
+      to prevent the unauthorised disclosure of personal data of users of its online support forum.
+    perturbation: An enforcement outcome resulted for Creative.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_f525b9c87d10
+    source_citation: '[2020] SGPDPC 1'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/01/breach-of-the-protection-obligation-by-creative
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of personal
+      data of users of its online support forum
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_e4b29ec8d60c
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: Directions, including a enforcement outcome of [AMOUNT_REDACTED] were imposed on Ninja Logistics for failing
+      to put in place reasonable security arrangements to protect customers’ data in relation to the Tracking Function Page
+      on the Ninja Logistics website. This resulted in customers’ data on the website to be accessible by the public.
+    perturbation: Directions, including a enforcement outcome of [AMOUNT_REDACTED] were imposed on Ninja Logistics. This resulted
+      in customers’ data on the website to be accessible by the public.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_773402ab6b8d
+    source_citation: '[2019] SGPDPC 39'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/11/breach-of-the-protection-obligation-by-ninja-logistics
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect customers’ data in relation to the Tracking
+      Function Page on the Ninja Logistics website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_ea4ea7258552
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Hello Travel for failing to put in place reasonable security arrangements
+      to protect the personal data of its members from unauthorised disclosure. Click here to find out more.
+    perturbation: An enforcement outcome resulted for Hello Travel. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_c6c6c89ba616
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/12/breach-of-protection-obligation-by-hello-travel
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of its members from unauthorised
+      disclosure
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_ec94135a95ec
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Genki Sushi for failing to put in place reasonable security arrangements
+      to protect personal data of its employees. The incident resulted in the data being subjected to a ransomware attack.
+      Click here to find out more.
+    perturbation: An enforcement outcome resulted for Genki Sushi. The incident resulted in the data being subjected to a
+      ransomware attack. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_7f803420d87c
+    source_citation: '[2019] SGPDPC 26'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/08/breach-of-the-protection-obligation-by-genki-sushi
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect personal data of its employees
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_ef3b0962698a
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Actstitude for failing to put in place reasonable security arrangements to prevent
+      the unauthorised disclosure of individuals' personal data. Over 160 individuals uploaded their resumes to Actstitude's
+      website and their personal data were accessible over the Internet. Click here to find out more.
+    perturbation: A warning was issued to Actstitude. Over 160 individuals uploaded their resumes to Actstitude's website
+      and their personal data were accessible over the Internet. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_288070f9e339
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/08/breach-of-the-protection-obligation-by-actstitude
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised disclosure of individuals'
+      personal data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_efbdf796e309
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Club the Chambers for failing to make reasonable security arrangements
+      to prevent the unauthorised disclosure of the identity documents of 11 individuals in a LAN gaming centre. Click here
+      to find out more.
+    perturbation: An enforcement outcome resulted for Club the Chambers. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_0098ec457e2d
+    source_citation: '[2018] SGPDPC 24'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/10/breach-of-protection-obligation-by-chambers
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent the unauthorised disclosure of the identity documents
+      of 11 individuals in a LAN gaming centre
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_f25449473b88
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Smiling Orchid for failing to make reasonable security arrangements
+      to prevent unauthorised access of its customers’ personal data on its website, whereby users could access other customers’
+      personal data by altering the URL of its order preview webpage. Smiling Orchid was also issued directions to conduct
+      a security audit and to patch all identified vulnerabilities on its website.
+    perturbation: An enforcement outcome resulted for Smiling Orchid whereby users could access other customers’ personal
+      data by altering the URL of its order preview webpage. Smiling Orchid was also issued directions to conduct a security
+      audit and to patch all identified vulnerabilities on its website.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_6172837ec6b4
+    source_citation: '[2016] SGPDPC 19'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2016/11/breach-of-protection-obligation-by-smiling-orchid
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to make reasonable security arrangements to prevent unauthorised access of its customers’ personal data
+      on its website
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_f5009051c34f
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Matthew Chiong Partnership for breaches of the PDPA. The organisation
+      did not make reasonable security arrangements to prevent the unauthorised disclosure of its clients’ personal data and
+      failed to put in place data protection policies to comply with the provisions of the PDPA.
+    perturbation: An enforcement outcome resulted for Matthew Chiong Partnership for breaches of the PDPA. The organisation
+      and failed to put in place data protection policies to comply with the provisions of the PDPA.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_856edef2025a
+    source_citation: '[2019] SGPDPC 7'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/06/breach-of-the-openness-and-protection-obligations-by-matthew-chiong-partnership
+    perturbed_obligation: protection
+    source_obligations:
+    - accountability
+    - protection
+    cue_span: did not make reasonable security arrangements to prevent the unauthorised disclosure of its clients’ personal
+      data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_f61f697fbb9c
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for North London Collegiate School (Singapore) for failing to put in place
+      reasonable security arrangements to prevent the unauthorised access of its student applicants’ personal data residing
+      in a website directory folder. Click here to find out more.
+    perturbation: An enforcement outcome resulted for North London Collegiate School (Singapore). Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_2bb02e3914bd
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2022/02/breach-of-the-protection-obligation-by-north-london-collegiate-school
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to prevent the unauthorised access of its student applicants’
+      personal data residing in a website directory folder
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_f670df7ec07f
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Vhive for failing to put in place reasonable security arrangements to
+      protect the personal data in its possession from a ransomware attack. Click here to find out more.
+    perturbation: An enforcement outcome resulted for Vhive. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_80b08145f81e
+    source_citation: '[2019] SGPDPC 22'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2022/06/breach-of-the-protection-obligation-by-vhive
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession from
+      a ransomware attack
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_f6956e1eb783
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Secur Solutions Group for failing to put in place reasonable security
+      arrangements to protect a database containing the personal data of blood donors from being publicly accessible online.
+    perturbation: An enforcement outcome resulted for Secur Solutions Group.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_4e65d0be9010
+    source_citation: '[2020] SGPDPC 8'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/11/breach-of-the-protection-obligation-by-secur-solutions-group
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect a database containing the personal data
+      of blood donors from being publicly accessible online
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_f6c6c097b432
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: 'An enforcement outcome resulted for Times Software, a data intermediary, for: (i) failing to make reasonable
+      security arrangements to prevent the unauthorised disclosure of personal data belonging to the employees of its clients;
+      and (ii) retaining personal data which was no longer necessary for legal or business purposes. Separately, Dentons and
+      TMF were each issued a warning for failing to put in place reasonable security arrangements with Times Software to prevent
+      unauthorised disclosure of the personal data belonging to their employees.'
+    perturbation: 'An enforcement outcome resulted for Times Software, a data intermediary, for: (i) failing to make reasonable
+      security arrangements to prevent the unauthorised disclosure of personal data belonging to the employees of its clients;
+      and (ii) retaining personal data which was no longer necessary for legal or business purposes. Separately, Dentons and
+      TMF were each issued a warning.'
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_07e09695966f
+    source_citation: '[2020] SGPDPC 18'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2020/11/breach-of-the-protection-and-retention-limitation-obligations-by-times-software-breach-of-the-protection-obligation-by-dentons-and-tmf
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    - retention_limitation
+    cue_span: failing to put in place reasonable security arrangements with Times Software to prevent unauthorised disclosure
+      of the personal data belonging to their employees
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_faf4958190fe
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on Zero1 and XDel respectively
+      for failing to put in place reasonable measures to protect the personal data of the subscribers of Zero1.
+    perturbation: enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] were imposed on Zero1 and XDel respectively.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_a7f950f4c20e
+    source_citation: '[2019] SGPDPC 37'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/10/breach-of-the-protection-obligation-by-zero1-and-xdel
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable measures to protect the personal data of the subscribers of Zero1
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_fcb756473dfa
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A warning was issued to Galaxy Credit and Investments for failing to make reasonable security arrangements
+      to protect the personal data of its borrowers, and using personal data not for a purpose that a reasonable person would
+      consider appropriate in the circumstances. Click here to find out more.
+    perturbation: A warning was issued to Galaxy Credit and Investments and using personal data not for a purpose that a reasonable
+      person would consider appropriate in the circumstances. Click here to find out more.
+  expected_output:
+    outcome_changes: false
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_96029ebc49b2
+    source_citation: '[2018] SGPDPC 22'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2018/09/breach-of-the-protection-and-purpose-limitation-obligations-by-galaxy-credit-and-investments
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    - purpose_limitation
+    cue_span: failing to make reasonable security arrangements to protect the personal data of its borrowers
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_fcf9c1cda06c
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Payroll2U for failing to put in place reasonable security arrangements
+      to protect its client’s employees' personal data in its possession or under its control.
+    perturbation: An enforcement outcome resulted for Payroll2U.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: dev
+    jurisdiction: SG
+    source_case_id: sglb_01_efe224ea7d74
+    source_citation: '[2024] SGPDPCS 2'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2024/04/breach-of-the-protection-obligation-by-payroll2u
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect its client’s employees' personal data in
+      its possession or under its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_fd704a902213
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Autobahn Rent A Car for failing to put in place reasonable security
+      arrangements to protect the personal data in its possession or under its control. Directions were also issued to strengthen
+      access control measures to administrator accounts and to conduct reasonable security review of technical and administrative
+      arrangements for the protection of personal data.
+    perturbation: An enforcement outcome resulted for Autobahn Rent A Car. Directions were also issued to strengthen access
+      control measures to administrator accounts and to conduct reasonable security review of technical and administrative
+      arrangements for the protection of personal data.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_d2652d31af0c
+    source_citation: '[2023] SGPDPCS 4'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2023/09/breach-of-the-protection-obligation-by-autobahn-rent-a-car
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data in its possession or under
+      its control
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_fe5b2a1d78d3
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Sendtech for failing to put in place reasonable security arrangements
+      to protect personal data. This resulted in an unauthorised access of the personal data stored in their Amazon Web Services
+      account.
+    perturbation: An enforcement outcome resulted for Sendtech. This resulted in an unauthorised access of the personal data
+      stored in their Amazon Web Services account.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_0edf192cb28c
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2021/09/breach-of-the-protection-obligation-by-sendtech
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect personal data
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_fea3d4c7dae6
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: An enforcement outcome resulted for Honestbee for failing to put in place reasonable security arrangements
+      to protect the personal data of individuals. The data of about 8,000 individuals was stored in the cloud without access
+      restrictions.
+    perturbation: An enforcement outcome resulted for Honestbee. The data of about 8,000 individuals was stored in the cloud
+      without access restrictions.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_20a78848ac03
+    source_citation: ''
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/12/breach-of-the-protection-obligation-by-honestbee
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the personal data of individuals
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count
+- name: sglb_13_ff5015e5aa7d
+  extraction_rule_sha: pending
+  inputs:
+    fact_pattern: A enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] was imposed on CDP and Toppan Security
+      Printing respectively for failing to put in place reasonable security arrangements to protect the data of CDP’s account
+      holders from unauthorised disclosure. The incident resulted in other account holders’ data being printed on another
+      account holder’s notification letter. An application for reconsideration was made by Toppan Security Printing. Upon
+      reconsideration, directions in the decision were varied. Click here to find out more.
+    perturbation: A enforcement outcome of [AMOUNT_REDACTED] and [AMOUNT_REDACTED] was imposed on CDP and Toppan Security
+      Printing respectively. The incident resulted in other account holders’ data being printed on another account holder’s
+      notification letter. An application for reconsideration was made by Toppan Security Printing. Upon reconsideration,
+      directions in the decision were varied. Click here to find out more.
+  expected_output:
+    outcome_changes: true
+  metadata:
+    task: SGLB-13
+    split: train
+    jurisdiction: SG
+    source_case_id: sglb_01_0e929da59ace
+    source_citation: '[2019] SGPDPC 24'
+    source_url: https://www.pdpc.gov.sg/all-commissions-decisions/2019/08/breach-of-the-protection-obligation-by-cdp-and-toppan-security-printing
+    perturbed_obligation: protection
+    source_obligations:
+    - protection
+    cue_span: failing to put in place reasonable security arrangements to protect the data of CDP’s account holders from unauthorised
+      disclosure
+    dataset_version: sglb-13-v0.1
+    label_provenance: mechanical-derivation-from-pdpc-obligation-count

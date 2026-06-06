@@ -343,6 +343,35 @@ def sglb_08_prompt_builder(case: Case) -> list[dict[str, str]]:
     ]
 
 
+SGLB_13_PROMPT_VERSION = "sglb-13-v1"
+
+
+def sglb_13_prompt_builder(case: Case) -> list[dict[str, str]]:
+    """SGLB-13: given an original PDPC fact pattern + a single-fact
+    perturbation, predict whether removing that fact would have changed
+    the regulator's enforcement outcome. Output contract: a single JSON
+    object ``{"outcome_changes": true|false}``."""
+    fact_pattern = str(case.inputs.get("fact_pattern", "")).strip()
+    perturbation = str(case.inputs.get("perturbation", "")).strip()
+    return [
+        _system_message(
+            "You are a Singapore PDPA compliance analyst. You are given an "
+            "original PDPC enforcement fact pattern and a perturbed version "
+            "with one fact removed. Decide whether, under PDPC's stated "
+            "obligation-by-obligation reasoning, the removal of that fact "
+            "would change the enforcement outcome (i.e. the regulator would "
+            "no longer find any PDPA breach). Reply with a single JSON "
+            "object: {\"outcome_changes\": true} if removing the fact "
+            "removes the sole basis for breach, else "
+            "{\"outcome_changes\": false}. Do not include any other text."
+        ),
+        _user_message(
+            f"Original fact pattern:\n{fact_pattern}\n\n"
+            f"Perturbed fact pattern:\n{perturbation}"
+        ),
+    ]
+
+
 SGLB_12_PROMPT_VERSION = "sglb-12-v1"
 
 
@@ -378,6 +407,7 @@ PROMPT_BUILDERS: dict[str, tuple[PromptBuilder, str]] = {
     "sglb_11": (sglb_11_prompt_builder, SGLB_11_PROMPT_VERSION),
     "sglb_08": (sglb_08_prompt_builder, SGLB_08_PROMPT_VERSION),
     "sglb_12": (sglb_12_prompt_builder, SGLB_12_PROMPT_VERSION),
+    "sglb_13": (sglb_13_prompt_builder, SGLB_13_PROMPT_VERSION),
 }
 
 
