@@ -1,250 +1,302 @@
 {
-  "doc_id": "uk_quasi_identifiers_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "lydia.carr@northbridgemercantile.co.uk"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "0208 555 0143"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "14/09/1988"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lydia Carr"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Carr"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Owen Bramwell"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Summary: On 13 May 2026, a phishing-led account takeover targeted our Operations Analyst Ms. Lydia Carr (DOB 14/09/1988), resulting in unauthorised access to internal files."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "The accessed materials include a draft trading update and a non-binding term sheet concerning a potential acquisition of Farlane Advisory Ltd; both documents are non-public and considered inside information under UK MAR."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Heather"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
-    },
-    {
-      "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "unauthorised access to internal"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 34,
+    "current_must_detect_count": 14,
+    "current_must_not_detect_count": 7,
+    "previous_ideal_must_detect_count": 29,
+    "previous_must_detect_count": 17,
+    "previous_must_not_detect_count": 7
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_quasi_identifiers_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lydia Carr"
+      "matched_text": "Ms. Lydia Carr",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Carr"
+      "matched_text": "Ms. Carr",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Owen Bramwell"
+      "matched_text": "Mr. Owen Bramwell",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DOB 14/09/1988"
+      "matched_text": "DOB 14/09/1988",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "lydia.carr@northbridgemercantile.co.uk"
+      "matched_text": "lydia.carr@northbridgemercantile.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "cosec@northbridgemercantile.co.uk"
+      "matched_text": "cosec@northbridgemercantile.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "0208 555 0143"
+      "matched_text": "0208 555 0143",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "ip_address",
-      "matched_text": "10.24.61.88"
+      "matched_text": "10.24.61.88",
+      "rule": "ip_address"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "NBM-ALD-4321"
+      "matched_text": "NBM-ALD-4321",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "SESS-ALDW-8842"
+      "matched_text": "SESS-ALDW-8842",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "29-year-old"
+      "matched_text": "29-year-old",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "age_reference",
-      "matched_text": "34-year-old"
+      "matched_text": "34-year-old",
+      "rule": "age_reference"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Ms. Carr is a Senior Operations Analyst in Treasury, based at New Alderwick Service Centre (Southshire), using laptop asset NBM-ALD-4321 and cloud mail ID lydia.carr@northbridgemercantile.co.uk"
+      "matched_text": "Ms. Carr is a Senior Operations Analyst in Treasury, based at New Alderwick Service Centre (Southshire), using laptop asset NBM-ALD-4321 and cloud mail ID lydia.carr@northbridgemercantile.co.uk",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Between 07:42–08:16 BST, session SESS-ALDW-8842 from private IP 10.24.61.88 synced folders tagged \"Q3 Pre-Close\" and \"Project Heather\" to an unknown endpoint"
+      "matched_text": "Between 07:42\u201308:16 BST, session SESS-ALDW-8842 from private IP 10.24.61.88 synced folders tagged \"Q3 Pre-Close\" and \"Project Heather\" to an unknown endpoint",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Summary: On 13 May 2026, a phishing-led account takeover targeted our Operations Analyst Ms. Lydia Carr (DOB 14/09/1988), resulting in unauthorised access to internal files"
+      "matched_text": "Summary: On 13 May 2026, a phishing-led account takeover targeted our Operations Analyst Ms. Lydia Carr (DOB 14/09/1988), resulting in unauthorised access to internal files",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "We have reminded staff that sharing a job title and business location, without names or exact dates of birth, is generally low-risk when isolated"
+      "matched_text": "We have reminded staff that sharing a job title and business location, without names or exact dates of birth, is generally low-risk when isolated",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Heather"
+      "matched_text": "Project Heather",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "non-binding term sheet"
+      "matched_text": "non-binding term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "potential acquisition of Farlane Advisory Ltd"
+      "matched_text": "potential acquisition of Farlane Advisory Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "Q3 Pre-Close"
+      "matched_text": "Q3 Pre-Close",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "Cyber Incident Report"
+      "matched_text": "Cyber Incident Report",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "If we confirm compromise of price-sensitive content"
+      "matched_text": "If we confirm compromise of price-sensitive content",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "frozen access"
+      "matched_text": "frozen access",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "restrict distribution"
+      "matched_text": "restrict distribution",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Any external communications must route through the Company Secretary"
+      "matched_text": "Any external communications must route through the Company Secretary",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "14/09/1988"
+      "matched_text": "14/09/1988",
+      "rule": "date_of_birth"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Summary: On 13 May 2026, a phishing-led account takeover targeted our Operations Analyst Ms. Lydia Carr (DOB 14/09/1988), resulting in unauthorised access to internal files."
+      "matched_text": "Summary: On 13 May 2026, a phishing-led account takeover targeted our Operations Analyst Ms. Lydia Carr (DOB 14/09/1988), resulting in unauthorised access to internal files.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "The accessed materials include a draft trading update and a non-binding term sheet concerning a potential acquisition of Farlane Advisory Ltd; both documents are non-public and considered inside information under UK MAR."
+      "matched_text": "The accessed materials include a draft trading update and a non-binding term sheet concerning a potential acquisition of Farlane Advisory Ltd; both documents are non-public and considered inside information under UK MAR.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "unauthorised access to internal"
+      "matched_text": "unauthorised access to internal",
+      "rule": "cyber_incident_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "lydia.carr@northbridgemercantile.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "0208 555 0143",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "14/09/1988",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lydia Carr",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Carr",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Owen Bramwell",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Summary: On 13 May 2026, a phishing-led account takeover targeted our Operations Analyst Ms. Lydia Carr (DOB 14/09/1988), resulting in unauthorised access to internal files.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The accessed materials include a draft trading update and a non-binding term sheet concerning a potential acquisition of Farlane Advisory Ltd; both documents are non-public and considered inside information under UK MAR.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Heather",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "unauthorised access to internal",
+      "rule": "cyber_incident_pre_disclosure"
     }
   ],
   "must_not_detect": [
@@ -277,52 +329,27 @@
       "reason": "Regulator name, not PII."
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "NewAlderwick-Guest",
       "concept": "SSID / network identifier",
+      "matched_text": "NewAlderwick-Guest",
       "reason": "Wi-Fi SSID may act as an infrastructure identifier but is not explicitly covered by allowed rules."
     },
     {
-      "matched_text": "INS-NBM-2026-05",
       "concept": "insider list reference ID",
+      "matched_text": "INS-NBM-2026-05",
       "reason": "Internal compliance reference tied to insider list; sensitive context but no explicit rule for list IDs."
     },
     {
-      "matched_text": "Chromium-based browser build 121",
       "concept": "browser fingerprint",
+      "matched_text": "Chromium-based browser build 121",
       "reason": "Could contribute to device fingerprinting but not enumerated in allowed rules."
     },
     {
-      "matched_text": "New Alderwick Service Centre (Southshire)",
       "concept": "workplace location",
+      "matched_text": "New Alderwick Service Centre (Southshire)",
       "reason": "Location data can be a quasi-identifier but lacks a standalone rule in this taxonomy."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 17,
-    "current_must_detect_count": 14,
-    "previous_ideal_must_detect_count": 29,
-    "current_ideal_must_detect_count": 34,
-    "previous_must_not_detect_count": 7,
-    "current_must_not_detect_count": 7
-  }
+  ]
 }

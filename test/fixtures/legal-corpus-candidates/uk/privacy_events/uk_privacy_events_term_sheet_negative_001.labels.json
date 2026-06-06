@@ -1,170 +1,222 @@
 {
-  "doc_id": "uk_privacy_events_term_sheet_negative_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "UK IDTA"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Term Sheet — Proposed acquisition of Valtara Systems Ltd by Alderbank Capital plc (UK Main Market issuer); summary prepared for diligence coordination and does not introduce new inside information for UK MAR purposes."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Privacy status: no outstanding DSARs, erasure requests, or consent withdrawal notices affecting Target systems as at the date of this term sheet; retention schedules adopted (POL-RET-05) and confirmed in an internal compliance memo referencing ICO guidance."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Conditions precedent: execution of DPA schedules, confirmation that any prior DSARs were closed with no further action required, and receipt of standard third-party consents; no financing condition precedent beyond committed facilities."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "100%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 21,
+    "current_must_detect_count": 11,
+    "current_must_not_detect_count": 18,
+    "previous_ideal_must_detect_count": 13,
+    "previous_must_detect_count": 9,
+    "previous_must_not_detect_count": 18
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_privacy_events_term_sheet_negative_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "100%"
+      "matched_text": "100%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list procedures"
+      "matched_text": "insider list procedures",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation applied"
+      "matched_text": "data minimisation applied",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfer"
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "hr-compliance@valtara.example"
+      "matched_text": "hr-compliance@valtara.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@alderbank.example"
+      "matched_text": "compliance@alderbank.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@valtara.example"
+      "matched_text": "privacy@valtara.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean team protocol"
+      "matched_text": "clean team protocol",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean team members only"
+      "matched_text": "clean team members only",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Clean Team Rules"
+      "matched_text": "Clean Team Rules",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "anonymised or aggregated client datasets"
+      "matched_text": "anonymised or aggregated client datasets",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "UK IDTA"
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Term Sheet — Proposed acquisition of Valtara Systems Ltd by Alderbank Capital plc (UK Main Market issuer); summary prepared for diligence coordination and does not introduce new inside information for UK MAR purposes."
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Valtara Systems Ltd by Alderbank Capital plc (UK Main Market issuer); summary prepared for diligence coordination and does not introduce new inside information for UK MAR purposes.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Privacy status: no outstanding DSARs, erasure requests, or consent withdrawal notices affecting Target systems as at the date of this term sheet; retention schedules adopted (POL-RET-05) and confirmed in an internal compliance memo referencing ICO guidance."
+      "matched_text": "Privacy status: no outstanding DSARs, erasure requests, or consent withdrawal notices affecting Target systems as at the date of this term sheet; retention schedules adopted (POL-RET-05) and confirmed in an internal compliance memo referencing ICO guidance.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Conditions precedent: execution of DPA schedules, confirmation that any prior DSARs were closed with no further action required, and receipt of standard third-party consents; no financing condition precedent beyond committed facilities."
+      "matched_text": "Conditions precedent: execution of DPA schedules, confirmation that any prior DSARs were closed with no further action required, and receipt of standard third-party consents; no financing condition precedent beyond committed facilities.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Proposed acquisition of Valtara Systems Ltd by Alderbank Capital plc (UK Main Market issuer); summary prepared for diligence coordination and does not introduce new inside information for UK MAR purposes.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Privacy status: no outstanding DSARs, erasure requests, or consent withdrawal notices affecting Target systems as at the date of this term sheet; retention schedules adopted (POL-RET-05) and confirmed in an internal compliance memo referencing ICO guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: execution of DPA schedules, confirmation that any prior DSARs were closed with no further action required, and receipt of standard third-party consents; no financing condition precedent beyond committed facilities.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
     }
   ],
   "must_not_detect": [
@@ -241,72 +293,47 @@
       "reason": "Explicit negation; not a live privacy event."
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "retention schedules adopted (POL-RET-05)",
       "concept": "Retention marker",
+      "matched_text": "retention schedules adopted (POL-RET-05)",
       "reason": "Data-retention policy reference is privacy-relevant but there is no explicit retention rule in allowed taxonomy."
     },
     {
-      "matched_text": "retention — transactional files to be held for six years post-completion",
       "concept": "Retention duration/policy",
+      "matched_text": "retention \u2014 transactional files to be held for six years post-completion",
       "reason": "Specifies retention duration; relevant but no explicit retention rule available."
     },
     {
-      "matched_text": "auto-deletion controls are enabled and tested",
       "concept": "Erasure/retention control",
+      "matched_text": "auto-deletion controls are enabled and tested",
       "reason": "Indicates deletion controls; relevant to erasure/retention but not mapped to an allowed rule."
     },
     {
-      "matched_text": "UK IDTA",
       "concept": "Cross-border transfer mechanism",
+      "matched_text": "UK IDTA",
       "reason": "Specifies legal transfer mechanism; relevant to cross-border but mechanism itself is not an allowed marker."
     },
     {
-      "matched_text": "Data-Export Approval REF: UK-DEX-041",
       "concept": "Data-export approval reference",
+      "matched_text": "Data-Export Approval REF: UK-DEX-041",
       "reason": "Compliance artifact indicating approved transfer; useful but no direct rule mapping."
     },
     {
-      "matched_text": "confirmation that any prior DSARs were closed with no further action required",
       "concept": "DSAR closure reference",
+      "matched_text": "confirmation that any prior DSARs were closed with no further action required",
       "reason": "Mentions DSARs in completed/negated context; DSAR marker not in allowed rules."
     },
     {
-      "matched_text": "does not introduce new inside information for UK MAR purposes",
       "concept": "Inside information (negated)",
+      "matched_text": "does not introduce new inside information for UK MAR purposes",
       "reason": "MNPI relevance acknowledged but explicitly negated; no rule for negated nonpublic marker."
     },
     {
-      "matched_text": "any receipt of MNPI will trigger withdrawal procedures",
       "concept": "Tipping/withdrawal protocol",
+      "matched_text": "any receipt of MNPI will trigger withdrawal procedures",
       "reason": "Potential market-abuse control reference; not a clear match to allowed MNPI markers."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 9,
-    "current_must_detect_count": 11,
-    "previous_ideal_must_detect_count": 13,
-    "current_ideal_must_detect_count": 21,
-    "previous_must_not_detect_count": 18,
-    "current_must_not_detect_count": 18
-  }
+  ]
 }

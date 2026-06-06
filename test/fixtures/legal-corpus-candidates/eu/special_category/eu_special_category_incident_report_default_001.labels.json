@@ -1,210 +1,262 @@
 {
-  "doc_id": "eu_special_category_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "EU",
-  "destination_jurisdiction": "EU",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+31 20 555 0190"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "IK-4472"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Isla Kovarik"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kovarik"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Oona Vermeer"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "The attacker exfiltrated a subset of records via an unauthorised API token to a US subprocessor, CloudHelm Labs LLC, under legacy SCCs; a transfer impact assessment will be updated and supplementary encryption enforced per GDPR guidance."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Management currently estimates a 3–5% Q3 EBITDA impact from identity management remediation and downtime in the AuroraPay payroll module; this unpublished forecast is inside information under EU MAR."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "We notified the Low Countries Data Supervisor within 72 hours and activated our breach protocol; cross-border notifications will follow for employees resident in Nordmark and Valestria."
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossing"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 29,
+    "current_must_detect_count": 11,
+    "current_must_not_detect_count": 7,
+    "previous_ideal_must_detect_count": 22,
+    "previous_must_detect_count": 16,
+    "previous_must_not_detect_count": 7
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_special_category_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Isla Kovarik"
+      "matched_text": "Ms. Isla Kovarik",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "employee ID IK-4472"
+      "matched_text": "employee ID IK-4472",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "a hashed facial template used for turnstile access (biometric data)"
+      "matched_text": "a hashed facial template used for turnstile access (biometric data)",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "a GP referral for stress-related treatment dated 12 May 2026 (health data)"
+      "matched_text": "a GP referral for stress-related treatment dated 12 May 2026 (health data)",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "sexual_orientation",
-      "matched_text": "self-declared sexual orientation"
+      "matched_text": "self-declared sexual orientation",
+      "rule": "sexual_orientation"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "voluntary union membership"
+      "matched_text": "voluntary union membership",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@arcturon-mobility.eu"
+      "matched_text": "dpo@arcturon-mobility.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+31 20 555 0190"
+      "matched_text": "+31 20 555 0190",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Oona Vermeer"
+      "matched_text": "Ms. Oona Vermeer",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@arcturon-mobility.eu"
+      "matched_text": "compliance@arcturon-mobility.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "to a US subprocessor, CloudHelm Labs LLC, under legacy SCCs"
+      "matched_text": "to a US subprocessor, CloudHelm Labs LLC, under legacy SCCs",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "event insider list"
+      "matched_text": "event insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossing approvals are suspended"
+      "matched_text": "wall-crossing approvals are suspended",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3–5%"
+      "matched_text": "3\u20135%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information under EU MAR"
+      "matched_text": "inside information under EU MAR",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "reports a cyber incident detected on 04 June 2026"
+      "matched_text": "reports a cyber incident detected on 04 June 2026",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "delay public disclosure"
+      "matched_text": "delay public disclosure",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "filed a delay justification"
+      "matched_text": "filed a delay justification",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "dealing is prohibited"
+      "matched_text": "dealing is prohibited",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Systems affected included the CSRD ESRS-S1 workforce metrics and SFDR PAI mappings, with a projected one-quarter delay to assurance and potential capex reallocation to resilience"
+      "matched_text": "Systems affected included the CSRD ESRS-S1 workforce metrics and SFDR PAI mappings, with a projected one-quarter delay to assurance and potential capex reallocation to resilience",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "role-based redaction"
+      "matched_text": "role-based redaction",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "IK-4472"
+      "matched_text": "IK-4472",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Kovarik"
+      "matched_text": "Ms. Kovarik",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "The attacker exfiltrated a subset of records via an unauthorised API token to a US subprocessor, CloudHelm Labs LLC, under legacy SCCs; a transfer impact assessment will be updated and supplementary encryption enforced per GDPR guidance."
+      "matched_text": "The attacker exfiltrated a subset of records via an unauthorised API token to a US subprocessor, CloudHelm Labs LLC, under legacy SCCs; a transfer impact assessment will be updated and supplementary encryption enforced per GDPR guidance.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Management currently estimates a 3–5% Q3 EBITDA impact from identity management remediation and downtime in the AuroraPay payroll module; this unpublished forecast is inside information under EU MAR."
+      "matched_text": "Management currently estimates a 3\u20135% Q3 EBITDA impact from identity management remediation and downtime in the AuroraPay payroll module; this unpublished forecast is inside information under EU MAR.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "We notified the Low Countries Data Supervisor within 72 hours and activated our breach protocol; cross-border notifications will follow for employees resident in Nordmark and Valestria."
+      "matched_text": "We notified the Low Countries Data Supervisor within 72 hours and activated our breach protocol; cross-border notifications will follow for employees resident in Nordmark and Valestria.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
+      "matched_text": "5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossing"
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+31 20 555 0190",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "IK-4472",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Isla Kovarik",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Kovarik",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Oona Vermeer",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "The attacker exfiltrated a subset of records via an unauthorised API token to a US subprocessor, CloudHelm Labs LLC, under legacy SCCs; a transfer impact assessment will be updated and supplementary encryption enforced per GDPR guidance.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Management currently estimates a 3\u20135% Q3 EBITDA impact from identity management remediation and downtime in the AuroraPay payroll module; this unpublished forecast is inside information under EU MAR.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We notified the Low Countries Data Supervisor within 72 hours and activated our breach protocol; cross-border notifications will follow for employees resident in Nordmark and Valestria.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -237,57 +289,32 @@
       "reason": "Metaphor; not PII or MNPI"
     }
   ],
+  "source_jurisdiction": "EU",
   "uncertain": [
     {
-      "matched_text": "cross-border notifications will follow for employees resident in Nordmark and Valestria",
       "concept": "cross-border notification",
+      "matched_text": "cross-border notifications will follow for employees resident in Nordmark and Valestria",
       "reason": "Legally relevant privacy compliance action across jurisdictions but not clearly a data transfer event per allowed markers"
     },
     {
-      "matched_text": "We notified the Low Countries Data Supervisor within 72 hours",
       "concept": "supervisory authority notification",
+      "matched_text": "We notified the Low Countries Data Supervisor within 72 hours",
       "reason": "Breach notification timing is legally significant but not covered by listed markers"
     },
     {
-      "matched_text": "a transfer impact assessment will be updated",
       "concept": "TIA update",
+      "matched_text": "a transfer impact assessment will be updated",
       "reason": "GDPR transfer governance is relevant but not an explicit allowed marker"
     },
     {
-      "matched_text": "supplementary encryption enforced per GDPR guidance",
       "concept": "supplementary measures",
+      "matched_text": "supplementary encryption enforced per GDPR guidance",
       "reason": "Security measure for cross-border transfers is relevant but not in allowed rule list"
     },
     {
-      "matched_text": "will consult the supervisory authority on proposed mitigation",
       "concept": "supervisory consultation",
+      "matched_text": "will consult the supervisory authority on proposed mitigation",
       "reason": "Regulatory consultation is legally significant but not mapped to a listed rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 16,
-    "current_must_detect_count": 11,
-    "previous_ideal_must_detect_count": 22,
-    "current_ideal_must_detect_count": 29,
-    "previous_must_not_detect_count": 7,
-    "current_must_not_detect_count": 7
-  }
+  ]
 }

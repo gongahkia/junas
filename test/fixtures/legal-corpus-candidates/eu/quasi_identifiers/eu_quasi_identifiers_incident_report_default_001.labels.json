@@ -1,245 +1,297 @@
 {
-  "doc_id": "eu_quasi_identifiers_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "EU",
-  "destination_jurisdiction": "EU",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "emarkovic@orphicora.eu"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "mar-notices@orphicora.eu"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+350 000 123 456"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "EU SCCs"
-    },
-    {
-      "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
-    },
-    {
-      "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1985-11-22"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Elina Markovic"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "MAR workflow: the unvalidated variance in electricity consumption factors could lead to a restatement of Q2 emissions intensity, potentially affecting cost-of-capital assumptions in an unannounced green financing programme (project codename “Citrine”); the event is currently classified as inside information and delay of disclosure has been decided with documented legitimate interest and confidentiality controls."
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "62%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 35,
+    "current_must_detect_count": 12,
+    "current_must_not_detect_count": 7,
+    "previous_ideal_must_detect_count": 29,
+    "previous_must_detect_count": 13,
+    "previous_must_not_detect_count": 7
+  },
+  "_taxonomy_concept": "quasi_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_quasi_identifiers_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Elina Markovic"
+      "matched_text": "Ms. Elina Markovic",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "1985-11-22"
+      "matched_text": "1985-11-22",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "emarkovic@orphicora.eu"
+      "matched_text": "emarkovic@orphicora.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@orphicora.eu"
+      "matched_text": "dpo@orphicora.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "mar-notices@orphicora.eu"
+      "matched_text": "mar-notices@orphicora.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+350 000 123 456"
+      "matched_text": "+350 000 123 456",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer context"
+      "matched_text": "Cross-border transfer context",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data minimisation"
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "sick-leave annotations"
+      "matched_text": "sick-leave annotations",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "union-related meeting attendance tags"
+      "matched_text": "union-related meeting attendance tags",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Ms. Elina Markovic (born 1985-11-22), Sustainability Reporting Lead at Orphicora Energy SE in Zagreb, accessed the “GreenScope” workspace from corporate laptop OE-ZG-EM-022 during session S-7f3a at 19:42 CEST, using mailbox emarkovic@orphicora.eu and Teams profile “emarkovic_ZG”; subsequent anomalous API calls were executed under her role-based account"
+      "matched_text": "Ms. Elina Markovic (born 1985-11-22), Sustainability Reporting Lead at Orphicora Energy SE in Zagreb, accessed the \u201cGreenScope\u201d workspace from corporate laptop OE-ZG-EM-022 during session S-7f3a at 19:42 CEST, using mailbox emarkovic@orphicora.eu and Teams profile \u201cemarkovic_ZG\u201d; subsequent anomalous API calls were executed under her role-based account",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "a 29-year-old Rotterdam technician using an Android device on SSID ‘DeltaNet’ during night shift"
+      "matched_text": "a 29-year-old Rotterdam technician using an Android device on SSID \u2018DeltaNet\u2019 during night shift",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "a contractor in Plovdiv with badge series P-3A"
+      "matched_text": "a contractor in Plovdiv with badge series P-3A",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "OE-ZG-EM-022"
+      "matched_text": "OE-ZG-EM-022",
+      "rule": "device_serial_number"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "S-7f3a"
+      "matched_text": "S-7f3a",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "non-EEA processor"
+      "matched_text": "non-EEA processor",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list entries"
+      "matched_text": "Insider list entries",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "3–5%"
+      "matched_text": "3\u20135%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "could lead to a restatement of Q2 emissions intensity"
+      "matched_text": "could lead to a restatement of Q2 emissions intensity",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "detected on 03-06-2026 a cyber incident"
+      "matched_text": "detected on 03-06-2026 a cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading restrictions were reaffirmed to PDMRs"
+      "matched_text": "trading restrictions were reaffirmed to PDMRs",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "preliminary assessment indicates"
+      "matched_text": "preliminary assessment indicates",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "subject to assurance"
+      "matched_text": "subject to assurance",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "may not be relied upon for investment decisions"
+      "matched_text": "may not be relied upon for investment decisions",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "confidentiality controls"
+      "matched_text": "confidentiality controls",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "we will issue a corrigendum if intensity metrics materially change"
+      "matched_text": "we will issue a corrigendum if intensity metrics materially change",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unannounced green financing programme"
+      "matched_text": "unannounced green financing programme",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "delay of disclosure"
+      "matched_text": "delay of disclosure",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "EU SCCs"
+      "matched_text": "EU SCCs",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "MAR workflow: the unvalidated variance in electricity consumption factors could lead to a restatement of Q2 emissions intensity, potentially affecting cost-of-capital assumptions in an unannounced green financing programme (project codename “Citrine”); the event is currently classified as inside information and delay of disclosure has been decided with documented legitimate interest and confidentiality controls."
+      "matched_text": "MAR workflow: the unvalidated variance in electricity consumption factors could lead to a restatement of Q2 emissions intensity, potentially affecting cost-of-capital assumptions in an unannounced green financing programme (project codename \u201cCitrine\u201d); the event is currently classified as inside information and delay of disclosure has been decided with documented legitimate interest and confidentiality controls.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "62%"
+      "matched_text": "62%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "5%"
+      "matched_text": "5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2"
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "emarkovic@orphicora.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "mar-notices@orphicora.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+350 000 123 456",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EU SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "data minimisation",
+      "rule": "data_minimisation_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "1985-11-22",
+      "rule": "date_of_birth"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Elina Markovic",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAR workflow: the unvalidated variance in electricity consumption factors could lead to a restatement of Q2 emissions intensity, potentially affecting cost-of-capital assumptions in an unannounced green financing programme (project codename \u201cCitrine\u201d); the event is currently classified as inside information and delay of disclosure has been decided with documented legitimate interest and confidentiality controls.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "62%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
     }
   ],
   "must_not_detect": [
@@ -260,7 +312,7 @@
       "reason": "Negated/absent in context; not present in the exfiltrated subset."
     },
     {
-      "matched_text": "project codename “Citrine”",
+      "matched_text": "project codename \u201cCitrine\u201d",
       "reason": "Not matching the required 'Project <CapitalizedName>' pattern for transaction_codename rule."
     },
     {
@@ -272,67 +324,42 @@
       "reason": "Internal supplier identifier example; not covered by allowed PII identifier rules."
     }
   ],
+  "source_jurisdiction": "EU",
   "uncertain": [
     {
-      "matched_text": "10.44.XX.91",
       "concept": "truncated IP address",
+      "matched_text": "10.44.XX.91",
       "reason": "Obfuscated internal IP-like string; may be personal data but not a standard ip_address pattern."
     },
     {
-      "matched_text": "OE-ZG-EM-022",
       "concept": "device identifier",
+      "matched_text": "OE-ZG-EM-022",
       "reason": "Appears to be an asset tag/serial for a laptop; could map to device_serial_number but not explicitly stated."
     },
     {
-      "matched_text": "S-7f3a",
       "concept": "internal session ID",
+      "matched_text": "S-7f3a",
       "reason": "Likely a session identifier; short/format not reliably detectable by strict rules."
     },
     {
-      "matched_text": "badge series P-3A",
       "concept": "employee/badge identifier",
+      "matched_text": "badge series P-3A",
       "reason": "Series label for access badges; identifier-like but not linked to a specific person here."
     },
     {
-      "matched_text": "Teams profile “emarkovic_ZG”",
       "concept": "username/online identifier",
+      "matched_text": "Teams profile \u201cemarkovic_ZG\u201d",
       "reason": "Online handle can identify a user under GDPR, but not in the current allowed PII rule set."
     },
     {
-      "matched_text": "Wi‑Fi “OE-Zagreb-3F”",
       "concept": "network SSID",
+      "matched_text": "Wi\u2011Fi \u201cOE-Zagreb-3F\u201d",
       "reason": "May indirectly identify a location/device user; no direct mapping to allowed PII rules."
     },
     {
-      "matched_text": "room beacon IDs",
       "concept": "location/device beacon identifiers",
+      "matched_text": "room beacon IDs",
       "reason": "Potentially personal data for location tracking, but no specific allowed rule to tag."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "quasi_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 13,
-    "current_must_detect_count": 12,
-    "previous_ideal_must_detect_count": 29,
-    "current_ideal_must_detect_count": 35,
-    "previous_must_not_detect_count": 7,
-    "current_must_not_detect_count": 7
-  }
+  ]
 }

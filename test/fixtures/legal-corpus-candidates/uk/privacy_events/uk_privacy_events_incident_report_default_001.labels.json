@@ -1,160 +1,212 @@
 {
-  "doc_id": "uk_privacy_events_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "UK IDTA"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "erasure request"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Alistair Kent"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Howard Pike"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Eliza Rowan"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Farah Lind"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Julian North"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Alder"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 19,
+    "current_must_detect_count": 11,
+    "current_must_not_detect_count": 1,
+    "previous_ideal_must_detect_count": 16,
+    "previous_must_detect_count": 12,
+    "previous_must_not_detect_count": 1
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_privacy_events_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Alistair Kent"
+      "matched_text": "Mr. Alistair Kent",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Howard Pike"
+      "matched_text": "Mr. Howard Pike",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@brackenridgecap.example"
+      "matched_text": "privacy@brackenridgecap.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Marketing consent for candidate Ms. Eliza Rowan was withdrawn on 12 May 2026"
+      "matched_text": "Marketing consent for candidate Ms. Eliza Rowan was withdrawn on 12 May 2026",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Eliza Rowan"
+      "matched_text": "Ms. Eliza Rowan",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation control G-DP-12"
+      "matched_text": "minimisation control G-DP-12",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross-border transfer"
+      "matched_text": "cross-border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@brackenridgecap.example"
+      "matched_text": "dpo@brackenridgecap.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Farah Lind"
+      "matched_text": "Ms. Farah Lind",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Julian North"
+      "matched_text": "Mr. Julian North",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 20 7940 1020"
+      "matched_text": "+44 20 7940 1020",
+      "rule": "phone_number"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Alder"
+      "matched_text": "Project Alder",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "issuer-side deal materials"
+      "matched_text": "issuer-side deal materials",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "disclosure in contravention of UK MAR"
+      "matched_text": "disclosure in contravention of UK MAR",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "UK IDTA"
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "erasure request"
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Alistair Kent",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Howard Pike",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Rowan",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Farah Lind",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Julian North",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Alder",
+      "rule": "transaction_codename"
     }
   ],
   "must_not_detect": [
@@ -163,67 +215,42 @@
       "reason": "Role noun/party label, not personal data"
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "DSAR",
       "concept": "DSAR",
+      "matched_text": "DSAR",
       "reason": "Data subject access request is a privacy event but no explicit DSAR rule is listed in allowed PII rules"
     },
     {
-      "matched_text": "erasure request",
       "concept": "erasure",
+      "matched_text": "erasure request",
       "reason": "Erasure/deletion request is a privacy event but no explicit erasure marker rule is listed"
     },
     {
-      "matched_text": "HR retention schedule R-EMP-6",
       "concept": "retention",
+      "matched_text": "HR retention schedule R-EMP-6",
       "reason": "Retention governance is in scope but no explicit retention marker rule is provided"
     },
     {
-      "matched_text": "retained for 6 years",
       "concept": "retention duration",
+      "matched_text": "retained for 6 years",
       "reason": "Specifies a retention period but no explicit retention marker rule exists"
     },
     {
-      "matched_text": "do-not-contact",
       "concept": "consent suppression",
+      "matched_text": "do-not-contact",
       "reason": "Indicates ongoing suppression due to withdrawn consent; not an explicit allowed marker"
     },
     {
-      "matched_text": "International Transfers",
       "concept": "cross-border governance",
+      "matched_text": "International Transfers",
       "reason": "Refers to a transfer schedule/control, not a live transfer event covered by the marker rules"
     },
     {
-      "matched_text": "HR-GB-US-091",
       "concept": "planned cross-border export job",
+      "matched_text": "HR-GB-US-091",
       "reason": "Identifier for a cancelled export; negated event and not covered by allowed markers"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 12,
-    "current_must_detect_count": 11,
-    "previous_ideal_must_detect_count": 16,
-    "current_ideal_must_detect_count": 19,
-    "previous_must_not_detect_count": 1,
-    "current_must_not_detect_count": 1
-  }
+  ]
 }

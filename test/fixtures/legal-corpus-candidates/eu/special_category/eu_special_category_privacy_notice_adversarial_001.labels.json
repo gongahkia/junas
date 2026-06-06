@@ -1,215 +1,267 @@
 {
-  "doc_id": "eu_special_category_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "EU",
-  "destination_jurisdiction": "EU",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "mirela.s@verdantarcus.eu"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "eu-privacy@v-arcus.help"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+31 10 555 0020"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Mirela"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric template"
-    },
-    {
-      "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "genetic data"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project LUMEN"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 30,
+    "current_must_detect_count": 11,
+    "current_must_not_detect_count": 8,
+    "previous_ideal_must_detect_count": 24,
+    "previous_must_detect_count": 19,
+    "previous_must_not_detect_count": 8
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_special_category_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Mirela Sørensen"
+      "matched_text": "Dr. Mirela S\u00f8rensen",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Sørensen"
+      "matched_text": "Dr. S\u00f8rensen",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@verdantarcus.eu"
+      "matched_text": "dpo@verdantarcus.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+31 10 555 0020"
+      "matched_text": "+31 10 555 0020",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "mirela.s@verdantarcus.eu"
+      "matched_text": "mirela.s@verdantarcus.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "eu-privacy@v-arcus.help"
+      "matched_text": "eu-privacy@v-arcus.help",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "NL-VA—E M P  0 1 9 7"
+      "matched_text": "NL-VA\u2014E M P  0 1 9 7",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric door-entry facial template"
+      "matched_text": "biometric door-entry facial template",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "religious_belief",
-      "matched_text": "voluntary declaration of Lutheran faith"
+      "matched_text": "voluntary declaration of Lutheran faith",
+      "rule": "religious_belief"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "union membership fee payroll deduction"
+      "matched_text": "union membership fee payroll deduction",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "migraine treatment reimbursement (health)"
+      "matched_text": "migraine treatment reimbursement (health)",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "biometric templates rotated every 30 days then irreversibly deleted"
+      "matched_text": "biometric templates rotated every 30 days then irreversibly deleted",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfers"
+      "matched_text": "Cross-border transfers",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list entry"
+      "matched_text": "insider list entry",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project LUMEN"
+      "matched_text": "Project LUMEN",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non-public"
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "likely price-sensitive"
+      "matched_text": "likely price-sensitive",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list justifications"
+      "matched_text": "insider-list justifications",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider-list entries"
+      "matched_text": "insider-list entries",
+      "rule": "insider_list_marker"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "va:prx:7b-xx-41"
+      "matched_text": "va:prx:7b-xx-41",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "vda//e-00197"
+      "matched_text": "vda//e-00197",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "X9-β-Σ-83"
+      "matched_text": "X9-\u03b2-\u03a3-83",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "third-country access"
+      "matched_text": "third-country access",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "disclosure-delay decision"
+      "matched_text": "disclosure-delay decision",
+      "rule": "embargo_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Mirela"
+      "matched_text": "Dr. Mirela",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric template"
+      "matched_text": "biometric template",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "genetic_data",
-      "matched_text": "genetic data"
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "material non-public information"
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "mirela.s@verdantarcus.eu",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "eu-privacy@v-arcus.help",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+31 10 555 0020",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Mirela",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "genetic data",
+      "rule": "genetic_data"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "non-public",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "material non-public information",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project LUMEN",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -222,7 +274,7 @@
       "reason": "Role noun/defined term; not PII/MNPI"
     },
     {
-      "matched_text": "“Aurora sneakers”",
+      "matched_text": "\u201cAurora sneakers\u201d",
       "reason": "Product name; explicitly not inside information"
     },
     {
@@ -230,7 +282,7 @@
       "reason": "Product/policy name; explicitly not inside information"
     },
     {
-      "matched_text": "“genetic”",
+      "matched_text": "\u201cgenetic\u201d",
       "reason": "False-positive bait; not an actual genetic data record"
     },
     {
@@ -246,52 +298,27 @@
       "reason": "Codename without 'Project' pattern; not a transaction_codename"
     }
   ],
+  "source_jurisdiction": "EU",
   "uncertain": [
     {
-      "matched_text": "DSAR receipt",
       "concept": "DSAR_marker",
+      "matched_text": "DSAR receipt",
       "reason": "DSAR handling is a privacy event but there is no explicit allowed rule for DSAR markers"
     },
     {
-      "matched_text": "biometric template erasure",
       "concept": "erasure_marker",
+      "matched_text": "biometric template erasure",
       "reason": "Erasure event relevant to GDPR rights but no specific allowed erasure marker rule"
     },
     {
-      "matched_text": "HR photo match",
       "concept": "biometric_verification",
+      "matched_text": "HR photo match",
       "reason": "May imply biometric verification of identity but not clearly a biometric identifier per allowed rules"
     },
     {
-      "matched_text": "VDA-NL-9X2Q",
       "concept": "internal_security_code",
+      "matched_text": "VDA-NL-9X2Q",
       "reason": "MNPI-relevant tracking code but not covered by an explicit allowed MNPI rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 19,
-    "current_must_detect_count": 11,
-    "previous_ideal_must_detect_count": 24,
-    "current_ideal_must_detect_count": 30,
-    "previous_must_not_detect_count": 8,
-    "current_must_not_detect_count": 8
-  }
+  ]
 }

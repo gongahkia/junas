@@ -1,105 +1,157 @@
 {
-  "doc_id": "uk_direct_identifiers_term_sheet_negative_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "000000000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Heads of Terms — Recommended Acquisition of Northmoor Capital plc by Wexford Harbour Group Ltd (UK)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Regulatory: The parties will comply with UK MAR, the Takeover Code, and applicable listing rules; notifications to the UK competent authority will be made via a regulatory information service."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing: Buyer expects to fund via committed facilities from Meridian & Brake Bank plc (fictional) and available cash; no underwriting announcement is made herein."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Exclusivity/No-Shop: Target agrees to a six-week exclusivity period; no offer-related arrangements contravening the Takeover Code will be entered into."
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 13,
+    "current_must_detect_count": 6,
+    "current_must_not_detect_count": 4,
+    "previous_ideal_must_detect_count": 9,
+    "previous_must_detect_count": 6,
+    "previous_must_not_detect_count": 4
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_direct_identifiers_term_sheet_negative_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "uk_nin",
-      "matched_text": "QQ 12 34 56 C"
+      "matched_text": "QQ 12 34 56 C",
+      "rule": "uk_nin"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "000000000"
+      "matched_text": "000000000",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "GB00 ZXZX 0000 0000 0000 00"
+      "matched_text": "GB00 ZXZX 0000 0000 0000 00",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "020 0000 0000"
+      "matched_text": "020 0000 0000",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "investor-relations@wexfordharbour.example"
+      "matched_text": "investor-relations@wexfordharbour.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Heads of Terms — Recommended Acquisition of Northmoor Capital plc by Wexford Harbour Group Ltd (UK)"
+      "matched_text": "Heads of Terms \u2014 Recommended Acquisition of Northmoor Capital plc by Wexford Harbour Group Ltd (UK)",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "Investor queries should go to investor-relations@wexfordharbour.example (role mailbox) or the public helpline 0800 000 000; do not contact unnamed deal team members directly"
+      "matched_text": "Investor queries should go to investor-relations@wexfordharbour.example (role mailbox) or the public helpline 0800 000 000; do not contact unnamed deal team members directly",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "KYC placeholders (do not submit real data)"
+      "matched_text": "KYC placeholders (do not submit real data)",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Heads of Terms — Recommended Acquisition of Northmoor Capital plc by Wexford Harbour Group Ltd (UK)"
+      "matched_text": "Heads of Terms \u2014 Recommended Acquisition of Northmoor Capital plc by Wexford Harbour Group Ltd (UK)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Regulatory: The parties will comply with UK MAR, the Takeover Code, and applicable listing rules; notifications to the UK competent authority will be made via a regulatory information service."
+      "matched_text": "Regulatory: The parties will comply with UK MAR, the Takeover Code, and applicable listing rules; notifications to the UK competent authority will be made via a regulatory information service.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing: Buyer expects to fund via committed facilities from Meridian & Brake Bank plc (fictional) and available cash; no underwriting announcement is made herein."
+      "matched_text": "Financing: Buyer expects to fund via committed facilities from Meridian & Brake Bank plc (fictional) and available cash; no underwriting announcement is made herein.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Exclusivity/No-Shop: Target agrees to a six-week exclusivity period; no offer-related arrangements contravening the Takeover Code will be entered into."
+      "matched_text": "Exclusivity/No-Shop: Target agrees to a six-week exclusivity period; no offer-related arrangements contravening the Takeover Code will be entered into.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "000000000",
+      "rule": "passport_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Heads of Terms \u2014 Recommended Acquisition of Northmoor Capital plc by Wexford Harbour Group Ltd (UK)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Regulatory: The parties will comply with UK MAR, the Takeover Code, and applicable listing rules; notifications to the UK competent authority will be made via a regulatory information service.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing: Buyer expects to fund via committed facilities from Meridian & Brake Bank plc (fictional) and available cash; no underwriting announcement is made herein.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Exclusivity/No-Shop: Target agrees to a six-week exclusivity period; no offer-related arrangements contravening the Takeover Code will be entered into.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     }
   ],
   "must_not_detect": [
@@ -120,57 +172,32 @@
       "reason": "Public regulatory citation, not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "Heads of Terms — Recommended Acquisition of Northmoor Capital plc by Wexford Harbour Group Ltd (UK)",
       "concept": "definitive_agreement (Heads of Terms)",
+      "matched_text": "Heads of Terms \u2014 Recommended Acquisition of Northmoor Capital plc by Wexford Harbour Group Ltd (UK)",
       "reason": "Heads of Terms functions like a Term Sheet in UK practice but is not explicitly listed in the definitive_agreement examples."
     },
     {
-      "matched_text": "no individual personal data is requested at this stage",
       "concept": "data_minimisation_marker (negated)",
+      "matched_text": "no individual personal data is requested at this stage",
       "reason": "Indicates a data minimisation stance but phrased as a negation which may fall outside the rule to avoid negated controls."
     },
     {
-      "matched_text": "UK Passport No.: 000000000",
       "concept": "passport_number placeholder validity",
+      "matched_text": "UK Passport No.: 000000000",
       "reason": "All-zero passport number is a placeholder and may fail strict validation; detector behavior may vary."
     },
     {
-      "matched_text": "NI No.: QQ 12 34 56 C",
       "concept": "uk_nin placeholder prefix",
+      "matched_text": "NI No.: QQ 12 34 56 C",
       "reason": "QQ prefix denotes a dummy NIN used for testing; some engines may exclude it."
     },
     {
-      "matched_text": "investor-relations@wexfordharbour.example",
       "concept": "role mailbox vs personal data",
+      "matched_text": "investor-relations@wexfordharbour.example",
       "reason": "Role-based mailbox may not relate to an identifiable natural person under GDPR depending on context."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 6,
-    "current_must_detect_count": 6,
-    "previous_ideal_must_detect_count": 9,
-    "current_ideal_must_detect_count": 13,
-    "previous_must_not_detect_count": 4,
-    "current_must_not_detect_count": 4
-  }
+  ]
 }

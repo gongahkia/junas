@@ -1,80 +1,132 @@
 {
-  "doc_id": "uk_special_category_incident_report_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "incidentdesk@northbankledger.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "notices@finchfieldbrokerage.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "queries@northbankledger.example"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 11,
+    "current_must_detect_count": 3,
+    "current_must_not_detect_count": 18,
+    "previous_ideal_must_detect_count": 9,
+    "previous_must_detect_count": 5,
+    "previous_must_not_detect_count": 18
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_special_category_incident_report_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "incidentdesk@northbankledger.example"
+      "matched_text": "incidentdesk@northbankledger.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ops‑notices@finchfieldbrokerage.example"
+      "matched_text": "ops\u2011notices@finchfieldbrokerage.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "fca‑queries@northbankledger.example"
+      "matched_text": "fca\u2011queries@northbankledger.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee 572"
+      "matched_text": "Employee 572",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "they are a member of the Harbour Tech Workers Union"
+      "matched_text": "they are a member of the Harbour Tech Workers Union",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "will be minimised and excluded from the final incident metrics"
+      "matched_text": "will be minimised and excluded from the final incident metrics",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "uk_nin",
-      "matched_text": "National Insurance No"
+      "matched_text": "National Insurance No",
+      "rule": "uk_nin"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed period"
+      "matched_text": "closed period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "notices@finchfieldbrokerage.example"
+      "matched_text": "notices@finchfieldbrokerage.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "queries@northbankledger.example"
+      "matched_text": "queries@northbankledger.example",
+      "rule": "email_address"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "incidentdesk@northbankledger.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "notices@finchfieldbrokerage.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "queries@northbankledger.example",
+      "rule": "email_address"
     }
   ],
   "must_not_detect": [
@@ -143,55 +195,30 @@
       "reason": "Generic DEI reference; not about a specific person."
     },
     {
-      "matched_text": "ACC‑0000",
+      "matched_text": "ACC\u20110000",
       "reason": "Invalid test value; not real PII."
     },
     {
-      "matched_text": "XX‑999",
+      "matched_text": "XX\u2011999",
       "reason": "Invalid test value; not real PII."
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "National Insurance No",
       "concept": "UK NI number placeholder",
+      "matched_text": "National Insurance No",
       "reason": "Indicates an NI field but no actual identifier is present; mapping to uk_nin may be too liberal for strict regex-based detection."
     },
     {
-      "matched_text": "closed period",
       "concept": "Blackout period under UK MAR",
+      "matched_text": "closed period",
       "reason": "Blackout period reference via synonym; some detectors may only match explicit 'blackout' terms."
     },
     {
-      "matched_text": "GB00NORTH000",
       "concept": "ISIN placeholder",
+      "matched_text": "GB00NORTH000",
       "reason": "Security identifier appears but ISIN detection is not listed as an allowed rule and this is described as a placeholder."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 5,
-    "current_must_detect_count": 3,
-    "previous_ideal_must_detect_count": 9,
-    "current_ideal_must_detect_count": 11,
-    "previous_must_not_detect_count": 18,
-    "current_must_not_detect_count": 18
-  }
+  ]
 }

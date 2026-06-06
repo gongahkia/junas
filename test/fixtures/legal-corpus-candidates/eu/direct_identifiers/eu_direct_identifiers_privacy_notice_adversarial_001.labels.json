@@ -1,255 +1,307 @@
 {
-  "doc_id": "eu_direct_identifiers_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "EU",
-  "destination_jurisdiction": "EU",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "petra.novak@home.example"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+999 210 555 014"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+999 730 440 882"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Elena Markovic"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Petra"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Edo Van"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Data categories: employee identifiers, private emails/phones, adviser details, and precise MNPI about the GRX:VRS1 green bond tap and an unannounced Q3 impairment; delay of disclosure under MAR Art 17(4) is documented and available to the Caledonian Securities Commission (CSC) upon request."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "8754392"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 35,
+    "current_must_detect_count": 14,
+    "current_must_not_detect_count": 5,
+    "previous_ideal_must_detect_count": 26,
+    "previous_must_detect_count": 19,
+    "previous_must_not_detect_count": 5
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_direct_identifiers_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Elena Markovic"
+      "matched_text": "Dr. Elena Markovic",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@valentis‑eu.example"
+      "matched_text": "dpo@valentis\u2011eu.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+999 210 555 014"
+      "matched_text": "+999 210 555 014",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Petra Novák"
+      "matched_text": "Ms. Petra Nov\u00e1k",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "petra.novak@home.example"
+      "matched_text": "petra.novak@home.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+999 730 440 882"
+      "matched_text": "+999 730 440 882",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "RC8754392"
+      "matched_text": "RC8754392",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "RC00 1002 0000 7412 9900 11"
+      "matched_text": "RC00 1002 0000 7412 9900 11",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "RC21 1002 0000 7412 9900 16"
+      "matched_text": "RC21 1002 0000 7412 9900 16",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@valentis‑eu.example"
+      "matched_text": "privacy@valentis\u2011eu.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Edo Van der Meer"
+      "matched_text": "Mr. Edo Van der Meer",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+999 210 555 019"
+      "matched_text": "+999 210 555 019",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross‑border transfer"
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimized"
+      "matched_text": "minimized",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "union membership"
+      "matched_text": "union membership",
+      "rule": "trade_union_membership"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unannounced Q3 impairment"
+      "matched_text": "unannounced Q3 impairment",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "trading blackout"
+      "matched_text": "trading blackout",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall‑crossing notices"
+      "matched_text": "wall\u2011crossing notices",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "RC<NOVAK<<PETRA<<<<8754392<1<<<<<8"
+      "matched_text": "RC<NOVAK<<PETRA<<<<8754392<1<<<<<8",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "14 Marek Pier, 2nd Floor, Grandport CA‑1040, Republic of Caledonia (EU)"
+      "matched_text": "14 Marek Pier, 2nd Floor, Grandport CA\u20111040, Republic of Caledonia (EU)",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "quasi_identifier_combination",
-      "matched_text": "Flat 5, 3 Cinder Lane, Easthaven CA‑2073, RC‑EU"
+      "matched_text": "Flat 5, 3 Cinder Lane, Easthaven CA\u20112073, RC\u2011EU",
+      "rule": "quasi_identifier_combination"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "health"
+      "matched_text": "health",
+      "rule": "health_condition"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "green bond tap"
+      "matched_text": "green bond tap",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "delay of disclosure under MAR Art 17(4)"
+      "matched_text": "delay of disclosure under MAR Art 17(4)",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean‑room"
+      "matched_text": "clean\u2011room",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Petra"
+      "matched_text": "Ms. Petra",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Edo Van"
+      "matched_text": "Mr. Edo Van",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Data categories: employee identifiers, private emails/phones, adviser details, and precise MNPI about the GRX:VRS1 green bond tap and an unannounced Q3 impairment; delay of disclosure under MAR Art 17(4) is documented and available to the Caledonian Securities Commission (CSC) upon request."
+      "matched_text": "Data categories: employee identifiers, private emails/phones, adviser details, and precise MNPI about the GRX:VRS1 green bond tap and an unannounced Q3 impairment; delay of disclosure under MAR Art 17(4) is documented and available to the Caledonian Securities Commission (CSC) upon request.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "8754392"
+      "matched_text": "8754392",
+      "rule": "large_number"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider list"
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "petra.novak@home.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+999 210 555 014",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+999 730 440 882",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Elena Markovic",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Petra",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Edo Van",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Data categories: employee identifiers, private emails/phones, adviser details, and precise MNPI about the GRX:VRS1 green bond tap and an unannounced Q3 impairment; delay of disclosure under MAR Art 17(4) is documented and available to the Caledonian Securities Commission (CSC) upon request.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "8754392",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -274,52 +326,27 @@
       "reason": "Template placeholder text, not actual PII"
     }
   ],
+  "source_jurisdiction": "EU",
   "uncertain": [
     {
-      "matched_text": "https://portal.valentis.eu/transfer?id=RC-TR%2F0042",
       "concept": "internal_record_identifier",
+      "matched_text": "https://portal.valentis.eu/transfer?id=RC-TR%2F0042",
       "reason": "URL query id may be a unique internal record identifier not covered by listed rules"
     },
     {
-      "matched_text": "https://portal.valentis.eu/dsar?id=RC-UID%2F0073-AB",
       "concept": "data_subject_request_id",
+      "matched_text": "https://portal.valentis.eu/dsar?id=RC-UID%2F0073-AB",
       "reason": "URL query id may identify a specific DSAR case; not clearly mapped to existing rule"
     },
     {
-      "matched_text": "RCTIN‑47‑593‑11",
       "concept": "tax_identifier",
+      "matched_text": "RCTIN\u201147\u2011593\u201111",
       "reason": "Supplier TIN could be personal if a sole trader but rule set lacks a generic EU TIN category"
     },
     {
-      "matched_text": "RC<NOVAK<<PETRA<<<<8754392<1<<<<<8",
       "concept": "mrz_data",
+      "matched_text": "RC<NOVAK<<PETRA<<<<8754392<1<<<<<8",
       "reason": "MRZ line contains multiple identifiers (name/passport) in a machine-readable format not always captured by current detectors"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 19,
-    "current_must_detect_count": 14,
-    "previous_ideal_must_detect_count": 26,
-    "current_ideal_must_detect_count": 35,
-    "previous_must_not_detect_count": 5,
-    "current_must_not_detect_count": 5
-  }
+  ]
 }

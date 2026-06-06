@@ -1,145 +1,197 @@
 {
-  "doc_id": "uk_special_category_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "rowan.kydd@northgate-lumen.example.co.uk"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "incidentdesk@northgate-lumen.example.co.uk"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rowan Kydd"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kydd"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Stone"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
-    },
-    {
-      "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric template"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Harrier"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 19,
+    "current_must_detect_count": 8,
+    "current_must_not_detect_count": 15,
+    "previous_ideal_must_detect_count": 17,
+    "previous_must_detect_count": 13,
+    "previous_must_not_detect_count": 15
+  },
+  "_taxonomy_concept": "special_category",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_special_category_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rowan Kydd"
+      "matched_text": "Mr. Rowan Kydd",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Kydd"
+      "matched_text": "Mr. Kydd",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Stone"
+      "matched_text": "Ms. Priya Stone",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "rowan.kydd@northgate-lumen.example.co.uk"
+      "matched_text": "rowan.kydd@northgate-lumen.example.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "incidentdesk@northgate-lumen.example.co.uk"
+      "matched_text": "incidentdesk@northgate-lumen.example.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "NL‑u 17‑k y d d"
+      "matched_text": "NL\u2011u 17\u2011k y d d",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "his biometric fingerprint template"
+      "matched_text": "his biometric fingerprint template",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "medical_treatment",
-      "matched_text": "he uses an insulin pump"
+      "matched_text": "he uses an insulin pump",
+      "rule": "medical_treatment"
     },
     {
       "category": "PII",
-      "rule": "health_condition",
-      "matched_text": "requires Type 1 diabetes treatment"
+      "matched_text": "requires Type 1 diabetes treatment",
+      "rule": "health_condition"
     },
     {
       "category": "PII",
-      "rule": "trade_union_membership",
-      "matched_text": "active membership of the Foundry Finance Union"
+      "matched_text": "active membership of the Foundry Finance Union",
+      "rule": "trade_union_membership"
     },
     {
       "category": "PII",
-      "rule": "device_serial_number",
-      "matched_text": "u‑7g2l‑xx—3"
+      "matched_text": "u\u20117g2l\u2011xx\u20143",
+      "rule": "device_serial_number"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Harrier"
+      "matched_text": "Project Harrier",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider‑list update"
+      "matched_text": "insider\u2011list update",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "precise non‑public price-sensitive information"
+      "matched_text": "precise non\u2011public price-sensitive information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "Operational Incident Report (Cyber)"
+      "matched_text": "Operational Incident Report (Cyber)",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "Mr. Kydd’s access was reset, biometric template rotated"
+      "matched_text": "Mr. Kydd\u2019s access was reset, biometric template rotated",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "without sharing personal data"
+      "matched_text": "without sharing personal data",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "fingerprint template"
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
     },
     {
       "category": "PII",
-      "rule": "biometric_identifier",
-      "matched_text": "biometric template"
+      "matched_text": "biometric template",
+      "rule": "biometric_identifier"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rowan.kydd@northgate-lumen.example.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "incidentdesk@northgate-lumen.example.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Kydd",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Kydd",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Stone",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "fingerprint template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "PII",
+      "matched_text": "biometric template",
+      "rule": "biometric_identifier"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Harrier",
+      "rule": "transaction_codename"
     }
   ],
   "must_not_detect": [
@@ -204,52 +256,27 @@
       "reason": "Place name; not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "user=u—k y d d",
       "concept": "username",
+      "matched_text": "user=u\u2014k y d d",
       "reason": "Identifies a natural person but there is no explicit username rule in the allowed list"
     },
     {
-      "matched_text": "case NGPL‑INC/20 26/06/04‑α",
       "concept": "internal case reference",
+      "matched_text": "case NGPL\u2011INC/20 26/06/04\u2011\u03b1",
       "reason": "Could identify an incident linked to a person; not clearly covered by a listed PII rule"
     },
     {
-      "matched_text": "https://intranet.northgate-lumen.example.co.uk/itsec/case?id=INC-0 4 7&user=u—k y d d",
       "concept": "internal URL with identifiers",
+      "matched_text": "https://intranet.northgate-lumen.example.co.uk/itsec/case?id=INC-0 4 7&user=u\u2014k y d d",
       "reason": "Contains internal case/user identifiers; no specific rule for URLs or case IDs"
     },
     {
-      "matched_text": "occupational health will contact him only with consent",
       "concept": "consent requirement",
+      "matched_text": "occupational health will contact him only with consent",
       "reason": "Privacy/legal relevance but allowed rules only specify consent_withdrawal_marker, not general consent"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "special_category",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 13,
-    "current_must_detect_count": 8,
-    "previous_ideal_must_detect_count": 17,
-    "current_ideal_must_detect_count": 19,
-    "previous_must_not_detect_count": 15,
-    "current_must_not_detect_count": 15
-  }
+  ]
 }

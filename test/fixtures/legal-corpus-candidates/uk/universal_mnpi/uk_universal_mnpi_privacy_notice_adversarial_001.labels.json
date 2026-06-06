@@ -1,250 +1,302 @@
 {
-  "doc_id": "uk_universal_mnpi_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "rowan.bligh@northbankcap.co.uk"
-    },
-    {
-      "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "NBX-44-0O1"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rowan Bligh"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Eliza Corfield"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bligh"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Corfield"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Purpose: govern personal data processing under UK GDPR for employees, advisers, and counterparties in relation to the proposed acquisition of Oakfen Labs Ltd"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Foxglove"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAC clause"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£120,000,000"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "18.5%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "120,000,000"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 33,
+    "current_must_detect_count": 15,
+    "current_must_not_detect_count": 3,
+    "previous_ideal_must_detect_count": 25,
+    "previous_must_detect_count": 15,
+    "previous_must_not_detect_count": 3
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_universal_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rowan Bligh (CFA)"
+      "matched_text": "Mr. Rowan Bligh (CFA)",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "rowan.bligh@northbankcap.co.uk"
+      "matched_text": "rowan.bligh@northbankcap.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "Employee No. NBX-44-0O1"
+      "matched_text": "Employee No. NBX-44-0O1",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Eliza Corfield"
+      "matched_text": "Ms. Eliza Corfield",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@northbankcap.co.uk"
+      "matched_text": "dpo@northbankcap.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Confidential"
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Inside Information (UK MAR)"
+      "matched_text": "Inside Information (UK MAR)",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Foxglove"
+      "matched_text": "Project Foxglove",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo: 30/09/2026 07:00 BST"
+      "matched_text": "Embargo: 30/09/2026 07:00 BST",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "SPA"
+      "matched_text": "SPA",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Subscription Agreement"
+      "matched_text": "Subscription Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£120,000,000"
+      "matched_text": "\u00a3120,000,000",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "18.5%"
+      "matched_text": "18.5%",
+      "rule": "financial_percentage"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "any EEA transfer to Cloudfell EEA S.A. only with SCCs and the UK Addendum"
+      "matched_text": "any EEA transfer to Cloudfell EEA S.A. only with SCCs and the UK Addendum",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed acquisition of Oakfen Labs Ltd"
+      "matched_text": "proposed acquisition of Oakfen Labs Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "subject to CPs"
+      "matched_text": "subject to CPs",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "do not share outside the clean team until embargo lifts"
+      "matched_text": "do not share outside the clean team until embargo lifts",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean team"
+      "matched_text": "clean team",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Long Stop Date: 15/12/2026"
+      "matched_text": "Long Stop Date: 15/12/2026",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Locked Box Date: 31/03/2026"
+      "matched_text": "Locked Box Date: 31/03/2026",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "circulate on a need‑to‑know basis only"
+      "matched_text": "circulate on a need\u2011to\u2011know basis only",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "do not share outside the clean team until embargo lifts"
+      "matched_text": "do not share outside the clean team until embargo lifts",
+      "rule": "tipping_language"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "data are used solely for diligence, regulatory notifications under Listing Rules of the Albion Exchange, and whistleblowing triage"
+      "matched_text": "data are used solely for diligence, regulatory notifications under Listing Rules of the Albion Exchange, and whistleblowing triage",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "segregated “Foxglove” folders"
+      "matched_text": "segregated \u201cFoxglove\u201d folders",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "NBX-44-0O1"
+      "matched_text": "NBX-44-0O1",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Rowan Bligh"
+      "matched_text": "Mr. Rowan Bligh",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Bligh"
+      "matched_text": "Bligh",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Corfield"
+      "matched_text": "Corfield",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Purpose: govern personal data processing under UK GDPR for employees, advisers, and counterparties in relation to the proposed acquisition of Oakfen Labs Ltd"
+      "matched_text": "Purpose: govern personal data processing under UK GDPR for employees, advisers, and counterparties in relation to the proposed acquisition of Oakfen Labs Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAC clause"
+      "matched_text": "MAC clause",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "120,000,000"
+      "matched_text": "120,000,000",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "rowan.bligh@northbankcap.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "NBX-44-0O1",
+      "rule": "employee_id"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Rowan Bligh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Eliza Corfield",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Bligh",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Corfield",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Purpose: govern personal data processing under UK GDPR for employees, advisers, and counterparties in relation to the proposed acquisition of Oakfen Labs Ltd",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Foxglove",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAC clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a3120,000,000",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "18.5%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "120,000,000",
+      "rule": "large_number"
     }
   ],
   "must_not_detect": [
@@ -257,46 +309,21 @@
       "reason": "Negated MAC/MAE; do not label as material_adverse_change"
     },
     {
-      "matched_text": "spa‑day vouchers",
+      "matched_text": "spa\u2011day vouchers",
       "reason": "False-positive bait; not a Share Purchase Agreement"
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "no press until embargo",
       "concept": "Press hold policy",
+      "matched_text": "no press until embargo",
       "reason": "Indicates a press hold/blackout, but phrasing does not match explicit embargo_marker examples"
     },
     {
-      "matched_text": "processing log ID PRJ‑FXG‑001",
       "concept": "Internal identifier",
+      "matched_text": "processing log ID PRJ\u2011FXG\u2011001",
       "reason": "Potentially sensitive internal tracking ID but not clearly covered by an allowed PII rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 15,
-    "current_must_detect_count": 15,
-    "previous_ideal_must_detect_count": 25,
-    "current_ideal_must_detect_count": 33,
-    "previous_must_not_detect_count": 3,
-    "current_must_not_detect_count": 3
-  }
+  ]
 }

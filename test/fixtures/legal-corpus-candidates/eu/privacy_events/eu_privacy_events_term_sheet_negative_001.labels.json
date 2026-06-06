@@ -1,165 +1,217 @@
 {
-  "doc_id": "eu_privacy_events_term_sheet_negative_001",
-  "document_type": "term_sheet",
-  "source_jurisdiction": "EU",
-  "destination_jurisdiction": "EU",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "vendors@lunedor.example"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "EU SCCs"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Term Sheet — Strategic Acquisition of Virelia Analytics B.V. by Lunedor Technologies S.A. (EU issuer listed on PanEuropa Exchange “PEX”)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Indicative structure: all‑share acquisition; no cash consideration disclosed; placeholder ISIN-like references (e.g., XX0000000000) are non-functional."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Conditions precedent: merger control notification to CMSA Competition Unit; PEX eligibility review; completion of IT security questionnaire (no passwords or API keys to be shared)."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing and lock‑up: no new debt incurrence contemplated; seller lock‑up for 180 days; any figures in cap tables using codes like CAP‑0000 are placeholders only."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 21,
+    "current_must_detect_count": 10,
+    "current_must_not_detect_count": 11,
+    "previous_ideal_must_detect_count": 13,
+    "previous_must_detect_count": 8,
+    "previous_must_not_detect_count": 11
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_privacy_events_term_sheet_negative_001",
+  "document_type": "term_sheet",
   "ideal_must_detect": [
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Term Sheet"
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Strategic Acquisition of Virelia Analytics B.V. by Lunedor Technologies S.A"
+      "matched_text": "Strategic Acquisition of Virelia Analytics B.V. by Lunedor Technologies S.A",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list templates"
+      "matched_text": "insider list templates",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall‑crossing"
+      "matched_text": "wall\u2011crossing",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "clean‑team protocol"
+      "matched_text": "clean\u2011team protocol",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "lock‑up for 180 days"
+      "matched_text": "lock\u2011up for 180 days",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "CSRD-aligned ESRS datapacks"
+      "matched_text": "CSRD-aligned ESRS datapacks",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "vendors@lunedor.example"
+      "matched_text": "vendors@lunedor.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "helpdesk@pex.example"
+      "matched_text": "helpdesk@pex.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "minimisation enforced in data room (samples anonymised, row counts only)"
+      "matched_text": "minimisation enforced in data room (samples anonymised, row counts only)",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross‑border data export approval DEA‑2025‑0142 authorised 2025‑03‑12"
+      "matched_text": "cross\u2011border data export approval DEA\u20112025\u20110142 authorised 2025\u201103\u201112",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "consent‑withdrawal requests"
+      "matched_text": "consent\u2011withdrawal requests",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "EU SCCs"
+      "matched_text": "EU SCCs",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Term Sheet — Strategic Acquisition of Virelia Analytics B.V. by Lunedor Technologies S.A. (EU issuer listed on PanEuropa Exchange “PEX”)"
+      "matched_text": "Term Sheet \u2014 Strategic Acquisition of Virelia Analytics B.V. by Lunedor Technologies S.A. (EU issuer listed on PanEuropa Exchange \u201cPEX\u201d)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Indicative structure: all‑share acquisition; no cash consideration disclosed; placeholder ISIN-like references (e.g., XX0000000000) are non-functional."
+      "matched_text": "Indicative structure: all\u2011share acquisition; no cash consideration disclosed; placeholder ISIN-like references (e.g., XX0000000000) are non-functional.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Conditions precedent: merger control notification to CMSA Competition Unit; PEX eligibility review; completion of IT security questionnaire (no passwords or API keys to be shared)."
+      "matched_text": "Conditions precedent: merger control notification to CMSA Competition Unit; PEX eligibility review; completion of IT security questionnaire (no passwords or API keys to be shared).",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Financing and lock‑up: no new debt incurrence contemplated; seller lock‑up for 180 days; any figures in cap tables using codes like CAP‑0000 are placeholders only."
+      "matched_text": "Financing and lock\u2011up: no new debt incurrence contemplated; seller lock\u2011up for 180 days; any figures in cap tables using codes like CAP\u20110000 are placeholders only.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "undisclosed"
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "term sheet"
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "vendors@lunedor.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EU SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet \u2014 Strategic Acquisition of Virelia Analytics B.V. by Lunedor Technologies S.A. (EU issuer listed on PanEuropa Exchange \u201cPEX\u201d)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Indicative structure: all\u2011share acquisition; no cash consideration disclosed; placeholder ISIN-like references (e.g., XX0000000000) are non-functional.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Conditions precedent: merger control notification to CMSA Competition Unit; PEX eligibility review; completion of IT security questionnaire (no passwords or API keys to be shared).",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Financing and lock\u2011up: no new debt incurrence contemplated; seller lock\u2011up for 180 days; any figures in cap tables using codes like CAP\u20110000 are placeholders only.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "undisclosed",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Term Sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "term sheet",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -196,7 +248,7 @@
       "reason": "Placeholder ISIN-like example; non-functional and not real data."
     },
     {
-      "matched_text": "CAP‑0000",
+      "matched_text": "CAP\u20110000",
       "reason": "Placeholder code example; not real data."
     },
     {
@@ -208,97 +260,72 @@
       "reason": "Security control mention; not a PII category here."
     }
   ],
+  "source_jurisdiction": "EU",
   "uncertain": [
     {
-      "matched_text": "retention periods follow Record Schedule RS‑6YR‑HR",
       "concept": "retention_marker",
+      "matched_text": "retention periods follow Record Schedule RS\u20116YR\u2011HR",
       "reason": "Retention is a privacy handling concept but there is no explicit retention rule in the allowed list."
     },
     {
-      "matched_text": "DSAR status (benign)",
       "concept": "dsar_marker",
+      "matched_text": "DSAR status (benign)",
       "reason": "DSAR handling is privacy-relevant but there is no explicit DSAR rule in the allowed list."
     },
     {
-      "matched_text": "last DSAR closed 2025‑02‑08",
       "concept": "dsar_marker",
+      "matched_text": "last DSAR closed 2025\u201102\u201108",
       "reason": "DSAR closure date is privacy-relevant; no explicit DSAR rule available."
     },
     {
-      "matched_text": "erasure of marketing contact records",
       "concept": "erasure_marker",
+      "matched_text": "erasure of marketing contact records",
       "reason": "Erasure handling is privacy-relevant but no explicit erasure rule exists in the allowed list."
     },
     {
-      "matched_text": "special‑category data is limited to aggregated occupational health codes for employees",
       "concept": "special_category_health_reference",
+      "matched_text": "special\u2011category data is limited to aggregated occupational health codes for employees",
       "reason": "References GDPR Art 9 health data in aggregate; health-specific rule mapping is unclear under allowed list when aggregated/excluded."
     },
     {
-      "matched_text": "DPA Schedule 2 (EU SCCs, Module 2)",
       "concept": "transfer_mechanism_reference",
+      "matched_text": "DPA Schedule 2 (EU SCCs, Module 2)",
       "reason": "Indicates SCCs Module 2 but not itself a transfer event marker."
     },
     {
-      "matched_text": "Controller–Processor Allocation Matrix",
       "concept": "privacy_governance_reference",
+      "matched_text": "Controller\u2013Processor Allocation Matrix",
       "reason": "Governance artifact relevant to privacy but not mapped to a specific allowed rule."
     },
     {
-      "matched_text": "Vendor Onboarding Form “Third‑Party Data Intake v4.1”",
       "concept": "privacy_governance_reference",
+      "matched_text": "Vendor Onboarding Form \u201cThird\u2011Party Data Intake v4.1\u201d",
       "reason": "Onboarding form is privacy-relevant governance; no specific rule mapping."
     },
     {
-      "matched_text": "transfer risk assessment logged",
       "concept": "transfer_impact_assessment",
+      "matched_text": "transfer risk assessment logged",
       "reason": "TIA/TIA-like log is privacy-relevant but not included in allowed rules."
     },
     {
-      "matched_text": "PEX Listing Rules and CMSA market abuse supervision apply",
       "concept": "regulatory_supervision_marker",
+      "matched_text": "PEX Listing Rules and CMSA market abuse supervision apply",
       "reason": "Sets MAR/compliance context; not a specific allowed MNPI rule."
     },
     {
-      "matched_text": "all‑share acquisition; no cash consideration disclosed",
       "concept": "consideration_structure_marker",
+      "matched_text": "all\u2011share acquisition; no cash consideration disclosed",
       "reason": "Deal structure can be material but not mapped to a specific allowed MNPI rule."
     },
     {
-      "matched_text": "merger control notification to CMSA Competition Unit",
       "concept": "regulatory_filing_marker",
+      "matched_text": "merger control notification to CMSA Competition Unit",
       "reason": "Regulatory filing is market-relevant but not in allowed MNPI rules."
     },
     {
-      "matched_text": "PEX eligibility review",
       "concept": "listing_review_marker",
+      "matched_text": "PEX eligibility review",
       "reason": "Listing eligibility review is market/compliance relevant but not in allowed rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 8,
-    "current_must_detect_count": 10,
-    "previous_ideal_must_detect_count": 13,
-    "current_ideal_must_detect_count": 21,
-    "previous_must_not_detect_count": 11,
-    "current_must_not_detect_count": 11
-  }
+  ]
 }

@@ -1,165 +1,217 @@
 {
-  "doc_id": "eu_privacy_events_incident_report_default_001",
-  "document_type": "memo",
-  "source_jurisdiction": "EU",
-  "destination_jurisdiction": "EU",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "erasure request"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Anders Vilhelm"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Petra"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Irena Salcedo"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "We confirm no investor‑facing guidance has been changed and no external dissemination of inside information occurred."
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 22,
+    "current_must_detect_count": 9,
+    "current_must_not_detect_count": 4,
+    "previous_ideal_must_detect_count": 16,
+    "previous_must_detect_count": 11,
+    "previous_must_not_detect_count": 4
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_privacy_events_incident_report_default_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Anders Vilhelm"
+      "matched_text": "Mr. Anders Vilhelm",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Petra Novák"
+      "matched_text": "Ms. Petra Nov\u00e1k",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Irena Salcedo"
+      "matched_text": "Dr. Irena Salcedo",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@aurivis.example"
+      "matched_text": "dpo@aurivis.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@aurivis.example"
+      "matched_text": "compliance@aurivis.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Minimisation and retention"
+      "matched_text": "Minimisation and retention",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "remove national ID scan fields"
+      "matched_text": "remove national ID scan fields",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "cross‑border transfer request"
+      "matched_text": "cross\u2011border transfer request",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "international transfer addendum"
+      "matched_text": "international transfer addendum",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "non‑public"
+      "matched_text": "non\u2011public",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list updated"
+      "matched_text": "insider list updated",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall‑crossing procedures"
+      "matched_text": "wall\u2011crossing procedures",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Q2 yield shortfall"
+      "matched_text": "Q2 yield shortfall",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "CSRD/SFDR impact assessment"
+      "matched_text": "CSRD/SFDR impact assessment",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "erasure request"
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Petra"
+      "matched_text": "Ms. Petra",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "We confirm no investor‑facing guidance has been changed and no external dissemination of inside information occurred."
+      "matched_text": "We confirm no investor\u2011facing guidance has been changed and no external dissemination of inside information occurred.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "Scope 2"
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "erasure request",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Anders Vilhelm",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Petra",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Irena Salcedo",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "We confirm no investor\u2011facing guidance has been changed and no external dissemination of inside information occurred.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Scope 2",
+      "rule": "esg_climate_pre_disclosure"
     }
   ],
   "must_not_detect": [
@@ -168,89 +220,64 @@
       "reason": "Negated statement; does not indicate presence of special-category PII."
     },
     {
-      "matched_text": "no biometric templates, geolocation, or children’s data are stored in the ESG lake",
-      "reason": "Negated statement; avoid flagging special-category/children’s data as present."
+      "matched_text": "no biometric templates, geolocation, or children\u2019s data are stored in the ESG lake",
+      "reason": "Negated statement; avoid flagging special-category/children\u2019s data as present."
     },
     {
       "matched_text": "special category data processing remains prohibited for this system per policy and audit confirms compliance",
       "reason": "Prohibition/controls statement; not evidence of processing sensitive data."
     },
     {
-      "matched_text": "We confirm no investor‑facing guidance has been changed and no external dissemination of inside information occurred",
+      "matched_text": "We confirm no investor\u2011facing guidance has been changed and no external dissemination of inside information occurred",
       "reason": "Negated selective-disclosure; not a live MNPI leak."
     }
   ],
+  "source_jurisdiction": "EU",
   "uncertain": [
     {
-      "matched_text": "DSAR received from Mr. Anders Vilhelm (Art. 15)",
       "concept": "DSAR marker",
+      "matched_text": "DSAR received from Mr. Anders Vilhelm (Art. 15)",
       "reason": "Data subject access request is a privacy workflow event but no specific allowed rule name exists."
     },
     {
-      "matched_text": "erasure request upheld for legacy badge logs (Art. 17)",
       "concept": "Erasure marker",
+      "matched_text": "erasure request upheld for legacy badge logs (Art. 17)",
       "reason": "Erasure/deletion event is relevant, but there is no explicit erasure rule in the allowed list."
     },
     {
-      "matched_text": "retention shortened to 6 months",
       "concept": "Retention marker",
+      "matched_text": "retention shortened to 6 months",
       "reason": "Retention change is a privacy event; retention rule not defined in allowed set."
     },
     {
-      "matched_text": "a 24‑month retention cap reaffirmed",
       "concept": "Retention marker",
+      "matched_text": "a 24\u2011month retention cap reaffirmed",
       "reason": "Retention cap is relevant to privacy compliance but not mapped to an allowed rule."
     },
     {
-      "matched_text": "Data‑export approval ID AEG‑DX‑0441",
       "concept": "Internal approval identifier",
+      "matched_text": "Data\u2011export approval ID AEG\u2011DX\u20110441",
       "reason": "Unique internal identifier may be treated as PII in some contexts but not covered by allowed rules."
     },
     {
-      "matched_text": "disclosure delay under MAR Art. 17(4)",
       "concept": "Disclosure delay marker",
+      "matched_text": "disclosure delay under MAR Art. 17(4)",
       "reason": "Relevant MAR control indicating delayed disclosure; no direct allowed rule mapping."
     },
     {
-      "matched_text": "the competent authority notified post‑remediation",
       "concept": "Authority notification",
+      "matched_text": "the competent authority notified post\u2011remediation",
       "reason": "Regulatory notification detail relevant to MAR but not captured by existing MNPI rules."
     },
     {
-      "matched_text": "payroll IBAN placeholders",
       "concept": "Bank account reference",
+      "matched_text": "payroll IBAN placeholders",
       "reason": "References bank account data category without any actual account numbers; not captured by bank_account rule."
     },
     {
-      "matched_text": "employee identifiers, contact data",
       "concept": "PII category reference",
+      "matched_text": "employee identifiers, contact data",
       "reason": "General categories of PII mentioned without specific identifiers; not covered by current strict rules."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 11,
-    "current_must_detect_count": 9,
-    "previous_ideal_must_detect_count": 16,
-    "current_ideal_must_detect_count": 22,
-    "previous_must_not_detect_count": 4,
-    "current_must_not_detect_count": 4
-  }
+  ]
 }

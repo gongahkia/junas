@@ -1,135 +1,187 @@
 {
-  "doc_id": "uk_jurisdictional_mnpi_privacy_notice_negative_001",
-  "document_type": "generic",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "do not sell personal data"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSARs"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Complaints may be raised with the ICO, and for listing matters the FCA is the competent authority; we may update this notice following changes to the FCA Handbook or UK MAR guidance without prior notice."
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Alder"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossing"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 19,
+    "current_must_detect_count": 6,
+    "current_must_not_detect_count": 4,
+    "previous_ideal_must_detect_count": 13,
+    "previous_must_detect_count": 10,
+    "previous_must_not_detect_count": 4
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_jurisdictional_mnpi_privacy_notice_negative_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@moorhavencapital.co.uk"
+      "matched_text": "privacy@moorhavencapital.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "compliance@moorhavencapital.co.uk"
+      "matched_text": "compliance@moorhavencapital.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "ir@moorhavencapital.co.uk"
+      "matched_text": "ir@moorhavencapital.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "not personal social media or home device telemetry"
+      "matched_text": "not personal social media or home device telemetry",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "subject to UK-approved transfer safeguards"
+      "matched_text": "subject to UK-approved transfer safeguards",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "during the 30 calendar days before publication of our half-year or full-year results, dealing by PDMRs and closely associated persons is prohibited unless an exemption applies and approval is granted via compliance@moorhavencapital.co.uk"
+      "matched_text": "during the 30 calendar days before publication of our half-year or full-year results, dealing by PDMRs and closely associated persons is prohibited unless an exemption applies and approval is granted via compliance@moorhavencapital.co.uk",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossing"
+      "matched_text": "wall-crossing",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "We avoid selective disclosure"
+      "matched_text": "We avoid selective disclosure",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "unpublished precise information"
+      "matched_text": "unpublished precise information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "“Project Alder”"
+      "matched_text": "\u201cProject Alder\u201d",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "unpublished precise information is not shared with analysts or counterparties"
+      "matched_text": "unpublished precise information is not shared with analysts or counterparties",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "market sounding"
+      "matched_text": "market sounding",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "would delay disclosure only where permitted and subject to confidentiality controls"
+      "matched_text": "would delay disclosure only where permitted and subject to confidentiality controls",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "do not sell personal data"
+      "matched_text": "do not sell personal data",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSARs"
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Complaints may be raised with the ICO, and for listing matters the FCA is the competent authority; we may update this notice following changes to the FCA Handbook or UK MAR guidance without prior notice."
+      "matched_text": "Complaints may be raised with the ICO, and for listing matters the FCA is the competent authority; we may update this notice following changes to the FCA Handbook or UK MAR guidance without prior notice.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Alder"
+      "matched_text": "Project Alder",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossing"
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "do not sell personal data",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Complaints may be raised with the ICO, and for listing matters the FCA is the competent authority; we may update this notice following changes to the FCA Handbook or UK MAR guidance without prior notice.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Alder",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -150,52 +202,27 @@
       "reason": "Role title, not an identifiable natural person"
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "Data subjects may submit a DSAR via privacy@moorhavencapital.co.uk or by post to Data Protection Officer, Moorhaven Capital plc, 4 Kelmer Yard, London W1A 4ZZ",
       "concept": "DSAR/right-of-access marker",
+      "matched_text": "Data subjects may submit a DSAR via privacy@moorhavencapital.co.uk or by post to Data Protection Officer, Moorhaven Capital plc, 4 Kelmer Yard, London W1A 4ZZ",
       "reason": "Data subject access request workflow is a privacy-event marker but there is no explicit DSAR rule in the allowed set"
     },
     {
-      "matched_text": "Retention: HR files are retained for up to six years after employment ends, trading surveillance records for five years per FCA requirements, and aggregated metrics may be held longer in anonymised form",
       "concept": "retention policy marker",
+      "matched_text": "Retention: HR files are retained for up to six years after employment ends, trading surveillance records for five years per FCA requirements, and aggregated metrics may be held longer in anonymised form",
       "reason": "Retention controls are legally relevant but there is no explicit retention_marker in the allowed rules"
     },
     {
-      "matched_text": "London W1A 4ZZ",
       "concept": "UK postal address/postcode",
+      "matched_text": "London W1A 4ZZ",
       "reason": "UK postcode/address is PII but no UK postal address/postcode rule is provided in the allowed set"
     },
     {
-      "matched_text": "we do not sell personal data",
       "concept": "sale-of-data policy",
+      "matched_text": "we do not sell personal data",
       "reason": "Privacy policy statement relevant to data rights but not mapped to any allowed PII rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 10,
-    "current_must_detect_count": 6,
-    "previous_ideal_must_detect_count": 13,
-    "current_ideal_must_detect_count": 19,
-    "previous_must_not_detect_count": 4,
-    "current_must_not_detect_count": 4
-  }
+  ]
 }

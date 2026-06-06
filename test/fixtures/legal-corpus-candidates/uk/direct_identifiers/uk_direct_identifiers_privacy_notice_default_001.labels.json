@@ -1,175 +1,227 @@
 {
-  "doc_id": "uk_direct_identifiers_privacy_notice_default_001",
-  "document_type": "generic",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 (0)20 3456 7781"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "MZ9182745"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSARs"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Ellington"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Alder"
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "812345"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider lists"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 22,
+    "current_must_detect_count": 11,
+    "current_must_not_detect_count": 8,
+    "previous_ideal_must_detect_count": 18,
+    "previous_must_detect_count": 11,
+    "previous_must_not_detect_count": 8
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_direct_identifiers_privacy_notice_default_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Ellington"
+      "matched_text": "Ms. Priya Ellington",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@larkhavencapital.co.uk"
+      "matched_text": "dpo@larkhavencapital.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 (0)20 3456 7781"
+      "matched_text": "+44 (0)20 3456 7781",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "uk_nin",
-      "matched_text": "QQ 12 34 56 C"
+      "matched_text": "QQ 12 34 56 C",
+      "rule": "uk_nin"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "MZ9182745"
+      "matched_text": "MZ9182745",
+      "rule": "passport_number"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "00678901"
+      "matched_text": "00678901",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "GB00 FAKE 2211 5500 6789 01"
+      "matched_text": "GB00 FAKE 2211 5500 6789 01",
+      "rule": "bank_account"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Alder"
+      "matched_text": "Project Alder",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider lists"
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed periods"
+      "matched_text": "closed periods",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "22-11-55"
+      "matched_text": "22-11-55",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "outside the UK"
+      "matched_text": "outside the UK",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "IDTA"
+      "matched_text": "IDTA",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "SCCs"
+      "matched_text": "SCCs",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "do not email full card numbers"
+      "matched_text": "do not email full card numbers",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "MNPI"
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "a potential secondary placing"
+      "matched_text": "a potential secondary placing",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSARs"
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "812345"
+      "matched_text": "812345",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+44 (0)20 3456 7781",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "MZ9182745",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSARs",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Ellington",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MNPI",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Alder",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "812345",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -206,52 +258,27 @@
       "reason": "Regulatory firm reference; corporate, not personal."
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "UTR 1234567890",
       "concept": "UK UTR (tax identifier)",
+      "matched_text": "UTR 1234567890",
       "reason": "Likely a personal tax identifier but there is no explicit allowed rule for UK UTR."
     },
     {
-      "matched_text": "VAT Reg No. GB123456780",
       "concept": "UK VAT number",
+      "matched_text": "VAT Reg No. GB123456780",
       "reason": "VAT number here appears corporate and not clearly PII; no allowed rule for UK VAT."
     },
     {
-      "matched_text": "insider lists retained 5 years after deal closure",
       "concept": "Retention marker",
+      "matched_text": "insider lists retained 5 years after deal closure",
       "reason": "Retention periods are privacy-relevant but there is no explicit retention rule in the allowed list."
     },
     {
-      "matched_text": "We will verify DSAR identity",
       "concept": "DSAR identity verification",
+      "matched_text": "We will verify DSAR identity",
       "reason": "Data subject rights handling is privacy-relevant but not mapped to a specific allowed rule."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 11,
-    "current_must_detect_count": 11,
-    "previous_ideal_must_detect_count": 18,
-    "current_ideal_must_detect_count": 22,
-    "previous_must_not_detect_count": 8,
-    "current_must_not_detect_count": 8
-  }
+  ]
 }

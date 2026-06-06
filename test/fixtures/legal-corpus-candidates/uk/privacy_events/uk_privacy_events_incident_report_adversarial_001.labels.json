@@ -1,150 +1,202 @@
 {
-  "doc_id": "uk_privacy_events_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 7000 900900"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "UK IDTA"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Darius Ruskin"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Ruskin"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Tamsin Greaves"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Northshard Capital plc — Operational & Privacy Incident Report (UK issuer; oversight under UKMA guidance and CEX‑Lon listing context)"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Policy‑only note: the MAC clause in the facility agreement was not invoked, and no go/no‑go gate or financing covenant was affected."
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 19,
+    "current_must_detect_count": 9,
+    "current_must_not_detect_count": 3,
+    "previous_ideal_must_detect_count": 15,
+    "previous_must_detect_count": 9,
+    "previous_must_not_detect_count": 3
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_privacy_events_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Darius Ruskin"
+      "matched_text": "Mr. Darius Ruskin",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Ruskin"
+      "matched_text": "Mr. Ruskin",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Tamsin Greaves"
+      "matched_text": "Ms. Tamsin Greaves",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@northshard.capital"
+      "matched_text": "privacy@northshard.capital",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@northshard.capital"
+      "matched_text": "dpo@northshard.capital",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 7000 900900"
+      "matched_text": "+44 7000 900900",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "withdrew consent"
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross‑border transfer"
+      "matched_text": "Cross\u2011border transfer",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Minimisation"
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr%20Ruskin"
+      "matched_text": "Mr%20Ruskin",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "date_of_birth",
-      "matched_text": "DoB"
+      "matched_text": "DoB",
+      "rule": "date_of_birth"
     },
     {
       "category": "PII",
-      "rule": "uk_nin",
-      "matched_text": "NI placeholders (NI‑***‑**‑**)"
+      "matched_text": "NI placeholders (NI\u2011***\u2011**\u2011**)",
+      "rule": "uk_nin"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "eID:R1-7 4Z9"
+      "matched_text": "eID:R1-7 4Z9",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "non‑required fields suppressed"
+      "matched_text": "non\u2011required fields suppressed",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "UK IDTA"
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Northshard Capital plc — Operational & Privacy Incident Report (UK issuer; oversight under UKMA guidance and CEX‑Lon listing context)"
+      "matched_text": "Northshard Capital plc \u2014 Operational & Privacy Incident Report (UK issuer; oversight under UKMA guidance and CEX\u2011Lon listing context)",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Policy‑only note: the MAC clause in the facility agreement was not invoked, and no go/no‑go gate or financing covenant was affected."
+      "matched_text": "Policy\u2011only note: the MAC clause in the facility agreement was not invoked, and no go/no\u2011go gate or financing covenant was affected.",
+      "rule": "material_event"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "+44 7000 900900",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "UK IDTA",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "withdrew consent",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Darius Ruskin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Ruskin",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Tamsin Greaves",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Northshard Capital plc \u2014 Operational & Privacy Incident Report (UK issuer; oversight under UKMA guidance and CEX\u2011Lon listing context)",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Policy\u2011only note: the MAC clause in the facility agreement was not invoked, and no go/no\u2011go gate or financing covenant was affected.",
+      "rule": "material_event"
     }
   ],
   "must_not_detect": [
@@ -161,62 +213,37 @@
       "reason": "Negated regulatory report; not an MNPI or market abuse trigger."
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "DSAR",
       "concept": "DSAR marker",
+      "matched_text": "DSAR",
       "reason": "Subject access request is a privacy event but DSAR marker is not an allowed rule name."
     },
     {
-      "matched_text": "DSAR #RSK‑88",
       "concept": "DSAR identifier",
+      "matched_text": "DSAR #RSK\u201188",
       "reason": "DSAR tracking ID is privacy-relevant but no explicit DSAR rule exists."
     },
     {
-      "matched_text": "were erased",
       "concept": "erasure/deletion marker",
+      "matched_text": "were erased",
       "reason": "Erasure is privacy-relevant but no erasure marker rule exists."
     },
     {
-      "matched_text": "Retention",
       "concept": "retention marker",
+      "matched_text": "Retention",
       "reason": "Data retention is privacy-relevant but no retention marker rule exists."
     },
     {
-      "matched_text": "retained per schedule HR‑RET‑5Y",
       "concept": "retention schedule",
+      "matched_text": "retained per schedule HR\u2011RET\u20115Y",
       "reason": "Indicates retention basis/duration but no retention marker rule exists."
     },
     {
-      "matched_text": "auto‑purge ran 02/04/2026",
       "concept": "automated deletion event",
+      "matched_text": "auto\u2011purge ran 02/04/2026",
       "reason": "Purge/deletion is privacy-relevant but no erasure/retention marker rule exists."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 9,
-    "current_must_detect_count": 9,
-    "previous_ideal_must_detect_count": 15,
-    "current_ideal_must_detect_count": 19,
-    "previous_must_not_detect_count": 3,
-    "current_must_not_detect_count": 3
-  }
+  ]
 }

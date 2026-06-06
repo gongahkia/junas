@@ -1,280 +1,332 @@
 {
-  "doc_id": "uk_sector_mnpi_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dataprotection@northgate-ordinal.co.uk"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dsar@northgate-ordinal.co.uk"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "notices@northgate-ordinal.co.uk"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 20 1234 5670"
-    },
-    {
-      "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "EU SCCs"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hester Baines"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Alastair Pike"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Starling"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£4"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£5"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
-    },
-    {
-      "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 37,
+    "current_must_detect_count": 17,
+    "current_must_not_detect_count": 4,
+    "previous_ideal_must_detect_count": 30,
+    "previous_must_detect_count": 19,
+    "previous_must_not_detect_count": 4
+  },
+  "_taxonomy_concept": "sector_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_sector_mnpi_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Hester Baines"
+      "matched_text": "Ms. Hester Baines",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Alastair Pike"
+      "matched_text": "Mr. Alastair Pike",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dataprotection@northgate-ordinal.co.uk"
+      "matched_text": "dataprotection@northgate-ordinal.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dsar@northgate-ordinal.co.uk"
+      "matched_text": "dsar@northgate-ordinal.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "fca‑notices@northgate-ordinal.co.uk"
+      "matched_text": "fca\u2011notices@northgate-ordinal.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 20 1234 5670"
+      "matched_text": "+44 20 1234 5670",
+      "rule": "phone_number"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project Starling"
+      "matched_text": "Project Starling",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "information barriers"
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "Information barriers"
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list entries"
+      "matched_text": "insider list entries",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "blackout windows"
+      "matched_text": "blackout windows",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Non‑public issuer information"
+      "matched_text": "Non\u2011public issuer information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "pre‑RNS"
+      "matched_text": "pre\u2011RNS",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "RNS draft ref"
+      "matched_text": "RNS draft ref",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "tipping_language",
-      "matched_text": "must not be tipped"
+      "matched_text": "must not be tipped",
+      "rule": "tipping_language"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "selectively disclosed"
+      "matched_text": "selectively disclosed",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "UK Addendum to EU SCCs"
+      "matched_text": "UK Addendum to EU SCCs",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "bank_account",
-      "matched_text": "GB99‑NGO‑**8891"
+      "matched_text": "GB99\u2011NGO\u2011**8891",
+      "rule": "bank_account"
     },
     {
       "category": "PII",
-      "rule": "employee_id",
-      "matched_text": "PR‑**431"
+      "matched_text": "PR\u2011**431",
+      "rule": "employee_id"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "U‑KY‑0x12"
+      "matched_text": "U\u2011KY\u20110x12",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "we do not collect special category data for insider lists"
+      "matched_text": "we do not collect special category data for insider lists",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "non‑UK"
+      "matched_text": "non\u2011UK",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "uid=u-39%20-12"
+      "matched_text": "uid=u-39%20-12",
+      "rule": "internal_session_id"
     },
     {
       "category": "MNPI",
-      "rule": "esg_climate_pre_disclosure",
-      "matched_text": "ESG‑linked power purchase agreement"
+      "matched_text": "ESG\u2011linked power purchase agreement",
+      "rule": "esg_climate_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "contract_unit_price",
-      "matched_text": "£4 8–£5 6/MWh"
+      "matched_text": "\u00a34 8\u2013\u00a35 6/MWh",
+      "rule": "contract_unit_price"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "C Y B E R incident triage opened 14/05/2026"
+      "matched_text": "C Y B E R incident triage opened 14/05/2026",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall‑crossed"
+      "matched_text": "wall\u2011crossed",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "dealing is suspended"
+      "matched_text": "dealing is suspended",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "notices@northgate-ordinal.co.uk"
+      "matched_text": "notices@northgate-ordinal.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "EU SCCs"
+      "matched_text": "EU SCCs",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£4"
+      "matched_text": "\u00a34",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£5"
+      "matched_text": "\u00a35",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider List"
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "dataprotection@northgate-ordinal.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar@northgate-ordinal.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "notices@northgate-ordinal.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 20 1234 5670",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "EU SCCs",
+      "rule": "cross_border_transfer_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Hester Baines",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Alastair Pike",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project Starling",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a34",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a35",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider List",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "information barriers",
+      "rule": "information_barrier_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Information barriers",
+      "rule": "information_barrier_marker"
     }
   ],
   "must_not_detect": [
@@ -295,67 +347,42 @@
       "reason": "Role noun / organisational label, not personal data"
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
+      "concept": "retention_marker",
       "matched_text": "retained 5 years",
-      "concept": "retention_marker",
       "reason": "Retention duration is a privacy governance marker, but no explicit allowed rule name for retention is provided."
     },
     {
+      "concept": "retention_marker",
       "matched_text": "18 months",
-      "concept": "retention_marker",
       "reason": "Retention duration is a privacy governance marker, but no explicit allowed rule name for retention is provided."
     },
     {
+      "concept": "retention_marker",
       "matched_text": "12 months",
-      "concept": "retention_marker",
       "reason": "Retention duration is a privacy governance marker, but no explicit allowed rule name for retention is provided."
     },
     {
+      "concept": "retention_marker",
       "matched_text": "24 months",
-      "concept": "retention_marker",
       "reason": "Retention duration is a privacy governance marker, but no explicit allowed rule name for retention is provided."
     },
     {
-      "matched_text": "Your rights: access, rectification, erasure, restriction, objection and portability under UK GDPR",
       "concept": "data_subject_rights / DSAR-ERASURE",
+      "matched_text": "Your rights: access, rectification, erasure, restriction, objection and portability under UK GDPR",
       "reason": "Data subject rights (incl. erasure/DSAR) are privacy-event markers but there is no specific allowed rule other than consent_withdrawal_marker."
     },
     {
-      "matched_text": "DSAR correspondence 24 months",
       "concept": "DSAR_retention",
+      "matched_text": "DSAR correspondence 24 months",
       "reason": "DSAR-related retention is relevant for privacy governance, but there is no explicit allowed rule for DSAR or retention markers."
     },
     {
-      "matched_text": "ticket SR‑T id: 9 9 2 0/BR",
       "concept": "internal_ticket_id",
+      "matched_text": "ticket SR\u2011T id: 9 9 2 0/BR",
       "reason": "Internal ticket identifiers can be personal data if linked to individuals, but no specific allowed PII rule covers generic ticket IDs."
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "sector_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 19,
-    "current_must_detect_count": 17,
-    "previous_ideal_must_detect_count": 30,
-    "current_ideal_must_detect_count": 37,
-    "previous_must_not_detect_count": 4,
-    "current_must_not_detect_count": 4
-  }
+  ]
 }

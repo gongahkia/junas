@@ -1,100 +1,152 @@
 {
-  "doc_id": "uk_jurisdictional_mnpi_incident_report_negative_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "security@sablethorpefinancial.co.uk"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "vendor.management@sablethorpefinancial.co.uk"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Materiality: based on FCA Handbook and Listing Rule guidance, the event is assessed as not material to the Group; no guidance changes contemplated."
-    },
-    {
-      "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "007241"
-    },
-    {
-      "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "subject to Board sign-off"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 13,
+    "current_must_detect_count": 5,
+    "current_must_not_detect_count": 2,
+    "previous_ideal_must_detect_count": 11,
+    "previous_must_detect_count": 5,
+    "previous_must_not_detect_count": 2
+  },
+  "_taxonomy_concept": "jurisdictional_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_jurisdictional_mnpi_incident_report_negative_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "security@sablethorpefinancial.co.uk"
+      "matched_text": "security@sablethorpefinancial.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "vendor.management@sablethorpefinancial.co.uk"
+      "matched_text": "vendor.management@sablethorpefinancial.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information"
+      "matched_text": "inside information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "inside information under UK MAR"
+      "matched_text": "inside information under UK MAR",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "closed period"
+      "matched_text": "closed period",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "contingent_mnpi_language",
-      "matched_text": "subject to Board sign-off"
+      "matched_text": "subject to Board sign-off",
+      "rule": "contingent_mnpi_language"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "PDMR dealing restrictions"
+      "matched_text": "PDMR dealing restrictions",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "08:00 BST on 21 June 2026"
+      "matched_text": "08:00 BST on 21 June 2026",
+      "rule": "embargo_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "only anonymised synthetic test datasets were accessed"
+      "matched_text": "only anonymised synthetic test datasets were accessed",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "no names, addresses, account numbers, or government identifiers are processed in that environment"
+      "matched_text": "no names, addresses, account numbers, or government identifiers are processed in that environment",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "any strings resembling IBANs, NI numbers, or card PANs in the logs were placeholders"
+      "matched_text": "any strings resembling IBANs, NI numbers, or card PANs in the logs were placeholders",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Materiality: based on FCA Handbook and Listing Rule guidance, the event is assessed as not material to the Group; no guidance changes contemplated."
+      "matched_text": "Materiality: based on FCA Handbook and Listing Rule guidance, the event is assessed as not material to the Group; no guidance changes contemplated.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "007241"
+      "matched_text": "007241",
+      "rule": "large_number"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "security@sablethorpefinancial.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "vendor.management@sablethorpefinancial.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Materiality: based on FCA Handbook and Listing Rule guidance, the event is assessed as not material to the Group; no guidance changes contemplated.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "007241",
+      "rule": "large_number"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "subject to Board sign-off",
+      "rule": "contingent_mnpi_language"
     }
   ],
   "must_not_detect": [
@@ -107,47 +159,22 @@
       "reason": "Generic entity reference, not PII or MNPI"
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "INC-ALB-007241",
       "concept": "internal reference identifier",
+      "matched_text": "INC-ALB-007241",
       "reason": "Could be an internal case ID; not clearly covered by allowed PII rules"
     },
     {
-      "matched_text": "INC-000-FAKE-9201",
       "concept": "internal reference identifier",
+      "matched_text": "INC-000-FAKE-9201",
       "reason": "Internal ticket/case ID; ambiguous whether any PII rule should cover it"
     },
     {
-      "matched_text": "QCL-TEST-8842",
       "concept": "internal reference identifier",
+      "matched_text": "QCL-TEST-8842",
       "reason": "Supplier case ID; not clearly within any allowed PII rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "jurisdictional_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 5,
-    "current_must_detect_count": 5,
-    "previous_ideal_must_detect_count": 11,
-    "current_ideal_must_detect_count": 13,
-    "previous_must_not_detect_count": 2,
-    "current_must_not_detect_count": 2
-  }
+  ]
 }

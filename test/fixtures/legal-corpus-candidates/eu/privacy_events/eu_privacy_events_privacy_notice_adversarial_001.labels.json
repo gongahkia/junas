@@ -1,135 +1,187 @@
 {
-  "doc_id": "eu_privacy_events_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "EU",
-  "destination_jurisdiction": "EU",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Sirka Vahl"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Emile Toral"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Inga Dravik"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Security: encryption at rest (AES-256), key vault EU-only; h o s t n a m e: srv-alv-eu09; access via SSO; no remote device inventory (incl. MACs) is stored; no personal data breach has occurred or been notifiable to a Supervisory Authority."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 17,
+    "current_must_detect_count": 8,
+    "current_must_not_detect_count": 7,
+    "previous_ideal_must_detect_count": 13,
+    "previous_must_detect_count": 9,
+    "previous_must_not_detect_count": 7
+  },
+  "_taxonomy_concept": "privacy_events",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "EU",
+  "doc_id": "eu_privacy_events_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Sirka Vahl"
+      "matched_text": "Ms. Sirka Vahl",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "dpo@alveon-fabrika.eu"
+      "matched_text": "dpo@alveon-fabrika.eu",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "Cross-border transfer event"
+      "matched_text": "Cross-border transfer event",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "Minimisation"
+      "matched_text": "Minimisation",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "Consent withdrawal"
+      "matched_text": "Consent withdrawal",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Dr. Emile Toral"
+      "matched_text": "Dr. Emile Toral",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Inga Dravik"
+      "matched_text": "Ms. Inga Dravik",
+      "rule": "named_person"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project “TERRA-Bond”"
+      "matched_text": "Project \u201cTERRA-Bond\u201d",
+      "rule": "transaction_codename"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "px_0a9"
+      "matched_text": "px_0a9",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "internal_session_id",
-      "matched_text": "E-19%2FGRX"
+      "matched_text": "E-19%2FGRX",
+      "rule": "internal_session_id"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "C9-Ø7-1A"
+      "matched_text": "C9-\u00d87-1A",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "customer_account_number",
-      "matched_text": "cust•••4942"
+      "matched_text": "cust\u2022\u2022\u20224942",
+      "rule": "customer_account_number"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Security: encryption at rest (AES-256), key vault EU-only; h o s t n a m e: srv-alv-eu09; access via SSO; no remote device inventory (incl. MACs) is stored; no personal data breach has occurred or been notifiable to a Supervisory Authority."
+      "matched_text": "Security: encryption at rest (AES-256), key vault EU-only; h o s t n a m e: srv-alv-eu09; access via SSO; no remote device inventory (incl. MACs) is stored; no personal data breach has occurred or been notifiable to a Supervisory Authority.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "confidential"
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Sirka Vahl",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Dr. Emile Toral",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Inga Dravik",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Security: encryption at rest (AES-256), key vault EU-only; h o s t n a m e: srv-alv-eu09; access via SSO; no remote device inventory (incl. MACs) is stored; no personal data breach has occurred or been notifiable to a Supervisory Authority.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "confidential",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -162,67 +214,42 @@
       "reason": "Negated; indicates special-category data are not collected"
     }
   ],
+  "source_jurisdiction": "EU",
   "uncertain": [
     {
-      "matched_text": "DSAR",
       "concept": "DSAR marker",
+      "matched_text": "DSAR",
       "reason": "Legally relevant privacy event but no explicit allowed rule for DSAR marker provided"
     },
     {
-      "matched_text": "erasure of marketing preference confirmed on 2026-05-25",
       "concept": "Erasure marker",
+      "matched_text": "erasure of marketing preference confirmed on 2026-05-25",
       "reason": "Erasure event is relevant but no explicit allowed rule for erasure marker provided"
     },
     {
-      "matched_text": "Retention",
       "concept": "Retention marker",
+      "matched_text": "Retention",
       "reason": "Retention policy marker is relevant but no explicit allowed rule for retention marker provided"
     },
     {
-      "matched_text": "delay of disclosure closed on 2026-04-30",
       "concept": "MAR delay of disclosure",
+      "matched_text": "delay of disclosure closed on 2026-04-30",
       "reason": "Indicates prior disclosure delay under MAR; not clearly covered by listed MNPI rules"
     },
     {
-      "matched_text": "7f:aa:9c",
       "concept": "Checksum vs MAC address fragment",
+      "matched_text": "7f:aa:9c",
       "reason": "Could be misinterpreted by detectors as a MAC address; context says checksum"
     },
     {
-      "matched_text": "third country",
       "concept": "Cross-border context",
+      "matched_text": "third country",
       "reason": "Indicates international transfer destination but not an explicit transfer-event marker"
     },
     {
-      "matched_text": "no onward transfer without written consent from Alveon Fabrika SE",
       "concept": "Onward transfer consent condition",
+      "matched_text": "no onward transfer without written consent from Alveon Fabrika SE",
       "reason": "Privacy-relevant control on onward transfers without a matching allowed rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "privacy_events",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "EU Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "eu-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "EU Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 9,
-    "current_must_detect_count": 8,
-    "previous_ideal_must_detect_count": 13,
-    "current_ideal_must_detect_count": 17,
-    "previous_must_not_detect_count": 7,
-    "current_must_not_detect_count": 7
-  }
+  ]
 }

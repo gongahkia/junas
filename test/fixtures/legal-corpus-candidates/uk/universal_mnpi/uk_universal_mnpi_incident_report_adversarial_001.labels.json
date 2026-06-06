@@ -1,270 +1,322 @@
 {
-  "doc_id": "uk_universal_mnpi_incident_report_adversarial_001",
-  "document_type": "memo",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "incident@northroyd.example"
-    },
-    {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "coordinator@northroyd.example"
-    },
-    {
-      "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 0 2 0 7 123 0000"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priyanka Meldrum"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Owen Talgarth"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lila Brays"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Alistair Perwick"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "In parallel, Project LAMPLIGHT (proposed acquisition of Hearthmere Payments Ltd) reached agreed terms on a definitive Share Purchase Agreement (SPA) for 100% of the equity at £128.5m cash, plus a 20% earn‑out contingent on FY27 EBITDA."
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Investor‑relations draft line for the H1 update is prepared but must not be disseminated before the embargo: “We have executed a definitive agreement to acquire Hearthmere Payments Ltd; completion expected in Q4, subject to FCA change of control consents”."
-    },
-    {
-      "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
-    },
-    {
-      "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project LAMPLIGHT"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "definitive agreement"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE clause"
-    },
-    {
-      "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "Material Adverse Effect"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£128.5m"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "100%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "20%"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "restricted list"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 33,
+    "current_must_detect_count": 19,
+    "current_must_not_detect_count": 3,
+    "previous_ideal_must_detect_count": 27,
+    "previous_must_detect_count": 19,
+    "previous_must_not_detect_count": 3
+  },
+  "_taxonomy_concept": "universal_mnpi",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_universal_mnpi_incident_report_adversarial_001",
+  "document_type": "memo",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priyanka Meldrum"
+      "matched_text": "Ms. Priyanka Meldrum",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Owen Talgarth"
+      "matched_text": "Mr. Owen Talgarth",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Lila Brays"
+      "matched_text": "Ms. Lila Brays",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Mr. Alistair Perwick"
+      "matched_text": "Mr. Alistair Perwick",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "incident@northroyd.example"
+      "matched_text": "incident@northroyd.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "inside‑list‑coordinator@northroyd.example"
+      "matched_text": "inside\u2011list\u2011coordinator@northroyd.example",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 0 2 0 7 123 0000"
+      "matched_text": "+44 0 2 0 7 123 0000",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "bank_customer_reference",
-      "matched_text": "ACCT‑***4921"
+      "matched_text": "ACCT\u2011***4921",
+      "rule": "bank_customer_reference"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "INSIDE INFORMATION"
+      "matched_text": "INSIDE INFORMATION",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "transaction_codename",
-      "matched_text": "Project LAMPLIGHT"
+      "matched_text": "Project LAMPLIGHT",
+      "rule": "transaction_codename"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "Embargo until 14 Aug 2026 07:00 BST"
+      "matched_text": "Embargo until 14 Aug 2026 07:00 BST",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "cyber_incident_pre_disclosure",
-      "matched_text": "cyber incident"
+      "matched_text": "cyber incident",
+      "rule": "cyber_incident_pre_disclosure"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "Share Purchase Agreement"
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "financial_amount",
-      "matched_text": "£128.5m"
+      "matched_text": "\u00a3128.5m",
+      "rule": "financial_amount"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "100%"
+      "matched_text": "100%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "financial_percentage",
-      "matched_text": "20%"
+      "matched_text": "20%",
+      "rule": "financial_percentage"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "MAE clause"
+      "matched_text": "MAE clause",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "material_adverse_change",
-      "matched_text": "Material Adverse Effect"
+      "matched_text": "Material Adverse Effect",
+      "rule": "material_adverse_change"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "Inside Information"
+      "matched_text": "Inside Information",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "circulation limited to Insiders under UK MAR"
+      "matched_text": "circulation limited to Insiders under UK MAR",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "restricted list"
+      "matched_text": "restricted list",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "MNPI",
-      "rule": "selective_disclosure_risk",
-      "matched_text": "market soundings are suspended for non‑wall‑crossed investors"
+      "matched_text": "market soundings are suspended for non\u2011wall\u2011crossed investors",
+      "rule": "selective_disclosure_risk"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "must not be disseminated before the embargo"
+      "matched_text": "must not be disseminated before the embargo",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "embargo_marker",
-      "matched_text": "not for release via a Primary Information Provider before 14 Aug 2026"
+      "matched_text": "not for release via a Primary Information Provider before 14 Aug 2026",
+      "rule": "embargo_marker"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "proposed acquisition of Hearthmere Payments Ltd"
+      "matched_text": "proposed acquisition of Hearthmere Payments Ltd",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "definitive agreement to acquire Hearthmere Payments Ltd"
+      "matched_text": "definitive agreement to acquire Hearthmere Payments Ltd",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "large_number",
-      "matched_text": "8,400"
+      "matched_text": "8,400",
+      "rule": "large_number"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "coordinator@northroyd.example"
+      "matched_text": "coordinator@northroyd.example",
+      "rule": "email_address"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "In parallel, Project LAMPLIGHT (proposed acquisition of Hearthmere Payments Ltd) reached agreed terms on a definitive Share Purchase Agreement (SPA) for 100% of the equity at £128.5m cash, plus a 20% earn‑out contingent on FY27 EBITDA."
+      "matched_text": "In parallel, Project LAMPLIGHT (proposed acquisition of Hearthmere Payments Ltd) reached agreed terms on a definitive Share Purchase Agreement (SPA) for 100% of the equity at \u00a3128.5m cash, plus a 20% earn\u2011out contingent on FY27 EBITDA.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "material_event",
-      "matched_text": "Investor‑relations draft line for the H1 update is prepared but must not be disseminated before the embargo: “We have executed a definitive agreement to acquire Hearthmere Payments Ltd; completion expected in Q4, subject to FCA change of control consents”."
+      "matched_text": "Investor\u2011relations draft line for the H1 update is prepared but must not be disseminated before the embargo: \u201cWe have executed a definitive agreement to acquire Hearthmere Payments Ltd; completion expected in Q4, subject to FCA change of control consents\u201d.",
+      "rule": "material_event"
     },
     {
       "category": "MNPI",
-      "rule": "nonpublic_marker",
-      "matched_text": "restricted"
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
     },
     {
       "category": "MNPI",
-      "rule": "definitive_agreement",
-      "matched_text": "definitive agreement"
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "restricted list"
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "incident@northroyd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "coordinator@northroyd.example",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "+44 0 2 0 7 123 0000",
+      "rule": "phone_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priyanka Meldrum",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Owen Talgarth",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Lila Brays",
+      "rule": "named_person"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Mr. Alistair Perwick",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "In parallel, Project LAMPLIGHT (proposed acquisition of Hearthmere Payments Ltd) reached agreed terms on a definitive Share Purchase Agreement (SPA) for 100% of the equity at \u00a3128.5m cash, plus a 20% earn\u2011out contingent on FY27 EBITDA.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Investor\u2011relations draft line for the H1 update is prepared but must not be disseminated before the embargo: \u201cWe have executed a definitive agreement to acquire Hearthmere Payments Ltd; completion expected in Q4, subject to FCA change of control consents\u201d.",
+      "rule": "material_event"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted",
+      "rule": "nonpublic_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Project LAMPLIGHT",
+      "rule": "transaction_codename"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Share Purchase Agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "definitive agreement",
+      "rule": "definitive_agreement"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "MAE clause",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Material Adverse Effect",
+      "rule": "material_adverse_change"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "\u00a3128.5m",
+      "rule": "financial_amount"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "100%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "20%",
+      "rule": "financial_percentage"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "restricted list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -281,52 +333,27 @@
       "reason": "role noun label, not PII/MNPI"
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "ZZ1 1ZZ",
       "concept": "postal_code",
+      "matched_text": "ZZ1 1ZZ",
       "reason": "UK postcode is personal data in context but no explicit UK postal code rule in allowed list"
     },
     {
-      "matched_text": "NB/SEC/2026‑08/0O1l1",
       "concept": "internal_case_reference",
+      "matched_text": "NB/SEC/2026\u201108/0O1l1",
       "reason": "Could be a personal-data-linked internal identifier but no specific rule covers generic case refs"
     },
     {
-      "matched_text": "INC‑NB‑I1O‑8A",
       "concept": "internal_ticket_id",
+      "matched_text": "INC\u2011NB\u2011I1O\u20118A",
       "reason": "Internal ticket identifiers can be personal data when linked to individuals but not covered by allowed rules"
     },
     {
-      "matched_text": "northroyd‑arch1ve‑bk‑2026",
       "concept": "system_identifier",
+      "matched_text": "northroyd\u2011arch1ve\u2011bk\u20112026",
       "reason": "System/bucket tag may link to individuals or datasets but no matching PII rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "universal_mnpi",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 19,
-    "current_must_detect_count": 19,
-    "previous_ideal_must_detect_count": 27,
-    "current_ideal_must_detect_count": 33,
-    "previous_must_not_detect_count": 3,
-    "current_must_not_detect_count": 3
-  }
+  ]
 }

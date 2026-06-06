@@ -1,140 +1,192 @@
 {
-  "doc_id": "uk_direct_identifiers_privacy_notice_adversarial_001",
-  "document_type": "generic",
-  "source_jurisdiction": "UK",
-  "destination_jurisdiction": "UK",
-  "must_detect": [
+  "_human_review": {
+    "decision": "approve",
+    "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "reviewed_at_utc": "2026-06-06T04:32:33Z",
+    "reviewed_label_model": "azure:gpt-5-2",
+    "reviewed_label_source": "azure:gpt-5-2-auto",
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "approved"
+  },
+  "_human_review_history": [
     {
-      "category": "PII",
-      "rule": "email_address",
-      "matched_text": "priya.hawthorne@thistlebridge.co.uk"
-    },
-    {
-      "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "533497182"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
-    },
-    {
-      "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
-    },
-    {
-      "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Hawthorne"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossing"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider lists"
-    },
-    {
-      "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "decision": "approve",
+      "notes": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+      "reviewed_at_utc": "2026-06-06T04:32:33Z",
+      "reviewed_label_model": "azure:gpt-5-2",
+      "reviewed_label_source": "azure:gpt-5-2-auto",
+      "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+      "status": "approved"
     }
   ],
+  "_human_review_status": "approved",
+  "_label_model": "azure:gpt-5-2",
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
+  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
+  "_label_warnings": [],
+  "_owner_acceptance": {
+    "basis": "Project owner stated they manually reviewed the UK/EU Stage B generated/reconciled tests and approved them for internal/project benchmarking. This is not legal advice, external counsel review, procurement-grade legal approval, or recall-lock promotion.",
+    "not_legal_advice": true,
+    "not_recall_lock_promotion": true,
+    "reviewer": "gongahkia-project-owner-manual-stage-b-review",
+    "status": "owner_approved_stage_b_for_internal_benchmarking"
+  },
+  "_strict_reconciliation": {
+    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
+    "removed_must_not_spans_detected_by_engine": 0,
+    "reviewed_at_utc": "2026-06-06T03:41:01Z",
+    "reviewer": "Codex GPT-5.5",
+    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
+    "status": "codex_reconciled_pending_owner_review",
+    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes"
+  },
+  "_strict_reconciliation_adjustments": {
+    "current_ideal_must_detect_count": 17,
+    "current_must_detect_count": 9,
+    "current_must_not_detect_count": 12,
+    "previous_ideal_must_detect_count": 13,
+    "previous_must_detect_count": 8,
+    "previous_must_not_detect_count": 12
+  },
+  "_taxonomy_concept": "direct_identifiers",
+  "_taxonomy_version": "architecture-pivot-2026-05-26",
+  "destination_jurisdiction": "UK",
+  "doc_id": "uk_direct_identifiers_privacy_notice_adversarial_001",
+  "document_type": "generic",
   "ideal_must_detect": [
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "privacy@thistlebridge.co.uk"
+      "matched_text": "privacy@thistlebridge.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "phone_number",
-      "matched_text": "+44 20 3123 7788"
+      "matched_text": "+44 20 3123 7788",
+      "rule": "phone_number"
     },
     {
       "category": "PII",
-      "rule": "named_person",
-      "matched_text": "Ms. Priya Hawthorne"
+      "matched_text": "Ms. Priya Hawthorne",
+      "rule": "named_person"
     },
     {
       "category": "PII",
-      "rule": "email_address",
-      "matched_text": "priya.hawthorne@thistlebridge.co.uk"
+      "matched_text": "priya.hawthorne@thistlebridge.co.uk",
+      "rule": "email_address"
     },
     {
       "category": "PII",
-      "rule": "uk_nin",
-      "matched_text": "Q D 12 34 56 A"
+      "matched_text": "Q D 12 34 56 A",
+      "rule": "uk_nin"
     },
     {
       "category": "PII",
-      "rule": "passport_number",
-      "matched_text": "533497182"
+      "matched_text": "533497182",
+      "rule": "passport_number"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider lists"
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "Insider lists"
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "wall-crossing records"
+      "matched_text": "wall-crossing records",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "information_barrier_marker",
-      "matched_text": "deal walls"
+      "matched_text": "deal walls",
+      "rule": "information_barrier_marker"
     },
     {
       "category": "MNPI",
-      "rule": "blackout_period_reference",
-      "matched_text": "silent window"
+      "matched_text": "silent window",
+      "rule": "blackout_period_reference"
     },
     {
       "category": "PII",
-      "rule": "cross_border_transfer_marker",
-      "matched_text": "limited transfers to the EEA and Jersey"
+      "matched_text": "limited transfers to the EEA and Jersey",
+      "rule": "cross_border_transfer_marker"
     },
     {
       "category": "PII",
-      "rule": "data_minimisation_marker",
-      "matched_text": "include only information necessary to identify you"
+      "matched_text": "include only information necessary to identify you",
+      "rule": "data_minimisation_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "DSAR"
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "PII",
-      "rule": "consent_withdrawal_marker",
-      "matched_text": "dsar"
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "wall-crossing"
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
     },
     {
       "category": "MNPI",
-      "rule": "insider_list_marker",
-      "matched_text": "insider list"
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
+    }
+  ],
+  "must_detect": [
+    {
+      "category": "PII",
+      "matched_text": "priya.hawthorne@thistlebridge.co.uk",
+      "rule": "email_address"
+    },
+    {
+      "category": "PII",
+      "matched_text": "533497182",
+      "rule": "passport_number"
+    },
+    {
+      "category": "PII",
+      "matched_text": "DSAR",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "dsar",
+      "rule": "consent_withdrawal_marker"
+    },
+    {
+      "category": "PII",
+      "matched_text": "Ms. Priya Hawthorne",
+      "rule": "named_person"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "wall-crossing",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "Insider lists",
+      "rule": "insider_list_marker"
+    },
+    {
+      "category": "MNPI",
+      "matched_text": "insider list",
+      "rule": "insider_list_marker"
     }
   ],
   "must_not_detect": [
@@ -187,72 +239,47 @@
       "reason": "Does not match 'Project <CapitalizedName>' transaction codename pattern"
     }
   ],
+  "source_jurisdiction": "UK",
   "uncertain": [
     {
-      "matched_text": "UTR 74081 96213",
       "concept": "UK UTR (tax identifier)",
+      "matched_text": "UTR 74081 96213",
       "reason": "Likely personal or business tax ID but no explicit UK UTR rule in allowed list"
     },
     {
-      "matched_text": "case=TB-2026-017",
       "concept": "DSAR case reference",
+      "matched_text": "case=TB-2026-017",
       "reason": "Unique internal case identifier; no explicit rule provided"
     },
     {
-      "matched_text": "ref=UTR-7408196213",
       "concept": "Tax-reference parameter",
+      "matched_text": "ref=UTR-7408196213",
       "reason": "Appears to encode a UTR but not covered by an allowed rule"
     },
     {
+      "concept": "Retention schedule",
       "matched_text": "insider list entries retained 5 years after list closure",
-      "concept": "Retention schedule",
       "reason": "Retention markers are legally relevant but no explicit retention rule in allowed list"
     },
     {
+      "concept": "Retention schedule",
       "matched_text": "HR files 6 years post-employment",
-      "concept": "Retention schedule",
       "reason": "Retention markers are legally relevant but no explicit retention rule in allowed list"
     },
     {
+      "concept": "Retention schedule",
       "matched_text": "voice recordings 3 years",
-      "concept": "Retention schedule",
       "reason": "Retention markers are legally relevant but no explicit retention rule in allowed list"
     },
     {
+      "concept": "Retention schedule",
       "matched_text": "routine system logs 180 days unless a regulatory hold applies",
-      "concept": "Retention schedule",
       "reason": "Retention markers are legally relevant but no explicit retention rule in allowed list"
     },
     {
-      "matched_text": "restricted",
       "concept": "Restricted list/period marker",
+      "matched_text": "restricted",
       "reason": "Could indicate issuer restriction context but not mapped to a specific allowed MNPI rule"
     }
-  ],
-  "_label_source": "azure:gpt-5-2-auto",
-  "_label_model": "azure:gpt-5-2",
-  "_label_warnings": [],
-  "_taxonomy_concept": "direct_identifiers",
-  "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_human_review_status": "pending",
-  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16.",
-  "_label_tier_note": "UK Stage B cleanup: must_detect is the strict detector-aligned benchmark tier; ideal_must_detect preserves broader auto-labeled statutory coverage for gap discovery. Pending labels still require project-owner approval before promotion-ready status.",
-  "_label_tiers_version": "uk-stage-b-strict-realign-2026-06-06",
-  "_strict_reconciliation": {
-    "status": "codex_reconciled_pending_owner_review",
-    "reviewer": "Codex GPT-5.5",
-    "reviewed_at_utc": "2026-06-06T03:41:01Z",
-    "source_report": "/tmp/kaypoh-uk-eu-stage-b-after-precision.json",
-    "strict_source": "PreSendReviewEngine.review(..., review_profile='strict') after narrow UK/EU Stage B precision fixes",
-    "basis": "UK Stage B auto-label strict tier was reconciled to deterministic strict-mode engine findings; original auto-label breadth is preserved in ideal_must_detect for gap discovery. This is internal benchmark cleanup, not legal advice or procurement-grade review.",
-    "removed_must_not_spans_detected_by_engine": 0
-  },
-  "_strict_reconciliation_adjustments": {
-    "previous_must_detect_count": 8,
-    "current_must_detect_count": 9,
-    "previous_ideal_must_detect_count": 13,
-    "current_ideal_must_detect_count": 17,
-    "previous_must_not_detect_count": 12,
-    "current_must_not_detect_count": 12
-  }
+  ]
 }
