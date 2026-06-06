@@ -1,0 +1,16 @@
+Northshard Capital plc — Operational & Privacy Incident Report (UK issuer; oversight under UKMA guidance and CEX‑Lon listing context)
+04/06/2026 18:05 BST: SFTP payload for a vendor regression test was routed to an external sandbox during credential rotation; the event implicated UK GDPR controls but no unauthorised party accessed live systems.
+Involved dataset: 27 employment onboarding forms and 4 client KYC packs; all were template‑redacted and did not include bank details; no MNPI or precise non‑public issuer information was present.
+DSAR: Mr. Darius Ruskin (ex‑analyst) submitted DSAR #RSK‑88 on 05/06/2026 via privacy@northshard.capital; we provided a copy of his personnel file and processing log on 06/06/2026.
+Consent withdrawal and erasure: Mr. Ruskin withdrew consent for marketing; non‑mandatory contact fields were erased on 06/06/2026; core HR records are retained per schedule HR‑RET‑5Y (legitimate interests/contract).
+Cross‑border transfer: temporary sandbox in Lydonia at Greyharbor Processing Pte operated under DPA‑UK‑014 Schedule 3 with UK IDTA; Data Export Approval DEA/UK/24-0 7# was signed by Ms. Tamsin Greaves (DPO) prior to the test.
+Market abuse controls: no STOR was filed and the UK MAR test was documented as “not triggered” because the files contained no issuer‑level, price‑sensitive detail.
+Audit trail: IR‑24‑073; export log 17:43–17:44 BST; FileID NSC_KYC_Redact_v3.zip (hash 0x7e2a…b9); UserID eID:R1-7 4Z9; change ticket CHG‑22041 closed.
+Policy‑only note: the MAC clause in the facility agreement was not invoked, and no go/no‑go gate or financing covenant was affected.
+Minimisation: onboarding templates masked DoB (xx‑xx‑xxxx) and NI placeholders (NI‑***‑**‑**); non‑required fields suppressed by AtlasEdge v4.2 form rules.
+Public sources: verification of counterparty directors used Companies Almanac (public) and did not ingest personal addresses or private contact data.
+Retention: Q1 retention review under DPMS §8 completed; auto‑purge ran 02/04/2026 for expired CVs (job code JN‑  1199), evidenced by purge log PL‑2026‑Q1.
+Compliance memo CM‑OPS‑0626 (“Sandbox Export Incident”) appended; DPA Schedule 3 audit checklist signed by Ops and Legal.
+Notification: threshold for external reporting to the competent authority (UKMA) was not met; memo circulated to Ops/HR; contact dpo@northshard.capital or +44 7000 900900 (service line, fiction).
+we closed sprint 14 retro with no new actions; backlog item “dea form templating” remains low priority.
+For vendor follow‑up see https://intra.northshard.uk/exp?case=IR-24-073&x=dea-uk-24-07&u=Mr%20Ruskin and note line­break below: Data Pro cessor: Greyharbor Pro cessing Pte.

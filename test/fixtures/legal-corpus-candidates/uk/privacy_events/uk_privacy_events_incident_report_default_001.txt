@@ -1,0 +1,14 @@
+Operational Incident Report — Brackenridge Capital Markets Ltd (FRN 991234), UK regulated investment firm.
+7 June 2026 08:45 BST; Incident ID RCM-OPS-2026-061; reported by Mr. Alistair Kent (Ops).
+During an overnight SFTP patch, a vendor manifest misrouted a batch of HR onboarding forms to an internal quarantine folder; no external exfiltration observed in firewall or SFTP logs.
+The batch comprised 23 employee onboarding forms containing names, work emails, job titles, and start dates; no national insurance numbers or payroll bank details were ingested due to minimisation control G-DP-12.
+A DSAR from ex-employee Mr. Howard Pike (received via privacy@brackenridgecap.example) was fulfilled using canonical HR sources; his erasure request dated 3 June 2026 was executed at 10:12 BST with deletion records stored in Vault UK-E3.
+A previously approved cross-border transfer (Data Export Approval UKX-2041) of trade surveillance alerts to Orbicrest Analytics Pvt Ltd (Bengaluru) proceeded under the UK IDTA and encryption policy KMS-UK-5; the misrouted HR batch was expressly excluded from that export.
+Marketing consent for candidate Ms. Eliza Rowan was withdrawn on 12 May 2026; her profile remained tagged “do-not-contact” and was not processed for talent pooling or CRM outreach.
+HR retention schedule R-EMP-6 applied: onboarding forms are retained for 6 years; the quarantined duplicates were logged and purged from staging within 2 hours in accordance with DPP-RET-04.
+A restricted folder labelled “Project Alder” (issuer-side deal materials) resides on the same file server; monitoring confirms no access to that MNPI and no disclosure in contravention of UK MAR.
+We notified the DPO, Ms. Farah Lind, and reviewed FCA Handbook SYSC 3 controls; threshold for notifying the ICO under UK GDPR Art. 33 was not met.
+Vendor DPA Schedule 2 (International Transfers) and Annex B (TOMs) were re-validated post-incident; key rotation completed on 06 June 2026 with audit hash A7C1-UK-2026.
+Contrary to initial reports, there was no live connection from any third-country IP to the HR SFTP, and the planned export job “HR-GB-US-091” was cancelled before execution.
+No issuer announcements were drafted or released, and no information likely to affect the price of securities admitted to trading on a UK regulated venue was created or disseminated.
+For queries contact dpo@brackenridgecap.example or Mr. Julian North (Risk) on +44 20 7940 1020; escalation to the FCA will occur only if subsequent forensics indicate unauthorised disclosure.
