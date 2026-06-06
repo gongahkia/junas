@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import { listClauses } from "../../lib/api-client";
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 type Clause = { id: string; name: string; category: string; jurisdiction: string; description: string; standard: string; aggressive: string; balanced: string; protective: string; notes: string };
 type Tone = "standard" | "aggressive" | "balanced" | "protective";
 
@@ -12,8 +12,7 @@ export default function ClausesPage() {
   const [tone, setTone] = useState<Tone>("standard");
 
   useEffect(() => {
-    fetch(`${API}/api/v1/clauses?query=${encodeURIComponent(query)}`)
-      .then((r) => r.json()).then(setClauses).catch(() => {});
+    listClauses(query).then(setClauses).catch(() => {});
   }, [query]);
 
   return (

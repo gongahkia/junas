@@ -1,12 +1,177 @@
 /**
- * Junas API client — replaces tauri-bridge.ts
- * All backend calls go through HTTP to the FastAPI backend.
+ * browser api boundary
+ *
+ * this file is the single endpoint contract for the frontend. add or change
+ * backend routes in createApiClient only. the browser export binds that
+ * contract to window-aware fetch/localStorage behavior; api-server.ts binds
+ * the same contract to the SSR/RSC no-store transport.
  */
 const API_BASE = typeof window !== "undefined"
   ? (window as any).__NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
   : process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
-function apiUrl(path: string): string {
+export type ApiTransport = (path: string, init?: RequestInit) => Promise<Response>;
+export type ApiError = { error?: string };
+export type ChatMessage = { role: string; content: string };
+export type ChatStreamOptions = {
+  provider: string;
+  model?: string;
+  messages: ChatMessage[];
+  temperature?: number;
+  maxTokens?: number;
+  topP?: number;
+  systemPrompt?: string;
+  apiKey?: string;
+  endpoint?: string;
+  signal?: AbortSignal;
+};
+export type ChatSendResponse = { content: string; model: string; provider?: string };
+export type ProviderInfo = {
+  id: string;
+  label: string;
+  default_model: string;
+  is_local: boolean;
+  token_budget: number;
+};
+export type Clause = {
+  id: string;
+  name: string;
+  category: string;
+  jurisdiction: string;
+  description: string;
+  standard: string;
+  aggressive: string;
+  balanced: string;
+  protective: string;
+  notes: string;
+};
+export type ClauseTone = "standard" | "aggressive" | "balanced" | "protective";
+export type ClauseToneResponse = { clause_id: string; tone: string; wording: string } & ApiError;
+export type TemplateVariable = { name: string; label: string; placeholder: string; type: string };
+export type Template = {
+  id: string;
+  title: string;
+  category: string;
+  jurisdiction: string;
+  description: string;
+  variables: TemplateVariable[];
+  content: string;
+};
+export type RenderTemplateResponse = { template_id?: string; rendered?: string } & ApiError;
+export type ComplianceRule = {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  keywords: string[];
+  severity: string;
+  jurisdiction: string;
+};
+export type ComplianceCheckResult = {
+  rule_id: string;
+  rule_name: string;
+  status: string;
+  details: string;
+  severity: string;
+};
+export type ComplianceSummary = { total: number; passed: number; warnings: number; failed: number };
+export type ComplianceCheckResponse = {
+  results: ComplianceCheckResult[];
+  summary: ComplianceSummary;
+  jurisdiction?: string;
+} & ApiError;
+export type ParseDocumentResponse = {
+  filename: string;
+  text: string;
+  page_count?: number;
+  char_count?: number;
+  detail?: unknown;
+};
+export type Jurisdiction = {
+  id: string;
+  name: string;
+  short_name: string;
+  citation_patterns?: Array<{ kind: string; regex: string; description: string }>;
+  legal_source_domains?: string[];
+  system_prompt_addition: string;
+  template_ids?: string[];
+};
+export type LegalSourceResult = { title: string; url: string; snippet: string; source: string };
+export type GlossarySearchResult = {
+  phrase: string;
+  definition_html: string;
+  definition_text: string;
+  jurisdiction: string;
+  domain: string;
+  source_title: string;
+  source_url: string;
+  score: number;
+};
+export type GlossarySearchResponse = {
+  total: number;
+  page: number;
+  per_page: number;
+  results: GlossarySearchResult[];
+  aggregations: { jurisdictions: Record<string, number>; domains: Record<string, number> };
+};
+export type GlossaryDefinition = {
+  jurisdiction: string;
+  domain: string;
+  definition_html: string;
+  definition_text: string;
+  source_title: string;
+  source_url: string;
+};
+export type GlossaryTermResponse = { phrase: string; definitions: GlossaryDefinition[] };
+export type GlossaryCompareResponse = {
+  term: string;
+  comparisons: Array<{ jurisdiction: string; domain: string; definition_text: string }>;
+  available_in: string[];
+  not_found_in: string[];
+};
+export type GlossarySuggestResponse = { suggestions: string[] };
+export type GlossaryJurisdictionsResponse = {
+  jurisdictions: Array<{ code: string; name: string; count: number; domains: string[] }>;
+};
+export type StatuteSearchResponse = { total: number; results: Array<Record<string, any>> };
+export type StatuteChaptersResponse = { chapters: Array<Record<string, any>> };
+export type SearchCasesResponse = { results?: Array<Record<string, any>>; cases?: Array<Record<string, any>> } & ApiError;
+export type ChargesResponse = { charges: string[] };
+export type EntityTypesResponse = {
+  fine_grained: Array<Record<string, any>>;
+  coarse_grained: Array<Record<string, any>>;
+};
+export type EntityExtractionResponse = Record<string, any> & ApiError;
+export type ContractClassifyResponse = Record<string, any> & ApiError;
+export type ResearchResponse = Record<string, any> & ApiError;
+export type ReadyResponse = { services: Record<string, boolean> };
+export type MetricsResponse = Record<string, any>;
+export type BenchmarkTask = { name: string };
+export type BenchmarkEvaluator = { name: string; strength: "strong" | "weak" };
+export type BenchmarkLeaderboardEntry = {
+  run_id: string;
+  workflow: string;
+  dataset: string;
+  finished_at: string;
+  total_cases: number;
+  per_evaluator_mean: Record<string, number>;
+  strict: boolean;
+  data_tier?: "regulator" | "synthetic" | "mixed";
+};
+export type BenchmarkLeaderboard = {
+  entries: BenchmarkLeaderboardEntry[];
+  aggregated_per_workflow: Record<string, Record<string, number>>;
+};
+export type BenchmarkRunPayload = {
+  workflow: string;
+  dataset: string;
+  evaluators: string[];
+  max_concurrency?: number;
+  strict?: boolean;
+};
+export type BenchmarkRunResponse = Record<string, any> & ApiError;
+
+export function apiUrl(path: string): string {
   return `${API_BASE}/api/v1${path}`;
 }
 
@@ -21,301 +186,446 @@ export function setStoredApiKey(provider: string, key: string): void {
   else localStorage.removeItem(`junas_apikey_${provider}`);
 }
 
-// streaming chat
-export async function* chatStream(opts: {
-  provider: string;
-  model?: string;
-  messages: { role: string; content: string }[];
-  temperature?: number;
-  maxTokens?: number;
-  systemPrompt?: string;
-  apiKey?: string;
-  endpoint?: string;
-}): AsyncGenerator<string> {
-  const apiKey = opts.apiKey || getStoredApiKey(opts.provider);
-  const resp = await fetch(apiUrl("/chat/stream"), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      provider: opts.provider,
-      model: opts.model || "",
-      messages: opts.messages,
-      temperature: opts.temperature,
-      max_tokens: opts.maxTokens || 4096,
-      system_prompt: opts.systemPrompt,
-      api_key: apiKey,
-      endpoint: opts.endpoint || "",
-    }),
-  });
-  if (!resp.ok) throw new Error(`Chat failed: ${resp.status}`);
-  const reader = resp.body?.getReader();
-  if (!reader) return;
-  const decoder = new TextDecoder();
-  let buffer = "";
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    buffer += decoder.decode(value, { stream: true });
-    const lines = buffer.split("\n");
-    buffer = lines.pop() || "";
-    for (const line of lines) {
-      if (!line.startsWith("data: ")) continue;
-      try {
-        const event = JSON.parse(line.slice(6));
-        if (event.error) throw new Error(event.error);
-        if (event.delta) yield event.delta;
-        if (event.done) return;
-      } catch {}
-    }
+function queryPath(path: string, params: URLSearchParams): string {
+  const query = params.toString();
+  return query ? `${path}?${query}` : path;
+}
+
+function jsonHeaders(headers?: HeadersInit): Headers {
+  const merged = new Headers(headers);
+  if (!merged.has("Content-Type")) merged.set("Content-Type", "application/json");
+  return merged;
+}
+
+function cleanPayload(payload: Record<string, unknown>): Record<string, unknown> {
+  return Object.fromEntries(Object.entries(payload).filter(([, value]) => value !== undefined));
+}
+
+async function errorMessage(resp: Response): Promise<string> {
+  const body = await resp.json().catch(() => null);
+  if (body && typeof body === "object" && "detail" in body) {
+    const detail = (body as { detail?: unknown }).detail;
+    return typeof detail === "string" ? detail : JSON.stringify(detail);
+  }
+  return `HTTP ${resp.status}`;
+}
+
+async function requestJson<T>(
+  transport: ApiTransport,
+  path: string,
+  init?: RequestInit,
+  fallback?: T,
+): Promise<T> {
+  try {
+    const resp = await transport(path, init);
+    if (!resp.ok && fallback !== undefined) return fallback;
+    return (await resp.json()) as T;
+  } catch {
+    if (fallback !== undefined) return fallback;
+    throw new Error("Network error");
   }
 }
 
-// non-streaming chat
-export async function chatSend(opts: {
-  provider: string;
-  model?: string;
-  messages: { role: string; content: string }[];
-  temperature?: number;
-  maxTokens?: number;
-  systemPrompt?: string;
-  apiKey?: string;
-}): Promise<{ content: string; model: string }> {
-  const apiKey = opts.apiKey || getStoredApiKey(opts.provider);
-  const resp = await fetch(apiUrl("/chat/send"), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      provider: opts.provider, model: opts.model || "",
-      messages: opts.messages, temperature: opts.temperature,
-      max_tokens: opts.maxTokens || 4096, system_prompt: opts.systemPrompt,
-      api_key: apiKey,
-    }),
-  });
-  if (!resp.ok) throw new Error(`Chat failed: ${resp.status}`);
-  return resp.json();
+async function postJson<T extends ApiError>(
+  transport: ApiTransport,
+  path: string,
+  body: unknown,
+  init: RequestInit = {},
+): Promise<T> {
+  try {
+    const resp = await transport(path, {
+      ...init,
+      method: "POST",
+      headers: jsonHeaders(init.headers),
+      body: JSON.stringify(body),
+    });
+    if (!resp.ok) return { error: await errorMessage(resp) } as T;
+    return (await resp.json()) as T;
+  } catch (err) {
+    return { error: err instanceof Error ? err.message : "Network error" } as T;
+  }
 }
 
-export async function listProviders() {
-  const resp = await fetch(apiUrl("/chat/providers"));
-  return resp.json();
+export function createApiClient(transport: ApiTransport) {
+  return {
+    async *chatStream(opts: ChatStreamOptions): AsyncGenerator<string> {
+      const apiKey = opts.apiKey || getStoredApiKey(opts.provider);
+      const resp = await transport("/chat/stream", {
+        method: "POST",
+        headers: jsonHeaders(),
+        body: JSON.stringify(cleanPayload({
+          provider: opts.provider,
+          model: opts.model || undefined,
+          messages: opts.messages,
+          temperature: opts.temperature,
+          max_tokens: opts.maxTokens || 4096,
+          top_p: opts.topP,
+          system_prompt: opts.systemPrompt || undefined,
+          api_key: apiKey,
+          endpoint: opts.endpoint || undefined,
+        })),
+        signal: opts.signal,
+      });
+      if (!resp.ok) throw new Error(`Chat failed: ${resp.status}`);
+      const reader = resp.body?.getReader();
+      if (!reader) return;
+      const decoder = new TextDecoder();
+      let buffer = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+        for (const line of lines) {
+          if (!line.startsWith("data: ")) continue;
+          try {
+            const event = JSON.parse(line.slice(6));
+            if (event.error) throw new Error(event.error);
+            if (event.delta) yield event.delta;
+            if (event.done) return;
+          } catch {}
+        }
+      }
+    },
+    async chatSend(opts: Omit<ChatStreamOptions, "signal">): Promise<ChatSendResponse> {
+      const apiKey = opts.apiKey || getStoredApiKey(opts.provider);
+      const resp = await transport("/chat/send", {
+        method: "POST",
+        headers: jsonHeaders(),
+        body: JSON.stringify(cleanPayload({
+          provider: opts.provider,
+          model: opts.model || undefined,
+          messages: opts.messages,
+          temperature: opts.temperature,
+          max_tokens: opts.maxTokens || 4096,
+          top_p: opts.topP,
+          system_prompt: opts.systemPrompt || undefined,
+          api_key: apiKey,
+          endpoint: opts.endpoint || undefined,
+        })),
+      });
+      if (!resp.ok) throw new Error(`Chat failed: ${resp.status}`);
+      return resp.json();
+    },
+    listProviders(): Promise<ProviderInfo[]> {
+      return requestJson<ProviderInfo[]>(transport, "/chat/providers", undefined, []);
+    },
+    listClauses(query = "", jurisdiction = "", category = ""): Promise<Clause[]> {
+      const params = new URLSearchParams({ query });
+      if (jurisdiction) params.set("jurisdiction", jurisdiction);
+      if (category) params.set("category", category);
+      return requestJson<Clause[]>(transport, queryPath("/clauses", params), undefined, []);
+    },
+    getClause(id: string): Promise<Clause | null> {
+      return requestJson<Clause | null>(transport, `/clauses/${encodeURIComponent(id)}`, undefined, null);
+    },
+    getClauseTone(clauseId: string, tone: ClauseTone | string): Promise<ClauseToneResponse> {
+      return requestJson<ClauseToneResponse>(
+        transport,
+        `/clauses/${encodeURIComponent(clauseId)}/tone/${encodeURIComponent(tone)}`,
+      );
+    },
+    listTemplates(jurisdiction = "", category = ""): Promise<Template[]> {
+      const params = new URLSearchParams();
+      if (jurisdiction) params.set("jurisdiction", jurisdiction);
+      if (category) params.set("category", category);
+      return requestJson<Template[]>(transport, queryPath("/templates", params), undefined, []);
+    },
+    getTemplate(id: string): Promise<Template | null> {
+      return requestJson<Template | null>(transport, `/templates/${encodeURIComponent(id)}`, undefined, null);
+    },
+    renderTemplate(id: string, values: Record<string, string>): Promise<RenderTemplateResponse> {
+      return postJson<RenderTemplateResponse>(transport, `/templates/${encodeURIComponent(id)}/render`, { values });
+    },
+    checkCompliance(text: string, jurisdiction = "sg", customRules?: ComplianceRule[]): Promise<ComplianceCheckResponse> {
+      return postJson<ComplianceCheckResponse>(
+        transport,
+        "/compliance/check",
+        cleanPayload({ text, jurisdiction, custom_rules: customRules }),
+      );
+    },
+    listComplianceRules(jurisdiction = "sg"): Promise<ComplianceRule[]> {
+      return requestJson<ComplianceRule[]>(
+        transport,
+        `/compliance/rules?jurisdiction=${encodeURIComponent(jurisdiction)}`,
+        undefined,
+        [],
+      );
+    },
+    parseDocument(file: File): Promise<ParseDocumentResponse> {
+      const form = new FormData();
+      form.append("file", file);
+      return requestJson<ParseDocumentResponse>(transport, "/documents/parse", { method: "POST", body: form });
+    },
+    listJurisdictions(): Promise<Jurisdiction[]> {
+      return requestJson<Jurisdiction[]>(transport, "/jurisdictions", undefined, []);
+    },
+    searchSSO(query: string): Promise<LegalSourceResult[]> {
+      return requestJson<LegalSourceResult[]>(
+        transport,
+        `/legal-sources/sso?query=${encodeURIComponent(query)}`,
+        undefined,
+        [],
+      );
+    },
+    searchCommonLII(query: string): Promise<LegalSourceResult[]> {
+      return requestJson<LegalSourceResult[]>(
+        transport,
+        `/legal-sources/commonlii?query=${encodeURIComponent(query)}`,
+        undefined,
+        [],
+      );
+    },
+    searchGlossary(q: string, jurisdiction = "", domain = "", page = 1, perPage = 20): Promise<Record<string, any>> {
+      const params = new URLSearchParams({ q, page: String(page), per_page: String(perPage) });
+      if (jurisdiction) params.set("jurisdiction", jurisdiction);
+      if (domain) params.set("domain", domain);
+      return requestJson<Record<string, any>>(
+        transport,
+        queryPath("/glossary/search", params),
+        undefined,
+        { total: 0, page, per_page: perPage, results: [], aggregations: { jurisdictions: {}, domains: {} } },
+      );
+    },
+    getGlossaryTerm(phrase: string): Promise<GlossaryTermResponse | null> {
+      return requestJson<GlossaryTermResponse | null>(
+        transport,
+        `/glossary/term/${encodeURIComponent(phrase)}`,
+        undefined,
+        null,
+      );
+    },
+    compareGlossaryTerm(term: string, jurisdictions?: string[]): Promise<Record<string, any>> {
+      const params = new URLSearchParams({ term });
+      jurisdictions?.forEach((j) => params.append("jurisdictions", j));
+      return requestJson<Record<string, any>>(
+        transport,
+        queryPath("/glossary/compare", params),
+        undefined,
+        { term, comparisons: [], available_in: [], not_found_in: [] },
+      );
+    },
+    suggestGlossary(prefix: string, size = 10): Promise<GlossarySuggestResponse> {
+      return requestJson<GlossarySuggestResponse>(
+        transport,
+        `/glossary/suggest?prefix=${encodeURIComponent(prefix)}&size=${size}`,
+        undefined,
+        { suggestions: [] },
+      );
+    },
+    listGlossaryJurisdictions(): Promise<GlossaryJurisdictionsResponse> {
+      return requestJson<GlossaryJurisdictionsResponse>(
+        transport,
+        "/glossary/jurisdictions",
+        undefined,
+        { jurisdictions: [] },
+      );
+    },
+    searchStatutes(q: string, chapter = "", mode = "hybrid", page = 1, perPage = 20): Promise<StatuteSearchResponse> {
+      const params = new URLSearchParams({ q, mode, page: String(page), per_page: String(perPage) });
+      if (chapter) params.set("chapter", chapter);
+      return requestJson<StatuteSearchResponse>(
+        transport,
+        queryPath("/statutes/search", params),
+        undefined,
+        { total: 0, results: [] },
+      );
+    },
+    getStatuteSection(number: string): Promise<Record<string, any> | null> {
+      return requestJson<Record<string, any> | null>(
+        transport,
+        `/statutes/section/${encodeURIComponent(number)}`,
+        undefined,
+        null,
+      );
+    },
+    listStatuteChapters(): Promise<StatuteChaptersResponse> {
+      return requestJson<StatuteChaptersResponse>(transport, "/statutes/chapters", undefined, { chapters: [] });
+    },
+    getChapterSections(chapterNumber: string): Promise<Record<string, any> | null> {
+      return requestJson<Record<string, any> | null>(
+        transport,
+        `/statutes/chapter/${encodeURIComponent(chapterNumber)}`,
+        undefined,
+        null,
+      );
+    },
+    searchCases(
+      query: string,
+      topK = 10,
+      stages = ["bm25", "dense", "rerank"],
+      includeScores = true,
+    ): Promise<SearchCasesResponse> {
+      return postJson<SearchCasesResponse>(
+        transport,
+        "/search/cases",
+        { query, top_k: topK, stages, include_scores: includeScores },
+      );
+    },
+    getCaseDetails(caseId: string): Promise<Record<string, any> | null> {
+      return requestJson<Record<string, any> | null>(
+        transport,
+        `/search/cases/${encodeURIComponent(caseId)}`,
+        undefined,
+        null,
+      );
+    },
+    listCharges(): Promise<ChargesResponse> {
+      return requestJson<ChargesResponse>(transport, "/search/charges", undefined, { charges: [] });
+    },
+    getSearchMetrics(): Promise<Record<string, any> | null> {
+      return requestJson<Record<string, any> | null>(transport, "/search/metrics", undefined, null);
+    },
+    extractEntities(text: string, language = "en", granularity = "fine", useGazetteer = false): Promise<EntityExtractionResponse> {
+      return postJson<EntityExtractionResponse>(
+        transport,
+        "/ner/extract",
+        { text, language, granularity, use_gazetteer: useGazetteer },
+      );
+    },
+    batchExtractEntities(texts: string[], language = "en", granularity = "fine", useGazetteer = false): Promise<Array<EntityExtractionResponse>> {
+      return requestJson<Array<EntityExtractionResponse>>(
+        transport,
+        "/ner/batch",
+        {
+          method: "POST",
+          headers: jsonHeaders(),
+          body: JSON.stringify({ texts, language, granularity, use_gazetteer: useGazetteer }),
+        },
+        [],
+      );
+    },
+    listEntityTypes(): Promise<EntityTypesResponse> {
+      return requestJson<EntityTypesResponse>(
+        transport,
+        "/ner/entity-types",
+        undefined,
+        { fine_grained: [], coarse_grained: [] },
+      );
+    },
+    classifyContract(text: string, topK = 5): Promise<ContractClassifyResponse> {
+      return postJson<ContractClassifyResponse>(transport, "/contracts/classify", { text, top_k_types: topK });
+    },
+    scanToS(text: string, threshold = 0.5): Promise<ContractClassifyResponse> {
+      return postJson<ContractClassifyResponse>(transport, "/contracts/scan-tos", { text, threshold });
+    },
+    askResearch(question: string, sources?: string[], topK = 8, conversationId?: string): Promise<ResearchResponse> {
+      return postJson<ResearchResponse>(
+        transport,
+        "/research/ask",
+        cleanPayload({ question, sources, top_k: topK, conversation_id: conversationId }),
+      );
+    },
+    getResearchConversation(conversationId: string): Promise<Record<string, any> | null> {
+      return requestJson<Record<string, any> | null>(
+        transport,
+        `/research/conversations/${encodeURIComponent(conversationId)}`,
+        undefined,
+        null,
+      );
+    },
+    deleteResearchConversation(conversationId: string): Promise<Record<string, any> & ApiError> {
+      return requestJson<Record<string, any> & ApiError>(
+        transport,
+        `/research/conversations/${encodeURIComponent(conversationId)}`,
+        { method: "DELETE" },
+      );
+    },
+    getResearchConfig(): Promise<Record<string, any>> {
+      return requestJson<Record<string, any>>(
+        transport,
+        "/research/config",
+        undefined,
+        { provider: "", model: "", available_sources: [], max_context_chunks: 12 },
+      );
+    },
+    getReady(): Promise<ReadyResponse> {
+      return requestJson<ReadyResponse>(transport, "/ready", undefined, { services: {} });
+    },
+    getMetrics(): Promise<MetricsResponse | null> {
+      return requestJson<MetricsResponse | null>(transport, "/metrics", undefined, null);
+    },
+    getHealth(): Promise<Record<string, any> | null> {
+      return requestJson<Record<string, any> | null>(transport, "/health", undefined, null);
+    },
+    listBenchmarkTasks(): Promise<BenchmarkTask[]> {
+      return requestJson<BenchmarkTask[]>(transport, "/benchmarks/tasks", undefined, []);
+    },
+    listBenchmarkEvaluators(): Promise<BenchmarkEvaluator[]> {
+      return requestJson<BenchmarkEvaluator[]>(transport, "/benchmarks/evaluators", undefined, []);
+    },
+    getBenchmarkLeaderboard(): Promise<BenchmarkLeaderboard> {
+      return requestJson<BenchmarkLeaderboard>(
+        transport,
+        "/benchmarks/leaderboard",
+        undefined,
+        { entries: [], aggregated_per_workflow: {} },
+      );
+    },
+    runBenchmark(payload: BenchmarkRunPayload): Promise<BenchmarkRunResponse> {
+      return postJson<BenchmarkRunResponse>(transport, "/benchmarks/run", payload);
+    },
+    getBenchmarkRun(runId: string, apiKey = ""): Promise<Record<string, any> | null> {
+      const headers = apiKey.trim() ? { "X-API-Key": apiKey.trim() } : undefined;
+      return requestJson<Record<string, any> | null>(
+        transport,
+        `/benchmarks/runs/${encodeURIComponent(runId)}`,
+        { headers },
+        null,
+      );
+    },
+  };
 }
 
-// clauses
-export async function listClauses(query = "", jurisdiction = "", category = "") {
-  const params = new URLSearchParams();
-  if (query) params.set("query", query);
-  if (jurisdiction) params.set("jurisdiction", jurisdiction);
-  if (category) params.set("category", category);
-  const resp = await fetch(apiUrl(`/clauses?${params}`));
-  return resp.json();
-}
+const browserTransport: ApiTransport = (path, init) => fetch(apiUrl(path), init);
+export const apiClient = createApiClient(browserTransport);
+export type JunasApi = ReturnType<typeof createApiClient>;
 
-export async function getClause(id: string) {
-  const resp = await fetch(apiUrl(`/clauses/${id}`));
-  return resp.json();
-}
-
-// templates
-export async function listTemplates(jurisdiction = "", category = "") {
-  const params = new URLSearchParams();
-  if (jurisdiction) params.set("jurisdiction", jurisdiction);
-  if (category) params.set("category", category);
-  const resp = await fetch(apiUrl(`/templates?${params}`));
-  return resp.json();
-}
-
-export async function renderTemplate(id: string, values: Record<string, string>) {
-  const resp = await fetch(apiUrl(`/templates/${id}/render`), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ values }),
-  });
-  return resp.json();
-}
-
-// compliance
-export async function checkCompliance(text: string, jurisdiction = "sg") {
-  const resp = await fetch(apiUrl("/compliance/check"), {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text, jurisdiction }),
-  });
-  return resp.json();
-}
-
-// documents
-export async function parseDocument(file: File) {
-  const form = new FormData();
-  form.append("file", file);
-  const resp = await fetch(apiUrl("/documents/parse"), { method: "POST", body: form });
-  return resp.json();
-}
-
-// jurisdictions
-export async function listJurisdictions() {
-  const resp = await fetch(apiUrl("/jurisdictions"));
-  return resp.json();
-}
-
-// legal sources
-export async function searchSSO(query: string) {
-  const resp = await fetch(apiUrl(`/legal-sources/sso?query=${encodeURIComponent(query)}`));
-  return resp.json();
-}
-
-export async function searchCommonLII(query: string) {
-  const resp = await fetch(apiUrl(`/legal-sources/commonlii?query=${encodeURIComponent(query)}`));
-  return resp.json();
-}
-
-// compliance rules
-export async function listComplianceRules(jurisdiction = "sg") {
-  const resp = await fetch(apiUrl(`/compliance/rules?jurisdiction=${jurisdiction}`));
-  return resp.json();
-}
-
-// glossary
-export async function searchGlossary(q: string, jurisdiction = "", domain = "", page = 1, perPage = 20) {
-  const params = new URLSearchParams({ q, page: String(page), per_page: String(perPage) });
-  if (jurisdiction) params.set("jurisdiction", jurisdiction);
-  if (domain) params.set("domain", domain);
-  const resp = await fetch(apiUrl(`/glossary/search?${params}`));
-  return resp.json();
-}
-export async function getGlossaryTerm(phrase: string) {
-  const resp = await fetch(apiUrl(`/glossary/term/${encodeURIComponent(phrase)}`));
-  return resp.json();
-}
-export async function compareGlossaryTerm(term: string, jurisdictions: string[]) {
-  const params = new URLSearchParams({ term });
-  jurisdictions.forEach((j) => params.append("jurisdictions", j));
-  const resp = await fetch(apiUrl(`/glossary/compare?${params}`));
-  return resp.json();
-}
-export async function suggestGlossary(prefix: string, size = 10) {
-  const resp = await fetch(apiUrl(`/glossary/suggest?prefix=${encodeURIComponent(prefix)}&size=${size}`));
-  return resp.json();
-}
-export async function listGlossaryJurisdictions() {
-  const resp = await fetch(apiUrl("/glossary/jurisdictions"));
-  return resp.json();
-}
-
-// statutes
-export async function searchStatutes(q: string, chapter = "", mode = "hybrid", page = 1, perPage = 20) {
-  const params = new URLSearchParams({ q, mode, page: String(page), per_page: String(perPage) });
-  if (chapter) params.set("chapter", chapter);
-  const resp = await fetch(apiUrl(`/statutes/search?${params}`));
-  return resp.json();
-}
-export async function getStatuteSection(number: string) {
-  const resp = await fetch(apiUrl(`/statutes/section/${encodeURIComponent(number)}`));
-  return resp.json();
-}
-export async function listStatuteChapters() {
-  const resp = await fetch(apiUrl("/statutes/chapters"));
-  return resp.json();
-}
-
-// case retrieval
-export async function searchCases(
-  query: string,
-  topK = 10,
-  stages = ["bm25", "dense", "rerank"],
-  includeScores = true,
-) {
-  const resp = await fetch(apiUrl("/search/cases"), {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ query, top_k: topK, stages, include_scores: includeScores }),
-  });
-  return resp.json();
-}
-
-// NER
-export async function extractEntities(text: string, language = "en", granularity = "fine", useGazetteer = false) {
-  const resp = await fetch(apiUrl("/ner/extract"), {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text, language, granularity, use_gazetteer: useGazetteer }),
-  });
-  return resp.json();
-}
-export async function batchExtractEntities(texts: string[], language = "en") {
-  const resp = await fetch(apiUrl("/ner/batch"), {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ texts, language }),
-  });
-  return resp.json();
-}
-
-// contracts
-export async function classifyContract(text: string, topK = 5) {
-  const resp = await fetch(apiUrl("/contracts/classify"), {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text, top_k_types: topK }),
-  });
-  return resp.json();
-}
-export async function scanToS(text: string, threshold = 0.5) {
-  const resp = await fetch(apiUrl("/contracts/scan-tos"), {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text, threshold }),
-  });
-  return resp.json();
-}
-
-// research (RAG)
-export async function askResearch(question: string, sources?: string[], topK = 8, conversationId?: string) {
-  const resp = await fetch(apiUrl("/research/ask"), {
-    method: "POST", headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ question, sources, top_k: topK, conversation_id: conversationId }),
-  });
-  return resp.json();
-}
-export async function getResearchConversation(conversationId: string) {
-  const resp = await fetch(apiUrl(`/research/conversations/${conversationId}`));
-  return resp.json();
-}
-export async function getResearchConfig() {
-  const resp = await fetch(apiUrl("/research/config"));
-  return resp.json();
-}
-
-// --- missing wrappers ---
-export async function getClauseTone(clauseId: string, tone: string) {
-  const resp = await fetch(apiUrl(`/clauses/${clauseId}/tone/${tone}`));
-  return resp.json();
-}
-export async function getChapterSections(chapterNumber: string) {
-  const resp = await fetch(apiUrl(`/statutes/chapter/${encodeURIComponent(chapterNumber)}`));
-  return resp.json();
-}
-export async function getCaseDetails(caseId: string) {
-  const resp = await fetch(apiUrl(`/search/cases/${encodeURIComponent(caseId)}`));
-  return resp.json();
-}
-export async function listCharges() {
-  const resp = await fetch(apiUrl("/search/charges"));
-  return resp.json();
-}
-export async function listEntityTypes() {
-  const resp = await fetch(apiUrl("/ner/entity-types"));
-  return resp.json();
-}
-export async function deleteResearchConversation(conversationId: string) {
-  const resp = await fetch(apiUrl(`/research/conversations/${conversationId}`), { method: "DELETE" });
-  return resp.json();
-}
-
-// health
-export async function getHealth() {
-  const resp = await fetch(apiUrl("/health"));
-  return resp.json();
-}
-export async function getReady() {
-  const resp = await fetch(apiUrl("/ready"));
-  return resp.json();
-}
-export async function getMetrics() {
-  const resp = await fetch(apiUrl("/metrics"));
-  return resp.json();
-}
+export const {
+  chatStream,
+  chatSend,
+  listProviders,
+  listClauses,
+  getClause,
+  getClauseTone,
+  listTemplates,
+  getTemplate,
+  renderTemplate,
+  checkCompliance,
+  listComplianceRules,
+  parseDocument,
+  listJurisdictions,
+  searchSSO,
+  searchCommonLII,
+  searchGlossary,
+  getGlossaryTerm,
+  compareGlossaryTerm,
+  suggestGlossary,
+  listGlossaryJurisdictions,
+  searchStatutes,
+  getStatuteSection,
+  listStatuteChapters,
+  getChapterSections,
+  searchCases,
+  getCaseDetails,
+  listCharges,
+  getSearchMetrics,
+  extractEntities,
+  batchExtractEntities,
+  listEntityTypes,
+  classifyContract,
+  scanToS,
+  askResearch,
+  getResearchConversation,
+  deleteResearchConversation,
+  getResearchConfig,
+  getReady,
+  getMetrics,
+  getHealth,
+  listBenchmarkTasks,
+  listBenchmarkEvaluators,
+  getBenchmarkLeaderboard,
+  runBenchmark,
+  getBenchmarkRun,
+} = apiClient;

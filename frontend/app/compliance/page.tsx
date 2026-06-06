@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
+import { checkCompliance } from "../../lib/api-client";
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 type CheckResult = { rule_id: string; rule_name: string; status: string; details: string; severity: string };
 type Summary = { total: number; passed: number; warnings: number; failed: number };
 
@@ -15,12 +15,7 @@ export default function CompliancePage() {
     if (!text.trim()) return;
     setLoading(true);
     try {
-      const resp = await fetch(`${API}/api/v1/compliance/check`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, jurisdiction: "sg" }),
-      });
-      const data = await resp.json();
+      const data = await checkCompliance(text, "sg");
       setResults(data.results || []);
       setSummary(data.summary || null);
     } catch {}
