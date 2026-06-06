@@ -9,7 +9,8 @@ from __future__ import annotations
 
 import json
 from datetime import date
-from typing import TYPE_CHECKING, Iterator
+from pathlib import Path
+from typing import Any, Iterator
 
 from api.adapters.base import (
     AdapterTier,
@@ -20,9 +21,6 @@ from api.adapters.base import (
     SourceMetadata,
     normalise_date,
 )
-
-if TYPE_CHECKING:
-    from data.ingestion.mom import MomRecord
 
 
 class MomAdapter(LegalSourceAdapter):
@@ -48,56 +46,78 @@ class MomAdapter(LegalSourceAdapter):
     doc_type: str = DocType.GUIDELINE.value
 
     extra_schema: dict[str, str] = {
+        "doc_id": "str",
+        "source_url": "str",
         "subsource": "str (press_release | faq | advisory)",
         "title": "str",
-        "published_date": "str",
-        "act_references": "list[str] (e.g. 'Employment Act s.X')",
+        "body_plain": "str",
         "stated_breaches": "list[str] (mechanical extraction of regulator-stated contraventions)",
-        "penalty_info": "str | None",
+        "act_references": "list[str] (e.g. 'Employment Act s.X')",
         "subject_organisation": "str | None (for press releases)",
+        "pub_date": "str",
     }
 
-    def fetch_all(self) -> Iterator[SourceDocument]:
-        from data.ingestion.mom import iter_records  # noqa: WPS433
+    def __init__(self, *, jsonl_path: Path | str | None = None) -> None:
+        default_path = (
+            Path(__file__).resolve().parents[3]
+            / "vendor-data"
+            / "mom"
+            / "enforcement.jsonl"
+        )
+        self.jsonl_path = Path(jsonl_path) if jsonl_path is not None else default_path
 
-        try:
-            for record in iter_records():
-                yield self._source_document(record)
-        except RuntimeError as exc:
-            raise SourceAdapterError(f"MOM fetch failed: {exc}") from exc
+    def fetch_all(self) -> Iterator[SourceDocument]:
+        if not self.jsonl_path.exists():
+            raise SourceAdapterError(
+                f"MOM JSONL fixture not found at {self.jsonl_path}; run `make ingest-mom LIVE=1` "
+                "or pass MomAdapter(jsonl_path=...)"
+            )
+        yield from self._records_from_jsonl()
 
     def fetch_by_id(self, document_id: str) -> SourceDocument | None:
-        from data.ingestion.mom import iter_records  # noqa: WPS433
-
-        try:
-            for record in iter_records():
-                if record.doc_id == document_id or record.source_url == document_id:
-                    return self._source_document(record)
-        except RuntimeError as exc:
-            raise SourceAdapterError(f"MOM fetch failed: {exc}") from exc
+        for doc in self.fetch_all():
+            if doc.document_id == document_id:
+                return doc
         return None
 
-    def _source_document(self, record: "MomRecord") -> SourceDocument:
-        body = record.raw_html or (record.raw_json and json.dumps(record.raw_json, ensure_ascii=False)) or record.body_plain
-        doc_type = DocType.PRESS_RELEASE.value if record.subsource == "press_release" else DocType.GUIDELINE.value
+    def _records_from_jsonl(self) -> Iterator[SourceDocument]:
+        with self.jsonl_path.open(encoding="utf-8") as handle:
+            for line_number, line in enumerate(handle, start=1):
+                if not line.strip():
+                    continue
+                try:
+                    row = json.loads(line)
+                except json.JSONDecodeError as exc:
+                    raise SourceAdapterError(
+                        f"MOM JSONL fixture row {line_number} invalid at {self.jsonl_path}: {exc}"
+                    ) from exc
+                if not isinstance(row, dict):
+                    raise SourceAdapterError(
+                        f"MOM JSONL fixture row {line_number} invalid at {self.jsonl_path}: not an object"
+                    )
+                yield self._source_document(row, line_number=line_number)
+
+    def _source_document(self, record: dict[str, Any], *, line_number: int) -> SourceDocument:
+        missing = [key for key in self.extra_schema if key not in record]
+        if missing:
+            raise SourceAdapterError(
+                f"MOM JSONL fixture row {line_number} missing required keys: {', '.join(missing)}"
+            )
+        subsource = str(record.get("subsource") or "")
+        doc_type = (
+            DocType.PRESS_RELEASE.value
+            if subsource == "press_release"
+            else DocType.GUIDELINE.value
+        )
+        extra = {key: record.get(key) for key in self.extra_schema}
         return SourceDocument(
-            document_id=record.doc_id,
-            source_url=record.source_url,
-            title=record.title,
-            body=body or "",
-            published_date=normalise_date(record.pub_date),
+            document_id=str(record.get("doc_id") or ""),
+            source_url=str(record.get("source_url") or ""),
+            title=str(record.get("title") or ""),
+            body=str(record.get("body_plain") or ""),
+            published_date=normalise_date(record.get("pub_date")),
             fetched_date=date.today(),
             source_metadata=self.metadata,
             doc_type=doc_type,
-            extra={
-                "subsource": record.subsource,
-                "title": record.title,
-                "published_date": record.pub_date,
-                "act_references": list(record.act_references),
-                "stated_breaches": list(record.stated_breaches),
-                "penalty_info": None,
-                "subject_organisation": record.subject_organisation,
-                "candidate_reason": record.candidate_reason,
-                "content_type": record.content_type,
-            },
+            extra=extra,
         )
