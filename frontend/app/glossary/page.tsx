@@ -1,5 +1,9 @@
+"use client";
+
 import Link from "next/link";
-import { searchGlossary, listGlossaryJurisdictions, suggestGlossary } from "../../lib/api-server";
+import type { FormEvent } from "react";
+import { useEffect, useState } from "react";
+import { listGlossaryJurisdictions, searchGlossary, suggestGlossary } from "../../lib/api-client";
 
 type SearchResult = {
   phrase: string;
@@ -23,27 +27,110 @@ type JurisdictionsResponse = {
 };
 type SuggestResponse = { suggestions: string[] };
 
-async function fetchSearch(q: string, jurisdiction: string, domain: string, page: number, perPage: number): Promise<SearchResponse> {
-  if (!q.trim()) return { total: 0, page, per_page: perPage, results: [], aggregations: { jurisdictions: {}, domains: {} } };
-  const data = await searchGlossary(q, jurisdiction.trim(), domain.trim(), page, perPage);
-  return { total: 0, page, per_page: perPage, results: [], aggregations: { jurisdictions: {}, domains: {} }, ...data } as SearchResponse;
-}
-async function fetchJurisdictions(): Promise<JurisdictionsResponse> {
-  return (await listGlossaryJurisdictions()) as JurisdictionsResponse;
-}
-async function fetchSuggestions(q: string): Promise<SuggestResponse> {
-  if (!q.trim()) return { suggestions: [] };
-  return (await suggestGlossary(q.trim(), 8)) as SuggestResponse;
+const emptySearch: SearchResponse = {
+  total: 0,
+  page: 1,
+  per_page: 20,
+  results: [],
+  aggregations: { jurisdictions: {}, domains: {} },
+};
+const chipButtonStyle = { appearance: "none" as const, cursor: "pointer", fontFamily: "inherit" };
+
+function isJurisdictionsResponse(data: unknown): data is JurisdictionsResponse {
+  return typeof data === "object" && data !== null && Array.isArray((data as JurisdictionsResponse).jurisdictions);
 }
 
-export default async function GlossaryPage({ searchParams }: { searchParams?: { q?: string; jurisdiction?: string; domain?: string; page?: string; per_page?: string } }) {
-  const q = searchParams?.q ?? "";
-  const jurisdiction = searchParams?.jurisdiction ?? "";
-  const domain = searchParams?.domain ?? "";
-  const page = Number(searchParams?.page ?? "1") || 1;
-  const perPage = Number(searchParams?.per_page ?? "20") || 20;
-  const [search, jurisdictions, suggestions] = await Promise.all([fetchSearch(q, jurisdiction, domain, page, perPage), fetchJurisdictions(), fetchSuggestions(q)]);
+function apiError(data: unknown): string | null {
+  if (typeof data !== "object" || data === null || !("error" in data)) return null;
+  const error = (data as { error?: unknown }).error;
+  return error ? String(error) : null;
+}
+
+export default function GlossaryPage() {
+  const [q, setQ] = useState("");
+  const [jurisdiction, setJurisdiction] = useState("");
+  const [domain, setDomain] = useState("");
+  const [search, setSearch] = useState<SearchResponse>(emptySearch);
+  const [jurisdictions, setJurisdictions] = useState<JurisdictionsResponse>({ jurisdictions: [] });
+  const [suggestions, setSuggestions] = useState<SuggestResponse>({ suggestions: [] });
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const activeJurisdiction = jurisdiction.toUpperCase();
+
+  useEffect(() => {
+    let isActive = true;
+    (async () => {
+      try {
+        const data = await listGlossaryJurisdictions();
+        if (!isActive || !isJurisdictionsResponse(data)) return;
+        setJurisdictions(data);
+      } catch {
+        if (isActive) setJurisdictions({ jurisdictions: [] });
+      }
+    })();
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
+  const runSearch = async (nextQ: string, nextJurisdiction = jurisdiction, nextDomain = domain) => {
+    const query = nextQ.trim();
+    setError(null);
+
+    if (!query) {
+      setSearch(emptySearch);
+      setSuggestions({ suggestions: [] });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const [searchData, suggestionData] = await Promise.all([
+        searchGlossary(query, nextJurisdiction.trim(), nextDomain.trim(), 1, 20),
+        suggestGlossary(query, 8),
+      ]);
+
+      const searchError = apiError(searchData);
+      if (searchError) {
+        setError(searchError);
+        setSearch(emptySearch);
+      } else {
+        setSearch({ ...emptySearch, ...(searchData as SearchResponse) });
+      }
+
+      if (apiError(suggestionData) || !Array.isArray((suggestionData as SuggestResponse | null)?.suggestions)) {
+        setSuggestions({ suggestions: [] });
+      } else {
+        setSuggestions(suggestionData as SuggestResponse);
+      }
+    } catch (requestError) {
+      setError(requestError instanceof Error ? requestError.message : "Glossary search request failed.");
+      setSearch(emptySearch);
+      setSuggestions({ suggestions: [] });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await runSearch(q);
+  };
+
+  const onJurisdictionClick = async (nextJurisdiction: string) => {
+    setJurisdiction(nextJurisdiction);
+    await runSearch(q, nextJurisdiction, domain);
+  };
+
+  const onSuggestionClick = async (term: string) => {
+    setQ(term);
+    await runSearch(term);
+  };
+
+  const onDomainClick = async (nextDomain: string) => {
+    setDomain(nextDomain);
+    await runSearch(q, jurisdiction, nextDomain);
+  };
 
   return (
     <section>
@@ -52,101 +139,131 @@ export default async function GlossaryPage({ searchParams }: { searchParams?: { 
         Search legal definitions across {jurisdictions.jurisdictions.length || 6} jurisdictions.
       </p>
 
-      {/* jurisdiction quick-filter chips */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginBottom: "1rem" }}>
-        <Link href={`/glossary?q=${encodeURIComponent(q)}&domain=${encodeURIComponent(domain)}`}
-          className={`chip ${!jurisdiction ? "chip-active" : ""}`}>
+        <button
+          type="button"
+          className={`chip ${!jurisdiction ? "chip-active" : ""}`}
+          style={chipButtonStyle}
+          onClick={() => onJurisdictionClick("")}
+        >
           All
-        </Link>
-        {jurisdictions.jurisdictions.map(j => (
-          <Link key={j.code}
-            href={`/glossary?q=${encodeURIComponent(q)}&jurisdiction=${encodeURIComponent(j.code)}&domain=${encodeURIComponent(domain)}`}
-            className={`chip ${activeJurisdiction === j.code.toUpperCase() ? "chip-active" : ""}`}>
-            {j.name}
-          </Link>
+        </button>
+        {jurisdictions.jurisdictions.map((item) => (
+          <button
+            key={item.code}
+            type="button"
+            className={`chip ${activeJurisdiction === item.code.toUpperCase() ? "chip-active" : ""}`}
+            style={chipButtonStyle}
+            onClick={() => onJurisdictionClick(item.code)}
+          >
+            {item.name}
+          </button>
         ))}
       </div>
 
-      {/* search form */}
-      <form method="get" action="/glossary" style={{ display: "flex", gap: "0.5rem", marginBottom: "1.25rem" }}>
-        <input type="hidden" name="jurisdiction" value={jurisdiction} />
-        <input type="hidden" name="domain" value={domain} />
-        <input name="q" defaultValue={q} placeholder="Search for a legal term..." style={{
-          flex: 1, padding: "0.6rem 0.8rem", borderRadius: "0.5rem", border: "1px solid #D6D3D1",
-          fontFamily: "inherit", fontSize: "0.92rem", outline: "none",
-        }} />
-        <button type="submit" style={{
-          padding: "0.6rem 1.25rem", borderRadius: "0.5rem", border: "none",
-          background: "#1C1917", color: "#FAFAF9", fontFamily: "inherit",
-          fontSize: "0.85rem", fontWeight: 600, cursor: "pointer",
-        }}>
-          Search
+      <form method="post" onSubmit={onSubmit} style={{ display: "flex", gap: "0.5rem", marginBottom: "1.25rem" }}>
+        <input name="jurisdiction" type="hidden" value={jurisdiction} readOnly />
+        <input name="domain" type="hidden" value={domain} readOnly />
+        <input
+          name="q"
+          value={q}
+          onChange={(event) => setQ(event.target.value)}
+          placeholder="Search for a legal term..."
+          style={{
+            flex: 1, padding: "0.6rem 0.8rem", borderRadius: "0.5rem", border: "1px solid #D6D3D1",
+            fontFamily: "inherit", fontSize: "0.92rem", outline: "none",
+          }}
+        />
+        <button
+          type="submit"
+          disabled={isLoading}
+          style={{
+            padding: "0.6rem 1.25rem", borderRadius: "0.5rem", border: "none",
+            background: "#1C1917", color: "#FAFAF9", fontFamily: "inherit",
+            fontSize: "0.85rem", fontWeight: 600, cursor: "pointer",
+          }}
+        >
+          {isLoading ? "Searching..." : "Search"}
         </button>
       </form>
 
-      {/* autocomplete suggestions */}
+      {error ? (
+        <article className="result-card">
+          <h3>Search unavailable</h3>
+          <p>{error}</p>
+        </article>
+      ) : null}
+
       {suggestions.suggestions.length > 0 && (
         <div style={{ marginBottom: "1.25rem" }}>
           <p className="meta-line" style={{ marginBottom: "0.35rem", fontSize: "0.78rem" }}>Did you mean:</p>
           <div className="chip-row">
-            {suggestions.suggestions.map(term => (
-              <Link key={term} href={`/glossary?q=${encodeURIComponent(term)}&jurisdiction=${encodeURIComponent(jurisdiction)}&domain=${encodeURIComponent(domain)}`} className="chip">
+            {suggestions.suggestions.map((term) => (
+              <button
+                key={term}
+                type="button"
+                className="chip"
+                style={chipButtonStyle}
+                onClick={() => onSuggestionClick(term)}
+              >
                 {term}
-              </Link>
+              </button>
             ))}
           </div>
         </div>
       )}
 
-      {/* results */}
-      {q && (
+      {q ? (
         <p style={{ fontSize: "0.85rem", fontWeight: 600, marginBottom: "0.75rem" }}>
           {search.total > 0 ? `${search.total} result${search.total !== 1 ? "s" : ""} for "${q}"` : `No results for "${q}"`}
         </p>
-      )}
+      ) : null}
 
-      {!q && (
+      {!q ? (
         <div style={{ textAlign: "center", padding: "3rem 1rem", color: "#A8A29E" }}>
           <p style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>Search for a legal term above</p>
           <p style={{ fontSize: "0.82rem" }}>Try: acquittal, estoppel, habeas corpus, tort, fiduciary</p>
         </div>
-      )}
+      ) : null}
 
       <ul className="results-list">
-        {search.results.map(result => (
+        {search.results.map((result) => (
           <li key={`${result.phrase}-${result.jurisdiction}-${result.domain}`} className="result-card">
             <div className="result-header">
               <Link href={`/glossary/${encodeURIComponent(result.phrase)}`}><strong>{result.phrase}</strong></Link>
               <span className="badge">{result.jurisdiction}</span>
-              {result.domain && <span className="badge muted">{result.domain}</span>}
+              {result.domain ? <span className="badge muted">{result.domain}</span> : null}
             </div>
             <div className="definition-html" style={{ marginTop: "0.35rem", fontSize: "0.88rem", lineHeight: 1.6 }}>
-              {result.definition_text.slice(0, 350)}{result.definition_text.length > 350 && "..."}
+              {result.definition_text.slice(0, 350)}{result.definition_text.length > 350 ? "..." : ""}
             </div>
-            {result.source_title && (
+            {result.source_title ? (
               <p className="meta-line" style={{ marginTop: "0.35rem" }}>
                 Source: {result.source_url ? <a href={result.source_url} target="_blank" rel="noopener noreferrer">{result.source_title}</a> : result.source_title}
               </p>
-            )}
+            ) : null}
           </li>
         ))}
       </ul>
 
-      {/* domain filter sidebar — show only when results have aggregations */}
-      {q && Object.keys(search.aggregations.domains).length > 0 && (
+      {q && Object.keys(search.aggregations.domains).length > 0 ? (
         <div style={{ marginTop: "1.5rem" }}>
           <p style={{ fontSize: "0.78rem", fontWeight: 600, marginBottom: "0.35rem" }}>Filter by practice area</p>
           <div className="chip-row">
-            {Object.entries(search.aggregations.domains).sort((a, b) => b[1] - a[1]).map(([d, count]) => (
-              <Link key={d}
-                href={`/glossary?q=${encodeURIComponent(q)}&jurisdiction=${encodeURIComponent(jurisdiction)}&domain=${encodeURIComponent(d)}`}
-                className={`chip ${domain === d ? "chip-active" : ""}`}>
-                {d} ({count})
-              </Link>
+            {Object.entries(search.aggregations.domains).sort((a, b) => b[1] - a[1]).map(([itemDomain, count]) => (
+              <button
+                key={itemDomain}
+                type="button"
+                className={`chip ${domain === itemDomain ? "chip-active" : ""}`}
+                style={chipButtonStyle}
+                onClick={() => onDomainClick(itemDomain)}
+              >
+                {itemDomain} ({count})
+              </button>
             ))}
           </div>
         </div>
-      )}
+      ) : null}
     </section>
   );
 }
