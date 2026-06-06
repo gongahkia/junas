@@ -3,13 +3,173 @@
   "document_type": "generic",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@meridian-green.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "insider.compliance@meridian-green.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Closed Period Policy"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@meridian-green.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "insider.compliance@meridian-green.example"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Data minimisation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "Closed Period Policy"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "occupational health attestations"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "Processors",
+      "reason": "Role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "Subprocessors",
+      "reason": "Role noun/defined term, not PII or MNPI"
+    },
+    {
+      "matched_text": "Cross-border transfer",
+      "reason": "Describes a completed transfer; not a live cross-border marker"
+    },
+    {
+      "matched_text": "export completed",
+      "reason": "Completed event; not a live cross-border marker"
+    },
+    {
+      "matched_text": "no ongoing replication is configured",
+      "reason": "Negated/absent transfer activity; not a live marker"
+    },
+    {
+      "matched_text": "no open withdrawals",
+      "reason": "Negated consent withdrawal; not a live event"
+    },
+    {
+      "matched_text": "no DSARs are pending",
+      "reason": "Negated DSAR state; not a live event"
+    },
+    {
+      "matched_text": "one erasure request was completed on 2026-04-12",
+      "reason": "Completed erasure; not a live Art 17 event"
+    },
+    {
+      "matched_text": "this note contains no inside information",
+      "reason": "Negated MNPI; should not be classified as nonpublic marker"
+    },
+    {
+      "matched_text": "ISIN ZZ-TEST-000000",
+      "reason": "Explicit placeholder/invalid identifier"
+    },
+    {
+      "matched_text": "Account ACCT-XXXX-0000",
+      "reason": "Explicit placeholder/invalid identifier"
+    },
+    {
+      "matched_text": "Ticket REF-NIL-123",
+      "reason": "Explicit placeholder/invalid identifier"
+    },
+    {
+      "matched_text": "decommissioned in Q4 2025",
+      "reason": "Legacy pipeline removed; not an active transfer"
+    },
+    {
+      "matched_text": "no cookies used for cross-border analytics",
+      "reason": "Negated cross-border analytics; not a live transfer marker"
+    },
+    {
+      "matched_text": "does not approve any ongoing mass deletion, emergency transfer, or live disclosure",
+      "reason": "Explicit negation of live privacy events"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Data Export Approval EU-XB-214",
+      "concept": "cross-border transfer approval code",
+      "reason": "Indicates a specific transfer approval; event is completed so not clearly covered by allowed live marker rule"
+    },
+    {
+      "matched_text": "Nuvania (no adequacy decision)",
+      "concept": "third-country destination without adequacy",
+      "reason": "Cross-border context relevant to GDPR but not a live transfer marker"
+    },
+    {
+      "matched_text": "2021 SCCs (Module Two)",
+      "concept": "transfer safeguard mechanism",
+      "reason": "Legally relevant to cross-border transfers but not an allowed rule label"
+    },
+    {
+      "matched_text": "documented TIA",
+      "concept": "transfer impact assessment",
+      "reason": "Relevant to cross-border compliance; no direct allowed rule"
+    },
+    {
+      "matched_text": "privacy.meridian-green.example",
+      "concept": "DSAR portal URL",
+      "reason": "Operational DSAR intake location; no specific DSAR marker rule and domain itself is not PII"
+    },
+    {
+      "matched_text": "PDMR dealings",
+      "concept": "insider dealing compliance reference",
+      "reason": "MAR-relevant process reference; not a defined marker in allowed rules apart from blackout/insider list"
+    },
+    {
+      "matched_text": "RH-LOG-09",
+      "concept": "retention hold log reference",
+      "reason": "Privacy governance identifier; no matching allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

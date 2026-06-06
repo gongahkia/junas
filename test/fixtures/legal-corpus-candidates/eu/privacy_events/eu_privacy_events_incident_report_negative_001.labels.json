@@ -3,13 +3,156 @@
   "document_type": "memo",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation by default"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy-office@hespera-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hespera-se.example"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "minimisation by default"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy-office@hespera-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@hespera-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer safeguards"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "third-country export"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "trading blackout",
+      "reason": "Negated context: 'no trading blackout imposed' should not be tagged as an active MNPI blackout."
+    },
+    {
+      "matched_text": "inside information",
+      "reason": "Negated context: 'no inside information created' should not be tagged as MNPI."
+    },
+    {
+      "matched_text": "not price-sensitive",
+      "reason": "Explicit negation under EU MAR; should not trigger price-sensitivity/MNPI tagging."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR status",
+      "concept": "DSAR marker",
+      "reason": "DSAR processing referenced but no explicit DSAR rule in allowed list."
+    },
+    {
+      "matched_text": "erasure confirmed",
+      "concept": "Erasure marker",
+      "reason": "Erasure outcome noted; no explicit erasure rule in allowed list."
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "Retention marker",
+      "reason": "Retention controls referenced; no explicit retention rule in allowed list."
+    },
+    {
+      "matched_text": "retention schedule R-17/HR and R-22/Telemetry",
+      "concept": "Retention schedule reference",
+      "reason": "Specific retention schedule noted; not covered by allowed rules."
+    },
+    {
+      "matched_text": "pseudonymised",
+      "concept": "Pseudonymisation reference",
+      "reason": "Special-category data handling referenced; not covered by allowed rules."
+    },
+    {
+      "matched_text": "hashed device IDs",
+      "concept": "Pseudonymous device identifiers",
+      "reason": "Device identifiers referenced in hashed form; no specific allowed rule fits."
+    },
+    {
+      "matched_text": "suppression list",
+      "concept": "Consent suppression operations",
+      "reason": "Consent withdrawal operations referenced but only 'consent_withdrawal_marker' is allowed; this is operational detail."
+    },
+    {
+      "matched_text": "Transfer Risk Assessment",
+      "concept": "TRA for cross-border transfers",
+      "reason": "Cross-border safeguard referenced; not an allowed marker."
+    },
+    {
+      "matched_text": "SCCs",
+      "concept": "Standard Contractual Clauses",
+      "reason": "Cross-border safeguard referenced; not an allowed marker."
+    },
+    {
+      "matched_text": "EEA-only storage",
+      "concept": "Data residency restriction",
+      "reason": "Storage location restriction referenced; not in allowed marker list."
+    },
+    {
+      "matched_text": "consent logs",
+      "concept": "Consent management reference",
+      "reason": "Consent records referenced; only withdrawal marker is in allowed list."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

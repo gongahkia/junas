@@ -3,13 +3,176 @@
   "document_type": "generic",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@aureliantse.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers outside the EEA occur"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal data fields are minimised or pseudonymised"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider-list metadata"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "\u201cblackout\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information likely to significantly affect the AURSX price"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@aureliantse.example"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers outside the EEA occur"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "personal data fields are minimised or pseudonymised"
+    },
+    {
+      "category": "PII",
+      "rule": "quasi_identifier_combination",
+      "matched_text": "shareholder reference numbers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider-list metadata"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "selective disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "\u201cblackout\u201d"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "PDMR dealing window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information likely to significantly affect the AURSX price"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "Until ad hoc disclosure under MAR Article 17 is made"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Q3 wind output deviation above guidance"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "unpublished ESG targets"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "supplier-specific metrics"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "AURSX",
+      "reason": "Public security ticker; not PII/MNPI under allowed rules"
+    },
+    {
+      "matched_text": "ISIN EU000AURSE01",
+      "reason": "Security identifier reference; public/illustrative"
+    },
+    {
+      "matched_text": "LEI 0000AURSE-FAKE",
+      "reason": "Corporate identifier; not personal data or MNPI"
+    },
+    {
+      "matched_text": "press release",
+      "reason": "Public disclosure reference; non-MNPI"
+    },
+    {
+      "matched_text": "Universal Registration Document",
+      "reason": "Public filing reference; non-MNPI"
+    },
+    {
+      "matched_text": "deal codenames",
+      "reason": "Negated mention; avoid false transaction_codename detection"
+    },
+    {
+      "matched_text": "confidential amounts",
+      "reason": "Negated mention; avoid false financial_amount detection"
+    },
+    {
+      "matched_text": "individual employee records",
+      "reason": "Negated mention; avoid false PII detection"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSARs",
+      "concept": "DSAR privacy event",
+      "reason": "Privacy request type is legally relevant but not enumerated in allowed rules"
+    },
+    {
+      "matched_text": "transfer impact assessment",
+      "concept": "Cross-border TIA",
+      "reason": "Cross-border compliance artifact not explicitly covered by marker rules"
+    },
+    {
+      "matched_text": "identity verification relies on account activity",
+      "concept": "Identity verification method",
+      "reason": "PII-related verification practice without a specific allowed rule"
+    },
+    {
+      "matched_text": "retained for 5 years",
+      "concept": "Retention period",
+      "reason": "Data retention duration is privacy-relevant but not in allowed rules"
+    },
+    {
+      "matched_text": "retained for 3 years",
+      "concept": "Retention period",
+      "reason": "Data retention duration is privacy-relevant but not in allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

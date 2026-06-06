@@ -3,13 +3,325 @@
   "document_type": "term_sheet",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Alder"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "\u20ac18.40 per LYM share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "28%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse effect"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deal@ardentis.example.lu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@lymaris.example.fr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corporate.secretariat@lymaris.example.fr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lymaris.example.fr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+33 1 86 99 77 55"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "AA1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrien Joubert"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN FR00 1000 2000 3000 4000 5000 601"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project Alder"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "definitive_agreement",
+      "matched_text": "Non-binding Term Sheet"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac18.40"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contract_unit_price",
+      "matched_text": "\u20ac18.40 per LYM share"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": "28%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "not for public disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_adverse_change",
+      "matched_text": "material adverse effect"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "proposed acquisition"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "2021 SCCs"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "transfer impact assessment"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "UK-hosted VDR"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall-crossed insiders"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "cleansing announcement"
+    },
+    {
+      "category": "MNPI",
+      "rule": "embargo_marker",
+      "matched_text": "signing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "CSRD ESRS E1\u2013E5 datapoints"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "SFDR principal adverse impact indicators"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "taxonomy-alignment assumptions"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "deal@ardentis.example.lu"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@lymaris.example.fr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "corporate.secretariat@lymaris.example.fr"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lymaris.example.fr"
+    },
+    {
+      "category": "PII",
+      "rule": "phone_number",
+      "matched_text": "+33 1 86 99 77 55"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "AA1234567"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrien Joubert"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN FR00 1000 2000 3000 4000 5000 601"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "any incidental special-category elements will be redacted before transfer"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "no Art.9 special-category data will be sought"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "name@example.com",
+      "reason": "Generic placeholder email is bait and not PII/MNPI in context"
+    },
+    {
+      "matched_text": "+33 800 000 000",
+      "reason": "Public helpline number, explicitly non-party contact"
+    },
+    {
+      "matched_text": "Parties",
+      "reason": "Role-noun term, not a person or MNPI"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "Role title only; not a named person"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "LEI 529900NOTREALABCDE12",
+      "concept": "Legal Entity Identifier",
+      "reason": "Corporate identifier; not covered by allowed rules but may be relevant ID"
+    },
+    {
+      "matched_text": "VAT FR12 812345678",
+      "concept": "EU VAT number",
+      "reason": "Corporate tax ID; not in allowed rules list"
+    },
+    {
+      "matched_text": "SIREN 812 345 678",
+      "concept": "FR company identifier",
+      "reason": "French corporate ID; not in allowed rules"
+    },
+    {
+      "matched_text": "RCS Paris 2099 B 000123",
+      "concept": "French company registry number",
+      "reason": "Corporate registry ID; not in allowed rules"
+    },
+    {
+      "matched_text": "RCS Luxembourg B 909090",
+      "concept": "Luxembourg company registry number",
+      "reason": "Corporate registry ID; not in allowed rules"
+    },
+    {
+      "matched_text": "BIC BIMAFRPPXXX",
+      "concept": "BIC/SWIFT code",
+      "reason": "Bank identifier; not enumerated in allowed rules"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: unsupported financial amount shape rule='financial_amount' text='\\x1a\\x008\\x007\\x006\\x005\\x004\\x003\\x002\\x001\\x000\\x002\\x003\\x004\\x005\\x006\\x007\\x008\\x009\\x001\\x020'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "normalise mismatched category 'MNPI' to 'PII' for rule='cross_border_transfer_marker'",
+    "drop uncertain: text not verbatim text='10 All\\x05e9e des Fen\\x00eatres Bleues, 75099 Paris, France'",
+    "drop uncertain: text not verbatim text='41 Chemin des \\x00c9toiles, 69099 Lyon, France'",
+    "drop uncertain: text not verbatim text='2 Rue du Soleil, L-9090 Holburg, Grand-Duch\\x00e9 de Luxembourg'"
+  ],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

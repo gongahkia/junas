@@ -3,13 +3,339 @@
   "document_type": "memo",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@verdantis\u2011renew.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrien Kovacs"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@verdantis\u2011renew.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Lina Moreau"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@verdantis\u2011renew.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hugo Stein"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "VR\u201144721"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "VR\u201144903"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "health leave category"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "works\u2011council affiliation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "third\u2011country processor (CirrusLyte Pte Ltd, SG)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber\u2011security incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac4.8"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "liste d\u2019initi\u00e9s"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure controls are in place"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": ">5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2 KPIs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "SFDR PAI indicators"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to validation"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@verdantis\u2011renew.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Adrien Kovacs"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "legal@verdantis\u2011renew.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Lina Moreau"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "ir@verdantis\u2011renew.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Hugo Stein"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "VR\u201144721"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "VR\u201144903"
+    },
+    {
+      "category": "PII",
+      "rule": "health_condition",
+      "matched_text": "health leave category"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "works\u2011council affiliation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "third\u2011country processor (CirrusLyte Pte Ltd, SG)"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "cyber_incident_pre_disclosure",
+      "matched_text": "cyber\u2011security incident"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_amount",
+      "matched_text": "\u20ac4.8"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "liste d\u2019initi\u00e9s"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "Selective disclosure controls are in place"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout window"
+    },
+    {
+      "category": "MNPI",
+      "rule": "financial_percentage",
+      "matched_text": ">5%"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "Scope 2 KPIs"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "SFDR PAI indicators"
+    },
+    {
+      "category": "MNPI",
+      "rule": "contingent_mnpi_language",
+      "matched_text": "subject to validation"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "delay disclosure under Article 17(4)"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "no briefing of analysts or suppliers is permitted"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "market sounding"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "closed period"
+    },
+    {
+      "category": "MNPI",
+      "rule": "selective_disclosure_risk",
+      "matched_text": "any external communications require prior clearance to avoid inadvertent disclosure"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "may be material for issuer\u2011specific sustainability targets"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "payment card",
+      "reason": "Generic category mention without any card numbers or account details"
+    },
+    {
+      "matched_text": "government ID data",
+      "reason": "Generic mention; no specific identifier present"
+    },
+    {
+      "matched_text": "analysts",
+      "reason": "Generic role noun; not a natural-person identifier"
+    },
+    {
+      "matched_text": "suppliers",
+      "reason": "Generic role noun; not PII"
+    },
+    {
+      "matched_text": "Verdantis Renewables SE",
+      "reason": "Company name; not personal data"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "Data subjects to be notified under GDPR Articles 33\u201334 within 72 hours",
+      "concept": "breach notification marker",
+      "reason": "Indicates Article 33\u201334 notification timeline; not mapped to an explicit allowed rule"
+    },
+    {
+      "matched_text": "SCCs with a documented TIA",
+      "concept": "transfer mechanism detail",
+      "reason": "Relevant to cross-border compliance but not a specific allowed marker beyond cross-border"
+    },
+    {
+      "matched_text": "negotiations with our insurer",
+      "concept": "contingent negotiations context",
+      "reason": "Non-public negotiation detail may be price-sensitive but lacks a dedicated MNPI rule"
+    },
+    {
+      "matched_text": "on/before 14 June 2026",
+      "concept": "disclosure timing commitment",
+      "reason": "Specific dissemination date related to MAR delay; not covered by current embargo marker list"
+    },
+    {
+      "matched_text": "emergency routing to EU\u2011only processors is underway",
+      "concept": "breach mitigation step",
+      "reason": "Mitigation of cross-border processing; no dedicated rule in allowed set"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "jurisdictional_mnpi",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

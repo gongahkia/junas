@@ -3,13 +3,192 @@
   "document_type": "generic",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Sirka Vahl"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@alveon-fabrika.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer event"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Emile Toral"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Inga Dravik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cTERRA-Bond\u201d"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Sirka Vahl"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@alveon-fabrika.eu"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfer event"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Emile Toral"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Inga Dravik"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "transaction_codename",
+      "matched_text": "Project \u201cTERRA-Bond\u201d"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "px_0a9"
+    },
+    {
+      "category": "PII",
+      "rule": "internal_session_id",
+      "matched_text": "E-19%2FGRX"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "C9-\u00d87-1A"
+    },
+    {
+      "category": "PII",
+      "rule": "customer_account_number",
+      "matched_text": "cust\u2022\u2022\u20224942"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "Controller",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "Processor",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "subprocessor",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "DPO",
+      "reason": "Role-noun defined term, not PII/MNPI"
+    },
+    {
+      "matched_text": "inside information",
+      "reason": "Negated statement indicates no MNPI is held"
+    },
+    {
+      "matched_text": "MAC addresses",
+      "reason": "Negated; indicates such identifiers are not collected"
+    },
+    {
+      "matched_text": "biometric templates",
+      "reason": "Negated; indicates special-category data are not collected"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR",
+      "concept": "DSAR marker",
+      "reason": "Legally relevant privacy event but no explicit allowed rule for DSAR marker provided"
+    },
+    {
+      "matched_text": "erasure of marketing preference confirmed on 2026-05-25",
+      "concept": "Erasure marker",
+      "reason": "Erasure event is relevant but no explicit allowed rule for erasure marker provided"
+    },
+    {
+      "matched_text": "Retention",
+      "concept": "Retention marker",
+      "reason": "Retention policy marker is relevant but no explicit allowed rule for retention marker provided"
+    },
+    {
+      "matched_text": "delay of disclosure closed on 2026-04-30",
+      "concept": "MAR delay of disclosure",
+      "reason": "Indicates prior disclosure delay under MAR; not clearly covered by listed MNPI rules"
+    },
+    {
+      "matched_text": "7f:aa:9c",
+      "concept": "Checksum vs MAC address fragment",
+      "reason": "Could be misinterpreted by detectors as a MAC address; context says checksum"
+    },
+    {
+      "matched_text": "third country",
+      "concept": "Cross-border context",
+      "reason": "Indicates international transfer destination but not an explicit transfer-event marker"
+    },
+    {
+      "matched_text": "no onward transfer without written consent from Alveon Fabrika SE",
+      "concept": "Onward transfer consent condition",
+      "reason": "Privacy-relevant control on onward transfers without a matching allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

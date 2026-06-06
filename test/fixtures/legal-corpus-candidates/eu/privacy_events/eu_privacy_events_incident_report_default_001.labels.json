@@ -3,13 +3,215 @@
   "document_type": "memo",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Anders Vilhelm"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Petra Nov\u00e1k"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Irena Salcedo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aurivis.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@aurivis.example"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation and retention"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer request"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list updated"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Anders Vilhelm"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Petra Nov\u00e1k"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Irena Salcedo"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@aurivis.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@aurivis.example"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation and retention"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "remove national ID scan fields"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "cross\u2011border transfer request"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "international transfer addendum"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "non\u2011public"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider list updated"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "wall\u2011crossing procedures"
+    },
+    {
+      "category": "MNPI",
+      "rule": "material_event",
+      "matched_text": "Q2 yield shortfall"
+    },
+    {
+      "category": "MNPI",
+      "rule": "esg_climate_pre_disclosure",
+      "matched_text": "CSRD/SFDR impact assessment"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "no special category data under GDPR Art. 9 was processed in the affected flow",
+      "reason": "Negated statement; does not indicate presence of special-category PII."
+    },
+    {
+      "matched_text": "no biometric templates, geolocation, or children\u2019s data are stored in the ESG lake",
+      "reason": "Negated statement; avoid flagging special-category/children\u2019s data as present."
+    },
+    {
+      "matched_text": "special category data processing remains prohibited for this system per policy and audit confirms compliance",
+      "reason": "Prohibition/controls statement; not evidence of processing sensitive data."
+    },
+    {
+      "matched_text": "We confirm no investor\u2011facing guidance has been changed and no external dissemination of inside information occurred",
+      "reason": "Negated selective-disclosure; not a live MNPI leak."
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "DSAR received from Mr. Anders Vilhelm (Art. 15)",
+      "concept": "DSAR marker",
+      "reason": "Data subject access request is a privacy workflow event but no specific allowed rule name exists."
+    },
+    {
+      "matched_text": "erasure request upheld for legacy badge logs (Art. 17)",
+      "concept": "Erasure marker",
+      "reason": "Erasure/deletion event is relevant, but there is no explicit erasure rule in the allowed list."
+    },
+    {
+      "matched_text": "retention shortened to 6 months",
+      "concept": "Retention marker",
+      "reason": "Retention change is a privacy event; retention rule not defined in allowed set."
+    },
+    {
+      "matched_text": "a 24\u2011month retention cap reaffirmed",
+      "concept": "Retention marker",
+      "reason": "Retention cap is relevant to privacy compliance but not mapped to an allowed rule."
+    },
+    {
+      "matched_text": "Data\u2011export approval ID AEG\u2011DX\u20110441",
+      "concept": "Internal approval identifier",
+      "reason": "Unique internal identifier may be treated as PII in some contexts but not covered by allowed rules."
+    },
+    {
+      "matched_text": "disclosure delay under MAR Art. 17(4)",
+      "concept": "Disclosure delay marker",
+      "reason": "Relevant MAR control indicating delayed disclosure; no direct allowed rule mapping."
+    },
+    {
+      "matched_text": "the competent authority notified post\u2011remediation",
+      "concept": "Authority notification",
+      "reason": "Regulatory notification detail relevant to MAR but not captured by existing MNPI rules."
+    },
+    {
+      "matched_text": "payroll IBAN placeholders",
+      "concept": "Bank account reference",
+      "reason": "References bank account data category without any actual account numbers; not captured by bank_account rule."
+    },
+    {
+      "matched_text": "employee identifiers, contact data",
+      "concept": "PII category reference",
+      "reason": "General categories of PII mentioned without specific identifiers; not covered by current strict rules."
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

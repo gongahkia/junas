@@ -3,13 +3,280 @@
   "document_type": "generic",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Maja Feld"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jorin Hale"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Elira Voss"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Teren Ulf"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lunaria-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@lunaria-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@lunaria-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "LNS-2934"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-Border Data Export Approval"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "export of HR and investor-relations records"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfer mechanism"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union status"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list handling"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Dr. Maja Feld"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Jorin Hale"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Ms. Elira Voss"
+    },
+    {
+      "category": "PII",
+      "rule": "named_person",
+      "matched_text": "Mr. Teren Ulf"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@lunaria-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@lunaria-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy.office@lunaria-se.example"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "LNS-2934"
+    },
+    {
+      "category": "PII",
+      "rule": "employee_id",
+      "matched_text": "hashed employee IDs"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "Minimisation"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "only aggregated sustainability metrics"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "individual CVs, medical notes, and union status are not exported"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-Border Data Export Approval"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "export of HR and investor-relations records"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Transfer mechanism"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "Consent withdrawal"
+    },
+    {
+      "category": "PII",
+      "rule": "consent_withdrawal_marker",
+      "matched_text": "withdrew consent"
+    },
+    {
+      "category": "PII",
+      "rule": "trade_union_membership",
+      "matched_text": "union status"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "inside information"
+    },
+    {
+      "category": "MNPI",
+      "rule": "nonpublic_marker",
+      "matched_text": "unannounced capacity forecasts"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "Insider list handling"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "MAR insider list"
+    },
+    {
+      "category": "MNPI",
+      "rule": "information_barrier_marker",
+      "matched_text": "restricted access"
+    },
+    {
+      "category": "MNPI",
+      "rule": "blackout_period_reference",
+      "matched_text": "blackout windows"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "processor",
+      "reason": "Role noun label; not PII/MNPI"
+    },
+    {
+      "matched_text": "there is no live cross-border transfer",
+      "reason": "Negated statement; not a live privacy event"
+    },
+    {
+      "matched_text": "payroll bank details",
+      "reason": "Category mention without any personal value; negated transfer"
+    },
+    {
+      "matched_text": "biometric templates",
+      "reason": "Negated transfer; category mention only"
+    },
+    {
+      "matched_text": "health certificates",
+      "reason": "Negated transfer; category mention only"
+    },
+    {
+      "matched_text": "MNPI",
+      "reason": "Appears in a negated control statement; term alone should not trigger detection"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "voluntary workforce diversity indicators",
+      "concept": "Art 9 special-category context",
+      "reason": "Indicates sensitive categories may exist but no explicit category values are enumerated in allowed rules"
+    },
+    {
+      "matched_text": "TIA completed 04 June 2026",
+      "concept": "transfer impact assessment",
+      "reason": "Governance signal for cross-border transfers not explicitly covered by allowed marker rules"
+    },
+    {
+      "matched_text": "Federated Archipelago",
+      "concept": "third-country destination",
+      "reason": "Indicates non-EEA processing location relevant to cross-border compliance but not itself an allowed marker"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [
+    "drop must_detect: invalid rule 'retention' text='Retention:'",
+    "drop must_detect: invalid rule 'dsar' text='DSAR workflow:'",
+    "drop must_detect: invalid rule 'erasure' text='erasure'",
+    "drop ideal_must_detect: invalid rule 'retention' text='Retention:'",
+    "drop ideal_must_detect: invalid rule 'retention' text='retained by NimbusFrame for 12 months'",
+    "drop ideal_must_detect: invalid rule 'dsar' text='DSAR workflow:'",
+    "drop ideal_must_detect: invalid rule 'dsar' text='requested access'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='erasure'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='erased'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='deleted'",
+    "drop ideal_must_detect: invalid rule 'erasure' text='certificate of erasure'"
+  ],
   "_taxonomy_concept": "privacy_events",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }

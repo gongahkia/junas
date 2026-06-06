@@ -3,13 +3,160 @@
   "document_type": "generic",
   "source_jurisdiction": "EU",
   "destination_jurisdiction": "EU",
-  "must_detect": [],
-  "ideal_must_detect": [],
-  "must_not_detect": [],
-  "uncertain": [],
+  "must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@greyelm.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@greyelm.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@greyelm.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sales@greyelm.example"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "VLR0A0000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    }
+  ],
+  "ideal_must_detect": [
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "dpo@greyelm.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "privacy@greyelm.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "compliance@greyelm.example"
+    },
+    {
+      "category": "PII",
+      "rule": "email_address",
+      "matched_text": "sales@greyelm.example"
+    },
+    {
+      "category": "PII",
+      "rule": "passport_number",
+      "matched_text": "VLR0A0000"
+    },
+    {
+      "category": "PII",
+      "rule": "cross_border_transfer_marker",
+      "matched_text": "Cross-border transfers"
+    },
+    {
+      "category": "MNPI",
+      "rule": "insider_list_marker",
+      "matched_text": "insider lists"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "We avoid collecting special categories unless Art 9(2)(b)\u2013(g) apply"
+    },
+    {
+      "category": "PII",
+      "rule": "data_minimisation_marker",
+      "matched_text": "CSRD/SFDR data are aggregated at facility-level or product umbrella level, not per individual"
+    },
+    {
+      "category": "PII",
+      "rule": "bank_account",
+      "matched_text": "IBAN XE68 1234 5678 9012 3456 78"
+    }
+  ],
+  "must_not_detect": [
+    {
+      "matched_text": "+800 000 0000",
+      "reason": "Public helpline number, not personal PII"
+    },
+    {
+      "matched_text": "<Full Name>",
+      "reason": "Placeholder field, not actual PII"
+    },
+    {
+      "matched_text": "<Home Address>",
+      "reason": "Placeholder field, not actual PII"
+    },
+    {
+      "matched_text": "<Account Number>",
+      "reason": "Placeholder field, not actual PII"
+    },
+    {
+      "matched_text": "Head of Compliance",
+      "reason": "Role title only, not a named natural person"
+    },
+    {
+      "matched_text": "Data Protection Officer",
+      "reason": "Role title only, not a named natural person"
+    },
+    {
+      "matched_text": "IBAN XE00 0000 0000 0000 0000 00",
+      "reason": "Template/example IBAN, not collected personal bank account"
+    },
+    {
+      "matched_text": "Trade Register No EU-CBR-00998877",
+      "reason": "Corporate identifier, not covered by personal PII rules"
+    },
+    {
+      "matched_text": "VAT VLTN-000000000",
+      "reason": "Corporate VAT/test identifier, not in allowed personal PII rules"
+    }
+  ],
+  "uncertain": [
+    {
+      "matched_text": "deleted within 30 days post-verification",
+      "concept": "retention/erasure timeline",
+      "reason": "Retention/erasure is legally relevant but no explicit retention rule in allowed list"
+    },
+    {
+      "matched_text": "kept for 12 months",
+      "concept": "retention timeline",
+      "reason": "Retention period is legally relevant but not covered by an allowed detection rule"
+    },
+    {
+      "matched_text": "no adequacy decision",
+      "concept": "cross-border adequacy risk",
+      "reason": "Relevant to GDPR transfer risk, but not an explicit allowed marker"
+    },
+    {
+      "matched_text": "SCCs Module 2",
+      "concept": "transfer mechanism",
+      "reason": "Standard Contractual Clauses reference is compliance-relevant but not covered by an allowed rule"
+    }
+  ],
+  "_label_source": "azure:gpt-5-2-auto",
+  "_label_model": "azure:gpt-5-2",
+  "_label_warnings": [],
   "_taxonomy_concept": "direct_identifiers",
   "_taxonomy_version": "architecture-pivot-2026-05-26",
-  "_prompt_version": "jurisdiction-taxonomy-v1",
   "_human_review_status": "pending",
-  "_generation_note": "AUTO-GENERATED STUB. A reviewer must hand-fill must_detect / must_not_detect by inspecting the fixture text before this file is committed and before the recall.lock baseline is refreshed."
+  "_label_note": "AUTO-LABELED by LLM. Spot-check before refreshing recall.lock.json. Lock updates must include this provenance in --reason per item 16."
 }
