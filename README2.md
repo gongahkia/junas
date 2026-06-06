@@ -156,6 +156,29 @@ When citing this benchmark: `SG-LegalBench (Junas), CC-BY-4.0, <repo URL>`.
 
 See [GitHub issues](https://github.com/gongahkia/junas/issues) for full tracking.
 
+## Run as MCP server
+
+Junas exposes a [Model Context Protocol](https://modelcontextprotocol.io) server
+(`junas-mcp`) so MCP-compatible clients (Claude Desktop, Cursor, etc.) can call
+into the benchmark + copilot surface. F1 ships the scaffold with a single
+`health` tool; benchmark + retrieval tools land in F2 (#48 follow-up).
+
+```sh
+# stdio transport (default — used by Claude Desktop)
+make mcp
+
+# streamable HTTP on :3344 (for local debug / curl)
+make mcp MCP_HTTP=1
+```
+
+Direct invocation: `.venv/bin/python -m backend.mcp.server [--http]` from repo
+root. The local `backend.mcp` package must be addressed via its `backend.`
+prefix to avoid shadowing the SDK's top-level `mcp` import.
+
+Verify the install via the built-in `health` tool, which returns
+`repo_version`, `git_sha`, and `python_version`. F3 documents the Claude
+Desktop `claude_desktop_config.json` snippet.
+
 ## Disclaimer
 
 This is research infrastructure, not legal advice. The benchmark and copilot

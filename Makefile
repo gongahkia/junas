@@ -1,4 +1,4 @@
-.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-pdpc-guidelines ingest-sso ingest-mom ingest-commonlii-sg build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 download-data setup eval eval-list synth-gen
+.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-pdpc-guidelines ingest-sso ingest-mom ingest-commonlii-sg build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 download-data setup eval eval-list synth-gen mcp
 
 # === primary ===
 up:
@@ -14,6 +14,14 @@ dev:
 # === backend ===
 api:
 	cd backend && uvicorn api.main:app --reload --port 8000
+
+# === mcp server (issue #48) ===
+# Usage: make mcp [MCP_HTTP=1]
+# Invoked from repo root so the local backend.mcp package does not shadow the SDK's top-level `mcp`.
+MCP_HTTP_ARG := $(if $(strip $(MCP_HTTP)),--http,)
+MCP_PYTHON ?= .venv/bin/python
+mcp:
+	$(MCP_PYTHON) -m backend.mcp.server $(MCP_HTTP_ARG)
 
 # === frontend ===
 frontend:
