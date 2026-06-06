@@ -27,4 +27,4 @@ async def sglb_06_task(case: Case) -> str:
     return json.dumps(labels)
 
 
-register_task("sglb_06", sglb_06_task, benchmark_eligible=False)
+register_task("sglb_06", sglb_06_task, benchmark_eligible=True)

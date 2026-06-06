@@ -49,8 +49,8 @@ def test_reregister_without_flag_restores_default_eligibility():
     assert is_benchmark_eligible("sglb_99_llm_mock") is True
 
 
-def test_sglb_05_06_07_ship_ineligible_until_data_lands():
+def test_sglb_05_07_ship_ineligible_until_data_lands():
     assert is_benchmark_eligible("sglb_05") is False
-    assert is_benchmark_eligible("sglb_06") is False
+    assert is_benchmark_eligible("sglb_06") is True
     assert is_benchmark_eligible("sglb_07") is False
     assert is_benchmark_eligible("sglb_08") is True
