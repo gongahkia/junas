@@ -1,0 +1,17 @@
+Incident Report — Nordholm Renewables SE (EU issuer) — MAR/CSRD/GDPR notice dated 2026-06-05
+On 2026-06-04, our SOC detected unauthorized access to the ESG supplier portal impacting non-public procurement schedules and selected employee HR records; this constitutes inside information under Art 7 MAR and we have requested delay of disclosure under Art 17(4) from the Northern Markets Commission (NMC).
+Company identifiers: Org.nr (SE) 556789-1234; EU VAT: SE556789123401; Registered seat: Ringgatan 12, 118 57 Stockfjord, Sweden (group HQ).
+Contact and accounts: DPO desk +358 9 245 7710, dpo@nordholmrenewables.eu; Treasury IBAN NL12 NALM 0123 4567 89 (Nordholm Treasury BV, Kadeplein 5, 3010 Osthaven, Netherlands).
+One impacted record included: Mr. Jari Mäkelä (Procurement), Passport FI-P1234567, mobile +358 40 123 4567, email jari.makela@northaltum.eu; address: Väinölänkatu 7 A, 2015 Helskivi, Finland.
+Categories of personal data: staff identifiers, business contact details, and limited Art 9 data (sickness leave codes for three employees and union fee payroll flags), accessed via misused API credentials.
+Cross-border transfers: log snapshots were replicated to Aurifex Data Pvt Ltd (processor) in Lakhpur, India under 2021 SCCs; transfers suspended pending a Schrems II risk assessment and DPA consultation.
+Market sensitivity: portal included draft timelines for a renewable PPAs aggregation and a contemplated green bond tap on Euronext Osthaven; size and timing remain non-public and may significantly affect price once quantified.
+Scope: approx. 2.3 GB exfiltrated between 00:42–01:07 CET; no evidence of alteration of CSRD environmental KPIs, but supplier emissions attestations may require re-validation, potentially influencing SFDR PAI indicators.
+Security measures: API key rotated, OAuth scopes reduced, and SIEM rules tuned; independent forensics retained (Harbor & Finch Advisory AB, engagement ref HFA-26-0404).
+Public helplines listed on our website (+800 0000 0000 and 112) are general service numbers and are not personal data; do not use these for incident submissions.
+Bait identifiers found in legacy test templates include VAT “DE123456780” and IBAN “DE00 5001 0517 5407 3249 31”; these are placeholders with invalid checksums and were not used in production.
+Exposed form labels (no values) included: “Full Name”, “Tax ID”, “Passport No.”, “Contact Phone”, handled by role-only accounts such as “Procurement Officer” and “HR Manager”.
+Data subjects span Sweden, Finland, Belgium, and Poland; notifications to local DPAs (Stockfjord DPA, Helskivi DPA, Valduin DPA, and Nowa Rzeka DPA) will commence within 72 hours under GDPR Art 33.
+Interim controls include a ban on exporting HR attributes to non-EEA endpoints and a temporary hold on supplier onboarding until DPIA addendum approval.
+For investors: a holding announcement will be prepared for Euronext Osthaven; we will assess whether the potential need to restate supplier climate metrics under CSRD could materially impact guidance.
+Point of contact for MAR/GDPR coordination: Ms. Elina Voronenko, Acting CISO, +46 8 551 72 910, elina.voronenko@nordholmrenewables.eu; backup: Compliance Officer, ir@nordholmrenewables.eu.
