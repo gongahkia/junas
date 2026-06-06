@@ -1,5 +1,7 @@
 """Adapter architecture invariants — most important: benchmark gating."""
+import json
 from datetime import date
+from pathlib import Path
 
 import pytest
 
@@ -9,7 +11,6 @@ from api.adapters import (
     DocType,
     LegalSourceAdapter,
     SourceDocument,
-    SourceMetadata,
     benchmark_safe_adapters,
     derive_legis_id,
     normalise_date,
@@ -230,6 +231,7 @@ def test_each_adapter_declares_doc_type():
 
 def test_each_adapter_declares_non_empty_extra_schema():
     for cls in [
+        CommonliiSgAdapter,
         ElitigationAdapter,
         HansardAdapter,
         IrasAdapter,
@@ -240,6 +242,62 @@ def test_each_adapter_declares_non_empty_extra_schema():
     ]:
         schema = getattr(cls, "extra_schema", {})
         assert schema and isinstance(schema, dict), f"{cls.__name__} extra_schema empty/invalid"
+
+
+def test_commonlii_sg_adapter_delegates_to_ingester(monkeypatch, tmp_path: Path):
+    from data.ingestion import commonlii_sg
+
+    output = tmp_path / "judgments.jsonl"
+    row = {
+        "case_id": "commonlii_sg_abc123",
+        "citation": "[2024] SGCA 48",
+        "court_code": "SGCA",
+        "year": 2024,
+        "case_no": 48,
+        "decision_date": "2024-11-06",
+        "source_url": commonlii_sg.judgment_url("SGCA", 2024, 48),
+        "html_url": commonlii_sg.judgment_url("SGCA", 2024, 48),
+        "body_html": """
+        <html><body>
+          <h1>Li Jialin and another v Wingcrown Investment Pte Ltd [2024] SGCA 48</h1>
+          <p>The court considered the parties' sale and purchase agreement.</p>
+        </body></html>
+        """,
+        "body_plain": "",
+        "extraction_rule_sha": "abc1234",
+    }
+    calls = []
+
+    def fake_ingest(output_path, **kwargs):
+        calls.append((Path(output_path), kwargs))
+        Path(output_path).write_text(json.dumps(row) + "\n", encoding="utf-8")
+        return commonlii_sg.IngestStats(written=1)
+
+    monkeypatch.setattr(commonlii_sg, "ingest", fake_ingest)
+    adapter = CommonliiSgAdapter(output_path=output, court="SGCA", year=2024, limit=1)
+
+    docs = list(adapter.fetch_all())
+
+    assert calls[0][0] == output
+    assert calls[0][1]["court"] == "SGCA"
+    assert calls[0][1]["year"] == 2024
+    assert calls[0][1]["limit"] == 1
+    assert len(docs) == 1
+    doc = docs[0]
+    assert doc.document_id == row["case_id"]
+    assert doc.source_url == row["source_url"]
+    assert doc.title == "Li Jialin and another v Wingcrown Investment Pte Ltd [2024] SGCA 48"
+    assert "sale and purchase agreement" in doc.body
+    assert doc.published_date == date(2024, 11, 6)
+    assert doc.source_metadata == CommonliiSgAdapter.metadata
+    assert doc.doc_type == DocType.CASE.value
+    assert doc.legis_id == row["case_id"]
+    assert doc.extra["body_html"] == row["body_html"]
+    assert doc.extra["extraction_rule_sha"] == "abc1234"
+    assert doc.provenance["source_id"] == "commonlii-sg"
+    assert adapter.fetch_by_id(row["case_id"]).document_id == row["case_id"]
+    assert adapter.fetch_by_id(row["html_url"]).document_id == row["case_id"]
+    assert adapter.fetch_by_id("missing") is None
 
 
 def test_all_public_adapters_have_licence_summary():
