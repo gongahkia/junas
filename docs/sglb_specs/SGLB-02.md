@@ -1,6 +1,6 @@
 # SGLB-02 Statute-QA
 
-Version: 0.1-shipped (PDPA seed). Tracking issue: [#28](https://github.com/gongahkia/junas/issues/28), [#32](https://github.com/gongahkia/junas/issues/32).
+Version: 0.1.1-shipped (500-case full dataset; PDPA smoke retained). Tracking issue: [#28](https://github.com/gongahkia/junas/issues/28), [#32](https://github.com/gongahkia/junas/issues/32).
 
 ## Capability
 
@@ -53,6 +53,10 @@ Leaderboard reports both metrics separately; no composite score.
   rate-limited 3s, retry + version-pinning); seed acts `PDPA2012`,
   `EmA1968`, `PC1871`, `ROC2021`.
 - Dataset builder: `benchmark.dataset_builders.sglb_02`.
+  - PDPA-only smoke: `backend/benchmark/datasets/sglb_02_statute_qa.yaml`
+    (78 cases; retained for backward compatibility).
+  - Full v0.1 dataset: `backend/benchmark/datasets/sglb_02_statute_qa_full.yaml`
+    (500 cases: PDPA2012 78, EmA1968 144, ROC2021 40, PC1871 238).
   - Filters: drop `[Repealed]`, drop `len(text) < 120`, drop boilerplate
     headings (`Interpretation`, `Definitions`, `Short title`,
     `Citation`, `Commencement`, `Application`).
@@ -64,9 +68,9 @@ Leaderboard reports both metrics separately; no composite score.
 
 ## Limitations
 
-- **PDPA-only seed for v0.1.** The v0.1 dataset (~78 cases) is built
-  from the PDPA 2012 fixture. EmA / PC / ROC2021 expansion requires live
-  `make ingest-sso` against AGC; deferred until network budget allocated.
+- **PDPA smoke retained.** The original v0.1 PDPA-only YAML remains in
+  place for backward compatibility. The full v0.1.1 dataset is the
+  leaderboard-sized 500-case YAML.
 - **Mechanical question generation.** All questions follow one template.
   This is a deliberate methodology choice (reproducibility > realism); a
   10% spot-check by hand on the gold cases is the planned validation.
@@ -80,14 +84,13 @@ Leaderboard reports both metrics separately; no composite score.
 
 ## v0.1 / v0.2 stratification
 
-Splits assigned deterministically by case-index modulo 10 (80/10/10) for
-the PDPA-only seed:
+Splits are assigned deterministically by case-index modulo 10 (80/10/10).
+The PDPA-only smoke remains:
 
 - `train` ~64 cases, `dev` ~7, `test` ~7.
 
-When live `make ingest-sso` materialises EmA/PC/ROC2021 sections, the
-builder rebuilds and the splits expand toward the original target
-(~500 cases). v0.2 held-out: ~80 sections from post-2026-Q1 statute
+The full v0.1.1 dataset is exactly 500 cases (`train` 400, `dev` 50,
+`test` 50). v0.2 held-out: ~80 sections from post-2026-Q1 statute
 amendments. Leaderboard reports per-statute breakdowns to surface domain
 skew.
 
@@ -96,3 +99,6 @@ skew.
 - 0.1-shipped (2026-06-04): SSO ingestion landed (#28); dataset builder
   + oracle runner + LLM prompt builder + citation/ROUGE-L scorers
   registered; PDPA-only seed materialised (78 cases, oracle 1.0/1.0).
+- 0.1.1-shipped (2026-06-06): EmA1968, ROC2021, and PC1871 SSO JSONL
+  materialised; full 500-case dataset added while preserving the
+  PDPA-only smoke YAML.

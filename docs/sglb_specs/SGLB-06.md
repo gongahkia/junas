@@ -1,6 +1,6 @@
 # SGLB-06 Rules-of-Court-2021
 
-Version: 0.1-code-shipped (data pending live `make ingest-sso SSO_CODE=ROC2021`). Tracking issue: [#33](https://github.com/gongahkia/junas/issues/33).
+Version: 0.1-shipped (ROC2021 data materialised). Tracking issue: [#33](https://github.com/gongahkia/junas/issues/33).
 
 ## Capability
 
@@ -43,9 +43,15 @@ Both evaluators normalise common surface variants (`Order 9, Rule 1`,
 ## Source provenance
 
 - Adapter: `api.adapters.public.sso.SsoAdapter`.
-- Ingestion: `data.ingestion.sso` with `SSO_CODE=ROC2021`. ROC 2021
-  appears in `ACT_CODES` as `("ROC2021", "sl", "/SL-Supp/S914-2021/Published?DocDate=20211201&WholeDoc=1")`.
+- Ingestion: `data.ingestion.sso` JSONL schema, materialised from the
+  original SSO supplement route
+  `/SL-Supp/S914-2021/Published/20211201?DocDate=20211201&WholeDoc=1`.
+  The older configured `ACT_CODES` route was attempted first but emitted
+  0 rows with the current parser.
 - Dataset builder: `benchmark.dataset_builders.sglb_06`.
+  - Dataset: `backend/benchmark/datasets/sglb_06_roc_2021.yaml`
+    (150 cases, order-stratified from 391 builder-eligible ROC2021 rules;
+    29 Orders represented).
   - Filters: drop `[Repealed]`, drop `len(scenario) < 100`, drop Rules
     without a parsed `Order N` in the `part` heading.
   - Scenario = the Rule's own scope/heading text (first paragraph after
@@ -56,9 +62,10 @@ Both evaluators normalise common surface variants (`Order 9, Rule 1`,
 
 ## Limitations
 
-- **Data pending live ingest.** v0.1 ships builder + scorers + runner +
-  prompt; the case data lands once `make ingest-sso SSO_CODE=ROC2021`
-  populates the SSO JSONL with ROC 2021 sections (~150 Rules).
+- **Mechanically authored scenarios.** Each scenario is the Rule's own
+  scope text from SSO, not an LLM-authored hypothetical. The v0.1 YAML
+  uses a 150-case order-stratified subset from the original 1 December
+  2021 SSO supplement.
 - **Single-label per Rule by default.** Multi-Rule scenarios are
   possible via the F1 metric but not yet generated; the v0.1 builder
   emits one gold label per case (each Rule is its own case).
@@ -70,8 +77,8 @@ Both evaluators normalise common surface variants (`Order 9, Rule 1`,
 
 ## v0.1 / v0.2 stratification
 
-- v0.1 (data pending): ~150 scenarios, one per Rule, ≥3 per Order on
-  rebuild.
+- v0.1: 150 scenarios, one per selected Rule, with every available Order
+  represented.
 - v0.2 held-out: ~30 scenarios from Rules amended post-2026-Q1.
 - Per-Order leaderboard breakdown.
 
@@ -79,4 +86,5 @@ Both evaluators normalise common surface variants (`Order 9, Rule 1`,
 
 - 0.1-code-shipped (2026-06-04): builder, oracle runner, LLM prompt
   builder, `order_rule_label_f1` + `order_rule_top3` scorers, spec.
-  Data lands on next `make ingest-sso SSO_CODE=ROC2021 && make build-sglb-06`.
+- 0.1-shipped (2026-06-06): ROC2021 SSO JSONL materialised; 150-case
+  YAML added; SGLB-06 restored to benchmark eligibility.
