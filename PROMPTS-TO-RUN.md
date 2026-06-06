@@ -1717,17 +1717,26 @@ generate; whether v0.2 should add more perturbation kinds.
 
 _Closes the "use us for your evals" workflow._
 
-**TIER 3 — FIRST 3 DONE ✅ (2026-06-06, PRs #107-109). 7 prompts remain (Batch C + SOLO-1..6).**
+**TIER 3 — 12 OF 13 DONE ✅ (2026-06-06, PRs #107-119). Only SOLO-6 remains.**
 
 | Work unit | Closes | PR | Notes |
 |---|---|---|---|
-| `NEW-VENDOR-GUIDE` | GAP-14 | #107 | 10-minute vendor self-eval guide + sample receipt JSON + sample leaderboard row. Consolidates the Tier 1 methodology infra (CI receipts + contamination probe + normalisation spec + dispute process). |
-| `NEW-INDEPENDENT-REPRO` | GAP-12 | #108 | Outreach kit + per-institution briefs for SMU SOLID / NUS TRAIL / SAL data services to run SG-LegalBench independently. |
-| `NEW-LIB-PACKAGING` | GAP-15 | #109 | `sglb-tools` sub-package at `packages/sglb-tools/` (citation grammar, normalisers, adapter base protocol). 19 sub-package tests + 104 backend tests passing after refactor. PyPI publish path documented; publish itself is a follow-up. |
+| `NEW-VENDOR-GUIDE` | GAP-14 | #107 | 10-minute vendor self-eval guide + sample receipt JSON + sample leaderboard row. |
+| `NEW-INDEPENDENT-REPRO` | GAP-12 | #108 | Outreach kit + per-institution briefs for SMU SOLID / NUS TRAIL / SAL. |
+| `NEW-LIB-PACKAGING` | GAP-15 | #109 | `sglb-tools` sub-package at `packages/sglb-tools/`. 19 sub-package tests + 104 backend tests passing. |
+| `SOLO-1` | #75 | #111 | Retrieval R1 dedupe (legis_id) + R2 cursor pagination (search_after). |
+| `SOLO-2` | #78 | #112 | `/benchmarks/runs/{run_id}` drill-down endpoint + per-case sortable UI. |
+| `SOLO-4` | #74 | #113 | Cold-start guide for new agent + first baseline. |
+| `SOLO-5` | #76 | #114 | CI gate blocking accidental promotion of pending synthetic candidates. |
+| `SOLO-3` | #79 | #115 | API_KEYS gate on `/benchmarks` routes (rebased to drop SOLO-1/SOLO-2 duplicates). |
+| Batch C `C1` | audit #2 | #116 | research/statutes/glossary forms switched GET→POST (rebased). |
+| Batch C `C2` | audit #3, #4 | #117 | Command palette nav-home fix + dead-command audit (rebased). |
+| Batch C `C3` | audit #5 | #118 | Single `createApiClient` surface; `api-server.ts` uses it (rebased + 1 conflict resolved on `api-server.ts`). |
+| Batch C `C4` | audit #7 | #119 | DOMPurify on `dangerouslySetInnerHTML` paths (rebased + 3 conflicts resolved on `package.json`/`vitest.config.ts`/`package-lock.json`). |
 
-Still-pending in Tier 3: Batch C (C1-C4 frontend audit fixes, parallel-safe) + SOLO-1 through SOLO-6 (independent single-prompt items).
+**Still pending: `SOLO-6` (Synthetic-tier API marking, #77).** Small — adds `data_tier` field to the `/benchmarks` API response shape + renders "synthetic" vs "regulator" badge per task. 3 files. Zero LLM-key cost.
 
-The 3 completed prompt bodies are preserved verbatim below.
+The 3 first-tier-3 prompt bodies are preserved verbatim below.
 
 <details>
 <summary><strong>TIER 3 (first 3) — DONE.</strong> 3 prompt bodies preserved for re-runs. Click to expand.</summary>
@@ -1904,6 +1913,9 @@ v0.2 timeline aligns with their academic year.
 </details>
 
 ---
+
+<details>
+<summary><strong>BATCH C (C1-C4) — DONE.</strong> 4 prompt bodies preserved for re-runs. Click to expand.</summary>
 
 # Batch C — Frontend Audit Fixes, 4 parallel agents
 
@@ -2101,6 +2113,13 @@ Report back: any HTML features sanitisation accidentally strips
 that we relied on.
 ```
 
+</details>
+
+---
+
+<details>
+<summary><strong>SOLO-1 through SOLO-5 — DONE.</strong> 5 prompt bodies preserved for re-runs. Click to expand. SOLO-6 stays inline below as the still-pending Tier 3 prompt.</summary>
+
 ## SOLO-1: Retrieval R1 + R2 audit fixes (#75)
 
 ```text
@@ -2264,6 +2283,10 @@ candidates (closes #76)`.
 
 Report back: any synth-pipeline edge cases.
 ```
+
+</details>
+
+---
 
 ## SOLO-6: Synthetic-tier API marking (#77)
 
