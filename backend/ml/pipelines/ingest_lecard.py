@@ -6,7 +6,7 @@ from typing import Any
 
 from prefect import flow, task
 
-from api.indices import ES
+from api.indices import ES, LEGIS_ID_FIELD, SORT_DATE_FIELD
 from data.parsers.lecard_parser import (
     attach_candidate_charges,
     build_candidate_charge_map,
@@ -48,6 +48,8 @@ MAPPING = {
             "writId": {"type": "keyword"},
             "writName": {"type": "text", "analyzer": "zh_text"},
             "charges": {"type": "keyword"},
+            LEGIS_ID_FIELD: {"type": "keyword"},
+            SORT_DATE_FIELD: {"type": "date"},
         }
     },
 }
@@ -116,6 +118,7 @@ async def index_case_batch(es: Any, batch: list[dict[str, Any]]) -> int:
                 "writId": row.get("writId", ""),
                 "writName": row.get("writName", ""),
                 "charges": row.get("charges", []),
+                LEGIS_ID_FIELD: case_id,
             }
         )
     if operations:

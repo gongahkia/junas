@@ -21,7 +21,7 @@ from typing import Any, Iterator
 
 from prefect import flow, task
 
-from api.indices import ES, QDRANT
+from api.indices import ES, LEGIS_ID_FIELD, QDRANT, SORT_DATE_FIELD
 from data.ingestion.sso import DEFAULT_OUTPUT as SSO_JSONL_DEFAULT
 from data.ingestion.sso import run as sso_ingest_run
 
@@ -77,6 +77,8 @@ MAPPING = {
             "version_id": {"type": "keyword"},
             "valid_start_date": {"type": "keyword"},
             "section_id": {"type": "keyword"},
+            LEGIS_ID_FIELD: {"type": "keyword"},
+            SORT_DATE_FIELD: {"type": "date"},
         }
     },
 }
@@ -123,6 +125,28 @@ def _id_for(row: dict[str, Any]) -> str:
     return f"{row.get('chapter_number', '')}:{row.get('number', '')}"
 
 
+def _legis_id_for(row: dict[str, Any]) -> str:
+    value = str(row.get(LEGIS_ID_FIELD) or "").strip()
+    if value:
+        return value
+    chapter = str(row.get("chapter_number") or "").strip()
+    number = str(row.get("number") or "").strip()
+    return f"{chapter}:{number}" if chapter and number else str(row.get("section_id") or "").strip()
+
+
+def _sort_date_for(row: dict[str, Any]) -> str:
+    return str(row.get(SORT_DATE_FIELD) or row.get("valid_start_date") or "").strip()
+
+
+def _source_for_es(row: dict[str, Any]) -> dict[str, Any]:
+    source = dict(row)
+    source[LEGIS_ID_FIELD] = _legis_id_for(source)
+    sort_date = _sort_date_for(source)
+    if sort_date:
+        source[SORT_DATE_FIELD] = sort_date
+    return source
+
+
 @task
 async def create_es_index(es: Any) -> None:
     if await es.indices.exists(index=INDEX_NAME):
@@ -135,7 +159,7 @@ async def index_es_batch(es: Any, batch: list[dict[str, Any]]) -> int:
     operations: list[dict[str, Any]] = []
     for row in batch:
         operations.append({"index": {"_index": INDEX_NAME, "_id": _id_for(row)}})
-        operations.append(row)
+        operations.append(_source_for_es(row))
     if operations:
         await es.bulk(operations=operations, refresh=False)
     return len(batch)
@@ -178,6 +202,8 @@ def _build_qdrant_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "number": row.get("number", ""),
                     "name": row.get("name", ""),
                     "chapter_number": row.get("chapter_number", ""),
+                    LEGIS_ID_FIELD: _legis_id_for(row),
+                    SORT_DATE_FIELD: _sort_date_for(row),
                     "chunk_index": chunk_index,
                     "text": chunk_text,
                     "text_snippet": chunk_text[:200],
@@ -218,6 +244,8 @@ def _index_qdrant(rows: list[dict[str, Any]]) -> int:
                         "number": row["number"],
                         "name": row["name"],
                         "chapter_number": row["chapter_number"],
+                        LEGIS_ID_FIELD: row[LEGIS_ID_FIELD],
+                        SORT_DATE_FIELD: row[SORT_DATE_FIELD],
                         "chunk_index": row["chunk_index"],
                         "text_snippet": row["text_snippet"],
                     },

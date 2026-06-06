@@ -113,7 +113,7 @@ class CaseRetrievalService:
         include_scores: bool = True,
     ) -> dict[str, Any]:
         payload = self.pipeline.search(query_text=query, top_k=top_k, stages=stages)
-        results = payload["results"]
+        results = _dedupe_case_results(payload["results"])
         if not include_scores:
             for row in results:
                 row.pop("relevance_score", None)
@@ -206,3 +206,20 @@ def create_case_retrieval_service(
         baseline_predictions=load_baseline_predictions(root),
         metrics_path=metrics_path,
     )
+
+
+def _dedupe_case_results(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    best: dict[str, dict[str, Any]] = {}
+    order: list[str] = []
+    for row in rows:
+        key = str(row.get("legis_id") or row.get("case_id") or "").strip()
+        if not key:
+            continue
+        previous = best.get(key)
+        if previous is None:
+            best[key] = row
+            order.append(key)
+            continue
+        if float(row.get("relevance_score", 0.0) or 0.0) > float(previous.get("relevance_score", 0.0) or 0.0):
+            best[key] = row
+    return [best[key] for key in order]

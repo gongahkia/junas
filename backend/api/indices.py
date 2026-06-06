@@ -10,10 +10,20 @@ Per ``docs/coverage-matrix.md`` §7, IRAS and Hansard indices are
 """
 from __future__ import annotations
 
+import base64
+import json
 from dataclasses import dataclass
+from typing import Any
 
 REGION = "sg"
 _PREFIX = f"junas_{REGION}"
+LEGIS_ID_FIELD = "legis_id"
+SORT_DATE_FIELD = "sort_date"
+LEGAL_SEARCH_SORT = [
+    {SORT_DATE_FIELD: {"order": "desc", "missing": "_last", "unmapped_type": "date"}},
+    {LEGIS_ID_FIELD: {"order": "asc", "missing": "_last", "unmapped_type": "keyword"}},
+]
+LEGIS_ID_COLLAPSE = {"field": LEGIS_ID_FIELD}
 
 
 @dataclass(frozen=True)
@@ -31,6 +41,32 @@ class _Collections:
 
 ES = _Indices()
 QDRANT = _Collections()
+
+
+@dataclass(frozen=True)
+class PaginationCursor:
+    sort_values: list[Any]
+
+    @classmethod
+    def from_token(cls, token: str) -> "PaginationCursor":
+        raw = str(token or "").strip()
+        if not raw:
+            raise ValueError("cursor must not be blank")
+        padded = raw + "=" * (-len(raw) % 4)
+        try:
+            decoded = base64.urlsafe_b64decode(padded.encode("ascii")).decode("utf-8")
+            values = json.loads(decoded)
+        except (ValueError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise ValueError("cursor is not valid") from exc
+        if not isinstance(values, list) or not values:
+            raise ValueError("cursor must encode search_after sort values")
+        return cls(sort_values=values)
+
+    def to_token(self) -> str:
+        if not self.sort_values:
+            raise ValueError("cursor must encode search_after sort values")
+        raw = json.dumps(self.sort_values, separators=(",", ":"), ensure_ascii=True)
+        return base64.urlsafe_b64encode(raw.encode("utf-8")).decode("ascii").rstrip("=")
 
 
 def all_es_indices() -> list[str]:

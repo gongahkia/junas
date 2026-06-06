@@ -206,6 +206,8 @@ def _section_to_row(section: SsoSection, rule_sha: str | None = None) -> dict[st
     row = asdict(section)
     # stable section id: <version_id>:<number>, idempotent across reruns
     row["section_id"] = f"{section.version_id}:{section.number}"
+    row["legis_id"] = f"{section.chapter_number}:{section.number}"
+    row["sort_date"] = section.valid_start_date
     row["extraction_rule_sha"] = rule_sha or extraction_rule_sha(EXTRACTION_MODULE)
     return row
 
