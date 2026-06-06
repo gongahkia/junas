@@ -1,4 +1,4 @@
-.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-pdpc-guidelines ingest-sso ingest-mom build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 download-data setup eval eval-list synth-gen
+.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-pdpc-guidelines ingest-sso ingest-mom ingest-commonlii-sg build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 download-data setup eval eval-list synth-gen
 
 # === primary ===
 up:
@@ -76,9 +76,12 @@ synth-gen:
 	  $(SYNTH_EXTRA_ARGS)
 
 # === data ===
+BACKEND_PYTHON ?= ../.venv/bin/python
+
 ingest-all:
 	cd backend && python -m ml.pipelines.run_all
 	$(MAKE) ingest-mom
+	$(MAKE) ingest-commonlii-sg
 
 # SGLB-01: PDPC enforcement decisions → JSONL splits + harness YAML.
 ingest-pdpc:
@@ -104,6 +107,20 @@ MOM_FORCE_ARG := $(if $(strip $(FORCE)),--force,)
 MOM_LIVE_ARG := $(if $(strip $(LIVE)),--live,--dry-run)
 ingest-mom:
 	cd backend && ../.venv/bin/python -m data.ingestion.mom --output $(MOM_OUTPUT) $(MOM_FORCE_ARG) $(MOM_LIVE_ARG)
+
+# SGLB-07: CommonLII SG cases scrape; writes JSONL to vendor-data/sg_cases/judgments.jsonl
+# Usage: make ingest-commonlii-sg [COMMONLII_SG_COURT=SGCA] [COMMONLII_SG_YEAR=2024] [COMMONLII_SG_LIMIT=25] [DRY_RUN=1] [FORCE=1]
+COMMONLII_SG_OUTPUT ?= vendor-data/sg_cases/judgments.jsonl
+COMMONLII_SG_COURT ?=
+COMMONLII_SG_YEAR ?=
+COMMONLII_SG_LIMIT ?=
+COMMONLII_SG_COURT_ARG := $(if $(strip $(COMMONLII_SG_COURT)),--court $(COMMONLII_SG_COURT),)
+COMMONLII_SG_YEAR_ARG := $(if $(strip $(COMMONLII_SG_YEAR)),--year $(COMMONLII_SG_YEAR),)
+COMMONLII_SG_LIMIT_ARG := $(if $(strip $(COMMONLII_SG_LIMIT)),--limit $(COMMONLII_SG_LIMIT),)
+COMMONLII_SG_DRY_RUN_ARG := $(if $(strip $(DRY_RUN)),--dry-run,)
+COMMONLII_SG_FORCE_ARG := $(if $(strip $(FORCE)),--force,)
+ingest-commonlii-sg:
+	cd backend && $(BACKEND_PYTHON) -m data.ingestion.commonlii_sg --output $(COMMONLII_SG_OUTPUT) $(COMMONLII_SG_COURT_ARG) $(COMMONLII_SG_YEAR_ARG) $(COMMONLII_SG_LIMIT_ARG) $(COMMONLII_SG_DRY_RUN_ARG) $(COMMONLII_SG_FORCE_ARG)
 
 # SGLB-02: build statute-QA dataset from the SSO JSONL.
 build-sglb-02:
