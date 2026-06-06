@@ -352,6 +352,7 @@ function TaskSection({
                 <div>
                   <code style={{ fontSize: "0.78rem", color: "#64748b" }}>{t.id}</code>
                   <span style={{ marginLeft: "0.5rem", fontWeight: 600 }}>{t.name}</span>
+                  <span style={{ marginLeft: "0.5rem" }}><TierBadge tier={t.tier} /></span>
                   {registered && (
                     <span style={{ marginLeft: "0.5rem", fontSize: "0.7rem", padding: "0.1rem 0.35rem", borderRadius: "0.25rem", background: "#dcfce7", color: "#166534" }}>
                       registered
