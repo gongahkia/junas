@@ -1,4 +1,4 @@
-.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-pdpc-guidelines ingest-sso build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 download-data setup eval eval-list synth-gen
+.PHONY: up down dev api frontend test lint migrate ingest-all ingest-pdpc ingest-pdpc-guidelines ingest-sso ingest-mom build-sglb-02 build-sglb-05 build-sglb-06 build-sglb-07 download-data setup eval eval-list synth-gen
 
 # === primary ===
 up:
@@ -78,6 +78,7 @@ synth-gen:
 # === data ===
 ingest-all:
 	cd backend && python -m ml.pipelines.run_all
+	$(MAKE) ingest-mom
 
 # SGLB-01: PDPC enforcement decisions → JSONL splits + harness YAML.
 ingest-pdpc:
@@ -95,6 +96,14 @@ SSO_FORCE_ARG := $(if $(strip $(FORCE)),--force,)
 SSO_CODE_ARG := $(if $(strip $(SSO_CODE)),--code $(SSO_CODE),)
 ingest-sso:
 	cd backend && python -m data.ingestion.sso --output $(SSO_OUTPUT) $(SSO_FORCE_ARG) $(SSO_CODE_ARG)
+
+# SGLB-05: MOM enforcement/guidance network payloads.
+# Dry-run by default for network safety. Use LIVE=1 after approval.
+MOM_OUTPUT ?= vendor-data/mom/enforcement.jsonl
+MOM_FORCE_ARG := $(if $(strip $(FORCE)),--force,)
+MOM_LIVE_ARG := $(if $(strip $(LIVE)),--live,--dry-run)
+ingest-mom:
+	cd backend && ../.venv/bin/python -m data.ingestion.mom --output $(MOM_OUTPUT) $(MOM_FORCE_ARG) $(MOM_LIVE_ARG)
 
 # SGLB-02: build statute-QA dataset from the SSO JSONL.
 build-sglb-02:

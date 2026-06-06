@@ -69,6 +69,9 @@ Model output is a JSON list of lowercase snake_case issue labels:
 - v0.2 held-out: ~30 scenarios from post-2026-Q1.
 - Splits assigned deterministically by case-index modulo 10 (80/10/10).
 - Per-issue precision/recall reported to surface rare-class performance.
+- Network safety: `python -m data.ingestion.mom` is dry-run by default
+  and prints the planned MOM listing/guidance/API URLs without HTTP.
+  Live fetches require explicit `--live` / `make ingest-mom LIVE=1`.
 
 ## CHANGELOG
 
