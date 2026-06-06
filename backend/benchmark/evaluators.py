@@ -13,6 +13,10 @@ from enum import Enum
 from typing import Any, Callable
 
 from api.services.sal_citation import validate_citation
+from sglb_tools.normalisation import (
+    normalise_section_citation as _normalise_section_citation,
+    normalise_statute_name as _normalise_statute_name,  # noqa: F401
+)
 
 
 class EvaluatorStrength(str, Enum):
@@ -518,77 +522,6 @@ def _rouge_l(reference: str, candidate: str) -> float:
     precision = lcs / len(cand_tokens)
     recall = lcs / len(ref_tokens)
     return 2 * precision * recall / (precision + recall)
-
-
-_STATUTE_LONG_NAMES: dict[str, str] = {
-    "PDPA": "personal data protection act 2012",
-    "EmA": "employment act 1968",
-    "PC": "penal code 1871",
-    "ROC2021": "rules of court 2021",
-}
-
-_STATUTE_ALIASES: dict[str, str] = {
-    "pdpa": "PDPA",
-    "pdpa2012": "PDPA",
-    "personaldataprotectionact": "PDPA",
-    "personaldataprotectionact2012": "PDPA",
-    "ema": "EmA",
-    "ema1968": "EmA",
-    "employmentact": "EmA",
-    "employmentact1968": "EmA",
-    "pc": "PC",
-    "pc1871": "PC",
-    "penalcode": "PC",
-    "penalcode1871": "PC",
-    "roc2021": "ROC2021",
-    "rulesofcourt": "ROC2021",
-    "rulesofcourt2021": "ROC2021",
-}
-
-_DEFAULT_SECTION_STATUTE = _STATUTE_LONG_NAMES["PDPA"]
-_SECTION_CITATION_RE = re.compile(
-    r"^s\s+(?P<section>\d+[a-z]?(?:\([0-9a-z]+\))*)(?:\s+of\s+(?:the\s+)?(?P<statute>.+))?$",
-    re.IGNORECASE,
-)
-
-
-def _normalise_statute_name(value: str) -> str:
-    text = re.sub(r"\s+", " ", (value or "").strip(" ."))
-    if not text:
-        return ""
-    text = re.sub(r"^the\s+", "", text, flags=re.IGNORECASE)
-    key = re.sub(r"[^a-z0-9]+", "", text.lower())
-    short_name = _STATUTE_ALIASES.get(key)
-    if not short_name:
-        return ""
-    return _STATUTE_LONG_NAMES[short_name]
-
-
-def _normalise_section_citation(value: str) -> str:
-    """Normalise a section citation to a canonical comparison string.
-
-    Tolerates common surface variations:
-    - "s 13", "s.13", "section 13", "Sec. 13" → "s 13"
-    - "PDPA" / "Personal Data Protection Act" → long-form act name
-    - "Act 2012" vs "Act, 2012" and trailing footnote punctuation
-    """
-    text = (value or "").strip()
-    if not text:
-        return ""
-    text = re.sub(r"\b(?:section|sec)\.?\s+", "s ", text, flags=re.IGNORECASE)
-    text = re.sub(r"\bs\.\s*(?=\d)", "s ", text, flags=re.IGNORECASE)
-    text = re.sub(r"\bs\s+(?=\d)", "s ", text, flags=re.IGNORECASE)
-    text = re.sub(r"\bAct,\s+", "Act ", text)
-    text = re.sub(r"\s+", " ", text).strip(" .").lower()
-    match = _SECTION_CITATION_RE.match(text)
-    if not match:
-        return ""
-    raw_statute = match.group("statute") or ""
-    statute = _normalise_statute_name(raw_statute)
-    if raw_statute and not statute:
-        return ""
-    statute = statute or _DEFAULT_SECTION_STATUTE
-    return f"s {match.group('section').lower()} of the {statute}"
 
 
 class Sglb02CitationMatch(Evaluator):
