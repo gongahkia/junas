@@ -1,0 +1,229 @@
+# SGLB-04 Citation-Verify smoke dataset (v0.1)
+#
+# 30 cases stratified across:
+#   - well-formed neutral case, SLR(R), SLR (12 cases)
+#   - well-formed statute Cap. + Rev Ed, statute section refs (6 cases)
+#   - well-formed short forms: Ibid, Id, supra (3 cases)
+#   - perturbed forms covering the seven SGLB-11 perturbation classes (9 cases)
+#
+# All citations are constructed (no real-case ground truth required) since
+# SGLB-04 is a grammar conformance task, not a citation-existence task.
+# SGLB-11 covers existence/hallucination.
+cases:
+  # === Well-formed neutral case citations ===
+  - name: well_formed_sgca
+    inputs:
+      citation: "[2023] SGCA 5"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: neutral_case, split: dev}
+
+  - name: well_formed_sghc
+    inputs:
+      citation: "[2019] SGHC 12"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: neutral_case, split: dev}
+
+  - name: well_formed_sgdc
+    inputs:
+      citation: "[2021] SGDC 99"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: neutral_case, split: dev}
+
+  - name: well_formed_sgmc
+    inputs:
+      citation: "[2018] SGMC 3"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: neutral_case, split: dev}
+
+  - name: well_formed_sghcr
+    inputs:
+      citation: "[2024] SGHCR 17"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: neutral_case, split: dev}
+
+  - name: well_formed_sgia
+    inputs:
+      citation: "[2022] SGIA 4"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: neutral_case, split: dev}
+
+  # === Well-formed SLR(R) and SLR ===
+  - name: well_formed_slr_r
+    inputs:
+      citation: "[2009] 2 SLR(R) 332"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: slr_r_case, split: dev}
+
+  - name: well_formed_slr_r_high_volume
+    inputs:
+      citation: "[2007] 4 SLR(R) 413"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: slr_r_case, split: dev}
+
+  - name: well_formed_slr
+    inputs:
+      citation: "[2015] 1 SLR 1116"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: slr_case, split: dev}
+
+  - name: well_formed_slr_recent
+    inputs:
+      citation: "[2024] 2 SLR 442"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: slr_case, split: dev}
+
+  - name: well_formed_neutral_with_period
+    inputs:
+      citation: "[2023] SGCA 5."
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: neutral_case_trailing_period, split: dev}
+
+  - name: well_formed_neutral_recent
+    inputs:
+      citation: "[2025] SGCA 1"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: neutral_case, split: dev}
+
+  # === Well-formed statute citations ===
+  - name: well_formed_statute_cap_rev_ed
+    inputs:
+      citation: "Penal Code (Cap. 224, 2008 Rev Ed)"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: statute_cap, split: dev}
+
+  - name: well_formed_statute_cap_no_rev
+    inputs:
+      citation: "Misuse of Drugs Act (Cap. 185)"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: statute_cap, split: dev}
+
+  - name: well_formed_statute_amendment
+    inputs:
+      citation: "Companies (Amendment) Act (Cap. 50)"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: statute_cap_with_amendment, split: dev}
+
+  - name: well_formed_section_ref
+    inputs:
+      citation: "s 9 of the Penal Code Act"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: statute_section, split: dev}
+
+  - name: well_formed_pinpoint
+    inputs:
+      citation: "at [10]-[12]"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: pinpoint, split: dev}
+
+  - name: well_formed_pinpoint_single
+    inputs:
+      citation: "at [42]"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: pinpoint, split: dev}
+
+  # === Well-formed short forms ===
+  - name: well_formed_ibid
+    inputs:
+      citation: "Ibid"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: ibid, split: dev}
+
+  - name: well_formed_id_with_pinpoint
+    inputs:
+      citation: "Id, at [14]"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: id_with_pinpoint, split: dev}
+
+  - name: well_formed_supra
+    inputs:
+      citation: "Gay Choon Ing, supra n 1, at [64]"
+    expected_output:
+      labels: ["valid"]
+    metadata: {jurisdiction: SG, kind: supra, split: dev}
+
+  # === Invalid: year out of range (perturbation: year_off type) ===
+  - name: invalid_year_too_old
+    inputs:
+      citation: "[1800] SGCA 5"
+    expected_output:
+      labels: ["invalid"]
+    metadata: {jurisdiction: SG, kind: year_out_of_range, perturbation: year_off, split: dev}
+
+  - name: invalid_year_too_future
+    inputs:
+      citation: "[3000] SGCA 5"
+    expected_output:
+      labels: ["invalid"]
+    metadata: {jurisdiction: SG, kind: year_out_of_range, perturbation: year_off, split: dev}
+
+  # === Invalid: unknown court code (perturbation: court_swap) ===
+  - name: invalid_court_unknown
+    inputs:
+      citation: "[2023] SGZZ 5"
+    expected_output:
+      labels: ["invalid"]
+    metadata: {jurisdiction: SG, kind: unknown_court, perturbation: court_swap, split: dev}
+
+  - name: invalid_court_almost_right
+    inputs:
+      citation: "[2023] SGCAA 5"
+    expected_output:
+      labels: ["invalid"]
+    metadata: {jurisdiction: SG, kind: unknown_court, perturbation: court_swap, split: dev}
+
+  # === Invalid: wholesale fabrication / non-citation strings ===
+  - name: invalid_garbage
+    inputs:
+      citation: "definitely not a citation"
+    expected_output:
+      labels: ["invalid"]
+    metadata: {jurisdiction: SG, kind: garbage, perturbation: wholesale_fabrication, split: dev}
+
+  - name: invalid_missing_brackets
+    inputs:
+      citation: "2023 SGCA 5"
+    expected_output:
+      labels: ["invalid"]
+    metadata: {jurisdiction: SG, kind: missing_brackets, perturbation: wholesale_fabrication, split: dev}
+
+  - name: invalid_empty
+    inputs:
+      citation: "   "
+    expected_output:
+      labels: ["invalid"]
+    metadata: {jurisdiction: SG, kind: empty, perturbation: wholesale_fabrication, split: dev}
+
+  # === Invalid: composite perturbation ===
+  - name: invalid_composite_year_and_court
+    inputs:
+      citation: "[1800] SGZZ 5"
+    expected_output:
+      labels: ["invalid"]
+    metadata: {jurisdiction: SG, kind: composite, perturbation: composite, split: dev}
+
+  - name: invalid_wrong_volume_format
+    inputs:
+      citation: "[2009] SLR(R) 332"
+    expected_output:
+      labels: ["invalid"]
+    metadata: {jurisdiction: SG, kind: slr_r_missing_volume, perturbation: volume_off, split: dev}
