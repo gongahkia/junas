@@ -155,6 +155,7 @@ async def _run_case(
                     case_name=case.name,
                     evaluator=ev_name,
                     score=0.0,
+                    output=output,
                     error=f"unknown evaluator {ev_name!r}",
                 )
             )
@@ -174,6 +175,7 @@ async def _run_case(
                     case_name=case.name,
                     evaluator=ev_name,
                     score=outcome.score,
+                    output=output,
                     metadata=outcome.detail,
                 )
             )
@@ -183,6 +185,7 @@ async def _run_case(
                     case_name=case.name,
                     evaluator=ev_name,
                     score=0.0,
+                    output=output,
                     error=f"evaluator failed: {exc}",
                 )
             )

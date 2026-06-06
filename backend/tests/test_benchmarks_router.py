@@ -133,6 +133,58 @@ def test_run_response_carries_data_tier(client: TestClient) -> None:
     assert body["data_tier"] == "regulator"
 
 
+def test_run_detail_reflects_persisted_receipt(client: TestClient) -> None:
+    run_resp = client.post(
+        "/api/v1/benchmarks/run",
+        json={
+            "workflow": "echo",
+            "dataset": "benchmark/datasets/example_echo.yaml",
+            "evaluators": ["contains"],
+        },
+    )
+    assert run_resp.status_code == 200
+    run_id = run_resp.json()["run_id"]
+
+    resp = client.get(f"/api/v1/benchmarks/runs/{run_id}")
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["run_id"] == run_id
+    assert body["workflow"] == "echo"
+    assert body["per_evaluator_mean"]["contains"] == pytest.approx(1.0)
+    assert len(body["cases"]) == 3
+
+    case = next(c for c in body["cases"] if c["case_name"] == "pdpa_simple")
+    assert case["input"]["query"] == "The Employment Act (Cap. 91) applies in Singapore."
+    assert case["expected"]["span"] == "The Employment Act (Cap. 91) applies in Singapore."
+    assert case["actual"] == "The Employment Act (Cap. 91) applies in Singapore."
+    assert case["evaluator_scores"]["contains"]["score"] == pytest.approx(1.0)
+    assert body["results"][0]["output"]
+
+
+def test_run_detail_globs_baseline_receipt(client: TestClient) -> None:
+    run_resp = client.post(
+        "/api/v1/benchmarks/run",
+        json={
+            "workflow": "echo",
+            "dataset": "benchmark/datasets/example_echo.yaml",
+            "evaluators": ["contains"],
+        },
+    )
+    assert run_resp.status_code == 200
+
+    runs_dir = Path(os.environ["JUNAS_BENCHMARK_RUNS_DIR"])
+    flat_receipt = next(runs_dir.glob("*.json"))
+    baseline_receipt = runs_dir / "baselines" / "mock" / "echo" / "1700000000.json"
+    baseline_receipt.parent.mkdir(parents=True, exist_ok=True)
+    baseline_receipt.write_text(flat_receipt.read_text(encoding="utf-8"), encoding="utf-8")
+
+    resp = client.get("/api/v1/benchmarks/runs/mock__echo__1700000000")
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["run_id"] == "mock__echo__1700000000"
+    assert body["cases"][0]["actual"] == body["cases"][0]["input"]["query"]
+
+
 def test_leaderboard_entry_carries_data_tier(client: TestClient) -> None:
     # Produce a run, then verify the leaderboard echoes data_tier.
     client.post(
