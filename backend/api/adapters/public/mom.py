@@ -7,7 +7,9 @@ preserves source-specific fields on ``extra``.
 """
 from __future__ import annotations
 
-from typing import Iterator
+import json
+from datetime import date
+from typing import TYPE_CHECKING, Iterator
 
 from api.adapters.base import (
     AdapterTier,
@@ -16,7 +18,11 @@ from api.adapters.base import (
     SourceAdapterError,
     SourceDocument,
     SourceMetadata,
+    normalise_date,
 )
+
+if TYPE_CHECKING:
+    from data.ingestion.mom import MomRecord
 
 
 class MomAdapter(LegalSourceAdapter):
@@ -52,7 +58,46 @@ class MomAdapter(LegalSourceAdapter):
     }
 
     def fetch_all(self) -> Iterator[SourceDocument]:
-        raise SourceAdapterError("MomAdapter.fetch_all() not implemented; see #59")
+        from data.ingestion.mom import iter_records  # noqa: WPS433
+
+        try:
+            for record in iter_records():
+                yield self._source_document(record)
+        except RuntimeError as exc:
+            raise SourceAdapterError(f"MOM fetch failed: {exc}") from exc
 
     def fetch_by_id(self, document_id: str) -> SourceDocument | None:
-        raise SourceAdapterError("MomAdapter.fetch_by_id() not implemented; see #59")
+        from data.ingestion.mom import iter_records  # noqa: WPS433
+
+        try:
+            for record in iter_records():
+                if record.doc_id == document_id or record.source_url == document_id:
+                    return self._source_document(record)
+        except RuntimeError as exc:
+            raise SourceAdapterError(f"MOM fetch failed: {exc}") from exc
+        return None
+
+    def _source_document(self, record: "MomRecord") -> SourceDocument:
+        body = record.raw_html or (record.raw_json and json.dumps(record.raw_json, ensure_ascii=False)) or record.body_plain
+        doc_type = DocType.PRESS_RELEASE.value if record.subsource == "press_release" else DocType.GUIDELINE.value
+        return SourceDocument(
+            document_id=record.doc_id,
+            source_url=record.source_url,
+            title=record.title,
+            body=body or "",
+            published_date=normalise_date(record.pub_date),
+            fetched_date=date.today(),
+            source_metadata=self.metadata,
+            doc_type=doc_type,
+            extra={
+                "subsource": record.subsource,
+                "title": record.title,
+                "published_date": record.pub_date,
+                "act_references": list(record.act_references),
+                "stated_breaches": list(record.stated_breaches),
+                "penalty_info": None,
+                "subject_organisation": record.subject_organisation,
+                "candidate_reason": record.candidate_reason,
+                "content_type": record.content_type,
+            },
+        )
