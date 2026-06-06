@@ -1,6 +1,11 @@
 # SGLB-05 Employment-Issue
 
-Version: 0.1-code-shipped (data pending live MOM scraper, [#59](https://github.com/gongahkia/junas/issues/59)). Tracking issues: [#33](https://github.com/gongahkia/junas/issues/33), [#59](https://github.com/gongahkia/junas/issues/59).
+Version: 0.1-shipped (smoke). Tracking issues: [#33](https://github.com/gongahkia/junas/issues/33), [#59](https://github.com/gongahkia/junas/issues/59).
+
+**Status (2026-06-06):**
+- A1 + A2 + A4 landed (PRs #102 + #104): MOM ingester network layer, HTML parser, adapter contract, frontend wiring.
+- A3 landed (this PR): end-to-end integration smoke test at `backend/tests/test_mom_ingestion.py`. Fixture-driven round-trip (parser → JSONL → builder → harness → `multi_label_f1` oracle) passes; oracle scores 1.0.
+- Live `make ingest-mom LIVE=1` against MOM has **not** yet been fired (network safety: defaults to `--dry-run`); production dataset YAML + `benchmark_eligible=True` flag-flip land once the live ingest runs.
 
 ## Capability
 
