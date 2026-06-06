@@ -17,7 +17,7 @@ This documents the JSON persisted by `python -m benchmark.cli run --output ...`.
 | `provenance` | object | LLM provenance when registered, else `{}`. |
 | `per_evaluator_mean` | object | Existing scalar mean map, unchanged. |
 | `per_evaluator_bootstrap` | object | New per-evaluator bootstrap confidence interval map. |
-| `results` | array[object] | Per-case evaluator results. |
+| `results` | array[object] | Per-case evaluator results, including the raw task `output`. |
 
 ## `per_evaluator_bootstrap`
 
@@ -68,3 +68,9 @@ After GAP-02:
 Existing consumers that only read `per_evaluator_mean` do not need a
 schema migration. Consumers that display uncertainty should add optional
 reads from `per_evaluator_bootstrap`.
+
+## `results[]`
+
+Each evaluator result records `case_name`, `evaluator`, `score`, `output`,
+`metadata`, and `error`. `output` is the raw task/model answer for that case;
+the API drill-down endpoint uses it as the per-case `actual` value.

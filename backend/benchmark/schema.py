@@ -53,5 +53,6 @@ class EvalCaseResult(BaseModel):
     case_name: str
     evaluator: str
     score: float
+    output: str = ""
     metadata: dict[str, Any] = Field(default_factory=dict)
     error: str | None = None

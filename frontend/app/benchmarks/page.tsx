@@ -155,7 +155,9 @@ function LeaderboardTable({
           {entries.map((entry) => (
             <tr key={entry.run_id}>
               <td style={td}>
-                <code>{entry.run_id}</code>
+                <Link href={`/benchmarks/runs/${encodeURIComponent(entry.run_id)}`} style={{ color: "#1d4ed8", textDecoration: "none" }}>
+                  <code>{entry.run_id}</code>
+                </Link>
               </td>
               <td style={td}>{entry.workflow}</td>
               <td style={td}>{entry.total_cases}</td>
