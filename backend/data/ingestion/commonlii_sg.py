@@ -1,9 +1,4 @@
-"""CommonLII Singapore case judgment ingestion.
-
-Fetches court/year listing pages from CommonLII SG, follows judgment links,
-and emits one raw-HTML JSONL row per judgment. Parsing into plain text and
-jurisdiction statements is intentionally left to the downstream B2 parser.
-"""
+"""CommonLII Singapore case judgment ingestion."""
 from __future__ import annotations
 
 import argparse
@@ -24,6 +19,9 @@ from bs4 import BeautifulSoup
 
 from api.adapters.public.commonlii_sg import CommonliiSgAdapter
 from data.ingestion._provenance import extraction_rule_sha
+from data.parsers import commonlii_sg_parser, jurisdiction_extractor
+from data.parsers.commonlii_sg_parser import parse_commonlii_sg_row
+from data.parsers.jurisdiction_extractor import extract_jurisdiction_statements
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +34,11 @@ DEFAULT_TIMEOUT = 60.0
 DEFAULT_CRAWL_DELAY = CommonliiSgAdapter.metadata.crawl_delay_seconds
 MAX_RETRIES = 4
 BACKOFF_BASE = 2.0
-EXTRACTION_MODULE = Path(__file__)
+EXTRACTION_MODULES = (
+    Path(__file__),
+    Path(commonlii_sg_parser.__file__),
+    Path(jurisdiction_extractor.__file__),
+)
 
 _CASE_URL_RE = re.compile(
     r"^/sg/cases/(?P<court>SGCA|SGHC|SGDC|SGMC|SGSAC)/(?P<year>\d{4})/(?P<case_no>\d+)\.html$"
@@ -230,7 +232,7 @@ def build_judgment_row(link: JudgmentLink, body_html: str) -> dict[str, object]:
     text = _normalise_text(BeautifulSoup(body_html, "html.parser").get_text(" ", strip=True))
     citation = _citation_from_text(text) or link.citation
     decision_date = link.decision_date or _date_from_text(text, fallback_year=link.year)
-    return {
+    row = {
         "case_id": stable_case_id(link.html_url),
         "citation": citation,
         "court_code": link.court_code,
@@ -243,6 +245,11 @@ def build_judgment_row(link: JudgmentLink, body_html: str) -> dict[str, object]:
         "body_plain": "",
         "extraction_rule_sha": _extraction_rule_sha(),
     }
+    parsed = parse_commonlii_sg_row(row)
+    parsed["jurisdiction_statements"] = [
+        statement.as_dict() for statement in extract_jurisdiction_statements(parsed)
+    ]
+    return parsed
 
 
 def write_jsonl(rows: Sequence[dict[str, object]], output_path: Path, *, append: bool = False) -> int:
@@ -475,9 +482,13 @@ def _existing_case_ids(path: Path) -> set[str]:
 
 def _extraction_rule_sha() -> str:
     try:
-        return extraction_rule_sha(EXTRACTION_MODULE)
+        pieces = "|".join(extraction_rule_sha(path) for path in EXTRACTION_MODULES)
+        return hashlib.sha256(pieces.encode("utf-8")).hexdigest()[:7]
     except RuntimeError:
-        return hashlib.sha256(EXTRACTION_MODULE.read_bytes()).hexdigest()[:7]
+        digest = hashlib.sha256()
+        for path in EXTRACTION_MODULES:
+            digest.update(path.read_bytes())
+        return digest.hexdigest()[:7]
 
 
 if __name__ == "__main__":

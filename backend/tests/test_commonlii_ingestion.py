@@ -48,7 +48,9 @@ def test_build_judgment_row_from_sghc_fixture():
     assert row["decision_date"] == "2024-10-03"
     assert row["source_url"] == SGHC_251_URL
     assert row["html_url"] == SGHC_251_URL
-    assert row["body_plain"] == ""
+    assert "Public Prosecutor v S Iswaran" in str(row["body_plain"])
+    assert row["paragraphs"] == []
+    assert row["jurisdiction_statements"] == []
     assert "Public Prosecutor v S Iswaran" in str(row["body_html"])
 
 
@@ -86,6 +88,8 @@ def test_ingest_constructs_urls_paces_and_writes(monkeypatch, tmp_path: Path):
     assert row["case_id"] == commonlii_sg.stable_case_id(SGCA_48_URL)
     assert row["citation"] == "[2024] SGCA 48"
     assert row["decision_date"] == "2024-11-06"
+    assert "Li Jialin" in str(row["body_plain"])
+    assert row["jurisdiction_statements"] == []
 
 
 def test_fetch_html_retries_transient_status_and_paces(monkeypatch):
