@@ -49,6 +49,20 @@ class LocalDaemonAclTests(unittest.TestCase):
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.json()["detail"], "missing or invalid local daemon token")
 
+    def test_rewrite_endpoints_require_local_token(self):
+        with patch.dict(os.environ, self._env(), clear=False):
+            with TestClient(main.app) as client:
+                for endpoint in ("/pseudonymize", "/anonymize", "/redact"):
+                    with self.subTest(endpoint=endpoint):
+                        response = client.post(
+                            endpoint,
+                            json={"text": "Dr Jane Tan holds NRIC S1234567D."},
+                            headers={"Origin": "https://chatgpt.com"},
+                        )
+
+                        self.assertEqual(response.status_code, 401)
+                        self.assertEqual(response.json()["detail"], "missing or invalid local daemon token")
+
     def test_accepts_allowed_origin_with_local_token(self):
         with patch.dict(os.environ, self._env(), clear=False):
             with TestClient(main.app) as client:

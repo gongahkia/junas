@@ -148,6 +148,8 @@ LOCAL_DAEMON_PROTECTED_PATHS = {
     "/classify",
     "/classify/batch",
     "/documents/scrub",
+    "/pseudonymize",
+    "/redact",
     "/reidentify",
     "/review",
 }
@@ -175,9 +177,12 @@ Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI rev
 
 Key behaviors:
 
-- `POST /anonymize` extracts inline text or text/DOCX/PDF payloads, runs the
+- `POST /pseudonymize` extracts inline text or text/DOCX/PDF payloads, runs the
   PII/MNPI review stack, and returns deterministic placeholders plus a local
-  mapping table for safe downstream analysis.
+  mapping table for reversible downstream analysis.
+- `POST /anonymize` returns irreversible placeholder-only output with no mapping.
+- `POST /redact` returns irreversible opaque markers and no original matched text
+  in redaction findings.
 - `POST /review` runs the same evidence-first pre-send review without rewriting
   the document, returning localized findings, remediation suggestions,
   jurisdiction coverage, and separate PII/MNPI scores.

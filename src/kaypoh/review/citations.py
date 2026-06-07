@@ -95,6 +95,26 @@ _PII_DEFAULT_RATIONALE = {
         "for national identification numbers. Mask unless a lawful basis and recipient "
         "purpose are documented."
     ),
+    "uk_postal_address": (
+        "UK postal address detected. UK GDPR Art 4(1) and DPA 2018 treat location data "
+        "that identifies or can identify a person as personal data. Mask unless disclosure "
+        "is purpose-limited and authorised."
+    ),
+    "us_postal_address": (
+        "US street address detected. HIPAA 45 CFR §164.514(b)(2)(i)(B) lists geographic "
+        "subdivisions smaller than a state as identifiers, and CCPA §1798.140 covers "
+        "address-linked personal information. Mask before external disclosure."
+    ),
+    "hk_postal_address": (
+        "Hong Kong address detected. PDPO Cap. 486 section 2 treats information relating "
+        "directly or indirectly to a living individual as personal data where identity can "
+        "be ascertained. Mask unless disclosure is purpose-limited."
+    ),
+    "personal_attribute_inference": (
+        "Inferred relationship, employer, or location attributes can identify or profile "
+        "a person under PDPA s2, GDPR Art 4(1), and CCPA §1798.140. Review before external "
+        "disclosure even where the attribute is inferred rather than an explicit ID token."
+    ),
     "named_person": (
         "Named persons are personal data under PDPA s2. For counterparty principals in a "
         "definitive agreement, treat as high sensitivity and mask before any external send."
