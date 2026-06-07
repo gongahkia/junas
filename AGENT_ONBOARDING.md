@@ -2,13 +2,13 @@
 
 You are an independent coding agent picking up work on Kaypoh. **Read this file first**, then the architecture document it points at, before touching any code. Do not skim. Every section below is load-bearing.
 
-Date this onboarding was last revised: **2026-06-06**.
+Date this onboarding was last revised: **2026-06-07**.
 
 ---
 
 ## 1. What Kaypoh is in one paragraph
 
-Kaypoh is a pre-send document safety layer for legal-corporate workflows where client/issuer confidentiality is a procurement blocker for GenAI adoption. It detects PII and MNPI evidence in documents before they're pasted into ChatGPT / Claude / Gemini, anonymises sensitive spans reversibly, and produces an HMAC-sealed reviewer-attributed audit trail. It is **not** a horizontal DLP replacement (Purview / Netskope / Nightfall already compete on detector breadth). The wedge is SG/SEA-native local-ID + legal-MNPI detection, reversible local anonymisation, and an offline-default desktop SKU.
+Kaypoh is a pre-send document safety layer for legal-corporate workflows where client/issuer confidentiality is a procurement blocker for GenAI adoption. It detects PII and MNPI evidence in documents before they're pasted into ChatGPT / Claude / Gemini, exposes explicit rewrite operations (`/pseudonymize`, irreversible `/anonymize`, and `/redact`), and produces an HMAC-sealed reviewer-attributed audit trail. It is **not** a horizontal DLP replacement (Purview / Netskope / Nightfall already compete on detector breadth). The wedge is SG/SEA-native local-ID + legal-MNPI detection, legally explicit rewrite states, and an offline-default desktop SKU.
 
 ---
 
@@ -22,7 +22,7 @@ Older `ARCHITECTURE_*.txt` docs are historical only. Runtime flow now lives in `
 
 ---
 
-## 3. The state of the codebase as of 2026-06-05
+## 3. The state of the codebase as of 2026-06-07
 
 **Current state after the 2026-05-26 pivot cleanup:**
 
@@ -30,8 +30,11 @@ Older `ARCHITECTURE_*.txt` docs are historical only. Runtime flow now lives in `
 - 13 new expansion items (54-68) covering: LLM symmetric findings, matter-scoped inheritance, latency SLO, reviewer identity binding, local-daemon ACL, subject-erasure (PDPA s16 / GDPR Art 17 / etc.), per-tenant citations, container coverage, image scanning (Tesseract / OpenAI Vision / Google / AWS / Azure), fail-closed everywhere, additive signals (classifier + similarity + transparent aggregator). Subject erasure (item 59), reviewer identity binding (item 57), latency SLO (item 56), and the runtime fail-closed audit (item 65) shipped on 2026-05-28.
 - Item 37 shipped on 2026-06-01: audit-grade LLM defined-term extraction and inverse coverage audit are now named runtime components with config keys, readiness/diagnostics visibility, and privacy-ledger events.
 - 2026-06-01 recall-gate cleanup fixed a real `email_address` regression caused by the split-email guard swallowing valid emails after company-name lines, and normalized phone spans so `PHONE_RE` no longer absorbs following newline/list numbering. Default and adversarial recall gates pass without lock updates.
-- 2026-06-01 item 124/126 substrate shipped: `scripts/run_layer_attribution_eval.py` orchestrates `scripts/evaluate_candidate_corpus.py --profile strict|audit_grade`, `scripts/bucket_candidate_misses.py`, and `scripts/miss_concentration.py` to produce heuristic ideal-miss buckets and detector-family × jurisdiction concentration reports. `audit_grade` requires `--allow-external-cost`. Initial strict Stage A run: 6,122 ideal misses; coverage_gap 4,430, conjunction_miss 1,513, singling_out_miss 142, true_inference_miss 9, needs_review 28. The 2026-06-06 project-owner spot-check over the full Stage B bucket/concentration output found no Stage B-blocking missing labels and no bucket-schema change; the buckets remain prioritisation substrate, not procurement-grade legal truth.
-- 13 more items (69–86) derived from first-principles statutory analysis of every in-scope jurisdiction. Items 78, 80, 84, 90, and 91 are implemented; procurement-substrate items 87–89 remain open.
+- 2026-06-06 item 120 shipped: deterministic Layer-2 `conjunctive_mnpi` now runs in `strict` after Layer-1 findings and source-verification state. It carries `materiality_state`, `non_public_element_satisfied`, and `entity_element_satisfied` in finding metadata and emits medium review-required evidence even when materiality is `undetermined`. No paid LLM materiality sweep was run.
+- 2026-06-06 items 116/117/127 shipped as an immediate endpoint split: `POST /pseudonymize` is reversible and may persist mappings; `POST /anonymize` is irreversible placeholder-only with no mapping, no mapping-store write, no subject-index write, and `/reidentify` 404 by document hash; `POST /redact` is irreversible type-hiding output with no mapping and no original matched text in the redaction response.
+- 2026-06-06 item 124/125 no-cost batch shipped: `scripts/run_layer_attribution_eval.py --profile strict --run-id 20260606-strict-item120` produced the strict no-cost attribution reports under `reports/layer-attribution/`; reviewed representative `.bucket.json` sidecars were committed for a 50-miss sample across IN/CN/EU/SG plus one AE true-inference sample. These sidecars are internal benchmarking support only, not procurement-grade legal review or legal advice. The paid `audit_grade` sweep remains open and requires explicit API-cost approval.
+- 2026-06-06 items 87/89 shipped: `scripts/generate_defensibility_reports.py` generates `docs/defensibility/{jurisdiction}.md` for every runtime pack including SEA, and `scripts/export_audit_pack.py --include-defensibility` bundles statutory coverage, defensibility reports, privacy-operation counters, and sanitized reviewer action rates.
+- 13 more items (69–86) derived from first-principles statutory analysis of every in-scope jurisdiction. Items 78, 80, 84, 87, 89, 90, and 91 are implemented.
 - Items 90 and 91 are implemented: HK/AU/JP/KR packs + seed fixtures are in place, and the default/adversarial recall locks were refreshed after the autolabel sweep. Items 78 and 80 shipped 2026-05-28 with new default/adversarial corpus fixtures and refreshed recall locks.
 - Candidate Stage A is complete and Stage B has now been generated/evaluated and owner-approved for all 17 in-scope jurisdiction packs under `test/fixtures/legal-corpus-candidates/`. All 17 jurisdictions pass `scripts/check_candidate_stage_gate.py --target-stage stage_b --require-promotion-ready` for internal benchmarking with strict recall/precision 1.0. The current global candidate report `/tmp/kaypoh-uk-eu-stage-b-final.json` covers 1,428 docs / 17,552 strict labels / global ideal recall 0.4234 at strict recall/precision 1.0, with zero misses, zero unexpected findings, zero must-not violations, 1,428 approved labels, and zero pending labels. Current per-jurisdiction status is generated in `docs/candidate_corpus_status.md`; none of these Stage B candidate sets has been promoted into locked recall baselines or reviewed as procurement-grade legal advice.
 - Runtime setup is UV-first. Use `uv run ...` with the project lock; do not revive `requirements.txt` workflows.
@@ -92,10 +95,9 @@ These are project-wide invariants. Every PR is measured against them.
 
 Pick the next highest-leverage open item by ICP impact:
 
-- **Item 125 audit-grade experiment** — Stage B owner review and the initial item-124 project-owner spot-check are complete for internal benchmarking. The next accuracy decision artifact is the `--profile audit_grade` candidate eval, run only with explicit API-cost approval and configured LLM/retrieval components.
-- **Item 124 follow-up sidecars** — if detector-roadmap work depends on the heuristic ideal-miss buckets, commit reviewed `.bucket.json` sidecars for a representative sample before treating bucket assignments as reviewed truth.
+- **Item 125 paid audit-grade experiment** — the strict/Layer-2 no-cost leg is shipped. The next accuracy decision artifact is the `--profile audit_grade` candidate eval, run only with explicit API-cost approval and configured LLM/retrieval components.
 - **Item 82** (HK "not generally known" public-evidence semantics) — closes a jurisdiction-specific MNPI defensibility gap.
-- **Items 87 / 89** (defensibility report + evidence pack export) — turns the statute coverage work into procurement-facing artefacts.
+- **Items 121 / 122 / 70 v2** (frequency tables + document structure + singling-out scoring) — the remaining deterministic Layer-2 build after conjunctive MNPI.
 - **Item 33 remainder** (EU member-state IDs + broader cookie/ad-ID/device serials + semantic DOB/age) — DOB/adult-age, IP/MAC/IMEI, US ITIN/DLN mini-slice shipped 2026-05-28.
 - **Items 34 / 35 / 79** (addresses, semantic PII, inferred attributes) — broader PII recall once the deterministic slices are stable.
 - **Item 48 fixture growth / item 86 follow-up** — SG wedge and jurisdiction packs are stronger now, but still need deeper adversarial/real-world fixture growth.
@@ -171,4 +173,4 @@ If the user asks you to commit, follow the CLAUDE.md commit rules: heredoc messa
 
 ---
 
-Welcome to Kaypoh. Read the onboarding and architecture docs. Stage B candidate coverage is generated, cleanly evaluated, and owner-approved for internal benchmarking across all 17 jurisdictions. Next work should be chosen from item 125, item 82, items 87/89, item 33 remainder, or M3 depending on user priority.
+Welcome to Kaypoh. Read the onboarding and architecture docs. Stage B candidate coverage is generated, cleanly evaluated, and owner-approved for internal benchmarking across all 17 jurisdictions. The no-cost item 120/124/125 and endpoint/defensibility batch shipped on 2026-06-06. Next work should be chosen from the paid item 125 audit-grade sweep, item 82, items 121/122/70 v2, item 33 remainder, or M3 depending on user priority.
