@@ -3,8 +3,7 @@
 Each fenced code block is a self-contained prompt you can copy verbatim
 into a fresh Claude Code session that has been spawned inside this
 repository. Every prompt assumes the agent has access to
-`AGENT-RUNBOOK.md` and `GAPS-TO-REMEDY.md` — agents will read those
-first as part of their work.
+`AGENT-RUNBOOK.md` — agents will read it first as part of their work.
 
 ## How to use this doc
 
@@ -37,7 +36,7 @@ A multi-tier program of work for the **SG-LegalBench** benchmark + reference cop
 
 ### Order of operations for a single fresh agent
 
-1. **Read `GAPS-TO-REMEDY.md` + `AGENT-RUNBOOK.md` + this file's `## Critical context` block.** That's the methodology + ops context.
+1. **Read `AGENT-RUNBOOK.md` and this file's `## Critical context` block.** That's the methodology + ops context.
 2. **Pick ONE prompt** from the "Fireable now" table. **Do not pick from "Cost-gated" or "Deferred" without explicit user approval.**
 3. **Find the prompt body** by scrolling down to its `## <ID>:` section (e.g. `## G3: SGLB-14 Statutory-Entailment`). Each prompt body is a self-contained fenced ` ```text ` block.
 4. **Honour the prompt body verbatim** — branch name, commit message, files-in-scope, files-NOT-to-touch, acceptance criteria, all of it.
@@ -76,15 +75,14 @@ SG legal-tech vendors and LLM teams running SG-LegalBench against
 their own models. That positioning is contingent on the methodology
 surviving scrutiny.
 
-Every gap-closure prompt references its GAP ID in `GAPS-TO-REMEDY.md`.
-Read that file alongside this one.
+Every gap-closure prompt carries its GAP ID inline in this file.
 
 ## Critical context (read before firing anything)
 
 1. **Methodology fundamentals (Tier 1) precede every public claim.**
    No baseline, leaderboard, or launch asset is shippable until Tier 1
-   lands. Specific blockers tracked in `GAPS-TO-REMEDY.md` as
-   BLOCKER/HIGH severity.
+   lands. Specific blockers are tracked inline below as
+   BLOCKER/HIGH methodology prompts.
 2. **SGLB-05/06/07 eligibility status (updated 2026-06-06 after Tier 2):**
    - SGLB-06: now `benchmark_eligible=True` (PR #100 landed SSO ROC2021 data + dataset YAML).
    - SGLB-05: code + integration smoke shipped (PRs #102 + #104 + #105); `benchmark_eligible=False` until `make ingest-mom LIVE=1` lands the production dataset.
@@ -430,7 +428,7 @@ scanned images — flag those.
 You are implementing GAP-05 closure: SAL citation grammar must be
 validated against the SAL Style Guide's own published examples.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-05,
+Read AGENT-RUNBOOK.md and this file's GAP-05 prompt context,
 backend/api/services/sal_citation.py (the grammar implementation),
 backend/tests/test_sal_citation.py (current tests, all synthetic).
 
@@ -488,7 +486,7 @@ v0.2 grammar work is warranted.
 You are implementing GAP-09 closure: a published normalisation spec
 covering citation + statute canonical forms.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-09,
+Read AGENT-RUNBOOK.md and this file's GAP-09 prompt context,
 backend/benchmark/evaluators.py:520-536 (current section normaliser),
 backend/api/services/sal_citation.py (case citation parsing).
 
@@ -542,7 +540,7 @@ You are implementing GAP-10 closure: a published dispute/errata
 process so vendors and labelled-case subjects have a path to file
 disputes.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-10, CONTRIBUTING.md
+Read AGENT-RUNBOOK.md and this file's GAP-10 prompt context, CONTRIBUTING.md
 (any existing errata mention).
 
 Goal: a vendor-facing dispute process operationalised via GitHub.
@@ -599,7 +597,7 @@ You are implementing GAP-03 closure: audit the gap between commit
 messages claiming Anthropic + Gemini baselines and the actual
 contents of runs/baselines/.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-03.
+Read AGENT-RUNBOOK.md and this file's GAP-03 prompt context.
 
 Goal: investigate commits 414bb4b ("Gemini baselines across
 SGLB-01/02/04") and 9beb086 (or the latest Anthropic baselines
@@ -809,7 +807,7 @@ You are implementing GAP-02 closure in the junas repo: bootstrap CIs
 must land in every receipt JSON during the benchmark run, not as a
 post-hoc leaderboard step.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-02,
+Read AGENT-RUNBOOK.md and this file's GAP-02 prompt context,
 backend/benchmark/runner.py, backend/benchmark/scripts/build_leaderboard.py
 (specifically `_bootstrap()` at lines 125-142), backend/benchmark/llm_runner.py.
 
@@ -862,7 +860,7 @@ on the v0.1 leaderboard with oracle-1.0 scores. Mirror the
 `benchmark_eligible = False` pattern used by ElitigationAdapter at
 backend/api/adapters/public/elitigation.py:36.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-04,
+Read AGENT-RUNBOOK.md and this file's GAP-04 prompt context,
 backend/api/adapters/public/elitigation.py:36,
 backend/benchmark/scripts/build_leaderboard.py, README2.md task table.
 
@@ -933,7 +931,7 @@ You are implementing GAP-01 closure in the junas repo: contamination
 probe per (task, model) so vendors can see which baselines memorised
 labels vs. reasoned from facts.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-01,
+Read AGENT-RUNBOOK.md and this file's GAP-01 prompt context,
 docs/coverage-matrix.md §4.3, backend/benchmark/llm_runner.py.
 
 Goal: a separate probe pass per labelled case that asks the model
@@ -1001,7 +999,7 @@ task; any task where the probe formulation feels insufficient.
 You are implementing GAP-06 closure: extraction-rule SHA pinned in
 every dataset row + dataset YAML header.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-06,
+Read AGENT-RUNBOOK.md and this file's GAP-06 prompt context,
 backend/data/ingestion/pdpc.py (lines 47-178 — taxonomy +
 extraction + emit), backend/data/ingestion/sso.py.
 
@@ -1062,8 +1060,8 @@ You are launching NEW-BATCH-D, the full frontier model baseline run
 across SG-LegalBench v0.1 eligible tasks. This REPLACES the stubbed
 "Batch D" from the pre-rewrite plan.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md (especially §GAP-01, §GAP-02,
-§GAP-03, §GAP-06 — all closures must be reflected in the receipts),
+Read AGENT-RUNBOOK.md and this file's Critical context (especially GAP-01, GAP-02,
+GAP-03, GAP-06 — all closures must be reflected in the receipts),
 docs/coverage-matrix.md §4.4, backend/benchmark/cli.py, AGENT-RUNBOOK.md
 §8 (cost gates).
 
@@ -1105,7 +1103,7 @@ Per-cell agent contract (the prompt to fire per cell):
 """
 You are running baseline (provider=<P>, task=<T>) for NEW-BATCH-D.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-01/02/06, the
+Read AGENT-RUNBOOK.md and this file's GAP-01/02/06 prompt context, the
 per-task spec at docs/sglb_specs/<T>.md, and the receipt schema at
 backend/benchmark/receipt_schema.md.
 
@@ -1170,7 +1168,7 @@ SOLO-17's κ computation produces any judge-pair with κ < 0.4 (per
 docs/coverage-matrix.md §4.1 + §8). This prompt is GATED on
 SOLO-17 completing.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-07,
+Read AGENT-RUNBOOK.md and this file's GAP-07 prompt context,
 docs/coverage-matrix.md §4.1 + §8, docs/sglb_specs/SGLB-08.md,
 the κ summary produced by SOLO-17.
 
@@ -1698,7 +1696,7 @@ produced.
 You are expanding SSO ingestion beyond PDPA to unblock SGLB-02
 scaling + SGLB-06 data.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-04 + §GAP-13,
+Read AGENT-RUNBOOK.md and this file's GAP-04 + GAP-13 prompt context,
 backend/data/ingestion/sso.py, docs/sglb_specs/SGLB-02.md +
 docs/sglb_specs/SGLB-06.md, Makefile (existing `ingest-sso` target).
 
@@ -1753,7 +1751,7 @@ struggled with; total network requests + duration.
 You are expanding SGLB-04 from the 30-case smoke dataset to the
 1000+ case production set (per the spec doc + issue #32).
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-13,
+Read AGENT-RUNBOOK.md and this file's GAP-13 prompt context,
 docs/sglb_specs/SGLB-04.md, backend/benchmark/dataset_builders/
 sglb_04.py, backend/api/services/sal_citation.py (the grammar).
 
@@ -1835,7 +1833,7 @@ All 13 prompt bodies preserved verbatim below in nested `<details>` blocks for r
 ```text
 You are writing GAP-14 closure: the vendor self-eval guide.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-14, backend/benchmark/
+Read AGENT-RUNBOOK.md and this file's GAP-14 prompt context, backend/benchmark/
 cli.py, backend/benchmark/receipt_schema.md (must exist post-
 NEW-CI-RECEIPT), docs/normalisation-spec.md (must exist post-
 NEW-NORM-SPEC), docs/methodology/contamination.md (must exist post-
@@ -1894,7 +1892,7 @@ You are implementing GAP-15 closure: extract reusable components
 into an installable sub-package so SG legal-tech engineers can
 `pip install` parts of the stack.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-15, backend/api/
+Read AGENT-RUNBOOK.md and this file's GAP-15 prompt context, backend/api/
 services/sal_citation.py, backend/benchmark/evaluators.py:520-536
 (section normaliser), backend/api/adapters/public/base.py
 (LegalSourceAdapter protocol).
@@ -1954,7 +1952,7 @@ You are implementing GAP-12 closure: outreach kit + technical
 contract for an institutional partner to run the benchmark
 independently.
 
-Read AGENT-RUNBOOK.md, GAPS-TO-REMEDY.md §GAP-12, README2.md.
+Read AGENT-RUNBOOK.md and this file's GAP-12 prompt context, README2.md.
 
 This is a docs+outreach prompt; no code.
 
@@ -2422,7 +2420,7 @@ _arXiv preprint. Tier 3 closed (PRs #107-121); Tier 1 mostly closed (SOLO-17 κ 
 ```text
 You are starting issue #37 in the junas repo: SG-LegalBench preprint
 draft. Read AGENT-RUNBOOK.md, docs/coverage-matrix.md,
-GAPS-TO-REMEDY.md, and all of docs/sglb_specs/SGLB-NN.md.
+this file's Critical context, and all of docs/sglb_specs/SGLB-NN.md.
 
 Scope: produce the preprint outline + draft §§1-3 (Introduction,
 Methodology, Tasks). Leave §§4-5 (Results, Limitations) as
@@ -2509,7 +2507,7 @@ post-launch and held to higher standard.
 You are working on issue #50 (SGLB-09 Summary-Faithfulness).
 
 Read AGENT-RUNBOOK.md, docs/sglb_specs/SGLB-09.md, CONTRIBUTING.md
-"Adding a new task", GAPS-TO-REMEDY.md §GAP-07/08, and the FActScore
+"Adding a new task", this file's GAP-07/08 prompt context, and the FActScore
 paper (Min et al., EMNLP 2023, https://arxiv.org/abs/2305.14251).
 
 Files you own:
@@ -3357,4 +3355,3 @@ external dependencies before they can be specified:
   this doc:
   1. Open a GitHub issue; write a prompt for it here in a follow-up PR.
   2. Surface to the user directly if it's a one-off operational concern.
-
