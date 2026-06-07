@@ -2377,7 +2377,18 @@ on, any spec-doc inconsistencies you noticed while writing.
 
 # Tier 5 — Copilot + v0.2
 
-_Post-launch. Reference copilot polish + v0.2 task expansion. Gated on Tier 4 (launch)._
+_Reference copilot polish + v0.2 task expansion._
+
+**TIER 5 — 4 OF (many) DONE ✅ (2026-06-06, commit 20773c7 + PRs #124-126).**
+
+| Work unit | What | PR / commit |
+|---|---|---|
+| `Batch G G2` SGLB-13 Counterfactual-Outcome | New benchmark task on PDPC perturbations; dataset + builder + tests | direct commit `20773c7` |
+| `Batch F F1` MCP server scaffolding | `junas-mcp` server with stdio + HTTP transports + `health` tool; `mcp>=1.27` pinned | #125 |
+| `SOLO-12` Logfire observability | Opt-in telemetry (default off); 5 no-op contract tests | #124 |
+| `COPILOT-3` DOCX export | python-docx-based export for receipts + chat sessions; 14 tests; <3s for 200-msg session | #126 |
+
+**Still pending in Tier 5:** Batch G G1/G3/G4 (G1 has v0.2 multi-judge upgrade deferred for keys), Batch H H1/H2/H3 (H2/H3 are Azure-cost-gated synth-gen), Batch F F2/F3/F4, SOLO-7, SOLO-11, COPILOT-1/2/4.
 
 # Batch G — v0.2 Task Wave 1 (#50, #54, #55, #57), 4 parallel agents
 
