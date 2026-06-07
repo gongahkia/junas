@@ -19,6 +19,54 @@ first as part of their work.
    message, then merge to `main` yourself (the user is the merge
    authority; agents do not push to `origin/main`).
 
+## ⚡ Cold-start guide for a fresh coding agent
+
+You are an agent dropping into this repo with no prior context. Read this section first, then act.
+
+### What this repo is mid-execution of
+
+A multi-tier program of work for the **SG-LegalBench** benchmark + reference copilot. Most prompts are **already DONE** and merged to `main` (see PRs #84–#128). What's left is captured below.
+
+### Authoritative source of truth: what to run next
+
+**Read `## Remaining prompts (what's left to run)` directly below.** That section is the single source of truth for what's pending. It groups prompts into three buckets:
+
+1. **Fireable now** — zero LLM cost or Azure-only (the maintainer's only available API key is `AZURE_OPENAI_API_KEY`).
+2. **Cost-gated** — fire only with explicit user approval per cell.
+3. **Deferred** — blocked on the maintainer acquiring `ANTHROPIC_API_KEY` + `GEMINI_API_KEY`. Do not attempt; surface the gap if relevant.
+
+### Order of operations for a single fresh agent
+
+1. **Read `GAPS-TO-REMEDY.md` + `AGENT-RUNBOOK.md` + this file's `## Critical context` block.** That's the methodology + ops context.
+2. **Pick ONE prompt** from the "Fireable now" table. **Do not pick from "Cost-gated" or "Deferred" without explicit user approval.**
+3. **Find the prompt body** by scrolling down to its `## <ID>:` section (e.g. `## G3: SGLB-14 Statutory-Entailment`). Each prompt body is a self-contained fenced ` ```text ` block.
+4. **Honour the prompt body verbatim** — branch name, commit message, files-in-scope, files-NOT-to-touch, acceptance criteria, all of it.
+5. **Work in your own isolated worktree** (`isolation: "worktree"` if spawning via the Agent tool). Do not work on `main`.
+6. **Run the tests the prompt body specifies** before committing.
+7. **Commit on the feature branch the prompt body names** — do NOT push to `main`. The user is the merge authority.
+8. **Report back** what the prompt body's "Report back" line asks for.
+
+### If you want to fire multiple prompts in parallel
+
+Use the `## Suggested fire sequence` further down — it documents which prompts share files and must be sequenced vs which are truly parallel-safe. Default: assume sequential unless that section says otherwise.
+
+### What "done" means
+
+A prompt is done when:
+- Its commit landed on `main` (via a PR the user merged)
+- Its `<details>` block is collapsed under a DONE banner in this file
+- It no longer appears in the "Remaining prompts" tables below
+
+### Things to never do
+
+- **Don't push to `main`.** Only the user merges PRs.
+- **Don't run cost-gated prompts** without explicit per-cell approval. Azure gpt-5 with reasoning tokens is 5-10× the estimator quote.
+- **Don't try the "Deferred" prompts.** They need API keys the maintainer doesn't currently have. Skip and document if relevant.
+- **Don't modify the "DONE" banner tables** — those are append-only history. Add new entries when you complete work; never edit existing ones.
+- **Don't auto-commit with non-conventional messages.** If you see commits like `feat(app): added` on `main` (auto-commit-hook artifacts), surface them to the user; do not propagate the pattern.
+
+---
+
 ## Posture (2026-06-05 rewrite)
 
 This file was re-tiered methodology-first on 2026-06-05. The previous
