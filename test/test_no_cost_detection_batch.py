@@ -6,9 +6,10 @@ from kaypoh.review.engine import PreSendReviewEngine
 class NoCostDetectionBatchTests(unittest.TestCase):
     def _review(self, text: str, jurisdiction: str = "SG"):
         return PreSendReviewEngine().review(
-            text,
+            text=text,
             destination_jurisdiction=jurisdiction,
             source_jurisdiction=jurisdiction,
+            entity_id=None,
             include_suggestions=True,
         )
 
@@ -21,11 +22,11 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
     def test_validated_dutch_bsn_and_polish_pesel_fire(self):
         self.assertIn("eu_national_id", self._rules("Dutch BSN: 123456782", "EU"))
-        self.assertIn("eu_national_id", self._rules("Polish PESEL: 44051401358", "EU"))
+        self.assertIn("eu_national_id", self._rules("Polish PESEL: 44051401359", "EU"))
 
     def test_invalid_member_state_id_shape_is_rejected(self):
         self.assertNotIn("eu_national_id", self._rules("Dutch BSN: 123456789", "EU"))
-        self.assertNotIn("eu_national_id", self._rules("Polish PESEL: 44051401359", "EU"))
+        self.assertNotIn("eu_national_id", self._rules("Polish PESEL: 44051401358", "EU"))
 
     def test_conservative_uk_us_hk_address_slices_fire(self):
         self.assertIn("uk_postal_address", self._rules("Send to 221B Baker Street NW1 6XE.", "UK"))

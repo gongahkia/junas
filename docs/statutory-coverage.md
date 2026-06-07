@@ -225,6 +225,12 @@ These rules fire regardless of jurisdiction; the statutory anchor is jurisdictio
 - **Jurisdiction-suffix wiring** — every MNPI finding's suggestion rationale carries the destination-jurisdiction statute suffix; cross-jurisdiction routing (e.g. source=SG, destination=US) carries BOTH suffixes. Audited by `test/test_mnpi_jurisdiction_suffix.py` (item 94).
 - **Statute-citation override** — `KAYPOH_CITATIONS_OVERRIDE_DIR/{tenant_id}.toml` resolves tenant-specific internal compliance citations before the global `KAYPOH_CITATIONS_OVERRIDE` fallback. Malformed configured overrides fail closed instead of silently falling back.
 
+### 2026-06-07 no-cost deterministic additions
+
+- **Validated EU member-state identifiers** — `eu_national_id` now includes deterministic checksum-backed slices for Spanish DNI/NIE, Dutch BSN, Polish PESEL, and French numeric INSEE/NIR references where the document labels the identifier. GDPR Art 4(1) and Art 87 remain the statutory anchor. Broader member-state coverage is still open.
+- **Conservative address slices** — `uk_postal_address`, `us_postal_address`, and `hk_postal_address` add jurisdiction-format-anchored postal-address signals. These are not broad free-form address parsing; multi-line and loosely written addresses remain item 34.
+- **Explicit inferred attributes** — `personal_attribute_inference` flags high-confidence named-person statements that infer relationship, employer, or location attributes. The statutory basis is PDPA s2, GDPR Art 4(1), and CCPA §1798.140; full semantic PII / NER fallback remains item 35, and wider relation extraction remains item 79.
+
 ## Known statutory gaps
 
 These statutory concepts are recognised in the first-principles analysis and are either still missing or only seed-implemented. Each maps to an expansion-sequence item in `ARCHITECTURE-PIVOT-24-MAY.md`.
@@ -234,8 +240,9 @@ These statutory concepts are recognised in the first-principles analysis and are
 | DOB / age | mini-slice shipped 2026-05-28: `date_of_birth` + adult `age_reference`; polish anchors added birthday / turns / years-old forms; broad semantic age/DOB inference remains open | 33 partial |
 | IP / device / online identifier | mini-slice shipped 2026-05-28: `ip_address`, `mac_address`, `imei`; polish slice added labelled `cookie_id`, `advertising_id`, `device_serial_number`; broader online identifiers remain open | 33 partial |
 | US driver-license / ITIN | mini-slice shipped 2026-05-28: `us_itin` + `us_driver_license` with all-50-state shape registry and audit-grade missing/unsupported/masked issuer warnings | 33 partial |
-| EU member-state national-IDs (DE Personalausweis, FR INSEE, etc.) | labelled seed `eu_national_id` hooks shipped 2026-05-28; full member-state validators remain open | 33 partial |
-| Broad postal-address parsing (multi-line, free-form) | only SG / JP / AU postal recognizers ship | 34 |
+| EU member-state national-IDs (DE Personalausweis, FR INSEE, etc.) | labelled seed `eu_national_id` hooks shipped 2026-05-28; ES DNI/NIE, NL BSN, PL PESEL, and FR numeric INSEE/NIR validators shipped 2026-06-07; broader member-state validators remain open | 33 partial |
+| Broad postal-address parsing (multi-line, free-form) | SG / JP / AU postal recognizers plus conservative UK / US / HK slices ship; broad free-form parsing remains open | 34 partial |
+| Inferred personal attributes | explicit relationship / employer / location patterns shipped 2026-06-07; broad semantic relation extraction remains open | 79 partial |
 | General semantic PII / NER fallback | not implemented | 35 |
 | Special-category PII (religion / union / political) — GDPR Art 9, PDPC special-cat, PIPA Art 23, APPI creed, LGPD Art 5(II), UAE PDPL Art 15, KSA PDPL Art 6 | v1 shipped 2026-05-27 (item 98): `religious_belief` + `trade_union_membership` + `political_opinion` rules with strict context anchors; per-category opt-out via `KAYPOH_SPECIAL_CATEGORY_DISABLE` | 98 (v1 shipped) |
 | Special-category PII (health / medical treatment / biometric / genetic / sex life / sexual orientation) | seed shipped 2026-05-28 (items 105/106/108): `health_condition`, `medical_treatment`, `biometric_identifier`, `genetic_data`, `sexual_orientation`, `sex_life_reference` with strict anchors and default high severity | 105 / 106 / 108 (seed shipped) |

@@ -105,7 +105,7 @@ EU_MEMBER_STATE_ID_RE = re.compile(
     re.IGNORECASE,
 )
 UK_POSTAL_ADDRESS_RE = re.compile(
-    r"\b\d{1,4}\s+[A-Z][A-Za-z' -]{2,40}\s+"
+    r"\b\d{1,4}[A-Z]?\s+[A-Z][A-Za-z' -]{2,40}\s+"
     r"(?:Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Close|Drive|Dr|Way|Court|Ct|"
     r"Square|Sq|High\s+Street),?\s+[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",
     re.IGNORECASE,
@@ -2238,6 +2238,10 @@ def _detect_core_identifier_findings(
 
     if any(pack.code == "EU" for pack in packs):
         for match in EU_NATIONAL_ID_RE.finditer(text):
+            country = match.group("country").upper()
+            value = match.group("id")
+            if country in {"ES", "NL", "PL", "FR"} and not _validate_eu_member_state_id(country, value):
+                continue
             out.append(
                 _new_finding(
                     idx=idx,
@@ -2245,11 +2249,15 @@ def _detect_core_identifier_findings(
                     rule="eu_national_id",
                     jurisdiction=jurisdiction,
                     severity="high",
-                    matched_text=match.group("id"),
+                    matched_text=value,
                     start=match.start("id"),
                     end=match.end("id"),
-                    reason=f"EU {match.group('country').upper()} national identifier detected",
+                    reason=f"EU {country} national identifier detected",
                     legal_basis=legal_basis,
+                    metadata={
+                        "member_state": country,
+                        "validator": "checksum" if country in {"ES", "NL", "PL", "FR"} else "label",
+                    },
                 )
             )
             idx += 1
