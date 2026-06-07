@@ -9,6 +9,7 @@ from kaypoh.backend.schemas import Classification
 from kaypoh.review.conjunctive_mnpi import detect_conjunctive_mnpi
 from kaypoh.review.citations import CitationOverrideError, mnpi_rationale, pii_rationale
 from kaypoh.review.defined_terms import extract_defined_terms, is_defined_term
+from kaypoh.review.document_structure import DocumentStructure, parse_document_structure
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
 from kaypoh.review.jurisdictions import JurisdictionRulePack, resolve_rule_packs
 from kaypoh.workflow.privacy_guard import EMAIL_RE, LONG_NUMBER_RE, MONEY_RE, PERCENT_RE, PHONE_RE
@@ -93,6 +94,51 @@ EU_NATIONAL_ID_RE = re.compile(
     r"DNI|NIE|NIF|codice\s+fiscale|BSN|PESEL|PPSN|CPR)\s*[:#=\-]?\s*"
     r"(?P<id>[A-Z0-9][A-Z0-9 ./-]{5,31}[A-Z0-9])\b",
     re.IGNORECASE,
+)
+EU_MEMBER_STATE_ID_RE = re.compile(
+    r"\b(?P<label>"
+    r"(?:Spain|Spanish|ES)\s+(?:DNI|NIE|NIF|national\s+ID)|"
+    r"(?:Netherlands|Dutch|NL)\s+(?:BSN|citizen\s+service\s+number|national\s+ID)|"
+    r"(?:Poland|Polish|PL)\s+(?:PESEL|national\s+ID)|"
+    r"(?:France|French|FR)\s+(?:INSEE|NIR|social\s+security\s+number|national\s+ID)"
+    r")\s*[:#=\-]?\s*(?P<id>[A-Z0-9][A-Z0-9 ./-]{6,31}[A-Z0-9])\b",
+    re.IGNORECASE,
+)
+UK_POSTAL_ADDRESS_RE = re.compile(
+    r"\b\d{1,4}\s+[A-Z][A-Za-z' -]{2,40}\s+"
+    r"(?:Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Close|Drive|Dr|Way|Court|Ct|"
+    r"Square|Sq|High\s+Street),?\s+[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",
+    re.IGNORECASE,
+)
+US_POSTAL_ADDRESS_RE = re.compile(
+    r"\b\d{1,6}\s+[A-Z][A-Za-z0-9' -]{2,50}\s+"
+    r"(?:Street|St|Road|Rd|Avenue|Ave|Boulevard|Blvd|Lane|Ln|Drive|Dr|Court|Ct|"
+    r"Way|Circle|Cir|Place|Pl),?\s+"
+    r"(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|"
+    r"MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|"
+    r"VA|WA|WV|WI|WY)\s+\d{5}(?:-\d{4})?\b",
+)
+HK_ADDRESS_SIGNAL_RE = re.compile(
+    r"\b(?:Flat|Room|Rm|Unit)\s+[A-Z0-9-]{1,8},?\s+"
+    r"(?:\d{1,3}(?:st|nd|rd|th)?\s+Floor|[A-Z0-9-]{1,8}/F),?\s+"
+    r"[A-Z][A-Za-z0-9' &.-]{2,60},?\s+"
+    r"(?:Hong\s+Kong|Kowloon|New\s+Territories|HK)\b",
+    re.IGNORECASE,
+)
+PERSONAL_ATTRIBUTE_RELATION_RE = re.compile(
+    r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})"
+    r"'?s\s+(?P<attribute>wife|husband|spouse|partner|son|daughter|child|father|mother)\s+"
+    r"(?P<object>[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\b"
+)
+PERSONAL_ATTRIBUTE_EMPLOYER_RE = re.compile(
+    r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
+    r"(?:works\s+at|is\s+employed\s+by|is\s+seconded\s+to|joined)\s+"
+    r"(?P<object>[A-Z][A-Za-z0-9&.,' -]{2,80})\b"
+)
+PERSONAL_ATTRIBUTE_LOCATION_RE = re.compile(
+    r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
+    r"(?:lives\s+in|resides\s+in|is\s+based\s+in)\s+"
+    r"(?P<object>[A-Z][A-Za-z0-9&.,' -]{2,80})\b"
 )
 
 _US_STATE_NAME_TO_CODE = {
@@ -1881,6 +1927,76 @@ def _luhn_valid(digits: str) -> bool:
     return total % 10 == 0
 
 
+def _normalise_identifier_value(value: str) -> str:
+    return re.sub(r"[\s./-]", "", value).upper()
+
+
+def _validate_es_dni_nie(value: str) -> bool:
+    compact = _normalise_identifier_value(value)
+    letters = "TRWAGMYFPDXBNJZSQVHLCKE"
+    if re.fullmatch(r"\d{8}[A-Z]", compact):
+        return compact[-1] == letters[int(compact[:8]) % 23]
+    if re.fullmatch(r"[XYZ]\d{7}[A-Z]", compact):
+        prefix = {"X": "0", "Y": "1", "Z": "2"}[compact[0]]
+        return compact[-1] == letters[int(prefix + compact[1:8]) % 23]
+    return False
+
+
+def _validate_nl_bsn(value: str) -> bool:
+    digits = _digits_only(value)
+    if len(digits) == 8:
+        digits = "0" + digits
+    if len(digits) != 9:
+        return False
+    weights = [9, 8, 7, 6, 5, 4, 3, 2, -1]
+    return sum(int(digit) * weight for digit, weight in zip(digits, weights)) % 11 == 0
+
+
+def _validate_pl_pesel(value: str) -> bool:
+    digits = _digits_only(value)
+    if len(digits) != 11:
+        return False
+    weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3]
+    check = (10 - sum(int(digits[i]) * weights[i] for i in range(10)) % 10) % 10
+    return check == int(digits[-1])
+
+
+def _validate_fr_insee(value: str) -> bool:
+    digits = _digits_only(value)
+    if len(digits) not in {13, 15}:
+        return False
+    if len(digits) == 13:
+        return True
+    body = int(digits[:13])
+    key = int(digits[13:])
+    return (97 - (body % 97)) == key
+
+
+def _eu_member_state_label(label: str) -> str | None:
+    normalized = label.casefold()
+    if "dni" in normalized or "nie" in normalized or "spanish" in normalized or normalized.startswith("es"):
+        return "ES"
+    if "bsn" in normalized or "dutch" in normalized or "netherlands" in normalized or normalized.startswith("nl"):
+        return "NL"
+    if "pesel" in normalized or "polish" in normalized or normalized.startswith("pl"):
+        return "PL"
+    if "insee" in normalized or "nir" in normalized or "french" in normalized or normalized.startswith("fr"):
+        return "FR"
+    return None
+
+
+def _validate_eu_member_state_id(country: str | None, value: str) -> bool:
+    if country == "ES":
+        return _validate_es_dni_nie(value)
+    if country == "NL":
+        return _validate_nl_bsn(value)
+    if country == "PL":
+        return _validate_pl_pesel(value)
+    if country == "FR":
+        return _validate_fr_insee(value)
+    return True
+
+
 def _ip_version(value: str) -> int | None:
     try:
         return ipaddress.ip_address(value).version
@@ -2133,6 +2249,53 @@ def _detect_core_identifier_findings(
                     start=match.start("id"),
                     end=match.end("id"),
                     reason=f"EU {match.group('country').upper()} national identifier detected",
+                    legal_basis=legal_basis,
+                )
+            )
+            idx += 1
+        for match in EU_MEMBER_STATE_ID_RE.finditer(text):
+            country = _eu_member_state_label(match.group("label"))
+            value = match.group("id")
+            if not _validate_eu_member_state_id(country, value):
+                continue
+            out.append(
+                _new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="eu_national_id",
+                    jurisdiction=jurisdiction,
+                    severity="high",
+                    matched_text=value,
+                    start=match.start("id"),
+                    end=match.end("id"),
+                    reason=f"EU {country or 'member-state'} national identifier detected",
+                    legal_basis=legal_basis,
+                    metadata={"member_state": country, "validator": "checksum" if country else "label"},
+                )
+            )
+            idx += 1
+
+    address_patterns: list[tuple[str, re.Pattern[str], str]] = []
+    pack_codes = {pack.code for pack in packs}
+    if "UK" in pack_codes:
+        address_patterns.append(("uk_postal_address", UK_POSTAL_ADDRESS_RE, "UK postcode-address signal"))
+    if "US" in pack_codes:
+        address_patterns.append(("us_postal_address", US_POSTAL_ADDRESS_RE, "US street-address signal"))
+    if "HK" in pack_codes:
+        address_patterns.append(("hk_postal_address", HK_ADDRESS_SIGNAL_RE, "Hong Kong address signal"))
+    for rule, pattern, reason in address_patterns:
+        for match in pattern.finditer(text):
+            out.append(
+                _new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule=rule,
+                    jurisdiction=jurisdiction,
+                    severity="medium",
+                    matched_text=match.group(0),
+                    start=match.start(),
+                    end=match.end(),
+                    reason=reason,
                     legal_basis=legal_basis,
                 )
             )
@@ -2784,6 +2947,68 @@ def _detect_quasi_identifier_combinations(
             left = right + 1  # advance past this cluster
         else:
             left += 1
+    return out
+
+
+def _trim_inferred_attribute_span(text: str, start: int, end: int) -> tuple[int, int]:
+    line_end = text.find("\n", start, end)
+    if line_end >= 0:
+        end = line_end
+    while end > start and text[end - 1] in " \t;:":
+        end -= 1
+    return start, end
+
+
+def _detect_personal_attribute_inferences(
+    text: str,
+    *,
+    jurisdiction: str,
+    legal_basis: str,
+    idx_start: int,
+    document_structure: DocumentStructure,
+) -> list[ReviewFinding]:
+    out: list[ReviewFinding] = []
+    idx = idx_start
+    specs = (
+        (PERSONAL_ATTRIBUTE_RELATION_RE, "relationship", "Family or relationship attribute inferred from a named-person statement"),
+        (PERSONAL_ATTRIBUTE_EMPLOYER_RE, "employer", "Employment attribute inferred from a named-person statement"),
+        (PERSONAL_ATTRIBUTE_LOCATION_RE, "location", "Location/residence attribute inferred from a named-person statement"),
+    )
+    for pattern, attribute_type, reason in specs:
+        for match in pattern.finditer(text):
+            start, end = _trim_inferred_attribute_span(text, match.start(), match.end())
+            if end <= start:
+                continue
+            unit = document_structure.containing_span(start, end)
+            metadata: dict[str, Any] = {
+                "attribute_type": attribute_type,
+                "subject": match.group("subject"),
+                "inferred_value": match.group("object").strip(" \t,.;:"),
+            }
+            if unit is not None:
+                metadata.update(
+                    {
+                        "structural_unit_kind": unit.kind,
+                        "structural_unit_line_start": unit.line_start,
+                        "structural_unit_line_end": unit.line_end,
+                    }
+                )
+            out.append(
+                _new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="personal_attribute_inference",
+                    jurisdiction=jurisdiction,
+                    severity="medium",
+                    matched_text=text[start:end],
+                    start=start,
+                    end=end,
+                    reason=reason,
+                    legal_basis=legal_basis,
+                    metadata=metadata,
+                )
+            )
+            idx += 1
     return out
 
 
@@ -4134,8 +4359,18 @@ class PreSendReviewEngine:
                     add_matter_terms(matter_id, defined_terms - matter_inherited, tenant_id=tenant_id)
             except Exception as exc:
                 raise ReviewLayerError("matter_defined_terms", f"matter defined-term store failed: {exc}") from exc
+        document_structure = parse_document_structure(text)
         findings = self._pii_findings(text, packs, document_type, defined_terms) + self._mnpi_findings(
             text, packs, defined_terms, document_type
+        )
+        findings.extend(
+            _detect_personal_attribute_inferences(
+                text,
+                jurisdiction=_pack_scope(packs),
+                legal_basis=_legal_basis(packs, "pii_rules"),
+                idx_start=len(findings),
+                document_structure=document_structure,
+            )
         )
         # items 95 + 96: lift contingent/tipping severity when co-located with a deal substrate.
         # Mutates in place before scoring so the escalated severity feeds into mnpi_score.
