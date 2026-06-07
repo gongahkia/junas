@@ -28,6 +28,7 @@ from api.routers import (
     templates_router,
 )
 from api.security import SimpleRateLimiter, authorize_request
+from api.telemetry import instrument_fastapi as _telemetry_instrument_fastapi
 from api.services.contract_classifier import create_contract_classifier
 from api.services.entity_extractor import create_entity_extractor
 from api.services.readiness import collect_service_health
@@ -226,6 +227,7 @@ def create_app() -> FastAPI:
     app.include_router(legal_sources_router, prefix="/api/v1", tags=["legal-sources"])
     app.include_router(jurisdictions_router, prefix="/api/v1", tags=["jurisdictions"])
     app.include_router(benchmarks_router, prefix="/api/v1", tags=["benchmarks"])
+    _telemetry_instrument_fastapi(app)  # no-op unless LOGFIRE_TOKEN is set
     return app
 
 
