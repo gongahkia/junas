@@ -217,7 +217,44 @@ class ReviewRequest(BaseModel):
         return self
 
 
-class AnonymizeRequest(ReviewRequest):
+class PlaceholderOperationRequest(ReviewRequest):
+    include_mnpi_scalars: bool = Field(
+        True,
+        description=(
+            "Also replace exact financial amounts, percentages, and large numbers. "
+            "Broad MNPI material-event passages remain review findings rather than automatic replacements."
+        ),
+    )
+
+
+class PseudonymizeRequest(PlaceholderOperationRequest):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "text": (
+                    "Send Dr Jane Tan S1234567D the confidential draft. "
+                    "Acme Corp expects a $2.5 billion acquisition before announcement."
+                ),
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "document_type": "email",
+                "include_suggestions": True,
+                "include_mnpi_scalars": True,
+                "persist_mapping": True,
+            }
+        }
+    )
+
+    persist_mapping: bool = Field(
+        True,
+        description=(
+            "When KAYPOH_REVIEW_PERSIST=1, persist the local placeholder mapping so "
+            "POST /reidentify can restore by document_hash. Ignored when persistence is disabled."
+        ),
+    )
+
+
+class AnonymizeRequest(PlaceholderOperationRequest):
     model_config = ConfigDict(
         json_schema_extra={
             "example": {
@@ -234,14 +271,19 @@ class AnonymizeRequest(ReviewRequest):
         }
     )
 
-    include_mnpi_scalars: bool = Field(
-        True,
-        description=(
-            "Also replace exact financial amounts, percentages, and large numbers. "
-            "Broad MNPI material-event passages remain review findings rather than automatic replacements."
-        ),
-    )
 
+class RedactRequest(PlaceholderOperationRequest):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "text": "Send Dr Jane Tan S1234567D the confidential draft.",
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "SG",
+                "document_type": "email",
+                "include_suggestions": True,
+            }
+        }
+    )
 
 class LexiconHitResponse(BaseModel):
     rule: str = Field(description="Lexicon rule name that produced the hit.")
@@ -444,6 +486,13 @@ class ReviewFindingResponse(BaseModel):
             "always carry `not_checked` — public-status is not meaningful for personal data."
         ),
     )
+    metadata: dict[str, Any] = Field(
+        default_factory=dict,
+        description=(
+            "Detector-specific structured metadata. Layer-2 conjunctive MNPI findings use this "
+            "for materiality_state, entity/non-public element booleans, and element rules."
+        ),
+    )
 
 
 class ReviewSuggestionResponse(BaseModel):
@@ -630,7 +679,7 @@ class ReidentifyRequest(BaseModel):
         None,
         max_length=10000,
         description=(
-            "Mapping entries from a prior /anonymize call. Required unless document_hash is provided "
+            "Mapping entries from a prior /pseudonymize call. Required unless document_hash is provided "
             "and KAYPOH_REVIEW_PERSIST is enabled with a persisted mapping for that hash."
         ),
     )
@@ -639,7 +688,7 @@ class ReidentifyRequest(BaseModel):
         min_length=64,
         max_length=64,
         description=(
-            "Hex SHA-256 of the original document text (returned by /anonymize as `document_hash`). "
+            "Hex SHA-256 of the original document text (returned by /pseudonymize as `document_hash`). "
             "If set and a persisted mapping exists locally, the runtime restores from that. "
             "Either `mapping` or `document_hash` is required."
         ),
@@ -780,6 +829,7 @@ class ReviewSessionFindingState(BaseModel):
         default_factory=list,
         description="OCR text regions overlapping this persisted finding.",
     )
+    metadata: dict[str, Any] = Field(default_factory=dict, description="Persisted detector metadata.")
     decision: Optional[str] = Field(
         None,
         description="Current decision: accept, reject, or rewrite. None when undecided.",
@@ -812,11 +862,42 @@ class ReviewSessionStateResponse(BaseModel):
 
 class AnonymizationReplacementResponse(BaseModel):
     finding_id: str = Field(description="Review finding that drove this replacement.")
-    placeholder: str = Field(description="Placeholder inserted into anonymized_text.")
+    placeholder: str = Field(description="Placeholder inserted into pseudonymized_text.")
     entity_type: str = Field(description="Normalized anonymization entity type.")
     original_text: str = Field(description="Exact original substring replaced.")
     start_char: int = Field(description="Zero-based inclusive starting character offset in the extracted text.")
     end_char: int = Field(description="Zero-based exclusive ending character offset in the extracted text.")
+
+
+class PlaceholderReplacementResponse(BaseModel):
+    finding_id: str = Field(description="Review finding that drove this replacement.")
+    placeholder: str = Field(description="Placeholder inserted into the output text.")
+    entity_type: str = Field(description="Normalized placeholder type; does not include original text.")
+    start_char: int = Field(description="Zero-based inclusive starting character offset in the extracted text.")
+    end_char: int = Field(description="Zero-based exclusive ending character offset in the extracted text.")
+
+
+class OpaqueRedactionResponse(BaseModel):
+    finding_id: str = Field(description="Review finding that drove this redaction.")
+    marker: str = Field(description="Opaque marker inserted into redacted_text.")
+    start_char: int = Field(description="Zero-based inclusive starting character offset in the extracted text.")
+    end_char: int = Field(description="Zero-based exclusive ending character offset in the extracted text.")
+
+
+class RedactedFindingResponse(BaseModel):
+    id: str = Field(description="Stable finding identifier for client-side reconciliation.")
+    category: str = Field(description="Finding category: PII or MNPI.")
+    rule: str = Field(description="Rule or detector that produced the finding.")
+    jurisdiction: str = Field(description="Jurisdiction rule pack responsible for the finding.")
+    severity: str = Field(description="Finding severity: low, medium, or high.")
+    score: float = Field(description="Numeric risk contribution for this finding.")
+    start_char: int = Field(description="Zero-based inclusive starting character offset.")
+    end_char: int = Field(description="Zero-based exclusive ending character offset.")
+    reason: str = Field(description="Human-readable reason this finding is risky.")
+    legal_basis: str = Field(description="Policy or legal rule family applied to this finding.")
+    source: str = Field("text", description="Finding source: text or image_ocr.")
+    source_verification: str = Field("not_checked", description="Public-status proof state for MNPI findings.")
+    metadata: dict[str, Any] = Field(default_factory=dict, description="Detector-specific structured metadata.")
 
 
 class RedactedImageResponse(BaseModel):
@@ -843,7 +924,7 @@ class RedactedDocumentResponse(BaseModel):
     )
 
 
-class AnonymizeResponse(ReviewResponse):
+class PseudonymizeResponse(ReviewResponse):
     model_config = ConfigDict(
         json_schema_extra={
             "example": {
@@ -868,6 +949,8 @@ class AnonymizeResponse(ReviewResponse):
                 },
                 "findings": [],
                 "suggestions": [],
+                "privacy_operation": "pseudonymize",
+                "pseudonymized_text": "Send [PERSON_1] [NRIC_FIN_1] the confidential draft.",
                 "anonymized_text": "Send [PERSON_1] [NRIC_FIN_1] the confidential draft.",
                 "mapping": [
                     {
@@ -895,13 +978,19 @@ class AnonymizeResponse(ReviewResponse):
         }
     )
 
-    anonymized_text: str = Field(description="Extracted document text with accepted findings replaced by placeholders.")
+    privacy_operation: str = Field("pseudonymize", description="Privacy operation applied by this endpoint.")
+    pseudonymized_text: str = Field(
+        description="Extracted document text with accepted findings replaced by reversible placeholders."
+    )
+    anonymized_text: str = Field(
+        description="Compatibility alias for pseudonymized_text; use pseudonymized_text for new integrations."
+    )
     document_hash: str = Field(
         "",
         description=(
             "SHA-256 of the extracted document text. Use this as the `document_hash` field on "
             "POST /reidentify to recover the mapping without retaining it client-side. Persisted "
-            "locally only when KAYPOH_REVIEW_PERSIST=1."
+            "locally only when KAYPOH_REVIEW_PERSIST=1 and persist_mapping=true."
         ),
     )
     mapping_persisted: bool = Field(
@@ -929,6 +1018,92 @@ class AnonymizeResponse(ReviewResponse):
             "Rewritten source container with OCR pixel redactions applied. DOCX rewrites embedded media; "
             "PDF output is a flattened pixel-safe PDF."
         ),
+    )
+
+
+class AnonymizeResponse(ReviewResponse):
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "request_id": "b7f1faad-1d2b-4c35-9f60-6b7f08d6fbfb",
+                "overall_risk": "HIGH_RISK",
+                "classification": "HIGH_RISK",
+                "document_score": 91.0,
+                "pii_score": 88.0,
+                "mnpi_score": 91.0,
+                "source_jurisdiction": "SG",
+                "destination_jurisdiction": "US",
+                "jurisdictions_applied": ["SG", "US"],
+                "jurisdiction_policy": "strictest_wins",
+                "document_type": "email",
+                "review_profile": "strict",
+                "findings": [],
+                "suggestions": [],
+                "privacy_operation": "anonymize",
+                "anonymization_mode": "placeholder_only",
+                "anonymized_text": "Send [PERSON_1] [NRIC_FIN_1] the confidential draft.",
+                "document_hash": "4f" * 32,
+                "mapping_persisted": False,
+                "replacements": [
+                    {
+                        "finding_id": "pii:named_person:5:16:0",
+                        "placeholder": "[PERSON_1]",
+                        "entity_type": "PERSON",
+                        "start_char": 5,
+                        "end_char": 16,
+                    }
+                ],
+                "timings_ms": {"extract": 0.1, "review": 0.4, "anonymize": 0.2, "total": 0.7},
+            }
+        }
+    )
+
+    privacy_operation: str = Field("anonymize", description="Privacy operation applied by this endpoint.")
+    anonymization_mode: str = Field(
+        "placeholder_only",
+        description="Irreversible v2 mode: placeholders are emitted without mapping or original text.",
+    )
+    anonymized_text: str = Field(description="Extracted document text with accepted findings replaced by placeholders.")
+    document_hash: str = Field("", description="SHA-256 of the extracted document text; no mapping is persisted.")
+    mapping_persisted: bool = Field(False, description="Always false for irreversible /anonymize v2.")
+    replacements: list[PlaceholderReplacementResponse] = Field(
+        default_factory=list,
+        description="Span-level replacements without original matched text.",
+    )
+    redacted_images: list[RedactedImageResponse] = Field(
+        default_factory=list,
+        description="Best-effort redacted PNG artifacts for image-origin findings.",
+    )
+    redacted_document: Optional[RedactedDocumentResponse] = Field(
+        None,
+        description="Rewritten source container with OCR pixel redactions applied.",
+    )
+
+
+class RedactResponse(ReviewResponse):
+    findings: list[RedactedFindingResponse] = Field(
+        default_factory=list,
+        description="Findings without matched_text; /redact never returns original matched text.",
+    )
+    privacy_operation: str = Field("redact", description="Privacy operation applied by this endpoint.")
+    redaction_style: str = Field(
+        "opaque_text_marker",
+        description="Opaque text marker style; markers do not expose entity type or original text.",
+    )
+    redacted_text: str = Field(description="Extracted document text with accepted findings replaced by opaque markers.")
+    document_hash: str = Field("", description="SHA-256 of the extracted document text; no mapping is persisted.")
+    mapping_persisted: bool = Field(False, description="Always false for /redact.")
+    redactions: list[OpaqueRedactionResponse] = Field(
+        default_factory=list,
+        description="Span-level opaque marker insertions without original matched text.",
+    )
+    redacted_images: list[RedactedImageResponse] = Field(
+        default_factory=list,
+        description="Best-effort redacted PNG artifacts for image-origin findings.",
+    )
+    redacted_document: Optional[RedactedDocumentResponse] = Field(
+        None,
+        description="Rewritten source container with OCR pixel redactions applied.",
     )
 
 

@@ -9,8 +9,10 @@ uv run python scripts/export_openapi_examples.py
 ## Current Product Surfaces
 
 - `POST /review`: deterministic PII/MNPI review over inline text or base64 TXT/DOCX/PDF.
-- `POST /anonymize`: same review plus deterministic placeholder replacement.
-- `POST /reidentify`: restores placeholders from a caller-supplied mapping or persisted document hash.
+- `POST /pseudonymize`: same review plus reversible deterministic placeholders, mapping returned, optional mapping persistence.
+- `POST /anonymize`: irreversible v2 placeholder-only output; no mapping returned or persisted.
+- `POST /redact`: opaque text markers; no mapping and no original matched text in the redaction response.
+- `POST /reidentify`: restores placeholders from a caller-supplied `/pseudonymize` mapping or persisted pseudonymization document hash.
 - `POST /documents/scrub`: metadata scrub for supported document/image formats.
 - `POST /classify`, `POST /classify/batch`: compatibility wrappers over `engine.review()`.
 

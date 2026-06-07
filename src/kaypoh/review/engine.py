@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from kaypoh.backend.schemas import Classification
+from kaypoh.review.conjunctive_mnpi import detect_conjunctive_mnpi
 from kaypoh.review.citations import CitationOverrideError, mnpi_rationale, pii_rationale
 from kaypoh.review.defined_terms import extract_defined_terms, is_defined_term
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
@@ -1124,6 +1125,7 @@ class ReviewFinding:
     image_locator: dict[str, Any] | None = None
     image_ocr_confidence: float | None = None
     image_ocr_regions: list[dict[str, Any]] = field(default_factory=list)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -1198,6 +1200,7 @@ def _new_finding(
     reason: str,
     legal_basis: str,
     source_verification: str = SOURCE_VERIFICATION_NOT_CHECKED,
+    metadata: dict[str, Any] | None = None,
 ) -> ReviewFinding:
     return ReviewFinding(
         id=f"{category.lower()}:{rule}:{start}:{end}:{idx}",
@@ -1212,6 +1215,7 @@ def _new_finding(
         reason=reason,
         legal_basis=legal_basis,
         source_verification=source_verification,
+        metadata=dict(metadata or {}),
     )
 
 
@@ -4194,6 +4198,33 @@ class PreSendReviewEngine:
         # MNPI findings that already self-cited via _INDOC_URL_RE keep their public_source_matched
         # state (per-finding evidence beats document-aggregate retrieval evidence).
         _apply_retrieval_verification(findings, public_evidence)
+        for spec in detect_conjunctive_mnpi(
+            text=text,
+            findings=findings,
+            jurisdiction=jurisdiction_label,
+            legal_basis=mnpi_legal_basis,
+            entity_id=entity_id,
+        ):
+            findings.append(
+                _new_finding(
+                    idx=len(findings),
+                    category="MNPI",
+                    rule="conjunctive_mnpi",
+                    jurisdiction=jurisdiction_label,
+                    severity="medium",
+                    matched_text=spec.matched_text,
+                    start=spec.start_char,
+                    end=spec.end_char,
+                    reason=spec.reason,
+                    legal_basis=mnpi_legal_basis,
+                    source_verification=spec.source_verification,
+                    metadata=spec.metadata,
+                )
+            )
+        pii_score = self._score(findings, "PII")
+        mnpi_score = self._score(findings, "MNPI")
+        document_score = max(pii_score, mnpi_score)
+        overall_risk = _risk_from_score(document_score)
         privacy_ledger.extend(list((public_evidence or {}).get("privacy_ledger", [])))
         llm_adjudication = self._maybe_llm_adjudication(
             text=text,

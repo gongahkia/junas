@@ -1,141 +1,197 @@
 {
   "info": {
+    "summary": "API-first PII anonymization and MNPI review service.",
     "title": "Kaypoh Document Safety API",
-    "version": "0.1.0",
-    "summary": "API-first PII anonymization and MNPI review service."
+    "version": "0.1.0"
   },
-  "tags": [
-    "Runtime",
-    "Classification",
-    "Anonymization",
-    "Documents"
-  ],
   "paths": {
-    "/health": {
-      "get": {
-        "summary": "Get runtime health",
+    "/anonymize": {
+      "post": {
+        "request_body_ref": "#/components/schemas/AnonymizeRequest",
+        "response_ref": "#/components/schemas/AnonymizeResponse",
+        "summary": "Anonymize a document irreversibly",
         "tags": [
-          "Runtime"
-        ],
-        "response_ref": "#/components/schemas/HealthResponse"
-      }
-    },
-    "/ready": {
-      "get": {
-        "summary": "Get backend readiness",
-        "tags": [
-          "Runtime"
-        ],
-        "response_ref": "#/components/schemas/ReadyResponse"
-      }
-    },
-    "/diagnostics": {
-      "get": {
-        "summary": "Get runtime diagnostics",
-        "tags": [
-          "Runtime"
-        ],
-        "response_ref": "#/components/schemas/DiagnosticsResponse"
-      }
-    },
-    "/metrics": {
-      "get": {
-        "summary": "Get Prometheus metrics",
-        "tags": [
-          "Runtime"
-        ],
-        "response_ref": null
+          "Anonymization"
+        ]
       }
     },
     "/classify": {
       "post": {
+        "request_body_ref": "#/components/schemas/ClassifyRequest",
+        "response_ref": "#/components/schemas/ClassifyResponse",
         "summary": "Classify one document",
         "tags": [
           "Classification"
-        ],
-        "request_body_ref": "#/components/schemas/ClassifyRequest",
-        "response_ref": "#/components/schemas/ClassifyResponse"
+        ]
       }
     },
     "/classify/batch": {
       "post": {
+        "request_body_ref": "#/components/schemas/BatchClassifyRequest",
+        "response_ref": "#/components/schemas/BatchClassifyResponse",
         "summary": "Classify multiple documents",
         "tags": [
           "Classification"
-        ],
-        "request_body_ref": "#/components/schemas/BatchClassifyRequest",
-        "response_ref": "#/components/schemas/BatchClassifyResponse"
+        ]
       }
     },
-    "/review": {
-      "post": {
-        "summary": "Review a document before sending",
+    "/diagnostics": {
+      "get": {
+        "response_ref": "#/components/schemas/DiagnosticsResponse",
+        "summary": "Get runtime diagnostics",
         "tags": [
-          "Anonymization"
-        ],
-        "request_body_ref": "#/components/schemas/ReviewRequest",
-        "response_ref": "#/components/schemas/ReviewResponse"
-      }
-    },
-    "/anonymize": {
-      "post": {
-        "summary": "Anonymize a document before sending",
-        "tags": [
-          "Anonymization"
-        ],
-        "request_body_ref": "#/components/schemas/AnonymizeRequest",
-        "response_ref": "#/components/schemas/AnonymizeResponse"
+          "Runtime"
+        ]
       }
     },
     "/documents/scrub": {
       "post": {
+        "request_body_ref": "#/components/schemas/DocumentScrubRequest",
+        "response_ref": "#/components/schemas/DocumentScrubResponse",
         "summary": "Scrub document metadata",
         "tags": [
           "Documents"
-        ],
-        "request_body_ref": "#/components/schemas/DocumentScrubRequest",
-        "response_ref": "#/components/schemas/DocumentScrubResponse"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "response_ref": "#/components/schemas/HealthResponse",
+        "summary": "Get runtime health",
+        "tags": [
+          "Runtime"
+        ]
+      }
+    },
+    "/metrics": {
+      "get": {
+        "response_ref": null,
+        "summary": "Get Prometheus metrics",
+        "tags": [
+          "Runtime"
+        ]
+      }
+    },
+    "/pseudonymize": {
+      "post": {
+        "request_body_ref": "#/components/schemas/PseudonymizeRequest",
+        "response_ref": "#/components/schemas/PseudonymizeResponse",
+        "summary": "Pseudonymize a document before sending",
+        "tags": [
+          "Anonymization"
+        ]
+      }
+    },
+    "/ready": {
+      "get": {
+        "response_ref": "#/components/schemas/ReadyResponse",
+        "summary": "Get backend readiness",
+        "tags": [
+          "Runtime"
+        ]
+      }
+    },
+    "/redact": {
+      "post": {
+        "request_body_ref": "#/components/schemas/RedactRequest",
+        "response_ref": "#/components/schemas/RedactResponse",
+        "summary": "Redact a document with opaque markers",
+        "tags": [
+          "Anonymization"
+        ]
       }
     },
     "/reidentify": {
       "post": {
+        "request_body_ref": "#/components/schemas/ReidentifyRequest",
+        "response_ref": "#/components/schemas/ReidentifyResponse",
         "summary": "Reidentify previously anonymized text",
         "tags": [
           "Anonymization"
-        ],
-        "request_body_ref": "#/components/schemas/ReidentifyRequest",
-        "response_ref": "#/components/schemas/ReidentifyResponse"
+        ]
       }
     },
-    "/review/{review_id}/decision": {
+    "/review": {
       "post": {
-        "summary": "Record a per-finding decision",
+        "request_body_ref": "#/components/schemas/ReviewRequest",
+        "response_ref": "#/components/schemas/ReviewResponse",
+        "summary": "Review a document before sending",
         "tags": [
           "Anonymization"
-        ],
-        "request_body_ref": "#/components/schemas/ReviewDecisionRequest",
-        "response_ref": "#/components/schemas/ReviewDecisionResponse"
+        ]
       }
     },
     "/review/{review_id}": {
       "get": {
+        "response_ref": "#/components/schemas/ReviewSessionStateResponse",
         "summary": "Inspect review session state",
         "tags": [
           "Anonymization"
-        ],
-        "response_ref": "#/components/schemas/ReviewSessionStateResponse"
+        ]
+      }
+    },
+    "/review/{review_id}/decision": {
+      "post": {
+        "request_body_ref": "#/components/schemas/ReviewDecisionRequest",
+        "response_ref": "#/components/schemas/ReviewDecisionResponse",
+        "summary": "Record a per-finding decision",
+        "tags": [
+          "Anonymization"
+        ]
       }
     }
   },
   "schemas": {
-    "ClassifyRequest": {
-      "required": [
-        "text"
-      ],
+    "AnonymizeResponse": {
+      "properties": [
+        "request_id",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "document",
+        "findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "coverage_warnings",
+        "degraded_modes",
+        "timings_ms",
+        "privacy_operation",
+        "anonymization_mode",
+        "anonymized_text",
+        "document_hash",
+        "mapping_persisted",
+        "replacements",
+        "redacted_images",
+        "redacted_document"
+      ]
+    },
+    "BatchClassifyRequest": {
       "properties": {
-        "text": {
-          "type": "string",
-          "maxLength": 100000
+        "items": {
+          "itemsRef": "#/components/schemas/ClassifyRequest",
+          "maxItems": 32,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "items"
+      ]
+    },
+    "ClassifyRequest": {
+      "properties": {
+        "debug": {
+          "type": "boolean"
         },
         "entity_id": {
           "type": [
@@ -143,44 +199,71 @@
             "null"
           ]
         },
-        "debug": {
-          "type": "boolean"
-        },
         "include_offending_spans": {
           "type": "boolean"
+        },
+        "text": {
+          "maxLength": 100000,
+          "type": "string"
         }
-      }
-    },
-    "BatchClassifyRequest": {
+      },
       "required": [
-        "items"
+        "text"
+      ]
+    },
+    "DocumentScrubRequest": {
+      "properties": [
+        "document_base64",
+        "document_filename",
+        "document_mime_type"
       ],
-      "properties": {
-        "items": {
-          "type": "array",
-          "minItems": 1,
-          "maxItems": 32,
-          "itemsRef": "#/components/schemas/ClassifyRequest"
-        }
-      }
+      "required": [
+        "document_base64"
+      ]
+    },
+    "DocumentScrubResponse": {
+      "properties": [
+        "request_id",
+        "document_base64",
+        "document_filename",
+        "document_mime_type",
+        "scrubbed",
+        "actions",
+        "metadata_findings",
+        "remaining_warnings"
+      ]
+    },
+    "MosaicResponse": {
+      "properties": [
+        "entity_id",
+        "escalated",
+        "recent_event_count",
+        "unique_fragment_count",
+        "window_hours",
+        "threshold",
+        "escalation_reason",
+        "matched_event_ids"
+      ],
+      "required": [
+        "entity_id",
+        "escalated",
+        "recent_event_count",
+        "unique_fragment_count",
+        "window_hours",
+        "threshold"
+      ]
+    },
+    "ObservabilityResponse": {
+      "properties": [
+        "degraded",
+        "cache_status",
+        "active_pipeline",
+        "executed_layers",
+        "skipped_layers",
+        "layer_errors"
+      ]
     },
     "OffendingSpanResponse": {
-      "required": [
-        "id",
-        "layer",
-        "rule",
-        "severity",
-        "matched_text",
-        "start_char",
-        "end_char",
-        "start_line",
-        "start_column",
-        "end_line",
-        "end_column",
-        "is_exact",
-        "char_length",
-        "line_span"
-      ],
       "properties": [
         "id",
         "layer",
@@ -206,145 +289,25 @@
         "window_token_count",
         "window_stride",
         "window_max_seq_len"
-      ]
-    },
-    "ObservabilityResponse": {
-      "properties": [
-        "degraded",
-        "cache_status",
-        "active_pipeline",
-        "executed_layers",
-        "skipped_layers",
-        "layer_errors"
-      ]
-    },
-    "MosaicResponse": {
-      "required": [
-        "entity_id",
-        "escalated",
-        "recent_event_count",
-        "unique_fragment_count",
-        "window_hours",
-        "threshold"
       ],
-      "properties": [
-        "entity_id",
-        "escalated",
-        "recent_event_count",
-        "unique_fragment_count",
-        "window_hours",
-        "threshold",
-        "escalation_reason",
-        "matched_event_ids"
-      ]
-    },
-    "ReidentifyRequest": {
-      "required": [
-        "anonymized_text"
-      ],
-      "properties": [
-        "anonymized_text",
-        "mapping",
-        "document_hash"
-      ]
-    },
-    "ReidentifyResponse": {
-      "properties": [
-        "request_id",
-        "text",
-        "replacement_count",
-        "timings_ms"
-      ]
-    },
-    "DocumentScrubRequest": {
-      "required": [
-        "document_base64"
-      ],
-      "properties": [
-        "document_base64",
-        "document_filename",
-        "document_mime_type"
-      ]
-    },
-    "DocumentScrubResponse": {
-      "properties": [
-        "request_id",
-        "document_base64",
-        "document_filename",
-        "document_mime_type",
-        "scrubbed",
-        "actions",
-        "metadata_findings",
-        "remaining_warnings"
-      ]
-    },
-    "ReviewDecisionRequest": {
-      "required": [
-        "finding_id",
-        "action"
-      ],
-      "properties": [
-        "finding_id",
-        "action",
-        "replacement_text",
-        "rationale",
-        "reviewer_id"
-      ]
-    },
-    "ReviewDecisionResponse": {
-      "properties": [
-        "review_id",
-        "finding_id",
-        "action",
-        "reviewer_id",
-        "reviewer_identity_source",
-        "seq",
-        "ts",
-        "hmac"
-      ]
-    },
-    "ReviewSessionStateResponse": {
-      "properties": [
-        "review_id",
-        "text_hash",
-        "document_type",
-        "source_jurisdiction",
-        "destination_jurisdiction",
-        "findings",
-        "decisions_recorded",
-        "audit_exports"
-      ]
-    },
-    "ReviewSessionFindingState": {
       "required": [
         "id",
-        "category",
-        "rule",
-        "severity",
-        "matched_text",
-        "start_char",
-        "end_char"
-      ],
-      "properties": [
-        "id",
-        "category",
+        "layer",
         "rule",
         "severity",
         "matched_text",
         "start_char",
         "end_char",
-        "source",
-        "image_locator",
-        "image_ocr_confidence",
-        "image_ocr_regions",
-        "decision",
-        "decision_seq",
-        "decision_ts",
-        "decision_reviewer_id",
-        "decision_reviewer_identity_source"
+        "start_line",
+        "start_column",
+        "end_line",
+        "end_column",
+        "is_exact",
+        "char_length",
+        "line_span"
       ]
     },
-    "AnonymizeResponse": {
+    "PseudonymizeResponse": {
       "properties": [
         "request_id",
         "overall_risk",
@@ -367,6 +330,8 @@
         "coverage_warnings",
         "degraded_modes",
         "timings_ms",
+        "privacy_operation",
+        "pseudonymized_text",
         "anonymized_text",
         "document_hash",
         "mapping_persisted",
@@ -374,6 +339,82 @@
         "replacements",
         "redacted_images",
         "redacted_document"
+      ]
+    },
+    "RedactResponse": {
+      "properties": [
+        "request_id",
+        "overall_risk",
+        "classification",
+        "document_score",
+        "pii_score",
+        "mnpi_score",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "jurisdictions_applied",
+        "jurisdiction_policy",
+        "document_type",
+        "review_profile",
+        "document",
+        "findings",
+        "suggestions",
+        "public_evidence",
+        "llm_adjudication",
+        "privacy_ledger",
+        "coverage_warnings",
+        "degraded_modes",
+        "timings_ms",
+        "privacy_operation",
+        "redaction_style",
+        "redacted_text",
+        "document_hash",
+        "mapping_persisted",
+        "redactions",
+        "redacted_images",
+        "redacted_document"
+      ]
+    },
+    "ReidentifyRequest": {
+      "properties": [
+        "anonymized_text",
+        "mapping",
+        "document_hash"
+      ],
+      "required": [
+        "anonymized_text"
+      ]
+    },
+    "ReidentifyResponse": {
+      "properties": [
+        "request_id",
+        "text",
+        "replacement_count",
+        "timings_ms"
+      ]
+    },
+    "ReviewDecisionRequest": {
+      "properties": [
+        "finding_id",
+        "action",
+        "replacement_text",
+        "rationale",
+        "reviewer_id"
+      ],
+      "required": [
+        "finding_id",
+        "action"
+      ]
+    },
+    "ReviewDecisionResponse": {
+      "properties": [
+        "review_id",
+        "finding_id",
+        "action",
+        "reviewer_id",
+        "reviewer_identity_source",
+        "seq",
+        "ts",
+        "hmac"
       ]
     },
     "ReviewResponse": {
@@ -400,6 +441,54 @@
         "degraded_modes",
         "timings_ms"
       ]
+    },
+    "ReviewSessionFindingState": {
+      "properties": [
+        "id",
+        "category",
+        "rule",
+        "severity",
+        "matched_text",
+        "start_char",
+        "end_char",
+        "source",
+        "image_locator",
+        "image_ocr_confidence",
+        "image_ocr_regions",
+        "metadata",
+        "decision",
+        "decision_seq",
+        "decision_ts",
+        "decision_reviewer_id",
+        "decision_reviewer_identity_source"
+      ],
+      "required": [
+        "id",
+        "category",
+        "rule",
+        "severity",
+        "matched_text",
+        "start_char",
+        "end_char"
+      ]
+    },
+    "ReviewSessionStateResponse": {
+      "properties": [
+        "review_id",
+        "text_hash",
+        "document_type",
+        "source_jurisdiction",
+        "destination_jurisdiction",
+        "findings",
+        "decisions_recorded",
+        "audit_exports"
+      ]
     }
-  }
+  },
+  "tags": [
+    "Runtime",
+    "Classification",
+    "Anonymization",
+    "Documents"
+  ]
 }

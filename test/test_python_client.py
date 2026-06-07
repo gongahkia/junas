@@ -111,7 +111,35 @@ def build_anonymize_payload(*, request_id: str, classification: str = "LOW_RISK"
     payload = build_review_payload(request_id=request_id, classification=classification)
     payload.update(
         {
+            "privacy_operation": "anonymize",
+            "anonymization_mode": "placeholder_only",
             "anonymized_text": "Send [EMAIL_1]",
+            "document_hash": "a" * 64,
+            "mapping_persisted": False,
+            "replacements": [
+                {
+                    "finding_id": "pii:email_address:10:28:0",
+                    "placeholder": "[EMAIL_1]",
+                    "entity_type": "EMAIL",
+                    "start_char": 10,
+                    "end_char": 26,
+                }
+            ],
+        }
+    )
+    payload["timings_ms"] = {"extract": 0.1, "review": 0.4, "anonymize": 0.1, "total": 0.6}
+    return payload
+
+
+def build_pseudonymize_payload(*, request_id: str, classification: str = "LOW_RISK") -> dict:
+    payload = build_review_payload(request_id=request_id, classification=classification)
+    payload.update(
+        {
+            "privacy_operation": "pseudonymize",
+            "pseudonymized_text": "Send [EMAIL_1]",
+            "anonymized_text": "Send [EMAIL_1]",
+            "document_hash": "b" * 64,
+            "mapping_persisted": False,
             "mapping": [
                 {
                     "placeholder": "[EMAIL_1]",
@@ -132,7 +160,33 @@ def build_anonymize_payload(*, request_id: str, classification: str = "LOW_RISK"
             ],
         }
     )
-    payload["timings_ms"] = {"extract": 0.1, "review": 0.4, "anonymize": 0.1, "total": 0.6}
+    payload["timings_ms"] = {"extract": 0.1, "review": 0.4, "pseudonymize": 0.1, "total": 0.6}
+    return payload
+
+
+def build_redact_payload(*, request_id: str, classification: str = "LOW_RISK") -> dict:
+    payload = build_review_payload(request_id=request_id, classification=classification)
+    for finding in payload["findings"]:
+        finding.pop("matched_text", None)
+    payload.update(
+        {
+            "suggestions": [],
+            "privacy_operation": "redact",
+            "redaction_style": "opaque_text_marker",
+            "redacted_text": "Send [REDACTED_1]",
+            "document_hash": "c" * 64,
+            "mapping_persisted": False,
+            "redactions": [
+                {
+                    "finding_id": "pii:email_address:10:28:0",
+                    "marker": "[REDACTED_1]",
+                    "start_char": 10,
+                    "end_char": 26,
+                }
+            ],
+        }
+    )
+    payload["timings_ms"] = {"extract": 0.1, "review": 0.4, "redact": 0.1, "total": 0.6}
     return payload
 
 
@@ -230,7 +284,10 @@ class KaypohClientTests(unittest.TestCase):
         self.assertEqual(result.classification, Classification.LOW_RISK)
         self.assertEqual(result.request_id, "anon-1")
         self.assertEqual(result.anonymized_text, "Send [EMAIL_1]")
-        self.assertEqual(result.mapping[0].placeholder, "[EMAIL_1]")
+        self.assertEqual(result.privacy_operation, "anonymize")
+        self.assertEqual(result.anonymization_mode, "placeholder_only")
+        self.assertFalse(hasattr(result, "mapping"))
+        self.assertFalse(hasattr(result.replacements[0], "original_text"))
         self.assertEqual(observed["method"], "POST")
         self.assertEqual(observed["path"], "/anonymize")
         self.assertEqual(
@@ -245,6 +302,59 @@ class KaypohClientTests(unittest.TestCase):
                 "include_mnpi_scalars": False,
             },
         )
+
+    def test_pseudonymize_sends_expected_payload_and_returns_mapping(self):
+        observed: dict[str, object] = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            observed["method"] = request.method
+            observed["path"] = request.url.path
+            observed["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(200, json=build_pseudonymize_payload(request_id="pseudo-1"))
+
+        transport = httpx.MockTransport(handler)
+
+        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+            result = client.pseudonymize(
+                text="Send to jane@example.com",
+                source_jurisdiction="SG",
+                destination_jurisdiction="US",
+                document_type="email",
+                include_mnpi_scalars=False,
+                persist_mapping=False,
+            )
+
+        self.assertEqual(result.request_id, "pseudo-1")
+        self.assertEqual(result.privacy_operation, "pseudonymize")
+        self.assertEqual(result.pseudonymized_text, "Send [EMAIL_1]")
+        self.assertEqual(result.mapping[0].original_text, "jane@example.com")
+        self.assertEqual(observed["path"], "/pseudonymize")
+        self.assertEqual(observed["body"]["persist_mapping"], False)
+
+    def test_redact_sends_expected_payload_and_returns_opaque_markers(self):
+        observed: dict[str, object] = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            observed["method"] = request.method
+            observed["path"] = request.url.path
+            observed["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(200, json=build_redact_payload(request_id="redact-1"))
+
+        transport = httpx.MockTransport(handler)
+
+        with KaypohClient("http://kaypoh.test", transport=transport) as client:
+            result = client.redact(
+                text="Send to jane@example.com",
+                source_jurisdiction="SG",
+                destination_jurisdiction="US",
+                document_type="email",
+            )
+
+        self.assertEqual(result.request_id, "redact-1")
+        self.assertEqual(result.redaction_style, "opaque_text_marker")
+        self.assertEqual(result.redactions[0].marker, "[REDACTED_1]")
+        self.assertFalse(hasattr(result.findings[0], "matched_text"))
+        self.assertEqual(observed["path"], "/redact")
 
     def test_classify_batch_and_runtime_methods_return_typed_models(self):
         def handler(request: httpx.Request) -> httpx.Response:
@@ -416,6 +526,7 @@ class KaypohClientTests(unittest.TestCase):
                 self.assertEqual(result.classification, Classification.HIGH_RISK)
                 self.assertEqual(result.request_id, "anon-async")
                 self.assertEqual(result.anonymized_text, "Send [EMAIL_1]")
+                self.assertEqual(result.privacy_operation, "anonymize")
 
         asyncio.run(scenario())
 

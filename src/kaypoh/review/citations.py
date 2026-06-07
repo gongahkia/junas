@@ -576,6 +576,12 @@ _MNPI_DEFAULT_RATIONALE = {
     "large_number": (
         "Large numeric value may be material non-public information. Verify or generalise."
     ),
+    "conjunctive_mnpi": (
+        "Layer-2 conjunctive MNPI finding detected: entity/deal and non-public elements co-occur, "
+        "with materiality recorded in finding metadata as lexicalised, quantitative, implied, or "
+        "undetermined. Under SFA s218/s219, MAR Art 7/14, Reg FD 17 CFR 243.100, and local "
+        "inside-information rules, hold or cite a public source until reviewer approval."
+    ),
     "contract_unit_price": (
         "Contract unit price / per-unit economics detected. In commercial, procurement, "
         "licensing, or M&A context, unit economics can be price-sensitive or competitively "

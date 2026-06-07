@@ -16,7 +16,11 @@ from .backend.schemas import (
     DocumentScrubRequest,
     DocumentScrubResponse,
     HealthResponse,
+    PseudonymizeRequest,
+    PseudonymizeResponse,
     ReadyResponse,
+    RedactRequest,
+    RedactResponse,
     ReidentifyMappingEntry,
     ReidentifyRequest,
     ReidentifyResponse,
@@ -184,6 +188,82 @@ def _coerce_anonymize_request(
         return AnonymizeRequest.model_validate(request)
 
     return AnonymizeRequest(
+        text=text,
+        document_base64=document_base64,
+        document_filename=document_filename,
+        document_mime_type=document_mime_type,
+        source_jurisdiction=source_jurisdiction,
+        destination_jurisdiction=destination_jurisdiction,
+        document_type=document_type,
+        review_profile=review_profile,
+        entity_id=entity_id,
+        include_suggestions=include_suggestions,
+        include_mnpi_scalars=include_mnpi_scalars,
+    )
+
+
+def _coerce_pseudonymize_request(
+    *,
+    request: PseudonymizeRequest | Mapping[str, Any] | None,
+    text: str | None,
+    document_base64: str | None,
+    document_filename: str | None,
+    document_mime_type: str | None,
+    source_jurisdiction: str,
+    destination_jurisdiction: str,
+    document_type: str,
+    review_profile: str,
+    entity_id: str | None,
+    include_suggestions: bool,
+    include_mnpi_scalars: bool,
+    persist_mapping: bool,
+) -> PseudonymizeRequest:
+    if request is not None:
+        if text is not None or document_base64 is not None:
+            raise ValueError("pass either request=... or text/document_base64=..., not both")
+        if isinstance(request, PseudonymizeRequest):
+            return request
+        return PseudonymizeRequest.model_validate(request)
+
+    return PseudonymizeRequest(
+        text=text,
+        document_base64=document_base64,
+        document_filename=document_filename,
+        document_mime_type=document_mime_type,
+        source_jurisdiction=source_jurisdiction,
+        destination_jurisdiction=destination_jurisdiction,
+        document_type=document_type,
+        review_profile=review_profile,
+        entity_id=entity_id,
+        include_suggestions=include_suggestions,
+        include_mnpi_scalars=include_mnpi_scalars,
+        persist_mapping=persist_mapping,
+    )
+
+
+def _coerce_redact_request(
+    *,
+    request: RedactRequest | Mapping[str, Any] | None,
+    text: str | None,
+    document_base64: str | None,
+    document_filename: str | None,
+    document_mime_type: str | None,
+    source_jurisdiction: str,
+    destination_jurisdiction: str,
+    document_type: str,
+    review_profile: str,
+    entity_id: str | None,
+    include_suggestions: bool,
+    include_mnpi_scalars: bool,
+) -> RedactRequest:
+    if request is not None:
+        if text is not None or document_base64 is not None:
+            raise ValueError("pass either request=... or text/document_base64=..., not both")
+        if isinstance(request, RedactRequest):
+            return request
+        return RedactRequest.model_validate(request)
+
+    return RedactRequest(
         text=text,
         document_base64=document_base64,
         document_filename=document_filename,
@@ -441,6 +521,84 @@ class KaypohClient:
             )
         )
 
+    def pseudonymize(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        include_mnpi_scalars: bool = True,
+        persist_mapping: bool = True,
+        request: PseudonymizeRequest | Mapping[str, Any] | None = None,
+    ) -> PseudonymizeResponse:
+        payload = _coerce_pseudonymize_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            include_mnpi_scalars=include_mnpi_scalars,
+            persist_mapping=persist_mapping,
+        )
+        return PseudonymizeResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/pseudonymize",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    def redact(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        include_mnpi_scalars: bool = True,
+        request: RedactRequest | Mapping[str, Any] | None = None,
+    ) -> RedactResponse:
+        payload = _coerce_redact_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            include_mnpi_scalars=include_mnpi_scalars,
+        )
+        return RedactResponse.model_validate(
+            self._request_json(
+                "POST",
+                "/redact",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
     def scrub_document(
         self,
         document_base64: str | None = None,
@@ -665,6 +823,84 @@ class AsyncKaypohClient:
             )
         )
 
+    async def pseudonymize(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        include_mnpi_scalars: bool = True,
+        persist_mapping: bool = True,
+        request: PseudonymizeRequest | Mapping[str, Any] | None = None,
+    ) -> PseudonymizeResponse:
+        payload = _coerce_pseudonymize_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            include_mnpi_scalars=include_mnpi_scalars,
+            persist_mapping=persist_mapping,
+        )
+        return PseudonymizeResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/pseudonymize",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
+    async def redact(
+        self,
+        text: str | None = None,
+        *,
+        document_base64: str | None = None,
+        document_filename: str | None = None,
+        document_mime_type: str | None = None,
+        source_jurisdiction: str = "SG",
+        destination_jurisdiction: str = "SG",
+        document_type: str = "generic",
+        review_profile: str = "strict",
+        entity_id: str | None = None,
+        include_suggestions: bool = True,
+        include_mnpi_scalars: bool = True,
+        request: RedactRequest | Mapping[str, Any] | None = None,
+    ) -> RedactResponse:
+        payload = _coerce_redact_request(
+            request=request,
+            text=text,
+            document_base64=document_base64,
+            document_filename=document_filename,
+            document_mime_type=document_mime_type,
+            source_jurisdiction=source_jurisdiction,
+            destination_jurisdiction=destination_jurisdiction,
+            document_type=document_type,
+            review_profile=review_profile,
+            entity_id=entity_id,
+            include_suggestions=include_suggestions,
+            include_mnpi_scalars=include_mnpi_scalars,
+        )
+        return RedactResponse.model_validate(
+            await self._request_json(
+                "POST",
+                "/redact",
+                json_body=payload.model_dump(mode="json", exclude_none=True),
+            )
+        )
+
     async def scrub_document(
         self,
         document_base64: str | None = None,
@@ -768,6 +1004,10 @@ __all__ = [
     "DEFAULT_TIMEOUT_SECONDS",
     "KaypohAPIError",
     "KaypohClient",
+    "PseudonymizeRequest",
+    "PseudonymizeResponse",
+    "RedactRequest",
+    "RedactResponse",
     "ReidentifyMappingEntry",
     "ReidentifyRequest",
     "ReidentifyResponse",

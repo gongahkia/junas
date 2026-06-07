@@ -178,25 +178,27 @@ with KaypohClient("http://localhost:8000") as client:
     print(scrubbed.document_base64)
 ```
 
-## Pre-Send Anonymization
+## Pre-Send Privacy Operations
 
-Use `anonymize` when the caller needs the same findings plus deterministic placeholders and a local mapping table:
+Use `pseudonymize` when the caller needs deterministic placeholders plus a local mapping table for later `/reidentify`:
 
 ```python
 from kaypoh import KaypohClient
 
 with KaypohClient("http://localhost:8000") as client:
-    result = client.anonymize(
+    result = client.pseudonymize(
         text="Send Dr Jane Tan S1234567D the confidential draft.",
         source_jurisdiction="SG",
         destination_jurisdiction="US",
         document_type="email",
     )
 
-    print(result.anonymized_text)
+    print(result.pseudonymized_text)
     print(result.mapping)
     print(result.replacements)
 ```
+
+Use `anonymize` for irreversible v2 placeholder-only output. It returns no mapping and no `original_text` in replacements. Use `redact` for opaque markers that do not expose entity type.
 
 Set `include_mnpi_scalars=False` when monetary amounts, percentages, and large numbers should remain in the output as review-only findings instead of automatic replacements.
 
@@ -254,7 +256,9 @@ except KaypohAPIError as exc:
 - `client.classify_batch(...)` -> `POST /classify/batch`
 - `client.classify_many(...)` -> convenience wrapper over `POST /classify/batch`
 - `client.review(...)` -> `POST /review`
-- `client.anonymize(...)` -> `POST /anonymize`
+- `client.pseudonymize(...)` -> `POST /pseudonymize`
+- `client.anonymize(...)` -> irreversible `POST /anonymize`
+- `client.redact(...)` -> `POST /redact`
 
 The async client exposes the same method names and endpoint mapping, but each method is awaited:
 
@@ -266,4 +270,6 @@ The async client exposes the same method names and endpoint mapping, but each me
 - `await async_client.classify_batch(...)`
 - `await async_client.classify_many(...)`
 - `await async_client.review(...)`
+- `await async_client.pseudonymize(...)`
 - `await async_client.anonymize(...)`
+- `await async_client.redact(...)`

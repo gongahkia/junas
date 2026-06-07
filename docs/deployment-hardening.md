@@ -163,7 +163,7 @@ export KAYPOH_JWT_AUDIENCE=kaypoh-api
 ```
 
 Supported roles are `reviewer`, `maker`, `checker`, `admin`, and `auditor`. Review,
-anonymize, reidentify, and scrub routes accept `reviewer|maker|checker|admin`; decision
+pseudonymize, anonymize, redact, reidentify, and scrub routes accept `reviewer|maker|checker|admin`; decision
 recording requires `maker|checker|admin`; review-session reads require
 `auditor|checker|admin`.
 
@@ -252,7 +252,7 @@ PDF review fails closed by default when the extracted text layer is missing, too
 or image-only. Do not enable best-effort OCR in the server path; convert scanned files to
 DOCX or submit a PDF with a reliable text layer.
 
-`/review` and `/anonymize` report DOCX/PDF/image container metadata under
+`/review`, `/pseudonymize`, `/anonymize`, and `/redact` report DOCX/PDF/image container metadata under
 `document.metadata_findings`. `/documents/scrub` removes supported DOCX properties,
 comments, track-change author/date attributes, PDF info metadata, and JPEG/PNG EXIF where
 the installed dependencies support that file type.

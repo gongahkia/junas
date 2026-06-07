@@ -80,9 +80,15 @@ from kaypoh.backend.schemas import (
     HealthResponse,
     LLMAdjudicationResponse,
     ObservabilityResponse,
+    OpaqueRedactionResponse,
+    PlaceholderReplacementResponse,
     PrivacyLedgerEntryResponse,
+    PseudonymizeRequest,
+    PseudonymizeResponse,
     PublicEvidenceResponse,
     ReadyResponse,
+    RedactRequest,
+    RedactResponse,
     ReidentifyRequest,
     ReidentifyResponse,
     ReviewDecisionRequest,
@@ -1217,6 +1223,7 @@ def _build_review_response(
                 image_ocr_confidence=getattr(finding, "image_ocr_confidence", None),
                 image_ocr_regions=getattr(finding, "image_ocr_regions", []),
                 source_verification=getattr(finding, "source_verification", "not_checked"),
+                metadata=getattr(finding, "metadata", {}),
             )
             for finding in result.findings
         ],
@@ -1290,6 +1297,7 @@ def _persist_review_session(
             "image_locator": getattr(f, "image_locator", None),
             "image_ocr_confidence": getattr(f, "image_ocr_confidence", None),
             "image_ocr_regions": getattr(f, "image_ocr_regions", []),
+            "metadata": getattr(f, "metadata", {}),
         }
         for f in findings
     ]
@@ -1427,7 +1435,13 @@ def _run_review_sync(req: ReviewRequest, request_id: str | None, tenant: TenantC
     return response
 
 
-def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: TenantContext) -> AnonymizeResponse:
+def _run_placeholder_review_sync(
+    req: Any,
+    request_id: str | None,
+    tenant: TenantContext,
+    *,
+    timing_key: str,
+) -> dict[str, Any]:
     timings_ms: dict[str, float] = {}
     t_total_start = time.perf_counter()
     t_extract_start = time.perf_counter()
@@ -1502,50 +1516,7 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
         ],
     )
     degraded_modes.extend(document_redaction_degraded_modes)
-    timings_ms["anonymize"] = round((time.perf_counter() - t_anonymize_start) * 1000.0, 3)
-
-    document_hash = _compute_document_hash(document.text)
-    mapping_persisted = False
-    if _review_persistence_enabled() and anonymization.mapping:
-        try:
-            _save_persisted_mapping(
-                document_hash=document_hash,
-                mapping=[
-                    {
-                        "placeholder": entry.placeholder,
-                        "entity_type": entry.entity_type,
-                        "original_text": entry.original_text,
-                        "occurrence_count": entry.occurrence_count,
-                    }
-                    for entry in anonymization.mapping
-                ],
-                tenant_id=tenant.storage_tenant_id,
-            )
-            mapping_persisted = True
-        except (OSError, MappingStoreError, SubjectIndexError) as exc:
-            mode = "subject_index" if isinstance(exc, SubjectIndexError) else "mapping_store"
-            log_backend_event(logging.WARNING, event="mapping_persist_failed", error=str(exc))
-            emit_security_event(
-                action="mapping_persist",
-                outcome="failed",
-                request_id=request_id,
-                details={"error": str(exc), "document_hash": document_hash},
-                settings=current_runtime_settings().siem,
-            )
-            raise HTTPException(
-                status_code=503,
-                detail={
-                    "message": f"{mode.replace('_', '-')} persistence failed closed: {exc}",
-                    "degraded_modes": [
-                        _degraded_mode(
-                            mode,
-                            "failed_closed",
-                            str(exc),
-                            {"document_hash": document_hash},
-                        )
-                    ],
-                },
-            ) from exc
+    timings_ms[timing_key] = round((time.perf_counter() - t_anonymize_start) * 1000.0, 3)
 
     timings_ms["total"] = round((time.perf_counter() - t_total_start) * 1000.0, 3)
 
@@ -1557,61 +1528,281 @@ def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: T
         timings_ms=timings_ms,
         degraded_modes=degraded_modes,
     )
-    response = AnonymizeResponse(
-        **review_response.model_dump(mode="python"),
-        anonymized_text=anonymization.anonymized_text,
-        document_hash=document_hash,
-        mapping_persisted=mapping_persisted,
-        mapping=[
-            AnonymizationMappingEntryResponse(
-                placeholder=entry.placeholder,
-                entity_type=entry.entity_type,
-                original_text=entry.original_text,
-                occurrence_count=entry.occurrence_count,
-            )
-            for entry in anonymization.mapping
-        ],
-        replacements=[
-            AnonymizationReplacementResponse(
+    return {
+        "document": document,
+        "result": result,
+        "anonymization": anonymization,
+        "redacted_images": redacted_images,
+        "redacted_document": redacted_document,
+        "document_hash": _compute_document_hash(document.text),
+        "review_response": review_response,
+        "timings_ms": timings_ms,
+        "degraded_modes": degraded_modes,
+    }
+
+
+def _persist_pseudonymization_mapping(
+    *,
+    req: PseudonymizeRequest,
+    request_id: str | None,
+    tenant: TenantContext,
+    document_hash: str,
+    mapping: list[Any],
+) -> bool:
+    if not req.persist_mapping or not _review_persistence_enabled() or not mapping:
+        return False
+    try:
+        _save_persisted_mapping(
+            document_hash=document_hash,
+            mapping=[
+                {
+                    "placeholder": entry.placeholder,
+                    "entity_type": entry.entity_type,
+                    "original_text": entry.original_text,
+                    "occurrence_count": entry.occurrence_count,
+                }
+                for entry in mapping
+            ],
+            tenant_id=tenant.storage_tenant_id,
+        )
+        return True
+    except (OSError, MappingStoreError) as exc:
+        log_backend_event(logging.WARNING, event="mapping_persist_failed", error=str(exc))
+        emit_security_event(
+            action="mapping_persist",
+            outcome="failed",
+            request_id=request_id,
+            details={"error": str(exc), "document_hash": document_hash},
+            settings=current_runtime_settings().siem,
+        )
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "message": f"mapping-store persistence failed closed: {exc}",
+                "degraded_modes": [
+                    _degraded_mode("mapping_store", "failed_closed", str(exc), {"document_hash": document_hash})
+                ],
+            },
+        ) from exc
+
+
+def _pseudonymization_mapping_entries(anonymization: Any) -> list[AnonymizationMappingEntryResponse]:
+    return [
+        AnonymizationMappingEntryResponse(
+            placeholder=entry.placeholder,
+            entity_type=entry.entity_type,
+            original_text=entry.original_text,
+            occurrence_count=entry.occurrence_count,
+        )
+        for entry in anonymization.mapping
+    ]
+
+
+def _pseudonymization_replacements(anonymization: Any) -> list[AnonymizationReplacementResponse]:
+    return [
+        AnonymizationReplacementResponse(
+            finding_id=replacement.finding_id,
+            placeholder=replacement.placeholder,
+            entity_type=replacement.entity_type,
+            original_text=replacement.original_text,
+            start_char=replacement.start_char,
+            end_char=replacement.end_char,
+        )
+        for replacement in anonymization.replacements
+    ]
+
+
+def _placeholder_replacements(anonymization: Any) -> list[PlaceholderReplacementResponse]:
+    return [
+        PlaceholderReplacementResponse(
+            finding_id=replacement.finding_id,
+            placeholder=replacement.placeholder,
+            entity_type=replacement.entity_type,
+            start_char=replacement.start_char,
+            end_char=replacement.end_char,
+        )
+        for replacement in anonymization.replacements
+    ]
+
+
+def _opaque_redactions(*, text: str, anonymization: Any) -> tuple[str, list[OpaqueRedactionResponse]]:
+    redacted_text = text
+    redactions: list[OpaqueRedactionResponse] = []
+    ordered = sorted(anonymization.replacements, key=lambda item: (item.start_char, item.end_char))
+    marker_by_placeholder: OrderedDict[str, str] = OrderedDict()
+    for replacement in ordered:
+        marker = marker_by_placeholder.get(replacement.placeholder)
+        if marker is None:
+            marker = f"[REDACTED_{len(marker_by_placeholder) + 1}]"
+            marker_by_placeholder[replacement.placeholder] = marker
+        redactions.append(
+            OpaqueRedactionResponse(
                 finding_id=replacement.finding_id,
-                placeholder=replacement.placeholder,
-                entity_type=replacement.entity_type,
-                original_text=replacement.original_text,
+                marker=marker,
                 start_char=replacement.start_char,
                 end_char=replacement.end_char,
             )
-            for replacement in anonymization.replacements
-        ],
-        redacted_images=redacted_images,
-        redacted_document=redacted_document,
+        )
+    for replacement, redaction in sorted(
+        zip(ordered, redactions, strict=True),
+        key=lambda pair: pair[0].start_char,
+        reverse=True,
+    ):
+        redacted_text = (
+            redacted_text[: replacement.start_char]
+            + redaction.marker
+            + redacted_text[replacement.end_char :]
+        )
+    return redacted_text, redactions
+
+
+def _run_pseudonymize_sync(
+    req: PseudonymizeRequest, request_id: str | None, tenant: TenantContext
+) -> PseudonymizeResponse:
+    payload = _run_placeholder_review_sync(req, request_id, tenant, timing_key="pseudonymize")
+    anonymization = payload["anonymization"]
+    document_hash = payload["document_hash"]
+    mapping_persisted = _persist_pseudonymization_mapping(
+        req=req,
+        request_id=request_id,
+        tenant=tenant,
+        document_hash=document_hash,
+        mapping=list(anonymization.mapping),
+    )
+    response = PseudonymizeResponse(
+        **payload["review_response"].model_dump(mode="python"),
+        privacy_operation="pseudonymize",
+        pseudonymized_text=anonymization.anonymized_text,
+        anonymized_text=anonymization.anonymized_text,
+        document_hash=document_hash,
+        mapping_persisted=mapping_persisted,
+        mapping=_pseudonymization_mapping_entries(anonymization),
+        replacements=_pseudonymization_replacements(anonymization),
+        redacted_images=payload["redacted_images"],
+        redacted_document=payload["redacted_document"],
+    )
+
+    observability = get_observability()
+    if observability is not None:
+        observability.observe_classification(
+            endpoint="/pseudonymize",
+            classification=payload["result"].overall_risk.value,
+            cache_status="disabled",
+            degraded=bool(payload["degraded_modes"]),
+            duration_seconds=payload["timings_ms"]["total"] / 1000.0,
+        )
+
+    log_backend_event(
+        logging.INFO,
+        event="pseudonymize_summary",
+        request_id=request_id,
+        classification=payload["result"].overall_risk.value,
+        pii_score=payload["result"].pii_score,
+        mnpi_score=payload["result"].mnpi_score,
+        finding_count=len(payload["result"].findings),
+        replacement_count=len(anonymization.replacements),
+        jurisdictions_applied=payload["result"].jurisdictions_applied,
+        timings_ms=payload["timings_ms"],
+    )
+    emit_privacy_ledger_events(
+        payload["result"].privacy_ledger,
+        request_id=request_id,
+        endpoint="/pseudonymize",
+        settings=current_runtime_settings().siem,
+    )
+    return response
+
+
+def _run_anonymize_sync(req: AnonymizeRequest, request_id: str | None, tenant: TenantContext) -> AnonymizeResponse:
+    payload = _run_placeholder_review_sync(req, request_id, tenant, timing_key="anonymize")
+    anonymization = payload["anonymization"]
+    response = AnonymizeResponse(
+        **payload["review_response"].model_dump(mode="python"),
+        privacy_operation="anonymize",
+        anonymization_mode="placeholder_only",
+        anonymized_text=anonymization.anonymized_text,
+        document_hash=payload["document_hash"],
+        mapping_persisted=False,
+        replacements=_placeholder_replacements(anonymization),
+        redacted_images=payload["redacted_images"],
+        redacted_document=payload["redacted_document"],
     )
 
     observability = get_observability()
     if observability is not None:
         observability.observe_classification(
             endpoint="/anonymize",
-            classification=result.overall_risk.value,
+            classification=payload["result"].overall_risk.value,
             cache_status="disabled",
-            degraded=bool(degraded_modes),
-            duration_seconds=timings_ms["total"] / 1000.0,
+            degraded=bool(payload["degraded_modes"]),
+            duration_seconds=payload["timings_ms"]["total"] / 1000.0,
         )
-
     log_backend_event(
         logging.INFO,
         event="anonymize_summary",
         request_id=request_id,
-        classification=result.overall_risk.value,
-        pii_score=result.pii_score,
-        mnpi_score=result.mnpi_score,
-        finding_count=len(result.findings),
+        classification=payload["result"].overall_risk.value,
+        pii_score=payload["result"].pii_score,
+        mnpi_score=payload["result"].mnpi_score,
+        finding_count=len(payload["result"].findings),
         replacement_count=len(anonymization.replacements),
-        jurisdictions_applied=result.jurisdictions_applied,
-        timings_ms=timings_ms,
+        jurisdictions_applied=payload["result"].jurisdictions_applied,
+        timings_ms=payload["timings_ms"],
     )
     emit_privacy_ledger_events(
-        result.privacy_ledger,
+        payload["result"].privacy_ledger,
         request_id=request_id,
         endpoint="/anonymize",
+        settings=current_runtime_settings().siem,
+    )
+    return response
+
+
+def _run_redact_sync(req: RedactRequest, request_id: str | None, tenant: TenantContext) -> RedactResponse:
+    payload = _run_placeholder_review_sync(req, request_id, tenant, timing_key="redact")
+    redacted_text, redactions = _opaque_redactions(
+        text=payload["document"].text,
+        anonymization=payload["anonymization"],
+    )
+    base_response = payload["review_response"].model_dump(mode="python")
+    base_response["suggestions"] = []
+    response = RedactResponse(
+        **base_response,
+        privacy_operation="redact",
+        redaction_style="opaque_text_marker",
+        redacted_text=redacted_text,
+        document_hash=payload["document_hash"],
+        mapping_persisted=False,
+        redactions=redactions,
+        redacted_images=payload["redacted_images"],
+        redacted_document=payload["redacted_document"],
+    )
+
+    observability = get_observability()
+    if observability is not None:
+        observability.observe_classification(
+            endpoint="/redact",
+            classification=payload["result"].overall_risk.value,
+            cache_status="disabled",
+            degraded=bool(payload["degraded_modes"]),
+            duration_seconds=payload["timings_ms"]["total"] / 1000.0,
+        )
+    log_backend_event(
+        logging.INFO,
+        event="redact_summary",
+        request_id=request_id,
+        classification=payload["result"].overall_risk.value,
+        pii_score=payload["result"].pii_score,
+        mnpi_score=payload["result"].mnpi_score,
+        finding_count=len(payload["result"].findings),
+        redaction_count=len(redactions),
+        jurisdictions_applied=payload["result"].jurisdictions_applied,
+        timings_ms=payload["timings_ms"],
+    )
+    emit_privacy_ledger_events(
+        payload["result"].privacy_ledger,
+        request_id=request_id,
+        endpoint="/redact",
         settings=current_runtime_settings().siem,
     )
     return response
@@ -2031,20 +2222,61 @@ async def review_document(request: Request, req: ReviewRequest):
 
 
 @app.post(
+    "/pseudonymize",
+    response_model=PseudonymizeResponse,
+    dependencies=[Depends(require_review_access)],
+    tags=["Anonymization"],
+    summary="Pseudonymize a document before sending",
+    description=(
+        "Run the pre-send PII/MNPI review and return extracted text with deterministic reversible "
+        "placeholders plus the local mapping table. When KAYPOH_REVIEW_PERSIST=1 and "
+        "persist_mapping=true, POST /reidentify can restore by document_hash."
+    ),
+)
+async def pseudonymize_document(request: Request, req: PseudonymizeRequest):
+    return await run_in_threadpool(
+        _run_pseudonymize_sync,
+        req,
+        getattr(request.state, "request_id", None),
+        tenant_context_from_request(request),
+    )
+
+
+@app.post(
     "/anonymize",
     response_model=AnonymizeResponse,
     dependencies=[Depends(require_review_access)],
     tags=["Anonymization"],
-    summary="Anonymize a document before sending",
+    summary="Anonymize a document irreversibly",
     description=(
-        "Run the pre-send PII/MNPI review and return extracted text with deterministic placeholders. "
-        "PII findings are replaced by default; exact MNPI scalar findings such as financial amounts and "
-        "percentages can also be replaced while broad material-event passages remain review findings."
+        "Run the pre-send PII/MNPI review and return extracted text with deterministic placeholders "
+        "without returning or persisting a mapping. This is irreversible v2: use POST /pseudonymize "
+        "when callers need reidentification."
     ),
 )
 async def anonymize_document(request: Request, req: AnonymizeRequest):
     return await run_in_threadpool(
         _run_anonymize_sync,
+        req,
+        getattr(request.state, "request_id", None),
+        tenant_context_from_request(request),
+    )
+
+
+@app.post(
+    "/redact",
+    response_model=RedactResponse,
+    dependencies=[Depends(require_review_access)],
+    tags=["Anonymization"],
+    summary="Redact a document with opaque markers",
+    description=(
+        "Run the pre-send PII/MNPI review and return extracted text with opaque redaction markers. "
+        "The response contains no mapping and no original matched text beyond the review findings."
+    ),
+)
+async def redact_document(request: Request, req: RedactRequest):
+    return await run_in_threadpool(
+        _run_redact_sync,
         req,
         getattr(request.state, "request_id", None),
         tenant_context_from_request(request),
@@ -2128,7 +2360,7 @@ def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None, tenant:
                 status_code=404,
                 detail=(
                     "no persisted mapping for document_hash; supply `mapping` inline or call "
-                    "/anonymize first with KAYPOH_REVIEW_PERSIST=1"
+                    "/pseudonymize first with KAYPOH_REVIEW_PERSIST=1 and persist_mapping=true"
                 ),
             )
         mapping_dicts = persisted
@@ -2150,10 +2382,10 @@ def _run_reidentify_sync(req: ReidentifyRequest, request_id: str | None, tenant:
     tags=["Anonymization"],
     summary="Reidentify previously anonymized text",
     description=(
-        "Deterministic inverse of /anonymize. Takes anonymized_text plus the caller-supplied "
-        "mapping (typically the mapping field from a prior /anonymize response) and restores "
-        "the original spans. Runs entirely on the request payload; no document extraction, no "
-        "review engine, no model layers."
+        "Deterministic inverse of /pseudonymize. Takes anonymized_text plus the caller-supplied "
+        "mapping (typically the mapping field from a prior /pseudonymize response) or a persisted "
+        "document_hash and restores the original spans. Irreversible /anonymize and /redact outputs "
+        "cannot be restored by document_hash."
     ),
 )
 async def reidentify_document(request: Request, req: ReidentifyRequest):
@@ -2205,6 +2437,7 @@ def _serialize_session_state(state: dict[str, Any]) -> ReviewSessionStateRespons
                 image_locator=finding.get("image_locator"),
                 image_ocr_confidence=finding.get("image_ocr_confidence"),
                 image_ocr_regions=finding.get("image_ocr_regions", []),
+                metadata=finding.get("metadata", {}),
                 decision=decision["action"] if decision else None,
                 decision_seq=decision["seq"] if decision else None,
                 decision_ts=decision["ts"] if decision else None,

@@ -3,7 +3,7 @@
 ## General
 
 - Kaypoh is API-only in this repo; archived UI/demo surfaces are not runtime product paths.
-- `POST /review` and `POST /anonymize` are the primary endpoints.
+- `POST /review`, `POST /pseudonymize`, irreversible `POST /anonymize`, and `POST /redact` are the primary endpoints.
 - `POST /classify` and `POST /classify/batch` are compatibility shims over `engine.review()`.
 - The deterministic engine is the source of truth. LLM/retrieval tiers are advisory and cannot suppress deterministic-high findings.
 - Batch classification is limited to 32 items per call.

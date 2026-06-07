@@ -122,6 +122,72 @@ class AuditPackTests(unittest.TestCase):
         self.assertEqual(rollup["alice"], {"accept": 1, "reject": 1, "rewrite": 0})
         self.assertEqual(rollup["bob"], {"accept": 0, "reject": 0, "rewrite": 1})
 
+    def test_export_with_defensibility_bundles_reports_and_sanitized_manifest(self):
+        self.decisions.start_review_session(
+            review_id="rev-def",
+            text_hash="hash-z",
+            document_type="memo",
+            source_jurisdiction="SG",
+            destination_jurisdiction="US",
+            findings=[
+                {
+                    "id": "f1",
+                    "category": "MNPI",
+                    "rule": "conjunctive_mnpi",
+                    "jurisdiction": "SG+US",
+                    "severity": "medium",
+                    "matched_text": "Confidential Acme Corp acquisition",
+                    "start_char": 0,
+                    "end_char": 34,
+                    "legal_basis": "SG_SFA_INSIDE_INFORMATION+US_REG_FD",
+                    "source_verification": "not_checked",
+                    "metadata": {
+                        "materiality_state": "undetermined",
+                        "non_public_element_satisfied": True,
+                        "entity_element_satisfied": True,
+                    },
+                },
+            ],
+        )
+        self.decisions.record_decision(
+            review_id="rev-def",
+            decision=self.decisions.Decision(
+                finding_id="f1",
+                action="accept",
+                rationale="raw reviewer rationale should not enter defensibility manifest",
+                reviewer_id="alice",
+            ),
+        )
+        self.journal.append_event(
+            event_type=self.decisions.EVENT_ANONYMIZE_APPLIED,
+            review_id="rev-def",
+            payload={"privacy_operation": "pseudonymize"},
+        )
+        output = self.tmpdir / "def.zip"
+
+        result = self._run("export_audit_pack.py", "rev-def", "--output", str(output), "--include-defensibility")
+        self.assertEqual(result.returncode, 0, msg=result.stderr)
+
+        with zipfile.ZipFile(output) as archive:
+            names = set(archive.namelist())
+            self.assertIn("statutory-coverage.md", names)
+            self.assertIn("defensibility_manifest.json", names)
+            self.assertIn("defensibility/SG.md", names)
+            self.assertIn("defensibility/US.md", names)
+            manifest = json.loads(archive.read("manifest.json"))
+            defensibility = json.loads(archive.read("defensibility_manifest.json"))
+
+        self.assertTrue(manifest["defensibility_included"])
+        self.assertEqual(manifest["privacy_operations"], {"pseudonymize": 1})
+        self.assertEqual(manifest["reviewer_action_rates_by_rule"]["conjunctive_mnpi"]["accept_rate"], 1.0)
+        defensibility_text = json.dumps(defensibility)
+        self.assertIn("conjunctive_mnpi", defensibility_text)
+        self.assertNotIn("should not enter defensibility manifest", defensibility_text)
+        self.assertNotIn("Confidential Acme Corp acquisition", defensibility_text)
+
+        verify = self._run("verify_audit_pack.py", str(output))
+        self.assertEqual(verify.returncode, 0, msg=verify.stderr)
+
     def test_min_wait_gate_flags_batch_approval(self):
         # immediate accept after session start should trip a non-zero wait bound.
         self._seed()

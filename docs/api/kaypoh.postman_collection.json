@@ -16,6 +16,38 @@
   ],
   "item": [
     {
+      "name": "POST /anonymize",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/anonymize",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "anonymize"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"include_mnpi_scalars\": true,\n  \"include_suggestions\": true,\n  \"source_jurisdiction\": \"SG\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft. Acme Corp expects a $2.5 billion acquisition before announcement.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "description": "Anonymize a document irreversibly"
+    },
+    {
       "name": "POST /classify",
       "request": {
         "method": "POST",
@@ -107,6 +139,39 @@
       "description": "Get runtime diagnostics"
     },
     {
+      "name": "POST /documents/scrub",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/documents/scrub",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "documents",
+            "scrub"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"document_base64\": \"string\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "description": "Scrub document metadata"
+    },
+    {
       "name": "GET /health",
       "request": {
         "method": "GET",
@@ -123,6 +188,26 @@
       },
       "response": [],
       "description": "Get runtime health"
+    },
+    {
+      "name": "GET /local/pairing/status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/local/pairing/status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "local",
+            "pairing",
+            "status"
+          ]
+        }
+      },
+      "response": [],
+      "description": "Get local daemon pairing status"
     },
     {
       "name": "GET /metrics",
@@ -143,6 +228,38 @@
       "description": "Get Prometheus metrics"
     },
     {
+      "name": "POST /pseudonymize",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/pseudonymize",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pseudonymize"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"destination_jurisdiction\": \"US\",\n  \"document_type\": \"email\",\n  \"include_mnpi_scalars\": true,\n  \"include_suggestions\": true,\n  \"persist_mapping\": true,\n  \"source_jurisdiction\": \"SG\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft. Acme Corp expects a $2.5 billion acquisition before announcement.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "description": "Pseudonymize a document before sending"
+    },
+    {
       "name": "GET /ready",
       "request": {
         "method": "GET",
@@ -159,6 +276,155 @@
       },
       "response": [],
       "description": "Get backend readiness"
+    },
+    {
+      "name": "POST /redact",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/redact",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "redact"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"destination_jurisdiction\": \"SG\",\n  \"document_type\": \"email\",\n  \"include_suggestions\": true,\n  \"source_jurisdiction\": \"SG\",\n  \"text\": \"Send Dr Jane Tan S1234567D the confidential draft.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "description": "Redact a document with opaque markers"
+    },
+    {
+      "name": "POST /reidentify",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/reidentify",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "reidentify"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"anonymized_text\": \"Send [PERSON_1] [NRIC_FIN_1] the draft.\",\n  \"mapping\": [\n    {\n      \"original_text\": \"Dr Jane Tan\",\n      \"placeholder\": \"[PERSON_1]\"\n    },\n    {\n      \"original_text\": \"S1234567D\",\n      \"placeholder\": \"[NRIC_FIN_1]\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "description": "Reidentify previously anonymized text"
+    },
+    {
+      "name": "POST /review",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/review",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "review"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"destination_jurisdiction\": \"SG\",\n  \"document_type\": \"research_note\",\n  \"entity_id\": \"Acme Corp\",\n  \"include_suggestions\": true,\n  \"source_jurisdiction\": \"SG\",\n  \"text\": \"Please send the draft deck to Tan S1234567D. Acme Corp has confidential Q1 guidance.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "description": "Review a document before sending"
+    },
+    {
+      "name": "GET /review/{review_id}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/review/{review_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "review",
+            "{review_id}"
+          ]
+        }
+      },
+      "response": [],
+      "description": "Inspect review session state"
+    },
+    {
+      "name": "POST /review/{review_id}/decision",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/review/{review_id}/decision",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "review",
+            "{review_id}",
+            "decision"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"action\": \"reject\",\n  \"finding_id\": \"pii:named_person:5:16:0\",\n  \"rationale\": \"Defined term in contract preamble, not a real party\",\n  \"replacement_text\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "description": "Record a per-finding decision"
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Mapping Store Hardening
 
-Kaypoh can persist `/anonymize` mapping tables when `KAYPOH_REVIEW_PERSIST=1` so
+Kaypoh can persist `/pseudonymize` mapping tables when `KAYPOH_REVIEW_PERSIST=1` so
 `/reidentify` can restore text later from a `document_hash`. Those mappings contain the
 original PII/MNPI scalars and should be treated as sensitive secrets.
 

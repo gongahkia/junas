@@ -4,6 +4,11 @@ set -euo pipefail
 # Generated from backend.main:app OpenAPI contract.
 BASE_URL="${BASE_URL:-http://localhost:8000}"
 
+# POST /anonymize - Anonymize a document irreversibly
+curl -sS -X POST "${BASE_URL}/anonymize" \
+  -H "Content-Type: application/json" \
+  -d '{"destination_jurisdiction":"US","document_type":"email","include_mnpi_scalars":true,"include_suggestions":true,"source_jurisdiction":"SG","text":"Send Dr Jane Tan S1234567D the confidential draft. Acme Corp expects a $2.5 billion acquisition before announcement."}'
+
 # POST /classify - Classify one document
 curl -sS -X POST "${BASE_URL}/classify" \
   -H "Content-Type: application/json" \
@@ -19,11 +24,47 @@ curl -sS -X POST "${BASE_URL}/classify/batch" \
 # GET /diagnostics - Get runtime diagnostics
 curl -sS -X GET "${BASE_URL}/diagnostics"
 
+# POST /documents/scrub - Scrub document metadata
+curl -sS -X POST "${BASE_URL}/documents/scrub" \
+  -H "Content-Type: application/json" \
+  -d '{"document_base64":"string"}'
+
 # GET /health - Get runtime health
 curl -sS -X GET "${BASE_URL}/health"
+
+# GET /local/pairing/status - Get local daemon pairing status
+curl -sS -X GET "${BASE_URL}/local/pairing/status"
 
 # GET /metrics - Get Prometheus metrics
 curl -sS -X GET "${BASE_URL}/metrics"
 
+# POST /pseudonymize - Pseudonymize a document before sending
+curl -sS -X POST "${BASE_URL}/pseudonymize" \
+  -H "Content-Type: application/json" \
+  -d '{"destination_jurisdiction":"US","document_type":"email","include_mnpi_scalars":true,"include_suggestions":true,"persist_mapping":true,"source_jurisdiction":"SG","text":"Send Dr Jane Tan S1234567D the confidential draft. Acme Corp expects a $2.5 billion acquisition before announcement."}'
+
 # GET /ready - Get backend readiness
 curl -sS -X GET "${BASE_URL}/ready"
+
+# POST /redact - Redact a document with opaque markers
+curl -sS -X POST "${BASE_URL}/redact" \
+  -H "Content-Type: application/json" \
+  -d '{"destination_jurisdiction":"SG","document_type":"email","include_suggestions":true,"source_jurisdiction":"SG","text":"Send Dr Jane Tan S1234567D the confidential draft."}'
+
+# POST /reidentify - Reidentify previously anonymized text
+curl -sS -X POST "${BASE_URL}/reidentify" \
+  -H "Content-Type: application/json" \
+  -d '{"anonymized_text":"Send [PERSON_1] [NRIC_FIN_1] the draft.","mapping":[{"original_text":"Dr Jane Tan","placeholder":"[PERSON_1]"},{"original_text":"S1234567D","placeholder":"[NRIC_FIN_1]"}]}'
+
+# POST /review - Review a document before sending
+curl -sS -X POST "${BASE_URL}/review" \
+  -H "Content-Type: application/json" \
+  -d '{"destination_jurisdiction":"SG","document_type":"research_note","entity_id":"Acme Corp","include_suggestions":true,"source_jurisdiction":"SG","text":"Please send the draft deck to Tan S1234567D. Acme Corp has confidential Q1 guidance."}'
+
+# GET /review/{review_id} - Inspect review session state
+curl -sS -X GET "${BASE_URL}/review/{review_id}"
+
+# POST /review/{review_id}/decision - Record a per-finding decision
+curl -sS -X POST "${BASE_URL}/review/{review_id}/decision" \
+  -H "Content-Type: application/json" \
+  -d '{"action":"reject","finding_id":"pii:named_person:5:16:0","rationale":"Defined term in contract preamble, not a real party","replacement_text":""}'

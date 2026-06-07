@@ -65,7 +65,9 @@ class OpenApiSnapshotTests(unittest.TestCase):
                     "/classify",
                     "/classify/batch",
                     "/review",
+                    "/pseudonymize",
                     "/anonymize",
+                    "/redact",
                     "/reidentify",
                     "/documents/scrub",
                     "/review/{review_id}",
@@ -135,6 +137,12 @@ class OpenApiSnapshotTests(unittest.TestCase):
                 },
                 "AnonymizeResponse": {
                     "properties": list(schemas["AnonymizeResponse"]["properties"].keys()),
+                },
+                "PseudonymizeResponse": {
+                    "properties": list(schemas["PseudonymizeResponse"]["properties"].keys()),
+                },
+                "RedactResponse": {
+                    "properties": list(schemas["RedactResponse"]["properties"].keys()),
                 },
                 "ReviewResponse": {
                     "properties": list(schemas["ReviewResponse"]["properties"].keys()),

@@ -4,9 +4,11 @@ Kaypoh is an API-first pre-send safety engine for PII anonymization and MNPI rev
 
 ## Active API Surface
 
-- `POST /anonymize`: review plus deterministic placeholder replacement.
 - `POST /review`: deterministic PII/MNPI review without rewriting text.
-- `POST /reidentify`: restore placeholders from a mapping or persisted document hash.
+- `POST /pseudonymize`: reversible deterministic placeholders plus mapping.
+- `POST /anonymize`: irreversible placeholder-only output, no mapping persistence.
+- `POST /redact`: opaque markers, no mapping or original matched text in the redaction response.
+- `POST /reidentify`: restore placeholders from a `/pseudonymize` mapping or persisted pseudonymization document hash.
 - `POST /documents/scrub`: remove supported metadata leakage.
 - `POST /classify`, `POST /classify/batch`: compatibility wrappers over `engine.review()`.
 - `GET /health`, `/ready`, `/diagnostics`, `/metrics`: runtime health and observability.

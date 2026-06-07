@@ -186,10 +186,26 @@ smoke_runtime() {
   assert_json "$HTTP_BODY" 'payload["classification"] == "HIGH_RISK"' "/review should classify sensitive text"
   assert_json "$HTTP_BODY" 'len(payload["findings"]) > 0' "/review should return findings"
 
+  request POST "http://${HOST}:${port}/pseudonymize" \
+    '{"text":"Send Dr Jane Tan S1234567D the confidential SPA before announcement.","source_jurisdiction":"SG","destination_jurisdiction":"SG","document_type":"email"}'
+  assert_status 200
+  assert_json "$HTTP_BODY" 'payload["privacy_operation"] == "pseudonymize"' "/pseudonymize should identify the reversible operation"
+  assert_json "$HTTP_BODY" '"[NRIC_FIN_1]" in payload["pseudonymized_text"] or "[PERSON_1]" in payload["pseudonymized_text"]' "/pseudonymize should replace sensitive spans"
+  assert_json "$HTTP_BODY" 'len(payload["mapping"]) > 0' "/pseudonymize should return a mapping"
+
   request POST "http://${HOST}:${port}/anonymize" \
     '{"text":"Send Dr Jane Tan S1234567D the confidential SPA before announcement.","source_jurisdiction":"SG","destination_jurisdiction":"SG","document_type":"email"}'
   assert_status 200
+  assert_json "$HTTP_BODY" 'payload["privacy_operation"] == "anonymize" and payload["anonymization_mode"] == "placeholder_only"' "/anonymize should expose irreversible v2 mode"
   assert_json "$HTTP_BODY" '"[NRIC_FIN_1]" in payload["anonymized_text"] or "[PERSON_1]" in payload["anonymized_text"]' "/anonymize should replace sensitive spans"
+  assert_json "$HTTP_BODY" '"mapping" not in payload and payload["mapping_persisted"] is False' "/anonymize should not return or persist a mapping"
+
+  request POST "http://${HOST}:${port}/redact" \
+    '{"text":"Send Dr Jane Tan S1234567D the confidential SPA before announcement.","source_jurisdiction":"SG","destination_jurisdiction":"SG","document_type":"email"}'
+  assert_status 200
+  assert_json "$HTTP_BODY" 'payload["privacy_operation"] == "redact" and payload["redaction_style"] == "opaque_text_marker"' "/redact should expose opaque marker mode"
+  assert_json "$HTTP_BODY" '"[REDACTED_1]" in payload["redacted_text"]' "/redact should replace sensitive spans with opaque markers"
+  assert_json "$HTTP_BODY" 'all("matched_text" not in finding for finding in payload["findings"])' "/redact findings should not return original matched text"
 
   request POST "http://${HOST}:${port}/classify" \
     '{"text":"Acme Corp will acquire GlobalTech before announcement for $2.5 billion.","entity_id":"Acme Corp"}'

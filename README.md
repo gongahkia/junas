@@ -31,7 +31,7 @@ uv run python -m spacy download en_core_web_sm
 ./scripts/launch/run_prod.sh
 ./scripts/verify_runtime.sh
 
-curl -X POST http://localhost:8000/anonymize -H "Content-Type: application/json" \
+curl -X POST http://localhost:8000/pseudonymize -H "Content-Type: application/json" \
   -d '{"text":"Send Dr Jane Tan S1234567D the confidential draft.","source_jurisdiction":"SG","destination_jurisdiction":"US","document_type":"SPA"}'
 
 uv run python scripts/recall_gate.py
