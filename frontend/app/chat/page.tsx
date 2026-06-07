@@ -11,6 +11,7 @@ import CommandSuggestions, { COMMANDS } from "../../components/chat/CommandSugge
 import { addNotification } from "../../lib/notification-store";
 import ProviderSelector from "../../components/provider-selector";
 import ArtifactsPanel, { extractArtifacts } from "../../components/artifacts-panel";
+import ExportButton from "../../components/ExportButton";
 
 const LegalMarkdownRenderer = lazy(() => import("../../components/chat/LegalMarkdownRenderer"));
 const ForceGraph = lazy(() => import("../../components/chat/ForceGraph"));
@@ -336,7 +337,13 @@ export default function HomePage() {
                   {t === "tree" ? "Graph" : "Chat"}
                 </button>
               ))}
-              <button type="button" className="chat-top-btn" onClick={() => exportChat("md")}>Export</button>
+              <button type="button" className="chat-top-btn" onClick={() => exportChat("md")}>Export .md</button>
+              <ExportButton
+                kind="session"
+                sessionId={conversationId || "session"}
+                title={messages[0]?.content?.slice(0, 60) || "Chat session"}
+                messages={messages.map(m => ({ role: m.role, content: m.content, timestamp: m.timestamp }))}
+              />
             </div>
           </div>
 

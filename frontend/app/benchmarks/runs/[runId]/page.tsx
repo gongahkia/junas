@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { headers } from "next/headers";
 import { getBenchmarkRun } from "../../../../lib/api-server";
+import ExportButton from "../../../../components/ExportButton";
 
 type EvaluatorScore = {
   score: number;
@@ -170,6 +171,9 @@ export default async function BenchmarkRunPage({
         <div>
           <p style={eyebrow}>Benchmark run</p>
           <h1 style={title}><code>{run.run_id}</code></h1>
+          <div style={{ marginTop: "0.5rem" }}>
+            <ExportButton kind="receipt" runId={run.run_id} apiKey={apiKey} />
+          </div>
         </div>
         <div style={summaryGrid}>
           <Metric label="Workflow" value={run.workflow} />
