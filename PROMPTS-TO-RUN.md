@@ -74,6 +74,48 @@ Read that file alongside this one.
 
 ---
 
+## Remaining prompts (what's left to run)
+
+Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere in this doc with a `DONE ✅` banner or `<details>` collapse is already on `main`.
+
+### Fireable now (zero LLM cost OR Azure-only — your existing key works)
+
+| Prompt | Tier | Notes |
+|---|---|---|
+| `Batch G G3` SGLB-14 Statutory-Entailment | 5 | PDPC Advisory Guidelines data already on main (SOLO-9, PR #86). Cost-safe. |
+| `Batch G G4` SGLB-16 Review-Redflag-Recall | 5 | Mechanical defect injection on SG contract templates. Cost-safe. |
+| `Batch H H1` SGLB-10 Citation-Generation | 5 | Uses SAL grammar already on main. Cost-safe. |
+| `Batch F F2` MCP tools (5 wrappers) | 5 | F1 landed (PR #125). Cost-safe. |
+| `Batch F F3` MCP setup docs + example prompts + troubleshooting | 5 | Docs only. Cost-safe. |
+| `Batch F F4` MCP tests | 5 | Needs F1 + F2 landed. Cost-safe. |
+| `SOLO-7` Reference copilot scope cleanup | 5 | Audit + cuts non-SG surfaces. Cost-safe. |
+| `SOLO-11` Port SG contract templates | 5 | Gated on `SOLO-7` landing first. Cost-safe. |
+| `SOLO-8` arXiv preprint §§1-3 draft | 4 | §§4-5 (Results/Limitations) gated on Wave 2 baselines. Docs only. |
+| `COPILOT-1` Sessions + history persistence | 5 | SQLite + alembic + sidebar UI. Cost-safe. |
+| `COPILOT-2` Batch-analysis polish | 5 | Drag-drop + SSE + cancel + CSV. Cost-safe. |
+| `COPILOT-4` Keyboard shortcuts + cheat-sheet | 5 | Mostly independent; minor dep on Batch C C2 (landed). Cost-safe. |
+
+### Fireable with explicit per-cell approval (Azure $$ gated)
+
+| Prompt | Tier | Cost class |
+|---|---|---|
+| `Batch G G1` SGLB-09 v0.1 smoke | 5 | Azure single-judge ~$1-2. v0.2 multi-judge upgrade deferred (needs Anthropic + Gemini keys). |
+| `Batch H H2` SGLB-12 synth-gen | 5 | Azure gpt-5 synth ~$10-20 — approval gate documented inline. |
+| `Batch H H3` SGLB-15 synth-gen | 5 | Same as H2. |
+| `NEW-BATCH-D` Azure + Ollama cells against {SGLB-01, -02, -04} | 1 | Azure ~$2-50/cell. Ollama free (needs `ollama serve` running). Anthropic + Gemini cells stay deferred. |
+
+### Deferred — waiting on Anthropic + Gemini API keys
+
+| Prompt | Tier | Unblock action |
+|---|---|---|
+| `SOLO-17` κ run | 1 | `python -m benchmark.synthetic.multi_judge --dataset backend/benchmark/datasets/sglb_08_clause_tone_reviewed/dataset.yaml` (~$2.40) |
+| `NEW-08-REFRAME-IF-LOW-KAPPA` | 1 | Conditional on SOLO-17 κ values |
+| `NEW-BATCH-D` Anthropic + Gemini cells | 1 | Run alongside the Azure + Ollama cells above |
+| `Batch G G1` v0.2 multi-judge upgrade | 5 | v0.1 smoke can fire now with Azure; v0.2 upgrade waits |
+
+### Total remaining
+- **12 fireable now**, **4 cost-gated**, **4 deferred**. 20 prompts total.
+
 ## Fire order
 
 | Tier | Why | Items |
@@ -2467,6 +2509,9 @@ published.
 Report back: κ values; how to scale to N=200 in v0.2.1.
 ```
 
+<details>
+<summary><strong>G2 — DONE ✅</strong> (direct commit <code>20773c7</code>). Prompt body preserved for re-runs. Click to expand.</summary>
+
 ## G2: SGLB-13 Counterfactual-Outcome
 
 ```text
@@ -2518,6 +2563,9 @@ Acceptance: deterministic perturbation rule documented; tests pass.
 Report back: how many PDPC decisions fit the rule; legal-judgment
 risk profile.
 ```
+
+
+</details>
 
 ## G3: SGLB-14 Statutory-Entailment
 
@@ -2767,6 +2815,9 @@ leaving chat.
 **Coordination contract:** branch `feat/mcp-server`. F1 lands first;
 F2/F3/F4 fan out off F1's branch.
 
+<details>
+<summary><strong>F1 — DONE ✅</strong> (PR #125). Prompt body preserved for re-runs. Click to expand.</summary>
+
 ## F1: MCP server scaffolding + transport
 
 ```text
@@ -2803,6 +2854,9 @@ Acceptance: `make mcp` boots without error; `health` tool responds.
 
 Report back: MCP SDK version pinned; transport latency observations.
 ```
+
+
+</details>
 
 ## F2: Tool implementations
 
@@ -3005,6 +3059,9 @@ Report back: any template where SG-source publicly-available
 drafting was thin.
 ```
 
+<details>
+<summary><strong>SOLO-12 — DONE ✅</strong> (PR #124). Prompt body preserved for re-runs. Click to expand.</summary>
+
 ## SOLO-12: Logfire observability (#43)
 
 ```text
@@ -3040,6 +3097,9 @@ through 2-min setup.
 Report back: any signal Logfire surfaced that we should add as a
 permanent metric in our own receipts.
 ```
+
+
+</details>
 
 ## COPILOT-1: Sessions + history persistence
 
@@ -3126,6 +3186,9 @@ cancel works; CSV export works; tests pass.
 Report back: throughput characteristics; backend bottleneck if any.
 ```
 
+<details>
+<summary><strong>COPILOT-3 — DONE ✅</strong> (PR #126). Prompt body preserved for re-runs. Click to expand.</summary>
+
 ## COPILOT-3: DOCX export
 
 ```text
@@ -3167,6 +3230,9 @@ Acceptance: tests pass; manual export of a 200-message session
 produces a clean .docx.
 Report back: any markdown construct that didn't round-trip.
 ```
+
+
+</details>
 
 ## COPILOT-4: Keyboard shortcuts + power-user palette
 
