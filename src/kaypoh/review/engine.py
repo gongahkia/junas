@@ -43,7 +43,8 @@ _DOB_DATE_FRAGMENT = (
     + _DOB_MONTH + r"\s+\d{1,2},?\s+\d{4})"
 )
 DATE_OF_BIRTH_RE = re.compile(
-    r"\b(?:DOB|D\.O\.B\.|date\s+of\s+birth|birth\s*date|birthday|born(?:\s+on)?)\s*[:#=\-]?\s*("
+    r"(?:\b(?:DOB|D\.O\.B\.|date\s+of\s+birth|birth\s*date|birthday|born(?:\s+on)?)|"
+    r"出生日期|생년월일)\s*[:#=\-]?\s*("
     + _DOB_DATE_FRAGMENT
     + r")\b",
     re.IGNORECASE,
@@ -91,7 +92,7 @@ DEVICE_SERIAL_RE = re.compile(
 EU_NATIONAL_ID_RE = re.compile(
     r"\b(?P<country>DE|FR|ES|IT|NL|BE|PL|SE|IE|AT|PT|DK)\s+"
     r"(?:national\s+ID|identity\s+(?:card|number)|personal\s+ID|personnummer|"
-    r"DNI|NIE|NIF|codice\s+fiscale|BSN|PESEL|PPSN|CPR)\s*[:#=\-]?\s*"
+    r"DNI|NIE|NIF|codice\s+fiscale|BSN|PESEL|PPSN|CPR|tax\s+ID|TIN)\s*[:#=\-]?\s*"
     r"(?P<id>[A-Z0-9][A-Z0-9 ./-]{5,31}[A-Z0-9])\b",
     re.IGNORECASE,
 )
@@ -100,7 +101,12 @@ EU_MEMBER_STATE_ID_RE = re.compile(
     r"(?:Spain|Spanish|ES)\s+(?:DNI|NIE|NIF|national\s+ID)|"
     r"(?:Netherlands|Dutch|NL)\s+(?:BSN|citizen\s+service\s+number|national\s+ID)|"
     r"(?:Poland|Polish|PL)\s+(?:PESEL|national\s+ID)|"
-    r"(?:France|French|FR)\s+(?:INSEE|NIR|social\s+security\s+number|national\s+ID)"
+    r"(?:France|French|FR)\s+(?:INSEE|NIR|social\s+security\s+number|national\s+ID)|"
+    r"(?:Germany|German|DE)\s+(?:tax\s+ID|TIN|Steueridentifikationsnummer|national\s+ID)|"
+    r"(?:Italy|Italian|IT)\s+(?:codice\s+fiscale|tax\s+code|national\s+ID)|"
+    r"(?:Belgium|Belgian|BE)\s+(?:national\s+number|rijksregisternummer|num[eé]ro\s+national)|"
+    r"(?:Portugal|Portuguese|PT)\s+(?:NIF|tax\s+number|national\s+ID)|"
+    r"(?:Sweden|Swedish|SE)\s+(?:personnummer|personal\s+identity\s+number|national\s+ID)"
     r")\s*[:#=\-]?\s*(?P<id>[A-Z0-9][A-Z0-9 ./-]{6,31}[A-Z0-9])\b",
     re.IGNORECASE,
 )
@@ -125,6 +131,27 @@ HK_ADDRESS_SIGNAL_RE = re.compile(
     r"(?:Hong\s+Kong|Kowloon|New\s+Territories|HK)\b",
     re.IGNORECASE,
 )
+AU_POSTAL_ADDRESS_RE = re.compile(
+    r"\b\d{1,5}\s+[A-Z][A-Za-z0-9' -]{2,50}\s+"
+    r"(?:Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Drive|Dr|Court|Ct|Way|Place|Pl),?\s+"
+    r"[A-Z][A-Za-z' -]{2,40}\s+(?:ACT|NSW|NT|QLD|SA|TAS|VIC|WA)\s+\d{4}\b"
+)
+JP_POSTAL_ADDRESS_RE = re.compile(
+    r"(?:〒\s*)?\d{3}-\d{4}\s*(?:東京都|北海道|大阪府|京都府|.{2,3}県)[^\n]{2,80}"
+)
+KR_POSTAL_ADDRESS_RE = re.compile(
+    r"\b(?P<postal>\d{5})\s+(?:서울|부산|대구|인천|광주|대전|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주|"
+    r"Seoul|Busan|Daegu|Incheon|Gwangju|Daejeon|Ulsan|Sejong|Gyeonggi|Gangwon|Jeju)"
+    r"[^\n]{0,80}(?:로|길|동|구|시|군|Road|ro|gil|dong|gu|si)\b",
+    re.IGNORECASE,
+)
+EU_POSTAL_ADDRESS_RE = re.compile(
+    r"\b\d{1,5}\s+[A-Z][A-Za-z' -]{2,50}\s+"
+    r"(?:Stra(?:ss|ß)e|Str\.|Rue|Avenue|Via|Calle|Rua|Ulica|ul\.|Gasse|Laan|Weg),?\s+"
+    r"[A-Z][A-Za-z' -]{2,40},?\s+"
+    r"(?:DE|FR|IT|ES|PT|BE|NL|PL|SE)\s*[- ]?\d{4,6}\b",
+    re.IGNORECASE,
+)
 PERSONAL_ATTRIBUTE_RELATION_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})"
     r"'?s\s+(?P<attribute>wife|husband|spouse|partner|son|daughter|child|father|mother)\s+"
@@ -139,6 +166,31 @@ PERSONAL_ATTRIBUTE_LOCATION_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
     r"(?:lives\s+in|resides\s+in|is\s+based\s+in)\s+"
     r"(?P<object>[A-Z][A-Za-z0-9&.,' -]{2,80})\b"
+)
+PERSONAL_ATTRIBUTE_EDUCATION_RE = re.compile(
+    r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
+    r"(?:is\s+)?(?:enrolled\s+at|studies\s+at|graduated\s+from|attends)\s+"
+    r"(?P<object>[A-Z][A-Za-z0-9&.,' -]{2,80})\b"
+)
+PERSONAL_ATTRIBUTE_NATIONALITY_RE = re.compile(
+    r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
+    r"(?:is\s+(?:a\s+)?|holds\s+)(?P<object>[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\s+"
+    r"(?:citizen|national|citizenship|nationality|passport\s+holder))\b"
+)
+PERSONAL_ATTRIBUTE_LICENSE_RE = re.compile(
+    r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
+    r"(?:holds|has|maintains)\s+(?:an?\s+)?(?P<object>[A-Z][A-Za-z' -]{2,40}\s+"
+    r"(?:licen[cs]e|registration|practising\s+certificate))\b"
+)
+PERSONAL_ATTRIBUTE_DEPARTMENT_RE = re.compile(
+    r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
+    r"(?:works\s+in|is\s+assigned\s+to|reports\s+to)\s+(?P<object>[A-Z][A-Za-z0-9&.,' -]{2,80})\b"
+)
+PERSONAL_ATTRIBUTE_SENIORITY_RE = re.compile(
+    r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
+    r"(?:is\s+(?:a\s+)?|was\s+promoted\s+to\s+)(?P<object>(?:junior|senior|principal|lead|head\s+of|"
+    r"specialist|consultant|associate|partner|director)[A-Za-z0-9&.,' -]{0,60})\b",
+    re.IGNORECASE,
 )
 
 _US_STATE_NAME_TO_CODE = {
