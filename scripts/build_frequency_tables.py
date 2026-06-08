@@ -43,6 +43,9 @@ class JurisdictionSpec:
     source_url: str
     license: str
     license_url: str
+    attribution: str
+    license_scope: str
+    redistribution: str
     excluded_regions: str = ""
 
 
@@ -54,6 +57,9 @@ SPECS = {
         source_url="https://www.ons.gov.uk/methodology/geography/geographicalproducts/postcodeproducts",
         license="Open Government Licence v3.0",
         license_url="https://www.ons.gov.uk/methodology/geography/licences",
+        attribution="Source: Office for National Statistics licensed under the Open Government Licence v.3.0",
+        license_scope="ONS postcode products are OGL; BT/Northern Ireland postcodes need separate commercial licence",
+        redistribution="bundle_allowed_excluding_bt",
         excluded_regions="Northern Ireland BT postcodes excluded unless separately licensed",
     ),
     "AU": JurisdictionSpec(
@@ -61,8 +67,11 @@ SPECS = {
         table="postal_population",
         source_name="ABS 2021 Census DataPacks Postal Areas total persons extract",
         source_url="https://www.abs.gov.au/census/find-census-data/datapacks",
-        license="Creative Commons Attribution 4.0 International",
-        license_url="https://www.abs.gov.au/privacy-and-legals",
+        license="ABS product licence displayed in source extract",
+        license_url="https://www.abs.gov.au/about/legislation-and-policy/purchasing-data/abs-conditions-sale",
+        attribution="Based on Australian Bureau of Statistics data",
+        license_scope="ABS conditions say the licence displayed in the product controls reuse; verify before bundling",
+        redistribution="operator_built_unbundled_until_product_licence_review",
     ),
     "JP": JurisdictionSpec(
         jurisdiction="JP",
@@ -71,6 +80,9 @@ SPECS = {
         source_url="https://www.e-stat.go.jp/en",
         license="e-Stat Terms of Use compatible with CC BY 4.0",
         license_url="https://www.e-stat.go.jp/en/terms-of-use",
+        attribution="Created by editing statistics from e-Stat / Portal Site of Official Statistics of Japan",
+        license_scope="e-Stat numerical data may be used freely; content terms are compatible with CC BY 4.0",
+        redistribution="bundle_allowed_for_numerical_data_with_source_citation",
     ),
     "KR": JurisdictionSpec(
         jurisdiction="KR",
@@ -79,6 +91,9 @@ SPECS = {
         source_url="https://kosis.kr/eng",
         license="KOSIS public data use policy",
         license_url="https://kosis.kr/eng/aboutKosis/policyPublicData.do",
+        attribution="Source: KOSIS Korean Statistical Information Service",
+        license_scope="KOSIS public data policy permits public-data use including profit purposes",
+        redistribution="bundle_allowed_if_source_extract_terms_match_public_data_policy",
     ),
 }
 
@@ -251,6 +266,9 @@ def _build_one(spec: JurisdictionSpec, source: str, out_dir: Path, retrieved_dat
         "source_url": source_ref if source_ref.startswith("http") else spec.source_url,
         "license": spec.license,
         "license_url": spec.license_url,
+        "attribution": spec.attribution,
+        "license_scope": spec.license_scope,
+        "redistribution": spec.redistribution,
         "retrieved_date": retrieved_date.isoformat(),
         "refresh_due_date": (retrieved_date + timedelta(days=refresh_days)).isoformat(),
         "sha256": _sha256_text(csv_text),
@@ -265,13 +283,19 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build generated keyless frequency tables")
     parser.add_argument("--jurisdiction", required=True, choices=(*SUPPORTED, "all"))
     parser.add_argument("--source", action="append", default=[], help="JURISDICTION=path-or-url")
-    parser.add_argument("--out", required=True, type=Path)
+    parser.add_argument("--out", type=Path)
     parser.add_argument("--retrieved-date", default=date.today().isoformat())
     parser.add_argument("--refresh-days", type=int, default=365)
+    parser.add_argument("--list-sources", action="store_true", help="print official source/licence profiles and exit")
     args = parser.parse_args(argv)
 
-    sources = _source_map(args.source)
     jurisdictions = SUPPORTED if args.jurisdiction == "all" else (args.jurisdiction,)
+    if args.list_sources:
+        print(json.dumps({code: SPECS[code].__dict__ for code in jurisdictions}, indent=2, sort_keys=True))
+        return 0
+    if args.out is None:
+        parser.error("--out is required unless --list-sources is set")
+    sources = _source_map(args.source)
     retrieved = date.fromisoformat(args.retrieved_date)
     missing = [code for code in jurisdictions if code not in sources]
     if missing:

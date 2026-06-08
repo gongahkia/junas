@@ -1,6 +1,7 @@
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from scripts.build_frequency_tables import main
 
@@ -27,6 +28,9 @@ class FrequencyTableBuilderTests(unittest.TestCase):
             self.assertNotIn("BT1", table)
             manifest = (out / "MANIFEST.generated.toml").read_text(encoding="utf-8")
             self.assertIn("[UK.postal_population]", manifest)
+            self.assertIn("attribution", manifest)
+            self.assertIn("license_scope", manifest)
+            self.assertIn("redistribution", manifest)
             self.assertIn("Northern Ireland BT postcodes excluded", manifest)
 
     def test_builds_jp_area_population_from_local_csv(self):
@@ -50,6 +54,16 @@ class FrequencyTableBuilderTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             code = main(["--jurisdiction", "AU", "--out", tmp])
         self.assertEqual(code, 2)
+
+    def test_list_sources_does_not_require_output_or_source(self):
+        with mock.patch("sys.stdout") as stdout:
+            code = main(["--jurisdiction", "all", "--list-sources"])
+        self.assertEqual(code, 0)
+        rendered = "".join(call.args[0] for call in stdout.write.call_args_list if call.args)
+        self.assertIn("Open Government Licence v3.0", rendered)
+        self.assertIn("ABS product licence", rendered)
+        self.assertIn("e-Stat Terms of Use", rendered)
+        self.assertIn("KOSIS public data use policy", rendered)
 
 
 if __name__ == "__main__":

@@ -94,7 +94,7 @@ EU_NATIONAL_ID_RE = re.compile(
     r"(?:national\s+ID|identity\s+(?:card|number)|personal\s+ID|personnummer|"
     r"DNI|NIE|NIF|codice\s+fiscale|BSN|PESEL|PPSN|CPR|HETU|SVNR|CNP|birth\s+number|"
     r"tax\s+ID|TIN)\s*[:#=\-]?\s*"
-    r"(?P<id>[A-Z0-9][A-Z0-9 ./-]{5,31}[A-Z0-9])\b",
+    r"(?P<id>(?-i:[A-Z0-9][A-Z0-9 ./-]{5,31}[A-Z0-9]))\b",
     re.IGNORECASE,
 )
 EU_MEMBER_STATE_ID_RE = re.compile(
@@ -114,7 +114,7 @@ EU_MEMBER_STATE_ID_RE = re.compile(
     r"(?:Czechia|Czech|CZ)\s+(?:birth\s+number|rodn[eé]\s+č[ií]slo|national\s+ID)|"
     r"(?:Slovakia|Slovak|SK)\s+(?:birth\s+number|rodn[eé]\s+č[ií]slo|national\s+ID)|"
     r"(?:Romania|Romanian|RO)\s+(?:CNP|personal\s+numeric\s+code|national\s+ID)"
-    r")\s*[:#=\-]?\s*(?P<id>[A-Z0-9][A-Z0-9 ./-]{6,31}[A-Z0-9])\b",
+    r")\s*[:#=\-]?\s*(?P<id>(?-i:[A-Z0-9][A-Z0-9 ./-]{6,31}[A-Z0-9]))\b",
     re.IGNORECASE,
 )
 UK_POSTAL_ADDRESS_RE = re.compile(
@@ -1091,9 +1091,9 @@ MULTILINGUAL_BIOMETRIC_RE = re.compile(
 )
 MULTILINGUAL_GENETIC_RE = re.compile(
     r"(?:基因检测结果|遗传检测结果|DNA检测结果|基因数据)\s*[:：]\s*"
-    r"(?:BRCA[12]|APOE\s*e[234]|阳性|携带者|突变)"
+    r"(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?[A-Z0-9]+)[^\n.;]{0,20}(?:阳性|携带者|突变|变异)"
     r"|(?:نتيجة\s+الاختبار\s+الجيني|بيانات\s+جينية|ملف\s+DNA)\s*[:：]?\s*"
-    r"(?:BRCA[12]|APOE\s*e[234]|إيجابي|حامل|طفرة)?",
+    r"(?:(?:BRCA[12]|APOE\s*e[234]|HLA[-\s]?[A-Z0-9]+)[^\n.;]{0,20}(?:إيجابي|حامل|طفرة))?",
     re.IGNORECASE,
 )
 
@@ -2560,7 +2560,9 @@ def _detect_core_identifier_findings(
         for match in EU_NATIONAL_ID_RE.finditer(text):
             country = match.group("country").upper()
             value = match.group("id")
-            checksum_countries = {"ES", "NL", "PL", "FR", "DE", "IT", "BE", "PT", "SE", "FI", "IE", "AT", "CZ", "SK", "RO"}
+            checksum_countries = {
+                "ES", "NL", "PL", "FR", "DE", "IT", "BE", "PT", "SE", "FI", "IE", "AT", "CZ", "SK", "RO",
+            }
             de_tax_label = re.search(
                 r"\b(?:tax\s+ID|TIN|Steueridentifikationsnummer)\b",
                 match.group(0),

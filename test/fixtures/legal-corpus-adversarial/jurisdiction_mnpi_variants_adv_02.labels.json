@@ -1,0 +1,15 @@
+{
+  "doc_id": "jurisdiction_mnpi_variants_adv_02",
+  "document_type": "memo",
+  "source_jurisdiction": "HK",
+  "destination_jurisdiction": "KR",
+  "must_detect": [],
+  "must_not_detect": [
+    {"rule": "insider_list_marker", "matched_text": "SFC insider-list"},
+    {"rule": "nonpublic_marker", "matched_text": "price-sensitive information"},
+    {"rule": "insider_list_marker", "matched_text": "KRX restricted-list"},
+    {"rule": "contingent_mnpi_language", "matched_text": "DART filing"}
+  ],
+  "_label_source": "hand",
+  "_label_note": "No-key item 48/86 adversarial jurisdiction-specific MNPI bait."
+}

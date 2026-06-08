@@ -101,13 +101,21 @@ class PoliticalOpinionTests(_BaseSpecialCategoryTests):
 
     def test_donated_to_party(self):
         self.assertEqual(
-            len(self._findings_for("She donated to the Democratic Party.", "political_opinion", source="US", dest="US")),
+            len(
+                self._findings_for(
+                    "She donated to the Democratic Party.", "political_opinion", source="US", dest="US"
+                )
+            ),
             1,
         )
 
     def test_voted_for_party(self):
         self.assertEqual(
-            len(self._findings_for("He voted for Labour in the last election.", "political_opinion", source="UK", dest="UK")),
+            len(
+                self._findings_for(
+                    "He voted for Labour in the last election.", "political_opinion", source="UK", dest="UK"
+                )
+            ),
             1,
         )
 
@@ -119,7 +127,11 @@ class PoliticalOpinionTests(_BaseSpecialCategoryTests):
     def test_the_opposition_argued_court_usage_does_not_fire(self):
         # "the opposition argued" without party-name suffix should not fire
         self.assertEqual(
-            len(self._findings_for("The opposition argued in court yesterday.", "political_opinion", source="UK", dest="UK")),
+            len(
+                self._findings_for(
+                    "The opposition argued in court yesterday.", "political_opinion", source="UK", dest="UK"
+                )
+            ),
             0,
         )
 
@@ -144,7 +156,10 @@ class RacialEthnicOriginTests(_BaseSpecialCategoryTests):
         self.assertEqual(len(self._findings_for("民族: 维吾尔族.", "racial_ethnic_origin", source="CN", dest="CN")), 1)
 
     def test_arabic_ethnicity_field(self):
-        self.assertEqual(len(self._findings_for("الأصل العرقي: عربي.", "racial_ethnic_origin", source="AE", dest="AE")), 1)
+        self.assertEqual(
+            len(self._findings_for("الأصل العرقي: عربي.", "racial_ethnic_origin", source="AE", dest="AE")),
+            1,
+        )
 
     def test_bait_contexts_do_not_fire(self):
         for text in [
@@ -250,7 +265,10 @@ class BiometricIdentifierTests(_BaseSpecialCategoryTests):
         )
 
     def test_mandarin_and_arabic_biometric_fields_fire(self):
-        self.assertEqual(len(self._findings_for("生物识别模板: 指纹.", "biometric_identifier", source="CN", dest="CN")), 1)
+        self.assertEqual(
+            len(self._findings_for("生物识别模板: 指纹.", "biometric_identifier", source="CN", dest="CN")),
+            1,
+        )
         self.assertEqual(len(self._findings_for("قالب بصمة.", "biometric_identifier", source="AE", dest="AE")), 1)
 
 
@@ -273,8 +291,14 @@ class GeneticDataTests(_BaseSpecialCategoryTests):
         self.assertEqual(len(self._findings_for("BRCA Holdings signed the term sheet.", "genetic_data")), 0)
 
     def test_mandarin_and_arabic_genetic_fields_fire(self):
-        self.assertEqual(len(self._findings_for("基因检测结果: BRCA1 阳性.", "genetic_data", source="CN", dest="CN")), 1)
-        self.assertEqual(len(self._findings_for("نتيجة الاختبار الجيني: BRCA1 إيجابي.", "genetic_data", source="AE", dest="AE")), 1)
+        self.assertEqual(
+            len(self._findings_for("基因检测结果: BRCA1 阳性.", "genetic_data", source="CN", dest="CN")),
+            1,
+        )
+        self.assertEqual(
+            len(self._findings_for("نتيجة الاختبار الجيني: BRCA1 إيجابي.", "genetic_data", source="AE", dest="AE")),
+            1,
+        )
 
 
 class SexualOrientationTests(_BaseSpecialCategoryTests):

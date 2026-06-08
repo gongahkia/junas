@@ -1,0 +1,13 @@
+{
+  "doc_id": "us_multiline_address_01",
+  "document_type": "generic",
+  "source_jurisdiction": "US",
+  "destination_jurisdiction": "US",
+  "must_detect": [
+    {"rule": "named_person", "matched_text": "Mr Robert Clark"},
+    {"rule": "us_postal_address", "matched_text": "123 Market Street\nSan Francisco CA 94105"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand",
+  "_label_note": "No-key item 34 fixture for multi-line US address parsing."
+}

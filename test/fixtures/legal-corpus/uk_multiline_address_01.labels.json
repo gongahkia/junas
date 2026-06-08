@@ -1,0 +1,13 @@
+{
+  "doc_id": "uk_multiline_address_01",
+  "document_type": "generic",
+  "source_jurisdiction": "UK",
+  "destination_jurisdiction": "UK",
+  "must_detect": [
+    {"rule": "named_person", "matched_text": "Ms Alice Brown"},
+    {"rule": "uk_postal_address", "matched_text": "221B Baker Street\nLondon NW1 6XE"}
+  ],
+  "must_not_detect": [],
+  "_label_source": "hand",
+  "_label_note": "No-key item 34 fixture for multi-line UK address parsing."
+}
