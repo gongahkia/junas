@@ -14,7 +14,6 @@ from benchmark.llm_runner import (
     LLMRunnerConfig,
     MockLLMClient,
     PROMPT_BUILDERS,
-    SGLB_04_PROMPT_VERSION,
     build_llm_task,
     llm_task_for,
     prompt_sha,
@@ -178,11 +177,23 @@ def test_prompt_sha_differs_across_inputs():
     )
 
 
-# === Registry contains the 4 shipped tasks ===
+# === Registry contains shipped/scaffolded LLM prompt builders ===
 
 
 def test_prompt_builders_registry_complete():
-    assert set(PROMPT_BUILDERS) == {"sglb_01", "sglb_02", "sglb_04", "sglb_05", "sglb_06", "sglb_07", "sglb_11", "sglb_08", "sglb_12"}
+    assert set(PROMPT_BUILDERS) == {
+        "sglb_01",
+        "sglb_02",
+        "sglb_04",
+        "sglb_05",
+        "sglb_06",
+        "sglb_07",
+        "sglb_08",
+        "sglb_11",
+        "sglb_12",
+        "sglb_13",
+        "sglb_14",
+    }
 
 
 def test_prompt_builders_each_carry_version():
@@ -198,7 +209,6 @@ def test_end_to_end_oracle_perfect_scoring_via_mock():
     """Wire a MockLLMClient that returns the gold answer for every SGLB-04
     citation, register the runner, and run the smoke dataset through the
     harness. Should score 1.0 on multi_label_f1."""
-    from benchmark.evaluators import EvaluatorContext, MultiLabelF1, EVALUATORS
     from benchmark.registry import register_task
 
     # Build a mock that always says "valid" for grammar-clean citations.

@@ -31,7 +31,7 @@ from __future__ import annotations
 import hashlib
 import logging
 from dataclasses import dataclass
-from typing import Any, Awaitable, Callable, Protocol
+from typing import Awaitable, Callable, Protocol
 
 from benchmark.schema import Case
 
@@ -372,6 +372,31 @@ def sglb_13_prompt_builder(case: Case) -> list[dict[str, str]]:
     ]
 
 
+SGLB_14_PROMPT_VERSION = "sglb-14-v1"
+
+
+def sglb_14_prompt_builder(case: Case) -> list[dict[str, str]]:
+    """SGLB-14: classify a conduct/scenario against a PDPA section.
+    Output contract: a JSON object ``{"entailment": "contravenes" |
+    "complies" | "indeterminate"}``."""
+    statute_section = str(case.inputs.get("statute_section", "")).strip()
+    conduct = str(case.inputs.get("conduct", "")).strip()
+    return [
+        _system_message(
+            "You are evaluating a Singapore PDPA worked example. Given a "
+            "statute section and conduct, classify whether the regulator's "
+            "example says the conduct contravenes the section, complies with "
+            "the section, or is indeterminate on the stated facts. Reply with "
+            "a single JSON object exactly like "
+            "{\"entailment\": \"contravenes\"}, "
+            "{\"entailment\": \"complies\"}, or "
+            "{\"entailment\": \"indeterminate\"}. Do not include any text "
+            "outside the JSON object."
+        ),
+        _user_message(f"Statute section: {statute_section}\n\nConduct:\n{conduct}"),
+    ]
+
+
 SGLB_12_PROMPT_VERSION = "sglb-12-v1"
 
 
@@ -408,6 +433,7 @@ PROMPT_BUILDERS: dict[str, tuple[PromptBuilder, str]] = {
     "sglb_08": (sglb_08_prompt_builder, SGLB_08_PROMPT_VERSION),
     "sglb_12": (sglb_12_prompt_builder, SGLB_12_PROMPT_VERSION),
     "sglb_13": (sglb_13_prompt_builder, SGLB_13_PROMPT_VERSION),
+    "sglb_14": (sglb_14_prompt_builder, SGLB_14_PROMPT_VERSION),
 }
 
 

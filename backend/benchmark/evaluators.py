@@ -705,6 +705,37 @@ class Sglb13OutcomeAccuracy(Evaluator):
         )
 
 
+class Sglb14EntailmentAccuracy(Evaluator):
+    """SGLB-14 3-way statutory-entailment scorer.
+
+    Parses model output as ``{"entailment": "contravenes|complies|indeterminate"}``.
+    Also accepts a bare label string for smoke tests.
+    """
+
+    name = "sglb_14_entailment_accuracy"
+    strength = EvaluatorStrength.STRONG
+    _LABELS = {"contravenes", "complies", "indeterminate"}
+
+    @classmethod
+    def _label(cls, value: Any) -> str:
+        if not isinstance(value, str):
+            return ""
+        label = value.strip().lower()
+        return label if label in cls._LABELS else ""
+
+    async def evaluate(self, ctx: EvaluatorContext) -> EvaluationResult:
+        expected = self._label((ctx.expected_output or {}).get("entailment"))
+        if not expected:
+            return EvaluationResult(score=0.0, detail={"error": "missing expected entailment"})
+        parsed = _parse_json_object(ctx.output)
+        predicted = self._label(parsed.get("entailment") if parsed else ctx.output)
+        score = 1.0 if predicted == expected else 0.0
+        return EvaluationResult(
+            score=score,
+            detail={"expected": expected, "predicted": predicted},
+        )
+
+
 class ConstraintSatisfaction(Evaluator):
     """Runs a list of constraint functions (IFEval-style).
 
@@ -807,6 +838,7 @@ EVALUATORS: dict[str, Evaluator] = {
     OrderRuleLabelF1.name: OrderRuleLabelF1(),
     OrderRuleTop3.name: OrderRuleTop3(),
     Sglb13OutcomeAccuracy.name: Sglb13OutcomeAccuracy(),
+    Sglb14EntailmentAccuracy.name: Sglb14EntailmentAccuracy(),
     ConstraintSatisfaction.name: ConstraintSatisfaction(),
     # weak (back-compat)
     ContainsKeyword.name: ContainsKeyword(),

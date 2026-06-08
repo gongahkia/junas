@@ -128,7 +128,6 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 
 | Prompt | Tier | Notes |
 |---|---|---|
-| `Batch G G3` SGLB-14 Statutory-Entailment | 5 | PDPC Advisory Guidelines data already on main (SOLO-9, PR #86). Cost-safe. |
 | `Batch G G4` SGLB-16 Review-Redflag-Recall | 5 | Mechanical defect injection on SG contract templates. Cost-safe. |
 | `Batch H H1` SGLB-10 Citation-Generation | 5 | Uses SAL grammar already on main. Cost-safe. |
 | `Batch F F2` MCP tools (5 wrappers) | 5 | F1 landed (PR #125). Cost-safe. |
@@ -160,7 +159,7 @@ Snapshot as of 2026-06-07. Everything below is **pending**. Everything elsewhere
 | `Batch G G1` v0.2 multi-judge upgrade | 5 | v0.1 smoke can fire now with Azure; v0.2 upgrade waits |
 
 ### Total remaining
-- **12 fireable now**, **4 cost-gated**, **4 deferred**. 20 prompts total.
+- **11 fireable now**, **4 cost-gated**, **4 deferred**. 19 prompts total.
 
 ## Fire order
 
@@ -2467,16 +2466,17 @@ on, any spec-doc inconsistencies you noticed while writing.
 
 _Reference copilot polish + v0.2 task expansion._
 
-**TIER 5 — 4 OF (many) DONE ✅ (2026-06-06, commit 20773c7 + PRs #124-126).**
+**TIER 5 — 5 OF (many) DONE ✅ (2026-06-06 to 2026-06-08, commit 20773c7 + PRs #124-126 + local G3 work).**
 
 | Work unit | What | PR / commit |
 |---|---|---|
 | `Batch G G2` SGLB-13 Counterfactual-Outcome | New benchmark task on PDPC perturbations; dataset + builder + tests | direct commit `20773c7` |
+| `Batch G G3` SGLB-14 Statutory-Entailment | Code-shipped fixture smoke: builder, oracle task, prompt builder, strong evaluator, Makefile target, tests; production dataset still waits on materialised gitignored PDPC guidelines JSONL | local work 2026-06-08 |
 | `Batch F F1` MCP server scaffolding | `junas-mcp` server with stdio + HTTP transports + `health` tool; `mcp>=1.27` pinned | #125 |
 | `SOLO-12` Logfire observability | Opt-in telemetry (default off); 5 no-op contract tests | #124 |
 | `COPILOT-3` DOCX export | python-docx-based export for receipts + chat sessions; 14 tests; <3s for 200-msg session | #126 |
 
-**Still pending in Tier 5:** Batch G G1/G3/G4 (G1 has v0.2 multi-judge upgrade deferred for keys), Batch H H1/H2/H3 (H2/H3 are Azure-cost-gated synth-gen), Batch F F2/F3/F4, SOLO-7, SOLO-11, COPILOT-1/2/4.
+**Still pending in Tier 5:** Batch G G1/G4 (G1 has v0.2 multi-judge upgrade deferred for keys), Batch H H1/H2/H3 (H2/H3 are Azure-cost-gated synth-gen), Batch F F2/F3/F4, SOLO-7, SOLO-11, COPILOT-1/2/4.
 
 # Batch G — v0.2 Task Wave 1 (#50, #54, #55, #57), 4 parallel agents
 
@@ -2613,6 +2613,9 @@ risk profile.
 
 </details>
 
+<details>
+<summary><strong>G3 — DONE ✅</strong> (local work 2026-06-08). Prompt body preserved for re-runs. Click to expand.</summary>
+
 ## G3: SGLB-14 Statutory-Entailment
 
 ```text
@@ -2658,6 +2661,8 @@ Acceptance: code-shipped or smoke depending on #60 status; tests pass.
 Report back: entailment-pattern coverage of the PDPC Advisory
 Guidelines.
 ```
+
+</details>
 
 ## G4: SGLB-16 Review-Redflag-Recall
 
