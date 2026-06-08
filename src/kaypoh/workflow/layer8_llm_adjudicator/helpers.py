@@ -27,6 +27,44 @@ def _sha256_text(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
+def _json_object_from_text(text: str) -> dict[str, Any]:
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        start = text.find("{")
+        end = text.rfind("}")
+        if start < 0 or end <= start:
+            raise
+        parsed = json.loads(text[start : end + 1])
+    if not isinstance(parsed, dict):
+        raise ValueError("LLM helper response JSON must be an object")
+    return parsed
+
+
+def _responses_output_text(payload: dict[str, Any]) -> str:
+    output_text = payload.get("output_text")
+    if isinstance(output_text, str) and output_text.strip():
+        return output_text
+    chunks: list[str] = []
+    for item in payload.get("output", []) or []:
+        if not isinstance(item, dict):
+            continue
+        for content in item.get("content", []) or []:
+            if isinstance(content, dict) and isinstance(content.get("text"), str):
+                chunks.append(content["text"])
+    return "".join(chunks)
+
+
+def _azure_unsupported_operation(exc: httpx.HTTPStatusError) -> bool:
+    if exc.response.status_code != 400:
+        return False
+    try:
+        message = str(exc.response.json().get("error", {}).get("message", ""))
+    except ValueError:
+        message = exc.response.text
+    return "unsupported" in message.lower()
+
+
 class RuntimeLLMHelperError(RuntimeError):
     """Raised when a configured audit-grade LLM helper cannot run safely."""
 
@@ -47,6 +85,7 @@ class _RuntimeLLMHelperBase:
         self.tenant_opt_in_openai = bool(getattr(settings, "tenant_opt_in_openai", False))
         self.tenant_opt_in_azure_openai = bool(getattr(settings, "tenant_opt_in_azure_openai", False))
         self.azure_api_version = str(getattr(settings, "azure_api_version", "") or "")
+        self._azure_use_responses = self.provider == "azure_openai" and "/openai/v1" in self.base_url
         self._privacy_ledger: list[dict[str, Any]] = []
 
     def pop_privacy_ledger_events(self) -> list[dict[str, Any]]:
@@ -228,12 +267,41 @@ class _RuntimeLLMHelperBase:
             return self.base_url
         return f"{self.base_url}/chat/completions"
 
+    def _azure_responses_url(self) -> str:
+        base = self.base_url.rstrip("/")
+        if base.endswith("/responses"):
+            return base
+        if base.endswith("/openai/v1"):
+            return f"{base}/responses"
+        return f"{base}/openai/v1/responses"
+
+    def _call_azure_responses(self, headers: dict[str, str], messages: list[dict[str, str]]) -> dict[str, Any]:
+        instructions = "\n\n".join(message["content"] for message in messages if message.get("role") == "system")
+        input_text = "\n\n".join(
+            f"{message.get('role', 'user')}: {message.get('content', '')}"
+            for message in messages
+            if message.get("role") != "system"
+        )
+        body = {
+            "model": self.model,
+            "instructions": instructions,
+            "input": input_text,
+            "store": False,
+        }
+        with httpx.Client(timeout=self.timeout_seconds) as client:
+            response = client.post(self._azure_responses_url(), headers=headers, json=body)
+            response.raise_for_status()
+            payload = response.json()
+        return _json_object_from_text(_responses_output_text(payload))
+
     def _call_json(self, messages: list[dict[str, str]]) -> dict[str, Any]:
         headers = {"Content-Type": "application/json"}
         if self.provider == "azure_openai" and self.api_key:
             headers["api-key"] = self.api_key
         elif self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
+        if self.provider == "azure_openai" and self._azure_use_responses:
+            return self._call_azure_responses(headers, messages)
         body = {
             "messages": messages,
             "temperature": 0,
@@ -242,8 +310,14 @@ class _RuntimeLLMHelperBase:
         if self.provider != "azure_openai":
             body["model"] = self.model
         with httpx.Client(timeout=self.timeout_seconds) as client:
-            response = client.post(self._chat_completions_url(), headers=headers, json=body)
-            response.raise_for_status()
+            try:
+                response = client.post(self._chat_completions_url(), headers=headers, json=body)
+                response.raise_for_status()
+            except httpx.HTTPStatusError as exc:
+                if self.provider == "azure_openai" and _azure_unsupported_operation(exc):
+                    self._azure_use_responses = True
+                    return self._call_azure_responses(headers, messages)
+                raise
             payload = response.json()
 
         content = (
@@ -253,7 +327,7 @@ class _RuntimeLLMHelperBase:
         )
         if isinstance(content, dict):
             return content
-        parsed = json.loads(str(content))
+        parsed = _json_object_from_text(str(content))
         if not isinstance(parsed, dict):
             raise RuntimeLLMHelperError("LLM helper returned non-object JSON")
         return parsed

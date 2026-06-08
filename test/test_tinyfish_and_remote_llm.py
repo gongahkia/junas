@@ -10,6 +10,7 @@ from types import SimpleNamespace
 import httpx
 
 from kaypoh.workflow.layer7_public_evidence.inference import PublicEvidenceRetriever
+from kaypoh.workflow.layer8_llm_adjudicator.helpers import RuntimeLLMCoverageAuditor
 from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
 from kaypoh.workflow.privacy_guard import PrivacyGuard
 
@@ -466,6 +467,91 @@ class RemoteLLMOptInTests(unittest.TestCase):
         self.assertEqual(captured["api_key"], "az-test")
         self.assertEqual(captured["authorization"], "")
         self.assertNotIn("model", captured["body"])
+
+    def test_azure_openai_falls_back_to_responses_when_chat_unsupported(self):
+        calls: list[dict[str, object]] = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            calls.append(
+                {
+                    "url": str(request.url),
+                    "api_key": request.headers.get("api-key", ""),
+                    "body": json.loads(request.content.decode("utf-8")),
+                }
+            )
+            if len(calls) == 1:
+                return httpx.Response(400, json={"error": {"message": "The requested operation is unsupported."}})
+            return httpx.Response(
+                200,
+                json={"output_text": self._adjudicator_response_payload()["choices"][0]["message"]["content"]},
+            )
+
+        adjudicator = LocalLLMAdjudicator(
+            _llm_settings(
+                base_url="https://example.openai.azure.com",
+                allow_remote=True,
+                provider="azure_openai",
+                tenant_opt_in_azure_openai=True,
+                azure_api_version="2025-03-01-preview",
+            )
+        )
+        adjudicator.api_key = "az-test"
+        transport = httpx.MockTransport(handler)
+        original = httpx.Client
+
+        def factory(*args, **kwargs):
+            kwargs["transport"] = transport
+            return original(*args, **kwargs)
+
+        httpx.Client = factory  # type: ignore[assignment]
+        try:
+            result = adjudicator.adjudicate(text="Acme acquisition.", current_classification="LOW_RISK")
+        finally:
+            httpx.Client = original  # type: ignore[assignment]
+
+        self.assertEqual(result["status"], "adjudicated")
+        self.assertIn("/openai/deployments/gpt-oss-20b/chat/completions", str(calls[0]["url"]))
+        self.assertEqual(calls[0]["api_key"], "az-test")
+        self.assertIn("/openai/v1/responses", str(calls[1]["url"]))
+        self.assertEqual(calls[1]["api_key"], "az-test")
+        self.assertEqual(calls[1]["body"]["model"], "gpt-oss-20b")
+        self.assertFalse(calls[1]["body"]["store"])
+
+    def test_azure_helper_falls_back_to_responses_when_chat_unsupported(self):
+        calls: list[str] = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            calls.append(str(request.url))
+            if len(calls) == 1:
+                return httpx.Response(400, json={"error": {"message": "The requested operation is unsupported."}})
+            return httpx.Response(200, json={"output_text": json.dumps({"warnings": ["check provenance"]})})
+
+        auditor = RuntimeLLMCoverageAuditor(
+            _llm_settings(
+                base_url="https://example.openai.azure.com",
+                allow_remote=True,
+                provider="azure_openai",
+                tenant_opt_in_azure_openai=True,
+                azure_api_version="2025-03-01-preview",
+            )
+        )
+        auditor.api_key = "az-test"
+        transport = httpx.MockTransport(handler)
+        original = httpx.Client
+
+        def factory(*args, **kwargs):
+            kwargs["transport"] = transport
+            return original(*args, **kwargs)
+
+        httpx.Client = factory  # type: ignore[assignment]
+        try:
+            warnings = auditor.audit(findings=[], body_hash="abc", document_type="email")
+        finally:
+            httpx.Client = original  # type: ignore[assignment]
+
+        self.assertEqual(warnings, ["check provenance"])
+        self.assertIn("/openai/deployments/gpt-oss-20b/chat/completions", calls[0])
+        self.assertIn("/openai/v1/responses", calls[1])
 
 
 if __name__ == "__main__":

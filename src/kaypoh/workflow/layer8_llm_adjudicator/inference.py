@@ -34,6 +34,44 @@ def _is_private_or_local_base_url(base_url: str) -> bool:
         return host.endswith(".local")
 
 
+def _json_object_from_text(text: str) -> dict[str, Any]:
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        start = text.find("{")
+        end = text.rfind("}")
+        if start < 0 or end <= start:
+            raise
+        parsed = json.loads(text[start : end + 1])
+    if not isinstance(parsed, dict):
+        raise ValueError("LLM response JSON must be an object")
+    return parsed
+
+
+def _responses_output_text(payload: dict[str, Any]) -> str:
+    output_text = payload.get("output_text")
+    if isinstance(output_text, str) and output_text.strip():
+        return output_text
+    chunks: list[str] = []
+    for item in payload.get("output", []) or []:
+        if not isinstance(item, dict):
+            continue
+        for content in item.get("content", []) or []:
+            if isinstance(content, dict) and isinstance(content.get("text"), str):
+                chunks.append(content["text"])
+    return "".join(chunks)
+
+
+def _azure_unsupported_operation(exc: httpx.HTTPStatusError) -> bool:
+    if exc.response.status_code != 400:
+        return False
+    try:
+        message = str(exc.response.json().get("error", {}).get("message", ""))
+    except ValueError:
+        message = exc.response.text
+    return "unsupported" in message.lower()
+
+
 class LocalLLMAdjudicator:
     def __init__(self, settings: Any):
         self.enabled = bool(getattr(settings, "enabled", False))
@@ -49,6 +87,7 @@ class LocalLLMAdjudicator:
         self.tenant_opt_in_openai = bool(getattr(settings, "tenant_opt_in_openai", False))
         self.tenant_opt_in_azure_openai = bool(getattr(settings, "tenant_opt_in_azure_openai", False))
         self.azure_api_version = str(getattr(settings, "azure_api_version", "") or "")
+        self._azure_use_responses = self.provider == "azure_openai" and "/openai/v1" in self.base_url
         # Privacy-hardened input mode. Runtime settings resolve this before construction;
         # direct test harnesses that omit it get the same remote-safe default here.
         raw_input_mode = getattr(settings, "llm_input_mode", None)
@@ -186,6 +225,8 @@ class LocalLLMAdjudicator:
             headers["api-key"] = self.api_key
         elif self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
+        if self.provider == "azure_openai" and self._azure_use_responses:
+            return self._call_azure_responses(headers, messages)
         body = {
             "messages": messages,
             "temperature": 0,
@@ -194,8 +235,14 @@ class LocalLLMAdjudicator:
         if self.provider != "azure_openai":
             body["model"] = self.model
         with httpx.Client(timeout=self.timeout_seconds) as client:
-            response = client.post(self._chat_completions_url(), headers=headers, json=body)
-            response.raise_for_status()
+            try:
+                response = client.post(self._chat_completions_url(), headers=headers, json=body)
+                response.raise_for_status()
+            except httpx.HTTPStatusError as exc:
+                if self.provider == "azure_openai" and _azure_unsupported_operation(exc):
+                    self._azure_use_responses = True
+                    return self._call_azure_responses(headers, messages)
+                raise
             payload = response.json()
 
         content = (
@@ -205,7 +252,34 @@ class LocalLLMAdjudicator:
         )
         if isinstance(content, dict):
             return content
-        return json.loads(str(content))
+        return _json_object_from_text(str(content))
+
+    def _azure_responses_url(self) -> str:
+        base = self.base_url.rstrip("/")
+        if base.endswith("/responses"):
+            return base
+        if base.endswith("/openai/v1"):
+            return f"{base}/responses"
+        return f"{base}/openai/v1/responses"
+
+    def _call_azure_responses(self, headers: dict[str, str], messages: list[dict[str, str]]) -> dict[str, Any]:
+        instructions = "\n\n".join(message["content"] for message in messages if message.get("role") == "system")
+        input_text = "\n\n".join(
+            f"{message.get('role', 'user')}: {message.get('content', '')}"
+            for message in messages
+            if message.get("role") != "system"
+        )
+        body = {
+            "model": self.model,
+            "instructions": instructions,
+            "input": input_text,
+            "store": False,
+        }
+        with httpx.Client(timeout=self.timeout_seconds) as client:
+            response = client.post(self._azure_responses_url(), headers=headers, json=body)
+            response.raise_for_status()
+            payload = response.json()
+        return _json_object_from_text(_responses_output_text(payload))
 
     def _normalize_payload(self, payload: dict[str, Any]) -> dict[str, Any]:
         risk_label = str(payload.get("risk_label", "") or "").upper()
