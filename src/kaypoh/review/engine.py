@@ -2024,6 +2024,64 @@ def _validate_fr_insee(value: str) -> bool:
     return (97 - (body % 97)) == key
 
 
+def _validate_de_tax_id(value: str) -> bool:
+    digits = _digits_only(value)
+    if len(digits) != 11 or digits[0] == "0":
+        return False
+    p = 10
+    for char in digits[:10]:
+        s = (int(char) + p) % 10
+        if s == 0:
+            s = 10
+        p = (2 * s) % 11
+    check = (11 - p) % 10
+    return check == int(digits[-1])
+
+
+_IT_ODD = {
+    **{str(i): v for i, v in enumerate((1, 0, 5, 7, 9, 13, 15, 17, 19, 21))},
+    **dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", (1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10, 22, 25, 24, 23))),
+}
+_IT_EVEN = {**{str(i): i for i in range(10)}, **{chr(ord("A") + i): i for i in range(26)}}
+
+
+def _validate_it_codice_fiscale(value: str) -> bool:
+    compact = _normalise_identifier_value(value)
+    if not re.fullmatch(r"[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]", compact):
+        return False
+    total = 0
+    for pos, char in enumerate(compact[:15], start=1):
+        total += _IT_ODD[char] if pos % 2 else _IT_EVEN[char]
+    return chr(ord("A") + total % 26) == compact[-1]
+
+
+def _validate_be_national_number(value: str) -> bool:
+    digits = _digits_only(value)
+    if len(digits) != 11:
+        return False
+    body = int(digits[:9])
+    check = int(digits[9:])
+    return check == 97 - (body % 97) or check == 97 - (int("2" + digits[:9]) % 97)
+
+
+def _validate_pt_nif(value: str) -> bool:
+    digits = _digits_only(value)
+    if len(digits) != 9 or digits[0] not in "1235689":
+        return False
+    total = sum(int(digits[i]) * (9 - i) for i in range(8))
+    check = 11 - (total % 11)
+    if check >= 10:
+        check = 0
+    return check == int(digits[-1])
+
+
+def _validate_se_personnummer(value: str) -> bool:
+    digits = _digits_only(value)
+    if len(digits) == 12:
+        digits = digits[2:]
+    return len(digits) == 10 and _luhn_valid(digits)
+
+
 def _eu_member_state_label(label: str) -> str | None:
     normalized = label.casefold()
     if "dni" in normalized or "nie" in normalized or "spanish" in normalized or normalized.startswith("es"):
@@ -2034,6 +2092,16 @@ def _eu_member_state_label(label: str) -> str | None:
         return "PL"
     if "insee" in normalized or "nir" in normalized or "french" in normalized or normalized.startswith("fr"):
         return "FR"
+    if "german" in normalized or "steuer" in normalized or normalized.startswith("de"):
+        return "DE"
+    if "codice" in normalized or "italian" in normalized or "tax code" in normalized or normalized.startswith("it"):
+        return "IT"
+    if "belg" in normalized or "rijks" in normalized or "national number" in normalized or normalized.startswith("be"):
+        return "BE"
+    if "nif" in normalized or "portuguese" in normalized or normalized.startswith("pt"):
+        return "PT"
+    if "personnummer" in normalized or "swedish" in normalized or normalized.startswith("se"):
+        return "SE"
     return None
 
 
@@ -2046,6 +2114,16 @@ def _validate_eu_member_state_id(country: str | None, value: str) -> bool:
         return _validate_pl_pesel(value)
     if country == "FR":
         return _validate_fr_insee(value)
+    if country == "DE":
+        return _validate_de_tax_id(value)
+    if country == "IT":
+        return _validate_it_codice_fiscale(value)
+    if country == "BE":
+        return _validate_be_national_number(value)
+    if country == "PT":
+        return _validate_pt_nif(value)
+    if country == "SE":
+        return _validate_se_personnummer(value)
     return True
 
 
@@ -2292,7 +2370,8 @@ def _detect_core_identifier_findings(
         for match in EU_NATIONAL_ID_RE.finditer(text):
             country = match.group("country").upper()
             value = match.group("id")
-            if country in {"ES", "NL", "PL", "FR"} and not _validate_eu_member_state_id(country, value):
+            checksum_countries = {"ES", "NL", "PL", "FR", "DE", "IT", "BE", "PT", "SE"}
+            if country in checksum_countries and not _validate_eu_member_state_id(country, value):
                 continue
             out.append(
                 _new_finding(
@@ -2308,7 +2387,7 @@ def _detect_core_identifier_findings(
                     legal_basis=legal_basis,
                     metadata={
                         "member_state": country,
-                        "validator": "checksum" if country in {"ES", "NL", "PL", "FR"} else "label",
+                        "validator": "checksum" if country in checksum_countries else "label",
                     },
                 )
             )
@@ -2343,6 +2422,14 @@ def _detect_core_identifier_findings(
         address_patterns.append(("us_postal_address", US_POSTAL_ADDRESS_RE, "US street-address signal"))
     if "HK" in pack_codes:
         address_patterns.append(("hk_postal_address", HK_ADDRESS_SIGNAL_RE, "Hong Kong address signal"))
+    if "AU" in pack_codes:
+        address_patterns.append(("au_postal_address", AU_POSTAL_ADDRESS_RE, "Australia street/postcode address signal"))
+    if "JP" in pack_codes:
+        address_patterns.append(("jp_postal_address", JP_POSTAL_ADDRESS_RE, "Japan postcode-address signal"))
+    if "KR" in pack_codes:
+        address_patterns.append(("kr_postal_address", KR_POSTAL_ADDRESS_RE, "Korea postcode-address signal"))
+    if "EU" in pack_codes:
+        address_patterns.append(("eu_postal_address", EU_POSTAL_ADDRESS_RE, "EU street/postcode address signal"))
     for rule, pattern, reason in address_patterns:
         for match in pattern.finditer(text):
             out.append(
@@ -3122,6 +3209,11 @@ def _detect_personal_attribute_inferences(
         (PERSONAL_ATTRIBUTE_RELATION_RE, "relationship", "Family or relationship attribute inferred from a named-person statement"),
         (PERSONAL_ATTRIBUTE_EMPLOYER_RE, "employer", "Employment attribute inferred from a named-person statement"),
         (PERSONAL_ATTRIBUTE_LOCATION_RE, "location", "Location/residence attribute inferred from a named-person statement"),
+        (PERSONAL_ATTRIBUTE_EDUCATION_RE, "education", "Education/student attribute inferred from a named-person statement"),
+        (PERSONAL_ATTRIBUTE_NATIONALITY_RE, "nationality", "Citizenship or nationality attribute inferred from a named-person statement"),
+        (PERSONAL_ATTRIBUTE_LICENSE_RE, "professional_license", "Professional licence attribute inferred from a named-person statement"),
+        (PERSONAL_ATTRIBUTE_DEPARTMENT_RE, "department", "Department or team attribute inferred from a named-person statement"),
+        (PERSONAL_ATTRIBUTE_SENIORITY_RE, "seniority", "Seniority or specialty attribute inferred from a named-person statement"),
     )
     for pattern, attribute_type, reason in specs:
         for match in pattern.finditer(text):
