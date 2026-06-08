@@ -6,8 +6,8 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from kaypoh.backend.schemas import Classification
-from kaypoh.review.conjunctive_mnpi import detect_conjunctive_mnpi
 from kaypoh.review.citations import CitationOverrideError, mnpi_rationale, pii_rationale
+from kaypoh.review.conjunctive_mnpi import detect_conjunctive_mnpi
 from kaypoh.review.defined_terms import extract_defined_terms, is_defined_term
 from kaypoh.review.document_structure import DocumentStructure, parse_document_structure
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
@@ -2061,7 +2061,10 @@ def _validate_de_tax_id(value: str) -> bool:
 
 _IT_ODD = {
     **{str(i): v for i, v in enumerate((1, 0, 5, 7, 9, 13, 15, 17, 19, 21))},
-    **dict(zip("ABCDEFGHIJKLMNOPQRSTUVWXYZ", (1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10, 22, 25, 24, 23))),
+    **dict(zip(
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+        (1, 0, 5, 7, 9, 13, 15, 17, 19, 21, 2, 4, 18, 20, 11, 3, 6, 8, 12, 14, 16, 10, 22, 25, 24, 23),
+    )),
 }
 _IT_EVEN = {**{str(i): i for i in range(10)}, **{chr(ord("A") + i): i for i in range(26)}}
 
@@ -3235,14 +3238,42 @@ def _detect_personal_attribute_inferences(
     out: list[ReviewFinding] = []
     idx = idx_start
     specs = (
-        (PERSONAL_ATTRIBUTE_RELATION_RE, "relationship", "Family or relationship attribute inferred from a named-person statement"),
+        (
+            PERSONAL_ATTRIBUTE_RELATION_RE,
+            "relationship",
+            "Family or relationship attribute inferred from a named-person statement",
+        ),
         (PERSONAL_ATTRIBUTE_EMPLOYER_RE, "employer", "Employment attribute inferred from a named-person statement"),
-        (PERSONAL_ATTRIBUTE_LOCATION_RE, "location", "Location/residence attribute inferred from a named-person statement"),
-        (PERSONAL_ATTRIBUTE_EDUCATION_RE, "education", "Education/student attribute inferred from a named-person statement"),
-        (PERSONAL_ATTRIBUTE_NATIONALITY_RE, "nationality", "Citizenship or nationality attribute inferred from a named-person statement"),
-        (PERSONAL_ATTRIBUTE_LICENSE_RE, "professional_license", "Professional licence attribute inferred from a named-person statement"),
-        (PERSONAL_ATTRIBUTE_DEPARTMENT_RE, "department", "Department or team attribute inferred from a named-person statement"),
-        (PERSONAL_ATTRIBUTE_SENIORITY_RE, "seniority", "Seniority or specialty attribute inferred from a named-person statement"),
+        (
+            PERSONAL_ATTRIBUTE_LOCATION_RE,
+            "location",
+            "Location/residence attribute inferred from a named-person statement",
+        ),
+        (
+            PERSONAL_ATTRIBUTE_EDUCATION_RE,
+            "education",
+            "Education/student attribute inferred from a named-person statement",
+        ),
+        (
+            PERSONAL_ATTRIBUTE_NATIONALITY_RE,
+            "nationality",
+            "Citizenship or nationality attribute inferred from a named-person statement",
+        ),
+        (
+            PERSONAL_ATTRIBUTE_LICENSE_RE,
+            "professional_license",
+            "Professional licence attribute inferred from a named-person statement",
+        ),
+        (
+            PERSONAL_ATTRIBUTE_DEPARTMENT_RE,
+            "department",
+            "Department or team attribute inferred from a named-person statement",
+        ),
+        (
+            PERSONAL_ATTRIBUTE_SENIORITY_RE,
+            "seniority",
+            "Seniority or specialty attribute inferred from a named-person statement",
+        ),
     )
     for pattern, attribute_type, reason in specs:
         for match in pattern.finditer(text):

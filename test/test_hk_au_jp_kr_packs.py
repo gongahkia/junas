@@ -73,7 +73,10 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
     def test_jp_and_kr_postal_addresses_fire_with_local_context(self):
         self.assertIn("jp_postal_address", self._rules("〒100-0001 東京都千代田区千代田1-1", "JP"))
         self.assertIn("kr_postal_address", self._rules("04524 Seoul Jung-gu Sejong-daero 110", "KR"))
-        self.assertNotIn("kr_postal_address", self._rules("Reference number 04524 was assigned to the checklist.", "KR"))
+        self.assertNotIn(
+            "kr_postal_address",
+            self._rules("Reference number 04524 was assigned to the checklist.", "KR"),
+        )
 
     def test_jp_my_number_and_corporate_number_fire(self):
         rules = self._rules("Individual Number 123456789018; Corporate Number 8700110005901.", "JP")
@@ -126,9 +129,15 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
 
     def test_hk_stage_b_public_hotline_and_closed_dsar_do_not_fire(self):
         samples = [
-            ("The general Public Enquiry Hotline listed on an old brochure (8000 0000) is not in service.", "phone_number"),
+            (
+                "The general Public Enquiry Hotline listed on an old brochure (8000 0000) is not in service.",
+                "phone_number",
+            ),
             ("Public Enquiry Hotline (non-transactional): 1000 1000.", "phone_number"),
-            ("No data subject access request (DSAR) was received or needed in relation to this event.", "consent_withdrawal_marker"),
+            (
+                "No data subject access request (DSAR) was received or needed in relation to this event.",
+                "consent_withdrawal_marker",
+            ),
         ]
         for text, rule in samples:
             with self.subTest(rule=rule, text=text):
