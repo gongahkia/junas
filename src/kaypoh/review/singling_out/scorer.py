@@ -324,7 +324,10 @@ def _estimate_k(unit_text: str, findings: list[Any], tables: _Tables) -> tuple[i
     postal_population = _postal_population(unit_text, tables)
     if postal_population is not None:
         estimates.append(postal_population)
-        used.append("postal_sector_population")
+        postal_table = (
+            "postal_sector_population" if "postal_sector_population" in tables.loaded_tables else "postal_population"
+        )
+        used.append(postal_table)
     elif rules & _POSTAL_RULES:
         missing.append("postal_population")
 

@@ -110,7 +110,7 @@ class SinglingOutV2Tests(unittest.TestCase):
             clear_table_cache_for_tests()
             with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
                 findings = self._quasi_for(
-                    "Dr Jane Tan, age 42, lives at 10 Downing Street, London SW1A 1AA.",
+                    "Dr Jane Tan; Age: 42; address 10 Downing Street SW1A 1AA.",
                     "UK",
                 )
             self.assertEqual(len(findings), 1)
@@ -123,7 +123,7 @@ class SinglingOutV2Tests(unittest.TestCase):
         clear_table_cache_for_tests()
         with mock.patch.dict(os.environ, {}, clear=True):
             findings = self._quasi_for(
-                "Dr Jane Tan, age 42, lives at 10 Downing Street, London SW1A 1AA.",
+                "Dr Jane Tan; Age: 42; address 10 Downing Street SW1A 1AA.",
                 "UK",
             )
         self.assertEqual(findings, [])
@@ -141,7 +141,7 @@ class SinglingOutV2Tests(unittest.TestCase):
             clear_table_cache_for_tests()
             with mock.patch.dict(os.environ, {"KAYPOH_FREQUENCY_DATA_DIR": tmp}):
                 findings = self._quasi_for(
-                    "Dr Jane Tan, age 42, lives at 10 Downing Street, London SW1A 1AA.",
+                    "Dr Jane Tan; Age: 42; address 10 Downing Street SW1A 1AA.",
                     "UK",
                 )
         self.assertEqual(findings, [])
