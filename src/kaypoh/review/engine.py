@@ -4037,6 +4037,71 @@ class PreSendReviewEngine:
         # without one, financial_amount / financial_percentage findings keep their default
         # severity and the engine emits a materiality_lookup_not_configured degraded mode.
         self.entity_size_lookup = entity_size_lookup
+        self.pii_pre_named_registry = self._build_pii_pre_named_registry()
+        self.pii_post_named_registry = self._build_pii_post_named_registry()
+
+    def _build_pii_pre_named_registry(self) -> DetectorRegistry:
+        registry = DetectorRegistry()
+        registry.register(
+            name="core_identifier_fields",
+            family="pii",
+            detect=lambda ctx, idx: _detect_core_identifier_findings(
+                ctx.text,
+                packs=list(ctx.packs),
+                jurisdiction=ctx.jurisdiction,
+                legal_basis=ctx.legal_basis,
+                idx_start=idx,
+            ),
+        )
+        registry.register(
+            name="us_driver_license",
+            family="pii",
+            detect=lambda ctx, idx: _detect_us_driver_license_findings(
+                ctx.text,
+                packs=list(ctx.packs),
+                jurisdiction=ctx.jurisdiction,
+                legal_basis=ctx.legal_basis,
+                idx_start=idx,
+            ),
+        )
+        registry.register(
+            name="sg_wedge_remainder",
+            family="pii",
+            detect=lambda ctx, idx: _detect_sg_wedge_remainder_findings(
+                ctx.text,
+                packs=list(ctx.packs),
+                jurisdiction=ctx.jurisdiction,
+                legal_basis=ctx.legal_basis,
+                idx_start=idx,
+            ),
+        )
+        return registry
+
+    def _build_pii_post_named_registry(self) -> DetectorRegistry:
+        registry = DetectorRegistry()
+        registry.register(
+            name="special_category_pii",
+            family="pii",
+            detect=lambda ctx, idx: _detect_special_category_findings(
+                text=ctx.text,
+                packs=list(ctx.packs),
+                jurisdiction=ctx.jurisdiction,
+                legal_basis=ctx.legal_basis,
+                idx_start=idx,
+            ),
+        )
+        registry.register(
+            name="minor_data_reference",
+            family="pii",
+            detect=lambda ctx, idx: _detect_minor_data_references(
+                text=ctx.text,
+                packs=list(ctx.packs),
+                jurisdiction=ctx.jurisdiction,
+                legal_basis=ctx.legal_basis,
+                idx_start=idx,
+            ),
+        )
+        return registry
 
     def _pii_findings(
         self,
@@ -4208,41 +4273,15 @@ class PreSendReviewEngine:
                     )
                     idx += 1
 
-        # item 33 mini-slice: anchored DOB/adult-age fields and online/device
-        # identifiers. Kept as a post-pass because the validators are richer than a
-        # single jurisdiction TOML recognizer can express cleanly.
-        findings.extend(
-            _detect_core_identifier_findings(
-                text,
-                packs=packs,
-                jurisdiction=jurisdiction,
-                legal_basis=legal_basis,
-                idx_start=len(findings),
-            )
+        detector_context = DetectorContext(
+            text=text,
+            packs=tuple(packs),
+            jurisdiction=jurisdiction,
+            legal_basis=legal_basis,
+            document_type=document_type,
+            defined_terms=frozenset(defined),
         )
-
-        # item 33 mini-slice: US driver-license formats are state-specific. The strict
-        # path only emits when a state can be resolved and the number matches that state's
-        # configured shape; audit_grade separately warns on missing/unsupported state.
-        findings.extend(
-            _detect_us_driver_license_findings(
-                text,
-                packs=packs,
-                jurisdiction=jurisdiction,
-                legal_basis=legal_basis,
-                idx_start=len(findings),
-            )
-        )
-
-        findings.extend(
-            _detect_sg_wedge_remainder_findings(
-                text,
-                packs=packs,
-                jurisdiction=jurisdiction,
-                legal_basis=legal_basis,
-                idx_start=len(findings),
-            )
-        )
+        findings.extend(self.pii_pre_named_registry.run(detector_context, idx_start=len(findings)))
 
         # named_person uses a two-pass anchor + variant linker so `Dr Jane Tan` and a later bare
         # `Jane Tan` collapse to the same anonymisation key. defined terms are suppressed.
@@ -4257,30 +4296,7 @@ class PreSendReviewEngine:
             )
         )
 
-        # item 98: special-category PII v1 seed — religion / union / political. Default-enabled
-        # in strict; per-category opt-out via KAYPOH_SPECIAL_CATEGORY_DISABLE. Strict anchors
-        # within the regex defend against Christian Dior / Hindu Kush / AFL Premiership FPs.
-        findings.extend(
-            _detect_special_category_findings(
-                text=text,
-                packs=packs,
-                jurisdiction=jurisdiction,
-                legal_basis=legal_basis,
-                idx_start=len(findings),
-            )
-        )
-
-        # item 107: minor_data_reference with per-jurisdiction-resolved severity. Single rule;
-        # strictest applicable cliff wins. Age regex + grade markers + minor lexicon + VPC.
-        findings.extend(
-            _detect_minor_data_references(
-                text=text,
-                packs=packs,
-                jurisdiction=jurisdiction,
-                legal_basis=legal_basis,
-                idx_start=len(findings),
-            )
-        )
+        findings.extend(self.pii_post_named_registry.run(detector_context, idx_start=len(findings)))
 
         # cross-rule span-dedup post-pass. PHONE_RE is intentionally loose so any number-like
         # span (NRIC, UEN, MyKad, NIK, CCCD, etc.) also matches it. We could tighten PHONE_RE

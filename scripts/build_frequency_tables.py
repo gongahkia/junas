@@ -281,7 +281,7 @@ def _build_one(spec: JurisdictionSpec, source: str, out_dir: Path, retrieved_dat
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Build generated keyless frequency tables")
-    parser.add_argument("--jurisdiction", required=True, choices=(*SUPPORTED, "all"))
+    parser.add_argument("--jurisdiction", choices=(*SUPPORTED, "all"))
     parser.add_argument("--source", action="append", default=[], help="JURISDICTION=path-or-url")
     parser.add_argument("--out", type=Path)
     parser.add_argument("--retrieved-date", default=date.today().isoformat())
@@ -289,10 +289,13 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--list-sources", action="store_true", help="print official source/licence profiles and exit")
     args = parser.parse_args(argv)
 
-    jurisdictions = SUPPORTED if args.jurisdiction == "all" else (args.jurisdiction,)
     if args.list_sources:
+        jurisdictions = SUPPORTED if args.jurisdiction in (None, "all") else (args.jurisdiction,)
         print(json.dumps({code: SPECS[code].__dict__ for code in jurisdictions}, indent=2, sort_keys=True))
         return 0
+    if args.jurisdiction is None:
+        parser.error("--jurisdiction is required unless --list-sources is set")
+    jurisdictions = SUPPORTED if args.jurisdiction == "all" else (args.jurisdiction,)
     if args.out is None:
         parser.error("--out is required unless --list-sources is set")
     sources = _source_map(args.source)

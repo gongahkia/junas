@@ -57,7 +57,7 @@ class FrequencyTableBuilderTests(unittest.TestCase):
 
     def test_list_sources_does_not_require_output_or_source(self):
         with mock.patch("sys.stdout") as stdout:
-            code = main(["--jurisdiction", "all", "--list-sources"])
+            code = main(["--list-sources"])
         self.assertEqual(code, 0)
         rendered = "".join(call.args[0] for call in stdout.write.call_args_list if call.args)
         self.assertIn("Open Government Licence v3.0", rendered)
