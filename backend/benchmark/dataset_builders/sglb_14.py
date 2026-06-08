@@ -34,8 +34,8 @@ EXTRACTION_MODULE = Path(__file__)
 EXTRACTION_RULE_NAME = "pdpc_guidance_worked_examples"
 
 _EXAMPLE_MARKER_RE = re.compile(
-    r"(?=(?:^|\n)\s*(?:Example|Illustration)\s+\d+[A-Za-z]?\s*[:.\-]?)",
-    re.IGNORECASE,
+    r"(?=(?:^|\n|\s)(?:\d{1,2}(?:\.\d{1,2})?\s+)?(?:Example|Illustration)"
+    r"(?:(?:\s+\d+[A-Za-z]?)?\s*[:.\-]|\s+\d+[A-Za-z]?\s+))",
 )
 _SECTION_RE = re.compile(
     r"(?:section|s\.?)\s+(\d+[A-Z]?(?:\(\d+[A-Z]?\))*)\s+of\s+the\s+PDPA",
@@ -60,7 +60,7 @@ _LABEL_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "complies",
         re.compile(
-            r"\b(?:would|will)\s+not\s+(?:be\s+)?(?:in\s+)?breach\s+of\s+"
+            r"\b(?:would|will)\s+not\s+(?:be\s+)?(?:(?:in|i\s+n)\s+)?breach\s+of\s+"
             r"(?P<section>(?:section|s\.?)\s+\d+[A-Z]?(?:\(\d+[A-Z]?\))*\s+of\s+the\s+PDPA)"
             r"|"
             r"\b(?:would|will)\s+comply\s+with\s+"
@@ -71,11 +71,14 @@ _LABEL_PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "contravenes",
         re.compile(
-            r"\b(?:would|will)\s+(?:be\s+)?(?:in\s+)?breach\s+of\s+"
+            r"\b(?:would|will)\s+(?:be\s+)?(?:(?:in|i\s+n)\s+)?breach\s+of\s+"
             r"(?P<section>(?:section|s\.?)\s+\d+[A-Z]?(?:\(\d+[A-Z]?\))*\s+of\s+the\s+PDPA)"
             r"|"
             r"\b(?:would|will)\s+contravene\s+"
-            r"(?P<section2>(?:section|s\.?)\s+\d+[A-Z]?(?:\(\d+[A-Z]?\))*\s+of\s+the\s+PDPA)",
+            r"(?P<section2>(?:section|s\.?)\s+\d+[A-Z]?(?:\(\d+[A-Z]?\))*\s+of\s+the\s+PDPA)"
+            r"|"
+            r"\b(?:committing|commits?|committed)\s+a\s+breach\s+of\s+"
+            r"(?P<section3>(?:section|s\.?)\s+\d+[A-Z]?(?:\(\d+[A-Z]?\))*\s+of\s+the\s+PDPA)",
             re.IGNORECASE,
         ),
     ),
@@ -149,11 +152,24 @@ def _canonical_section(raw: str) -> str:
 def _split_examples(body_plain: str) -> list[str]:
     text = (body_plain or "").replace("\r", "\n")
     parts = [part.strip() for part in _EXAMPLE_MARKER_RE.split(text) if part.strip()]
-    return [part for part in parts if re.match(r"^(?:Example|Illustration)\s+\d+", part, re.IGNORECASE)]
+    return [
+        part
+        for part in parts
+        if re.match(
+            r"^(?:\d{1,2}(?:\.\d{1,2})?\s+)?(?:Example|Illustration)"
+            r"(?:(?:\s+\d+[A-Za-z]?)?\s*[:.\-]|\s+\d+[A-Za-z]?\s+)",
+            part,
+        )
+    ]
 
 
 def _strip_example_prefix(text: str) -> str:
-    return re.sub(r"^(?:Example|Illustration)\s+\d+[A-Za-z]?\s*[:.\-]?\s*", "", text, flags=re.IGNORECASE).strip()
+    return re.sub(
+        r"^(?:\d{1,2}(?:\.\d{1,2})?\s+)?(?:Example|Illustration)"
+        r"(?:(?:\s+\d+[A-Za-z]?)?\s*[:.\-]|\s+\d+[A-Za-z]?\s+)\s*",
+        "",
+        text,
+    ).strip()
 
 
 def _sentences(text: str) -> list[str]:
@@ -166,7 +182,12 @@ def _label_match(example: str) -> tuple[str, str, re.Match[str] | None]:
         match = pattern.search(example)
         if not match:
             continue
-        section = _canonical_section(match.group("section") or match.group("section2") or match.group(0))
+        section = _canonical_section(
+            match.groupdict().get("section")
+            or match.groupdict().get("section2")
+            or match.groupdict().get("section3")
+            or match.group(0)
+        )
         if section:
             return label, section, match
     return "", "", None
@@ -198,7 +219,8 @@ def extract_cases_from_row(row: dict, rule_sha: str) -> tuple[list[Sglb14Case], 
     examples = _split_examples(body)
     cases: list[Sglb14Case] = []
     excluded: list[tuple[str, str]] = []
-    for index, example in enumerate(examples):
+    for index, raw_example in enumerate(examples):
+        example = _clean(raw_example)
         label, section, match = _label_match(example)
         example_id = f"{doc_id or 'pdpc_guideline'}:{index}"
         if not match:

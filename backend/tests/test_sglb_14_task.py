@@ -70,6 +70,20 @@ def test_split_examples_extracts_only_marked_examples():
     assert examples[0].startswith("Example 1")
 
 
+def test_split_examples_handles_pdpc_inline_paragraph_markers():
+    body = (
+        "17.3 Background paragraph. "
+        "17.4 Example: XYZ sends a specified SMS without checking the DNC Register. "
+        "XYZ would be i n breach of section 43(1) of the PDPA. "
+        "17.5 Consent evidenced in written or other form. "
+        "Example 2 Clinic ABC sends an in-service message."
+    )
+    examples = builder._split_examples(body)
+    assert len(examples) == 2
+    assert examples[0].startswith("Example:")
+    assert examples[1].startswith("Example 2")
+
+
 @pytest.mark.parametrize(
     ("example", "label", "section"),
     [
@@ -87,6 +101,18 @@ def test_split_examples_extracts_only_marked_examples():
             "Example 3: Whether X would be in breach of section 43 of the PDPA would depend on the consent facts.",
             "indeterminate",
             "s 43 of the PDPA",
+        ),
+        (
+            "17.4 Example: X sends a specified message without checking the DNC Register. "
+            "X would be i n breach of section 43(1) of the PDPA.",
+            "contravenes",
+            "s 43(1) of the PDPA",
+        ),
+        (
+            "Example: X fails to implement reasonable security measures and is hence committing a breach of "
+            "section 24 of the PDPA.",
+            "contravenes",
+            "s 24 of the PDPA",
         ),
     ],
 )
