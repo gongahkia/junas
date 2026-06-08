@@ -630,6 +630,11 @@ class PhoneNumberSpanDedupGuards(unittest.TestCase):
         phones = [m for r, m in _rules_matched(text, jurisdiction="TH") if r == "phone_number"]
         self.assertNotIn("1-2345-67890-12-3", phones)
 
+    def test_phone_does_not_fire_on_invalid_romanian_cnp_example(self):
+        text = "Romanian CNP: 1960101220018 is an invalid checksum example, not a phone."
+        phones = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "phone_number"]
+        self.assertNotIn("1960101220018", phones)
+
     def test_phone_does_not_fire_on_ph_benefit_identifier_fragments(self):
         text = "Pag-IBIG MID: 12-345678901-2 and PhilHealth No.: 17-123456789-3 are benefit IDs."
         phones = [m for r, m in _rules_matched(text, jurisdiction="PH") if r == "phone_number"]

@@ -1486,7 +1486,8 @@ _IPV4_LITERAL_RE = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}\Z")
 _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|UKPA|EIN|ISIN|LEI|a/c|acc\s*t|account|"
     r"bank\s*acct|payroll\s*acct|A\s*/\s*c|"
-    r"rekening|national\s+id|company\s+no|co\.\s+no|"
+    r"rekening|national\s+id|national\s+identifier|member[- ]state\s+ID|"
+    r"CNP|cod\s+numeric\s+personal|company\s+no|co\.\s+no|"
     r"reg\.\s+no|registration\s+no|\bCR\b|CRN|CIN|C\s*I\s*N|commercial\s+registration|"
     r"filing\s+ref|tax\s+id|tax\s+ref|tax\s+no|TINs?|VAT|V\s*A\s*T|ZATCA|GAZT|MST|EPF|SWIFT|"
     r"TRN|CRN|trade\s+licen[cs]e|commercial\s+licen[cs]e|Emirates\s+I\s*D|EID|"
