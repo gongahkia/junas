@@ -128,7 +128,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
             enabled = true
             provider = "azure_openai"
             base_url = "https://example.openai.azure.com"
-            model = "gpt-5-pro-2"
+            model = "gpt-5-2"
             allow_remote_base_url = true
             """
         )
@@ -148,7 +148,7 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
             enabled = true
             provider = "azure_openai"
             base_url = "https://example.openai.azure.com"
-            model = "gpt-5-pro-2"
+            model = "gpt-5-2"
             allow_remote_base_url = true
             tenant_opt_in_azure_openai = true
             azure_api_version = "2025-03-01-preview"
