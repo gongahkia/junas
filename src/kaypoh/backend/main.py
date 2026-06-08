@@ -286,7 +286,9 @@ def get_allowed_origin_regex() -> str:
 
 
 def _local_daemon_protected_path(path: str) -> bool:
-    return path in LOCAL_DAEMON_PROTECTED_PATHS or any(path.startswith(prefix) for prefix in LOCAL_DAEMON_PROTECTED_PREFIXES)
+    return path in LOCAL_DAEMON_PROTECTED_PATHS or any(
+        path.startswith(prefix) for prefix in LOCAL_DAEMON_PROTECTED_PREFIXES
+    )
 
 
 def _local_daemon_token() -> str:
@@ -496,7 +498,10 @@ def get_dependency_status() -> dict[str, DependencyStatus]:
 
     llm_adjudicator = models.get("llm_adjudicator")
     if llm_adjudicator is not None and hasattr(llm_adjudicator, "health"):
-        statuses["llm_adjudicator"] = _status_from_health(llm_adjudicator.health(), configured_default=settings.llm.enabled)
+        statuses["llm_adjudicator"] = _status_from_health(
+            llm_adjudicator.health(),
+            configured_default=settings.llm.enabled,
+        )
     elif settings.llm.enabled:
         try:
             from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator

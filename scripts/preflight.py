@@ -23,9 +23,9 @@ if str(SCRIPT_DIR) not in sys.path:
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from kaypoh.configs.runtime import ConfigError, load_runtime_settings  # noqa: E402
-
 import check_retention_manifest  # noqa: E402
+
+from kaypoh.configs.runtime import ConfigError, load_runtime_settings  # noqa: E402
 
 
 def _has_env(name: str) -> bool:
