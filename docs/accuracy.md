@@ -6,8 +6,8 @@ This file is generated from committed recall and precision locks. Do not edit it
 
 | Corpus | Fixtures | Lock file | Description |
 |---|---:|---|---|
-| default legal corpus | 132 | `test/fixtures/legal-corpus/recall.lock.json` | Hand-labelled SG/legal-contract seed corpus. |
-| adversarial corpus | 123 | `test/fixtures/legal-corpus-adversarial/recall_adversarial.lock.json` | Negative, obfuscated, and multilingual probes. |
+| default legal corpus | 133 | `test/fixtures/legal-corpus/recall.lock.json` | Hand-labelled SG/legal-contract seed corpus. |
+| adversarial corpus | 124 | `test/fixtures/legal-corpus-adversarial/recall_adversarial.lock.json` | Negative, obfuscated, and multilingual probes. |
 | SEA jurisdiction corpus | 5 | `test/fixtures/legal-corpus-sea/legal-corpus-sea.lock.json` | Seed local-ID fixtures for MY, ID, TH, PH, and VN. |
 | HK/AU/JP/KR jurisdiction corpus | 4 | `test/fixtures/legal-corpus-hk-au-jp-kr/legal-corpus-hk-au-jp-kr.lock.json` | Seed local-ID fixtures for HK, AU, JP, and KR. |
 
@@ -15,84 +15,84 @@ This file is generated from committed recall and precision locks. Do not edit it
 
 | Corpus | Fixtures | Detector | Recall | Precision |
 |---|---:|---|---:|---:|
-| default legal corpus | 132 | `advertising_id` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `age_reference` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `bank_customer_reference` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `biometric_identifier` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `consent_withdrawal_marker` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `contingent_mnpi_language` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `contract_discount_rate` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `contract_unit_price` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `cookie_id` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `cross_border_transfer_marker` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `crypto_wallet_address` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `cyber_incident_pre_disclosure` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `data_minimisation_marker` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `date_of_birth` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `definitive_agreement` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `device_serial_number` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `dpt_pre_listing_marker` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `email_address` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `embargo_marker` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `employee_id` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `esg_climate_pre_disclosure` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `esg_target_revision` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `eu_national_id` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `financial_amount` | 0.9512 | 1.0000 |
-| default legal corpus | 132 | `financial_percentage` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `genetic_data` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `health_condition` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `information_barrier_marker` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `insider_list_marker` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `insurance_member_id` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `internal_session_id` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `large_number` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `material_adverse_change` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `medical_record_number` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `medical_treatment` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `named_person` | 0.9768 | 1.0000 |
-| default legal corpus | 132 | `nonpublic_marker` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `passport_number` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `phone_number` | 0.9883 | 1.0000 |
-| default legal corpus | 132 | `royalty_rate` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `sex_life_reference` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `sexual_orientation` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `sg_insurance_policy_number` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `sg_nric_fin` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `sg_postal_address` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `sg_tribunal_reference` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `sg_uen` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `total_contract_value` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `transaction_codename` | 1.0000 | 1.0000 |
-| default legal corpus | 132 | `volume_commitment` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `bank_account` | 0.0000 | not locked |
-| adversarial corpus | 123 | `bank_customer_reference` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `biometric_identifier` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `contingent_mnpi_language` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `customer_account_number` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `definitive_agreement` | 0.9474 | 1.0000 |
-| adversarial corpus | 123 | `email_address` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `embargo_marker` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `employee_id` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `financial_amount` | 0.9910 | 1.0000 |
-| adversarial corpus | 123 | `financial_percentage` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `genetic_data` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `health_condition` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `insurance_member_id` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `internal_session_id` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `large_number` | 0.8182 | 1.0000 |
-| adversarial corpus | 123 | `material_event` | 0.0000 | not locked |
-| adversarial corpus | 123 | `medical_record_number` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `medical_treatment` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `named_person` | 0.9778 | 1.0000 |
-| adversarial corpus | 123 | `nonpublic_marker` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `phone_number` | 0.9529 | 1.0000 |
-| adversarial corpus | 123 | `sex_life_reference` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `sexual_orientation` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `sg_nric_fin` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `sg_postal_address` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `sg_uen` | 1.0000 | 1.0000 |
-| adversarial corpus | 123 | `transaction_codename` | 0.9167 | 1.0000 |
+| default legal corpus | 133 | `advertising_id` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `age_reference` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `bank_customer_reference` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `biometric_identifier` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `consent_withdrawal_marker` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `contingent_mnpi_language` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `contract_discount_rate` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `contract_unit_price` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `cookie_id` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `cross_border_transfer_marker` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `crypto_wallet_address` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `cyber_incident_pre_disclosure` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `data_minimisation_marker` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `date_of_birth` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `definitive_agreement` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `device_serial_number` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `dpt_pre_listing_marker` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `email_address` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `embargo_marker` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `employee_id` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `esg_climate_pre_disclosure` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `esg_target_revision` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `eu_national_id` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `financial_amount` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `financial_percentage` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `genetic_data` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `health_condition` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `information_barrier_marker` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `insider_list_marker` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `insurance_member_id` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `internal_session_id` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `large_number` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `material_adverse_change` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `medical_record_number` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `medical_treatment` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `named_person` | 0.9768 | 1.0000 |
+| default legal corpus | 133 | `nonpublic_marker` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `passport_number` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `phone_number` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `royalty_rate` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `sex_life_reference` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `sexual_orientation` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `sg_insurance_policy_number` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `sg_nric_fin` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `sg_postal_address` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `sg_tribunal_reference` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `sg_uen` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `total_contract_value` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `transaction_codename` | 1.0000 | 1.0000 |
+| default legal corpus | 133 | `volume_commitment` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `bank_account` | 0.0000 | not locked |
+| adversarial corpus | 124 | `bank_customer_reference` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `biometric_identifier` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `contingent_mnpi_language` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `customer_account_number` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `definitive_agreement` | 0.9474 | 1.0000 |
+| adversarial corpus | 124 | `email_address` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `embargo_marker` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `employee_id` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `financial_amount` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `financial_percentage` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `genetic_data` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `health_condition` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `insurance_member_id` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `internal_session_id` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `large_number` | 0.8182 | 1.0000 |
+| adversarial corpus | 124 | `material_event` | 0.0000 | not locked |
+| adversarial corpus | 124 | `medical_record_number` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `medical_treatment` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `named_person` | 0.9778 | 1.0000 |
+| adversarial corpus | 124 | `nonpublic_marker` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `phone_number` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `sex_life_reference` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `sexual_orientation` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `sg_nric_fin` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `sg_postal_address` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `sg_uen` | 1.0000 | 1.0000 |
+| adversarial corpus | 124 | `transaction_codename` | 0.9167 | 1.0000 |
 | SEA jurisdiction corpus | 5 | `email_address` | 1.0000 | 1.0000 |
 | SEA jurisdiction corpus | 5 | `embargo_marker` | 1.0000 | 1.0000 |
 | SEA jurisdiction corpus | 5 | `financial_percentage` | 1.0000 | 1.0000 |
