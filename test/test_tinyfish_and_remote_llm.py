@@ -284,6 +284,7 @@ def _llm_settings(
     azure_api_version: str = "",
     llm_input_mode: str | None = None,
     allow_remote_raw_text: bool = False,
+    distilled_adapter_path: str = "",
 ) -> SimpleNamespace:
     payload = {
         "enabled": True,
@@ -297,6 +298,8 @@ def _llm_settings(
         "tenant_opt_in_azure_openai": tenant_opt_in_azure_openai,
         "azure_api_version": azure_api_version,
         "allow_remote_raw_text": allow_remote_raw_text,
+        "distilled_adapter_path": distilled_adapter_path,
+        "distilled_base_model": "Qwen/Qwen2.5-1.5B-Instruct",
     }
     if llm_input_mode is not None:
         payload["llm_input_mode"] = llm_input_mode
@@ -324,6 +327,60 @@ class RemoteLLMOptInTests(unittest.TestCase):
                 }
             ]
         }
+
+    def test_adjudicator_health_reports_remote_base_url_refusal(self):
+        adjudicator = LocalLLMAdjudicator(_llm_settings(base_url="https://llm.example.com/v1", allow_remote=False))
+        health = adjudicator.health()
+
+        self.assertEqual(health["status"], "down")
+        self.assertFalse(health["healthy"])
+        self.assertIn("allow_remote_base_url=true", health["detail"])
+
+    def test_adjudicator_health_reports_remote_raw_text_refusal(self):
+        adjudicator = LocalLLMAdjudicator(
+            _llm_settings(
+                base_url="https://llm.example.com/v1",
+                allow_remote=True,
+                llm_input_mode="raw_text",
+                allow_remote_raw_text=False,
+            )
+        )
+        health = adjudicator.health()
+
+        self.assertEqual(health["status"], "down")
+        self.assertFalse(health["healthy"])
+        self.assertIn("allow_remote_raw_text=true", health["detail"])
+
+    def test_adjudicator_health_reports_azure_missing_api_version(self):
+        adjudicator = LocalLLMAdjudicator(
+            _llm_settings(
+                base_url="https://example.openai.azure.com/openai/v1",
+                allow_remote=True,
+                provider="azure_openai",
+                tenant_opt_in_azure_openai=True,
+                azure_api_version="",
+            )
+        )
+        health = adjudicator.health()
+
+        self.assertEqual(health["status"], "down")
+        self.assertFalse(health["healthy"])
+        self.assertIn("azure_api_version", health["detail"])
+
+    def test_adjudicator_health_reports_missing_distilled_adapter(self):
+        adjudicator = LocalLLMAdjudicator(
+            _llm_settings(
+                base_url="",
+                allow_remote=False,
+                provider="local_distilled",
+                distilled_adapter_path="/definitely/missing/kaypoh-adapter",
+            )
+        )
+        health = adjudicator.health()
+
+        self.assertEqual(health["status"], "down")
+        self.assertFalse(health["healthy"])
+        self.assertIn("adapter path not found", health["detail"])
 
     def test_remote_base_url_refused_without_explicit_opt_in(self):
         adjudicator = LocalLLMAdjudicator(_llm_settings(base_url="https://llm.example.com/v1", allow_remote=False))

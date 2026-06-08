@@ -180,7 +180,8 @@ PERSONAL_ATTRIBUTE_NATIONALITY_RE = re.compile(
 PERSONAL_ATTRIBUTE_LICENSE_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
     r"(?:holds|has|maintains)\s+(?:an?\s+)?(?P<object>[A-Z][A-Za-z' -]{2,40}\s+"
-    r"(?:licen[cs]e|registration|practising\s+certificate))\b"
+    r"(?:licen[cs]e|registration|practising\s+certificate))\b",
+    re.IGNORECASE,
 )
 PERSONAL_ATTRIBUTE_DEPARTMENT_RE = re.compile(
     r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
@@ -408,10 +409,17 @@ NONPUBLIC_RE = re.compile(
     r"\b(confidential|non-public|nonpublic|not yet public|not disclosed|undisclosed|"
     r"internal only|internal circulation only|internal use only|restricted|do not distribute|"
     r"should not be distributed externally|before announcement|pre-announcement|"
-    r"quiet period|material non-public information|mnpi)\b",
+    r"quiet period|material non-public information|inside information|price[- ]sensitive information|PSI|"
+    r"unpublished price[- ]sensitive information|unpublished material information|undisclosed material facts|"
+    r"market[- ]sensitive information|mnpi)\b",
     re.IGNORECASE,
 )
-PUBLIC_RE = re.compile(r"\b(publicly announced|press release|filed|disclosed|published|reported)\b", re.IGNORECASE)
+PUBLIC_RE = re.compile(
+    r"\b(publicly announced|press release|filed|disclosed|published|reported|HKEXnews|HKEX announcement|"
+    r"ASX announcement|market announcement|continuous disclosure announcement|TDnet|timely disclosure|"
+    r"TSE disclosure|KRX KIND|DART filing)\b",
+    re.IGNORECASE,
+)
 NAME_RE = re.compile(
     r"\b(?i:(?:Mr|Ms|Mrs|Mdm|Dr|Prof))\.?[ \t]+[A-Z][a-z]+(?:[-\u2010-\u2015][A-Z][a-z]+)?"
     r"(?:[ \t]+(?:(?i:bin|binti|s/o|d/o|a/l|a/p|al)[ \t]+)?"

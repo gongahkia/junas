@@ -25,6 +25,9 @@ class SinglingOutV2Tests(unittest.TestCase):
         self.assertGreater(tables.total_population, 4_000_000)
         self.assertIn("population_by_area_age", tables.loaded_tables)
         self.assertIn("postal_sector_population", tables.loaded_tables)
+        for prefix in ("12", "46", "54", "61", "65"):
+            with self.subTest(prefix=prefix):
+                self.assertIn(prefix, tables.postal_population)
 
     def test_strict_sg_v2_emits_k_metadata_for_unique_contact_cluster(self):
         findings = self._quasi(

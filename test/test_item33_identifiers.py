@@ -120,7 +120,7 @@ class Item33IdentifierTests(unittest.TestCase):
 
     def test_eu_national_id_requires_eu_pack_and_label(self):
         eu_result = self.engine.review(
-            text="DE national ID: L01X00T47 is attached.",
+            text="IE PPSN: 1234567T is attached.",
             source_jurisdiction="EU",
             destination_jurisdiction="EU",
             entity_id=None,
@@ -129,12 +129,12 @@ class Item33IdentifierTests(unittest.TestCase):
             review_profile="strict",
         )
         self.assertIn("eu_national_id", {finding.rule for finding in eu_result.findings})
-        self.assertNotIn("eu_national_id", self._rules("DE national ID: L01X00T47"))
+        self.assertNotIn("eu_national_id", self._rules("IE PPSN: 1234567T"))
 
     def test_broader_eu_checksum_identifiers_fire(self):
         samples = [
-            "DE tax ID: 14320384860",
-            "Italian codice fiscale: RSSMRA85M01H501Z",
+            "DE tax ID: 51370420006",
+            "Italian codice fiscale: MRTMTT91D08F205J",
             "Belgian national number: 85.07.30-033.28",
             "Portuguese NIF: 501964843",
             "Swedish personnummer: 640823-3234",
@@ -154,8 +154,8 @@ class Item33IdentifierTests(unittest.TestCase):
 
     def test_broader_eu_checksum_identifiers_reject_bad_values(self):
         samples = [
-            "DE tax ID: 14320384861",
-            "Italian codice fiscale: RSSMRA85M01H501A",
+            "DE tax ID: 51370420007",
+            "Italian codice fiscale: MRTMTT91D08F205A",
             "Belgian national number: 85.07.30-033.29",
             "Portuguese NIF: 501964844",
             "Swedish personnummer: 640823-3235",
