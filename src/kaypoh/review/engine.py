@@ -1503,7 +1503,9 @@ _NON_PHONE_NUMERIC_CONTEXT_RE = re.compile(
     re.IGNORECASE,
 )
 _LARGE_NUMBER_IDENTIFIER_CONTEXT_RE = re.compile(
-    r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|postal|IMEI|IP|company\s+no|co\.\s+no|"
+    r"\b(?:UEN|NRIC|FIN|MyKad|NIK|NPWP|NIB|passport|postal|IMEI|IP|"
+    r"national\s+id|national\s+identifier|member[- ]state\s+ID|"
+    r"CNP|cod\s+numeric\s+personal|company\s+no|co\.\s+no|"
     r"Companies\s+House|Companies?\s+Register|Delaware\s+Div(?:ision)?\.?\s+of\s+Corporations|"
     r"File\s+No\.?|ISIN|LEI|"
     r"FRN|firm\s+reference|HMRC\s+UTR|payroll\s+ref|"
