@@ -90,9 +90,10 @@ DEVICE_SERIAL_RE = re.compile(
     re.IGNORECASE,
 )
 EU_NATIONAL_ID_RE = re.compile(
-    r"\b(?P<country>DE|FR|ES|IT|NL|BE|PL|SE|IE|AT|PT|DK)\s+"
+    r"\b(?P<country>DE|FR|ES|IT|NL|BE|PL|SE|IE|AT|PT|DK|FI|CZ|SK|RO)\s+"
     r"(?:national\s+ID|identity\s+(?:card|number)|personal\s+ID|personnummer|"
-    r"DNI|NIE|NIF|codice\s+fiscale|BSN|PESEL|PPSN|CPR|tax\s+ID|TIN)\s*[:#=\-]?\s*"
+    r"DNI|NIE|NIF|codice\s+fiscale|BSN|PESEL|PPSN|CPR|HETU|SVNR|CNP|birth\s+number|"
+    r"tax\s+ID|TIN)\s*[:#=\-]?\s*"
     r"(?P<id>[A-Z0-9][A-Z0-9 ./-]{5,31}[A-Z0-9])\b",
     re.IGNORECASE,
 )
@@ -106,20 +107,27 @@ EU_MEMBER_STATE_ID_RE = re.compile(
     r"(?:Italy|Italian|IT)\s+(?:codice\s+fiscale|tax\s+code|national\s+ID)|"
     r"(?:Belgium|Belgian|BE)\s+(?:national\s+number|rijksregisternummer|num[eé]ro\s+national)|"
     r"(?:Portugal|Portuguese|PT)\s+(?:NIF|tax\s+number|national\s+ID)|"
-    r"(?:Sweden|Swedish|SE)\s+(?:personnummer|personal\s+identity\s+number|national\s+ID)"
+    r"(?:Sweden|Swedish|SE)\s+(?:personnummer|personal\s+identity\s+number|national\s+ID)|"
+    r"(?:Finland|Finnish|FI)\s+(?:HETU|personal\s+identity\s+code|national\s+ID)|"
+    r"(?:Ireland|Irish|IE)\s+(?:PPSN|personal\s+public\s+service\s+number|national\s+ID)|"
+    r"(?:Austria|Austrian|AT)\s+(?:SVNR|social\s+security\s+number|national\s+ID)|"
+    r"(?:Czechia|Czech|CZ)\s+(?:birth\s+number|rodn[eé]\s+č[ií]slo|national\s+ID)|"
+    r"(?:Slovakia|Slovak|SK)\s+(?:birth\s+number|rodn[eé]\s+č[ií]slo|national\s+ID)|"
+    r"(?:Romania|Romanian|RO)\s+(?:CNP|personal\s+numeric\s+code|national\s+ID)"
     r")\s*[:#=\-]?\s*(?P<id>[A-Z0-9][A-Z0-9 ./-]{6,31}[A-Z0-9])\b",
     re.IGNORECASE,
 )
 UK_POSTAL_ADDRESS_RE = re.compile(
     r"\b\d{1,4}[A-Z]?\s+[A-Z][A-Za-z' -]{2,40}\s+"
     r"(?:Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Close|Drive|Dr|Way|Court|Ct|"
-    r"Square|Sq|High\s+Street),?\s+[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",
+    r"Square|Sq|High\s+Street),?\s+(?:[A-Z][A-Za-z' -]{2,40},?\s+)?"
+    r"[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b",
     re.IGNORECASE,
 )
 US_POSTAL_ADDRESS_RE = re.compile(
     r"\b\d{1,6}\s+[A-Z][A-Za-z0-9' -]{2,50}\s+"
     r"(?:Street|St|Road|Rd|Avenue|Ave|Boulevard|Blvd|Lane|Ln|Drive|Dr|Court|Ct|"
-    r"Way|Circle|Cir|Place|Pl),?\s+"
+    r"Way|Circle|Cir|Place|Pl),?\s+(?:[A-Z][A-Za-z' -]{2,50},?\s+)?"
     r"(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|"
     r"MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|"
     r"VA|WA|WV|WI|WY)\s+\d{5}(?:-\d{4})?\b",
@@ -1040,6 +1048,55 @@ SEX_LIFE_RE = re.compile(
     re.IGNORECASE,
 )
 
+_RACIAL_ETHNIC_TERMS = (
+    r"Chinese|Han\s+Chinese|Malay|Indian|Tamil|Eurasian|Arab|Bedouin|Persian|Kurdish|"
+    r"Hui|Uyghur|Uighur|Tibetan|Mongol|Manchu|Zhuang|Korean|Japanese|Roma|Romani|"
+    r"Hispanic|Latino|Latina|Black|African|Afro[- ]Caribbean|White|Caucasian|"
+    r"Aboriginal|Torres\s+Strait\s+Islander|Māori|Maori|Samoan|Javanese|Sundanese|"
+    r"汉族|回族|维吾尔族|藏族|蒙古族|满族|壮族|朝鲜族|"
+    r"عربي|بدوي|فارسي|كردي|أفريقي|آسيوي"
+)
+RACIAL_ETHNIC_ORIGIN_RE = re.compile(
+    r"\b(?:"
+    r"(?:racial\s+origin|ethnic\s+origin|race|ethnicity|ethnic\s+group|ethnic\s+background)\s*[:=]\s*"
+    r"(?:" + _RACIAL_ETHNIC_TERMS + r")"
+    r"|"
+    r"(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3}\s+"
+    r"(?:is\s+ethnically|has\s+ethnic\s+origin\s+listed\s+as|is\s+of)\s+"
+    r"(?:" + _RACIAL_ETHNIC_TERMS + r")(?:\s+(?:descent|origin|background|ethnicity))?"
+    r"|"
+    r"(?:民族|种族|族裔|族群)\s*[:：]\s*(?:" + _RACIAL_ETHNIC_TERMS + r")"
+    r"|"
+    r"(?:العرق|الأصل\s+العرقي|الأصل\s+الإثني|الإثنية)\s*[:：]\s*(?:"
+    + _RACIAL_ETHNIC_TERMS + r")"
+    r")",
+    re.IGNORECASE,
+)
+MULTILINGUAL_RELIGION_RE = re.compile(
+    r"(?:宗教信仰|宗教|信仰)\s*[:：]\s*(?:佛教|基督教|伊斯兰教|穆斯林|天主教|道教|印度教|锡克教|犹太教)"
+    r"|(?:الدين|المعتقد\s+الديني)\s*[:：]\s*(?:مسلم|إسلام|مسيحي|يهودي|هندوسي|بوذي|سيخي)",
+    re.IGNORECASE,
+)
+MULTILINGUAL_HEALTH_CONDITION_RE = re.compile(
+    r"(?:诊断|健康状况|医疗健康信息|病史)\s*[:：]\s*(?:糖尿病|高血压|癌症|艾滋病|HIV|乙肝|慢性肾病)"
+    r"|(?:التشخيص|الحالة\s+الصحية|المعلومات\s+الصحية)\s*[:：]\s*"
+    r"(?:السكري|ارتفاع\s+ضغط\s+الدم|السرطان|فيروس\s+نقص\s+المناعة|مرض\s+كلوي)",
+    re.IGNORECASE,
+)
+MULTILINGUAL_BIOMETRIC_RE = re.compile(
+    r"(?:生物识别(?:模板|信息|记录)?|指纹模板|虹膜扫描|人脸识别模板|声纹)\s*[:：]?\s*"
+    r"(?:指纹|虹膜|人脸|面部|声纹|掌静脉)?"
+    r"|(?:قالب\s+بصمة|بصمة\s+إصبع|مسح\s+القزحية|قالب\s+التعرف\s+على\s+الوجه|بصمة\s+صوتية)",
+    re.IGNORECASE,
+)
+MULTILINGUAL_GENETIC_RE = re.compile(
+    r"(?:基因检测结果|遗传检测结果|DNA检测结果|基因数据)\s*[:：]\s*"
+    r"(?:BRCA[12]|APOE\s*e[234]|阳性|携带者|突变)"
+    r"|(?:نتيجة\s+الاختبار\s+الجيني|بيانات\s+جينية|ملف\s+DNA)\s*[:：]?\s*"
+    r"(?:BRCA[12]|APOE\s*e[234]|إيجابي|حامل|طفرة)?",
+    re.IGNORECASE,
+)
+
 
 # item 107: jurisdiction-age-cliff minors detector. Single rule with per-juris severity
 # resolution via _MINOR_AGE_CLIFFS map (research-recommended; avoids duplicate findings).
@@ -1821,6 +1878,15 @@ def _is_special_category_false_positive_context(rule_name: str, text: str, start
     context = _line_context(text, start, end)
     if re.search(r"\b(?:do\s+not\s+include\s+any|no\s+individual\s+profiles?)\b", context, re.IGNORECASE):
         return True
+    if rule_name == "racial_ethnic_origin" and re.search(
+        r"\b(?:do\s+not\s+(?:collect|process|store|record)[^\n.;]{0,80}(?:race|racial|ethnic|ethnicity)|"
+        r"no\s+(?:race|racial|ethnic|ethnicity)[^\n.;]{0,80}(?:data|information|profiles?)|"
+        r"race\s+to\s+(?:sign|close|finish)|black[- ]letter\s+law|white\s+paper|"
+        r"asian\s+option|not\s+about\s+any\s+person|category\s+label\s+only)\b",
+        context,
+        re.IGNORECASE,
+    ):
+        return True
     if rule_name == "genetic_data" and re.search(
         r"\b(?:no\s+genetic\s+data[^\n.;]{0,80}(?:collected|stored|processed)|"
         r"no\s+genetic\s+data[^\n.;]{0,80}(?:kept|held|retained)|"
@@ -1984,6 +2050,16 @@ def _valid_dob_date(value: str) -> bool:
     return 1900 <= year <= 2100
 
 
+def _valid_calendar_date(year: int, month: int, day: int) -> bool:
+    try:
+        import datetime as _dt
+
+        _dt.date(year, month, day)
+        return True
+    except ValueError:
+        return False
+
+
 def _luhn_valid(digits: str) -> bool:
     if not digits or not digits.isdigit():
         return False
@@ -2106,6 +2182,74 @@ def _validate_se_personnummer(value: str) -> bool:
     return len(digits) == 10 and _luhn_valid(digits)
 
 
+def _validate_fi_hetu(value: str) -> bool:
+    compact = re.sub(r"\s", "", value).upper()
+    match = re.fullmatch(r"(\d{2})(\d{2})(\d{2})([+\-A])(\d{3})([0-9A-Z])", compact)
+    if not match:
+        return False
+    day, month, year = int(match.group(1)), int(match.group(2)), int(match.group(3))
+    century = {"+": 1800, "-": 1900, "A": 2000}[match.group(4)]
+    if not _valid_calendar_date(century + year, month, day):
+        return False
+    chars = "0123456789ABCDEFHJKLMNPRSTUVWXY"
+    return chars[int(match.group(1) + match.group(2) + match.group(3) + match.group(5)) % 31] == match.group(6)
+
+
+def _validate_ie_ppsn(value: str) -> bool:
+    compact = _normalise_identifier_value(value)
+    match = re.fullmatch(r"(\d{7})([A-W])([A-W]?)", compact)
+    if not match:
+        return False
+    second_letter = match.group(3)
+    total = sum(int(digit) * weight for digit, weight in zip(match.group(1), range(8, 1, -1)))
+    if second_letter:
+        total += (ord(second_letter) - ord("A") + 1) * 9
+    chars = "WABCDEFGHIJKLMNOPQRSTUV"
+    return chars[total % 23] == match.group(2)
+
+
+def _validate_at_svnr(value: str) -> bool:
+    digits = _digits_only(value)
+    if len(digits) != 10:
+        return False
+    day, month, year = int(digits[4:6]), int(digits[6:8]), int(digits[8:10])
+    if not any(_valid_calendar_date(century + year, month, day) for century in (1900, 2000)):
+        return False
+    payload = digits[:3] + digits[4:]
+    weights = [3, 7, 9, 5, 8, 4, 2, 1, 6]
+    check = sum(int(digit) * weight for digit, weight in zip(payload, weights)) % 11
+    return check < 10 and check == int(digits[3])
+
+
+def _validate_cz_sk_birth_number(value: str) -> bool:
+    digits = _digits_only(value)
+    if len(digits) != 10 or int(digits) % 11 != 0:
+        return False
+    yy, raw_month, day = int(digits[:2]), int(digits[2:4]), int(digits[4:6])
+    month = raw_month
+    for offset in (70, 50, 20):
+        if month > offset:
+            month -= offset
+            break
+    if not 1 <= month <= 12:
+        return False
+    return any(_valid_calendar_date(century + yy, month, day) for century in (1900, 2000))
+
+
+def _validate_ro_cnp(value: str) -> bool:
+    digits = _digits_only(value)
+    if len(digits) != 13 or digits[0] not in "12345678":
+        return False
+    century = {"1": 1900, "2": 1900, "3": 1800, "4": 1800, "5": 2000, "6": 2000, "7": 1900, "8": 1900}[digits[0]]
+    if not _valid_calendar_date(century + int(digits[1:3]), int(digits[3:5]), int(digits[5:7])):
+        return False
+    weights = "279146358279"
+    check = sum(int(digits[i]) * int(weights[i]) for i in range(12)) % 11
+    if check == 10:
+        check = 1
+    return check == int(digits[-1])
+
+
 def _eu_member_state_label(label: str) -> str | None:
     normalized = label.casefold()
     if "dni" in normalized or "nie" in normalized or "spanish" in normalized or normalized.startswith("es"):
@@ -2126,6 +2270,18 @@ def _eu_member_state_label(label: str) -> str | None:
         return "PT"
     if "personnummer" in normalized or "swedish" in normalized or normalized.startswith("se"):
         return "SE"
+    if "hetu" in normalized or "finnish" in normalized or normalized.startswith("fi"):
+        return "FI"
+    if "ppsn" in normalized or "irish" in normalized or normalized.startswith("ie"):
+        return "IE"
+    if "svnr" in normalized or "austrian" in normalized or normalized.startswith("at"):
+        return "AT"
+    if "czech" in normalized or normalized.startswith("cz"):
+        return "CZ"
+    if "slovak" in normalized or normalized.startswith("sk"):
+        return "SK"
+    if "cnp" in normalized or "romanian" in normalized or normalized.startswith("ro"):
+        return "RO"
     return None
 
 
@@ -2148,6 +2304,16 @@ def _validate_eu_member_state_id(country: str | None, value: str) -> bool:
         return _validate_pt_nif(value)
     if country == "SE":
         return _validate_se_personnummer(value)
+    if country == "FI":
+        return _validate_fi_hetu(value)
+    if country == "IE":
+        return _validate_ie_ppsn(value)
+    if country == "AT":
+        return _validate_at_svnr(value)
+    if country in {"CZ", "SK"}:
+        return _validate_cz_sk_birth_number(value)
+    if country == "RO":
+        return _validate_ro_cnp(value)
     return True
 
 
@@ -2394,7 +2560,7 @@ def _detect_core_identifier_findings(
         for match in EU_NATIONAL_ID_RE.finditer(text):
             country = match.group("country").upper()
             value = match.group("id")
-            checksum_countries = {"ES", "NL", "PL", "FR", "DE", "IT", "BE", "PT", "SE"}
+            checksum_countries = {"ES", "NL", "PL", "FR", "DE", "IT", "BE", "PT", "SE", "FI", "IE", "AT", "CZ", "SK", "RO"}
             de_tax_label = re.search(
                 r"\b(?:tax\s+ID|TIN|Steueridentifikationsnummer)\b",
                 match.group(0),
@@ -2462,8 +2628,13 @@ def _detect_core_identifier_findings(
         address_patterns.append(("kr_postal_address", KR_POSTAL_ADDRESS_RE, "Korea postcode-address signal"))
     if "EU" in pack_codes:
         address_patterns.append(("eu_postal_address", EU_POSTAL_ADDRESS_RE, "EU street/postcode address signal"))
+    seen_addresses: set[tuple[str, int, int]] = set()
     for rule, pattern, reason in address_patterns:
         for match in pattern.finditer(text):
+            key = (rule, match.start(), match.end())
+            if key in seen_addresses:
+                continue
+            seen_addresses.add(key)
             out.append(
                 _new_finding(
                     idx=idx,
@@ -2823,7 +2994,7 @@ _PII_NEGATION_GUARDED = frozenset({
 _SPECIAL_CATEGORY_RULES = frozenset({
     "religious_belief", "trade_union_membership", "political_opinion",
     "health_condition", "medical_treatment", "biometric_identifier", "genetic_data",
-    "sexual_orientation", "sex_life_reference",
+    "sexual_orientation", "sex_life_reference", "racial_ethnic_origin",
 })
 
 
@@ -2852,6 +3023,8 @@ def _disabled_special_categories() -> frozenset[str]:
             disabled.update({"sexual_orientation", "sex_life_reference"})
         elif token == "orientation":
             disabled.add("sexual_orientation")
+        elif token in {"race", "racial", "ethnic", "ethnicity"}:
+            disabled.add("racial_ethnic_origin")
         elif token in _SPECIAL_CATEGORY_RULES:
             disabled.add(token)
     return frozenset(disabled)
@@ -3034,17 +3207,27 @@ def _detect_special_category_findings(
     rules: list[tuple[str, "re.Pattern[str]", str]] = [
         ("religious_belief", RELIGION_RE,
          "Religious-belief reference detected; special-category personal data"),
+        ("religious_belief", MULTILINGUAL_RELIGION_RE,
+         "Religious-belief reference detected; special-category personal data"),
         ("trade_union_membership", TRADE_UNION_RE,
          "Trade-union membership reference detected; special-category personal data"),
         ("political_opinion", POLITICAL_RE,
          "Political-opinion / party-affiliation reference detected; special-category personal data"),
+        ("racial_ethnic_origin", RACIAL_ETHNIC_ORIGIN_RE,
+         "Racial or ethnic-origin reference detected; special-category personal data"),
         ("health_condition", HEALTH_CONDITION_RE,
+         "Health condition / diagnosis reference detected; special-category personal data"),
+        ("health_condition", MULTILINGUAL_HEALTH_CONDITION_RE,
          "Health condition / diagnosis reference detected; special-category personal data"),
         ("medical_treatment", MEDICAL_TREATMENT_RE,
          "Medical treatment / medication reference detected; special-category personal data"),
         ("biometric_identifier", BIOMETRIC_IDENTIFIER_RE,
          "Biometric identifier reference detected; special-category personal data"),
+        ("biometric_identifier", MULTILINGUAL_BIOMETRIC_RE,
+         "Biometric identifier reference detected; special-category personal data"),
         ("genetic_data", GENETIC_DATA_RE,
+         "Genetic-data reference detected; special-category personal data"),
+        ("genetic_data", MULTILINGUAL_GENETIC_RE,
          "Genetic-data reference detected; special-category personal data"),
         ("sexual_orientation", SEXUAL_ORIENTATION_RE,
          "Sexual-orientation reference detected; special-category personal data"),

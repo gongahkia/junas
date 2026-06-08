@@ -49,7 +49,7 @@ _UNIVERSAL_PII_RULES = {
     "internal_session_id", "bank_customer_reference", "insurance_member_id",
     "religious_belief", "trade_union_membership", "political_opinion",
     "health_condition", "medical_treatment", "biometric_identifier", "genetic_data",
-    "sexual_orientation", "sex_life_reference", "minor_data_reference",
+    "sexual_orientation", "sex_life_reference", "racial_ethnic_origin", "minor_data_reference",
 }
 
 # MNPI rule names emitted by engine.py:_mnpi_findings (universal — no TOML).

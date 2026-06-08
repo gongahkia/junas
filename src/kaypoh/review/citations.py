@@ -388,6 +388,15 @@ _PII_DEFAULT_RATIONALE = {
         "APPI / LGPD scope. Detector flags presence; jurisdiction-specific permis"
         "sibility analysis is downstream of detection. Mask before disclosure."
     ),
+    "racial_ethnic_origin": (
+        "Racial or ethnic-origin reference detected (item 71). Under GDPR Art 9(1), "
+        "racial or ethnic origin is special-category personal data; LGPD Brazil Art "
+        "5(II), UAE PDPL Art 15, and KSA PDPL Art 6 also treat racial/ethnic-origin "
+        "data as sensitive. PIPL China Art 28 and local SEA regimes require heightened "
+        "handling for sensitive personal information where the attribute can identify "
+        "or profile a person. Mask or remove before disclosure unless explicit consent "
+        "and a documented purpose are on file."
+    ),
     "health_condition": (
         "Health-condition / diagnosis reference detected (item 105). Under GDPR Art "
         "9(1), data concerning health is special-category personal data; HIPAA 45 "

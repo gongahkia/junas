@@ -138,6 +138,12 @@ class Item33IdentifierTests(unittest.TestCase):
             "Belgian national number: 85.07.30-033.28",
             "Portuguese NIF: 501964843",
             "Swedish personnummer: 640823-3234",
+            "Finnish HETU: 131052-308T",
+            "Irish PPSN: 1234567T",
+            "Austrian SVNR: 1237 010180",
+            "Czech birth number: 900101/1239",
+            "Slovak birth number: 546231/1239",
+            "Romanian CNP: 1960101220017",
         ]
         for text in samples:
             with self.subTest(text=text):
@@ -159,6 +165,12 @@ class Item33IdentifierTests(unittest.TestCase):
             "Belgian national number: 85.07.30-033.29",
             "Portuguese NIF: 501964844",
             "Swedish personnummer: 640823-3235",
+            "Finnish HETU: 131052-308A",
+            "Irish PPSN: 1234567A",
+            "Austrian SVNR: 1238 010180",
+            "Czech birth number: 900101/1238",
+            "Slovak birth number: 546231/1238",
+            "Romanian CNP: 1960101220018",
         ]
         for text in samples:
             with self.subTest(text=text):
