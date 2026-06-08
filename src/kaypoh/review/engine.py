@@ -9,6 +9,7 @@ from kaypoh.backend.schemas import Classification
 from kaypoh.review.citations import CitationOverrideError, mnpi_rationale, pii_rationale
 from kaypoh.review.conjunctive_mnpi import detect_conjunctive_mnpi
 from kaypoh.review.defined_terms import extract_defined_terms, is_defined_term
+from kaypoh.review.detectors import DetectorContext, DetectorRegistry
 from kaypoh.review.document_structure import DocumentStructure, parse_document_structure
 from kaypoh.review.entity_linker import canonical_person, strip_honorific
 from kaypoh.review.jurisdictions import JurisdictionRulePack, resolve_rule_packs

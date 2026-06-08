@@ -1220,6 +1220,11 @@ class LargeNumberPrecisionGuards(unittest.TestCase):
         numbers = [m for r, m in _rules_matched(text, jurisdiction="ID") if r == "large_number"]
         self.assertNotIn("12345678", numbers)
 
+    def test_large_number_inside_invalid_romanian_cnp_example_is_suppressed(self):
+        text = "Romanian CNP: 1960101220018 is an invalid checksum example."
+        numbers = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "large_number"]
+        self.assertNotIn("1960101220018", numbers)
+
     def test_large_number_inside_url_identifier_is_suppressed(self):
         text = "Draft link: https://example.my/deal?uid=EID-840102145019&co=201901012345."
         numbers = [m for r, m in _rules_matched(text, jurisdiction="MY") if r == "large_number"]
