@@ -744,7 +744,10 @@ class PhilippinesPrivacyAndTaxGuards(unittest.TestCase):
         self.assertNotIn("DSARs", markers)
 
     def test_no_outstanding_uk_rights_requests_does_not_fire(self):
-        text = "Privacy status: no outstanding DSARs, erasure requests, or consent withdrawal notices affect Target systems."
+        text = (
+            "Privacy status: no outstanding DSARs, erasure requests, or consent "
+            "withdrawal notices affect Target systems."
+        )
         markers = [
             m for r, m in _rules_matched(text, jurisdiction="UK")
             if r == "consent_withdrawal_marker"
@@ -1058,7 +1061,10 @@ class FinancialAmountGuards(unittest.TestCase):
         self.assertNotIn("genetic data", findings)
 
     def test_ae_do_not_request_genetic_data_does_not_fire(self):
-        text = "We do not request union membership, political opinions, religious beliefs, genetic data, or sex-life details."
+        text = (
+            "We do not request union membership, political opinions, religious beliefs, "
+            "genetic data, or sex-life details."
+        )
         findings = [m for r, m in _rules_matched(text, jurisdiction="AE") if r == "genetic_data"]
         self.assertNotIn("genetic data", findings)
 
@@ -1273,7 +1279,10 @@ class EuCandidatePrecisionGuards(unittest.TestCase):
         self.assertNotIn("7b", amounts)
 
     def test_non_attributive_sample_birth_date_does_not_fire(self):
-        text = "Separated weak identifiers (non-attributive examples): sample birth date 1978-02-05 appears in templates only."
+        text = (
+            "Separated weak identifiers (non-attributive examples): sample birth date "
+            "1978-02-05 appears in templates only."
+        )
         dobs = [m for r, m in _rules_matched(text, jurisdiction="EU") if r == "date_of_birth"]
         self.assertNotIn("1978-02-05", dobs)
 
@@ -1323,7 +1332,10 @@ class EducationalMnpiMarkerGuards(unittest.TestCase):
         self.assertNotIn("insider_list_marker", rules)
 
     def test_primarily_educational_insider_list_reference_does_not_fire(self):
-        text = "References to blackout windows, insider lists, crypto, and commercial terms are primarily educational and not price sensitive."
+        text = (
+            "References to blackout windows, insider lists, crypto, and commercial terms "
+            "are primarily educational and not price sensitive."
+        )
         rules = [r for r, _ in _rules_matched(text, jurisdiction="UK")]
         self.assertNotIn("insider_list_marker", rules)
 
