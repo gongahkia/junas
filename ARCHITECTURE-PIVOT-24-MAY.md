@@ -407,9 +407,9 @@ Snapshot of detection capabilities by jurisdiction as of 2026-06-08. ✓ = avail
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | Curated jurisdiction pack registered | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Statute-cited suggestion rationales | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Local personal/government-ID detector | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ |
+| Local personal/government-ID detector | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | △ |
 | Local company/tax-ID detector | ✓ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ |
-| Local postal-address format | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+| Local postal-address format | ✓ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | △ | ✓ | ✓ | △ | ✗ | ✗ | ✗ | ✗ | △ | △ | △ |
 | Broad postal-address parser (multi-line / free-form) | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | SG legal/finance sensitive-data pack | △ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | **Universal PII rules** | | | | | | | | | | | | | | | | | | |
@@ -421,9 +421,9 @@ Snapshot of detection capabilities by jurisdiction as of 2026-06-08. ✓ = avail
 | General semantic PII model / NER fallback in `/review` | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 | DOB / age detector | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | IP / device / online identifier detector | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Health / biometric/genetic/sex-life special-category seed | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ |
+| Health / biometric/genetic/sex-life/racial-origin special-category seed | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ | △ |
 | US SSN / EIN / ITIN / driver-license detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ | ✗ |
-| UK NI / EU member-state national-ID detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ | ✗ |
+| UK NI / EU member-state national-ID detector | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✓ | △ |
 | **Universal MNPI rules** | | | | | | | | | | | | | | | | | | |
 | `material_event` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | `nonpublic_marker` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
@@ -477,9 +477,9 @@ The map below distinguishes product-critical gaps with explicit closing items fr
 
 | Capability gap | Closing item(s) |
 |---|---|
-| Local personal/government-ID detector gaps for EU (DE/FR/IT/ES) | 33 — US SSN, UK NIN shipped 2026-05-26 |
+| Remaining local personal/government-ID breadth for EU member states | 33 — US SSN, UK NIN, and checksum-backed ES/NL/PL/FR/DE/IT/BE/PT/SE/FI/IE/AT/CZ/SK/RO slices shipped; full member-state breadth remains |
 | Local company/tax-ID parity outside shipped packs | 33 for US EIN shipped; UK company number + EU member-state company IDs remain |
-| HK / KR local postal-address formats | 86 follow-up + 34 — JP postal code, AU state+postcode shipped 2026-05-26 |
+| HK / KR postal-address breadth beyond conservative slices | 86 follow-up + 34 — JP postal code, AU state+postcode, and conservative UK/US/HK/AU/JP/KR/EU postcode-street slices shipped; broad free-form parsing remains |
 | Broad postal-address parser (multi-line) | 34 |
 | General semantic PII / NER fallback in `/review` | 35 |
 | SG wedge follow-up: IPOS / ACRA filing / HDB strata / URA refs / insurance / crypto-wallet / tribunal / contract-commercial terms | 48 / 100 — PayNow / MAS licence / SGX counter first slice shipped 2026-05-26; IPOS / ACRA / HDB / SLA / URA second slice shipped 2026-05-28; insurance / crypto-wallet / tribunal / contract-commercial terms polish shipped 2026-05-28; deeper adversarial/real-world fixture growth remains |
@@ -490,9 +490,9 @@ The map below distinguishes product-critical gaps with explicit closing items fr
 | Reg FD selective-disclosure | 97 shipped 2026-05-26 (US-gated) |
 | DOB / age detector | 33 mini-slice shipped 2026-05-28 (`date_of_birth`, adult `age_reference`; broader semantic DOB/age remains item 35/33 remainder) |
 | IP / device / online identifier detector | 33 mini-slice shipped 2026-05-28 (`ip_address`, `mac_address`, `imei`; broader cookie/ad-ID/device-serial coverage remains) |
-| Health / biometric/genetic/sex-life special-category seed | 105/106/108 shipped 2026-05-28; item 71 remains open for racial/ethnic origin, multilingual overlays, and broader semantic special-category detection |
+| Health / biometric/genetic/sex-life/racial-origin special-category seed | 105/106/108 shipped 2026-05-28; explicit racial/ethnic-origin + Mandarin/Arabic anchor slices shipped 2026-06-08; item 71 remains open for broader local lexicons, multilingual overlays, and semantic special-category detection |
 | US driver-license / ITIN detector | 33 mini-slice shipped 2026-05-28 (`us_itin`, `us_driver_license`; state-DLN shape registry + audit_grade issuer warnings) |
-| EU member-state national-ID detector | 33 |
+| EU member-state national-ID detector breadth | 33 — checksum-backed ES/NL/PL/FR/DE/IT/BE/PT/SE/FI/IE/AT/CZ/SK/RO slices shipped; full member-state breadth remains |
 | Procurement-grade statutory-coverage artefact | 93 shipped 2026-05-26 (`docs/statutory-coverage.md` + 17-test drift gate) |
 | MNPI jurisdiction-suffix wiring guarantee | 94 shipped 2026-05-26 (audit confirms suffix lands on every (rule × juris) pair) |
 | Source-verified public-status adjudication by default | 36 shipped explicit proof states; default-on retrieval remains intentionally off outside `audit_grade` |
@@ -806,7 +806,7 @@ These items target overall accuracy improvement on the LLM tier without changing
 
 70. **Quasi-identifier combination detection — v2 with population-prior re-identification scoring (Layer 2: singling-out).** Replace the v1 seed (item 101) structural ≥3-rules-in-500-char-window proxy with a **deterministic re-identification scoring** layer keyed off per-jurisdiction frequency tables. Output: a `quasi_identifier_combination` finding with `re_identification_estimate` (probability or k-anonymity equivalence-class size) and `singling_out_scope` (the locality window the score was computed against). Severity scaled by re-identification probability against a default k-anonymity threshold (k=5). Anchors in PDPA s2 ("identified from that data or from that data and other information"), GDPR Recital 26 ("means reasonably likely to be used"), CCPA "reasonably capable of being associated", A29WP Opinion 05/2014 (singling-out / linkability / inference). **Ungated from `audit_grade` → first-class in `strict` profile where a validated frequency table is available.** The v1 audit_grade gate (item 101) was FP-precision pessimism on the structural proxy — frequency-data-backed scoring is a different precision argument: a real probability estimate is more accurate than counting distinct rule-types, and `strict` is the right home for it. [Inference] precision parity vs item 101's gated proxy is not yet measured; item 124 / 125 measurement gates apply before promotion. Depends on item 121 (frequency-table sourcing) and item 122 (document-structure primitive — replaces the raw 500-char window). New module `src/kaypoh/review/singling_out/`. Within the dependency ban: frequency tables ship as data in `[local]` extras; no torch / transformers / sklearn / pandas. **No-cost partial shipped 2026-06-07:** `PreSendReviewEngine.review()` now builds a `DocumentStructure` locality primitive for every review and contextual inferred-attribute findings carry structural-unit metadata. **SG MVP shipped 2026-06-08:** `src/kaypoh/review/singling_out/` loads checksum/provenance-checked SG population-prior tables from `src/kaypoh/data/frequency/`, emits strict-profile `quasi_identifier_combination` findings with `re_identification_estimate`, `k_anonymity_equivalence`, `singling_out_scope`, `frequency_tables_used`, and `frequency_tables_missing`, and keeps the item-101 audit_grade structural proxy as fallback when no validated table exists. **SG postal breadth shipped 2026-06-08:** `postal_sector_population.csv` now covers additional derived SG postal sectors with manifest checksum refresh and `test/test_singling_out_v2.py` coverage. **Generated non-SG table support shipped 2026-06-08:** operator-supplied UK/AU postal-population and JP/KR area-population tables can activate strict v2 through `KAYPOH_FREQUENCY_DATA_DIR`. Remaining scope: bundled non-SG tables, name-density / role-rarity licensing, and candidate-label exact-span promotion.
 
-71. **Special-category PII detectors.** Broad detector family for health, biometric, genetic, sex life / sexual orientation, religion, racial/ethnic origin, political opinion, and trade-union membership. Seed slices shipped: item 98 (`religious_belief`, `trade_union_membership`, `political_opinion`) and items 105/106/108 (`health_condition`, `medical_treatment`, `biometric_identifier`, `genetic_data`, `sexual_orientation`, `sex_life_reference`). Remaining v2 scope: racial/ethnic origin, deeper medication / diagnosis / genetic lexicons, multilingual sensitive-PI overlays, semantic inference beyond anchored explicit phrases, and possible extraction from `engine.py` into `src/kaypoh/review/detectors/special_category/` once the family is stable.
+71. **Special-category PII detectors.** Broad detector family for health, biometric, genetic, sex life / sexual orientation, religion, racial/ethnic origin, political opinion, and trade-union membership. Seed slices shipped: item 98 (`religious_belief`, `trade_union_membership`, `political_opinion`), items 105/106/108 (`health_condition`, `medical_treatment`, `biometric_identifier`, `genetic_data`, `sexual_orientation`, `sex_life_reference`), and the 2026-06-08 explicit `racial_ethnic_origin` / Mandarin / Arabic anchor slice. Remaining v2 scope: broader inferred racial/ethnic origin, deeper medication / diagnosis / genetic lexicons, multilingual sensitive-PI overlays, semantic inference beyond anchored explicit phrases, and possible extraction from `engine.py` into `src/kaypoh/review/detectors/special_category/` once the family is stable.
 
 72. **Sector-specific MNPI packs.** Beyond M&A + earnings tells: pharma (clinical trial primary endpoints, FDA correspondence, AE reports), tech (security incident pre-disclosure, executive departures, security-vuln advisories), financial-services (regulatory investigation, capital ratio breaches, AML enforcement actions), energy (reserve revisions, environmental incidents, pipeline disruptions), legal (settlement amounts, judgment pre-publication, sealed-court-record references). Each sector pack ships its own lexicon + statute citations + adversarial fixtures. Loaded per `industry_sector` field on `/review` request.
 
