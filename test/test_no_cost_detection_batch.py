@@ -36,6 +36,10 @@ class NoCostDetectionBatchTests(unittest.TestCase):
             self._rules("Flat 7, 12th Floor, Pacific House, Hong Kong.", "HK"),
         )
 
+    def test_multiline_uk_and_us_address_slices_fire(self):
+        self.assertIn("uk_postal_address", self._rules("Send to:\n221B Baker Street\nLondon NW1 6XE", "UK"))
+        self.assertIn("us_postal_address", self._rules("Ship to:\n123 Market Street\nSan Francisco CA 94105", "US"))
+
     def test_generic_addresses_without_jurisdiction_format_do_not_fire(self):
         text = "Please meet at the office near River Road tomorrow."
         self.assertNotIn("uk_postal_address", self._rules(text, "UK"))

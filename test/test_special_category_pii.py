@@ -131,6 +131,32 @@ class PoliticalOpinionTests(_BaseSpecialCategoryTests):
         )
 
 
+class RacialEthnicOriginTests(_BaseSpecialCategoryTests):
+    def test_explicit_ethnicity_field(self):
+        f = self._findings_for("Ethnicity: Han Chinese.", "racial_ethnic_origin")
+        self.assertEqual(len(f), 1)
+        self.assertEqual(f[0].severity, "high")
+
+    def test_named_subject_ethnic_origin(self):
+        self.assertEqual(len(self._findings_for("Ms Lee is ethnically Malay.", "racial_ethnic_origin")), 1)
+
+    def test_mandarin_ethnicity_field(self):
+        self.assertEqual(len(self._findings_for("民族: 维吾尔族.", "racial_ethnic_origin", source="CN", dest="CN")), 1)
+
+    def test_arabic_ethnicity_field(self):
+        self.assertEqual(len(self._findings_for("الأصل العرقي: عربي.", "racial_ethnic_origin", source="AE", dest="AE")), 1)
+
+    def test_bait_contexts_do_not_fire(self):
+        for text in [
+            "The race to sign the SPA continues.",
+            "Black-letter law memo attached.",
+            "The Asian option pricing model was reviewed.",
+            "We do not collect ethnicity data in this process.",
+        ]:
+            with self.subTest(text=text):
+                self.assertEqual(len(self._findings_for(text, "racial_ethnic_origin")), 0)
+
+
 class HealthConditionTests(_BaseSpecialCategoryTests):
     def test_diagnosed_condition_with_honorific(self):
         f = self._findings_for("Ms Lee was diagnosed with type 2 diabetes.", "health_condition")
@@ -158,6 +184,10 @@ class HealthConditionTests(_BaseSpecialCategoryTests):
 
     def test_cancer_charity_context_does_not_fire(self):
         self.assertEqual(len(self._findings_for("The company donated to a cancer charity.", "health_condition")), 0)
+
+    def test_mandarin_and_arabic_health_fields_fire(self):
+        self.assertEqual(len(self._findings_for("诊断: 糖尿病.", "health_condition", source="CN", dest="CN")), 1)
+        self.assertEqual(len(self._findings_for("التشخيص: السكري.", "health_condition", source="AE", dest="AE")), 1)
 
 
 class MedicalTreatmentTests(_BaseSpecialCategoryTests):
@@ -219,6 +249,10 @@ class BiometricIdentifierTests(_BaseSpecialCategoryTests):
             0,
         )
 
+    def test_mandarin_and_arabic_biometric_fields_fire(self):
+        self.assertEqual(len(self._findings_for("生物识别模板: 指纹.", "biometric_identifier", source="CN", dest="CN")), 1)
+        self.assertEqual(len(self._findings_for("قالب بصمة.", "biometric_identifier", source="AE", dest="AE")), 1)
+
 
 class GeneticDataTests(_BaseSpecialCategoryTests):
     def test_genetic_test_result(self):
@@ -237,6 +271,10 @@ class GeneticDataTests(_BaseSpecialCategoryTests):
 
     def test_brca_without_result_context_does_not_fire(self):
         self.assertEqual(len(self._findings_for("BRCA Holdings signed the term sheet.", "genetic_data")), 0)
+
+    def test_mandarin_and_arabic_genetic_fields_fire(self):
+        self.assertEqual(len(self._findings_for("基因检测结果: BRCA1 阳性.", "genetic_data", source="CN", dest="CN")), 1)
+        self.assertEqual(len(self._findings_for("نتيجة الاختبار الجيني: BRCA1 إيجابي.", "genetic_data", source="AE", dest="AE")), 1)
 
 
 class SexualOrientationTests(_BaseSpecialCategoryTests):
@@ -326,6 +364,10 @@ class OptOutTests(_BaseSpecialCategoryTests):
         for rule in ("sexual_orientation", "sex_life_reference"):
             self.assertEqual(len(self._findings_for(text, rule)), 0, f"expected {rule} disabled")
 
+    def test_disable_racial_ethnic_origin(self):
+        os.environ["KAYPOH_SPECIAL_CATEGORY_DISABLE"] = "ethnicity"
+        self.assertEqual(len(self._findings_for("Ethnicity: Han Chinese.", "racial_ethnic_origin")), 0)
+
 
 class CitationsTests(_BaseSpecialCategoryTests):
     def test_religion_citation_includes_gdpr_art_9(self):
@@ -342,6 +384,11 @@ class CitationsTests(_BaseSpecialCategoryTests):
         from kaypoh.review.citations import pii_rationale
         rationale = pii_rationale(rule="political_opinion", jurisdiction="EU", matched_text="PAP")
         self.assertIn("LGPD", rationale)
+
+    def test_racial_ethnic_citation_includes_gdpr_art_9(self):
+        from kaypoh.review.citations import pii_rationale
+        rationale = pii_rationale(rule="racial_ethnic_origin", jurisdiction="EU", matched_text="Han Chinese")
+        self.assertIn("GDPR Art 9", rationale)
 
     def test_health_citation_includes_gdpr_and_hipaa(self):
         from kaypoh.review.citations import pii_rationale
