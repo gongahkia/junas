@@ -25,6 +25,11 @@ MNPI_SCALAR_ENTITY_TYPES = {
     "large_number": "NUMBER",
 }
 
+NON_REPLACEABLE_RULES = {
+    "quasi_identifier_combination",
+    "conjunctive_mnpi",
+}
+
 SEVERITY_PRIORITY = {"high": 30, "medium": 20, "low": 10}
 
 
@@ -149,6 +154,8 @@ class DeterministicAnonymizer:
     def _entity_type_for_finding(self, finding: Any) -> str | None:
         category = str(_attr(finding, "category", "")).upper()
         rule = str(_attr(finding, "rule", "")).lower()
+        if rule in NON_REPLACEABLE_RULES:
+            return None
         if category == "PII":
             return PII_RULE_ENTITY_TYPES.get(rule, rule.upper() if rule else None)
         if self.include_mnpi_scalars and category == "MNPI":
