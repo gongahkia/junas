@@ -131,6 +131,53 @@ class Item33IdentifierTests(unittest.TestCase):
         self.assertIn("eu_national_id", {finding.rule for finding in eu_result.findings})
         self.assertNotIn("eu_national_id", self._rules("DE national ID: L01X00T47"))
 
+    def test_broader_eu_checksum_identifiers_fire(self):
+        samples = [
+            "DE tax ID: 14320384860",
+            "Italian codice fiscale: RSSMRA85M01H501Z",
+            "Belgian national number: 85.07.30-033.28",
+            "Portuguese NIF: 501964843",
+            "Swedish personnummer: 640823-3234",
+        ]
+        for text in samples:
+            with self.subTest(text=text):
+                result = self.engine.review(
+                    text=text,
+                    source_jurisdiction="EU",
+                    destination_jurisdiction="EU",
+                    entity_id=None,
+                    include_suggestions=False,
+                    document_type="generic",
+                    review_profile="strict",
+                )
+                self.assertIn("eu_national_id", {finding.rule for finding in result.findings})
+
+    def test_broader_eu_checksum_identifiers_reject_bad_values(self):
+        samples = [
+            "DE tax ID: 14320384861",
+            "Italian codice fiscale: RSSMRA85M01H501A",
+            "Belgian national number: 85.07.30-033.29",
+            "Portuguese NIF: 501964844",
+            "Swedish personnummer: 640823-3235",
+        ]
+        for text in samples:
+            with self.subTest(text=text):
+                result = self.engine.review(
+                    text=text,
+                    source_jurisdiction="EU",
+                    destination_jurisdiction="EU",
+                    entity_id=None,
+                    include_suggestions=False,
+                    document_type="generic",
+                    review_profile="strict",
+                )
+                self.assertNotIn("eu_national_id", {finding.rule for finding in result.findings})
+
+    def test_localized_dob_labels_fire(self):
+        for text in ["出生日期: 1988-02-14", "생년월일: 1988-02-14"]:
+            with self.subTest(text=text):
+                self.assertIn("date_of_birth", self._rules(text))
+
     def test_us_itin_fires_and_validator_rejects_bad_middle_range(self):
         self.assertIn("us_itin", self._rules("ITIN: 912-70-1234"))
         self.assertNotIn("us_itin", self._rules("ITIN: 912-49-1234"))

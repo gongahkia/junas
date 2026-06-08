@@ -110,6 +110,85 @@ class LocalLLMAdjudicator:
         # cached student adjudicator (lazy-built on first local_distilled call)
         self._distilled_student: Any | None = None
 
+    def health(self) -> dict[str, Any]:
+        if not self.enabled or self.provider == "none":
+            return {
+                "status": "disabled",
+                "configured": False,
+                "healthy": None,
+                "detail": "LLM adjudication is disabled",
+            }
+        if self.provider not in {"vllm", "ollama", "openai", "azure_openai", "local_distilled"}:
+            return {
+                "status": "down",
+                "configured": True,
+                "healthy": False,
+                "detail": f"unsupported LLM provider: {self.provider}",
+            }
+        if self.provider == "local_distilled":
+            if not self.distilled_adapter_path:
+                return {
+                    "status": "down",
+                    "configured": True,
+                    "healthy": False,
+                    "detail": "provider=local_distilled requires distilled_adapter_path",
+                }
+            if not os.path.isdir(self.distilled_adapter_path):
+                return {
+                    "status": "down",
+                    "configured": True,
+                    "healthy": False,
+                    "detail": f"local_distilled adapter path not found: {self.distilled_adapter_path}",
+                }
+            return {
+                "status": "unknown",
+                "configured": True,
+                "healthy": None,
+                "detail": f"provider=local_distilled; model={self.distilled_base_model}; input_mode={self.llm_input_mode}",
+            }
+        if not self.base_url:
+            return {
+                "status": "down",
+                "configured": True,
+                "healthy": False,
+                "detail": "LLM base URL is not configured",
+            }
+        base_is_remote = not _is_private_or_local_base_url(self.base_url)
+        if base_is_remote and not self.allow_remote_base_url:
+            return {
+                "status": "down",
+                "configured": True,
+                "healthy": False,
+                "detail": "remote LLM base URL requires allow_remote_base_url=true",
+            }
+        if base_is_remote and self.llm_input_mode == "raw_text" and not self.allow_remote_raw_text:
+            return {
+                "status": "down",
+                "configured": True,
+                "healthy": False,
+                "detail": "remote raw_text LLM input requires allow_remote_raw_text=true",
+            }
+        if self.provider == "openai" and not self.tenant_opt_in_openai:
+            return {
+                "status": "down",
+                "configured": True,
+                "healthy": False,
+                "detail": "provider=openai requires tenant_opt_in_openai=true",
+            }
+        if self.provider == "azure_openai" and not (self.tenant_opt_in_azure_openai and self.azure_api_version):
+            return {
+                "status": "down",
+                "configured": True,
+                "healthy": False,
+                "detail": "provider=azure_openai requires tenant_opt_in_azure_openai=true and azure_api_version",
+            }
+        return {
+            "status": "unknown",
+            "configured": True,
+            "healthy": None,
+            "detail": f"provider={self.provider}; model={self.model}; input_mode={self.llm_input_mode}",
+        }
+
     def _disabled(self, detail: str) -> dict[str, Any]:
         return {
             "status": "disabled",

@@ -470,6 +470,14 @@ def get_dependency_status() -> dict[str, DependencyStatus]:
     settings = current_runtime_settings()
     statuses: dict[str, DependencyStatus] = {}
 
+    def _status_from_health(health: dict[str, Any], *, configured_default: bool) -> DependencyStatus:
+        return DependencyStatus(
+            status=str(health.get("status", "unknown")),
+            configured=bool(health.get("configured", configured_default)),
+            healthy=health.get("healthy"),
+            detail=str(health.get("detail", "")),
+        )
+
     if settings.public_evidence.enabled:
         loaded = "public_evidence" in models or "public_evidence" in lazy_loaders
         statuses["public_evidence"] = DependencyStatus(
@@ -486,13 +494,24 @@ def get_dependency_status() -> dict[str, DependencyStatus]:
             detail="public evidence retrieval is disabled",
         )
 
-    if settings.llm.enabled:
-        statuses["llm_adjudicator"] = DependencyStatus(
-            status="unknown",
-            configured=True,
-            healthy=None,
-            detail=f"provider={settings.llm.provider}; model={settings.llm.model}",
-        )
+    llm_adjudicator = models.get("llm_adjudicator")
+    if llm_adjudicator is not None and hasattr(llm_adjudicator, "health"):
+        statuses["llm_adjudicator"] = _status_from_health(llm_adjudicator.health(), configured_default=settings.llm.enabled)
+    elif settings.llm.enabled:
+        try:
+            from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
+
+            statuses["llm_adjudicator"] = _status_from_health(
+                LocalLLMAdjudicator(settings.llm).health(),
+                configured_default=True,
+            )
+        except Exception as exc:
+            statuses["llm_adjudicator"] = DependencyStatus(
+                status="down",
+                configured=True,
+                healthy=False,
+                detail=f"LLM adjudicator status check failed: {exc}",
+            )
     else:
         statuses["llm_adjudicator"] = DependencyStatus(
             status="disabled",
@@ -506,13 +525,7 @@ def get_dependency_status() -> dict[str, DependencyStatus]:
     ):
         helper = models.get(helper_name)
         if helper is not None and hasattr(helper, "health"):
-            health = helper.health()
-            statuses[helper_name] = DependencyStatus(
-                status=str(health.get("status", "unknown")),
-                configured=enabled or bool(health.get("configured", enabled)),
-                healthy=health.get("healthy"),
-                detail=str(health.get("detail", "")),
-            )
+            statuses[helper_name] = _status_from_health(helper.health(), configured_default=enabled)
         elif enabled:
             try:
                 from kaypoh.workflow.layer8_llm_adjudicator.helpers import (

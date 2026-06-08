@@ -70,6 +70,11 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
         self.assertIn("au_postal_address", self._rules("123 George St, Sydney NSW 2000.", "AU"))
         self.assertNotIn("au_postal_address", self._rules("Corporations Act 2001 applies.", "AU"))
 
+    def test_jp_and_kr_postal_addresses_fire_with_local_context(self):
+        self.assertIn("jp_postal_address", self._rules("〒100-0001 東京都千代田区千代田1-1", "JP"))
+        self.assertIn("kr_postal_address", self._rules("04524 Seoul Jung-gu Sejong-daero 110", "KR"))
+        self.assertNotIn("kr_postal_address", self._rules("Reference number 04524 was assigned to the checklist.", "KR"))
+
     def test_jp_my_number_and_corporate_number_fire(self):
         rules = self._rules("Individual Number 123456789018; Corporate Number 8700110005901.", "JP")
         self.assertIn("jp_my_number", rules)

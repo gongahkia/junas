@@ -54,6 +54,22 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
         self.assertIn("personal_attribute_inference", rules)
 
+    def test_richer_personal_attribute_types_fire(self):
+        result = self._review(
+            "Dr Jane Tan studies at National University of Singapore.\n"
+            "Mr Alan Goh holds a solicitor practising certificate.\n"
+            "Ms Sara Lim works in Finance Team.\n",
+            "SG",
+        )
+        attribute_types = {
+            finding.metadata["attribute_type"]
+            for finding in result.findings
+            if finding.rule == "personal_attribute_inference"
+        }
+        self.assertIn("education", attribute_types)
+        self.assertIn("professional_license", attribute_types)
+        self.assertIn("department", attribute_types)
+
 
 if __name__ == "__main__":
     unittest.main()
