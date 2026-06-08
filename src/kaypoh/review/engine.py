@@ -2497,8 +2497,45 @@ _HIGHER_PRIORITY_THAN_LARGE_NUMBER = _HIGHER_PRIORITY_THAN_PHONE | frozenset({
 })
 
 
+_HK_MARKET_KNOWN_DOMAINS = (
+    "hkexnews.hk",
+    "hkex.com.hk",
+    "sfc.hk",
+    "hksi.org",
+    "aastocks.com",
+    "etnet.com.hk",
+    "reuters.com",
+    "bloomberg.com",
+)
+_HK_MARKET_KNOWN_TEXT = (
+    "hkex",
+    "stock exchange of hong kong",
+    "securities and futures commission",
+    "issuer announcement",
+    "inside information announcement",
+    "regulatory announcement",
+    "press release",
+    "investor relations",
+)
+
+
+def _hk_market_known_source(source: Any) -> bool:
+    if not isinstance(source, dict):
+        return False
+    text = " ".join(
+        str(source.get(key) or "")
+        for key in ("url", "title", "author", "source", "site_name", "text")
+    ).casefold()
+    return any(domain in text for domain in _HK_MARKET_KNOWN_DOMAINS) or any(
+        marker in text for marker in _HK_MARKET_KNOWN_TEXT
+    )
+
+
 def _apply_retrieval_verification(
-    findings: list["ReviewFinding"], public_evidence: dict[str, Any] | None
+    findings: list["ReviewFinding"],
+    public_evidence: dict[str, Any] | None,
+    *,
+    jurisdiction: str = "",
 ) -> None:
     """Mutate MNPI findings' source_verification based on retriever output.
 
@@ -2513,7 +2550,16 @@ def _apply_retrieval_verification(
         return
     sources = public_evidence.get("sources") or []
     unverified = public_evidence.get("unverified_claims") or []
-    if sources:
+    jurisdiction_key = (jurisdiction or "").upper()
+    hk_available_only = False
+    if sources and jurisdiction_key == "HK":
+        market_known = [_hk_market_known_source(source) for source in sources]
+        if any(market_known):
+            verdict = SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED
+        else:
+            verdict = SOURCE_VERIFICATION_AMBIGUOUS
+            hk_available_only = True
+    elif sources:
         verdict = SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED
     elif unverified:
         verdict = SOURCE_VERIFICATION_AMBIGUOUS
@@ -2525,6 +2571,11 @@ def _apply_retrieval_verification(
         if f.source_verification == SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED:
             continue
         f.source_verification = verdict
+        if hk_available_only:
+            f.metadata = {
+                **f.metadata,
+                "hk_public_status": "available_but_not_generally_known",
+            }
 
 
 # items 95 + 96: rules whose severity is low standalone but escalates to medium when a
@@ -2902,11 +2953,45 @@ def _detect_quasi_identifier_combinations(
     jurisdiction: str,
     legal_basis: str,
     idx_start: int,
+    document_structure: Any | None = None,
 ) -> list["ReviewFinding"]:
-    """Greedy left-to-right sliding window over quasi-identifier findings sorted by
-    start_char. Emits at most one combination finding per cluster — once a window with
-    ≥3 distinct rules is emitted, the left pointer advances past the cluster to avoid
-    overlapping emissions. audit_grade only; strict stays span-local."""
+    """Emit quasi-identifier combination findings.
+
+    SG strict uses item 70 v2 population-prior scoring. audit_grade keeps the item 101
+    structural proxy as fallback until every jurisdiction has frequency tables."""
+    if review_profile == "strict" and jurisdiction.upper() == "SG":
+        from kaypoh.review.singling_out import detect_singling_out
+
+        out: list["ReviewFinding"] = []
+        idx = idx_start
+        for spec in detect_singling_out(
+            findings,
+            jurisdiction=jurisdiction,
+            legal_basis=legal_basis,
+            document_structure=document_structure,
+        ):
+            out.append(
+                _new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="quasi_identifier_combination",
+                    jurisdiction=jurisdiction,
+                    severity=spec.severity,
+                    matched_text=spec.matched_text,
+                    start=spec.start_char,
+                    end=spec.end_char,
+                    reason=spec.reason,
+                    legal_basis=legal_basis,
+                    metadata=spec.metadata,
+                )
+            )
+            idx += 1
+        return out
+
+    # Greedy left-to-right sliding window over quasi-identifier findings sorted by
+    # start_char. Emits at most one combination finding per cluster — once a window with
+    # ≥3 distinct rules is emitted, the left pointer advances past the cluster to avoid
+    # overlapping emissions. audit_grade only; strict outside SG stays span-local.
     if review_profile != "audit_grade":
         return []
     quasi = sorted(
@@ -2949,6 +3034,10 @@ def _detect_quasi_identifier_combinations(
                         f"is personal data under PDPA s2 / GDPR Recital 26"
                     ),
                     legal_basis=legal_basis,
+                    metadata={
+                        "layer": "quasi_identifier_seed",
+                        "singling_out_scope": "char_window",
+                    },
                 )
             )
             idx += 1
@@ -4420,6 +4509,7 @@ class PreSendReviewEngine:
                 jurisdiction=jurisdiction_label,
                 legal_basis=pii_legal_basis,
                 idx_start=len(findings),
+                document_structure=document_structure,
             )
         )
         findings = _suppress_redundant_numeric_findings(text, findings)
@@ -4440,7 +4530,7 @@ class PreSendReviewEngine:
         #   any other status              -> leave whatever _mnpi_findings already set
         # MNPI findings that already self-cited via _INDOC_URL_RE keep their public_source_matched
         # state (per-finding evidence beats document-aggregate retrieval evidence).
-        _apply_retrieval_verification(findings, public_evidence)
+        _apply_retrieval_verification(findings, public_evidence, jurisdiction=jurisdiction_label)
         for spec in detect_conjunctive_mnpi(
             text=text,
             findings=findings,
@@ -4464,6 +4554,7 @@ class PreSendReviewEngine:
                     metadata=spec.metadata,
                 )
             )
+        _apply_retrieval_verification(findings, public_evidence, jurisdiction=jurisdiction_label)
         pii_score = self._score(findings, "PII")
         mnpi_score = self._score(findings, "MNPI")
         document_score = max(pii_score, mnpi_score)

@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 
 import httpx
 
-ALLOWED_HELPER_PROVIDERS = {"vllm", "ollama", "openai"}
+ALLOWED_HELPER_PROVIDERS = {"vllm", "ollama", "openai", "azure_openai"}
 
 
 def _is_private_or_local_base_url(base_url: str) -> bool:
@@ -45,6 +45,8 @@ class _RuntimeLLMHelperBase:
         self.allow_remote_base_url = bool(getattr(settings, "allow_remote_base_url", False))
         self.allow_remote_raw_text = bool(getattr(settings, "allow_remote_raw_text", False))
         self.tenant_opt_in_openai = bool(getattr(settings, "tenant_opt_in_openai", False))
+        self.tenant_opt_in_azure_openai = bool(getattr(settings, "tenant_opt_in_azure_openai", False))
+        self.azure_api_version = str(getattr(settings, "azure_api_version", "") or "")
         self._privacy_ledger: list[dict[str, Any]] = []
 
     def pop_privacy_ledger_events(self) -> list[dict[str, Any]]:
@@ -80,6 +82,13 @@ class _RuntimeLLMHelperBase:
                 "configured": True,
                 "healthy": False,
                 "detail": "provider=openai requires tenant_opt_in_openai=true",
+            }
+        if self.provider == "azure_openai" and not (self.tenant_opt_in_azure_openai and self.azure_api_version):
+            return {
+                "status": "down",
+                "configured": True,
+                "healthy": False,
+                "detail": "provider=azure_openai requires tenant_opt_in_azure_openai=true and azure_api_version",
             }
         if not self.allow_remote_base_url and not _is_private_or_local_base_url(self.base_url):
             return {
@@ -186,6 +195,13 @@ class _RuntimeLLMHelperBase:
                 input_mode=input_mode,
                 content_sha256=content_sha256,
             )
+        if self.provider == "azure_openai" and not (self.tenant_opt_in_azure_openai and self.azure_api_version):
+            self._refuse(
+                operation=operation,
+                reason="provider=azure_openai requires tenant_opt_in_azure_openai=true and azure_api_version",
+                input_mode=input_mode,
+                content_sha256=content_sha256,
+            )
         self._privacy_ledger.append(
             self._ledger_event(
                 operation=operation,
@@ -197,20 +213,34 @@ class _RuntimeLLMHelperBase:
         )
 
     def _chat_completions_url(self) -> str:
+        if self.provider == "azure_openai":
+            base = self.base_url.rstrip("/")
+            if "/chat/completions" in base:
+                sep = "&" if "?" in base else "?"
+                return f"{base}{sep}api-version={self.azure_api_version}"
+            if "/openai/deployments/" in base:
+                return f"{base}/chat/completions?api-version={self.azure_api_version}"
+            return (
+                f"{base}/openai/deployments/{self.model}/chat/completions"
+                f"?api-version={self.azure_api_version}"
+            )
         if self.base_url.endswith("/chat/completions"):
             return self.base_url
         return f"{self.base_url}/chat/completions"
 
     def _call_json(self, messages: list[dict[str, str]]) -> dict[str, Any]:
         headers = {"Content-Type": "application/json"}
-        if self.api_key:
+        if self.provider == "azure_openai" and self.api_key:
+            headers["api-key"] = self.api_key
+        elif self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
         body = {
-            "model": self.model,
             "messages": messages,
             "temperature": 0,
             "response_format": {"type": "json_object"},
         }
+        if self.provider != "azure_openai":
+            body["model"] = self.model
         with httpx.Client(timeout=self.timeout_seconds) as client:
             response = client.post(self._chat_completions_url(), headers=headers, json=body)
             response.raise_for_status()

@@ -27,6 +27,7 @@ UNEXPECTED_TRIAGE_BUCKETS = (
     "ideal_only_statutory_gap",
     "taxonomy_model_label_mismatch",
 )
+_ENGINE_CACHE: dict[str, PreSendReviewEngine] = {}
 
 
 @dataclass
@@ -55,8 +56,59 @@ def _load_pair(path: Path) -> tuple[str, dict[str, Any]]:
     return path.read_text(encoding="utf-8"), json.loads(labels_path.read_text(encoding="utf-8"))
 
 
+def _configured_audit_grade_engine() -> PreSendReviewEngine:
+    from kaypoh.configs.runtime import get_runtime_settings
+
+    settings = get_runtime_settings()
+    public_evidence = None
+    if settings.public_evidence.enabled:
+        from kaypoh.workflow.layer7_public_evidence.inference import PublicEvidenceRetriever
+        from kaypoh.workflow.privacy_guard import PrivacyGuard
+
+        public_evidence = PublicEvidenceRetriever(
+            settings.public_evidence,
+            PrivacyGuard(
+                external_query_policy=settings.privacy.external_query_policy,
+                max_query_chars=settings.privacy.max_query_chars,
+                redact_exact_numbers=settings.privacy.redact_exact_numbers,
+            ),
+        )
+    llm_adjudicator = None
+    if settings.llm.enabled:
+        from kaypoh.workflow.layer8_llm_adjudicator.inference import LocalLLMAdjudicator
+
+        llm_adjudicator = LocalLLMAdjudicator(settings.llm)
+    llm_defined_term_extractor = None
+    llm_coverage_auditor = None
+    if settings.llm.enabled and settings.llm_helpers.defined_terms_enabled:
+        from kaypoh.workflow.layer8_llm_adjudicator.helpers import build_llm_defined_term_extractor
+
+        llm_defined_term_extractor = build_llm_defined_term_extractor(settings.llm)
+    if settings.llm.enabled and settings.llm_helpers.coverage_audit_enabled:
+        from kaypoh.workflow.layer8_llm_adjudicator.helpers import build_llm_coverage_auditor
+
+        llm_coverage_auditor = build_llm_coverage_auditor(settings.llm)
+    return PreSendReviewEngine(
+        public_evidence_retriever=public_evidence,
+        llm_adjudicator=llm_adjudicator,
+        llm_defined_term_extractor=llm_defined_term_extractor,
+        llm_coverage_auditor=llm_coverage_auditor,
+    )
+
+
+def _engine_for_profile(review_profile: str) -> PreSendReviewEngine:
+    if review_profile in _ENGINE_CACHE:
+        return _ENGINE_CACHE[review_profile]
+    if review_profile == "audit_grade":
+        engine = _configured_audit_grade_engine()
+    else:
+        engine = PreSendReviewEngine()
+    _ENGINE_CACHE[review_profile] = engine
+    return engine
+
+
 def _run_engine(text: str, labels: dict[str, Any], *, review_profile: str) -> list[dict[str, str]]:
-    result = PreSendReviewEngine().review(
+    result = _engine_for_profile(review_profile).review(
         text=text,
         source_jurisdiction=labels.get("source_jurisdiction", "SG"),
         destination_jurisdiction=labels.get("destination_jurisdiction", "SG"),

@@ -83,6 +83,8 @@ KNOWN_CONFIG_KEYS: dict[str, frozenset[str] | None] = {
             "allow_remote_base_url",
             "allow_remote_raw_text",
             "tenant_opt_in_openai",
+            "tenant_opt_in_azure_openai",
+            "azure_api_version",
             "llm_input_mode",
         }
     ),
@@ -231,6 +233,8 @@ class LLMSettings:
     # off on OpenAI as the LLM backend"). Both must be true to use provider=openai.
     # Default False — must be explicitly turned on per tenant.
     tenant_opt_in_openai: bool = False
+    tenant_opt_in_azure_openai: bool = False
+    azure_api_version: str = ""
     # Privacy-hardened mode for regulated tenants. `raw_text` (default) ships the
     # document text + sanitised context. `structured_tokens` ships only abstract
     # tokens — rule names, severities, jurisdiction codes, SHA-256 hashes of the
@@ -1074,11 +1078,33 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
             ),
             label="llm.tenant_opt_in_openai",
         ),
+        tenant_opt_in_azure_openai=_parse_bool(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="llm",
+                key="tenant_opt_in_azure_openai",
+                env_vars=("KAYPOH_LLM_TENANT_OPT_IN_AZURE_OPENAI",),
+                default=False,
+            ),
+            label="llm.tenant_opt_in_azure_openai",
+        ),
+        azure_api_version=_parse_str(
+            _resolve_raw_value(
+                raw_config,
+                cli_overrides,
+                section="llm",
+                key="azure_api_version",
+                env_vars=("KAYPOH_LLM_AZURE_API_VERSION",),
+                default="",
+            ),
+            label="llm.azure_api_version",
+        ),
         llm_input_mode=llm_input_mode,
     )
-    if llm.provider not in {"vllm", "ollama", "openai", "local_distilled", "none"}:
+    if llm.provider not in {"vllm", "ollama", "openai", "azure_openai", "local_distilled", "none"}:
         raise ConfigError(
-            "llm.provider must be one of: vllm, ollama, openai, local_distilled, none"
+            "llm.provider must be one of: vllm, ollama, openai, azure_openai, local_distilled, none"
         )
     if llm.llm_input_mode not in {"raw_text", "structured_tokens"}:
         raise ConfigError("llm.llm_input_mode must be one of: raw_text, structured_tokens")
@@ -1101,6 +1127,13 @@ def load_runtime_settings(cli_overrides: Mapping[str, Any] | None = None) -> Run
         raise ConfigError(
             "llm.provider=openai requires BOTH llm.allow_remote_base_url=true "
             "(deployer-level gate) AND llm.tenant_opt_in_openai=true (tenant-level gate)"
+        )
+    if llm.provider == "azure_openai" and not (
+        llm.allow_remote_base_url and llm.tenant_opt_in_azure_openai and llm.azure_api_version
+    ):
+        raise ConfigError(
+            "llm.provider=azure_openai requires llm.allow_remote_base_url=true, "
+            "llm.tenant_opt_in_azure_openai=true, and llm.azure_api_version"
         )
 
     llm_helpers_enabled = _parse_bool(

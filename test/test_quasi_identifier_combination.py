@@ -1,11 +1,11 @@
-"""Item 101: quasi-identifier combination seed.
+"""Quasi-identifier combination detection.
 
 New rule `quasi_identifier_combination` fires when ≥3 distinct quasi-identifier rules
 co-occur within a 500-char sliding window. Citation: PDPA s2 + GDPR Recital 26 +
-CCPA §1798.140(v). Activated under audit_grade only — strict stays span-local.
+CCPA §1798.140(v). Item 70 v2 activates SG strict with a population-prior k estimate.
 
 The seed rule is deliberately conservative — it fires on count + proximity, not on a
-full k-anonymity probability estimate. Item 70 v2 owns the probability layer.
+full k-anonymity probability estimate. It remains as the audit_grade fallback.
 """
 
 import unittest
@@ -34,15 +34,17 @@ class _Base(unittest.TestCase):
 
 
 class ProfileGateTests(_Base):
-    """Rule activates only under audit_grade; strict mode does not emit it."""
+    """SG strict activates item 70 v2; audit_grade keeps item 101 fallback."""
 
-    def test_strict_mode_does_not_emit_combination(self):
-        # Five distinct quasi-IDs within a paragraph; under strict, no combination finding.
+    def test_strict_mode_emits_sg_v2_combination(self):
         text = (
             "Dr Jane Tan (NRIC S1234567A, mobile +65 9123 4567, email jane.tan@example.sg) "
             "lives at 1 Address Lane Singapore 123456."
         )
-        self.assertEqual(self._quasi_id_findings(text, review_profile="strict"), [])
+        f = self._quasi_id_findings(text, review_profile="strict")
+        self.assertEqual(len(f), 1)
+        self.assertEqual(f[0].metadata.get("layer"), "singling_out_v2")
+        self.assertEqual(f[0].metadata.get("k_anonymity_equivalence"), 1)
 
     def test_audit_grade_emits_combination(self):
         text = (
@@ -53,6 +55,7 @@ class ProfileGateTests(_Base):
         self.assertEqual(len(f), 1, f"audit_grade should emit one combination finding; got {f!r}")
         self.assertEqual(f[0].severity, "medium")
         self.assertEqual(f[0].category, "PII")
+        self.assertEqual(f[0].metadata.get("layer"), "quasi_identifier_seed")
 
 
 class CountThresholdTests(_Base):

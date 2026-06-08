@@ -15,6 +15,7 @@ import unittest
 
 from kaypoh.review.engine import (
     PreSendReviewEngine,
+    SOURCE_VERIFICATION_AMBIGUOUS,
     SOURCE_VERIFICATION_NOT_CHECKED,
     SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND,
     SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED,
@@ -37,6 +38,16 @@ class _RetrieverNoSources:
             "status": "queried",
             "provider": "exa",
             "sources": [],
+            "privacy_ledger": [],
+        }
+
+
+class _RetrieverWithHKMarketSource:
+    def retrieve(self, *, text, entity_id=None, lexicon=None):
+        return {
+            "status": "queried",
+            "provider": "exa",
+            "sources": [{"title": "Inside information announcement", "url": "https://www.hkexnews.hk/x"}],
             "privacy_ledger": [],
         }
 
@@ -121,6 +132,34 @@ class SourceVerificationTests(unittest.TestCase):
                 f.source_verification, SOURCE_VERIFICATION_NO_PUBLIC_SOURCE_FOUND,
                 f"{f.rule} should reflect retriever miss",
             )
+
+    def test_hk_generic_web_source_is_ambiguous_not_market_known(self):
+        engine = PreSendReviewEngine(public_evidence_retriever=_RetrieverWithSources())
+        text = "Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion."
+        result = engine.review(
+            text=text, source_jurisdiction="HK", destination_jurisdiction="HK",
+            entity_id="Acme Corp", include_suggestions=False, document_type="generic",
+            review_profile="audit_grade",
+        )
+        mnpi = [f for f in result.findings if f.category == "MNPI"]
+        self.assertGreater(len(mnpi), 0)
+        for f in mnpi:
+            self.assertEqual(f.source_verification, SOURCE_VERIFICATION_AMBIGUOUS)
+            self.assertEqual(f.metadata.get("hk_public_status"), "available_but_not_generally_known")
+
+    def test_hk_market_source_flips_to_public_source_matched(self):
+        engine = PreSendReviewEngine(public_evidence_retriever=_RetrieverWithHKMarketSource())
+        text = "Acme Corp publicly announced its acquisition of GlobalTech for $2.5 billion."
+        result = engine.review(
+            text=text, source_jurisdiction="HK", destination_jurisdiction="HK",
+            entity_id="Acme Corp", include_suggestions=False, document_type="generic",
+            review_profile="audit_grade",
+        )
+        mnpi = [f for f in result.findings if f.category == "MNPI"]
+        self.assertGreater(len(mnpi), 0)
+        for f in mnpi:
+            self.assertEqual(f.source_verification, SOURCE_VERIFICATION_PUBLIC_SOURCE_MATCHED)
+            self.assertNotIn("hk_public_status", f.metadata)
 
     def test_strict_without_retriever_leaves_mnpi_not_checked(self):
         # no retriever wired, no in-doc URL: even high-severity MNPI must carry not_checked.

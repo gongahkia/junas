@@ -279,6 +279,8 @@ def _llm_settings(
     allow_remote: bool,
     provider: str = "vllm",
     tenant_opt_in_openai: bool = False,
+    tenant_opt_in_azure_openai: bool = False,
+    azure_api_version: str = "",
     llm_input_mode: str | None = None,
     allow_remote_raw_text: bool = False,
 ) -> SimpleNamespace:
@@ -291,6 +293,8 @@ def _llm_settings(
         "timeout_seconds": 2.0,
         "allow_remote_base_url": allow_remote,
         "tenant_opt_in_openai": tenant_opt_in_openai,
+        "tenant_opt_in_azure_openai": tenant_opt_in_azure_openai,
+        "azure_api_version": azure_api_version,
         "allow_remote_raw_text": allow_remote_raw_text,
     }
     if llm_input_mode is not None:
@@ -422,6 +426,46 @@ class RemoteLLMOptInTests(unittest.TestCase):
 
         self.assertEqual(result["status"], "adjudicated")
         self.assertIn("127.0.0.1", captured["url"])
+
+    def test_azure_openai_uses_deployment_url_and_api_key_header(self):
+        captured: dict = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            captured["url"] = str(request.url)
+            captured["api_key"] = request.headers.get("api-key", "")
+            captured["authorization"] = request.headers.get("Authorization", "")
+            captured["body"] = json.loads(request.content.decode("utf-8"))
+            return httpx.Response(200, json=self._adjudicator_response_payload())
+
+        adjudicator = LocalLLMAdjudicator(
+            _llm_settings(
+                base_url="https://example.openai.azure.com",
+                allow_remote=True,
+                provider="azure_openai",
+                tenant_opt_in_azure_openai=True,
+                azure_api_version="2025-03-01-preview",
+            )
+        )
+        adjudicator.api_key = "az-test"
+        transport = httpx.MockTransport(handler)
+        original = httpx.Client
+
+        def factory(*args, **kwargs):
+            kwargs["transport"] = transport
+            return original(*args, **kwargs)
+
+        httpx.Client = factory  # type: ignore[assignment]
+        try:
+            result = adjudicator.adjudicate(text="Acme acquisition.", current_classification="LOW_RISK")
+        finally:
+            httpx.Client = original  # type: ignore[assignment]
+
+        self.assertEqual(result["status"], "adjudicated")
+        self.assertIn("/openai/deployments/gpt-oss-20b/chat/completions", captured["url"])
+        self.assertIn("api-version=2025-03-01-preview", captured["url"])
+        self.assertEqual(captured["api_key"], "az-test")
+        self.assertEqual(captured["authorization"], "")
+        self.assertNotIn("model", captured["body"])
 
 
 if __name__ == "__main__":

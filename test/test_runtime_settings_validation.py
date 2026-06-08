@@ -118,6 +118,50 @@ class RuntimeSettingsValidationTests(unittest.TestCase):
 
         self.assertEqual(settings.llm.llm_input_mode, "structured_tokens")
 
+    def test_azure_openai_requires_tenant_opt_in_and_api_version(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = []
+
+            [llm]
+            enabled = true
+            provider = "azure_openai"
+            base_url = "https://example.openai.azure.com"
+            model = "gpt-5-pro-2"
+            allow_remote_base_url = true
+            """
+        )
+
+        with self.assertRaises(runtime.ConfigError) as ctx:
+            runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertIn("tenant_opt_in_azure_openai", str(ctx.exception))
+
+    def test_azure_openai_accepts_explicit_gates(self):
+        config_path = self._write_config(
+            """
+            [pipeline]
+            layers = []
+
+            [llm]
+            enabled = true
+            provider = "azure_openai"
+            base_url = "https://example.openai.azure.com"
+            model = "gpt-5-pro-2"
+            allow_remote_base_url = true
+            tenant_opt_in_azure_openai = true
+            azure_api_version = "2025-03-01-preview"
+            """
+        )
+
+        settings = runtime.load_runtime_settings(cli_overrides={"config_path": str(config_path)})
+
+        self.assertEqual(settings.llm.provider, "azure_openai")
+        self.assertTrue(settings.llm.tenant_opt_in_azure_openai)
+        self.assertEqual(settings.llm.azure_api_version, "2025-03-01-preview")
+        self.assertEqual(settings.llm.llm_input_mode, "structured_tokens")
+
     def test_remote_raw_text_requires_explicit_opt_in(self):
         config_path = self._write_config(
             """

@@ -47,6 +47,8 @@ class LocalLLMAdjudicator:
         # Tenant-level opt-in for OpenAI specifically. Only consulted when provider=openai.
         # Defaults to False to preserve the "private-by-default" posture.
         self.tenant_opt_in_openai = bool(getattr(settings, "tenant_opt_in_openai", False))
+        self.tenant_opt_in_azure_openai = bool(getattr(settings, "tenant_opt_in_azure_openai", False))
+        self.azure_api_version = str(getattr(settings, "azure_api_version", "") or "")
         # Privacy-hardened input mode. Runtime settings resolve this before construction;
         # direct test harnesses that omit it get the same remote-safe default here.
         raw_input_mode = getattr(settings, "llm_input_mode", None)
@@ -163,20 +165,34 @@ class LocalLLMAdjudicator:
         ]
 
     def _chat_completions_url(self) -> str:
+        if self.provider == "azure_openai":
+            base = self.base_url.rstrip("/")
+            if "/chat/completions" in base:
+                sep = "&" if "?" in base else "?"
+                return f"{base}{sep}api-version={self.azure_api_version}"
+            if "/openai/deployments/" in base:
+                return f"{base}/chat/completions?api-version={self.azure_api_version}"
+            return (
+                f"{base}/openai/deployments/{self.model}/chat/completions"
+                f"?api-version={self.azure_api_version}"
+            )
         if self.base_url.endswith("/chat/completions"):
             return self.base_url
         return f"{self.base_url}/chat/completions"
 
     def _call_openai_compatible(self, messages: list[dict[str, str]]) -> dict[str, Any]:
         headers = {"Content-Type": "application/json"}
-        if self.api_key:
+        if self.provider == "azure_openai" and self.api_key:
+            headers["api-key"] = self.api_key
+        elif self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
         body = {
-            "model": self.model,
             "messages": messages,
             "temperature": 0,
             "response_format": {"type": "json_object"},
         }
+        if self.provider != "azure_openai":
+            body["model"] = self.model
         with httpx.Client(timeout=self.timeout_seconds) as client:
             response = client.post(self._chat_completions_url(), headers=headers, json=body)
             response.raise_for_status()
@@ -275,7 +291,7 @@ class LocalLLMAdjudicator:
                 "input_mode": "raw_text",
                 "output_clamped": False,
             }
-        if self.provider not in {"vllm", "ollama", "openai", "local_distilled"}:
+        if self.provider not in {"vllm", "ollama", "openai", "azure_openai", "local_distilled"}:
             return {
                 "status": "error",
                 "provider": self.provider,
@@ -305,6 +321,24 @@ class LocalLLMAdjudicator:
                 "unverified_claims": [],
                 "review_recommendation": (
                     "provider=openai requires tenant_opt_in_openai=true; refusing to send"
+                ),
+                "input_mode": self.llm_input_mode,
+                "output_clamped": False,
+            }
+        if self.provider == "azure_openai" and not (self.tenant_opt_in_azure_openai and self.azure_api_version):
+            return {
+                "status": "error",
+                "provider": self.provider,
+                "model": self.model,
+                "risk_label": None,
+                "public_status": "not_checked",
+                "confidence": 0.0,
+                "materiality_reason": "",
+                "matched_public_sources": [],
+                "unverified_claims": [],
+                "review_recommendation": (
+                    "provider=azure_openai requires tenant_opt_in_azure_openai=true "
+                    "and azure_api_version"
                 ),
                 "input_mode": self.llm_input_mode,
                 "output_clamped": False,
