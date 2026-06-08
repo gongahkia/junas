@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import csv
 import hashlib
+import os
 import re
 from dataclasses import dataclass
 from datetime import date
 from importlib import resources
+from pathlib import Path
 from typing import Any
 
 try:
@@ -26,6 +28,7 @@ class SinglingOutSpec:
 
 @dataclass(frozen=True)
 class _Tables:
+    jurisdiction: str
     total_population: int
     area_population: dict[str, int]
     age_cohorts: dict[str, int]
@@ -53,6 +56,10 @@ _QUASI_RULES = frozenset({
     "date_of_birth",
     "age_reference",
     "sg_postal_address",
+    "uk_postal_address",
+    "au_postal_address",
+    "jp_postal_address",
+    "kr_postal_address",
     "personal_attribute_inference",
 }) | _DIRECT_UNIQUE_RULES
 _MIN_DISTINCT = 3
@@ -60,7 +67,16 @@ _K_THRESHOLD = 20
 _DEFAULT_K = 5
 _YEAR_RE = re.compile(r"\b(?:19|20)\d{2}\b")
 _AGE_RE = re.compile(r"\b(?:aged?|age|turns?|years?\s+old)\D{0,12}(\d{1,3})\b", re.IGNORECASE)
-_POSTAL_RE = re.compile(r"\b(?:Singapore\s*)?(\d{6})\b", re.IGNORECASE)
+_SG_POSTAL_RE = re.compile(r"\b(?:Singapore\s*)?(\d{6})\b", re.IGNORECASE)
+_AU_POSTAL_RE = re.compile(r"\b(?:Australia\s*)?(\d{4})\b", re.IGNORECASE)
+_UK_POSTCODE_RE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?)\s*(\d)[A-Z]{2}\b", re.IGNORECASE)
+_POSTAL_RULES = frozenset({
+    "sg_postal_address",
+    "uk_postal_address",
+    "au_postal_address",
+    "jp_postal_address",
+    "kr_postal_address",
+})
 
 
 def _resource_text(package: str, name: str) -> str:
@@ -81,26 +97,26 @@ def _parse_int(value: str) -> int | None:
         return None
 
 
-def _validate_manifest_entry(manifest: dict[str, Any], table: str, text: str) -> None:
-    entry = manifest.get("SG", {}).get(table, {})
+def _validate_manifest_entry(manifest: dict[str, Any], jurisdiction: str, table: str, text: str) -> None:
+    entry = manifest.get(jurisdiction.upper(), {}).get(table, {})
     if not isinstance(entry, dict):
-        raise RuntimeError(f"missing SG frequency manifest entry for {table}")
+        raise RuntimeError(f"missing {jurisdiction.upper()} frequency manifest entry for {table}")
     for key in ("source_url", "license", "retrieved_date", "refresh_due_date", "sha256"):
         if not str(entry.get(key) or "").strip():
-            raise RuntimeError(f"missing SG frequency manifest {table}.{key}")
+            raise RuntimeError(f"missing {jurisdiction.upper()} frequency manifest {table}.{key}")
     if str(entry["sha256"]) != _sha256_text(text):
-        raise RuntimeError(f"SG frequency table checksum mismatch for {table}")
+        raise RuntimeError(f"{jurisdiction.upper()} frequency table checksum mismatch for {table}")
     refresh_due = date.fromisoformat(str(entry["refresh_due_date"]))
     if refresh_due < date.today():
-        raise RuntimeError(f"SG frequency table refresh date passed for {table}")
+        raise RuntimeError(f"{jurisdiction.upper()} frequency table refresh date passed for {table}")
 
 
 def _load_sg_tables() -> _Tables:
     manifest = tomllib.loads(_resource_text("kaypoh.data.frequency", "MANIFEST.toml"))
     population_text = _resource_text("kaypoh.data.frequency.SG", "population_by_area_age.csv")
     postal_text = _resource_text("kaypoh.data.frequency.SG", "postal_sector_population.csv")
-    _validate_manifest_entry(manifest, "population_by_area_age", population_text)
-    _validate_manifest_entry(manifest, "postal_sector_population", postal_text)
+    _validate_manifest_entry(manifest, "SG", "population_by_area_age", population_text)
+    _validate_manifest_entry(manifest, "SG", "postal_sector_population", postal_text)
 
     area_population: dict[str, int] = {}
     age_cohorts: dict[str, int] = {}
@@ -130,6 +146,7 @@ def _load_sg_tables() -> _Tables:
     if not total_population:
         raise RuntimeError("SG total population frequency row missing")
     return _Tables(
+        jurisdiction="SG",
         total_population=total_population,
         area_population=area_population,
         age_cohorts=age_cohorts,
@@ -139,15 +156,90 @@ def _load_sg_tables() -> _Tables:
 
 
 _SG_TABLES: _Tables | None = None
+_GENERATED_TABLES: dict[tuple[str, str], _Tables | None] = {}
+
+
+def _read_generated_table(base_dir: Path, relative_path: str) -> str:
+    path = (base_dir / relative_path).resolve()
+    if not path.is_file():
+        raise RuntimeError(f"generated frequency table missing: {relative_path}")
+    return path.read_text(encoding="utf-8")
+
+
+def _load_generated_tables(jurisdiction: str, base_dir: str | os.PathLike[str]) -> _Tables | None:
+    code = jurisdiction.upper()
+    root = Path(base_dir)
+    manifest_path = root / "MANIFEST.generated.toml"
+    if not manifest_path.is_file():
+        return None
+    manifest = tomllib.loads(manifest_path.read_text(encoding="utf-8"))
+    entries = manifest.get(code, {})
+    if not isinstance(entries, dict):
+        return None
+
+    loaded: list[str] = []
+    area_population: dict[str, int] = {}
+    age_cohorts: dict[str, int] = {}
+    postal_population: dict[str, int] = {}
+
+    if isinstance(entries.get("area_population"), dict):
+        text = _read_generated_table(root, str(entries["area_population"].get("path") or ""))
+        _validate_manifest_entry(manifest, code, "area_population", text)
+        for row in csv.DictReader(text.splitlines()):
+            area = str(row.get("area") or "").strip()
+            population = _parse_int(str(row.get("population") or ""))
+            if area and population is not None:
+                area_population[area.casefold()] = population
+        loaded.append("area_population")
+
+    if isinstance(entries.get("postal_population"), dict):
+        text = _read_generated_table(root, str(entries["postal_population"].get("path") or ""))
+        _validate_manifest_entry(manifest, code, "postal_population", text)
+        for row in csv.DictReader(text.splitlines()):
+            prefix = str(row.get("postal_prefix") or "").strip().upper()
+            population = _parse_int(str(row.get("population") or ""))
+            if prefix and population is not None:
+                postal_population[prefix] = population
+        loaded.append("postal_population")
+
+    if not loaded:
+        return None
+    total_population = sum(area_population.values()) or sum(postal_population.values())
+    if not total_population:
+        raise RuntimeError(f"{code} generated frequency tables have no population rows")
+    return _Tables(
+        jurisdiction=code,
+        total_population=total_population,
+        area_population=area_population,
+        age_cohorts=age_cohorts,
+        postal_population=postal_population,
+        loaded_tables=tuple(sorted(loaded)),
+    )
 
 
 def _tables_for(jurisdiction: str) -> _Tables | None:
     global _SG_TABLES
-    if jurisdiction.upper() != "SG":
+    code = jurisdiction.upper()
+    if code == "SG":
+        if _SG_TABLES is None:
+            _SG_TABLES = _load_sg_tables()
+        return _SG_TABLES
+    base_dir = os.environ.get("KAYPOH_FREQUENCY_DATA_DIR", "").strip()
+    if not base_dir:
         return None
-    if _SG_TABLES is None:
-        _SG_TABLES = _load_sg_tables()
-    return _SG_TABLES
+    cache_key = (code, str(Path(base_dir).resolve()))
+    if cache_key not in _GENERATED_TABLES:
+        try:
+            _GENERATED_TABLES[cache_key] = _load_generated_tables(code, base_dir)
+        except Exception:
+            _GENERATED_TABLES[cache_key] = None
+    return _GENERATED_TABLES[cache_key]
+
+
+def clear_table_cache_for_tests() -> None:
+    global _SG_TABLES
+    _SG_TABLES = None
+    _GENERATED_TABLES.clear()
 
 
 def _age_band_from_text(text: str) -> str | None:
@@ -173,10 +265,22 @@ def _area_population(unit_text: str, tables: _Tables) -> int | None:
 
 def _postal_population(unit_text: str, tables: _Tables) -> int | None:
     populations: list[int] = []
-    for match in _POSTAL_RE.finditer(unit_text):
-        prefix = match.group(1)[:2]
-        if prefix in tables.postal_population:
-            populations.append(tables.postal_population[prefix])
+    code = tables.jurisdiction.upper()
+    if code == "UK":
+        for match in _UK_POSTCODE_RE.finditer(unit_text):
+            prefix = f"{match.group(1).upper()} {match.group(2)}"
+            if prefix in tables.postal_population:
+                populations.append(tables.postal_population[prefix])
+    elif code == "AU":
+        for match in _AU_POSTAL_RE.finditer(unit_text):
+            prefix = match.group(1)
+            if prefix in tables.postal_population:
+                populations.append(tables.postal_population[prefix])
+    else:
+        for match in _SG_POSTAL_RE.finditer(unit_text):
+            prefix = match.group(1)[:2] if code == "SG" else match.group(1).upper()
+            if prefix in tables.postal_population:
+                populations.append(tables.postal_population[prefix])
     return min(populations) if populations else None
 
 
@@ -221,8 +325,8 @@ def _estimate_k(unit_text: str, findings: list[Any], tables: _Tables) -> tuple[i
     if postal_population is not None:
         estimates.append(postal_population)
         used.append("postal_sector_population")
-    elif "sg_postal_address" in rules:
-        missing.append("postal_sector_population")
+    elif rules & _POSTAL_RULES:
+        missing.append("postal_population")
 
     if "named_person" in rules:
         missing.append("name_density")
@@ -287,7 +391,7 @@ def detect_singling_out(
                 end_char=end,
                 reason=(
                     f"{len(rules)} quasi-identifier rules co-occur in one {unit_kind}; "
-                    f"SG population-prior estimate k={k}"
+                    f"{tables.jurisdiction} population-prior estimate k={k}"
                 ),
                 metadata=metadata,
             )

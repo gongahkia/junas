@@ -3128,9 +3128,9 @@ def _detect_quasi_identifier_combinations(
 ) -> list["ReviewFinding"]:
     """Emit quasi-identifier combination findings.
 
-    SG strict uses item 70 v2 population-prior scoring. audit_grade keeps the item 101
-    structural proxy as fallback until every jurisdiction has frequency tables."""
-    if review_profile == "strict" and jurisdiction.upper() == "SG":
+    strict uses item 70 v2 population-prior scoring when validated jurisdiction tables
+    exist. audit_grade keeps the item 101 structural proxy fallback."""
+    if review_profile == "strict":
         from kaypoh.review.singling_out import detect_singling_out
 
         out: list["ReviewFinding"] = []
