@@ -199,6 +199,44 @@ class HkAuJpKrRecognizerTests(unittest.TestCase):
         )
         self.assertIn("financial_percentage", self._rules(text, "SG"))
 
+    def test_jurisdiction_specific_mnpi_variants_fire(self):
+        samples = [
+            (
+                "Project Bauhinia remains inside information; pending HKEX clearance before announcement.",
+                "HK",
+                {"transaction_codename", "nonpublic_marker", "contingent_mnpi_language"},
+            ),
+            (
+                "Project Wattle holds market-sensitive information; subject to ASX approval before release.",
+                "AU",
+                {"transaction_codename", "nonpublic_marker", "contingent_mnpi_language"},
+            ),
+            (
+                "Project Sakura contains undisclosed material facts; pending TSE approval before TDnet release.",
+                "JP",
+                {"transaction_codename", "nonpublic_marker", "contingent_mnpi_language"},
+            ),
+            (
+                "Project Han contains unpublished material information; pending KRX approval before DART filing.",
+                "KR",
+                {"transaction_codename", "nonpublic_marker", "contingent_mnpi_language"},
+            ),
+        ]
+        for text, code, expected in samples:
+            with self.subTest(code=code):
+                self.assertTrue(expected.issubset(self._rules(text, code)))
+
+    def test_jurisdiction_specific_mnpi_bait_stays_suppressed(self):
+        samples = [
+            ("The HKEX announcement was already published; no inside information remains.", "HK"),
+            ("ASX continuous disclosure training only: no price-sensitive information is included.", "AU"),
+            ("TDnet and timely disclosure are discussed as public training examples only.", "JP"),
+            ("KRX KIND and DART filing examples are public training materials only.", "KR"),
+        ]
+        for text, code in samples:
+            with self.subTest(code=code):
+                self.assertNotIn("nonpublic_marker", self._rules(text, code))
+
     def test_au_public_contact_channels_and_negated_mac_do_not_fire(self):
         text = (
             "Public queries to 1300 555 555 (switchboard) or media@example.com.au; "

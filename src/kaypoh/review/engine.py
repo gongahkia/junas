@@ -436,9 +436,11 @@ CONTINGENT_MNPI_RE = re.compile(
     r"if (?:approved|the (?:deal|transaction|merger|acquisition) (?:closes|completes))|"
     r"should the board (?:agree|approve)|"
     r"subject to (?:board|shareholder|shareholders'|regulatory|management|"
-    r"investment\s+committee|IC|due diligence|financing|condition[s]?\s+precedent) "
+    r"investment\s+committee|IC|due diligence|financing|condition[s]?\s+precedent|"
+    r"HKEX|SFC|ASX|ASIC|TSE|JPX|KRX|FSC|FSS|DART) "
     r"(?:approval[s]?|clearance[s]?|sign[ -]off|consent)|"
-    r"pending (?:board|shareholder|shareholders'|regulatory|management|investment\s+committee|IC) "
+    r"pending (?:board|shareholder|shareholders'|regulatory|management|investment\s+committee|IC|"
+    r"HKEX|SFC|ASX|ASIC|TSE|JPX|KRX|FSC|FSS|DART) "
     r"(?:approval[s]?|clearance[s]?|sign[ -]off|consent)|"
     r"(?:likely|expected) to (?:close|approve|materialise|materialize|impact|complete|"
     r"result in|conclude|sign|announce)|"
@@ -547,6 +549,9 @@ TIPPING_RE = re.compile(
     r"limited partners? list|"
     r"select (?:investors|holders|clients)|"
     r"institutional (?:investors|holders|clients) only|"
+    r"wall[- ]crossed (?:holders|investors|analysts|placees)|"
+    r"market sounding(?:s)? to (?:select|institutional|cornerstone) (?:investors|holders|placees)|"
+    r"pre[- ]brief(?:ing)? (?:select|institutional|cornerstone) (?:investors|holders|placees)|"
     r"(?:to|with) our (?:largest|key|preferred|select|top) (?:holders|clients|investors|"
     r"shareholders|stakeholders)|"
     r"sell[ -]side (?:mailing|distribution|q&a)|"
@@ -562,6 +567,10 @@ TIPPING_RE = re.compile(
 INSIDER_LIST_RE = re.compile(
     r"\b("
     r"insider\s+lists?|"
+    r"SFC insider list|"
+    r"ASX restricted list|"
+    r"TDnet embargo list|"
+    r"KRX restricted list|"
     r"restricted\s+lists?|"
     r"watch\s+lists?|"
     r"wall[- ]cross(?:ed|ing|es)|"
@@ -578,6 +587,9 @@ INFORMATION_BARRIER_RE = re.compile(
     r"\b("
     r"chinese\s+walls?|"
     r"information\s+barriers?|"
+    r"wall[- ]crossing controls?|"
+    r"deal team quarantine|"
+    r"restricted[- ]list controls?|"
     r"ethical\s+walls?|"
     r"ethical\s+screens?"
     r")\b",
@@ -1733,7 +1745,8 @@ def _is_negated_contingent_mnpi_context(text: str, start: int, end: int) -> bool
 def _is_negated_nonpublic_marker_context(text: str, start: int, end: int) -> bool:
     context = _line_context(text, start, end)
     return bool(re.search(
-        r"\b(?:not\s+(?:mnpi|upsi)|no\s+(?:upsi|mnpi)|"
+        r"\b(?:not\s+(?:mnpi|upsi|inside\s+information|price[- ]sensitive\s+information)|"
+        r"no\s+(?:upsi|mnpi|inside\s+information|price[- ]sensitive\s+information)|"
         r"no\s+material\s+non[- ]public\s+information|"
         r"(?:contains?\s+no|does\s+not\s+contain)[^\n.;]{0,120}"
         r"material\s+non[- ]public\s+information|"
@@ -2379,7 +2392,15 @@ def _detect_core_identifier_findings(
             country = match.group("country").upper()
             value = match.group("id")
             checksum_countries = {"ES", "NL", "PL", "FR", "DE", "IT", "BE", "PT", "SE"}
-            if country in checksum_countries and not _validate_eu_member_state_id(country, value):
+            de_tax_label = re.search(
+                r"\b(?:tax\s+ID|TIN|Steueridentifikationsnummer)\b",
+                match.group(0),
+                re.IGNORECASE,
+            )
+            country_requires_checksum = country in checksum_countries and (
+                country != "DE" or bool(de_tax_label)
+            )
+            if country_requires_checksum and not _validate_eu_member_state_id(country, value):
                 continue
             out.append(
                 _new_finding(
