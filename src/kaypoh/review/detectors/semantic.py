@@ -39,6 +39,19 @@ SEMANTIC_AGE_LABEL_RE = re.compile(
     r"\s*(?:[:：=]|\bis\b|\bwas\b|\brecorded\s+as\b|\blisted\s+as\b|\bnoted\s+as\b)\s*(?P<age>\d{1,3})\b",
     re.IGNORECASE,
 )
+SEMANTIC_DOB_SENTENCE_RE = re.compile(
+    r"\b(?P<subject>(?:Patient|Client|Employee|Applicant|Customer|Data\s+subject|Subject)\s+"
+    r"(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})?)\s+"
+    r"(?:was\s+)?(?:born\s+on|born\s+at|date\s+of\s+birth\s+is|DOB\s+is)\s+"
+    r"(?P<dob>" + _DOB_DATE_FRAGMENT + r")\b",
+    re.IGNORECASE,
+)
+SEMANTIC_AGE_SENTENCE_RE = re.compile(
+    r"\b(?P<subject>(?:Patient|Client|Employee|Applicant|Customer|Data\s+subject|Subject)\s+"
+    r"(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})?)\s+"
+    r"(?:is\s+)?(?P<age>\d{1,3})\s+(?:years?\s+old|yrs?\s+old|yo)\b",
+    re.IGNORECASE,
+)
 
 
 def _enabled() -> bool:
@@ -209,6 +222,57 @@ def detect_semantic_pii_fallback_findings(
                     reason="Label-anchored semantic age fallback",
                     legal_basis=ctx.legal_basis,
                     metadata={"fallback": "semantic_label_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+                )
+            )
+            idx += 1
+        for match in SEMANTIC_DOB_SENTENCE_RE.finditer(ctx.text):
+            value = match.group("dob")
+            if not _valid_dob_date(value):
+                continue
+            span = match.span("dob")
+            if span in seen:
+                continue
+            seen.add(span)
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="date_of_birth",
+                    jurisdiction=ctx.jurisdiction,
+                    severity="high",
+                    matched_text=value,
+                    start=span[0],
+                    end=span[1],
+                    reason="Sentence-anchored semantic date-of-birth fallback",
+                    legal_basis=ctx.legal_basis,
+                    metadata={"fallback": "semantic_sentence_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
+                )
+            )
+            idx += 1
+        for match in SEMANTIC_AGE_SENTENCE_RE.finditer(ctx.text):
+            try:
+                age = int(match.group("age"))
+            except ValueError:
+                continue
+            if not 18 <= age <= 120:
+                continue
+            span = match.span("age")
+            if span in seen:
+                continue
+            seen.add(span)
+            out.append(
+                new_finding(
+                    idx=idx,
+                    category="PII",
+                    rule="age_reference",
+                    jurisdiction=ctx.jurisdiction,
+                    severity="medium",
+                    matched_text=match.group("age"),
+                    start=span[0],
+                    end=span[1],
+                    reason="Sentence-anchored semantic age fallback",
+                    legal_basis=ctx.legal_basis,
+                    metadata={"fallback": "semantic_sentence_anchor", "source": "KAYPOH_SEMANTIC_PII_FALLBACK"},
                 )
             )
             idx += 1

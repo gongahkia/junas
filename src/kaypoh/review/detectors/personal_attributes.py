@@ -62,6 +62,21 @@ PERSONAL_ATTRIBUTE_SENIORITY_RE = re.compile(
     r"specialist|consultant|associate|partner|director)[A-Za-z0-9&.,' -]{0,60})\b",
     re.IGNORECASE,
 )
+PERSONAL_ATTRIBUTE_SPECIAL_CATEGORY_RE = re.compile(
+    r"\b(?P<subject>(?:Mr|Ms|Mrs|Mdm|Dr|Prof)\.?\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\s+"
+    r"(?P<attribute>was\s+diagnosed\s+with|is\s+diagnosed\s+with|is\s+treated\s+for|"
+    r"identifies\s+as|is\s+a\s+member\s+of|has\s+a\s+genetic\s+marker\s+for|"
+    r"uses\s+a\s+fingerprint\s+template\s+for)\s+"
+    r"(?P<object>[A-Z]?[A-Za-z0-9&.,' /+-]{2,80})\b",
+    re.IGNORECASE,
+)
+SPECIAL_CATEGORY_ATTRIBUTE_RE = re.compile(
+    r"\b(?:diagnosed\s+with|treated\s+for|takes\s+(?:insulin|metformin|sertraline)|"
+    r"has\s+(?:diabetes|cancer|depression|HIV)|member\s+of\s+.+?\b(?:union|party)|"
+    r"identifies\s+as\s+(?:gay|lesbian|bisexual|transgender)|ethnic\s+(?:Malay|Chinese|Indian)|"
+    r"(?:fingerprint|iris|voiceprint|genetic|DNA|BRCA1|APOE))\b",
+    re.IGNORECASE,
+)
 
 
 def _trim_inferred_attribute_span(text: str, start: int, end: int) -> tuple[int, int]:
@@ -71,6 +86,23 @@ def _trim_inferred_attribute_span(text: str, start: int, end: int) -> tuple[int,
     while end > start and text[end - 1] in " \t;:":
         end -= 1
     return start, end
+
+
+def _special_category_attribute_type(value: str, full_match: str) -> str:
+    probe = f"{value} {full_match}"
+    if re.search(r"\b(?:diagnosed|treated|insulin|metformin|sertraline|diabetes|cancer|depression|HIV)\b", probe, re.I):
+        return "health"
+    if re.search(r"\b(?:union|party)\b", probe, re.I):
+        return "political_or_union"
+    if re.search(r"\b(?:gay|lesbian|bisexual|transgender)\b", probe, re.I):
+        return "sexual_orientation"
+    if re.search(r"\bethnic\b", probe, re.I):
+        return "racial_ethnic_origin"
+    if re.search(r"\b(?:fingerprint|iris|voiceprint)\b", probe, re.I):
+        return "biometric"
+    if re.search(r"\b(?:genetic|DNA|BRCA1|APOE)\b", probe, re.I):
+        return "genetic"
+    return ""
 
 
 def detect_personal_attribute_inferences(
@@ -131,6 +163,11 @@ def detect_personal_attribute_inferences(
             "seniority",
             "Seniority or specialty attribute inferred from a named-person statement",
         ),
+        (
+            PERSONAL_ATTRIBUTE_SPECIAL_CATEGORY_RE,
+            "special_category",
+            "Special-category attribute inferred from a named-person statement",
+        ),
     )
     for pattern, attribute_type, reason in specs:
         for match in pattern.finditer(text):
@@ -160,13 +197,18 @@ def detect_personal_attribute_inferences(
                         "structural_unit_line_end": unit.line_end,
                     }
                 )
+            special_type = _special_category_attribute_type(inferred_value, text[start:end])
+            severity = "high" if special_type else "medium"
+            if special_type:
+                metadata["special_category_attribute"] = True
+                metadata["special_category_type"] = special_type
             out.append(
                 new_finding(
                     idx=idx,
                     category="PII",
                     rule="personal_attribute_inference",
                     jurisdiction=jurisdiction,
-                    severity="medium",
+                    severity=severity,
                     matched_text=text[start:end],
                     start=start,
                     end=end,

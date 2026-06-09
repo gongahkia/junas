@@ -23,6 +23,13 @@ DEFAULT_CORPUS = REPO_ROOT / "test" / "fixtures" / "legal-corpus-candidates"
 DEFAULT_RULES = ("quasi_identifier_combination",)
 
 
+def _display_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
+
+
 def _run_findings(text: str, labels: dict[str, Any]) -> set[tuple[str, str, str]]:
     result = PreSendReviewEngine().review(
         text=text,
@@ -87,8 +94,8 @@ def promote_exact_spans(
             "count": len(additions),
         }
         promoted.append({
-            "fixture": str(txt_path.relative_to(REPO_ROOT)),
-            "labels": str(labels_path.relative_to(REPO_ROOT)),
+            "fixture": _display_path(txt_path),
+            "labels": _display_path(labels_path),
             "count": str(len(additions)),
         })
         if dry_run:

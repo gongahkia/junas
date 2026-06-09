@@ -55,7 +55,9 @@ EU_POSTAL_ADDRESS_RE = re.compile(
 )
 GENERIC_ADDRESS_LABEL_RE = re.compile(
     r"(?im)(?:^|[;\n])\s*(?P<label>residential\s+address|mailing\s+address|registered\s+address|"
-    r"home\s+address|office\s+address|address|住所|주소|地址|alamat|địa\s+chỉ|ที่อยู่|عنوان)"
+    r"home\s+address|office\s+address|billing\s+address|delivery\s+address|service\s+address|"
+    r"notice\s+address|signatory\s+address|invoice\s+address|address|住所|주소|地址|alamat|"
+    r"địa\s+chỉ|ที่อยู่|عنوان)"
     r"\s*[:：]\s*(?P<value>[^\n]{6,160}(?:\n(?!\s*[A-Za-z][A-Za-z ]{0,40}\s*[:：])"
     r"[^\n]{6,160}){0,2})",
     re.IGNORECASE,

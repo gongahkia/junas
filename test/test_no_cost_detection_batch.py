@@ -64,6 +64,16 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
         self.assertIn("postal_address", rules)
 
+    def test_notice_and_invoice_address_labels_fire(self):
+        self.assertIn(
+            "postal_address",
+            self._rules("Notice address: Unit 9, 77 Shenton Way, Singapore 068810.", "SG"),
+        )
+        self.assertIn(
+            "postal_address",
+            self._rules("Invoice address: 12 Jalan Ampang, Kuala Lumpur 50450 Malaysia.", "MY"),
+        )
+
     def test_specific_address_rule_takes_precedence_over_generic_fallback(self):
         result = self._review("Registered address: 1 Airport Drive, Adelaide Airport SA 5950.", "AU")
         rules = [finding.rule for finding in result.findings]
@@ -140,6 +150,15 @@ class NoCostDetectionBatchTests(unittest.TestCase):
 
         self.assertIn("occupation", attribute_types)
 
+    def test_special_category_personal_attribute_escalates(self):
+        result = self._review("Dr Jane Tan was diagnosed with Type 1 diabetes.", "SG")
+        findings = [finding for finding in result.findings if finding.rule == "personal_attribute_inference"]
+
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0].severity, "high")
+        self.assertTrue(findings[0].metadata["special_category_attribute"])
+        self.assertEqual(findings[0].metadata["special_category_type"], "health")
+
     def test_semantic_pii_fallback_is_env_gated(self):
         text = "Full name: Jane Tan\nEmployee ID: EMP-2026-1042"
         self.assertNotIn("named_person", self._rules(text, "SG"))
@@ -159,6 +178,15 @@ class NoCostDetectionBatchTests(unittest.TestCase):
         findings = {(finding.rule, finding.matched_text) for finding in result.findings}
         self.assertIn(("date_of_birth", "14 February 1988"), findings)
         self.assertIn(("age_reference", "42"), findings)
+
+    def test_semantic_pii_fallback_can_extract_sentence_dob_and_age(self):
+        text = "Patient Jane Tan was born on 14 February 1988.\nSubject Jane Tan is 42 years old."
+        with mock.patch.dict("os.environ", {"KAYPOH_SEMANTIC_PII_FALLBACK": "1"}):
+            result = self._review(text, "SG")
+        findings = {(finding.rule, finding.matched_text, finding.metadata.get("fallback")) for finding in result.findings}
+
+        self.assertIn(("date_of_birth", "14 February 1988", "semantic_sentence_anchor"), findings)
+        self.assertIn(("age_reference", "42", "semantic_sentence_anchor"), findings)
 
     def test_semantic_pii_fallback_can_extract_multilingual_labels(self):
         text = "姓名: Jane Tan\n生年月日: 14 February 1988\n年齢: 42"

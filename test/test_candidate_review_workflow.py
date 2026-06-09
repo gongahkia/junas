@@ -172,6 +172,7 @@ class CandidateReviewWorkflowTests(unittest.TestCase):
             corpus = Path(tmp)
             fixture = corpus / "sg_quasi_identifiers_memo_default_001.txt"
             text = "Dr Jane Tan can be reached at +65 9123 4567 or jane.tan@example.sg."
+            exact_text = text.rstrip(".")
             fixture.write_text(text, encoding="utf-8")
             write_labels(
                 labels_path_for(fixture),
@@ -184,7 +185,7 @@ class CandidateReviewWorkflowTests(unittest.TestCase):
                         {"category": "PII", "rule": "named_person", "matched_text": "Dr Jane Tan"},
                     ],
                     "ideal_must_detect": [
-                        {"category": "PII", "rule": "quasi_identifier_combination", "matched_text": text},
+                        {"category": "PII", "rule": "quasi_identifier_combination", "matched_text": exact_text},
                         {
                             "category": "PII",
                             "rule": "quasi_identifier_combination",
@@ -209,7 +210,7 @@ class CandidateReviewWorkflowTests(unittest.TestCase):
                 if item["rule"] == "quasi_identifier_combination"
             ]
             self.assertEqual(len(promoted), 1)
-            self.assertEqual(promoted[0]["matched_text"], text)
+            self.assertEqual(promoted[0]["matched_text"], exact_text)
             self.assertEqual(labels["_exact_span_promotion"]["actor"], "test")
 
     def test_recall_gate_human_review_guard_blocks_unapproved_and_ambiguous_updates(self):
